@@ -100,6 +100,11 @@ License code: PRO4-69G6Q4M-8YGNXX-M2N8-KCHVWYK
     }
 
     public function index(){
+//        $model = GeneralConfigs::first();
+//        $model->diachi = 'Tỉnh Cao Bằng';
+//        $model->save();
+//        $model_t = GeneralConfigs::first();
+//        dd($model_t);
         if (Session::has('admin')) {
             //dd(session('admin'));
             $model = GeneralConfigs::first();
@@ -122,7 +127,6 @@ License code: PRO4-69G6Q4M-8YGNXX-M2N8-KCHVWYK
     }
 
     public function congbo(){
-        dd(2);
         $viewpage = ViewPage::count();
         $model = VanBanQlNn::orderBy('ngayapdung','desc')->take(10)->get();
         return view('dashboardcb')

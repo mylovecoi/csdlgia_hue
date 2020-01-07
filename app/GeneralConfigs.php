@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class GeneralConfigs extends Model
 {
-    protected $table = 'general-configs';
+    protected $table = 'general_configs';
     protected $fillable = [
         'id',
         'maqhns',

@@ -2633,16 +2633,6 @@ function getGeneralConfigs() {
 
 }
 
-function getDouble($str)
-{
-    $sKQ = 0;
-    $str = str_replace(',','',$str);
-    $str = str_replace('.','',$str);
-    //if (is_double($str))
-        $sKQ = $str;
-    return floatval($sKQ);
-}
-
 function canDVVT($module = null, $action = null){
     if(session('admin')->level == 'T' || session('admin')->level == 'H' || session('admin')->level == 'X')
         return true;
@@ -2729,29 +2719,32 @@ function getAddMap($diachi){
     return $kq;
 }
 
-function getPhanTram1($giatri, $thaydoi){
-    $kq=0;
-    if($thaydoi==0||$giatri==0){
+function getPhanTram1($giatri, $thaydoi)
+{
+    if ($thaydoi == 0 || $giatri == 0) {
         return '';
     }
-    if($giatri<$thaydoi){
-        $kq=round((($thaydoi-$giatri)/$giatri)*100,2).'%';
-    }else{
-        $kq='-'.round((($giatri-$thaydoi)/$giatri)*100,2).'%';
+    if ($giatri < $thaydoi) {
+        $kq = round((($thaydoi - $giatri) / $giatri) * 100, 2) . '%';
+    } else {
+        $kq = '-' . round((($giatri - $thaydoi) / $giatri) * 100, 2) . '%';
     }
     return $kq;
 }
 
-function getPhanTram2($giatri, $thaydoi){
-    if($thaydoi==0||$giatri==0){
+function getPhanTram2($giatri, $thaydoi)
+{
+    if ($thaydoi == 0 || $giatri == 0) {
         return '';
     }
-    return round(($thaydoi/$giatri)*100,2).'%';
+    return round(($thaydoi / $giatri) * 100, 2) . '%';
 }
 
 function getDateToDb($value){
-    if($value==''){return null;}
-    $str =  strtotime(str_replace('/', '-', $value));
+    if ($value == '') {
+        return null;
+    }
+    $str = strtotime(str_replace('/', '-', $value));
     $kq = date('Y-m-d', $str);
     return $kq;
 }
@@ -2789,33 +2782,17 @@ function getRandomPassword(){
     return $kq;
 }
 
-function getSoNnSelectOptions() {
-
+function getSoNnSelectOptions(){
     $start = '1';
     $stop = '10';
     $options = array();
 
-    for ($i = $start;  $i <= $stop; $i++) {
+    for ($i = $start; $i <= $stop; $i++) {
 
         $options[$i] = $i;
     }
     return $options;
 }
-
-/*function getNgayHieuLuc($ngaynhap){
-    $dayngaynhap = date('D',strtotime($ngaynhap));
-    if($dayngaynhap == 'Thu'){
-        $ngayhieuluc  =  date('Y-m-d',mktime(0, 0, 0, date("m")  , date("d")+5, date("Y")));
-    }elseif($dayngaynhap == 'Fri') {
-        $ngayhieuluc  =  date('Y-m-d',mktime(0, 0, 0, date("m")  , date("d")+5, date("Y")));
-    }elseif( $dayngaynhap == 'Sat'){
-        $ngayhieuluc  =  date('Y-m-d',mktime(0, 0, 0, date("m")  , date("d")+4, date("Y")));
-    }else {
-        $ngayhieuluc  =  date('Y-m-d',mktime(0, 0, 0, date("m")  , date("d")+3, date("Y")));
-    }
-    return $ngayhieuluc;
-
-}*/
 
 function getTtPhong($str)
 {
@@ -2861,25 +2838,28 @@ function Thang2Quy($thang){
         return 4;
 }
 
-function dinhdangso ($number , $decimals = 0, $unit = '1' , $dec_point = ',' , $thousands_sep = '.' ) {
-    if(!is_numeric($number) || $number == 0){return '';}
+function dinhdangso ($number , $decimals = 0, $unit = '1' , $dec_point = ',' , $thousands_sep = '.' )
+{
+    if (!is_numeric($number) || $number == 0) {
+        return '';
+    }
     $r = $unit;
 
     switch ($unit) {
-        case 2:{
+        case 2: {
             $decimals = 3;
             $r = 1000;
             break;
         }
-        case 3:{
+        case 3: {
             $decimals = 5;
             $r = 1000000;
             break;
         }
     }
 
-    $number = round($number / $r , $decimals);
-    return number_format($number, $decimals ,$dec_point, $thousands_sep);
+    $number = round($number / $r, $decimals);
+    return number_format($number, $decimals, $dec_point, $thousands_sep);
 }
 
 function getMonth($date){
@@ -2991,7 +2971,6 @@ function toAlpha($data){
     elseif($data > 25){
         $dividend = ($data + 1);
         $alpha = '';
-        $modulo;
         while ($dividend > 0){
             $modulo = ($dividend - 1) % 26;
             $alpha = $alphabet[$modulo] . $alpha;
@@ -3061,82 +3040,78 @@ function getLvUsers($level){
 
 }
 
-function getsadmin(){
-    $sadmin = (object) [
-        'username' => 'minhtran',
-        'name' => 'Minh Trần',
-        'level' => 'T',
-        'sadmin'=>'ssa',
-        'phanloai'=>'',
-        'password'=>'107e8cf7f2b4531f6b2ff06dbcf94e10',
-        'email'=>'minhtranlife@gmail.com',
-        'maxa'=>'',
-        'mahuyen'=>'',
-        'district'=>'',
-        'town'=>'',
-    ];
-    return $sadmin;
-}
+//function getsadmin(){
+//    $sadmin = (object) [
+//        'username' => 'minhtran',
+//        'name' => 'Minh Trần',
+//        'level' => 'T',
+//        'sadmin'=>'ssa',
+//        'phanloai'=>'',
+//        'password'=>'107e8cf7f2b4531f6b2ff06dbcf94e10',
+//        'email'=>'minhtranlife@gmail.com',
+//        'maxa'=>'',
+//        'mahuyen'=>'',
+//        'district'=>'',
+//        'town'=>'',
+//    ];
+//    return $sadmin;
+//}
 
 function getvbpl($str){
-    $str = str_replace(',','',$str);
-    $str = str_replace('.','',$str);
-    $str = str_replace('/','',$str);
-    $str = str_replace(' ','',$str);
+    $str = str_replace(',', '', $str);
+    $str = str_replace('.', '', $str);
+    $str = str_replace('/', '', $str);
+    $str = str_replace(' ', '', $str);
     $str = chuyenkhongdau($str);
     return $str;
 }
 
 function VndText($amount)
 {
-    if($amount <=0)
-    {
-        return 0;
+    if ($amount <= 0) {
+        return "";
     }
-    $Text=array("không", "một", "hai", "ba", "bốn", "năm", "sáu", "bảy", "tám", "chín");
-    $TextLuythua =array("","nghìn", "triệu", "tỷ", "ngàn tỷ", "triệu tỷ", "tỷ tỷ");
+    $Text = array("không", "một", "hai", "ba", "bốn", "năm", "sáu", "bảy", "tám", "chín");
+    $TextLuythua = array("", "nghìn", "triệu", "tỷ", "ngàn tỷ", "triệu tỷ", "tỷ tỷ");
     $textnumber = "";
     $length = strlen($amount);
 
     for ($i = 0; $i < $length; $i++)
         $unread[$i] = 0;
 
-    for ($i = 0; $i < $length; $i++)
-    {
-        $so = substr($amount, $length - $i -1 , 1);
+    for ($i = 0; $i < $length; $i++) {
+        $so = substr($amount, $length - $i - 1, 1);
 
-        if ( ($so == 0) && ($i % 3 == 0) && ($unread[$i] == 0)){
-            for ($j = $i+1 ; $j < $length ; $j ++)
-            {
-                $so1 = substr($amount,$length - $j -1, 1);
+        if (($so == 0) && ($i % 3 == 0) && ($unread[$i] == 0)) {
+            for ($j = $i + 1; $j < $length; $j++) {
+                $so1 = substr($amount, $length - $j - 1, 1);
                 if ($so1 != 0)
                     break;
             }
 
-            if (intval(($j - $i )/3) > 0){
-                for ($k = $i ; $k <intval(($j-$i)/3)*3 + $i; $k++)
-                    $unread[$k] =1;
+            if (intval(($j - $i) / 3) > 0) {
+                for ($k = $i; $k < intval(($j - $i) / 3) * 3 + $i; $k++)
+                    $unread[$k] = 1;
             }
         }
     }
 
-    for ($i = 0; $i < $length; $i++)
-    {
-        $so = substr($amount,$length - $i -1, 1);
-        if ($unread[$i] ==1)
+    for ($i = 0; $i < $length; $i++) {
+        $so = substr($amount, $length - $i - 1, 1);
+        if ($unread[$i] == 1)
             continue;
 
-        if ( ($i% 3 == 0) && ($i > 0))
-            $textnumber = $TextLuythua[$i/3] ." ". $textnumber;
+        if (($i % 3 == 0) && ($i > 0))
+            $textnumber = $TextLuythua[$i / 3] . " " . $textnumber;
 
-        if ($i % 3 == 2 )
+        if ($i % 3 == 2)
             $textnumber = 'trăm ' . $textnumber;
 
         if ($i % 3 == 1)
             $textnumber = 'mươi ' . $textnumber;
 
 
-        $textnumber = $Text[$so] ." ". $textnumber;
+        $textnumber = $Text[$so] . " " . $textnumber;
     }
 
     //Phai de cac ham replace theo dung thu tu nhu the nay
@@ -3148,7 +3123,7 @@ function VndText($amount)
     $textnumber = str_replace("mươi một", "mươi mốt", $textnumber);
     $textnumber = str_replace("mười năm", "mười lăm", $textnumber);
 
-    return ucfirst($textnumber." đồng chẵn.");
+    return ucfirst($textnumber . " đồng chẵn.");
 }
 
 function getNgayLamViec($maxa){
@@ -3161,37 +3136,39 @@ function getNgayLamViec($maxa){
     return $songaylv;
 }
 
-function SelectedQuy($quy){
-    if(date('m') == 1 || date('m') == 2 || date('m') == 3 )
+function SelectedQuy($quy)
+{
+    if (date('m') == 1 || date('m') == 2 || date('m') == 3)
         $value = 1;
-    elseif(date('m') == 4 || date('m') == 5 || date('m') == 6 )
+    elseif (date('m') == 4 || date('m') == 5 || date('m') == 6)
         $value = 2;
-    elseif(date('m') == 7 || date('m') == 8 || date('m') == 9 )
+    elseif (date('m') == 7 || date('m') == 8 || date('m') == 9)
         $value = 3;
     else
         $value = 4;
-    if($quy == $value)
+    if ($quy == $value)
         return 'selected';
     else
         return '';
 }
 
-function quy(){
-    if(date('m') == 1 || date('m') == 2 || date('m') == 3 )
-        $value = 1;
-    elseif(date('m') == 4 || date('m') == 5 || date('m') == 6 )
-        $value = 2;
-    elseif(date('m') == 7 || date('m') == 8 || date('m') == 9 )
-        $value = 3;
-    else
-        $value = 4;
-    return $value;
-}
+//function quy(){
+//    if(date('m') == 1 || date('m') == 2 || date('m') == 3 )
+//        $value = 1;
+//    elseif(date('m') == 4 || date('m') == 5 || date('m') == 6 )
+//        $value = 2;
+//    elseif(date('m') == 7 || date('m') == 8 || date('m') == 9 )
+//        $value = 3;
+//    else
+//        $value = 4;
+//    return $value;
+//}
 
-function getNgayApDung($ngaynhap,$mahuyen){
-    $dayngaynhap = date('D',strtotime($ngaynhap));
+function getNgayApDung($ngaynhap,$mahuyen)
+{
+    $dayngaynhap = date('D', strtotime($ngaynhap));
     $ngaynghi = 0;
-    $model = \App\Town::where('maxa',$mahuyen)->first();
+    $model = \App\Town::where('maxa', $mahuyen)->first();
     $thoihan = $model->songaylv;
 
     if ($dayngaynhap == 'Thu') {
@@ -3211,10 +3188,13 @@ function trim_zeros($str) {
     return preg_replace(array('`\.0+$`','`(\.\d+?)0+$`'),array('','$1'),$str);
 }
 
-function dinhdangsothapphan ($number , $decimals = 0) {
-    if(!is_numeric($number) || $number == 0){return '';}
-    $number = round($number , $decimals);
-    $str_kq = trim_zeros(number_format($number, $decimals ));
+function dinhdangsothapphan ($number , $decimals = 0)
+{
+    if (!is_numeric($number) || $number == 0) {
+        return '';
+    }
+    $number = round($number, $decimals);
+    $str_kq = trim_zeros(number_format($number, $decimals));
     /*for ($i = 0; $i < strlen($str_kq); $i++){
         if($str_kq[$i]== '.'){
             $str_kq[$i]= ',';
@@ -3232,12 +3212,13 @@ function dinhdangsothapphan ($number , $decimals = 0) {
     // round(5.4,4) = 5,4000
 }
 
-function chkDbl($obj) {
-    $obj=str_replace(',','',$obj);
-    $obj=str_replace('%','',$obj);
-    if(is_numeric($obj)){
+function chkDbl($obj)
+{
+    $obj = str_replace(',', '', $obj);
+    $obj = str_replace('%', '', $obj);
+    if (is_numeric($obj)) {
         return $obj;
-    }else {
+    } else {
         return 0;
     }
 }
@@ -3245,7 +3226,7 @@ function chkDbl($obj) {
 function emailValid($email)
 {
     $pattern = '#^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$#';
-    if(preg_match($pattern, $email))
+    if (preg_match($pattern, $email))
         return true;
     else
         return false;

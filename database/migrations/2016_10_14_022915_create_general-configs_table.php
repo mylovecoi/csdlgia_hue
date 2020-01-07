@@ -13,7 +13,7 @@ class CreateGeneralConfigsTable extends Migration
      */
     public function up()
     {
-        Schema::create('general-configs', function (Blueprint $table) {
+        Schema::create('general_configs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('tendonvi')->nullable();
             $table->string('maqhns')->nullable();
@@ -44,6 +44,6 @@ class CreateGeneralConfigsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('general-configs');
+        Schema::dropIfExists('general_configs');
     }
 }

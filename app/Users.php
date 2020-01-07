@@ -26,6 +26,7 @@ class Users extends Model
         'question',
         'answer',
         'ttnguoitao',
-        'lydo'
+        'lydo',
+        'madv'
     ];
 }

@@ -32,6 +32,7 @@ class CreateUsersTable extends Migration
             $table->string('answer')->nullable();
             $table->string('ttnguoitao')->nullable();
             $table->text('lydo')->nullable();
+            $table->text('madv')->nullable();
             $table->timestamps();
         });
     }
