@@ -2437,6 +2437,111 @@ function getPermissionDefault($level) {
 
 }
 
+function getGiaoDien()
+{
+    $gui = array();
+    $gui['csdlmucgiahhdv'] = array(
+        'index' => '0', 'congbo' => '0',
+        'dinhgia' => array(
+            'index' => '0', 'congbo' => '0',
+            'giacldat' => array('index' => '0', 'congbo' => '0'),
+            'giadatduan' => array('index' => '0', 'congbo' => '0'),
+            'giadatpl' => array('index' => '0', 'congbo' => '0'),
+            'giadaugiadat' => array('index' => '0', 'congbo' => '0'),
+            'daugiadatts' => array('index' => '0', 'congbo' => '0'),
+            'giathuetn' => array('index' => '0', 'congbo' => '0'),
+            'giathuedatnuoc' => array('index' => '0', 'congbo' => '0'),
+            'giarung' => array('index' => '0', 'congbo' => '0'),
+            'giathuemuanhaxh' => array('index' => '0', 'congbo' => '0'),
+            'giathuenhacongvu' => array('index' => '0', 'congbo' => '0'),
+            'bannhataidinhcu' => array('index' => '0', 'congbo' => '0'),
+            'gianuocsh' => array('index' => '0', 'congbo' => '0'),
+            'giathuetscong' => array('index' => '0', 'congbo' => '0'),
+            'giathuetsdautu' => array('index' => '0', 'congbo' => '0'),
+            'giadvgddt' => array('index' => '0', 'congbo' => '0'),
+            'giadvkcb' => array('index' => '0', 'congbo' => '0'),
+            'trogiatrocuoc' => array('index' => '0', 'congbo' => '0'),
+            'giaspdvci' => array('index' => '0', 'congbo' => '0'),
+        ),
+        'hhdv' => array(
+            'index' => '0', 'congbo' => '0',
+            'giahhdvk' => array('index' => '0', 'congbo' => '0'),
+            'giathitruong' => array('index' => '0', 'congbo' => '0'),
+        ),
+        'philephi' => array(
+            'index' => '0', 'congbo' => '0',
+            'gialephitruocba' => array('index' => '0', 'congbo' => '0'),
+            'gialephitruocbanha' => array('index' => '0', 'congbo' => '0'),
+            'giaphilephi' => array('index' => '0', 'congbo' => '0'),
+        ),
+        'taisan' => array(
+            'index' => '0', 'congbo' => '0',
+            'thanhlytaisan' => array('index' => '0', 'congbo' => '0'),
+            'giabatdongsan' => array('index' => '0', 'congbo' => '0'),
+            'muataisan' => array('index' => '0', 'congbo' => '0'),
+            'giagocvlxd' => array('index' => '0', 'congbo' => '0'),
+        ),
+        'kknygia' => array(
+            'index' => '0', 'congbo' => '0',
+            'vlxd' => array('index' => '0', 'congbo' => '0'),
+            'xmtxd' => array('index' => '0', 'congbo' => '0'),
+            'dvhdtmck' => array('index' => '0', 'congbo' => '0'),
+            'than' => array('index' => '0', 'congbo' => '0'),
+            'tacn' => array('index' => '0', 'congbo' => '0'),
+            'giay' => array('index' => '0', 'congbo' => '0'),
+            'sach' => array('index' => '0', 'congbo' => '0'),
+            'etanol' => array('index' => '0', 'congbo' => '0'),
+            'dvcb' => array('index' => '0', 'congbo' => '0'),
+            'oto' => array('index' => '0', 'congbo' => '0'),
+            'xemay' => array('index' => '0', 'congbo' => '0'),
+            'kcbtn' => array('index' => '0', 'congbo' => '0'),
+            'dvvtxk' => array('index' => '0', 'congbo' => '0'),
+            'dvvtxb' => array('index' => '0', 'congbo' => '0'),
+            'dvvtxtx' => array('index' => '0', 'congbo' => '0'),
+            'dvvthk' => array('index' => '0', 'congbo' => '0'),
+            'tpcnte6t' => array('index' => '0', 'congbo' => '0'),
+            'dvlt' => array('index' => '0', 'congbo' => '0'),
+            'dlbb' => array('index' => '0', 'congbo' => '0'),
+            'tqkdl' => array('index' => '0', 'congbo' => '0'),
+            'bog' => array('index' => '0', 'congbo' => '0'),
+        ),
+    );
+    $gui['csdlthamdinhgia'] = array(
+        'index' => '0', 'congbo' => '0',
+        'thamdinhgia' => array(
+            'index' => '0', 'congbo' => '0',
+            'dmhhthamdinhgia' => array('index' => '0', 'congbo' => '0'),
+            'dmdonvi' => array('index' => '0', 'congbo' => '0'),
+            'thamdinhgia' => array('index' => '0', 'congbo' => '0'),
+            'cungcapgia' => array('index' => '0', 'congbo' => '0'),
+        ),
+    );
+    $gui['csdlvbqlnn'] = array(
+        'index' => '0', 'congbo' => '0',
+        'vbqlnn' => array(
+            'index' => '0', 'congbo' => '0',
+            'vbgia' => array('index' => '0', 'congbo' => '0'),
+            'chisogiatieudung' => array('index' => '0', 'congbo' => '0'),
+            'bcthvegia' => array('index' => '0', 'congbo' => '0'),
+
+        ),
+    );
+    $gui['csdlttpvctqlnn'] = array(
+        'index' => '0', 'congbo' => '0',
+        'ttpvctqlnn' => array(
+            'index' => '0', 'congbo' => '0',
+            'ttpvctqlnn' => array('index' => '0', 'congbo' => '0',),
+        ),
+    );
+    $gui['hethong'] = array(
+        'index' => '0', 'congbo' => '0',
+        'hethong' => array(
+            'index' => '0', 'congbo' => '0',
+        ),
+    );
+    return $gui;
+}
+
 function getDayVn($date) {
     if($date != null || $date != '')
         $newday = date('d/m/Y',strtotime($date));
@@ -2464,11 +2569,17 @@ function getDbl($obj) {
 
 function can($module = null, $action = null)
 {
+    //tài khoản SSA full quyền
+    if(session('admin')->level == 'SSA') {
+        return true;
+    }
+
     $permission = !empty(session('admin')->permission) ? session('admin')->permission : getPermissionDefault(session('admin')->level);
     $permission = json_decode($permission, true);
     //dd($permission);
     //check permission
-    if(isset($permission[$module][$action]) && $permission[$module][$action] == 1 || session('admin')->sadmin == 'ssa') {
+    //if(isset($permission[$module][$action]) && $permission[$module][$action] == 1 || session('admin')->sadmin == 'ssa') {
+    if(isset($permission[$module][$action]) && $permission[$module][$action] == 1) {
         return true;
     }else
         return false;

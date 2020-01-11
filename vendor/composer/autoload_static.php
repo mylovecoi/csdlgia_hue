@@ -896,6 +896,7 @@ class ComposerStaticInitd7de3fb6aaadd474bf447891cb3bef8d
         'CreateCungcapgiaTable' => __DIR__ . '/../..' . '/database/migrations/2019_01_21_093851_create_cungcapgia_table.php',
         'CreateCungcapgiactTable' => __DIR__ . '/../..' . '/database/migrations/2019_01_21_093910_create_cungcapgiact_table.php',
         'CreateCungcapgiactdfTable' => __DIR__ . '/../..' . '/database/migrations/2019_01_21_093903_create_cungcapgiactdf_table.php',
+        'CreateDanhmucchucnangTable' => __DIR__ . '/../..' . '/database/migrations/2020_01_09_160720_create_danhmucchucnang_table.php',
         'CreateDaugiadatTable' => __DIR__ . '/../..' . '/database/migrations/2018_11_05_093753_create_daugiadat_table.php',
         'CreateDaugiadatctTable' => __DIR__ . '/../..' . '/database/migrations/2018_11_05_111141_create_daugiadatct_table.php',
         'CreateDaugiadatctdfTable' => __DIR__ . '/../..' . '/database/migrations/2018_11_05_095547_create_daugiadatctdf_table.php',

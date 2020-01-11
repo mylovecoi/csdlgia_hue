@@ -34,41 +34,36 @@ class UsersController extends Controller
     public function signin(Request $request)
     {
         $input = $request->all();
-        if($input['username'] == getsadmin()->username) {
-            if(md5($input['password']) == getsadmin()->password) {
-                Session::put('admin', getsadmin());
+        $check = Users::where('username', $input['username'])->count();
+        if ($check == 0)
+            return view('errors.invalid-user');
+        else {
+            $ttuser = Users::where('username', $input['username'])->first();
+        }
+        if (md5($input['password']) == $ttuser->password) {
+            if ($ttuser->status == "Kích hoạt") {
+//                if ($ttuser->level == 'DVVT') {
+//                    $ttdn = Company::where('maxa', $ttuser->maxa)
+//                        ->where('level', 'DVVT')
+//                        ->first();
+//                    $ttuser->dvvtcc = $ttdn->settingdvvt;
+//                    $ttuser->loaihinhhd = $ttdn->loaihinhhd;
+//                }
+
+                //kiểm tra tài khoản
+                //1. level = SSA ->
+                if($ttuser->level != "SSA"){
+                    //2. level != SSA -> lấy thông tin đơn vị, hệ thống để thiết lập lại
+                    //nên lấy setting gán luôn vào để đỡ pai ra vào hệ thống khi kiểm tra quyền
+                }
+                Session::put('admin', $ttuser);
                 return redirect('')
                     ->with('pageTitle', 'Tổng quan');
-            }else
-                return view('errors.invalid-pass');
-
-        }else {
-            $check = Users::where('username', $input['username'])
-                ->count();
-            if ($check == 0)
-                return view('errors.invalid-user');
-            else {
-                $ttuser = Users::where('username', $input['username'])->first();
-            }
-            if (md5($input['password']) == $ttuser->password) {
-                if ($ttuser->status == "Kích hoạt") {
-                    if ($ttuser->level == 'DVVT') {
-                        $ttdn = Company::where('maxa', $ttuser->maxa)
-                            ->where('level', 'DVVT')
-                            ->first();
-                        $ttuser->dvvtcc = $ttdn->settingdvvt;
-                        $ttuser->loaihinhhd = $ttdn->loaihinhhd;
-                    }
-                    Session::put('admin', $ttuser);
-
-                    return redirect('')
-                        ->with('pageTitle', 'Tổng quan');
-                } else
-                    return view('errors.lockuser');
-
             } else
-                return view('errors.invalid-pass');
-        }
+                return view('errors.lockuser');
+
+        } else
+            return view('errors.invalid-pass');
     }
 
     public function cp()

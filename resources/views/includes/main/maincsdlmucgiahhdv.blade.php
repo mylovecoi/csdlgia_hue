@@ -1,4 +1,399 @@
-@include('includes.main.include.dinhgia')
+@if(canGeneral('dinhgia','index'))
+    @if(can('dinhgia','index'))
+        <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+            data-original-title="Giá hàng hóa, dịch vụ do UBND định giá">
+            <a href="javascript:;">
+                <i class="icon-folder"></i>
+                <span class="title">Định giá</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                @if(canGeneral('giacldat','index'))
+                    {{--Giá đất địa bàn--}}
+                    @if(can('giacldat','index'))
+                        <li>
+                            <a href="javascript:;">
+                                <span class="title">Giá đất theo địa bàn</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(can('dmgiacldat','index'))
+                                    <li>
+                                        <a href="{{url('thongtugiadatdiaban')}}">Thông tư giá đất địa bàn</a>
+                                    </li>
+                                @endif
+                                @if(can('kkgiacldat','index'))
+                                    <li>
+                                        <a href="{{url('giadatdiaban')}}">
+                                            Giá đất theo địa bàn
+                                        </a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                @endif
+
+                @if(canGeneral('giadatduan','index'))
+                    @if(can('giadatduan','index'))
+                        <li>
+                            <a href="javascript:;">
+                                <span class="title">Giá đất cụ thể dự án</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(can('kkgiadatduan','index'))
+                                    <li>
+                                        <a href="{{url('thongtingiadatduan')}}">Thông tin giá đất</a>
+                                    </li>
+                                @endif
+                                @if(can('thgiadatduan','baocao'))
+                                    <li>
+                                        <a href="{{url('baocaogiadatduan')}}">Báo cáo giá đất dự án</a>
+                                    </li>
+                                @endif
+                                @if(can('thgiadatduan','timkiem'))
+                                    <li>
+                                        <a href="{{url('timkiemgiadatduan')}}">Tìm kiếm thông tin</a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                @endif
+
+                @if(canGeneral('giadatpl','index'))
+                    {{--Giá đất địa bàn--}}
+                    @if(can('giadatpl','index'))
+                        <li class="">
+                            <a href="javascript:;">
+                                <span class="title">Giá đất phân loại</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(can('kkgiadatpl','index'))
+                                    <li>
+                                        <a href="{{url('giadatphanloaidm')}}">
+                                            Danh mục các loại đất
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{url('giadatphanloai')}}">
+                                            Giá đất theo phân loại
+                                        </a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                @endif
+
+                @if(canGeneral('giadaugiadat','index'))
+                    @if(can('giadaugiadat','index'))
+                        @if(can('kkgiadaugiadat','index'))
+                            <li>
+                                <a href="{{url('thongtindaugiadat')}}">Giá đấu giá đất</a>
+                                <ul class="sub-menu">
+                                @if(can('kkgiadaugiadat','index'))
+                                <li>
+                                <a href="{{url('thongtindaugiadat')}}">Thông tin giá đấu giá đất</a>
+                                </li>
+                                @endif
+                                @if(can('thgiadaugiadat','timkiem'))
+                                <li>
+                                <a href="{{url('timkiemthongtindaugiadat')}}">Tìm kiếm thông tin</a>
+                                </li>
+                                @endif
+                                </ul>
+                            </li>
+                        @endif
+                    @endif
+                @endif
+
+                @if(canGeneral('daugiadatts','index'))
+                    @if(can('daugiadatts','index'))
+                        <li>
+                            <a href="javascript:;">
+                                Giá đấu giá đất và tài sản gắn liền đất <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(can('kkdaugiadatts','index'))
+                                    <li>
+                                        <a href="{{url('thongtindaugiadatts')}}">Thông tin đấu giá đất và tài sản gắn liền đất</a>
+                                    </li>
+                                @endif
+                                {{--@if(can('thgiadaugiadat','timkiem'))--}}
+                                {{--<li>--}}
+                                {{--<a href="{{url('timkiemthongtindaugiadat')}}">Tìm kiếm thông tin</a>--}}
+                                {{--</li>--}}
+                                {{--@endif--}}
+                            </ul>
+                        </li>
+                    @endif
+                @endif
+
+                @if(canGeneral('giathuetn','index'))
+                    @if(can('giathuetn','index'))
+                        <li>
+                            <a href="javascript:;">
+                                <span class="title">Giá thuế tài nguyên</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(can('dmgiathuetn','index'))
+                                    <li>
+                                        <a href="{{url('nhomthuetn')}}">DM thuế tài nguyên </a>
+                                    </li>
+                                @endif
+                                @if(can('kkgiathuetn','index'))
+                                    <li>
+                                        <a href="{{url('thuetainguyen')}}">Thông tin thuế TN</a>
+                                    </li>
+                                @endif
+                                @if(can('thgiathuetn','baocao'))
+                                    <li>
+                                        <a href="{{url('baocaothuetainguyen')}}">Báo cáo tổng hợp</a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                @endif
+
+                @if(canGeneral('giathuedatnuoc','index'))
+                    @if(can('giathuedatnuoc','index'))
+                        <li>
+                            <a href="javascript:;">
+                                Giá thuê đất, nước<span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(can('kkgiathuedatnuoc','index'))
+                                    <li>
+                                        <a href="{{url('giathuematdatmatnuoc')}}">Thông tin giá thuê mặt đất- mặt nước</a>
+                                    </li>
+                                @endif
+                                @if(can('thgiathuedatnuoc','timkiem'))
+                                    <li>
+                                        <a href="{{url('timkiemgiathuematdatmatnuoc')}}">Tìm kiếm thông tin</a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                @endif
+
+                @if(canGeneral('giarung','index'))
+                    @if(can('giarung','index'))
+                        <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+                            data-original-title="Giá rừng bao gồm rừng sản xuất, rừng phòng hộ và rừng đặc dụng thuộc sở hữu toàn dân do Nhà nước làm đại diện chủ sở hữu">
+                            <a href="javascript:;">
+                                Giá thuê MT rừng
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(can('dmgiarung','index'))
+                                    <li>
+                                        <a href="{{url('dmgiarung')}}">Danh mục loại rừng</a>
+                                    </li>
+                                @endif
+                                @if(can('kkgiarung','index'))
+                                    <li>
+                                        <a href="{{url('giarung')}}">Thông tin giá thuê môi trường rừng</a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                @endif
+
+                @if(canGeneral('giathuemuanhaxh','index'))
+                    @if(can('giathuemuanhaxh','index'))
+                        <li>
+                            @if(can('kkgiathuemuanhaxh','index'))
+                                <a href="{{url('thuemuanhaxahoi')}}">
+                                    Giá thuê mua nhà xã hội
+                                </a>
+                            @endif
+                        </li>
+                    @endif
+                @endif
+
+                @if(canGeneral('giathuenhacongvu','index'))
+                    @if(can('giathuenhacongvu','index'))
+                        <li class="tooltips" data-container="body" data-placement="right" data-html="true">
+                            @if(can('kkgiathuenhacongvu','index'))
+                                <a href="{{url('giathuenhacongvu')}}">
+                                    Giá thuê nhà công vụ
+                                </a>
+                            @endif
+                        </li>
+                    @endif
+                @endif
+
+                @if(canGeneral('bannhataidinhcu','index'))
+                    @if(can('bannhataidinhcu','index'))
+                        <li>
+                            @if(can('kkbannhataidinhcu','index'))
+                                <a href="{{url('bannhataidinhcu')}}">
+                                    Giá bán nhà tái định cư
+                                </a>
+                            @endif
+                        </li>
+                    @endif
+                @endif
+
+                @if(canGeneral('gianuocsh','index'))
+                    @if(can('gianuocsh','index'))
+                        <li>
+                            <a href="javascript:;">
+                                Giá nước sạch sinh hoạt
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="{{url('dmgianuocsachsinhhoat')}}">Danh mục</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('gianuocsachsinhhoat')}}">Thông tin giá nước sạch</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('tkgianuocsachsinhhoat')}}">Tìm kiếm giá nước sạch sinh hoạt</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('bcgianuocsachsinhhoat')}}">Báo cáo tổng hợp</a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
+                @endif
+
+                @if(canGeneral('giathuetscong','index'))
+                    @if(can('giathuetscong','index'))
+                        <li>
+                            <a href="javascript:;">
+                                Giá thuê tài sản công<span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(can('kkgiathuetscong','index'))
+                                    <li>
+                                        <a href="{{url('thongtinthuetaisancong')}}">Thông tin giá thuê tài sản công</a>
+                                    </li>
+                                @endif
+                                @if(can('thgiathuetscong','timkiem'))
+                                    <li>
+                                        <a href="{{url('timkiemthongtinthuetaisancong')}}">Tìm kiếm thông tin</a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                @endif
+
+                @if(canGeneral('giathuetscong','index'))
+                    @if(can('giathuetscong','index'))
+                        <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+                            data-original-title="Giá cho thuê tài sản Nhà nước là công trình kết cấu hạ tầng đầu tư từ nguồn ngân sách địa phương">
+                            <a href="javascript:;">
+                                Giá tài sản công<span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="{{url('giataisancongdm')}}">
+                                        Danh mục tài sản công
+                                    </a>
+                                </li>
+                                @if(can('kkgiathuetscong','index'))
+                                    <li>
+                                        <a href="{{url('giataisancong')}}">
+                                            Hồ sơ giá tài sản công
+                                        </a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                @endif
+
+                @if(canGeneral('giadvgddt','index'))
+                    @if(can('giadvgddt','index'))
+                        <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+                            data-original-title="Giá dịch vụ giáo dục, đào tạo áp dụng đối với cơ sở giáo dục mầm non, phổ thông công lập thuộc tỉnh">
+                            <a href="{{url('giadvgiaoducdaotao')}}">
+                                Giá dịch vụ đào tạo
+                            </a>
+                        </li>
+                    @endif
+                @endif
+
+                @if(canGeneral('giadvkcb','index'))
+                    @if(can('giadvkcb','index'))
+                        <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+                            data-original-title="Giá dịch vụ khám bệnh, chữa bệnh đối với cơ sở khám bệnh, chữa bệnh của Nhà nước thuộc phạm vi quản lý của địa phương">
+                            <a href="{{url('dichvukcb')}}">
+                                Giá dịch vụ khám chữa bệnh
+                            </a>
+                        </li>
+                    @endif
+                @endif
+
+                @if(canGeneral('trogiatrocuoc','index'))
+                    @if(can('trogiatrocuoc','index'))
+                        <li>
+                            <a href="javascript:;">
+                                Mức trợ giá, trợ cước<span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(can('dmtrogiatrocuoc','index'))
+                                    <li>
+                                        <a href="javascript:;">Danh mục mức trợ giá, trợ cước</a>
+                                    </li>
+                                @endif
+                                @if(can('kktrogiatrocuoc','index'))
+                                    <li>
+                                        <a href="javascript:;">Thông tin mức trợ giá trợ cước</a>
+                                    </li>
+                                @endif
+                                @if(can('thtrogiatrocuoc','timkiem'))
+                                    <li>
+                                        <a href="javascript:;">Tìm kiếm thông tin mức trợ giá trợ cước</a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                @endif
+
+                @if(canGeneral('giaspdvci','index'))
+                    @if(can('giaspdvci','index'))
+                        <li>
+                            <a href="javascript:;">
+                                Giá SP, DVCI, DVSNC, HH-DV đặt hàng <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                {{--@if(can('dmgiaspdvci','index'))--}}
+                                {{--<li>--}}
+                                {{--<a href="javascript:;">Danh mục SP, DVCI, DVSNC, HH-DV đặt hàng</a>--}}
+                                {{--</li>--}}
+                                {{--@endif--}}
+                                @if(can('kkgiaspdvci','index'))
+                                    <li>
+                                        <a href="{{url('giaspdvci')}}">Thông tin giá SP, DVCI, DVSNC, HH-DV đặt hàng</a>
+                                    </li>
+                                @endif
+                                @if(can('thgiaspdvci','timkiem'))
+                                    <li>
+                                        <a href="{{url('tkgiaspdvci')}}">Tìm kiếm thông tin</a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                @endif
+            </ul>
+        </li>
+    @endif
+@endif
+
 @if(canGeneral('giahhdvk','index'))
     @if(can('giahhdvk','index'))
         <li class="tooltips" data-container="body" data-placement="right" data-html="true"
@@ -24,6 +419,7 @@
                         <a href="{{url('timkiemgiahhdvkhac')}}">Tìm kiếm thông tin</a>
                     </li>
                 @endif
+                    <!-- session('admin')->chucnang == 'TONGHOP'; tùy theo level h, t để load đơn vị cấp dưới -->
                 @if(session('admin')->level == 'H' || session('admin')->level == 'T')
                     @if(can('thgiahhdvk','tonghop'))
                     <li>
@@ -31,6 +427,7 @@
                     </li>
                     @endif
                 @endif
+
                 @if(can('thgiahhdvk','baocao'))
                     <li>
                         <a href="{{url('reportshanghoadichvukhac')}}">Báo cáo tổng hợp</a>
@@ -133,7 +530,7 @@
 
 @if(canGeneral('giaphilephi','index'))
     @if(can('giaphilephi','index'))
-        <li class="">
+        <li class="javascript:;">
             <a href="javascript:;">
                 <i class="icon-folder"></i>
                 <span class="title">Phí, lệ phí</span>
@@ -159,9 +556,10 @@
         </li>
     @endif
 @endif
+
 @if(canGeneral('thanhlytaisan','index'))
     @if(can('thanhlytaisan','index'))
-    <li class="">
+    <li class="javascript:;">
         <a href="javascript:;">
             <i class="icon-folder"></i>
             <span class="title">Giá đấu thầu bán TS</span>
@@ -182,54 +580,49 @@
     </li>
     @endif
 @endif
+
 @if(canGeneral('giabatdongsan','index'))
     @if(can('giabatdongsan','index'))
         @if(can('hsgiabatdongsan','index'))
-        <li class="">
+            <li class="javascript:;">
             <a href="{{url('giagiaodichbatdongsan')}}">
                 <i class="icon-folder"></i>
                 <span class="title">Giá giao dịch bất động sản</span>
-                {{--<span class="arrow"></span>--}}
             </a>
-            {{--<ul class="sub-menu">--}}
-                {{--@if(can('hsgiabatdongsan','index'))--}}
-                    {{--<li>--}}
-                        {{--<a href="{{url('giagiaodichbatdongsan')}}">Thông tin giá giao dịch bất động sản</a>--}}
-                    {{--</li>--}}
-                {{--@endif--}}
-            {{--</ul>--}}
         </li>
         @endif
     @endif
 @endif
+
 @if(canGeneral('muataisan','index'))
     @if(can('muataisan','index'))
         @if(can('hsmuataisan','index'))
-    <li class="">
-        <a href="{{url('thongtinmuataisan')}}">
+            <li class="javascript:;">
+        <a href="javascript:;">
             <i class="icon-folder"></i>
             <span class="title">Giá trúng thầu của HH-DV được mua sắm theo QĐ của PL về đấu thầu</span>
             {{--<span class="arrow"></span>--}}
         </a>
-        {{--<ul class="sub-menu">--}}
-            {{--@if(can('hsmuataisan','index'))--}}
-                {{--<li>--}}
-                    {{--<a href="{{url('thongtinmuataisan')}}">Thông tin trúng thầu HH-DV</a>--}}
-                {{--</li>--}}
-            {{--@endif--}}
-            {{--@if(can('thmuataisan','timkiem'))--}}
-                {{--<li>--}}
-                    {{--<a href="{{url('timkiemmuataisan')}}">Tìm kiếm thông tin</a>--}}
-                {{--</li>--}}
-            {{--@endif--}}
-        {{--</ul>--}}
+        <ul class="sub-menu">
+            @if(can('hsmuataisan','index'))
+                <li>
+                    <a href="{{url('thongtinmuataisan')}}">Thông tin trúng thầu HH-DV</a>
+                </li>
+            @endif
+            @if(can('thmuataisan','timkiem'))
+                <li>
+                    <a href="{{url('timkiemmuataisan')}}">Tìm kiếm thông tin</a>
+                </li>
+            @endif
+        </ul>
     </li>
         @endif
     @endif
 @endif
+
 @if(canGeneral('giagocvlxd','index'))
     @if(can('giagocvlxd','index'))
-        <li class="">
+        <li class="javascript:;">
             <a href="javascript:;">
                 <i class="icon-folder"></i>
                 <span class="title">Giá gốc vật liệu xây dựng</span>
@@ -256,4 +649,515 @@
     @endif
 @endif
 
-@include('includes.main.include.kknygia')
+@if(canGeneral('kknygia','index'))
+    @if(can('kknygia','index'))
+        <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+            data-original-title="Giá kê khai của hàng hóa, dịch vụ thuộc danh mục Giá kê khai">
+            <a href="javascript:;">
+                <i class="icon-folder"></i>
+                <span class="title">Mức giá kê khai - đăng ký</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <!-- chức năng thông tin doanh nghiệp: xây dựng tương tụ như hồ sơ: load thông tin nhưng đơn vị cấp dươi
+                        session('admin')->chucnang = NHAPLIEU && session('admin')->level == 'DN'
+                        session('admin')->level != 'DN' && session('admin')->chucnang = TONGHOP
+                -->
+                @if(session('admin')->level == 'DN')
+                    @if(can('ttdn','index'))
+                        <li><a href="{{url('thongtindoanhnghiep')}}">Thông tin doanh nghiệp</a></li>
+                    @endif
+                @elseif(session('admin')->level == 'T')
+                    @if(can('ttdn','approve'))
+                        <li><a href="{{url('xetduyettdttdn')}}"> Xét duyệt thay đổi thông tin doanh nghiệp</a></li>
+                    @endif
+                @endif
+                @if(canKkGiaGr('VLXD'))
+                    @if(canKkGiaCt('VLXD','VLXD'))
+                        <li>
+                            <a href="javascript:;">
+                                <span class="title">Vật liệu xây dựng</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(session('admin')->level == 'DN')
+                                    <li><a href="{{url('thongtinkekhaigiavatlieuxaydung')}}">Giá kê khai</a> </li>
+                                @endif
+                                @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
+                                    <li><a href="{{url('danhmucvatlieuxaydung')}}">Danh mục VLXD</a></li>
+                                    <li><a href="{{url('thongtindnkkgiavlxd')}}">Giá kê khai</a></li>
+                                    <li><a href="{{url('xetduyetkkgiavlxd')}}">Thông tin hồ sơ xét duyệt</a></li>
+                                    <li><a href="{{url('timkiemkkgiavlxd')}}">Tìm kiếm thông tin</a> </li>
+                                    <li><a href="{{url('baocaokekhaigiavlxd')}}">Báo cáo thống kê</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                    {{--Ok--}}
+                @endif
+                @if(canKkGiaGr('XMTXD'))
+                    @if(canKkGiaCt('XMTXD','XMTXD'))
+                        <li>
+                            <a href="javascript:;">
+                                <span class="title">Xi măng, thép xây dựng</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(session('admin')->level == 'DN')
+                                    <li><a href="{{url('thongtinkekhaiximangthepxaydung')}}">Giá kê khai</a> </li>
+                                @endif
+                                @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
+                                    <li><a href="{{url('thongtindnkkgiaxmtxd')}}">Giá kê khai</a></li>
+                                    <li><a href="{{url('xetduyetkkgiaxmtxd')}}">Thông tin hồ sơ xét duyệt</a></li>
+                                    <li><a href="{{url('timkiemgiaxmtxd')}}">Tìm kiếm thông tin</a> </li>
+                                    <li><a href="{{url('baocaokekhaigiaxmtxd')}}">Báo cáo thống kê</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                    {{--Ok--}}
+                @endif
+                @if(canKkGiaGr('DVHDTMCK'))
+                    @if(canKkGiaCt('DVHDTMCK','DVHDTMCK'))
+                        <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+                            data-original-title="Giá dịch vụ hỗ trợ hoạt động thương mại tại cửa khẩu (kho,bến, bãi, bốc xếp hàng hóa tại cửa khẩu, dịch vụ khác">
+                            <a href="javascript:;">
+                                <span class="title">Giá dịch vụ hỗ trợ hoạt động thương mại tại cửa khẩu</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(session('admin')->level == 'DN')
+                                    <li><a href="{{url('thongtinkkdvhoatdongthuongmai')}}">Giá kê khai</a> </li>
+                                @endif
+                                @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
+                                    <li><a href="{{url('thongtindnkkgiadvhdtm')}}">Giá kê khai</a></li>
+                                    <li><a href="{{url('xetduyetkkgiadvhdtm')}}">Thông tin hồ sơ xét duyệt</a></li>
+                                    <li><a href="{{url('timkiemgiadvhdtm')}}">Tìm kiếm thông tin</a> </li>
+                                    <li><a href="{{url('baocaokkgiadvhdtm')}}">Báo cáo thống kê</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                    {{--OK--}}
+                @endif
+                @if(canKkGiaGr('THAN'))
+                    @if(canKkGiaCt('THAN','THAN'))
+                        <li>
+                            <a href="javascript:;">
+                                <span class="title">Than</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(session('admin')->level == 'DN')
+                                    <li><a href="{{url('kekhaigiathan')}}">Giá kê khai than</a> </li>
+                                @endif
+                                @if(session('admin')->level == 'X' || session('admin')->level == 'T' || session('admin')->level == 'H')
+                                    <li><a href="{{url('thongtindnthan')}}">Giá kê khai</a> </li>
+                                    <li><a href="{{url('xetduyetgiathan')}}">Thông tin hồ sơ xét duyệt</a></li>
+                                    <li><a href="{{url('timkiemgiathan')}}">Tìm kiếm thông tin</a> </li>
+                                    <li><a href="{{url('baocaokkgiathan')}}">Báo cáo thống kê</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                    {{--OK--}}
+                @endif
+                @if(canKkGiaGr('TACN'))
+                    @if(canKkGiaCt('TACN','TACN'))
+                        <li>
+                            <a href="javascript:;">
+                                <span class="title">Thức ăn chăn nuôi</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(session('admin')->level == 'DN')
+                                    <li><a href="{{url('kekhaigiathucanchannuoi')}}">Giá kê khai</a> </li>
+                                @endif
+                                @if(session('admin')->level == 'X' || session('admin')->level == 'T' || session('admin')->level == 'H')
+                                    <li><a href="{{url('thontindntacn')}}">Giá kê khai</a> </li>
+                                    <li><a href="{{url('xetduyetkekhaigiatacn')}}">Thông tin hồ sơ xét duyệt</a></li>
+                                    <li><a href="{{url('timkiemkekhaigiatacn')}}">Tìm kiếm thông tin</a> </li>
+                                    <li><a href="{{url('baocaokekhaitacn')}}">Báo cáo thống kê</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                    {{--OK--}}
+                @endif
+                @if(canKkGiaGr('GIAY'))
+                    @if(canKkGiaCt('GIAY','GIAY'))
+                        <li>
+                            <a href="javascript:;">
+                                <span class="title">Giấy in, viết (dạng cuộn), giấy in báo sản xuất trong nước</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(session('admin')->level == 'DN')
+                                    <li><a href="{{url('kekhaigiagiay')}}">Giá kê khai</a> </li>
+                                @endif
+                                @if(session('admin')->level == 'X' || session('admin')->level == 'T' || session('admin')->level == 'H')
+                                    <li><a href="{{url('thongtindngiay')}}">Giá kê khai </a> </li>
+                                    <li><a href="{{url('xetduyetgiagiay')}}">Thông tin hồ sơ xét duyệt</a></li>
+                                    <li><a href="{{url('timkiemgiagiay')}}">Tìm kiếm thông tin</a> </li>
+                                    <li><a href="{{url('baocaokkgiagiay')}}">Báo cáo thống kê</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                @endif
+                @if(canKkGiaGr('SACH'))
+                    @if(canKkGiaCt('SACH','SACH'))
+                        <li>
+                            <a href="javascript:;">
+                                <span class="title">Sách giáo khoa</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(session('admin')->level == 'DN')
+                                    <li><a href="{{url('kekhaigiasach')}}">Giá kê khai</a> </li>
+                                @endif
+                                @if(session('admin')->level == 'X' || session('admin')->level == 'T' || session('admin')->level == 'H')
+                                    <li><a href="{{url('thongtindnsach')}}">Giá kê khai </a> </li>
+                                    <li><a href="{{url('xetduyetgiasach')}}">Thông tin hồ sơ xét duyệt</a></li>
+                                    <li><a href="{{url('timkiemgiasach')}}">Tìm kiếm thông tin</a> </li>
+                                    <li><a href="{{url('baocaokkgiasach')}}">Báo cáo thống kê</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                    {{--OK--}}
+                @endif
+                @if(canKkGiaGr('ETANOL'))
+                    @if(canKkGiaCt('ETANOL','ETANOL'))
+                        <li>
+                            <a href="javascript:;">
+                                <span class="title">Etanol nhiên liệu không biến tính, khí tự nhiên hóa lỏng(LNG); khí thiên nhiên nén (CNG)</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(session('admin')->level == 'DN')
+                                    <li><a href="{{url('kekhaigiaetanol')}}">Giá kê khai</a> </li>
+                                @endif
+                                @if(session('admin')->level == 'X' || session('admin')->level == 'T' || session('admin')->level == 'H')
+                                    <li><a href="{{url('thongtindnetanol')}}">Giá kê khai </a> </li>
+                                    <li><a href="{{url('xetduyetgiaetanol')}}">Thông tin hồ sơ xét duyệt</a></li>
+                                    <li><a href="{{url('timkiemgiaetanol')}}">Tìm kiếm thông tin</a> </li>
+                                    <li><a href="{{url('baocaokkgiaetanol')}}">Báo cáo thống kê</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                    {{--OK--}}
+                @endif
+                @if(canKkGiaGr('DVCB'))
+                    @if(canKkGiaCt('DVCB','DVCB'))
+                        <li>
+                            <a href="javascript:;">
+                                <span class="title">Giá dịch vụ tại cảng biển, cảng hàng không</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(session('admin')->level == 'DN')
+                                    <li><a href="{{url('kekhaigiadvcang')}}">Giá kê khai</a> </li>
+                                @endif
+                                @if(session('admin')->level == 'X' || session('admin')->level == 'T' || session('admin')->level == 'H')
+                                    <li><a href="{{url('thongtindndvcang')}}">Giá kê khai </a> </li>
+                                    <li><a href="{{url('xetduyetgiadvcang')}}">Thông tin hồ sơ xét duyệt</a></li>
+                                    <li><a href="{{url('timkiemgiadvcang')}}">Tìm kiếm thông tin</a> </li>
+                                    <li><a href="{{url('baocaokkgiadvcang')}}">Báo cáo thống kê</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                    {{--Ok--}}
+                @endif
+                @if(canKkGiaGr('OTO'))
+                    @if(canKkGiaCt('OTO','OTO'))
+                        <li>
+                            <a href="javascript:;">
+                                <span class="title">Giá ô tô nhập khẩu, sản xuất trong nước dưới 15 chỗ ngồi</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(session('admin')->level == 'DN')
+                                    <li><a href="{{url('kekhaigiaotonksx')}}">Giá kê khai</a> </li>
+                                @endif
+                                @if(session('admin')->level == 'X' || session('admin')->level == 'T' || session('admin')->level == 'H')
+                                    <li><a href="{{url('thongtindnotonksx')}}">Giá kê khai </a> </li>
+                                    <li><a href="{{url('xetduyetgiaotonksx')}}">Thông tin hồ sơ xét duyệt</a></li>
+                                    <li><a href="{{url('timkiemgiaotonksx')}}">Tìm kiếm thông tin</a> </li>
+                                    <li><a href="{{url('baocaokkgiaotonksx')}}">Báo cáo thống kê</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                    {{--Ok--}}
+                @endif
+                @if(canKkGiaGr('XEMAY'))
+                    @if(canKkGiaCt('XEMAY','XEMAY'))
+                        <li>
+                            <a href="javascript:;">
+                                <span class="title">Giá xe gắn máy nhập khẩu, sản xuất trong nước</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(session('admin')->level == 'DN')
+                                    <li><a href="{{url('kekhaigiaxemaynksx')}}">Giá kê khai</a> </li>
+                                @endif
+                                @if(session('admin')->level == 'X' || session('admin')->level == 'T' || session('admin')->level == 'H')
+                                    <li><a href="{{url('thongtindnxemaynksx')}}">Giá kê khai </a> </li>
+                                    <li><a href="{{url('xetduyetgiaxemaynksx')}}">Thông tin hồ sơ xét duyệt</a></li>
+                                    <li><a href="{{url('timkiemgiaxemaynksx')}}">Tìm kiếm thông tin</a> </li>
+                                    <li><a href="{{url('baocaokkgiaxemaynksx')}}">Báo cáo thống kê</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                    {{--OK--}}
+                    @endif
+
+                    @if(canKkGiaGr('KCBTN'))
+                        @if(canKkGiaCt('KCBTN','KCBTN'))
+                            <li>
+                                <a href="javascript:;">
+                                    <span class="title">Dịch vụ khám chữa bệnh cho người tại cơ sở khám chữa bệnh tư nhân; khám chữa bệnh theo yêu cầu tại cơ sở khám chữa bệnh của nhà nước</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    @if(session('admin')->level == 'DN')
+                                        <li><a href="{{url('kekhaigiakcbtn')}}">Giá kê khai</a> </li>
+                                    @endif
+                                    @if(session('admin')->level == 'X' || session('admin')->level == 'T' || session('admin')->level == 'H')
+                                        <li><a href="{{url('thongtindnkcbtn')}}">Giá kê khai </a> </li>
+                                        <li><a href="{{url('xetduyetgiakcbtn')}}">Thông tin hồ sơ xét duyệt</a></li>
+                                        <li><a href="{{url('timkiemgiakcbtn')}}">Tìm kiếm thông tin</a> </li>
+                                        <li><a href="{{url('baocaogiakcbtn')}}">Báo cáo thống kê</a></li>
+                                    @endif
+                                </ul>
+                            </li>
+                        @endif
+                    @endif
+
+                    @if(canKkGiaCt('DVVTXK','VTXK'))
+                        <li>
+                            <a href="javascript:;">
+                                <span class="title">Cước vận tải hành khách bằng ôtô tuyến cố định</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(session('admin')->level == 'DN')
+                                    <!--li><a href="javascript:;">Danh mục dịch vụ</a> </li-->
+                                    <li><a href="{{url('kekhaigiavantaixekhach')}}">Giá kê khai</a></li>
+                                @endif
+                                @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
+                                    <li><a href="{{url('thongtindnvtxk')}}">Giá kê khai</a></li>
+                                    <li><a href="{{url('xetduyetkekhaigiavtxk')}}">Xét duyệt hồ sơ kê khai</a></li>
+                                    <li><a href="{{url('timkiemgiavantaixekhach')}}">Tìm kiếm hồ sơ kê khai</a></li>
+                                    <li><a href="{{url('baocaogiavantaixekhach')}}">Báo cáo thống kê</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+
+                    @if(canKkGiaCt('DVVTXB','DVVTXB'))
+                        <li>
+                            <a href="javascript:;">
+                                <span class="title">Cước vận tải hành khách bằng xe buýt theo tuyến cố định</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(session('admin')->level == 'DN')
+                                    <li><a href="{{url('kekhaivantaixebuyt')}}">Giá kê khai</a></li>
+                                @endif
+                                @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
+                                    <li><a href="{{url('thongtindnvtxb')}}">Giá kê khai</a></li>
+                                    <li><a href="{{url('xetduyetkekhaigiavtxb')}}">Xét duyệt hồ sơ kê khai</a></li>
+                                    <li><a href="{{url('timkiemgiavantaixebuyt')}}">Tìm kiếm hồ sơ kê khai</a></li>
+                                    <li><a href="{{url('baocaogiavantaixebuyt')}}">Báo cáo thống kê</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+
+                    @if(canKkGiaCt('DVVTXTX','VT'))
+                        <li>
+                            <a href="javascript:;">
+                                <span class="title">Cước vận tải hành khách bằng xe taxi</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(session('admin')->level == 'DN')
+                                    <li><a href="{{url('kekhaigiavantaixetaxi')}}">Giá kê khai</a></li>
+                                @endif
+                                @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
+                                    <li><a href="{{url('thongtindnvtxtx')}}">Giá kê khai</a></li>
+                                    <li><a href="{{url('xetduyetkekhaigiavtxtx')}}">Xét duyệt hồ sơ kê khai</a></li>
+                                    <li><a href="{{url('timkiemgiavantaixetaxi')}}">Tìm kiếm hồ sơ kê khai</a></li>
+                                    <li><a href="{{url('baocaogiavantaixetaxi')}}">Báo cáo thống kê</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+
+                    @if(canKkGiaCt('DVVTHK','VC'))
+                        <li>
+                            <a href="javascript:;">
+                                <span class="title">Cước vận chuyển hành khách: xe buýt, xe điện, bè mảng</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(session('admin')->level == 'DN')
+                                    <li><a href="{{url('kekhaicuocvchk')}}">Giá kê khai</a></li>
+                                @endif
+                                @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
+                                    <li><a href="{{url('thongtindnvchk')}}">Giá kê khai</a></li>
+                                    <li><a href="{{url('xetduyetkekhaicuocvchk')}}">Xét duyệt hồ sơ kê khai</a></li>
+                                    <li><a href="{{url('timkiemcuocvchk')}}">Tìm kiếm hồ sơ kê khai</a></li>
+                                    <li><a href="{{url('baocaogiacuocvchk')}}">Báo cáo thống kê</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+
+                    @if(canKkGiaGr('TPCNTE6T'))
+                        @if(canKkGiaCt('TPCNTE6T','TPCNTE6T'))
+                            <li>
+                                <a href="javascript:;">
+                                    <span class="title">Thực phẩm chức năng cho trẻ em dưới 6 tuổi</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    @if(session('admin')->level == 'DN')
+                                        <li><a href="{{url('kekhaithucphamchucnangchote6t')}}">Giá kê khai</a> </li>
+                                    @endif
+                                    @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
+                                        <li><a href="{{url('thongtindntpcn6t')}}">Giá kê khai</a></li>
+                                        <li><a href="{{url('xdkekhaigiatpcnte6t')}}">Thông tin hồ sơ xét duyệt</a></li>
+                                        <li><a href="{{url('timkiemkekhaigiatpcnte6t')}}">Tìm kiếm thông tin</a> </li>
+                                        <li><a href="{{url('baocaokekhaigiatpcnte6t')}}">Báo cáo thống kê</a></li>
+                                    @endif
+                                </ul>
+                            </li>
+                        @endif
+                        {{--OK--}}
+                    @endif
+
+                    @if(canKkGiaGr('DVLT'))
+                        @if(canKkGiaCt('DVLT','DVLT'))
+                            <li>
+                                <a href="javascript:;">
+                                    <span class="title">Dịch vụ lưu trú</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    @if(session('admin')->level == 'DN')
+                                        <li><a href="{{url('thongtincskd')}}">Danh sách CSKD</a> </li>
+                                        <li><a href="{{url('thongtincskdkkdvlt')}}">Giá kê khai</a> </li>
+                                    @endif
+                                    @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
+                                        <li><a href="{{url('thongtincskdkkdvlt')}}">Giá kê khai</a></li>
+                                        <li><a href="{{url('xetduyetkkgiadvlt')}}">Thông tin hồ sơ xét duyệt</a></li>
+                                        <li><a href="{{url('timkiemkkgiadvlt')}}">Tìm kiếm thông tin</a> </li>
+                                        <li><a href="{{url('baocaokekhaidvlt')}}">Báo cáo thống kê</a></li>
+                                    @endif
+                                </ul>
+                            </li>
+                        @endif
+                    @endif
+                    @if(canKkGiaGr('DLBB'))
+                        @if(canKkGiaCt('DLBB','DLBB'))
+                            <li>
+                                <a href="javascript:;">
+                                    <span class="title">Giá dịch vụ du lịch tại bãi biển</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    @if(session('admin')->level == 'DN')
+                                        <li><a href="{{url('kekhaigiadvdlbb')}}">Giá kê khai</a> </li>
+                                    @endif
+                                    @if(session('admin')->level == 'X' || session('admin')->level == 'T' || session('admin')->level == 'H')
+                                        <li><a href="{{url('thongtindndlbb')}}">Giá kê khai </a> </li>
+                                        <li><a href="{{url('xetduyetgiadvdlbb')}}">Thông tin hồ sơ xét duyệt</a></li>
+                                        <li><a href="{{url('timkiemgiadvdlbb')}}">Tìm kiếm thông tin</a> </li>
+                                        <li><a href="{{url('baocaokekhaidvdlbb')}}">Báo cáo thống kê</a></li>
+                                    @endif
+                                </ul>
+                            </li>
+                        @endif
+                        {{--OK--}}
+                    @endif
+                    @if(canKkGiaGr('TQKDL'))
+                        @if(canKkGiaCt('TQKDL','TQKDL'))
+                            <li>
+                                <a href="javascript:;">
+                                    <span class="title">Giá vé tham quan tại các khu du lịch</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    @if(session('admin')->level == 'DN')
+                                        <li><a href="{{url('kekhaigiavetqkdl')}}">Giá kê khai</a> </li>
+                                    @endif
+                                    @if(session('admin')->level == 'X' || session('admin')->level == 'T' || session('admin')->level == 'H')
+                                        <li><a href="{{url('thongtindntqkdl')}}">Giá kê khai </a> </li>
+                                        <li><a href="{{url('xetduyetgiavetqkdl')}}">Thông tin hồ sơ xét duyệt</a></li>
+                                        <li><a href="{{url('timkiemgiavetqkdl')}}">Tìm kiếm thông tin</a> </li>
+                                        <li><a href="{{url('baocaokekhaigiavetqkdl')}}">Báo cáo thống kê</a></li>
+                                    @endif
+                                </ul>
+                            </li>
+                        @endif
+                        {{--OK--}}
+                    @endif
+                    @if(canKkGiaGr('BOG'))
+                        <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+                            data-original-title="Tổ chức, cá nhận Giá đăng ký theo yêu cầu của Sở Tài chính, sở quản lý ngành">
+                            <a href="javascript:;">
+                                <span class="title">Mặt hàng trong danh mục bình ổn giá</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if($modeldm = \App\Model\system\dmnganhnghekd\DmNgheKd::where('manganh','BOG')
+                                        ->where('theodoi','TD')
+                                        ->get())@endif
+                                @foreach($modeldm as $dm)
+                                    @if(canKkGiaCt('BOG',$dm->manghe))
+                                        @if($dm->mahuyen != '')
+                                            <li>
+                                                <a href="javascript:;">
+                                                    <span class="title">{{$dm->tennghe}}</span>
+                                                    <span class="arrow"></span>
+                                                </a>
+                                                <ul class="sub-menu">
+                                                    @if(session('admin')->level == 'DN')
+                                                        @if($dm->phanloai == 'DK')
+                                                            <li><a href="{{url('hosokkdkg?manghe='.$dm->manghe)}}">Giá đăng ký</a></li>
+                                                        @else
+                                                            <li><a href="{{url('kkgiamhbog?manghe='.$dm->manghe)}}">Giá kê khai</a></li>
+                                                        @endif
+                                                    @else
+                                                        <li><a href="{{url('thongtinmathangbog?manghe='.$dm->manghe)}}">Phân loại TTMH</a></li>
+                                                        @if($dm->phanloai == 'DK')
+                                                            <li><a href="{{url('thongtindnkkgdk?manghe='.$dm->manghe)}}">Giá đăng ký</a></li>
+                                                            <li><a href="{{url('xetduyetkkdkg?manghe='.$dm->manghe)}}">Xét duyệt HS Giá đăng ký</a></li>
+
+                                                        @else
+                                                            <li><a href="{{url('thongtindnkkmhbog?manghe='.$dm->manghe)}}">Giá kê khai</a></li>
+                                                            <li><a href="{{url('xetduyetkkmhbog?manghe='.$dm->manghe)}}">Xét duyệt HS giá kê khai</a></li>
+                                                        @endif
+                                                        <li><a href="{{url('timkiemkkdkg?manghe='.$dm->manghe)}}">Tìm kiếm TT Giá đăng ký</a></li>
+                                                        <li><a href="{{url('timkiemkkmhbog?manghe='.$dm->manghe)}}">Tìm kiếm TT giá kê khai</a></li>
+                                                        <li><a href="{{url('baocaokekhaidkg?manghe='.$dm->manghe)}}">BCTH Giá đăng ký</a></li>
+                                                        <li><a href="{{url('baocaokkmhbog?manghe='.$dm->manghe)}}">BCTH hợp giá kê khai</a></li>
+                                                    @endif
+                                                </ul>
+                                            </li>
+                                        @endif
+                                    @endif
+                                @endforeach
+                            </ul>
+                        </li>
+                    @endif
+            </ul>
+        </li>
+    @endif
+@endif

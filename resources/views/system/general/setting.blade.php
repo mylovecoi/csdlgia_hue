@@ -17,7 +17,7 @@
     <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
     <script>
         jQuery(document).ready(function() {
-            TableManaged.init();
+            TableManaged.initTable4();
         });
     </script>
 
@@ -36,34 +36,68 @@
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box">
                 <div class="portlet-body">
-                    <table class="table table-striped table-bordered table-hover">
+                    <table id="sample_4" class="table table-striped table-bordered table-hover">
                         <thead>
-                        <tr>
-                            <th rowspan="2">Nội dung CSDL địa phương</th>
-                            <th colspan="2" width="20%">Chức năng</th>
-                        </tr>
-                        <tr>
-                           <th width="10%">Quản lý</th>
-                           <th width="10%">Công bố</th>
-                        </tr>
-                        </thead>
+                            <tr>
+                                <th width="7%" rowspan="2">STT</th>
+                                <th rowspan="2">Nội dung CSDL địa phương</th>
+                                <th colspan="2">Chức năng</th>
+                                <th rowspan="2" width="7%">Thao</br>tác</th>
+                            </tr>
+                            <tr>
+                               <th width="7%">Quản lý</th>
+                               <th width="7%">Công bố</th>
+                            </tr>
+                            </thead>
                         <tbody>
-                        @include('system.general.csdlgiahhdv')
-                        @include('system.general.csdlthamdinhgia')
-                        @include('system.general.csdlvbqlnn')
-                        @include('system.general.csdlpvctqlnngia')
+                            <?php $i = 1; ?>
+                            @foreach($setting as $k_csdl=>$v_csdl)
+                                <tr style="font-weight: bold;">
+                                    <td class="text-left">{{romanNumerals($i++)}}</td>
+                                    <td>{{isset($a_chucnang[$k_csdl]) ? $a_chucnang[$k_csdl] : $k_csdl}}</td>
+                                    <td class="text-center">{!!$v_csdl['index'] == 1 ? '<i class="fa fa-check"></i>':''!!} </td>
+                                    <td class="text-center">{!!$v_csdl['congbo'] == 1 ? '<i class="fa fa-check"></i>':''!!} </td>
+                                    <td class="text-center">
+                                        <button type="button" onclick="change()" class="btn btn-default btn-xs mbs" data-target="#edit-modal" data-toggle="modal">
+                                            <i class="fa fa-refresh"></i></button>
+                                    </td>
+                                </tr>
+                                <!-- Duyệt các group chức năng: Định giá; Kê khai; Phí, lệ phí, ... -->
+                                <?php $j = 1; ?>
+                                @foreach($v_csdl as $k_gr=>$v_gr)
+                                    @if(is_array($v_gr))
+                                        <tr  style="font-style: italic;font-weight: bold;">
+                                            <td class="text-center">{{$j++}}</td>
+                                            <td>{{isset($a_chucnang[$k_gr]) ? $a_chucnang[$k_gr] : $k_gr}}</td>
+                                            <td class="text-center">{!!$v_gr['index'] == 1 ? '<i class="fa fa-check"></i>':''!!} </td>
+                                            <td class="text-center">{!!$v_gr['congbo'] == 1 ? '<i class="fa fa-check"></i>':''!!} </td>
+                                            <td></td>
+                                        </tr>
+
+                                        <?php $m = 1; ?>
+                                        @foreach($v_gr as $k=>$v)
+                                            @if(is_array($v))
+                                                <tr>
+                                                    <td class="text-right">{{$m++}}</td>
+                                                    <td>{{isset($a_chucnang[$k]) ? $a_chucnang[$k] : $k}}</td>
+                                                    <td class="text-center">{!!$v['index'] == 1 ? '<i class="fa fa-check"></i>':''!!} </td>
+                                                    <td class="text-center">{!!$v['congbo'] == 1 ? '<i class="fa fa-check"></i>':''!!} </td>
+                                                    <td></td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                @endforeach
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
                 <div class="row">
                     <div class="col-md-12" style="text-align: center">
                         <a href="{{url('general')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
-                        <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Cập nhật</button>
                     </div>
                 </div>
             </div>
-
 
         </div>
 
@@ -76,7 +110,9 @@
         <!-- BEGIN DASHBOARD STATS -->
 
         <!-- END DASHBOARD STATS -->
-    <div class="clearfix"></div>
+    <script>
+
+    </script>
 
 
 

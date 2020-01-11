@@ -510,6 +510,7 @@ return array(
     'CreateCungcapgiaTable' => $baseDir . '/database/migrations/2019_01_21_093851_create_cungcapgia_table.php',
     'CreateCungcapgiactTable' => $baseDir . '/database/migrations/2019_01_21_093910_create_cungcapgiact_table.php',
     'CreateCungcapgiactdfTable' => $baseDir . '/database/migrations/2019_01_21_093903_create_cungcapgiactdf_table.php',
+    'CreateDanhmucchucnangTable' => $baseDir . '/database/migrations/2020_01_09_160720_create_danhmucchucnang_table.php',
     'CreateDaugiadatTable' => $baseDir . '/database/migrations/2018_11_05_093753_create_daugiadat_table.php',
     'CreateDaugiadatctTable' => $baseDir . '/database/migrations/2018_11_05_111141_create_daugiadatct_table.php',
     'CreateDaugiadatctdfTable' => $baseDir . '/database/migrations/2018_11_05_095547_create_daugiadatctdf_table.php',

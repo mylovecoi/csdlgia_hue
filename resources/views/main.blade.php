@@ -184,7 +184,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <!-- BEGIN USER LOGIN DROPDOWN -->
                 <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                 <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
-                    <a href="{{url('giahanghoadichvu')}}" class="dropdown-toggle" target="_blank">
+                    <a href="{{url('/giahanghoadichvu')}}" class="dropdown-toggle" target="_blank">
                         <i class="fa fa-cloud"></i>
 					<span class="badge badge-danger">
 					View</span>
@@ -209,7 +209,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-default">
-                        @if(session('admin')->sadmin != 'ssa')
+                        @if(session('admin')->level != 'SSA')
                         <li>
                             <a href="{{url('user_setting')}}">
                                 <i class="icon-settings"></i> Thông tin tài khoản</a>
@@ -221,12 +221,12 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <i class="icon-settings"></i> Thông tin đơn vị</a>
                         </li>
                         @endif
-                        @if(session('admin')->sadmin != 'ssa')
+                        {{--@if(session('admin')->level != 'SSA')--}}
                         <li>
                             <a href="{{url('change-password')}}">
                                 <i class="icon-lock"></i> Đổi mật khẩu</a>
                         </li>
-                        @endif
+                        {{--@endif--}}
                         <li>
                             <a href="{{url('logout')}}">
                                 <i class="icon-key"></i> Đăng xuất </a>
@@ -268,37 +268,106 @@ License: You must have a valid license purchased only from themeforest(the above
                 <!--Manager-->
                 @if(canGeneral('csdlmucgiahhdv','index'))
                     @if(can('csdlmucgiahhdv','index'))
-                    <li class="heading">
-                        <h3 class="uppercase">CSDL về mức giá HH-DV</h3>
-                    </li>
-                    @include('includes.main.maincsdlmucgiahhdv')
+                        <li class="heading">
+                            <h3 class="uppercase">CSDL về mức giá HH-DV</h3>
+                        </li>
+                        @include('includes.main.maincsdlmucgiahhdv')
                     @endif
                 @endif
+
                 @if(canGeneral('csdlthamdinhgia','index'))
                     @if(can('csdlthamdinhgia','index'))
-                    <li class="heading">
-                        <h3 class="uppercase">CSDL thẩm định giá</h3>
-                    </li>
-                    @include('includes.main.mainthamdinhgia')
+                        <li class="heading">
+                            <h3 class="uppercase">CSDL thẩm định giá</h3>
+                        </li>
+                        @include('includes.main.mainthamdinhgia')
                     @endif
                 @endif
+
                 @if(canGeneral('csdlvbqlnn','index'))
                     @if(can('csdlvbqlnn','index'))
-                    <li class="heading">
-                        <h3 class="uppercase">Văn bản QLNN về giá - phí, lệ phí</h3>
-                    </li>
-                    @include('includes.main.mainvbqlnn')
+                        <li class="heading">
+                            <h3 class="uppercase">Văn bản QLNN về giá - phí, lệ phí</h3>
+                        </li>
+                        @include('includes.main.mainvbqlnn')
                     @endif
                 @endif
                 @if(canGeneral('csdlttpvctqlnn','index'))
                     @if(can('csdlttpvctqlnn','index'))
-                    <li class="heading">
-                        <h3 class="uppercase">TT phục vụ CT QLNN về giá</h3>
-                    </li>
-                    @include('includes.main.mainttpvctqlnn')
+                        <li class="heading">
+                            <h3 class="uppercase">TT phục vụ CT QLNN về giá</h3>
+                        </li>
+                        @include('includes.main.mainttpvctqlnn')
                     @endif
                 @endif
-                @if(session('admin')->level == 'T')
+                <!--
+                    1. Tài khoản SSA
+                    2. Tài khoản quản trị hệ thống chucnang=QUANTRI
+                -->
+                @if(session('admin')->chucnang == 'QUANTRI' || session('admin')->level == 'SSA')
+                    @if(can('system','index'))
+                        <li class="heading">
+                            <h3 class="uppercase">Hệ thống</h3>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <i class="icon-settings"></i>
+                                <span class="title">Quản trị hệ thống</span>
+                                <span class="arrow "></span>
+                            </a>
+                            <ul class="sub-menu">
+
+                                @if(can('ngaynghile','index'))
+                                    <li><a href="{{url('thongtinngaynghile')}}">Thông tin ngày nghỉ lễ</a></li>
+                                @endif
+                                @if(can('dmdiadanh','index'))
+                                    <li><a href="{{url('danhmucdiadanh')}}">Danh mục địa danh</a></li>
+                                @endif
+                                @if(can('districts','index'))
+                                    <li><a href="{{url('district')}}">Danh sách đơn vị quản lý</a></li>
+                                @endif
+
+                                @if(can('towns','index'))
+                                    <li><a href="{{url('town')}}">Danh sách đơn vị</a></li>
+                                @endif
+                                @if(can('companies','index'))
+                                    <li><a href="{{url('company')}}">Danh sách doanh nghiệp</a></li>
+                                @endif
+
+                                @if(can('users','index'))
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="title">Danh sách tài khoản</span>
+                                            <span class="arrow "></span>
+                                        </a>
+                                        <ul class="sub-menu">
+                                            @if(session('admin')->level == 'T' || session('admin')->level == 'H')
+                                                <li><a href="{{url('users')}}">Tài khoản đơn vị</a></li>
+                                            @endif
+                                            @if(session('admin')->level == 'T' || session('admin')->level == 'H' || session('admin')->level == 'X')
+                                                @if(can('companies','index'))
+                                                    <li><a href="{{url('userscompany')}}">Tài khoản doanh nghiệp</a></li>
+                                                @endif
+                                            @endif
+                                        </ul>
+                                    </li>
+                                @endif
+                                @if(can('register','index'))
+                                    <li><a href="{{url('register')}}">Tài khoản đăng ký</a></li>
+                                @endif
+
+                                @if(session('admin')->level == 'SSA')
+                                    <li><a href="{{url('/danhmucnganhkd')}}">Danh mục ngành nghề kinh doanh</a> </li>
+                                    <li><a href="{{url('/chucnang')}}">Danh mục chức năng hệ thống</a> </li>
+                                    <li><a href="{{url('/general')}}">Cấu hình hệ thống</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                        @endif
+                    @endif
+
+                <!-- lưu 09/01/2020
+                @if(session('admin')->level == 'T' || session('admin')->level == 'SSA')
                 @if(can('system','index'))
                     <li class="heading">
                         <h3 class="uppercase">System</h3>
@@ -357,6 +426,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     </li>
                 @endif
                 @endif
+                -->
             </ul>
 
             <!-- END SIDEBAR MENU -->

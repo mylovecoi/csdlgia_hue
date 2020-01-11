@@ -245,28 +245,12 @@ var TableManaged = function () {
         tableWrapper.find('.dataTables_length select').select2(); // initialize select2 dropdown
     }
 
-
     var initTable4 = function () {
 
         var table = $('#sample_4');
 
         // begin: third table
         table.dataTable({
-
-            // Internationalisation. For more info refer to http://datatables.net/manual/i18n
-            "language": {
-                "aria": {
-                    "sortAscending": ": activate to sort column ascending",
-                    "sortDescending": ": activate to sort column descending"
-                },
-                "emptyTable": "No data available in table",
-                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
-                "infoEmpty": "No entries found",
-                "infoFiltered": "(filtered1 from _MAX_ total entries)",
-                "lengthMenu": "Show _MENU_ entries",
-                "search": "Search:",
-                "zeroRecords": "No matching records found"
-            },
 
             // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
             // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js).
@@ -280,7 +264,7 @@ var TableManaged = function () {
                 [5, 10, 15, 20, "All"] // change per page values here
             ],
             // set the initial value
-            "pageLength": 5,
+            "pageLength": -1,
             "language": {
                 "lengthMenu": "Hiển thị _MENU_ thông tin",
                 "search": "Tìm kiếm:",
@@ -297,9 +281,7 @@ var TableManaged = function () {
                 "searchable": false,
                 "targets": [0]
             }],
-            "order": [
-                [0, "asc"]
-            ] // set first column as a default sort by asc
+            "bSort" : false
         });
 
         var tableWrapper = jQuery('#sample_4_wrapper');
@@ -385,8 +367,8 @@ var TableManaged = function () {
             if (!jQuery().dataTable) {
                 return;
             }
-            initTable1();
-            initTable2();
+            //initTable1();
+            //initTable2();
             initTable3();
             initTable4();
             initTable88();
