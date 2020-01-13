@@ -89,21 +89,37 @@ class GeneralConfigsController extends Controller
         if (Session::has('admin')) {
             if (session('admin')->level == 'SSA') {
                 $model = GeneralConfigs::first();
-                $setting = $model->setting == '' ? json_decode($model->setting) : getGiaoDien();
-                $a_chucnang = array_column(DanhMucChucNang::all()->toArray(),'mota','maso');
+                $gui = getGiaoDien();
+                $setting = json_decode($model->setting, true);
                 //dd($setting);
-                foreach($setting as $k_csdl=>$v_csdl){
-                    //dd($v_csdl);
-                    foreach($v_csdl as $k_gr=>$v_gr){
-                        if(is_array($v_gr)){
-                            //dd($v_gr);
+                foreach($gui as $k_csdl=>$v_csdl) {
+                    if(isset($setting[$k_csdl])){
+                        $gui[$k_csdl]['index'] = $setting[$k_csdl]['index'];
+                        $gui[$k_csdl]['congbo'] = $setting[$k_csdl]['congbo'];
+                        if (!is_array($v_csdl)) {
+                            continue;
+                        }
+                        foreach ($v_csdl as $k_gr => $v_gr) {
+                            if(isset($setting[$k_csdl][$k_gr])){
+                                $gui[$k_csdl]['index'] = $setting[$k_csdl]['index'];
+                                $gui[$k_csdl]['congbo'] = $setting[$k_csdl]['congbo'];
+                                if (!is_array($v_gr)) {
+                                    continue;
+                                }
+                                foreach ($v_gr as $k => $v) {
+                                    $gui[$k_csdl][$k_gr][$k] = $setting[$k_csdl][$k_gr][$k];
+                                }
+                            }
                         }
                     }
-                    //dd(1);
                 }
+
+                $a_chucnang = array_column(DanhMucChucNang::all()->toArray(),'mota','maso');
+                //dd($gui);
+
                 return view('system.general.setting')
                     ->with('model', $model)
-                    ->with('setting', $setting)
+                    ->with('setting', $gui)
                     ->with('a_chucnang', $a_chucnang)
                     ->with('pageTitle', 'Cấu hình chức năng chương trình');
             } else {
@@ -117,13 +133,39 @@ class GeneralConfigsController extends Controller
     public function updatesetting(Request $request){
         if (Session::has('admin')) {
             if(session('admin')->level == 'SSA'){
-                $update = $request->all();
+                $inputs = $request->all();
+                $roles = $inputs['roles'];
                 $model = GeneralConfigs::first();
-                $update['roles'] = isset($update['roles']) ? $update['roles'] : null;
-                $model->setting = json_encode($update['roles']);
-                $model->save();
+                $setting = json_decode($model->setting,true);
+                $setting_df = getGiaoDien();
+                foreach($roles as $k_csdl=>$v_csdl) {
+                    if (!isset($setting[$k_csdl])) {
+                        $setting[$k_csdl] = $setting_df[$k_csdl];
+                    }
 
-                return redirect('general');
+                    if(!is_array($v_csdl)){
+                        $setting[$k_csdl] = $roles[$k_csdl];
+                    }else{
+                        foreach ($v_csdl as $k_gr => $v_gr) {
+                            if (!isset($setting[$k_csdl][$k_gr])) {
+                                $setting[$k_csdl][$k_gr] = $setting_df[$k_csdl][$k_gr];
+                            }
+                            if (!is_array($v_gr)) {
+                                $setting[$k_csdl][$k_gr] = $roles[$k_csdl][$k_gr];
+                            }else{
+                                foreach ($v_gr as $k => $v) {
+                                    $setting[$k_csdl][$k_gr][$k] = $roles[$k_csdl][$k_gr][$k];
+                                }
+                            }
+                        }
+                    }
+                }
+                //dd(json_encode($setting));
+                //$update['roles'] = isset($inputs['roles']) ? $inputs['roles'] : null;
+                $model->setting = json_encode($setting);
+                $model->save();
+                //dd($model);
+                return redirect('/setting');
             }else{
                 return view('errors.noperm');
             }
@@ -131,6 +173,5 @@ class GeneralConfigsController extends Controller
         }else
             return view('errors.notlogin');
     }
-
 
 }
