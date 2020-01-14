@@ -25,35 +25,47 @@
         function ClickDelete(){
             $('#frm_delete').submit();
         }
+        $(function(){
+            $('#madiaban').change(function(){
+                window.location.href = '/donvi/danhsach?madiaban=' + $(this).val();
+            });
+        });
     </script>
 @stop
 
 @section('content')
-
     <h3 class="page-title">
-        Danh sách địa bàn<small>&nbsp;quản lý</small>
+        Danh sách đơn vị<small>&nbsp;quản lý</small>
     </h3>
     <!-- END PAGE HEADER-->
     <div class="row">
-
         <div class="col-md-12">
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box">
                 <div class="portlet-title">
                     <div class="actions">
                         @if(chkPer('hethong', 'hethong', 'danhsachdiaban', 'modify'))
-                            <button type="button" onclick="add()" class="btn btn-default btn-xs" data-target="#modify-modal" data-toggle="modal">
-                                <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
+                            <a href="{{url('/donvi/create?&madiaban='.$inputs['madiaban'])}}" class="btn btn-default btn-xs">
+                                <i class="fa fa-plus"></i> Thêm mới</a>
                         @endif
                     </div>
                 </div>
                 <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label style="font-weight: bold">Địa bàn</label>
+                                {{Form::select('madiaban',$a_diaban, $inputs['madiaban'],['id'=>'madiaban', 'class'=>'form-control'])}}
+                            </div>
+                        </div>
+                    </div>
+
                     <table class="table table-striped table-bordered table-hover" id="sample_3">
                         <thead>
                             <tr class="text-center">
                                 <th width="4%">STT</th>
                                 <th width="15%">Mã đơn vị</th>
-                                <th>Tên địa bàn</th>
+                                <th>Tên đơn vị</th>
                                 <th width="20%">Phân loại</th>
                                 <th width="15%">Thao tác</th>
                             </tr>
@@ -63,13 +75,13 @@
                             @foreach($model as $key=>$tt)
                                 <tr class="odd gradeX">
                                     <td style="text-align: center">{{$i++}}</td>
-                                    <td class="text-center">{{$tt->madiaban}}</td>
-                                    <td class="active" >{{$tt->tendiaban}}</td>
-                                    <td>{{$a_phanloai[$tt->level] ?? ''}}</td>
+                                    <td class="text-center">{{$tt->madv}}</td>
+                                    <td class="active" >{{$tt->tendv}}</td>
+                                    <td>{{$a_phanloai[$tt->chucnang] ?? ''}}</td>
                                     <td>
                                         @if(chkPer('hethong', 'hethong', 'danhsachdiaban', 'modify'))
-                                            <button type="button" onclick="edit('{{$tt->madiaban}}','{{$tt->tendiaban}}','{{$tt->level}}')" class="btn btn-default btn-xs mbs" data-target="#modify-modal" data-toggle="modal">
-                                                <i class="fa fa-edit"></i>&nbsp;Sửa</button>
+                                            <a href="{{url('/donvi/modify?madv='.$tt->madv)}}" class="btn btn-default btn-xs mbs">
+                                                <i class="fa fa-edit"></i> Sửa</a>
 
                                             <button type="button" onclick="getId('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal">
                                                 <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
@@ -132,10 +144,10 @@
         </div>
         {!! Form::close() !!}
 
-    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url'=>'diaban/delete','id' => 'frm_delete'])!!}
+                {!! Form::open(['url'=>'donvi/delete','id' => 'frm_delete'])!!}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Đồng ý xóa?</h4>
@@ -152,18 +164,18 @@
         <!-- /.modal-dialog -->
     </div>
 
-    <script>
-        function add(){
-            $('#madiaban').val('');
-            $('#madiaban').attr('readonly',true);
-        }
+        <script>
+            function add(){
+                $('#madiaban').val('');
+                $('#madiaban').attr('readonly',true);
+            }
 
-        function edit(madiaban, tendiaban, level){
-            $('#madiaban').attr('readonly',false);
-            $('#madiaban').val(madiaban);
-            $('#tendiaban').val(tendiaban);
-            $('#level').val(level).trigger('change');
-        }
-    </script>
+            function edit(madiaban, tendiaban, level){
+                $('#madiaban').attr('readonly',false);
+                $('#madiaban').val(madiaban);
+                $('#tendiaban').val(tendiaban);
+                $('#level').val(level).trigger('change');
+            }
+        </script>
 </div>
 @stop

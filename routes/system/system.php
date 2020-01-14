@@ -9,6 +9,15 @@ Route::group(['prefix'=>'diaban'], function(){
     Route::post('delete','system\dsdiabanController@delete');
 });
 
+Route::group(['prefix'=>'donvi'], function(){
+    Route::get('danhsach', 'system\dsdonviController@index');
+    Route::get('create', 'system\dsdonviController@create');
+    Route::post('store', 'system\dsdonviController@store');
+    Route::get('modify', 'system\dsdonviController@modify');
+    Route::post('update', 'system\dsdonviController@update');
+    Route::post('delete','system\dsdonviController@delete');
+});
+
 Route::resource('district','DistrictController');
 Route::resource('town','TownController');
 

@@ -108,4 +108,12 @@ function getPhanLoaiDonVi_DiaBan(){
         'H'=>'Đơn vị hành chính cấp Huyện',
     );
 }
+
+function getPhanLoaiDonVi(){
+    return array(
+        'TONGHOP'=>'Đơn vị tổng hợp dữ liệu',
+        'NHAPLIEU'=>'Đơn vị nhập liệu',
+        'QUANTRI'=>'Đơn vị quản trị hệ thống',
+    );
+}
 ?>
