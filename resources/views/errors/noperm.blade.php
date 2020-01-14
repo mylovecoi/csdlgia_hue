@@ -17,7 +17,11 @@
     <link rel="stylesheet" href="{{ url('css/style-responsive.css') }}">
 </head>
 <body id="error-page" class="animated bounceInLeft">
-<div id="error-page-content"><h1>Lỗi!</h1><h4>Thông tin này không thuộc phạm vi quản lý của bạn!</h4>
+<div id="error-page-content">
+    <h1>Lỗi!</h1>
+    <h4>{{isset($message) ? $message : 'Thông tin này không thuộc phạm vi quản lý của bạn!'}} </h4>
+    <p><a href='{{isset($url) ? url($url) : url('/') }}'>Bấm vào đây</a> để quay lại.</p></div>
+</div>
 <script src="{{ url('js/jquery-1.9.1.js') }}"></script>
 <script src="{{ url('js/jquery-migrate-1.2.1.min.js') }}"></script>
 <script src="{{ url('js/jquery-ui.js') }}"></script>

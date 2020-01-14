@@ -3,6 +3,12 @@ Route::resource('general','GeneralConfigsController');
 Route::get('setting','GeneralConfigsController@setting');
 Route::post('setting','GeneralConfigsController@updatesetting');
 
+Route::group(['prefix'=>'diaban'], function(){
+    Route::get('danhsach','system\dsdiabanController@index');
+    Route::post('modify','system\dsdiabanController@modify');
+    Route::post('delete','system\dsdiabanController@delete');
+});
+
 Route::resource('district','DistrictController');
 Route::resource('town','TownController');
 

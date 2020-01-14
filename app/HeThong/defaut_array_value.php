@@ -100,4 +100,12 @@ function getThang(){
 function getNam(){
     return array('2017' => '2017','2018' => '2018','2019' => '2019','2020' => '2020');
 }
+
+function getPhanLoaiDonVi_DiaBan(){
+    return array(
+        'ADMIN'=>'Đơn vị tổng hợp toàn Tỉnh',
+        'T'=>'Đơn vị hành chính cấp Tỉnh',
+        'H'=>'Đơn vị hành chính cấp Huyện',
+    );
+}
 ?>

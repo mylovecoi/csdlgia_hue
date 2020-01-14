@@ -2567,6 +2567,14 @@ function getDbl($obj) {
         return 0;
 }
 
+//Kiểm tra giao diện + phân quyền tài khoản
+function chkPer($csdl = null, $group = null, $per = null, $action = null){
+    if(session('admin')->level == 'SSA') {
+        return true;
+    }
+    return true;
+}
+
 function can($module = null, $action = null)
 {
     //tài khoản SSA full quyền

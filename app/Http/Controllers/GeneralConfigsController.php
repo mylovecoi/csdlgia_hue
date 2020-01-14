@@ -7,7 +7,7 @@ use App\Users;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Model\system\DanhMucChucNang;
+use App\Model\system\danhmucchucnang;
 use Illuminate\Support\Facades\Session;
 
 class GeneralConfigsController extends Controller
@@ -114,7 +114,7 @@ class GeneralConfigsController extends Controller
                     }
                 }
 
-                $a_chucnang = array_column(DanhMucChucNang::all()->toArray(),'mota','maso');
+                $a_chucnang = array_column(danhmucchucnang::all()->toArray(),'mota','maso');
                 //dd($gui);
 
                 return view('system.general.setting')

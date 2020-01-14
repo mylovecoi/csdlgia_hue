@@ -316,6 +316,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <span class="arrow "></span>
                             </a>
                             <ul class="sub-menu">
+                                @if(chkPer('hethong', 'hethong', 'danhsachdiaban', 'index'))
+                                    <li><a href="{{url('/diaban/danhsach')}}">Danh sách địa bàn</a></li>
+                                @endif
 
                                 @if(can('ngaynghile','index'))
                                     <li><a href="{{url('thongtinngaynghile')}}">Thông tin ngày nghỉ lễ</a></li>
