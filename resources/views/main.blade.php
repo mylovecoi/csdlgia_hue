@@ -322,6 +322,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                 @if(chkPer('hethong', 'hethong', 'danhsachdonvi', 'index'))
                                     <li><a href="{{url('/donvi/danhsach')}}">Danh sách đơn vị</a></li>
                                 @endif
+                                @if(chkPer('hethong', 'hethong', 'danhsachtaikhoan', 'index'))
+                                    <li><a href="{{url('/taikhoan/danhsach')}}">Danh sách tài khoản</a></li>
+                                @endif
 
                                 @if(can('ngaynghile','index'))
                                     <li><a href="{{url('thongtinngaynghile')}}">Thông tin ngày nghỉ lễ</a></li>

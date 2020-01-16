@@ -2462,6 +2462,7 @@ function getGiaoDien()
             'giadvkcb' => array('index' => '0', 'congbo' => '0'),
             'trogiatrocuoc' => array('index' => '0', 'congbo' => '0'),
             'giaspdvci' => array('index' => '0', 'congbo' => '0'),
+            'giahhdvcn' => array('index' => '0', 'congbo' => '0'),
         ),
         'hhdv' => array(
             'index' => '0', 'congbo' => '0',
@@ -2483,6 +2484,7 @@ function getGiaoDien()
         ),
         'kknygia' => array(
             'index' => '0', 'congbo' => '0',
+            'thongtin' => array('index' => '0', 'congbo' => '0'),//xét duyệt thay đổi thông tin của đơn vị
             'vlxd' => array('index' => '0', 'congbo' => '0'),
             'xmtxd' => array('index' => '0', 'congbo' => '0'),
             'dvhdtmck' => array('index' => '0', 'congbo' => '0'),
@@ -2542,6 +2544,309 @@ function getGiaoDien()
     return $gui;
 }
 
+function getPhanQuyen()
+{
+    $gui = array();
+    $gui['csdlmucgiahhdv'] = array(
+        'index' => '0',
+        'dinhgia' => array(
+            'index' => '0',
+            'giacldat' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'giadatduan' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'giadatpl' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'giadaugiadat' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'daugiadatts' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'giathuetn' => array(
+                'index' => '0',
+                'danhmuc' => array('index' => '0', 'modify' => '0',),
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'giathuedatnuoc' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'giarung' => array(
+                'index' => '0',
+                'danhmuc' => array('index' => '0', 'modify' => '0',),
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'giathuemuanhaxh' => array(
+                'index' => '0',
+                'danhmuc' => array('index' => '0', 'modify' => '0',),
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'giathuenhacongvu' => array(
+                'index' => '0',
+                'danhmuc' => array('index' => '0', 'modify' => '0',),
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'bannhataidinhcu' => array(
+                'index' => '0',
+                'danhmuc' => array('index' => '0', 'modify' => '0',),
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'gianuocsh' => array(
+                'index' => '0',
+                'danhmuc' => array('index' => '0', 'modify' => '0',),
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'giathuetscong' => array(
+                'index' => '0',
+                'danhmuc' => array('index' => '0', 'modify' => '0',),
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'giathuetsdautu' => array(
+                'index' => '0',
+                'danhmuc' => array('index' => '0', 'modify' => '0',),
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'giadvgddt' => array(
+                'index' => '0',
+                'danhmuc' => array('index' => '0', 'modify' => '0',),
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'giadvkcb' => array(
+                'index' => '0',
+                'danhmuc' => array('index' => '0', 'modify' => '0',),
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'trogiatrocuoc' => array(
+                'index' => '0',
+                'danhmuc' => array('index' => '0', 'modify' => '0',),
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'giaspdvci' => array(
+                'index' => '0',
+                'danhmuc' => array('index' => '0', 'modify' => '0',),
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'giahhdvcn' => array(
+                'index' => '0',
+                'danhmuc' => array('index' => '0', 'modify' => '0',),
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+        ),
+        'hhdv' => array(
+            'index' => '0',
+            'giahhdvk' => array(
+                'index' => '0',
+                'danhmuc' => array('index' => '0', 'modify' => '0',),
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'giathitruong' => array(
+                'index' => '0',
+                'danhmuc' => array('index' => '0', 'modify' => '0',),
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+        ),
+        'philephi' => array(
+            'index' => '0',
+            'gialephitruocba' => array(
+                'index' => '0',
+                'danhmuc' => array('index' => '0', 'modify' => '0',),
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'gialephitruocbanha' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'giaphilephi' => array(
+                'index' => '0',
+                'danhmuc' => array('index' => '0', 'modify' => '0',),
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+        ),
+        'taisan' => array(
+            'index' => '0',
+            'thanhlytaisan' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'giabatdongsan' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'muataisan' => array(
+                'index' => '0',
+                'danhmuc' => array('index' => '0', 'modify' => '0',),
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'giagocvlxd' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+        ),
+        'kknygia' => array(
+            'index' => '0',
+            'thongtin' => array(//tài khoản có chức năng
+                'index' => '0',
+                'hoso' => array('index' => '0', 'approve' => '0',),
+            ),
+            'vlxd' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'approve' => '0',),
+            ),
+            'xmtxd' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'approve' => '0',),
+            ),
+            'dvhdtmck' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'approve' => '0',),
+            ),
+            'than' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'approve' => '0',),
+            ),
+            'tacn' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'approve' => '0',),
+            ),
+            'giay' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'approve' => '0',),
+            ),
+            'sach' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'approve' => '0',),
+            ),
+            'etanol' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'approve' => '0',),
+            ),
+            'dvcb' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'approve' => '0',),
+            ),
+            'oto' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'approve' => '0',),
+            ),
+            'xemay' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'approve' => '0',),
+            ),
+            'kcbtn' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'approve' => '0',),
+            ),
+            'dvvtxk' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'approve' => '0',),
+            ),
+            'dvvtxb' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'approve' => '0',),
+            ),
+            'dvvtxtx' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'approve' => '0',),
+            ),
+            'dvvthk' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'approve' => '0',),
+            ),
+            'tpcnte6t' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'approve' => '0',),
+            ),
+            'dvlt' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'approve' => '0',),
+            ),
+            'dlbb' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'approve' => '0',),
+            ),
+            'tqkdl' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'approve' => '0',),
+            ),
+            'bog' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'approve' => '0',),
+            ),
+        ),
+    );
+    $gui['csdlthamdinhgia'] = array(
+        'index' => '0',
+        'thamdinhgia' => array(
+            'index' => '0',
+            'dmhhthamdinhgia' => array(
+                'index' => '0',
+                'danhmuc' => array('index' => '0', 'modify' => '0',),
+            ),
+            'dmdonvi' => array(
+                'index' => '0',
+                'danhmuc' => array('index' => '0', 'modify' => '0',),
+            ),
+            'thamdinhgia' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'cungcapgia' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+        ),
+    );
+    $gui['csdlvbqlnn'] = array(
+        'index' => '0',
+        'vbqlnn' => array(
+            'index' => '0',
+            'vbgia' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'chisogiatieudung' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+            'bcthvegia' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+
+        ),
+    );
+    $gui['csdlttpvctqlnn'] = array(
+        'index' => '0',
+        'ttpvctqlnn' => array(
+            'index' => '0',
+            'ttpvctqlnn' => array(
+                'index' => '0',
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+        ),
+    );
+    $gui['hethong'] = array(
+        'index' => '0',
+        'hethong' => array(
+            'index' => '0',
+            'danhsachdiaban' => array(
+                'index' => '0', 'modify' => '0',),
+            'danhsachdonvi' => array(
+                'index' => '0', 'modify' => '0',),
+        ),
+    );
+    return $gui;
+}
+
 function getDayVn($date) {
     if($date != null || $date != '')
         $newday = date('d/m/Y',strtotime($date));
@@ -2568,7 +2873,7 @@ function getDbl($obj) {
 }
 
 //Kiểm tra giao diện + phân quyền tài khoản
-function chkPer($csdl = null, $group = null, $per = null, $action = null){
+function chkPer($csdl = null, $group = null, $feature = null , $action = null, $per = null){
     if(session('admin')->level == 'SSA') {
         return true;
     }

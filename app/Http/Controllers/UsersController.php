@@ -342,7 +342,6 @@ class UsersController extends Controller
 
     }
 
-
     public function settinguser(){
         if (Session::has('admin')) {
             //$model = User::where('user',session('admin')->user)->first();
