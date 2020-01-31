@@ -11,6 +11,9 @@ use App\DnDvLtReg;
 use App\DnTaCn;
 use App\DonViDvVt;
 use App\DonViDvVtReg;
+use App\GeneralConfigs;
+use App\Model\system\dsdiaban;
+use App\Model\system\dsdonvi;
 use App\Register;
 use App\Users;
 use Carbon\Carbon;
@@ -34,36 +37,50 @@ class UsersController extends Controller
     public function signin(Request $request)
     {
         $input = $request->all();
-        $check = Users::where('username', $input['username'])->count();
-        if ($check == 0)
+        $ttuser = Users::where('username', $input['username'])->first();
+        //Tài khoản không tồn tại
+        if ($ttuser == null) {
             return view('errors.invalid-user');
-        else {
-            $ttuser = Users::where('username', $input['username'])->first();
         }
-        if (md5($input['password']) == $ttuser->password) {
-            if ($ttuser->status == "Kích hoạt") {
-//                if ($ttuser->level == 'DVVT') {
-//                    $ttdn = Company::where('maxa', $ttuser->maxa)
-//                        ->where('level', 'DVVT')
-//                        ->first();
-//                    $ttuser->dvvtcc = $ttdn->settingdvvt;
-//                    $ttuser->loaihinhhd = $ttdn->loaihinhhd;
-//                }
-
-                //kiểm tra tài khoản
-                //1. level = SSA ->
-                if($ttuser->level != "SSA"){
-                    //2. level != SSA -> lấy thông tin đơn vị, hệ thống để thiết lập lại
-                    //nên lấy setting gán luôn vào để đỡ pai ra vào hệ thống khi kiểm tra quyền
-                }
-                Session::put('admin', $ttuser);
-                return redirect('')
-                    ->with('pageTitle', 'Tổng quan');
-            } else
-                return view('errors.lockuser');
-
-        } else
+        //Sai mật khẩu
+        if (md5($input['password']) != $ttuser->password) {
             return view('errors.invalid-pass');
+        }
+        //Tài khoản đang bị khóa
+        if ($ttuser->status != "Kích hoạt") {
+            return view('errors.lockuser');
+        }
+
+        //kiểm tra tài khoản
+        //1. level = SSA ->
+        if ($ttuser->level != "SSA") {
+            //2. level != SSA -> lấy thông tin đơn vị, hệ thống để thiết lập lại
+            $m_donvi = dsdonvi::where('madv',$ttuser->madv)->first();
+            $ttuser->madiaban = $m_donvi->madiaban;
+            $ttuser->maqhns = $m_donvi->maqhns;
+            $ttuser->tendv = $m_donvi->tendv;
+            $ttuser->emailql = $m_donvi->emailql;
+            $ttuser->emailqt = $m_donvi->emailqt;
+            $ttuser->songaylv = $m_donvi->songaylv;
+            $ttuser->tendvhienthi = $m_donvi->tendvhienthi;
+            $ttuser->tendvcqhienthi = $m_donvi->tendvcqhienthi;
+            $ttuser->chucvuky = $m_donvi->chucvuky;
+            $ttuser->chucvukythay = $m_donvi->chucvukythay;
+            $ttuser->nguoiky = $m_donvi->nguoiky;
+            $ttuser->diadanh = $m_donvi->diadanh;
+            $ttuser->chucnang = $m_donvi->chucnang;
+            //Lấy thông tin địa bàn
+            $m_diaban = dsdiaban::where('madiaban',$ttuser->madiaban)->first();
+            $ttuser->tendiaban = $m_diaban->tendiaban;
+            $ttuser->level = $m_diaban->level;
+            //Lấy setting gán luôn vào phiên đăng nhập
+            $ttuser->setting = json_decode(GeneralConfigs::first()->setting, true);
+            $ttuser->permission = json_decode($ttuser->permission, true);
+        }
+        //dd($ttuser);
+        Session::put('admin', $ttuser);
+        return redirect('')
+            ->with('pageTitle', 'Tổng quan');
     }
 
     public function cp()
