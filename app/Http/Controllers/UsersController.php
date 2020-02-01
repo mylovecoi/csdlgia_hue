@@ -200,7 +200,8 @@ class UsersController extends Controller
             if (session('admin')->sadmin == 'ssa' || session('admin')->sadmin == 'sa') {
                 $inputs = $request->all();
                 $model = new Users();
-                $inputs['ttnguoitao'] = session('admin')->name.'('.session('admin')->username.')'. getDateTime(Carbon::now()->toDateTimeString());
+                $inputs['ttnguoitao'] = '('.session('admin')->username.')'. getDateTime(Carbon::now()->toDateTimeString());
+                //$inputs['ttnguoitao'] = session('admin')->name.'('.session('admin')->username.')'. getDateTime(Carbon::now()->toDateTimeString());
                 $inputs['password'] = md5($inputs['password']);
                 $model->create($inputs);
                 return redirect('users');

@@ -266,45 +266,39 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- END SIDEBAR TOGGLER BUTTON -->
                 </li>
                 <!--Manager-->
-                @if(canGeneral('csdlmucgiahhdv','index'))
-                    @if(can('csdlmucgiahhdv','index'))
-                        <li class="heading">
-                            <h3 class="uppercase">CSDL về mức giá HH-DV</h3>
-                        </li>
-                        @include('includes.main.maincsdlmucgiahhdv')
-                    @endif
+                @if(chkPer('csdlmucgiahhdv'))
+                    <li class="heading">
+                        <h3 class="uppercase">CSDL về mức giá HH-DV</h3>
+                    </li>
+                    @include('includes.main.maincsdlmucgiahhdv')
                 @endif
 
-                @if(canGeneral('csdlthamdinhgia','index'))
-                    @if(can('csdlthamdinhgia','index'))
-                        <li class="heading">
-                            <h3 class="uppercase">CSDL thẩm định giá</h3>
-                        </li>
-                        @include('includes.main.mainthamdinhgia')
-                    @endif
+                @if(chkPer('csdlthamdinhgia'))
+                    <li class="heading">
+                        <h3 class="uppercase">CSDL thẩm định giá</h3>
+                    </li>
+                    @include('includes.main.mainthamdinhgia')
                 @endif
 
-                @if(canGeneral('csdlvbqlnn','index'))
-                    @if(can('csdlvbqlnn','index'))
-                        <li class="heading">
-                            <h3 class="uppercase">Văn bản QLNN về giá - phí, lệ phí</h3>
-                        </li>
-                        @include('includes.main.mainvbqlnn')
-                    @endif
+                @if(chkPer('csdlvbqlnn'))
+                    <li class="heading">
+                        <h3 class="uppercase">Văn bản QLNN về giá - phí, lệ phí</h3>
+                    </li>
+                    @include('includes.main.mainvbqlnn')
                 @endif
-                @if(canGeneral('csdlttpvctqlnn','index'))
-                    @if(can('csdlttpvctqlnn','index'))
-                        <li class="heading">
-                            <h3 class="uppercase">TT phục vụ CT QLNN về giá</h3>
-                        </li>
-                        @include('includes.main.mainttpvctqlnn')
-                    @endif
+
+                @if(chkPer('csdlttpvctqlnn','index'))
+                    <li class="heading">
+                        <h3 class="uppercase">TT phục vụ CT QLNN về giá</h3>
+                    </li>
+                    @include('includes.main.mainttpvctqlnn')
                 @endif
+
                 <!--
                     1. Tài khoản SSA
                     2. Tài khoản quản trị hệ thống chucnang=QUANTRI
                 -->
-                @if(session('admin')->chucnang == 'QUANTRI' || session('admin')->level == 'SSA')
+                @if((chkPer('hethong') && session('admin')->chucnang == 'QUANTRI') || session('admin')->level == 'SSA')
                     @if(can('system','index'))
                         <li class="heading">
                             <h3 class="uppercase">Hệ thống</h3>
@@ -318,6 +312,9 @@ License: You must have a valid license purchased only from themeforest(the above
                             <ul class="sub-menu">
                                 @if(chkPer('hethong', 'hethong', 'danhsachdiaban', 'index'))
                                     <li><a href="{{url('/diaban/danhsach')}}">Danh sách địa bàn</a></li>
+                                @endif
+                                @if(chkPer('hethong', 'hethong', 'danhsachxaphuong', 'index'))
+                                    <li><a href="{{url('/xaphuong/danhsach')}}">Danh sách xã, phường, thị trấn</a></li>
                                 @endif
                                 @if(chkPer('hethong', 'hethong', 'danhsachdonvi', 'index'))
                                     <li><a href="{{url('/donvi/danhsach')}}">Danh sách đơn vị</a></li>

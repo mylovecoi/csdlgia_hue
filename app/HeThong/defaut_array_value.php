@@ -1,4 +1,7 @@
 <?php
+
+
+
 /**
  * Created by PhpStorm.
  * User: Admin
@@ -115,5 +118,16 @@ function getPhanLoaiDonVi(){
         'NHAPLIEU'=>'Đơn vị nhập liệu',
         'QUANTRI'=>'Đơn vị quản trị hệ thống',
     );
+}
+
+function getDiaBan_Level($level, $madiaban=null)
+{
+    if (in_array($level, ['SSA', 'T'])) {
+        return array_column(App\Model\system\dsdiaban::wherein('level', ['T', 'H'])->get()->toarray(),
+            'tendiaban', 'madiaban');
+    }
+
+    return array_column(App\Model\system\dsdiaban::where('madiaban', $madiaban)->get()->toarray(),
+        'tendiaban', 'madiaban');
 }
 ?>

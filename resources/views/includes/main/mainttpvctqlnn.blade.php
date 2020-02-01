@@ -2,7 +2,7 @@
     data-original-title="">
     <a href="javascript:;">
         <i class="icon-folder"></i>
-        <span class="title">TT phục vụ CT QLNN về giá</span>
+        <span class="title">Thông tin phục vụ công tác QLNN về giá</span>
         <span class="arrow"></span>
     </a>
     <ul class="sub-menu">

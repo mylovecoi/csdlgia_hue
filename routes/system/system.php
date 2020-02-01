@@ -9,6 +9,12 @@ Route::group(['prefix'=>'diaban'], function(){
     Route::post('delete','system\dsdiabanController@delete');
 });
 
+Route::group(['prefix'=>'xaphuong'], function(){
+    Route::get('danhsach','system\dsxaphuongController@index');
+    Route::post('modify','system\dsxaphuongController@modify');
+    Route::post('delete','system\dsxaphuongController@delete');
+});
+
 Route::group(['prefix'=>'donvi'], function(){
     Route::get('danhsach', 'system\dsdonviController@index');
     Route::get('create', 'system\dsdonviController@create');
