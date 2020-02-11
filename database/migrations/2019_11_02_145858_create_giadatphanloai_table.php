@@ -15,17 +15,44 @@ class CreateGiadatphanloaiTable extends Migration
     {
         Schema::create('giadatphanloai', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('mahs')->nullable();
-            $table->string('mahuyen')->nullable();
-            $table->string('maxa')->nullable();
-            $table->string('mavitri')->nullable();
-            $table->string('tenphanloai')->nullable();
-            $table->date('thoidiem')->nullable();
+            $table->string('mahs')->unique();
+            $table->string('madiaban')->nullable();
+            $table->string('maxp')->nullable();
+            $table->string('vitri')->nullable();
+            $table->string('maloaidat')->nullable();
             $table->string('soqd')->nullable();
-            $table->string('trangthai')->nullable();
-            $table->string('congbo')->nullable()->default('CHUACONGBO');
+
+            $table->string('congbo')->default('CHUACONGBO');
             $table->string('thaotac')->nullable();
             $table->text('ghichu')->nullable();
+
+            $table->text('lichsu')->nullable(); //Thao tác lịch sử hồ sơ theo dạng JSON
+            $table->string('tinhtrang')->nullable();//Vị trị hiện tại của Hô sơ: Khởi tạo; Gửi Huyện; Gửi Tỉnh
+            //Thông tin hồ sơ khi khởi tạo (level lấy theo thông tin đơn vị)
+            $table->date('thoidiem')->nullable();
+            $table->string('macqcq')->nullable(20);
+            $table->string('madv')->nullable(20);
+            $table->string('lydo')->nullable();
+            $table->string('thongtin')->nullable();
+            $table->string('trangthai')->nullable();
+            $table->string('dvt')->nullable();
+            $table->double('dientich')->default(0);
+            $table->double('giatri')->default(0);
+
+            //Thông tin Hô sơ khi gửi đơn vị cấp trên (Cấp H, T tùy theo level đơn vị khởi tạo)
+            $table->date('thoidiem_h')->nullable();
+            $table->string('macqcq_h')->nullable(20);
+            $table->string('madv_h')->nullable(20);
+            $table->string('lydo_h')->nullable();
+            $table->string('thongtin_h')->nullable();
+            $table->string('trangthai_h')->nullable();
+            //Thông tin Hô sơ khi gửi đơn vị cấp trên (Cấp T tùy theo level đơn vị khởi tạo)
+            $table->date('thoidiem_t')->nullable();
+            $table->string('macqcq_t')->nullable(20);
+            $table->string('madv_t')->nullable(20);
+            $table->string('lydo_t')->nullable();
+            $table->string('thongtin_t')->nullable();
+            $table->string('trangthai_t')->nullable();
             $table->timestamps();
         });
     }

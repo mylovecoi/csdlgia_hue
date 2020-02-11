@@ -23,8 +23,6 @@ class dsxaphuongController extends Controller
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             //dd($inputs);
             $model = dsxaphuong::where('madiaban',$inputs['madiaban'])->get();
-
-
             return view('system.xaphuong.index')
                 ->with('model', $model)
                 ->with('inputs', $inputs)

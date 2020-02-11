@@ -22,24 +22,27 @@
 {{--                                </a>--}}
 {{--                            </li>--}}
 
-                                @if(session('admin')->chucnang == 'NHAPLIEU')
+                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giadatphanloai/danhsach')}}">
                                         Thông tin hồ sơ
                                     </a>
                                 </li>
-                                @else
+                            @endif
+
+                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giadatphanloai/xetduyet')}}">
                                         Xét duyệt hồ sơ
                                     </a>
                                 </li>
-                                @endif
-                                <li>
-                                    <a href="{{url('/giadatphanloai/timkiem')}}">
-                                        Tìm kiếm hồ sơ
-                                    </a>
-                                </li>
+                            @endif
+
+                            <li>
+                                <a href="{{url('/giadatphanloai/timkiem')}}">
+                                    Tìm kiếm hồ sơ
+                                </a>
+                            </li>
                         @endif
                     </ul>
                 </li>

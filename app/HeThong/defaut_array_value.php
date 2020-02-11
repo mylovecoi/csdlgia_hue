@@ -1,13 +1,6 @@
 <?php
 
-
-
-/**
- * Created by PhpStorm.
- * User: Admin
- * Date: 4/5/2018
- * Time: 3:05 PM
- */
+use App\Model\system\view_dsdiaban_donvi;
 
 function NhomQuanLy()
 {
@@ -100,10 +93,6 @@ function getThang(){
         '10' => '10','11' => '11','12' => '12');
 }
 
-function getNam(){
-    return array('2017' => '2017','2018' => '2018','2019' => '2019','2020' => '2020');
-}
-
 function getPhanLoaiDonVi_DiaBan(){
     return array(
         'ADMIN'=>'Đơn vị tổng hợp toàn Tỉnh',
@@ -120,14 +109,47 @@ function getPhanLoaiDonVi(){
     );
 }
 
-function getDiaBan_Level($level, $madiaban=null)
+function getDiaBan_Level($level, $madiaban = null)
 {
-    if (in_array($level, ['SSA', 'T'])) {
+    if (in_array($level, ['SSA', 'T', 'ADMIN'])) {
         return array_column(App\Model\system\dsdiaban::wherein('level', ['T', 'H'])->get()->toarray(),
             'tendiaban', 'madiaban');
     }
 
     return array_column(App\Model\system\dsdiaban::where('madiaban', $madiaban)->get()->toarray(),
         'tendiaban', 'madiaban');
+}
+
+function getDonViNhapLieu($level){
+    if ($level == 'SSA') {
+        return App\Model\system\dsdonvi::where('chucnang', 'NHAPLIEU')->get();
+    }else{
+        return App\Model\system\dsdonvi::where('madv', session('admin')->madv)->get();
+    }
+}
+
+function getDonViTongHop($linhvuc, $level, $madiaban = null)
+{
+    //chưa làm biến lĩnh vực
+    if ($level == 'SSA') {
+        //lấy tất cả đơn vị
+        return App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')->where('level', '<>', 'ADMIN')->get();
+    }
+    if ($level == 'T') {
+        return App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')->wherein('level', ['T'])->get();
+    }
+
+    return App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')->where(function ($qr) use ($madiaban) {
+        $qr->where('level', 'T')->orwhere('madiaban', $madiaban);
+    })->get();
+    //})->toSql();
+}
+
+function getNam($all = false){
+    $a_tl = $all == true ? array('all'=>'--Tất cả--') : array();
+    for ($i = date('Y') - 3; $i <= date('Y') + 1; $i++) {
+        $a_tl[$i] = $i;
+    }
+    return $a_tl;
 }
 ?>

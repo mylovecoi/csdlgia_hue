@@ -1,18 +1,11 @@
 @extends('reports.main_rps')
-@section('custom-style')
-@stop
-
-
-@section('custom-script')
-
-@stop
 
 @section('content')
 <table width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:0 auto 20px; text-align: center;">
     <tr>
         <td width="40%" style="vertical-align: top;">
-            <span style="text-transform: uppercase">{{$inputs['dvcaptren']}}</span><br>
-            <span style="text-transform: uppercase;font-weight: bold">{{$inputs['dv']}}</span>
+            <span style="text-transform: uppercase">{{$m_donvi->tendvcqhienthi}}</span><br>
+            <span style="text-transform: uppercase;font-weight: bold">{{$m_donvi->tendvhienthi}}</span>
             <hr style="width: 10%;vertical-align: top;  margin-top: 2px">
 
         </td>
@@ -25,7 +18,7 @@
     </tr>
     <tr>
         <td>Số: ..............</td>
-        <td style="text-align: right"><i style="margin-right: 25%;">{{$inputs['diadanh']}}, ngày .... tháng .... năm ....</i></td>
+        <td style="text-align: right"><i style="margin-right: 25%;">{{$m_donvi->diadanh}}, ngày .... tháng .... năm ....</i></td>
     </tr>
 </table>
 <p style="font-weight: bold;font-size: 16px;text-transform: uppercase;text-align: center">THÔNG TIN VỀ GIÁ ĐẤT THEO PHÂN LOẠI</p>
@@ -33,7 +26,7 @@
 <table width="96%" cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;" id="data">
     <tr>
         <th style="text-align: center;width: 1%" rowspan="2" >STT</th>
-        <th style="text-align: center" >Tên phân loại</th>
+        <th style="text-align: center" >Phân loại đất</th>
         <th style="text-align: center" >Số quyết định</th>
         <th style="text-align: center">Thời điểm<br> xác định</th>
         <th style="text-align: center">Vị trí đất</th>
@@ -50,25 +43,17 @@
         <th style="text-align: center">6</th>
 
     </tr>
-    @foreach($huyens as $gr1=>$huyen)
-        <tr>
-            <td style="text-align: center;font-weight: bold;text-transform: uppercase">{{toAlpha($gr1+1)}}</td>
-            <td colspan="30" style="font-weight: bold;">{{$huyen->diaban}}</td>
+    <?php $i=1; ?>
+    @foreach($model as $gr2=>$tt)
+        <tr style="font-weight: bold;font-style: italic;">
+            <td>{{$i++}}</td>
+            <td style="text-align: left">{{$a_loaidat[$tt->maloaidat] ?? ''}}</td>
+            <td>{{$tt->soqd}}</td>
+            <td>{{getDayVn($tt->thoidiem)}}</td>
+            <td>{{$tt->vitri}}</td>
+            <td style="text-align: right">{{dinhdangso($tt->giatri)}}</td>
+            <td></td>
         </tr>
-        <?php
-            $model = $model->where('mahuyen',$huyen->district);
-        ?>
-        @foreach($model as $gr2=>$tt)
-            <tr style="font-weight: bold;font-style: italic;">
-                <td>{{IntToRoman($gr2+1)}}</td>
-                <td style="text-align: left">{{$tt->tenphanloai}}</td>
-                <td>{{$tt->soqd}}</td>
-                <td>{{getDayVn($tt->thoidiem)}}</td>
-                <td>{{$tt->tenvitri}}</td>
-                <td style="text-align: right">{{dinhdangso($tt->giatri)}}</td>
-                <td></td>
-            </tr>
-        @endforeach
     @endforeach
 </table>
 

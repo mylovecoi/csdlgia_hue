@@ -14,11 +14,7 @@
     <script type="text/javascript" src="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
     <!-- END PAGE LEVEL PLUGINS -->
     <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
-    <script>
-        jQuery(document).ready(function() {
-            TableManaged.init();
-        });
-    </script>
+
     <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>
     <script>
         $(document).ready(function(){
@@ -37,72 +33,114 @@
     <div class="row center">
         <div class="col-md-12 center">
             <!-- BEGIN VALIDATION STATES-->
-            {!! Form::model($model, ['method' => 'PATCH', 'url'=>'giadatphanloai/'. $model->id, 'class'=>'horizontal-form','id'=>'update_thongtindaugiadat']) !!}
+            {!! Form::model($model, ['method' => 'post', 'url'=>'giadatphanloai/modify', 'class'=>'horizontal-form','id'=>'update_thongtindaugiadat']) !!}
+            <input type="hidden" name="mahs" value="{{$model->mahs}}">
             <div class="portlet box blue">
                 <div class="portlet-body form">
+                    <!-- BEGIN FORM-->
                     <div class="form-body">
-                    <h4 style="color: #0000ff">Thông tin hồ sơ</h4>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">Quận/ huyện</label>
-                                {!!Form::text('diaban',$modeldb->diaban, array('id' => 'diaban','class' => 'form-control required','disabled'))!!}
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">Xã/phường</label>
-                                {!! Form::select('maxa',$xas,null,array('id' => 'maxa', 'class' => 'form-control required')) !!}
-                            </div>
-                        </div>
-                    </div>
+                        <h4 style="color: #0000ff">Thông tin hồ sơ</h4>
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Tên phân loại<span class="require">*</span></label>
-                                    {!!Form::text('tenphanloai',null, array('id' => 'tenphanloai','class' => 'form-control required','autofocus'))!!}
+                                    <label class="control-label">Đơn vị</label>
+                                    <select class="form-control select2me" name="madv" id="madv">
+                                        @foreach($m_diaban as $diaban)
+                                            <optgroup label="{{$diaban->tendiaban}}">
+                                                <?php $donvi = $m_donvi->where('madiaban',$diaban->madiaban); ?>
+                                                @foreach($donvi as $ct)
+                                                    <option {{$ct->madv == $model->madv ? "selected":""}} value="{{$ct->madv}}">{{$ct->tendv}}</option>
+                                                @endforeach
+                                            </optgroup>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Phân loại đất<span class="require">*</span></label>
+                                    {!!Form::select('maloaidat', $a_loaidat, null, array('id' => 'maloaidat','class' => 'form-control', 'required','autofocus'))!!}
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Số quyết định phê duyệt<span class="require">*</span></label>
-                                    {!!Form::text('soqd',null, array('id' => 'soqd','class' => 'form-control required','autofocus'))!!}
+                                    {!!Form::text('soqd', null, array('id' => 'soqd','class' => 'form-control', 'required'))!!}
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Thời điểm<span class="require">*</span></label>
-                                    {!!Form::text('thoidiem',isset($model) ? date('d/m/Y',  strtotime($model->thoidiem)) : null , array('id' => 'thoidiem','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                                    {!! Form::input('date', 'thoidiem', null, array('id' => 'thoidiem', 'class' => 'form-control', 'required'))!!}
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Địa bàn</label>
+                                    {!!Form::select('madiaban', array_column($m_diaban->where('level','H')->toarray(),'tendiaban', 'madiaban'),
+                                        null, array('id' => 'madiaban','class' => 'form-control'))!!}
+                                </div>
+                            </div>
+
+                            <div class="col-md-9">
                                 <div class="form-group">
                                     <label class="control-label">Vị trí đất<span class="require">*</span></label>
-                                    {!!Form::select('mavitri', $a_dm, null, array('id' => 'mavitri','class' => 'form-control required','autofocus'))!!}
+                                    {!!Form::text('vitri', null, array('id' => 'vitri','class' => 'form-control', 'required'))!!}
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @include('manage.include.form.input_dvt')
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Diện tích khu đất</label>
+                                    {!!Form::text('dientich',null, array('id' => 'dientich','data-mask'=>'fdecimal','class' => 'form-control'))!!}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Giá trị<span class="require">*</span></label>
+                                    {!!Form::text('giatri',null, array('id' => 'giatri','data-mask'=>'fdecimal','class' => 'form-control','required'))!!}
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="control-label">Ghi chú</label>
-                                    {!!Form::text('ghichu',null, array('id' => 'ghichu','class' => 'form-control'))!!}
+                                    {!!Form::textarea('ghichu',null, array('id' => 'ghichu','class' => 'form-control', 'rows'=>'2'))!!}
                                 </div>
                             </div>
                         </div>
-                </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12" style="text-align: center">
-                    <a href="{{url('giadatphanloai')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
-                    <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
-                    <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i> Cập nhật</button>
+                    <a href="{{url('giadatphanloai/danhsach?madv='.$model->madv)}}" class="btn btn-danger">
+                        <i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                    @if($inputs['act'] == 'true')
+                        <button type="submit" class="btn green">
+                            <i class="fa fa-check"></i> Cập nhật</button>
+                    @endif
                 </div>
             </div>
             {!! Form::close() !!}
@@ -112,19 +150,7 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-        function validateForm(){
-
-            var validator = $("#update_thongtindaugiadat").validate({
-                rules: {
-                    ten :"required"
-                },
-                messages: {
-                    ten :"Chưa nhập dữ liệu"
-                }
-            });
-        }
-    </script>
+    @include('manage.include.form.modal_dvt')
     @include('includes.script.inputmask-ajax-scripts')
     @include('includes.script.create-header-scripts')
 @stop

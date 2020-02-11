@@ -19,7 +19,7 @@
             TableManaged.init();
 
             function changeUrl() {
-                var current_path_url = '/giadatphanloai/danhsach?';
+                var current_path_url = '/giadatphanloai/xetduyet?';
                 var url = current_path_url + 'nam=' + $('#nam').val() + '&madv=' + $('#madv').val();
                 window.location.href = url;
             }
@@ -48,13 +48,6 @@
                     <div class="caption">
                     </div>
                     <div class="actions">
-                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadatpl', 'hoso', 'modify'))
-                            <a href="{{url('giadatphanloai/new?madv='.$inputs['madv'])}}" class="btn btn-default btn-sm">
-                                <i class="fa fa-plus"></i> Thêm mới </a>
-                            {{--<a href="{{url('giadatphanloai/nhandulieutuexcel')}}" class="btn btn-default btn-sm">--}}
-                                {{--<i class="fa fa-file-excel-o"></i> Nhận dữ liệu</a>--}}
-                        @endif
-
                         <a href="{{url('giadatphanloai/print?madv='.$inputs['madv'].'&nam='. $inputs['nam'])}}" class="btn btn-default btn-sm" target="_blank">
                             <i class="fa fa-print"></i> In danh sách</a>
                     </div>
@@ -106,15 +99,17 @@
                                     @include('manage.include.form.td_trangthai')
                                     <td style="text-align: left">{{$a_donvi_th[$tt->macqcq]?? ''}}</td>
                                     <td>
-                                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadatpl', 'hoso', 'modify') && in_array($tt->trangthai,['CHT', 'HHT']))
-                                            <a href="{{url('giadatphanloai/modify?mahs='.$tt->mahs.'&act=true')}}" class="btn btn-default btn-xs mbs">
-                                                <i class="fa fa-edit"></i>&nbsp;Chi tiết</a>
-                                            <button type="button" onclick="confirmDelete('{{$tt->mahs}}','{{$inputs['url'].'/delete'}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
-                                                <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
-                                        @else
-                                            <a href="{{url('giadatphanloai/modify?mahs='.$tt->mahs.'&act=false')}}" class="btn btn-default btn-xs mbs">
-                                                <i class="fa fa-eye"></i>&nbsp;Chi tiết</a>
-                                        @endif
+                                        <a href="{{url('giadatphanloai/modify?mahs='.$tt->mahs.'&act=false')}}" class="btn btn-default btn-xs mbs">
+                                            <i class="fa fa-eye"></i>&nbsp;Chi tiết</a>
+                                        <!--
+                                        Xem xét bổ sung madv_ad, trangthai_ad,
+                                        Tùy level mà chức năng nút chuyển lại khác nhau
+                                        Đơn vị tiếp nhận có tổng hợp Toàn tỉnh
+                                        ADMIN-> Công bố
+                                        T->
+                                        H->Hoàn thành (có đơn
+
+                                        -->
                                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadatpl', 'hoso', 'approve')&& in_array($tt->trangthai,['CHT', 'HHT']))
                                             <button type="button" onclick="confirmChuyen('{{$tt->mahs}}','{{$inputs['url'].'/chuyenhs'}}')" class="btn btn-default btn-xs mbs" data-target="#chuyen-modal-confirm" data-toggle="modal">
                                                 <i class="fa fa-check"></i> Hoàn thành</button>

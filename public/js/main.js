@@ -7,7 +7,17 @@ $(function () {
     }
     var chk = url.split('/');
 
-    var index = chk.indexOf('create');
+    var index = url.indexOf('modify');
+    if (index > 0) {
+        url = url.substring(0, index - 1) + '/danhsach';
+    }
+
+    index = url.indexOf('new');
+    if (index > 0) {
+        url = url.substring(0, index - 1) + '/danhsach';
+    }
+
+    index = chk.indexOf('create');
     if(index > -1) {
         url = '';
         for (var i = 0; i < index; i++) {
