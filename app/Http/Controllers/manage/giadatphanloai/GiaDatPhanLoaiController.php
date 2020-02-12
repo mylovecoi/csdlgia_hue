@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Session;
 
 class GiaDatPhanLoaiController extends Controller
 {
+    //<editor-fold des="Chức năng nhập liệu">
     public function index(Request $request)
     {
         //1. Chức năng chỉ danh cho tài khoản chức năng "NHAPLIEU", tài khoản lv = 'SSA'
@@ -159,43 +160,173 @@ class GiaDatPhanLoaiController extends Controller
     }
 
     //chuyển hô sơ cho Form nhập liệu: chỉ cần chuyển trạng thái và set trạng thái cho đơn vị tiếp nhận
-    public function chuyenhs(Request $request){
+    public function chuyenhs(Request $request)
+    {
         //Lấy thông tin đơn vị tiếp nhận để kiểm tra level
         // level == 'H' => set madv_h = $inputs['macqcq']; trangthai_h = 'CHT' (tương đương tạo mới hoso)
         // level == 'T' => set madv_t = $inputs['macqcq']; trangthai_t = 'CHT' (tương đương tạo mới hoso)
-        if(Session::has('admin')){
+        if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = GiaDatPhanLoai::where('mahs',$inputs['mahs'])->first();
-            $a_lichsu = json_decode($model->lichsu,true);
+            $model = GiaDatPhanLoai::where('mahs', $inputs['mahs'])->first();
+            $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => 'HT',
                 'username' => session('admin')->username,
                 'mota' => 'Chuyển hồ sơ',
                 'thoigian' => date('Y-m-d H:i:s'),
-                'macqcq' => $inputs['macqcq']
+                'macqcq' => $inputs['macqcq'],
+                'madv' => $model->madv
             );
 
             $model->lichsu = json_encode($a_lichsu);
             $model->macqcq = $inputs['macqcq'];
-            $model->thoidiem = date('Y-m-d H:i:s');
             $model->trangthai = 'HT';
             //kiểm tra đơn vị tiếp nhận
             $chk_dvcq = view_dsdiaban_donvi::where('madv', $inputs['macqcq'])->first();
-            if($chk_dvcq->count() && $chk_dvcq->level == 'T'){
+            if ($chk_dvcq->count() && $chk_dvcq->level == 'T') {
                 $model->madv_t = $inputs['macqcq'];
+                $model->thoidiem_t = date('Y-m-d');
                 $model->trangthai_t = 'CHT';
-            }else{
+            } else if ($chk_dvcq->count() && $chk_dvcq->level == 'ADMIN') {
+                $model->madv_ad = $inputs['macqcq'];
+                $model->thoidiem_ad = date('Y-m-d');
+                $model->trangthai_ad = 'CHT';
+            } else {
                 $model->madv_h = $inputs['macqcq'];
+                $model->thoidiem_h = date('Y-m-d');
                 $model->trangthai_h = 'CHT';
             }
             $model->save();
-            return redirect('giadatphanloai/danhsach?madv='.$model->madv);
-        }else
+            return redirect('giadatphanloai/danhsach?madv=' . $model->madv);
+        } else
+            return view('errors.notlogin');
+    }
+    //</editor-fold>
+
+    //<editor-fold des="Chức năng xét duyệt">
+    public function xetduyet(Request $request)
+    {
+        //lấy thông tin đơn vị đễ lấy level
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['url'] = '/giadatphanloai';
+            //lấy địa bàn
+            $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
+            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
+
+            $m_donvi = getDonViXetDuyet(session('admin')->level);
+            $m_donvi_th = getDonViTongHop('giadatpl',\session('admin')->level, \session('admin')->madiaban);
+            $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
+            $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
+            $inputs['nam'] = $inputs['nam'] ?? 'all';
+            $inputs['level'] = $m_donvi_th->where('madv', $inputs['madv'])->first()->level ?? 'H';
+            //dd($inputs);
+            //gán lại thông tin về trường madv, thoidiem để truyền sang form index
+            //xét macqcq để tìm đơn vị chuyển đến
+            $a_ttdv = array_column(view_dsdiaban_donvi::wherein('madiaban', array_keys($a_diaban))->get()->toarray(),
+                    'tendv', 'madv');
+
+            switch ($inputs['level']){
+                case 'H':{
+                    $model = GiaDatPhanLoai::where('madv_h', $inputs['madv']);
+                    if ($inputs['nam'] != 'all')
+                        $model = $model->whereYear('thoidiem_h', $inputs['nam']);
+                    $model = $model->get();
+                    foreach ($model as $ct){
+                        $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
+                        $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
+                        $ct->madv = $ct->madv_h;
+                        $ct->macqcq = $ct->macqcq_h;
+                        $ct->tencqcq = $a_ttdv[$ct->macqcq] ?? '';
+                        $ct->thoidiem = $ct->thoidiem_h;
+                        $ct->trangthai = $ct->trangthai_h;
+                        $ct->level = $inputs['level'];
+                    }
+                    break;
+                }
+                case 'T':{
+                    $model = GiaDatPhanLoai::where('madv_t', $inputs['madv']);
+                    if ($inputs['nam'] != 'all')
+                        $model = $model->whereYear('thoidiem_t', $inputs['nam']);
+                    $model = $model->get();
+                    foreach ($model as $ct){
+                        $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
+                        $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
+                        $ct->madv = $ct->madv_t;
+                        $ct->macqcq = $ct->macqcq_t;
+                        $ct->tencqcq = $a_ttdv[$ct->macqcq] ?? '';
+                        $ct->thoidiem = $ct->thoidiem_t;
+                        $ct->trangthai = $ct->trangthai_t;
+                        $ct->level = $inputs['level'];
+                    }
+                    break;
+                }
+                case 'ADMIN':{
+                    $model = GiaDatPhanLoai::where('madv_ad', $inputs['madv']);
+                    if ($inputs['nam'] != 'all')
+                        $model = $model->whereYear('thoidiem_ad', $inputs['nam']);
+                    $model = $model->get();
+                    foreach ($model as $ct){
+                        $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
+                        $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
+                        $ct->madv = $ct->madv_ad;
+                        $ct->macqcq = $ct->macqcq_ad;
+                        $ct->tencqcq = $a_ttdv[$ct->macqcq] ?? '';
+                        $ct->thoidiem = $ct->thoidiem_ad;
+                        $ct->trangthai = $ct->trangthai_ad;
+                        $ct->level = $inputs['level'];
+                    }
+                    break;
+                }
+            }
+            //dd($model);
+            return view('manage.dinhgia.giadatphanloai.xetduyet.index')
+                ->with('model', $model)
+                ->with('inputs', $inputs)
+                ->with('m_diaban', $m_diaban)
+                ->with('a_diaban', array_column($m_diaban->where('level', 'H')->toarray(), 'tendiaban', 'madiaban'))
+                ->with('m_donvi', $m_donvi)
+                ->with('m_donvi_th', $m_donvi_th->where('madv','<>',$inputs['madv']))
+                ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
+                ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
+                ->with('pageTitle', 'Thông tin hồ sơ giá đất');
+        } else
             return view('errors.notlogin');
     }
 
+    public function chuyenxd(Request $request)
+    {
+        //Lấy thông tin đơn vị tiếp nhận để kiểm tra level
+        // level == 'H' => set madv_h = $inputs['macqcq']; trangthai_h = 'CHT' (tương đương tạo mới hoso)
+        // level == 'T' => set madv_t = $inputs['macqcq']; trangthai_t = 'CHT' (tương đương tạo mới hoso)
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            //dd($inputs);
+            $model = GiaDatPhanLoai::where('mahs', $inputs['mahs'])->first();
+            $a_lichsu = json_decode($model->lichsu, true);
+            $a_lichsu[getdate()[0]] = array(
+                'hanhdong' => 'HT',
+                'username' => session('admin')->username,
+                'mota' => 'Chuyển hồ sơ',
+                'thoigian' => date('Y-m-d H:i:s'),
+                'macqcq' => $inputs['macqcq'],
+                'madv' => $inputs['madv'],
+            );
 
+            $model->lichsu = json_encode($a_lichsu);
+            //kiểm tra thông tin đơn vị
+            setHoanThanhDV($inputs['madv'],$model,['macqcq'=>$inputs['macqcq'],'trangthai'=>'HT']);
+            //kiểm tra đơn vị tiếp nhận
+            $chk_dvcq = view_dsdiaban_donvi::where('madv', $inputs['macqcq'])->first();
+            setHoanThanhCQ($chk_dvcq->level,$model,['madv'=>$inputs['macqcq'],'trangthai'=>'HT','thoidiem'=>date('Y-m-d')]);
 
+            //dd($model);
+            $model->save();
+            return redirect('giadatphanloai/xetduyet?madv=' . $inputs['madv']);
+        } else
+            return view('errors.notlogin');
+    }
+    //</editor-fold>
     public function hoanthanh(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();

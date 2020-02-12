@@ -80,11 +80,12 @@
                         <thead>
                             <tr>
                                 <th width="2%" style="text-align: center">STT</th>
+                                <th style="text-align: center">Cơ quan chuyển hồ sơ</th>
                                 <th style="text-align: center">Địa bàn</th>
                                 <th style="text-align: center">Thời điểm <br>xác định</th>
                                 <th style="text-align: center">Vị trí đất</th>
                                 <th style="text-align: center">Trạng thái</th>
-                                <th style="text-align: center">Cơ quan tiếp nhận</th>
+                                <th style="text-align: center">Cơ quan tiếp nhận hồ sơ</th>
                                 <th style="text-align: center" width="20%">Thao tác</th>
                             </tr>
                         </thead>
@@ -93,13 +94,14 @@
                             @foreach($model as $key=>$tt)
                                 <tr>
                                     <td style="text-align: center">{{$key + 1}}</td>
+                                    <td style="text-align: left">{{$tt->tendv_ch}}</td>
                                     <td style="text-align: center">{{$a_diaban[$tt->madiaban] ?? ''}}</td>
                                     <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
                                     <td style="text-align: left">{{$tt->vitri}}</td>
                                     @include('manage.include.form.td_trangthai')
-                                    <td style="text-align: left">{{$a_donvi_th[$tt->macqcq]?? ''}}</td>
+                                    <td style="text-align: left">{{$tt->tencqcq}}</td>
                                     <td>
-                                        <a href="{{url('giadatphanloai/modify?mahs='.$tt->mahs.'&act=false')}}" class="btn btn-default btn-xs mbs">
+                                        <a href="{{url('giadatphanloai/modify?mahs='.$tt->mahs.'&act=false')}}" class="btn btn-default btn-xs mbs" target="_blank">
                                             <i class="fa fa-eye"></i>&nbsp;Chi tiết</a>
                                         <!--
                                         Xem xét bổ sung madv_ad, trangthai_ad,
@@ -110,9 +112,27 @@
                                         H->Hoàn thành (có đơn
 
                                         -->
-                                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadatpl', 'hoso', 'approve')&& in_array($tt->trangthai,['CHT', 'HHT']))
-                                            <button type="button" onclick="confirmChuyen('{{$tt->mahs}}','{{$inputs['url'].'/chuyenhs'}}')" class="btn btn-default btn-xs mbs" data-target="#chuyen-modal-confirm" data-toggle="modal">
-                                                <i class="fa fa-check"></i> Hoàn thành</button>
+                                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadatpl', 'hoso', 'approve'))
+                                            @if($tt->level == 'ADMIN')
+                                                @if($tt->trangthai == 'CB')
+                                                    <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','HCB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
+                                                        <i class="fa fa-times"></i>&nbsp;Hủy công bố</button>
+                                                @else
+                                                    <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','CB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
+                                                        <i class="fa fa-send"></i>&nbsp;Công bố</button>
+
+                                                    <button type="button" onclick="confirmTraLai('{{$tt->mahs}}','{{$inputs['url'].'/tralaihs'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#tralai-modal-confirm" data-toggle="modal">
+                                                        <i class="fa fa-times"></i> Trả lại</button>
+                                                @endif
+                                            @else
+                                                @if(in_array($tt->trangthai, ['HHT', 'CHT']))
+                                                    <button type="button" onclick="confirmChuyenXD('{{$tt->mahs}}','{{$inputs['url'].'/chuyenxd'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#chuyenxd-modal-confirm" data-toggle="modal">
+                                                        <i class="fa fa-check"></i> Hoàn thành</button>
+
+                                                    <button type="button" onclick="confirmTraLai('{{$tt->mahs}}','{{$inputs['url'].'/tralaihs'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#tralai-modal-confirm" data-toggle="modal">
+                                                        <i class="fa fa-times"></i> Trả lại</button>
+                                                @endif
+                                            @endif
                                         @endif
                                     </td>
                                 </tr>
@@ -128,6 +148,6 @@
         <!-- END DASHBOARD STATS -->
         </div>
     </div>
-    @include('manage.include.form.modal_approve_hs')
+    @include('manage.include.form.modal_approve_xd')
     @include('manage.include.form.modal_del_hs')
 @stop

@@ -112,7 +112,7 @@
                                             <button type="button" onclick="confirmDelete('{{$tt->mahs}}','{{$inputs['url'].'/delete'}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
                                                 <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
                                         @else
-                                            <a href="{{url('giadatphanloai/modify?mahs='.$tt->mahs.'&act=false')}}" class="btn btn-default btn-xs mbs">
+                                            <a href="{{url('giadatphanloai/modify?mahs='.$tt->mahs.'&act=false')}}" target="_blank" class="btn btn-default btn-xs mbs">
                                                 <i class="fa fa-eye"></i>&nbsp;Chi tiết</a>
                                         @endif
                                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadatpl', 'hoso', 'approve')&& in_array($tt->trangthai,['CHT', 'HHT']))

@@ -112,7 +112,7 @@ function getPhanLoaiDonVi(){
 function getDiaBan_Level($level, $madiaban = null)
 {
     if (in_array($level, ['SSA', 'T', 'ADMIN'])) {
-        return array_column(App\Model\system\dsdiaban::wherein('level', ['T', 'H'])->get()->toarray(),
+        return array_column(App\Model\system\dsdiaban::wherein('level', ['T', 'H', 'ADMIN'])->get()->toarray(),
             'tendiaban', 'madiaban');
     }
 
@@ -128,19 +128,30 @@ function getDonViNhapLieu($level){
     }
 }
 
+function getDonViXetDuyet($level){
+    if ($level == 'SSA') {
+        return App\Model\system\dsdonvi::where('chucnang', 'TONGHOP')->get();
+    }else{
+        return App\Model\system\dsdonvi::where('madv', session('admin')->madv)->get();
+    }
+}
+
 function getDonViTongHop($linhvuc, $level, $madiaban = null)
 {
     //chưa làm biến lĩnh vực
     if ($level == 'SSA') {
         //lấy tất cả đơn vị
-        return App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')->where('level', '<>', 'ADMIN')->get();
+        //return App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')->where('level', '<>', 'ADMIN')->get();
+        return App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')->get();
     }
     if ($level == 'T') {
-        return App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')->wherein('level', ['T'])->get();
+        //return App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')->wherein('level', ['T'])->get();
+        return App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')
+            ->wherein('level', ['T', 'ADMIN'])->get();
     }
 
     return App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')->where(function ($qr) use ($madiaban) {
-        $qr->where('level', 'T')->orwhere('madiaban', $madiaban);
+        $qr->wherein('level', ['T', 'ADMIN'])->orwhere('madiaban', $madiaban);
     })->get();
     //})->toSql();
 }
@@ -151,5 +162,66 @@ function getNam($all = false){
         $a_tl[$i] = $i;
     }
     return $a_tl;
+}
+
+function getDonViChuyen($macqcq, $hoso){
+    $madv = '';
+    //dd($hoso);
+    if($macqcq == $hoso->macqcq){
+        $madv = $hoso->madv;
+    }
+    if($macqcq == $hoso->macqcq_h){
+        $madv = $hoso->madv_h;
+    }
+    if($macqcq == $hoso->macqcq_t){
+        $madv = $hoso->madv_t;
+    }
+    if($macqcq == $hoso->macqcq_ad){
+        $madv = $hoso->madv_ad;
+    }
+    return $madv;
+}
+function setHoanThanhDV($madv, $hoso, $a_hoanthanh)
+{
+    if ($madv == $hoso->madv) {
+        $hoso->macqcq = $a_hoanthanh['macqcq'];
+        $hoso->trangthai = $a_hoanthanh['trangthai'];
+    }
+
+    if ($madv == $hoso->madv_h) {
+        $hoso->macqcq_h = $a_hoanthanh['macqcq'];
+        $hoso->trangthai_h = $a_hoanthanh['trangthai'];
+    }
+
+    if ($madv == $hoso->madv_t) {
+        $hoso->macqcq_t = $a_hoanthanh['macqcq'];
+        $hoso->trangthai_t = $a_hoanthanh['trangthai'];
+    }
+
+    if ($madv == $hoso->madv_ad) {
+        $hoso->macqcq_ad = $a_hoanthanh['macqcq'];
+        $hoso->trangthai_ad = $a_hoanthanh['trangthai'];
+    }
+}
+
+function setHoanThanhCQ($level, $hoso, $a_hoanthanh)
+{
+    if ($level == 'T') {
+        $hoso->madv_t = $a_hoanthanh['madv'];
+        $hoso->thoidiem_t = $a_hoanthanh['thoidiem'];
+        $hoso->trangthai_t = $a_hoanthanh['trangthai'];;
+    }
+
+    if ($level == 'ADMIN') {
+        $hoso->madv_ad = $a_hoanthanh['madv'];
+        $hoso->thoidiem_ad = $a_hoanthanh['thoidiem'];
+        $hoso->trangthai_ad = $a_hoanthanh['trangthai'];
+    }
+
+    if ($level == 'H') {
+        $hoso->madv_h = $a_hoanthanh['madv'];
+        $hoso->thoidiem_h = $a_hoanthanh['thoidiem'];
+        $hoso->trangthai_h = $a_hoanthanh['trangthai'];
+    }
 }
 ?>

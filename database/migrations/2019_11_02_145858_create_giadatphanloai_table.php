@@ -53,6 +53,13 @@ class CreateGiadatphanloaiTable extends Migration
             $table->string('lydo_t')->nullable();
             $table->string('thongtin_t')->nullable();
             $table->string('trangthai_t')->nullable();
+            //Thông tin Hồ sơ khi gửi đến đơn vị tổng hợp toàn Tỉnh
+            $table->date('thoidiem_ad')->nullable();
+            $table->string('macqcq_ad')->nullable(20);
+            $table->string('madv_ad')->nullable(20);
+            $table->string('lydo_ad')->nullable();
+            $table->string('thongtin_ad')->nullable();
+            $table->string('trangthai_ad')->nullable();
             $table->timestamps();
         });
     }

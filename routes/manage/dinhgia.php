@@ -50,6 +50,9 @@ Route::group(['prefix'=>'giadatphanloai'],function (){
     Route::post('chuyenhs','manage\giadatphanloai\GiaDatPhanLoaiController@chuyenhs');
     Route::get('print','manage\giadatphanloai\GiaDatPhanLoaiController@ketxuat');
 
+    Route::get('xetduyet','manage\giadatphanloai\GiaDatPhanLoaiController@xetduyet');
+    Route::post('chuyenxd','manage\giadatphanloai\GiaDatPhanLoaiController@chuyenxd');
+    //
     Route::resource('giadatphanloai','manage\giadatphanloai\GiaDatPhanLoaiController');
     Route::post('giadatphanloai/hoanthanh','manage\giadatphanloai\GiaDatPhanLoaiController@hoanthanh');
     Route::post('giadatphanloai/huyhoanthanh','manage\giadatphanloai\GiaDatPhanLoaiController@huyhoanthanh');

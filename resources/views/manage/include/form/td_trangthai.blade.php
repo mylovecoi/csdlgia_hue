@@ -7,6 +7,8 @@
         <span class="badge badge-info">Hoàn thành</span>
     @elseif ($tt->trangthai == "CB")
         <span class="badge badge-success">Công bố</span>
+    @elseif ($tt->trangthai == "HCB")
+        <span class="badge badge-danger">Hủy hoàn thành</span>
     @else
         <span class="badge badge-warning">Chưa công bố</span>
     @endif

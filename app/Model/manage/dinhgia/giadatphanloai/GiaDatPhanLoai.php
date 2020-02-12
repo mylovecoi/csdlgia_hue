@@ -44,5 +44,12 @@ class GiaDatPhanLoai extends Model
         'lydo_t',
         'thongtin_t',
         'trangthai_t',
+        //Thông tin Hô sơ khi gửi đơn vị cấp trên (Cấp ADMIN tùy theo level đơn vị khởi tạo)
+        'thoidiem_ad',
+        'macqcq_ad',
+        'madv_ad',
+        'lydo_ad',
+        'thongtin_ad',
+        'trangthai_ad',
     ];
 }

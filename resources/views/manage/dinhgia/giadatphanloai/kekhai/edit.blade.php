@@ -135,9 +135,10 @@
             </div>
             <div class="row">
                 <div class="col-md-12" style="text-align: center">
-                    <a href="{{url('giadatphanloai/danhsach?madv='.$model->madv)}}" class="btn btn-danger">
-                        <i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                     @if($inputs['act'] == 'true')
+                        <a href="{{url('giadatphanloai/danhsach?madv='.$model->madv)}}" class="btn btn-danger">
+                            <i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+
                         <button type="submit" class="btn green">
                             <i class="fa fa-check"></i> Cập nhật</button>
                     @endif
