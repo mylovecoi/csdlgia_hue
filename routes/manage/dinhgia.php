@@ -52,16 +52,17 @@ Route::group(['prefix'=>'giadatphanloai'],function (){
 
     Route::get('xetduyet','manage\giadatphanloai\GiaDatPhanLoaiController@xetduyet');
     Route::post('chuyenxd','manage\giadatphanloai\GiaDatPhanLoaiController@chuyenxd');
+    Route::post('tralai','manage\giadatphanloai\GiaDatPhanLoaiController@tralai');
+    Route::post('congbo','manage\giadatphanloai\GiaDatPhanLoaiController@congbo');
+
+    Route::get('timkiem','manage\giadatphanloai\GiaDatPhanLoaiController@timkiem');
+    Route::post('timkiem','manage\giadatphanloai\GiaDatPhanLoaiController@ketquatk');
     //
-    Route::resource('giadatphanloai','manage\giadatphanloai\GiaDatPhanLoaiController');
+
     Route::post('giadatphanloai/hoanthanh','manage\giadatphanloai\GiaDatPhanLoaiController@hoanthanh');
     Route::post('giadatphanloai/huyhoanthanh','manage\giadatphanloai\GiaDatPhanLoaiController@huyhoanthanh');
     Route::post('giadatphanloai/congbo','manage\giadatphanloai\GiaDatPhanLoaiController@congbo');
     Route::get('timkiemgiadatphanloai','manage\giadatphanloai\GiaDatPhanLoaiController@search');
-
-    //danh mục đất theo phân loại
-    Route::resource('giadatphanloaidm','manage\giadatphanloai\GiaDatPhanLoaiDmController');
-    Route::post('giadatphanloaidm/delete','manage\giadatphanloai\GiaDatPhanLoaiDmController@destroy');
 });
 
 

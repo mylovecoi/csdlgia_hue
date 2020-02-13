@@ -184,44 +184,102 @@ function getDonViChuyen($macqcq, $hoso){
 function setHoanThanhDV($madv, $hoso, $a_hoanthanh)
 {
     if ($madv == $hoso->madv) {
-        $hoso->macqcq = $a_hoanthanh['macqcq'];
-        $hoso->trangthai = $a_hoanthanh['trangthai'];
+        $hoso->macqcq = $a_hoanthanh['macqcq'] ?? null;
+        $hoso->trangthai = $a_hoanthanh['trangthai'] ?? 'CHT';
+        $hoso->lydo = $a_hoanthanh['lydo'] ?? null;
     }
 
     if ($madv == $hoso->madv_h) {
-        $hoso->macqcq_h = $a_hoanthanh['macqcq'];
-        $hoso->trangthai_h = $a_hoanthanh['trangthai'];
+        $hoso->macqcq_h = $a_hoanthanh['macqcq'] ?? null;
+        $hoso->trangthai_h = $a_hoanthanh['trangthai'] ?? 'CHT';
+        $hoso->lydo_h = $a_hoanthanh['lydo'] ?? null;
     }
 
     if ($madv == $hoso->madv_t) {
-        $hoso->macqcq_t = $a_hoanthanh['macqcq'];
-        $hoso->trangthai_t = $a_hoanthanh['trangthai'];
+        $hoso->macqcq_t = $a_hoanthanh['macqcq'] ?? null;
+        $hoso->trangthai_t = $a_hoanthanh['trangthai'] ?? 'CHT';
+        $hoso->lydo_t = $a_hoanthanh['lydo'] ?? null;
     }
 
     if ($madv == $hoso->madv_ad) {
-        $hoso->macqcq_ad = $a_hoanthanh['macqcq'];
-        $hoso->trangthai_ad = $a_hoanthanh['trangthai'];
+        $hoso->macqcq_ad = $a_hoanthanh['macqcq'] ?? null;
+        $hoso->trangthai_ad = $a_hoanthanh['trangthai'] ?? 'CHT';
+        $hoso->lydo_ad = $a_hoanthanh['lydo'] ?? null;
     }
 }
 
 function setHoanThanhCQ($level, $hoso, $a_hoanthanh)
 {
     if ($level == 'T') {
-        $hoso->madv_t = $a_hoanthanh['madv'];
-        $hoso->thoidiem_t = $a_hoanthanh['thoidiem'];
-        $hoso->trangthai_t = $a_hoanthanh['trangthai'];;
+        $hoso->madv_t = $a_hoanthanh['madv'] ?? null;
+        $hoso->thoidiem_t = $a_hoanthanh['thoidiem'] ?? null;
+        $hoso->trangthai_t = $a_hoanthanh['trangthai'] ?? 'CHT';
     }
 
     if ($level == 'ADMIN') {
-        $hoso->madv_ad = $a_hoanthanh['madv'];
-        $hoso->thoidiem_ad = $a_hoanthanh['thoidiem'];
-        $hoso->trangthai_ad = $a_hoanthanh['trangthai'];
+        $hoso->madv_ad = $a_hoanthanh['madv'] ?? null;
+        $hoso->thoidiem_ad = $a_hoanthanh['thoidiem'] ?? null;
+        $hoso->trangthai_ad = $a_hoanthanh['trangthai'] ?? 'CHT';
     }
 
     if ($level == 'H') {
-        $hoso->madv_h = $a_hoanthanh['madv'];
-        $hoso->thoidiem_h = $a_hoanthanh['thoidiem'];
-        $hoso->trangthai_h = $a_hoanthanh['trangthai'];
+        $hoso->madv_h = $a_hoanthanh['madv'] ?? null;
+        $hoso->thoidiem_h = $a_hoanthanh['thoidiem'] ?? null;
+        $hoso->trangthai_h = $a_hoanthanh['trangthai'] ?? 'CHT';
     }
+}
+
+function setTraLai($macqcq, $hoso, $a_tralai)
+{
+    //Gán trạng thái của đơn vị chuyển hồ sơ
+    if ($macqcq == $hoso->macqcq) {
+        $hoso->macqcq = null;
+        $hoso->trangthai = $a_tralai['trangthai'] ?? 'CHT';
+        $hoso->lydo = $a_tralai['lydo'] ?? null;
+    }
+    if ($macqcq == $hoso->macqcq_h) {
+        $hoso->macqcq_h = null;
+        $hoso->trangthai_h = $a_tralai['trangthai'] ?? 'CHT';
+        $hoso->lydo_h = $a_tralai['lydo'] ?? null;
+    }
+    if ($macqcq == $hoso->macqcq_t) {
+        $hoso->macqcq_t = null;
+        $hoso->trangthai_t = $a_tralai['trangthai'] ?? 'CHT';
+        $hoso->lydo_t = $a_tralai['lydo'] ?? null;
+    }
+    if ($macqcq == $hoso->macqcq_ad) {
+        $hoso->macqcq_ad = null;
+        $hoso->trangthai_ad = $a_tralai['trangthai'] ?? 'CHT';
+        $hoso->lydo_ad = $a_tralai['lydo'] ?? null;
+    }
+    //Gán trạng thái của đơn vị tiếp nhận hồ sơ
+    if ($macqcq == $hoso->madv_h) {
+        $hoso->macqcq_h = null;
+        $hoso->trangthai_h = null;
+        $hoso->lydo_h = null;
+        $hoso->thoidiem_h = null;
+        $hoso->madv_h = null;
+    }
+
+    if ($macqcq == $hoso->madv_t) {
+        $hoso->macqcq_t = null;
+        $hoso->trangthai_t = null;
+        $hoso->lydo_t = null;
+        $hoso->thoidiem_t = null;
+        $hoso->madv_t = null;
+    }
+
+    if ($macqcq == $hoso->madv_ad) {
+        $hoso->macqcq_ad = null;
+        $hoso->trangthai_ad = null;
+        $hoso->lydo_ad = null;
+        $hoso->thoidiem_ad = null;
+        $hoso->madv_ad = null;
+    }
+}
+
+function setCongBo($hoso, $a_congbo){
+    $hoso->trangthai_ad = $a_congbo['trangthai'];
+    $hoso->congbo = $a_congbo['congbo'];
 }
 ?>

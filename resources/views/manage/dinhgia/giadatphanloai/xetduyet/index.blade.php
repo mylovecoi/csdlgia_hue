@@ -115,13 +115,13 @@
                                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadatpl', 'hoso', 'approve'))
                                             @if($tt->level == 'ADMIN')
                                                 @if($tt->trangthai == 'CB')
-                                                    <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','HCB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
+                                                    <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','{{$inputs['url'].'/congbo'}}', 'HCB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
                                                         <i class="fa fa-times"></i>&nbsp;Hủy công bố</button>
                                                 @else
-                                                    <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','CB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
+                                                    <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','{{$inputs['url'].'/congbo'}}', 'CB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
                                                         <i class="fa fa-send"></i>&nbsp;Công bố</button>
 
-                                                    <button type="button" onclick="confirmTraLai('{{$tt->mahs}}','{{$inputs['url'].'/tralaihs'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#tralai-modal-confirm" data-toggle="modal">
+                                                    <button type="button" onclick="confirmTraLai('{{$tt->mahs}}','{{$inputs['url'].'/tralai'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#tralai-modal-confirm" data-toggle="modal">
                                                         <i class="fa fa-times"></i> Trả lại</button>
                                                 @endif
                                             @else
@@ -129,7 +129,7 @@
                                                     <button type="button" onclick="confirmChuyenXD('{{$tt->mahs}}','{{$inputs['url'].'/chuyenxd'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#chuyenxd-modal-confirm" data-toggle="modal">
                                                         <i class="fa fa-check"></i> Hoàn thành</button>
 
-                                                    <button type="button" onclick="confirmTraLai('{{$tt->mahs}}','{{$inputs['url'].'/tralaihs'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#tralai-modal-confirm" data-toggle="modal">
+                                                    <button type="button" onclick="confirmTraLai('{{$tt->mahs}}','{{$inputs['url'].'/tralai'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#tralai-modal-confirm" data-toggle="modal">
                                                         <i class="fa fa-times"></i> Trả lại</button>
                                                 @endif
                                             @endif
@@ -148,6 +148,8 @@
         <!-- END DASHBOARD STATS -->
         </div>
     </div>
+    @include('manage.include.form.modal_congbo')
     @include('manage.include.form.modal_approve_xd')
+    @include('manage.include.form.modal_unapprove_xd')
     @include('manage.include.form.modal_del_hs')
 @stop

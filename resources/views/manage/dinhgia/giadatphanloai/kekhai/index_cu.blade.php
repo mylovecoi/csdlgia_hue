@@ -132,72 +132,72 @@
                         </thead>
 
                         <tbody>
-                                @foreach($model as $key=>$tt)
-                                    <tr>
-                                        <td style="text-align: center">{{$key + 1}}</td>
-                                        <td style="text-align: center">{{$tt->tenhuyen.' - '.$tt->tenxa}}</td>
-                                        <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
-                                        <td style="text-align: left">{{$tt->tenvitri}}</td>
-                                        @include('include.form.td_trangthai')
-                                        <td style="text-align: left">{{$tt->macqcq}}</td>
-                                        <td style="text-align: left">{{$tt->tinhtrang}}</td>
-                                        <td>
-                                            <a href="{{url('giadatphanloai/'.$tt->mahs)}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
-                                            @if(session('admin')->level == 'T' || session('admin')->level == 'H')
-                                                @if($tt->trangthai == 'CB')
-                                                    @if(can('thkkgiadatpl','congbo'))
-                                                        <button type="button" onclick="confirmHHT('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#huyhoanthanh-modal-confirm" data-toggle="modal"><i class="fa fa-times"></i>&nbsp;
-                                                            Hủy công bố</button>
-                                                    @endif
-                                                @elseif($tt->trangthai == 'HT')
-                                                    @if(can('thkkgiadatpl','congbo'))
-                                                        <button type="button" onclick="confirmCB('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal-confirm" data-toggle="modal"><i class="fa fa-send"></i>&nbsp;
-                                                            Công bố</button>
-                                                        <button type="button" onclick="confirmHHT('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#huyhoanthanh-modal-confirm" data-toggle="modal"><i class="fa fa-times"></i>&nbsp;
-                                                            Hủy hoàn thành</button>
-                                                    @endif
-                                                @else
-                                                    @if(can('kkgiadatpl','edit'))
-                                                        <a href="{{url('giadatphanloai/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
+                            @foreach($model as $key=>$tt)
+                                <tr>
+                                    <td style="text-align: center">{{$key + 1}}</td>
+                                    <td style="text-align: center">{{$tt->tenhuyen.' - '.$tt->tenxa}}</td>
+                                    <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
+                                    <td style="text-align: left">{{$tt->tenvitri}}</td>
+                                    @include('include.form.td_trangthai')
+                                    <td style="text-align: left">{{$tt->macqcq}}</td>
+                                    <td style="text-align: left">{{$tt->tinhtrang}}</td>
+                                    <td>
+                                        <a href="{{url('giadatphanloai/'.$tt->mahs)}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
+                                        @if(session('admin')->level == 'T' || session('admin')->level == 'H')
+                                            @if($tt->trangthai == 'CB')
+                                                @if(can('thkkgiadatpl','congbo'))
+                                                    <button type="button" onclick="confirmHHT('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#huyhoanthanh-modal-confirm" data-toggle="modal"><i class="fa fa-times"></i>&nbsp;
+                                                        Hủy công bố</button>
+                                                @endif
+                                            @elseif($tt->trangthai == 'HT')
+                                                @if(can('thkkgiadatpl','congbo'))
+                                                    <button type="button" onclick="confirmCB('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal-confirm" data-toggle="modal"><i class="fa fa-send"></i>&nbsp;
+                                                        Công bố</button>
+                                                    <button type="button" onclick="confirmHHT('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#huyhoanthanh-modal-confirm" data-toggle="modal"><i class="fa fa-times"></i>&nbsp;
+                                                        Hủy hoàn thành</button>
+                                                @endif
+                                            @else
+                                                @if(can('kkgiadatpl','edit'))
+                                                    <a href="{{url('giadatphanloai/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
 
+                                                @endif
+                                                @if(can('kkgiadatpl','delete'))
+                                                    <button type="button" onclick="confirmDelete('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
+                                                        Xóa</button>
+                                                @endif
+                                            @endif
+                                        @else
+
+                                            <!-- 03.11.19 làm để giới thiệu (chưa phân quyền) -->
+                                            @if($tt->trangthai == 'CHT' || $tt->trangthai == 'HHT')
+                                                @if($tt->mahuyen == session('admin')->district)
+                                                    @if(can('kkgiadatpl','edit'))
+                                                        <!--đúng địa bàn quản lý thì đc sửa-->
+                                                            <a href="{{url('giadatphanloai/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
                                                     @endif
+
+                                                    @if(can('kkgiadatpl','approve'))
+                                                        <button type="button" onclick="confirmHoanthanh('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#hoanthanh-modal-confirm" data-toggle="modal"><i class="fa fa-check"></i>
+                                                            &nbsp;Hoàn thành</button>
+                                                    @endif
+
                                                     @if(can('kkgiadatpl','delete'))
                                                         <button type="button" onclick="confirmDelete('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
                                                             Xóa</button>
                                                     @endif
                                                 @endif
-                                            @else
-
-                                                <!-- 03.11.19 làm để giới thiệu (chưa phân quyền) -->
-                                                @if($tt->trangthai == 'CHT' || $tt->trangthai == 'HHT')
-                                                    @if($tt->mahuyen == session('admin')->district)
-                                                        @if(can('kkgiadatpl','edit'))
-                                                            <!--đúng địa bàn quản lý thì đc sửa-->
-                                                                <a href="{{url('giadatphanloai/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
-                                                        @endif
-
-                                                        @if(can('kkgiadatpl','approve'))
-                                                            <button type="button" onclick="confirmHoanthanh('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#hoanthanh-modal-confirm" data-toggle="modal"><i class="fa fa-check"></i>
-                                                                &nbsp;Hoàn thành</button>
-                                                        @endif
-
-                                                        @if(can('kkgiadatpl','delete'))
-                                                            <button type="button" onclick="confirmDelete('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
-                                                                Xóa</button>
-                                                        @endif
-                                                    @endif
-                                                @endif
                                             @endif
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
 
-                            </tbody>
-                        </table>
+                        </tbody>
+                    </table>
                 </div>
                 <!-- END EXAMPLE TABLE PORTLET-->
 
-        </div>
+            </div>
         <!-- BEGIN DASHBOARD STATS -->
         <!-- END DASHBOARD STATS -->
         </div>
