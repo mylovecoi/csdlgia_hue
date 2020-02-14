@@ -1,7 +1,5 @@
 <?php
 
-use App\Model\system\view_dsdiaban_donvi;
-
 function NhomQuanLy()
 {
     $a_kq = array(
@@ -125,6 +123,16 @@ function getDonViNhapLieu($level){
         return App\Model\system\dsdonvi::where('chucnang', 'NHAPLIEU')->get();
     }else{
         return App\Model\system\dsdonvi::where('madv', session('admin')->madv)->get();
+    }
+}
+
+function getDonViTimKiem($level, $madiaban = null){
+    //Lấy danh sách đơn vị nhập liệu trên địa bàn
+    if ($level == 'SSA') {
+        return App\Model\system\view_dsdiaban_donvi::where('chucnang', 'NHAPLIEU')->get();
+    }else{
+        return App\Model\system\view_dsdiaban_donvi::where('madiaban', $madiaban)
+            ->where('chucnang', 'NHAPLIEU')->get();
     }
 }
 

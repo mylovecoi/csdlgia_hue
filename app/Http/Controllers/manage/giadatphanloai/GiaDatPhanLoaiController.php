@@ -395,7 +395,7 @@ class GiaDatPhanLoaiController extends Controller
         if(Session::has('admin')){
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi = getDonViNhapLieu(session('admin')->level);
+            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
             //dd($m_diaban);
             $a_loaidat = array_column(GiaDatDiaBanDm::all()->toArray(),'loaidat','maloaidat');
             return view('manage.dinhgia.giadatphanloai.timkiem.index')
@@ -409,38 +409,38 @@ class GiaDatPhanLoaiController extends Controller
 
     public function ketquatk(Request $request){
         if(Session::has('admin')){
-            //Nếu chọn madv == 'all' => tùy theo level mà tìm trả lại danh sách
-            //chọn làm theo 1 trong 2 trường hợp
-            //1. nên chia làm 3 phần tìm kiếm X, H, T sau đó gộp 3 phần đó vào làm 1 rồi cho ra kết quả
-            //2. hoặc nếu chọn all đơn vị thì chỉ trả lại hồ sơ của đơn vị nhập (1 bộ)
-            //  nêu chọn theo đơn vị thì chia làm 3 phần tìm kiếm X, H, T sau đó gộp 3 phần đó vào làm 1 rồi cho ra kết quả
+            //Chỉ tìm kiếm hồ sơ do đơn vị nhập (các hồ sơ chuyển đơn vị cấp trên ko tính)
+            //Lấy hết hồ sơ trên địa bàn rồi bắt đầu tìm kiểm
             $inputs = $request->all();
-            dd($inputs);
-            //chưa tính hết các trường hợp nên mới cho tìm theo từng đơn vị
-            $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
-            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi = getDonViNhapLieu(session('admin')->level);
+            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
+            $model = GiaDatPhanLoai::wherein('madv',array_column($m_donvi->toarray(),'madv'))->get();
+            //dd($inputs);
 
+            if($inputs['madv'] != 'all'){
+                $model = $model->where('madv',$inputs['madv']);
+            }
+            if($inputs['maloaidat'] != 'all'){
+                $model = $model->where('maloaidat',$inputs['maloaidat']);
+            }
 
-            $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
-            $inputs['vitridiadiem'] = isset($inputs['vitridiadiem']) ? $inputs['vitridiadiem'] : '';
-            $model = DauGiaDatCt::join('daugiadat','daugiadat.mahs','=','daugiadatct.mahs')
-                ->select('daugiadatct.*','daugiadat.soqd','daugiadat.donvi','daugiadat.trangthai','daugiadat.thdaugia','daugiadat.created_at','daugiadat.diadiem')
-                ->whereIn('daugiadat.trangthai',['HT','CB']);
+            if(getDayVn($inputs['thoidiem_tu']) != ''){
+                $model = $model->where('thoidiem','>=',$inputs['thoidiem_tu']);
+            }
 
-            if($inputs['nam'] != '')
-                $model = $model->whereYear('daugiadat.created_at',$inputs['nam']);
-            if($inputs['vitridiadiem'] != '')
-                $model = $model->where('daugiadatct.vitridiadiem','like','%'.$inputs['vitridiadiem'].'%');
+            if(getDayVn($inputs['thoidiem_den']) != ''){
+                $model = $model->where('thoidiem','<=',$inputs['thoidiem_den']);
+            }
 
-            $model = $model->get();
+            $model = $model->where('giatri','>=',chkDbl($inputs['giatri_tu']));
+            if(chkDbl($inputs['giatri_den']) > 0){
+                $model = $model->where('giatri','<=',chkDbl($inputs['giatri_den']));
+            }
 
-            $v_donvi = view_dsdiaban_donvi::all();
             $a_loaidat = array_column(GiaDatDiaBanDm::all()->toArray(),'loaidat','maloaidat');
-            return view('manage.dinhgia.giadatphanloai.timkiem.index')
+            return view('manage.dinhgia.giadatphanloai.timkiem.result')
                 ->with('model',$model)
-                ->with('m_diaban',$m_diaban)
-                ->with('m_donvi',$m_donvi)
+                ->with('a_diaban',array_column($m_donvi->toarray(),'tendiaban','madiaban'))
+                ->with('a_donvi',array_column($m_donvi->toarray(),'tendv','madv'))
                 ->with('a_loaidat',$a_loaidat)
                 ->with('pageTitle','Tìm kiếm thông tin đấu giá đất');
         }else

@@ -36,11 +36,12 @@
                         <thead>
                             <tr>
                                 <th width="2%" style="text-align: center">STT</th>
-                                <th style="text-align: center">Địa bàn</th>
-                                <th style="text-align: center">Thời điểm <br>xác định</th>
-                                <th style="text-align: center">Vị trí đất</th>
-                                <th style="text-align: center">Trạng thái</th>
-                                <th style="text-align: center" width="20%">Thao tác</th>
+                                <th style="text-align: center">Đơn vị nhập</th>
+                                <th style="text-align: center">Thời điểm</th>
+                                <th style="text-align: center">Phân loại đất</th>
+                                <th style="text-align: center">Vị trí</th>
+                                <th style="text-align: center">Diện tích</th>
+                                <th style="text-align: center">Giá trị</th>
                             </tr>
                         </thead>
 
@@ -48,16 +49,23 @@
                             @foreach($model as $key=>$tt)
                                 <tr>
                                     <td style="text-align: center">{{$key + 1}}</td>
-                                    <td style="text-align: center">{{$a_diaban[$tt->madiaban] ?? ''}}</td>
+                                    <td>{{$a_donvi[$tt->madv] ?? ''}}</td>
                                     <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
-                                    <td style="text-align: left">{{$tt->vitri}}</td>
-                                    @include('manage.include.form.td_trangthai')
-                                    <td></td>
+                                    <td>{{$a_loaidat[$tt->maloaidat] ?? ''}}</td>
+                                    <td>{{$tt->vitri}}</td>
+                                    <td style="text-align: center">{{dinhdangso($tt->dientich)}}</td>
+                                    <td style="text-align: right">{{dinhdangso($tt->giatri)}}</td>
                                 </tr>
                             @endforeach
 
                         </tbody>
                     </table>
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: center">
+                            <a href="{{url('giadatphanloai/timkiem')}}" class="btn btn-danger">
+                                <i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                        </div>
+                    </div>
                 </div>
                 <!-- END EXAMPLE TABLE PORTLET-->
 
