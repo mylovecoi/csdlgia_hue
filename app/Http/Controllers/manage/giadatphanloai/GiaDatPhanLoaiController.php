@@ -447,25 +447,37 @@ class GiaDatPhanLoaiController extends Controller
             return view('errors.notlogin');
     }
 
-    function getHoSo($inputs){
-        $inputs['level'] = view_dsdiaban_donvi::where('madv', $inputs['madv'])->first()->level ?? 'H';
-        switch ($inputs['level']){
-            case 'H':{
+    function getHoSo($inputs)
+    {
+        $m_donvi = view_dsdiaban_donvi::where('madv', $inputs['madv'])->first();
+        $inputs['level'] = $m_donvi->chucnang != 'NHAPLIEU' ? $m_donvi->level : 'NHAPLIEU';
+        switch ($inputs['level']) {
+            case 'H':
+            {
                 $model = GiaDatPhanLoai::where('madv_h', $inputs['madv']);
                 if ($inputs['nam'] != 'all')
                     $model = $model->whereYear('thoidiem_h', $inputs['nam']);
                 break;
             }
-            case 'T':{
+            case 'T':
+            {
                 $model = GiaDatPhanLoai::where('madv_t', $inputs['madv']);
                 if ($inputs['nam'] != 'all')
                     $model = $model->whereYear('thoidiem_t', $inputs['nam']);
                 break;
             }
-            case 'ADMIN':{
+            case 'ADMIN':
+            {
                 $model = GiaDatPhanLoai::where('madv_ad', $inputs['madv']);
                 if ($inputs['nam'] != 'all')
                     $model = $model->whereYear('thoidiem_ad', $inputs['nam']);
+                break;
+            }
+            default:
+            {//mặc định lấy đơn vị nhâp liệu
+                $model = GiaDatPhanLoai::where('madv', $inputs['madv']);
+                if ($inputs['nam'] != 'all')
+                    $model = $model->whereYear('thoidiem', $inputs['nam']);
                 break;
             }
         }

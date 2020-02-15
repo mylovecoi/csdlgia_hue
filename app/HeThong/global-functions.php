@@ -2856,6 +2856,16 @@ function getDayVn($date) {
     return $newday;
 }
 
+//0: bắt đầu
+//1: chứa
+function getTimkiemLike($str, $kieu = 0)
+{
+    //kiểm tra hàm .env để lấy database
+    $tt = '*';
+    return $kieu == 0 ? $str . $tt : $tt . $str . $tt;
+
+}
+
 function getDateTime($date) {
     if($date != null)
         $newday = date('d/m/Y H:i:s',strtotime($date));

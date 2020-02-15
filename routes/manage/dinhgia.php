@@ -58,11 +58,6 @@ Route::group(['prefix'=>'giadatphanloai'],function (){
     Route::get('timkiem','manage\giadatphanloai\GiaDatPhanLoaiController@timkiem');
     Route::post('timkiem','manage\giadatphanloai\GiaDatPhanLoaiController@ketquatk');
     //
-
-    Route::post('giadatphanloai/hoanthanh','manage\giadatphanloai\GiaDatPhanLoaiController@hoanthanh');
-    Route::post('giadatphanloai/huyhoanthanh','manage\giadatphanloai\GiaDatPhanLoaiController@huyhoanthanh');
-    Route::post('giadatphanloai/congbo','manage\giadatphanloai\GiaDatPhanLoaiController@congbo');
-    Route::get('timkiemgiadatphanloai','manage\giadatphanloai\GiaDatPhanLoaiController@search');
 });
 
 
@@ -91,23 +86,49 @@ Route::get('lephitruocbact/del','LePhiTruocBaCtController@destroy');
 Route::get('timkiemlephitruocba','LePhiTruocBaController@search');
 
 //Giá thuê mặt đất-nước
-Route::get('giathuematdatmatnuoc/ketxuat','GiaThueDatNuocController@ketxuat');
-Route::resource('giathuematdatmatnuoc','GiaThueDatNuocController');
-Route::post('giathuematdatmatnuoc/delete','GiaThueDatNuocController@destroy');
-Route::post('giathuematdatmatnuoc/hoanthanh','GiaThueDatNuocController@hoanthanh');
-Route::post('giathuematdatmatnuoc/huyhoanthanh','GiaThueDatNuocController@huyhoanthanh');
-Route::post('giathuematdatmatnuoc/congbo','GiaThueDatNuocController@congbo');
-Route::get('timkiemgiathuematdatmatnuoc','GiaThueDatNuocController@search');
+Route::group(['prefix'=>'giathuematdatmatnuoc'], function (){
+    Route::get('danhsach','GiaThueDatNuocController@index');
+    Route::get('new','GiaThueDatNuocController@create');
+    Route::get('modify','GiaThueDatNuocController@edit');
+    Route::post('modify','GiaThueDatNuocController@update');
+    Route::post('delete','GiaThueDatNuocController@destroy');
+    Route::post('chuyenhs','GiaThueDatNuocController@chuyenhs');
+    Route::get('print','GiaThueDatNuocController@ketxuat');
 
-Route::get('giathuematdatmatnuocctdf/store','GiaThueDatNuocCtDfController@store');
-Route::get('giathuematdatmatnuocctdf/edit','GiaThueDatNuocCtDfController@edit');
-Route::get('giathuematdatmatnuocctdf/update','GiaThueDatNuocCtDfController@update');
-Route::get('giathuematdatmatnuocctdf/del','GiaThueDatNuocCtDfController@destroy');
+    Route::get('xetduyet','GiaThueDatNuocController@xetduyet');
+    Route::post('chuyenxd','GiaThueDatNuocController@chuyenxd');
+    Route::post('tralai','GiaThueDatNuocController@tralai');
+    Route::post('congbo','GiaThueDatNuocController@congbo');
 
-Route::get('giathuematdatmatnuocct/store','GiaThueDatNuocCtController@store');
-Route::get('giathuematdatmatnuocct/edit','GiaThueDatNuocCtController@edit');
-Route::get('giathuematdatmatnuocct/update','GiaThueDatNuocCtController@update');
-Route::get('giathuematdatmatnuocct/del','GiaThueDatNuocCtController@destroy');
+    Route::get('timkiem','GiaThueDatNuocController@timkiem');
+    Route::post('timkiem','GiaThueDatNuocController@ketquatk');
+
+
+    Route::get('chitiet/store','GiaThueDatNuocCtController@store');
+    Route::get('chitiet/edit','GiaThueDatNuocCtController@edit');
+    Route::get('chitiet/update','GiaThueDatNuocCtController@update');
+    Route::get('chitiet/del','GiaThueDatNuocCtController@destroy');
+
+    //
+    Route::get('giathuematdatmatnuoc/ketxuat','GiaThueDatNuocController@ketxuat');
+    Route::resource('giathuematdatmatnuoc','GiaThueDatNuocController');
+    Route::post('giathuematdatmatnuoc/delete','GiaThueDatNuocController@destroy');
+    Route::post('giathuematdatmatnuoc/hoanthanh','GiaThueDatNuocController@hoanthanh');
+    Route::post('giathuematdatmatnuoc/huyhoanthanh','GiaThueDatNuocController@huyhoanthanh');
+    Route::post('giathuematdatmatnuoc/congbo','GiaThueDatNuocController@congbo');
+    Route::get('timkiemgiathuematdatmatnuoc','GiaThueDatNuocController@search');
+
+    Route::get('giathuematdatmatnuocctdf/store','GiaThueDatNuocCtDfController@store');
+    Route::get('giathuematdatmatnuocctdf/edit','GiaThueDatNuocCtDfController@edit');
+    Route::get('giathuematdatmatnuocctdf/update','GiaThueDatNuocCtDfController@update');
+    Route::get('giathuematdatmatnuocctdf/del','GiaThueDatNuocCtDfController@destroy');
+
+    Route::get('giathuematdatmatnuocct/store','GiaThueDatNuocCtController@store');
+    Route::get('giathuematdatmatnuocct/edit','GiaThueDatNuocCtController@edit');
+    Route::get('giathuematdatmatnuocct/update','GiaThueDatNuocCtController@update');
+    Route::get('giathuematdatmatnuocct/del','GiaThueDatNuocCtController@destroy');
+});
+
 
 //Giá rừng
 Route::get('dmgiarung','manage\giarung\DmGiaRungController@index');

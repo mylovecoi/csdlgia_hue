@@ -48,6 +48,39 @@
                 </li>
             @endif
 
+            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadatpl','index'))
+                <li>
+                    <a href="javascript:;">
+                        Giá thuê đất, nước<span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuedatnuoc', 'hoso','index'))
+                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                                <li>
+                                    <a href="{{url('/giathuematdatmatnuoc/danhsach')}}">
+                                        Thông tin hồ sơ
+                                    </a>
+                                </li>
+                            @endif
+
+                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                                <li>
+                                    <a href="{{url('/giathuematdatmatnuoc/xetduyet')}}">
+                                        Xét duyệt hồ sơ
+                                    </a>
+                                </li>
+                            @endif
+
+                            <li>
+                                <a href="{{url('/giathuematdatmatnuoc/timkiem')}}">
+                                    Tìm kiếm hồ sơ
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
+            @endif
+
             <!-- Cũ -->
             @if(chkPer('csdlmucgiahhdv','dinhgia','giacldat','index'))
                 {{--Bảng giá đất--}}
@@ -173,27 +206,7 @@
                 @endif
             @endif
 
-            @if(canGeneral('giathuedatnuoc','index'))
-                @if(can('giathuedatnuoc','index'))
-                    <li>
-                        <a href="javascript:;">
-                            Giá thuê đất, nước<span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            @if(can('kkgiathuedatnuoc','index'))
-                                <li>
-                                    <a href="{{url('giathuematdatmatnuoc')}}">Thông tin giá thuê mặt đất- mặt nước</a>
-                                </li>
-                            @endif
-                            @if(can('thgiathuedatnuoc','timkiem'))
-                                <li>
-                                    <a href="{{url('timkiemgiathuematdatmatnuoc')}}">Tìm kiếm thông tin</a>
-                                </li>
-                            @endif
-                        </ul>
-                    </li>
-                @endif
-            @endif
+
 
             @if(canGeneral('giarung','index'))
                 @if(can('giarung','index'))

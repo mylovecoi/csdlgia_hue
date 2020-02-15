@@ -35,7 +35,7 @@
         function capnhatts(){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: '/giathuematdatmatnuocct/store',
+                url: '{{$inputs['url']}}'+'/chitiet/store',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -48,7 +48,7 @@
                 dataType: 'JSON',
                 success: function (data) {
                     if(data.status == 'success') {
-                        toastr.success("Cập nhật thông tin tài sản thành công", "Thành công!");
+                        toastr.success("Cập nhật thông tin thành công", "Thành công!");
                         $('#dsts').replaceWith(data.message);
                         jQuery(document).ready(function() {
                             TableManaged.init();
@@ -64,7 +64,7 @@
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             //alert(id);
             $.ajax({
-                url: '/giathuematdatmatnuocct/edit',
+                url: '{{$inputs['url']}}'+'/chitiet/edit',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -77,7 +77,7 @@
                         InputMask();
                     }
                     else
-                        toastr.error("Không thể chỉnh sửa thông tin tài sản!", "Lỗi!");
+                        toastr.error("Không thể chỉnh sửa thông tin.", "Lỗi!");
                 }
             })
         }
@@ -86,7 +86,7 @@
             //alert('vcl');
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: '/giathuematdatmatnuocct/update',
+                url: '{{$inputs['url']}}'+'/chitiet/update',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -100,16 +100,14 @@
                 dataType: 'JSON',
                 success: function (data) {
                     if(data.status == 'success') {
-                        toastr.success("Chỉnh sửa thông tin tài sản thành công", "Thành công!");
+                        toastr.success("Chỉnh sửa thông tin thành công.", "Thành công!");
                         $('#dsts').replaceWith(data.message);
                         jQuery(document).ready(function() {
                             TableManaged.init();
                         });
                         $('#modal-edit').modal("hide");
-
-
                     }else
-                        toastr.error("Bạn cần kiểm tra lại thông tin vừa nhập!", "Lỗi!");
+                        toastr.error("Bạn cần kiểm tra lại thông tin vừa nhập.", "Lỗi!");
                 }
             })
         }
@@ -119,7 +117,7 @@
         function delrow(){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: '/giathuematdatmatnuocct/del',
+                url: '{{$inputs['url']}}'+'/chitiet/del',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -129,14 +127,12 @@
                 dataType: 'JSON',
                 success: function (data) {
                     //if(data.status == 'success') {
-                    toastr.success("Bạn đã xóa thông tin tài sản thành công!", "Thành công!");
+                    toastr.success("Bạn đã xóa thông tin thành công.", "Thành công!");
                     $('#dsts').replaceWith(data.message);
                     jQuery(document).ready(function() {
                         TableManaged.init();
                     });
                     $('#modal-delete').modal("hide");
-
-                    //}
                 }
             })
 
@@ -154,43 +150,49 @@
     <div class="row center">
         <div class="col-md-12 center">
             <!-- BEGIN VALIDATION STATES-->
-            {!! Form::model($model, ['method' => 'PATCH', 'url'=>'giathuematdatmatnuoc/'. $model->id, 'class'=>'horizontal-form','id'=>'update_giathuematdatmatnuoc']) !!}
+            {!! Form::model($model, ['method' => 'post', 'url'=>'giathuematdatmatnuoc/modify', 'class'=>'horizontal-form','id'=>'update_giathuematdatmatnuoc']) !!}
+            <input type="hidden" name="mahs" id="mahs" value="{{$model->mahs}}">
             <div class="portlet box blue">
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
-
                     <div class="form-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="control-label">Số quyết định<span class="require">*</span></label>
-                                    {!!Form::text('soqd',null, array('id' => 'soqd','class' => 'form-control required','autofocus'))!!}
+                                    <label class="control-label">Số quyết định</label>
+                                    {!!Form::text('soqd',null, array('id' => 'soqd','class' => 'form-control', 'autofocus'))!!}
                                 </div>
                             </div>
-                            <!--/span-->
-                            <div class="col-md-6">
+
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="control-label">Ngày áp dụng<span class="require">*</span></label>
-                                    {!!Form::text('ngayapdung',date('d/m/Y',  strtotime($model->ngayapdung)), array('id' => 'ngayapdung','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                                    <label class="control-label">Thời điểm<span class="require">*</span></label>
+                                    {!! Form::input('date', 'thoidiem', null, array('id' => 'thoidiem', 'class' => 'form-control', 'required'))!!}
                                 </div>
                             </div>
-                            <!--/span-->
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Địa bàn</label>
+                                    {!!Form::select('madiaban', array_column($m_diaban->where('level','H')->toarray(),'tendiaban', 'madiaban'),
+                                        null, array('id' => 'madiaban','class' => 'form-control'))!!}
+                                </div>
+                            </div>
                         </div>
+
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="control-label">Ghi chú</label>
-                                    {!!Form::text('ghichu',null, array('id' => 'ghichu','class' => 'form-control'))!!}
+                                    <label class="control-label">Mô tả</label>
+                                    {!!Form::textarea('mota',null, array('id' => 'mota','class' => 'form-control', 'rows'=>2))!!}
                                 </div>
                             </div>
                         </div>
-                        <input type="hidden" name="mahs" id="mahs" value="{{$model->mahs}}">
 
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-success btn-xs" onclick="clearForm()"><i class="fa fa-plus"></i>&nbsp;Thêm mới vị trí</button>
-                                    &nbsp;
                                 </div>
                             </div>
                         </div>
@@ -198,68 +200,53 @@
                             <div class="col-md-12">
                                 <table class="table table-striped table-bordered table-hover" id="sample_3">
                                     <thead>
-                                    <tr>
-                                        <th width="2%" style="text-align: center">STT</th>
-                                        <th style="text-align: center">Vị trí</th>
-                                        <th style="text-align: center">Mô tả</th>
-                                        <th style="text-align: center" width="10%">Diện tích</th>
-                                        <th style="text-align: center" width="10%">Đơn giá</th>
-                                        <th style="text-align: center" width="15%">Thao tác</th>
-                                    </tr>
+                                        <tr>
+                                            <th width="2%" style="text-align: center">STT</th>
+                                            <th style="text-align: center">Vị trí</th>
+                                            <th style="text-align: center">Mô tả</th>
+                                            <th style="text-align: center" width="10%">Diện tích</th>
+                                            <th style="text-align: center" width="10%">Đơn giá</th>
+                                            <th style="text-align: center" width="15%">Thao tác</th>
+                                        </tr>
                                     </thead>
                                     <tbody id="ttts">
-                                    @foreach($modelct as $key=>$tt)
-                                        <tr id={{$tt->id}}>
-                                            <td style="text-align: center">{{($key +1)}}</td>
-                                            <td class="active">{{$tt->vitri}}</td>
-                                            <td>{{$tt->mota}}</td>
-                                            <td style="text-align: center;font-weight: bold" >{{number_format($tt->dientich)}}</td>
-                                            <td style="text-align: right;font-weight: bold">{{number_format($tt->dongia)}}</td>
-                                            <td>
-                                                <button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem({{$tt->id}})"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</button>
-                                                <button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid({{$tt->id}})" ><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-
+                                        @foreach($modelct as $key=>$tt)
+                                            <tr id={{$tt->id}}>
+                                                <td style="text-align: center">{{($key +1)}}</td>
+                                                <td class="active">{{$tt->vitri}}</td>
+                                                <td>{{$tt->mota}}</td>
+                                                <td style="text-align: center;font-weight: bold" >{{number_format($tt->dientich)}}</td>
+                                                <td style="text-align: right;font-weight: bold">{{number_format($tt->dongia)}}</td>
+                                                <td>
+                                                    @if(in_array($model->trangthai, ['CHT', 'HHT']))
+                                                        <button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem({{$tt->id}})"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</button>
+                                                        <button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid({{$tt->id}})" ><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-
                     </div>
 
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12" style="text-align: center">
-                    <a href="{{url('giathuematdatmatnuoc?trangthai='.$model->trangthai.'&diaban='.$model->district)}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
-                    <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
-                    <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i> Hoàn thành</button>
+            @if($inputs['act'] == 'true')
+                <div class="row">
+                    <div class="col-md-12" style="text-align: center">
+                        <a href="{{url('giathuematdatmatnuoc/danhsach?madv='.$model->madv)}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                        <button type="submit" class="btn green"><i class="fa fa-check"></i> Hoàn thành</button>
+                    </div>
                 </div>
-            </div>
+            @endif
             {!! Form::close() !!}
             <!-- END FORM-->
 
             <!-- END VALIDATION STATES-->
         </div>
     </div>
-
-    <script type="text/javascript">
-        function validateForm(){
-
-            var validator = $("#update_giathuematdatmatnuoc").validate({
-                rules: {
-                    ten :"required"
-                },
-                messages: {
-                    ten :"Chưa nhập dữ liệu"
-                }
-            });
-        }
-    </script>
-
-
 
     <!--Modal Edit-->
     <div class="modal fade bs-modal-lg" id="modal-edit" tabindex="-1" role="dialog" aria-hidden="true">
@@ -280,6 +267,7 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+
     <!--Model Create-->
     <div class="modal fade bs-modal-lg" id="modal-create" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -329,6 +317,7 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+
     <!--Model Delete-->
     <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
@@ -347,7 +336,7 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
-    @include('includes.script.set_date_thoihanthamdinh')
+
     @include('includes.script.inputmask-ajax-scripts')
     @include('includes.script.create-header-scripts')
 @stop
