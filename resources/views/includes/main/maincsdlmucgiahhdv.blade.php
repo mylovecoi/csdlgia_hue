@@ -48,7 +48,7 @@
                 </li>
             @endif
 
-            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadatpl','index'))
+            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuedatnuoc','index'))
                 <li>
                     <a href="javascript:;">
                         Giá thuê đất, nước<span class="arrow"></span>
@@ -80,6 +80,47 @@
                     </ul>
                 </li>
             @endif
+
+            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giarung','index'))
+                <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+                    data-original-title="Giá rừng bao gồm rừng sản xuất, rừng phòng hộ và rừng đặc dụng thuộc sở hữu toàn dân do Nhà nước làm đại diện chủ sở hữu">
+                    <a href="javascript:;">
+                        Giá thuê MT rừng
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giarung', 'danhmuc','index'))
+                            <li>
+                                <a href="{{url('giarung/danhmuc')}}">Danh mục loại rừng</a>
+                            </li>
+                        @endif
+                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giarung', 'hoso','index'))
+                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                                <li>
+                                    <a href="{{url('/giarung/danhsach')}}">
+                                        Thông tin hồ sơ
+                                    </a>
+                                </li>
+                            @endif
+
+                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                                <li>
+                                    <a href="{{url('/giarung/xetduyet')}}">
+                                        Xét duyệt hồ sơ
+                                    </a>
+                                </li>
+                            @endif
+
+                            <li>
+                                <a href="{{url('/giarung/timkiem')}}">
+                                    Tìm kiếm hồ sơ
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
+            @endif
+
 
             <!-- Cũ -->
             @if(chkPer('csdlmucgiahhdv','dinhgia','giacldat','index'))
@@ -208,29 +249,6 @@
 
 
 
-            @if(canGeneral('giarung','index'))
-                @if(can('giarung','index'))
-                    <li class="tooltips" data-container="body" data-placement="right" data-html="true"
-                        data-original-title="Giá rừng bao gồm rừng sản xuất, rừng phòng hộ và rừng đặc dụng thuộc sở hữu toàn dân do Nhà nước làm đại diện chủ sở hữu">
-                        <a href="javascript:;">
-                            Giá thuê MT rừng
-                            <span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            @if(can('dmgiarung','index'))
-                                <li>
-                                    <a href="{{url('dmgiarung')}}">Danh mục loại rừng</a>
-                                </li>
-                            @endif
-                            @if(can('kkgiarung','index'))
-                                <li>
-                                    <a href="{{url('giarung')}}">Thông tin giá thuê môi trường rừng</a>
-                                </li>
-                            @endif
-                        </ul>
-                    </li>
-                @endif
-            @endif
 
             @if(canGeneral('giathuemuanhaxh','index'))
                 @if(can('giathuemuanhaxh','index'))

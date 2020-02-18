@@ -128,7 +128,7 @@
                 </div>
                 <!-- END EXAMPLE TABLE PORTLET-->
 
-        </div>
+            </div>
         <!-- BEGIN DASHBOARD STATS -->
         <!-- END DASHBOARD STATS -->
         </div>

@@ -103,56 +103,63 @@ Route::group(['prefix'=>'giathuematdatmatnuoc'], function (){
     Route::get('timkiem','GiaThueDatNuocController@timkiem');
     Route::post('timkiem','GiaThueDatNuocController@ketquatk');
 
-
     Route::get('chitiet/store','GiaThueDatNuocCtController@store');
     Route::get('chitiet/edit','GiaThueDatNuocCtController@edit');
     Route::get('chitiet/update','GiaThueDatNuocCtController@update');
     Route::get('chitiet/del','GiaThueDatNuocCtController@destroy');
-
-    //
-    Route::get('giathuematdatmatnuoc/ketxuat','GiaThueDatNuocController@ketxuat');
-    Route::resource('giathuematdatmatnuoc','GiaThueDatNuocController');
-    Route::post('giathuematdatmatnuoc/delete','GiaThueDatNuocController@destroy');
-    Route::post('giathuematdatmatnuoc/hoanthanh','GiaThueDatNuocController@hoanthanh');
-    Route::post('giathuematdatmatnuoc/huyhoanthanh','GiaThueDatNuocController@huyhoanthanh');
-    Route::post('giathuematdatmatnuoc/congbo','GiaThueDatNuocController@congbo');
-    Route::get('timkiemgiathuematdatmatnuoc','GiaThueDatNuocController@search');
-
-    Route::get('giathuematdatmatnuocctdf/store','GiaThueDatNuocCtDfController@store');
-    Route::get('giathuematdatmatnuocctdf/edit','GiaThueDatNuocCtDfController@edit');
-    Route::get('giathuematdatmatnuocctdf/update','GiaThueDatNuocCtDfController@update');
-    Route::get('giathuematdatmatnuocctdf/del','GiaThueDatNuocCtDfController@destroy');
-
-    Route::get('giathuematdatmatnuocct/store','GiaThueDatNuocCtController@store');
-    Route::get('giathuematdatmatnuocct/edit','GiaThueDatNuocCtController@edit');
-    Route::get('giathuematdatmatnuocct/update','GiaThueDatNuocCtController@update');
-    Route::get('giathuematdatmatnuocct/del','GiaThueDatNuocCtController@destroy');
 });
 
 
 //Giá rừng
-Route::get('dmgiarung','manage\giarung\DmGiaRungController@index');
-Route::post('dmgiarung','manage\giarung\DmGiaRungController@store');
-Route::get('dmgiarung/show','manage\giarung\DmGiaRungController@show');
-Route::post('dmgiarung/update','manage\giarung\DmGiaRungController@update');
+Route::group(['prefix'=>'giarung'], function (){
+    Route::get('danhmuc','manage\giarung\DmGiaRungController@index');
+    Route::post('danhmuc','manage\giarung\DmGiaRungController@store');
+    Route::post('update_dm','manage\giarung\DmGiaRungController@update');
+    Route::post('delete_dm','manage\giarung\DmGiaRungController@destroy');
+    Route::get('show_dm','manage\giarung\DmGiaRungController@show');
+    //
+    Route::get('danhsach','manage\giarung\GiaRungController@index');
+    Route::post('modify','manage\giarung\GiaRungController@store');
+    Route::get('get_hs','manage\giarung\GiaRungController@edit');
 
-Route::get('giarung','manage\giarung\GiaRungController@index');
-Route::post('giarung/add','manage\giarung\GiaRungController@store');
-Route::get('giarung/edittt','manage\giarung\GiaRungController@edit');
-Route::post('giarung/update','manage\giarung\GiaRungController@update');
-Route::post('giarung/destroy','manage\giarung\GiaRungController@destroy');
-Route::post('giarung/delete','manage\giarung\GiaRungController@multidelete');
-Route::post('giarung/hoanthanh','manage\giarung\GiaRungController@hoanthanh');
-Route::post('giarung/huyhoanthanh','manage\giarung\GiaRungController@huyhoanthanh');
-Route::post('giarung/congbo','manage\giarung\GiaRungController@congbo');
-Route::post('giarung/huycongbo','manage\giarung\GiaRungController@huycongbo');
-Route::post('giarung/checkmulti','manage\giarung\GiaRungController@checkmulti');
-Route::get('giarung/prints','manage\giarung\GiaRungController@BcGiaRung');
-Route::get('giarung/nhandulieutuexcel','manage\giarung\GiaRungController@nhandulieutuexcel');
-Route::post('giarung/importexcel','manage\giarung\GiaRungController@importexcel');
+    Route::post('delete','manage\giarung\GiaRungController@destroy');
+    Route::post('chuyenhs','manage\giarung\GiaRungController@chuyenhs');
+    Route::get('prints','manage\giarung\GiaRungController@BcGiaRung');
 
-Route::post('giarung/hoanthanh','manage\giarung\GiaRungController@hoanthanh');
-Route::post('giarung/huyhoanthanh','manage\giarung\GiaRungController@huyhoanthanh');
+    Route::get('xetduyet','manage\giarung\GiaRungController@xetduyet');
+    Route::post('chuyenxd','manage\giarung\GiaRungController@chuyenxd');
+    Route::post('tralai','manage\giarung\GiaRungController@tralai');
+    Route::post('congbo','manage\giarung\GiaRungController@congbo');
+
+    Route::get('nhandulieutuexcel','manage\giarung\GiaRungController@nhandulieutuexcel');
+    Route::post('importexcel','manage\giarung\GiaRungController@importexcel');
+
+    Route::get('timkiem','manage\giarung\GiaRungController@timkiem');
+    Route::post('timkiem','manage\giarung\GiaRungController@ketquatk');
+
+
+
+    //Route::post('dmgiarung','manage\giarung\DmGiaRungController@store');
+
+
+
+    Route::get('giarung','manage\giarung\GiaRungController@index');
+    Route::post('giarung/add','manage\giarung\GiaRungController@store');
+    //Route::get('giarung/edittt','manage\giarung\GiaRungController@edit');
+    Route::post('giarung/update','manage\giarung\GiaRungController@update');
+    Route::post('giarung/destroy','manage\giarung\GiaRungController@destroy');
+    Route::post('giarung/delete','manage\giarung\GiaRungController@multidelete');
+    Route::post('giarung/hoanthanh','manage\giarung\GiaRungController@hoanthanh');
+    Route::post('giarung/huyhoanthanh','manage\giarung\GiaRungController@huyhoanthanh');
+    Route::post('giarung/congbo','manage\giarung\GiaRungController@congbo');
+    Route::post('giarung/huycongbo','manage\giarung\GiaRungController@huycongbo');
+    Route::post('giarung/checkmulti','manage\giarung\GiaRungController@checkmulti');
+
+
+    Route::post('giarung/hoanthanh','manage\giarung\GiaRungController@hoanthanh');
+    Route::post('giarung/huyhoanthanh','manage\giarung\GiaRungController@huyhoanthanh');
+});
+
 
 //Thuế tài nguyên
 

@@ -19,8 +19,8 @@
         jQuery(document).ready(function() {
             TableManaged.init();
         });
-        function getId(id){
-            document.getElementById("iddelete").value=id;
+        function getId(manhom){
+            $('#frm_delete').find("[id='manhom']").val(manhom);
         }
         function ClickDelete(){
             $('#frm_delete').submit();
@@ -30,7 +30,6 @@
             var message='';
             var tennhom = $('#tennhom').val();
             var manhom = $('#manhom').val();
-
 
             if(tennhom == '' || manhom == ''){
                 valid=false;
@@ -66,7 +65,7 @@
         function ClickEdit(id){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: 'dmgiarung/show',
+                url: '/giarung/show_dm',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -98,8 +97,9 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <div class="actions">
-                        @if(can('dmgiarung','create'))
-                        <button type="button" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
+                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giarung', 'danhmuc','modify'))
+                            <button type="button" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
+                                <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
                         @endif
                     </div>
                 </div>
@@ -122,8 +122,11 @@
                             <td>{{$tt->manhom}}</td>
                             <td class="active" >{{$tt->tennhom}}</td>
                             <td>
-                                @if(can('dmgiarung','edit'))
-                                <button type="button" onclick="ClickEdit('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#modal-edit" data-toggle="modal"><i class="fa fa-edit"></i>&nbsp;Sửa</button>
+                                @if(chkPer('csdlmucgiahhdv','dinhgia', 'giarung', 'danhmuc','modify'))
+                                    <button type="button" onclick="ClickEdit('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#modal-edit" data-toggle="modal">
+                                        <i class="fa fa-edit"></i>&nbsp;Sửa</button>
+                                    <button type="button" onclick="getId('{{$tt->manhom}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal" style="margin: 2px">
+                                        <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
                                 @endif
                             </td>
                         </tr>
@@ -144,10 +147,10 @@
     <div class="modal fade" id="modal-create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url'=>'dmgiarung','id' => 'frm_create'])!!}
+                {!! Form::open(['url'=>'giarung/danhmuc', 'method'=>'post','id' => 'frm_create'])!!}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Thêm mới nhóm loại rừng?</h4>
+                    <h4 class="modal-title">Thông tin nhóm loại rừng</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -177,7 +180,8 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
-    <!--Model-edit-->
+
+        <!--Model-edit-->
     <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -185,7 +189,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Chỉnh sửa nhóm loại rừng?</h4>
                 </div>
-                {!! Form::open(['url'=>'dmgiarung/update','id' => 'frm_update'])!!}
+                {!! Form::open(['url'=>'giarung/update_dm','method'=>'post', 'id' => 'frm_update'])!!}
                 <div class="modal-body" id="edit-tt">
                 </div>
                 <div class="modal-footer">
@@ -199,15 +203,16 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+
     <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url'=>'dmgiarung/delete','id' => 'frm_delete'])!!}
+                {!! Form::open(['url'=>'/giarung/delete_dm','id' => 'frm_delete'])!!}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Đồng ý xóa?</h4>
                 </div>
-                <input type="hidden" name="iddelete" id="iddelete">
+                <input type="hidden" name="manhom" id="manhom">
                 <div class="modal-footer">
                     <button type="submit" class="btn blue" onclick="ClickDelete()">Đồng ý</button>
                     <button type="button" class="btn default" data-dismiss="modal">Hủy</button>

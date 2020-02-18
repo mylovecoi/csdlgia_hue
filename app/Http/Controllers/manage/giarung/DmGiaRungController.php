@@ -27,7 +27,7 @@ class DmGiaRungController extends Controller
                 $model = new DmGiaRung();
                 $model->create($inputs);
             }
-            return redirect('dmgiarung');
+            return redirect('/giarung/danhmuc');
         }else
             return view('errors.notlogin');
     }
@@ -89,7 +89,16 @@ class DmGiaRungController extends Controller
             $inputs['tennhom'] = $inputs['edit_tennhom'];
             $model = DmGiaRung::findOrFail($id);
             $model->update($inputs);
-            return redirect('dmgiarung');
+            return redirect('giarung/danhmuc');
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function destroy(Request $request){
+        if(Session::has('admin')){
+            $inputs=$request->all();
+            DmGiaRung::where('manhom',$inputs['manhom'])->first()->delete();
+            return redirect('giarung/danhmuc');
         }else
             return view('errors.notlogin');
     }
