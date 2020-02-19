@@ -121,6 +121,44 @@
                 </li>
             @endif
 
+                @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuemuanhaxh','index'))
+                    <li class="tooltips" data-container="body" data-placement="right" data-html="true">
+                        <a href="javascript:;">
+                            Giá thuê mua nhà xã hội
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuemuanhaxh', 'danhmuc','index'))
+                                <li>
+                                    <a href="{{url('/thuemuanhaxahoi/danhmuc')}}">Danh mục nhà xã hội</a>
+                                </li>
+                            @endif
+                            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuemuanhaxh', 'hoso','index'))
+                                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                                    <li>
+                                        <a href="{{url('/thuemuanhaxahoi/danhsach')}}">
+                                            Thông tin hồ sơ
+                                        </a>
+                                    </li>
+                                @endif
+
+                                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                                    <li>
+                                        <a href="{{url('/thuemuanhaxahoi/xetduyet')}}">
+                                            Xét duyệt hồ sơ
+                                        </a>
+                                    </li>
+                                @endif
+
+                                <li>
+                                    <a href="{{url('/thuemuanhaxahoi/timkiem')}}">
+                                        Tìm kiếm hồ sơ
+                                    </a>
+                                </li>
+                            @endif
+                        </ul>
+                    </li>
+                @endif
 
             <!-- Cũ -->
             @if(chkPer('csdlmucgiahhdv','dinhgia','giacldat','index'))
@@ -243,21 +281,6 @@
                                 </li>
                             @endif
                         </ul>
-                    </li>
-                @endif
-            @endif
-
-
-
-
-            @if(canGeneral('giathuemuanhaxh','index'))
-                @if(can('giathuemuanhaxh','index'))
-                    <li>
-                        @if(can('kkgiathuemuanhaxh','index'))
-                            <a href="{{url('thuemuanhaxahoi')}}">
-                                Giá thuê mua nhà xã hội
-                            </a>
-                        @endif
                     </li>
                 @endif
             @endif

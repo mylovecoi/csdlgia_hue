@@ -25,5 +25,6 @@
         $('#modal-dvt').modal('hide');
         var gt = $('#dvt_add').val();
         $('#dvt').append(new Option(gt, gt, true, true));
+        $('#dvt').val(gt).trigger('change');
     }
 </script>

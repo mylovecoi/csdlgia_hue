@@ -44,6 +44,7 @@
                     <!-- BEGIN FORM -->
                     {!! Form::open(['url'=>'/thuemuanhaxahoi/importexcel', 'method'=>'post' , 'files'=>true, 'id' => 'create_hscb','enctype'=>'multipart/form-data']) !!}
                         <meta name="csrf-token" content="{{ csrf_token() }}" />
+                        <input type="hidden" name="madv" value="{{$inputs['madv']}}" />
                         <div class="form-body">
                             <!-- Thông tin chung-->
                             <div class="row">
@@ -54,12 +55,9 @@
                                                 <div class="row">
                                                     <div class="col-md-3">
                                                         <div class="form-group">
-                                                        <label>Địa bàn</label>
-                                                        <select class="form-control" name="district" id="district">
-                                                           @foreach($districts as $district)
-                                                               <option value="{{$district->district}}">{{$district->diaban}}</option>
-                                                           @endforeach
-                                                        </select>
+                                                            <label>Địa bàn</label>
+                                                            {!!Form::select('madiaban', array_column($m_diaban->where('level','H')->toarray(),'tendiaban', 'madiaban'),
+                                                                null, array('id' => 'madiaban','class' => 'form-control'))!!}
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
@@ -137,7 +135,7 @@
                 </div>
             </div>
             <div class="col-md-12" style="text-align: center">
-                <a href="{{url('thuemuanhaxahoi')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                <a href="{{url('thuemuanhaxahoi/danhsach?madv='.$inputs['madv'])}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                 <button type="reset" class="btn default"><i class="fa fa-refresh"></i> Tải lại</button>
                 <button type="submit" class="btn green" onclick="ClickCreate()" id="submitform" name="submitform"><i class="fa fa-plus"></i> Nhận dữ liệu</button>
             </div>

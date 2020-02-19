@@ -136,28 +136,6 @@ Route::group(['prefix'=>'giarung'], function (){
 
     Route::get('timkiem','manage\giarung\GiaRungController@timkiem');
     Route::post('timkiem','manage\giarung\GiaRungController@ketquatk');
-
-
-
-    //Route::post('dmgiarung','manage\giarung\DmGiaRungController@store');
-
-
-
-    Route::get('giarung','manage\giarung\GiaRungController@index');
-    Route::post('giarung/add','manage\giarung\GiaRungController@store');
-    //Route::get('giarung/edittt','manage\giarung\GiaRungController@edit');
-    Route::post('giarung/update','manage\giarung\GiaRungController@update');
-    Route::post('giarung/destroy','manage\giarung\GiaRungController@destroy');
-    Route::post('giarung/delete','manage\giarung\GiaRungController@multidelete');
-    Route::post('giarung/hoanthanh','manage\giarung\GiaRungController@hoanthanh');
-    Route::post('giarung/huyhoanthanh','manage\giarung\GiaRungController@huyhoanthanh');
-    Route::post('giarung/congbo','manage\giarung\GiaRungController@congbo');
-    Route::post('giarung/huycongbo','manage\giarung\GiaRungController@huycongbo');
-    Route::post('giarung/checkmulti','manage\giarung\GiaRungController@checkmulti');
-
-
-    Route::post('giarung/hoanthanh','manage\giarung\GiaRungController@hoanthanh');
-    Route::post('giarung/huyhoanthanh','manage\giarung\GiaRungController@huyhoanthanh');
 });
 
 
@@ -407,22 +385,35 @@ Route::post('giadvgiaoducdaotao/import_excel','manage\GiaDvGdDtController@import
 Route::get('giadvgiaoducdaotao/prints','manage\GiaDvGdDtController@BcGiaDvGdDt');
 Route::post('giadvgiaoducdaotao/hoanthanh','manage\GiaDvGdDtController@hoanthanh');
 Route::post('giadvgiaoducdaotao/huyhoanthanh','manage\GiaDvGdDtController@huyhoanthanh');
-//Giá thuê mua nhà XH
-Route::get('thuemuanhaxahoi','manage\thuemuanhaxh\GiaThueMuaNhaXhController@index');
-Route::post('thuemuanhaxahoi/add','manage\thuemuanhaxh\GiaThueMuaNhaXhController@store');
-Route::get('thuemuanhaxahoi/edittt','manage\thuemuanhaxh\GiaThueMuaNhaXhController@edit');
-Route::post('thuemuanhaxahoi/update','manage\thuemuanhaxh\GiaThueMuaNhaXhController@update');
-Route::post('thuemuanhaxahoi/destroy','manage\thuemuanhaxh\GiaThueMuaNhaXhController@destroy');
-Route::post('thuemuanhaxahoi/delete','manage\thuemuanhaxh\GiaThueMuaNhaXhController@multidelete');
-Route::post('thuemuanhaxahoi/congbo','manage\thuemuanhaxh\GiaThueMuaNhaXhController@congbo');
-Route::post('thuemuanhaxahoi/huycongbo','manage\thuemuanhaxh\GiaThueMuaNhaXhController@huycongbo');
-Route::post('thuemuanhaxahoi/checkmulti','manage\thuemuanhaxh\GiaThueMuaNhaXhController@checkmulti');
-Route::get('thuemuanhaxahoi/nhandulieutuexcel','manage\thuemuanhaxh\GiaThueMuaNhaXhController@nhandulieutuexcel');
-Route::post('thuemuanhaxahoi/import_excel','manage\thuemuanhaxh\GiaThueMuaNhaXhController@importexcel');
-Route::get('thuemuanhaxahoi/prints','manage\thuemuanhaxh\GiaThueMuaNhaXhController@BcGiaThueMuaNhaXh');
 
-Route::post('thuemuanhaxahoi/hoanthanh','manage\thuemuanhaxh\GiaThueMuaNhaXhController@hoanthanh');
-Route::post('thuemuanhaxahoi/huyhoanthanh','manage\thuemuanhaxh\GiaThueMuaNhaXhController@huyhoanthanh');
+//Giá thuê mua nhà XH
+Route::group(['prefix'=>'thuemuanhaxahoi'],function (){
+    Route::get('danhmuc','manage\thuemuanhaxh\DmNhaXhController@index');
+    Route::post('danhmuc','manage\thuemuanhaxh\DmNhaXhController@store');
+    Route::post('update_dm','manage\thuemuanhaxh\DmNhaXhController@update');
+    Route::post('delete_dm','manage\thuemuanhaxh\DmNhaXhController@destroy');
+    Route::get('show_dm','manage\thuemuanhaxh\DmNhaXhController@show');
+    //
+    Route::get('danhsach','manage\thuemuanhaxh\GiaThueMuaNhaXhController@index');
+    Route::post('modify','manage\thuemuanhaxh\GiaThueMuaNhaXhController@update');
+    Route::get('get_hs','manage\thuemuanhaxh\GiaThueMuaNhaXhController@edit');
+    Route::post('delete','manage\thuemuanhaxh\GiaThueMuaNhaXhController@destroy');
+    Route::post('chuyenhs','manage\thuemuanhaxh\GiaThueMuaNhaXhController@chuyenhs');
+    Route::get('prints','manage\thuemuanhaxh\GiaThueMuaNhaXhController@BcGiaThueMuaNhaXh');
+
+    Route::get('xetduyet','manage\thuemuanhaxh\GiaThueMuaNhaXhController@xetduyet');
+    Route::post('chuyenxd','manage\thuemuanhaxh\GiaThueMuaNhaXhController@chuyenxd');
+    Route::post('tralai','manage\thuemuanhaxh\GiaThueMuaNhaXhController@tralai');
+    Route::post('congbo','manage\thuemuanhaxh\GiaThueMuaNhaXhController@congbo');
+
+    Route::get('nhandulieutuexcel','manage\thuemuanhaxh\GiaThueMuaNhaXhController@nhandulieutuexcel');
+    Route::post('importexcel','manage\thuemuanhaxh\GiaThueMuaNhaXhController@importexcel');
+
+    Route::get('timkiem','manage\thuemuanhaxh\GiaThueMuaNhaXhController@timkiem');
+    Route::post('timkiem','manage\thuemuanhaxh\GiaThueMuaNhaXhController@ketquatk');
+    //
+});
+
 //Giá thị trường
 Route::get('thongtugiathitruong','manage\giathitruong\GiaThiTruongTtController@index');
 Route::post('thongtugiathitruong','manage\giathitruong\GiaThiTruongTtController@store');

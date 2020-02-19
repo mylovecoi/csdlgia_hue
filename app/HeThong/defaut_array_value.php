@@ -107,6 +107,15 @@ function getPhanLoaiDonVi(){
     );
 }
 
+function getHienTrang_NhaXH(){
+    return array(
+        'CHOTHUE'=>'Đang cho thuê',
+        'DANGSD' => 'Đang sử dụng',
+        'DABAN' => 'Đã bán',
+        'CHUASD' => 'Chưa sử dụng',
+    );
+}
+
 function getDiaBan_Level($level, $madiaban = null)
 {
     if (in_array($level, ['SSA', 'T', 'ADMIN'])) {

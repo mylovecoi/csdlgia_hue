@@ -11,8 +11,8 @@
 <table width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:0 auto 20px; text-align: center;">
     <tr>
         <td width="40%" style="vertical-align: top;">
-            <span style="text-transform: uppercase">{{$inputs['dvcaptren']}}</span><br>
-            <span style="text-transform: uppercase;font-weight: bold">{{$inputs['dv']}}</span>
+            <span style="text-transform: uppercase">{{$m_donvi->tendvcqhienthi}}</span><br>
+            <span style="text-transform: uppercase;font-weight: bold">{{$m_donvi->tendvhienthi}}</span>
             <hr style="width: 10%;vertical-align: top;  margin-top: 2px">
 
         </td>
@@ -25,47 +25,39 @@
     </tr>
     <tr>
         <td>Số: ..............</td>
-        <td style="text-align: right"><i style="margin-right: 25%;">{{$inputs['diadanh']}}, ngày .... tháng .... năm ....</i></td>
+        <td style="text-align: right"><i style="margin-right: 25%;">{{$m_donvi->diadanh}}, ngày .... tháng .... năm ....</i></td>
     </tr>
 </table>
-<p style="text-align: center;font-weight: bold;font-size: 20px; text-transform: uppercase;">GIÁ CHO THUÊ - THUÊ MUA NHÀ Ở XÃ HỘI @if($inputs['district'] != 'all'){{$districts->diaban}}@endif</p>
-@if($inputs['nam'] != 'all')
-<p style="text-align: center;font-weight: bold;font-size: 16px">Năm {{$inputs['nam']}}</p>
-@endif
+<p style="text-align: center;font-weight: bold;font-size: 20px; text-transform: uppercase;">GIÁ CHO THUÊ - THUÊ MUA NHÀ Ở XÃ HỘI</p>
 <table cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;" id="data">
     <thead>
-    <tr>
-        <th style="text-align: center" width="2%">STT</th>
-        <th style="text-align: center">Tên dự án</th>
-        <th style="text-align: center">Địa bàn</th>
-        <th style="text-align: center">Thời điểm khởi công</th>
-        <th style="text-align: center">Thời điểm hoàn thành</th>
-        <th style="text-align: center" >Đơn giá thuê</th>
-        <th style="text-align: center" >Đơn giá thuê mua</th>
-        <th style="text-align: center" >Thông tin quyết định</th>
-        <th style="text-align: center" >Ghi chú</th>
-    </tr>
+        <tr>
+            <th style="text-align: center" width="2%">STT</th>
+            <th style="text-align: center">Địa bàn</th>
+            <th style="text-align: center">Tên nhà</th>
+            <th style="text-align: center">Từ ngày</th>
+            <th style="text-align: center">Đến ngày</th> </br>
+            <th style="text-align: center">Đơn vị</br>tính</th>
+            <th style="text-align: center" >Đơn giá</th>
+            <th style="text-align: center" >Thông tin quyết định</th>
+            <th style="text-align: center" >Ghi chú</th>
+        </tr>
     </thead>
     <tbody>
-    @if($model->count() != 0)
         @foreach($model as $key => $tt)
             <tr>
                 <td style="text-align: center">{{$key+1}}</td>
-                <td style="text-align: left" class="active">{{$tt->tenduan}}</td>
-                <td><b>{{$tt->diaban}}</b></td>
-                <td style="text-align: center"><b>{{getDayVn($tt->thoidiemkc)}}</b></td>
-                <td style="text-align: center"><b>{{getDayVn($tt->thoidiemht)}}</b></td>
-                <td style="text-align: right">{{dinhdangsothapphan($tt->dongiathue,2)}}</td>
-                <td style="text-align: right">{{dinhdangsothapphan($tt->dongiathuemua,2)}}</td>
-                <td style="text-align: center">{{$tt->ttqd}}</td>
+                <td><b>{{ $a_diaban[$tt->madiaban] ?? ''}}</b></td>
+                <td style="text-align: left">{{$a_nhaxh[$tt->maso] ?? ''}}</td>
+
+                <td style="text-align: center"><b>{{getDayVn($tt->tungay)}}</b></td>
+                <td style="text-align: center"><b>{{getDayVn($tt->denngay)}}</b></td>
+                <td style="text-align: center">{{$tt->dvt}}</td>
+                <td style="text-align: right">{{dinhdangsothapphan($tt->dongia)}}</td>
+                <td style="text-align: center">{{$tt->soqd}}</td>
                 <td style="text-align: center">{{$tt->ghichu}}</td>
             </tr>
         @endforeach
-    @else
-        <tr>
-            <td style="text-align: center" colspan="8">Không tìm thấy thông tin. Bạn cần kiểm tra lại điều kiện tìm kiếm!!!</td>
-        </tr>
-    @endif
     </tbody>
 </table>
 <table width="96%" border="0" cellspacing="0" height cellpadding="0" style="margin: 20px auto;text-align: center; height:200px">

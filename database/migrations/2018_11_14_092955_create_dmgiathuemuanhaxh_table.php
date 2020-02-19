@@ -13,10 +13,15 @@ class CreateDmgiathuemuanhaxhTable extends Migration
      */
     public function up()
     {
-        Schema::create('dmgiathuemuanhaxh', function (Blueprint $table) {
+        Schema::create('dmnhaxh', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('manhom')->nullable();
-            $table->string('tennhom')->nullable();
+            $table->string('maso')->unique();
+            $table->string('tennha')->nullable();
+            $table->string('diachi')->nullable();
+            $table->string('donviql')->nullable();
+            $table->date('thoigian')->nullable();
+            $table->double('dientich')->default(0);
+            $table->string('hientrang')->nullable()->default('SUDUNG');
             $table->text('ghichu')->nullable();
             $table->timestamps();
         });
@@ -29,6 +34,6 @@ class CreateDmgiathuemuanhaxhTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dmgiathuemuanhaxh');
+        Schema::dropIfExists('dmnhaxh');
     }
 }

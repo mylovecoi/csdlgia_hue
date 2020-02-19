@@ -171,7 +171,7 @@ class GiaRungController extends Controller
                 $inputs['trangthai'] = 'CHT';
                 GiaRung::create($inputs);
             } else {
-                GiaRung::update($inputs);
+                $chk->update($inputs);
             }
 
             return redirect('giarung/danhsach?&madv=' . $inputs['madv']);
@@ -409,7 +409,7 @@ class GiaRungController extends Controller
                 ->with('a_loairung',$a_loairung)
                 ->with('a_diaban',$a_diaban)
                 ->with('inputs',$inputs)
-                ->with('pageTitle','Thông tin hồ sơ đấu giá đất');
+                ->with('pageTitle','Thông tin hồ sơ');
         }else
             return view('errors.notlogin');
     }
