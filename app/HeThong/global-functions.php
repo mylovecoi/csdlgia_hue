@@ -2605,6 +2605,7 @@ function getPhanQuyen()
                 'index' => '0',
                 'danhmuc' => array('index' => '0', 'modify' => '0',),
                 'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+                'khac' => array('baocao' => '0', ),
             ),
             'giathuetscong' => array(
                 'index' => '0',

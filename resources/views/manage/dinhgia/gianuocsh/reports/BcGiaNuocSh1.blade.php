@@ -11,8 +11,8 @@
 <table width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:0 auto 20px; text-align: center;">
     <tr>
         <td width="40%" style="vertical-align: top;">
-            <span style="text-transform: uppercase">{{$inputs['dvcaptren']}}</span><br>
-            <span style="text-transform: uppercase;font-weight: bold">{{$inputs['dv']}}</span>
+            <span style="text-transform: uppercase">{{$m_donvi->tendvcqhienthi}}</span><br>
+            <span style="text-transform: uppercase;font-weight: bold">{{$m_donvi->tendvhienthi}}</span>
             <hr style="width: 10%;vertical-align: top;  margin-top: 2px">
 
         </td>
@@ -25,7 +25,7 @@
     </tr>
     <tr>
         <td>Số: ..............</td>
-        <td style="text-align: right"><i style="margin-right: 25%;">{{$inputs['diadanh']}}, ngày .... tháng .... năm ....</i></td>
+        <td style="text-align: right"><i style="margin-right: 25%;">{{$m_donvi->diadanh}}, ngày .... tháng .... năm ....</i></td>
     </tr>
 </table>
 <p style="text-align: center;font-weight: bold;font-size: 20px; text-transform: uppercase;">GIÁ NƯỚC SẠCH SINH HOẠT </p>

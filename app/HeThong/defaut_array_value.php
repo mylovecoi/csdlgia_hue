@@ -173,6 +173,18 @@ function getDonViTongHop($linhvuc, $level, $madiaban = null)
     //})->toSql();
 }
 
+function getDiaBan_HoSo($m_diaban, $all = false){
+    $a_diaban = array_column($m_diaban->toarray(), 'tendiaban', 'madiaban');
+    if ($all) {
+        $a_kq = ['null' => '-- Chọn địa bàn --'];
+        foreach ($a_diaban as $k => $v) {
+            $a_kq[$k] = $v;
+        }
+        return $a_kq;
+    }
+    return $a_diaban;
+}
+
 function getNam($all = false){
     $a_tl = $all == true ? array('all'=>'--Tất cả--') : array();
     for ($i = date('Y') - 3; $i <= date('Y') + 1; $i++) {

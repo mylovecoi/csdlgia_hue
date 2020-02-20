@@ -17,7 +17,6 @@
     <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
     <script>
         jQuery(document).ready(function() {
-            FormWizard.init();
             $(":input").inputmask();
             TableManaged.init();
         });
@@ -25,7 +24,7 @@
         function edittt(id){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: '/gianuocsachsinhhoatct/edittt',
+                url: '{{$inputs['url']}}' + '/edit_ct',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -33,9 +32,9 @@
                 },
                 dataType: 'JSON',
                 success: function (data) {
-                    $('#edit_doituongsd').val(data.doituongsd);
-                    $('#edit_giachuathue').val(data.giachuathue);
-                    $('#edit_id').val(data.id);
+                    $('#doituongsd').val(data.doituongsd);
+                    $('#giachuathue').val(data.giachuathue);
+                    $('#id').val(data.id);
                 },
                 error: function (message) {
                     toastr.error(message, 'Lỗi!');
@@ -46,12 +45,12 @@
         function ClickUpdate(){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: '/gianuocsachsinhhoatct/update',
+                url: '{{$inputs['url']}}' + '/update_ct',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: $('#edit_id').val(),
-                    giachuathue: $('#edit_giachuathue').val(),
+                    id: $('#id').val(),
+                    giachuathue: $('#giachuathue').val(),
                     mahs: $('#mahs').val(),
                 },
                 dataType: 'JSON',
@@ -77,79 +76,77 @@
         Giá nước sinh hoạt<small> chỉnh sửa</small>
     </h3>
     <div class="row">
-        {!! Form::model($model,['url'=>'gianuocsachsinhhoat/'. $model->id, 'method'=>'PATCH'  , 'files'=>true, 'id' => 'update_gnsh','class'=>'form-horizontal','enctype'=>'multipart/form-data']) !!}
+        {!! Form::model($model,['url'=>$inputs['url']. '/modify', 'method'=>'post'  , 'files'=>true, 'id' => 'update_gnsh','class'=>'form-horizontal','enctype'=>'multipart/form-data']) !!}
         <meta name="csrf-token" content="{{ csrf_token() }}" />
+        <input type="hidden" value="{{$model->mahs}}" name="mahs" id="mahs" class="form-control">
         <div class="col-md-12">
-            <div class="portlet box blue" id="form_wizard_1">
-                <div class="portlet-body form" id="form_wizard">
+            <div class="portlet box blue">
+                <div class="portlet-body form">
                     <div class="form-body">
-                        <div class="tab-content">
-                            <div class="form-body">
-                                <b style="color: blue">Thông tin hồ sơ</b>
-                                <div class="row">
-                                    <div class="col-md-4" >
-                                        <label class="control-label">Số quyết định</label>
-                                        {!!Form::text('soqd', null, array('id' => 'soqd','class' => 'form-control'))!!}
-                                    </div>
-                                    <div class="col-md-4" >
-                                        <label class="control-label">Ngày áp dụng</label>
-                                        {!!Form::text('ngayapdung',isset($model->ngayapdung) ? date('d/m/Y',strtotime($model->ngayapdung)) : date('d/m/Y',strtotime(date('Y-m-d'))), array('id' => 'ngayapdung','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="control-label">Mô tả</label>
-                                        {!!Form::text('mota', null, array('id' => 'mota','class' => 'form-control'))!!}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label class="control-label">Ghi chú<span class="require">*</span></label>
-                                        {!! Form::textarea('ghichu', null, ['id' => 'ghichu', 'rows' => 4, 'cols' => 10, 'class' => 'form-control']) !!}
-                                    </div>
-                                </div>
-                                <hr>
-                                <b style="color: blue">Giá nước sinh hoạt</b>
-
-                                <input type="hidden" value="{{$model->mahs}}" name="mahs" id="mahs" class="form-control">
-                                <!-- END PAGE HEADER-->
-                                <div class="row" id="dsts">
-                                    <div class="col-md-12">
-                                        <table class="table table-striped table-bordered table-hover" id="sample_3">
-                                            <thead>
-                                            <tr>
-                                                <th style="text-align: center" width="2%">STT</th>
-                                                <th style="text-align: center">Mục đích sử dụng</th>
-                                                <th style="text-align: center">Đơn giá</th>
-                                                <th style="text-align: center" width="20%">Thao tác</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            @foreach($modelct as $key=>$tt)
-                                                <tr class="odd gradeX">
-                                                    <td style="text-align: center">{{$key + 1}}</td>
-                                                    <td class="active" >{{$tt->doituongsd}}</td>
-                                                    <td class="active" >{{number_format($tt->giachuathue)}}</td>
-                                                    <td>
-                                                        <button type="button" onclick="edittt('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#edit-modal" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
-                                                            Sửa</button>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                        <b style="color: blue">Thông tin hồ sơ</b>
+                        <div class="row">
+                            <div class="col-md-4" >
+                                <label class="control-label">Số quyết định<span class="require">*</span></label>
+                                {!!Form::text('soqd', null, array('id' => 'soqd','class' => 'form-control'))!!}
+                            </div>
+                            <div class="col-md-4" >
+                                <label class="control-label">Ngày áp dụng<span class="require">*</span></label>
+                                {!!Form::text('ngayapdung',isset($model->ngayapdung) ? date('d/m/Y',strtotime($model->ngayapdung)) : date('d/m/Y',strtotime(date('Y-m-d'))), array('id' => 'ngayapdung','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                            </div>
+                            <div class="col-md-4">
+                                <label class="control-label">Địa bàn</label>
+                                {!!Form::select('madiaban', $a_diaban, null, array('id' => 'madiaban','class' => 'form-control'))!!}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="control-label">Nội dung<span class="require">*</span></label>
+                                {!! Form::textarea('mota', null, ['id' => 'mota', 'rows' => 2, 'class' => 'form-control']) !!}
                             </div>
                         </div>
                         <hr>
+                        <b style="color: blue">Giá nước sinh hoạt</b>
+
+                        <!-- END PAGE HEADER-->
+                        <div class="row" id="dsts">
+                            <div class="col-md-12">
+                                <table class="table table-striped table-bordered table-hover" id="sample_3">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center" width="2%">STT</th>
+                                            <th style="text-align: center">Mục đích sử dụng</th>
+                                            <th style="text-align: center">Đơn giá</th>
+                                            <th style="text-align: center" width="20%">Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($modelct as $key=>$tt)
+                                            <tr class="odd gradeX">
+                                                <td style="text-align: center">{{$key + 1}}</td>
+                                                <td class="active">{{$tt->doituongsd}}</td>
+                                                <td class="active">{{number_format($tt->giachuathue)}}</td>
+                                                <td>
+                                                    @if(in_array($model->trangthai, ['CHT', 'HHT']))
+                                                        <button type="button" onclick="edittt('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#edit-modal" data-toggle="modal">
+                                                            <i class="fa fa-trash-o"></i>&nbsp;Sửa</button>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
             </div>
-            <div style="text-align: center">
-                <a href="{{url('gianuocsachsinhhoat')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
-                <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
-                <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i>Cập nhật</button>
-            </div>
+            @if($inputs['act'] == 'true')
+                <div style="text-align: center">
+                    <a href="{{url($inputs['url'].'/danhsach?madv='.$model->madv)}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                    <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i>Cập nhật</button>
+                </div>
+            @endif
         </div>
         {!! Form::close() !!}
     </div>
@@ -170,7 +167,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="control-label">Đối tượng</label>
-                                    <input name="edit_doituongsd" id="edit_doituongsd" class="form-control" disabled>
+                                    <input name="doituongsd" id="doituongsd" class="form-control" disabled>
                                 </div>
                             </div>
                         </div>
@@ -178,11 +175,11 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="control-label">Đơn giá<span class="require">*</span></label>
-                                    {!!Form::text('edit_giachuathue',null, array('id' => 'edit_giachuathue','data-mask'=>'fdecimal','class' => 'form-control required','style'=>'text-align: right;font-weight: bold'))!!}
+                                    {!!Form::text('giachuathue',null, array('id' => 'giachuathue','data-mask'=>'fdecimal','class' => 'form-control required','style'=>'text-align: right;font-weight: bold'))!!}
                                 </div>
                             </div>
                         </div>
-                        <input type="hidden" name="edit_id" id="edit_id">
+                        <input type="hidden" name="id" id="id">
                     </div>
                     <div class="modal-footer">
                         <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
@@ -214,7 +211,7 @@
             }
 
             if($('#mota').val()==''){
-                strb1 += '  - Mô tả <br>';
+                strb1 += '  - Nội dung <br>';
                 ok = false;
             }
 

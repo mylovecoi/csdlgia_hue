@@ -160,6 +160,53 @@
                     </li>
                 @endif
 
+
+                    @if(chkPer('csdlmucgiahhdv','dinhgia', 'gianuocsh','index'))
+                        <li>
+                            <a href="javascript:;">
+                                Giá nước sạch sinh hoạt
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(chkPer('csdlmucgiahhdv','dinhgia', 'gianuocsh', 'danhmuc','index'))
+                                    <li>
+                                        <a href="{{url('/gianuocsachsinhhoat/danhmuc')}}">Danh mục</a>
+                                    </li>
+                                @endif
+                                @if(chkPer('csdlmucgiahhdv','dinhgia', 'gianuocsh', 'hoso','index'))
+                                    @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                                        <li>
+                                            <a href="{{url('/gianuocsachsinhhoat/danhsach')}}">
+                                                Thông tin hồ sơ
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                    @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                                        <li>
+                                            <a href="{{url('/gianuocsachsinhhoat/xetduyet')}}">
+                                                Xét duyệt hồ sơ
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                    <li>
+                                        <a href="{{url('/gianuocsachsinhhoat/timkiem')}}">
+                                            Tìm kiếm hồ sơ
+                                        </a>
+                                    </li>
+                                @endif
+
+                                @if(chkPer('csdlmucgiahhdv','dinhgia', 'gianuocsh', 'khac','baocao'))
+                                    <li>
+                                        <a href="{{url('/gianuocsachsinhhoat/baocao')}}">Báo cáo tổng hợp</a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+
+
             <!-- Cũ -->
             @if(chkPer('csdlmucgiahhdv','dinhgia','giacldat','index'))
                 {{--Bảng giá đất--}}
@@ -309,30 +356,6 @@
                 @endif
             @endif
 
-            @if(canGeneral('gianuocsh','index'))
-                @if(can('gianuocsh','index'))
-                    <li>
-                        <a href="javascript:;">
-                            Giá nước sạch sinh hoạt
-                            <span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            <li>
-                                <a href="{{url('dmgianuocsachsinhhoat')}}">Danh mục</a>
-                            </li>
-                            <li>
-                                <a href="{{url('gianuocsachsinhhoat')}}">Thông tin giá nước sạch</a>
-                            </li>
-                            <li>
-                                <a href="{{url('tkgianuocsachsinhhoat')}}">Tìm kiếm giá nước sạch sinh hoạt</a>
-                            </li>
-                            <li>
-                                <a href="{{url('bcgianuocsachsinhhoat')}}">Báo cáo tổng hợp</a>
-                            </li>
-                        </ul>
-                    </li>
-                @endif
-            @endif
 
             @if(canGeneral('giathuetscong','index'))
                 @if(can('giathuetscong','index'))

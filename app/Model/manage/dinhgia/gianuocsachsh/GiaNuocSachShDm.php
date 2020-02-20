@@ -10,6 +10,6 @@ class GiaNuocSachShDm extends Model
     protected $fillable = [
         'id',
         'madoituong',
-        'doituongsd '
+        'doituongsd',
     ];
 }
