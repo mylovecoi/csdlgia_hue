@@ -9,14 +9,13 @@ class GiaThueTsCongCt extends Model
     protected $table = 'giathuetscongct';
     protected $fillable = [
         'id',
-        'mahs',
+        'mataisan',
         'tents',
-        'soluong',
-        'dvt',
         'dongiathue',
         'dvthue',
         'hdthue',
         'ththue',
         'sotienthuenam',
+        'mahs',
     ];
 }

@@ -127,6 +127,18 @@ function getDiaBan_Level($level, $madiaban = null)
         'tendiaban', 'madiaban');
 }
 
+//Lấy danh sách địa bàn có chức năng nhập liệu (X; H; T)
+function getDiaBan_NhapLieu($level, $madiaban = null)
+{
+    if (in_array($level, ['SSA', 'T', 'ADMIN'])) {
+        return array_column(App\Model\system\dsdiaban::wherein('level', ['T', 'H'])->get()->toarray(),
+            'tendiaban', 'madiaban');
+    }
+
+    return array_column(App\Model\system\dsdiaban::where('madiaban', $madiaban)->get()->toarray(),
+        'tendiaban', 'madiaban');
+}
+
 function getDonViNhapLieu($level){
     if ($level == 'SSA') {
         return App\Model\system\dsdonvi::where('chucnang', 'NHAPLIEU')->get();

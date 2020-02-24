@@ -15,7 +15,8 @@ class GiaTaiSanCongDm extends Model
         'dvt',
         'mota',
         'giatri',
-        'mahuyen',
-        'maxa',
+        'hientrang',
+        'madiaban',
+        'madv',
     ];
 }

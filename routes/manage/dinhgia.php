@@ -92,6 +92,7 @@ Route::group(['prefix'=>'giathuematdatmatnuoc'], function (){
     Route::get('modify','GiaThueDatNuocController@edit');
     Route::post('modify','GiaThueDatNuocController@update');
     Route::post('delete','GiaThueDatNuocController@destroy');
+    Route::get('delete','GiaThueDatNuocController@destroy');//trường hợp thêm mới hồ sơ ko lưu
     Route::post('chuyenhs','GiaThueDatNuocController@chuyenhs');
     Route::get('print','GiaThueDatNuocController@ketxuat');
 
@@ -307,27 +308,37 @@ Route::post('thongtindaugiadattsct/update','manage\giadaugiadatts\DauGiaDatTsCtC
 Route::post('thongtindaugiadattsct/delete','manage\giadaugiadatts\DauGiaDatTsCtController@destroy');
 
 //Giá thuê tài sản công
-Route::get('thongtinthuetaisancong/ketxuat','GiaThueTsCongController@ketxuat');
-Route::resource('thongtinthuetaisancong','GiaThueTsCongController');
-Route::post('thongtinthuetaisancong/delete','GiaThueTsCongController@destroy');
-Route::post('thongtinthuetaisancong/hoanthanh','GiaThueTsCongController@hoanthanh');
-Route::post('thongtinthuetaisancong/huyhoanthanh','GiaThueTsCongController@huyhoanthanh');
-Route::post('thongtinthuetaisancong/congbo','GiaThueTsCongController@congbo');
-Route::get('timkiemthongtinthuetaisancong','GiaThueTsCongController@search');
 
-Route::get('thongtinthuetaisancongctdf/store','GiaThueTsCongCtDfController@store');
-Route::get('thongtinthuetaisancongctdf/show','GiaThueTsCongCtDfController@show');
-Route::get('thongtinthuetaisancongctdf/update','GiaThueTsCongCtDfController@update');
-Route::get('thongtinthuetaisancongctdf/del','GiaThueTsCongCtDfController@destroy');
 
-Route::get('thongtinthuetaisancongct/store','GiaThueTsCongCtController@store');
-Route::get('thongtinthuetaisancongct/show','GiaThueTsCongCtController@show');
-Route::get('thongtinthuetaisancongct/update','GiaThueTsCongCtController@update');
-Route::get('thongtinthuetaisancongct/del','GiaThueTsCongCtController@destroy');
+//tài sản công
+Route::group(['prefix'=>'giathuetscong'], function (){
+    Route::get('danhmuc','manage\giataisancong\GiaTaiSanCongDmController@index');
+    Route::post('danhmuc','manage\giataisancong\GiaTaiSanCongDmController@store');
+    Route::get('show_dm','manage\giataisancong\GiaTaiSanCongDmController@edit');
+    Route::post('delete_dm','manage\giataisancong\GiaTaiSanCongDmController@destroy');
 
-//danh mục tài sản công
-Route::resource('giataisancongdm','manage\giataisancong\GiaTaiSanCongDmController');
-Route::post('giataisancongdm/delete','manage\giataisancong\GiaTaiSanCongDmController@destroy');
+    Route::get('danhsach','GiaThueTsCongController@index');
+    Route::get('new','GiaThueTsCongController@create');
+    Route::get('modify','GiaThueTsCongController@edit');
+    Route::post('modify','GiaThueTsCongController@update');
+    Route::post('delete','GiaThueTsCongController@destroy');
+    Route::get('delete','GiaThueTsCongController@destroy');
+
+    Route::get('store_ct','GiaThueTsCongCtController@store');
+    Route::get('get_ct','GiaThueTsCongCtController@show');
+    Route::get('del_ct','GiaThueTsCongCtController@destroy');
+
+    Route::post('chuyenhs','GiaThueTsCongController@chuyenhs');
+    Route::get('prints','GiaThueTsCongController@ketxuat');
+
+    Route::get('xetduyet','GiaThueTsCongController@xetduyet');
+    Route::post('chuyenxd','GiaThueTsCongController@chuyenxd');
+    Route::post('tralai','GiaThueTsCongController@tralai');
+    Route::post('congbo','GiaThueTsCongController@congbo');
+
+    Route::get('timkiem','GiaThueTsCongController@timkiem');
+    Route::post('timkiem','GiaThueTsCongController@ketquatk');
+});
 
 //giá tài sản công
 Route::get('giataisancong/print','manage\giataisancong\GiaTaiSanCongController@ketxuat');
@@ -339,7 +350,6 @@ Route::post('giataisancong/congbo','manage\giataisancong\GiaTaiSanCongController
 Route::get('timkiemgiataisancong','manage\giataisancong\GiaTaiSanCongController@search');
 
 //Giá Nước sạch sinh hoạt
-
 Route::group(['prefix'=>'gianuocsachsinhhoat'], function (){
     Route::get('danhmuc','manage\gianuocsachsh\DmGiaNuocSachShController@index');
     Route::post('danhmuc','manage\gianuocsachsh\DmGiaNuocSachShController@store');

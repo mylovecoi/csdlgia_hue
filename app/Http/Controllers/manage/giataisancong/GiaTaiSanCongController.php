@@ -4,8 +4,13 @@ namespace App\Http\Controllers\manage\giataisancong;
 
 use App\DiaBanHd;
 use App\District;
+use App\GiaThueTsCong;
 use App\Model\manage\dinhgia\GiaTaiSanCong;
 use App\Model\manage\dinhgia\GiaTaiSanCongDm;
+use App\Model\manage\dinhgia\giathuemuanhaxh\dmnhaxh;
+use App\Model\manage\dinhgia\giathuemuanhaxh\GiaThueMuaNhaXh;
+use App\Model\system\dmdvt;
+use App\Model\system\dsdiaban;
 use App\Town;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -13,7 +18,50 @@ use Illuminate\Support\Facades\Session;
 
 class GiaTaiSanCongController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
+        //1. Chức năng chỉ danh cho tài khoản chức năng "NHAPLIEU", tài khoản lv = 'SSA'
+        //tài khoản SSA list tất cả đơn vị nhập liệu (chức năng sau này cho tài khoản SSA nhập liệu)
+        //2. Lấy danh sách đơn vị tiếp nhận:
+        //  - level == 'H' => lấy các đơn vị tổng hợp trong địa bàn và các đơn vị tổng hơp level == 'T' (các sở ban ngành)
+        // - level == 'T' => lấy các đơn vị tổng hơp level == 'T' (các sở ban ngành)
+        // - SSA => lấy tất cả
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['url'] = '/giathuetscong';
+            //lấy địa bàn
+            $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
+            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
+            $m_donvi = getDonViNhapLieu(session('admin')->level);
+            $m_donvi_th = getDonViTongHop('giadatpl',\session('admin')->level, \session('admin')->madiaban);
+            $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
+            $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
+            $inputs['nam'] = $inputs['nam'] ?? 'all';
+
+            //lấy thông tin đơn vị
+            $model = GiaThueTsCong::where('madv', $inputs['madv']);
+            if ($inputs['nam'] != 'all')
+                $model = $model->whereYear('thoidiem', $inputs['nam']);
+            //Ko dung $inputs['madiaban'] do $m_diaban chứa cả T, H
+            $a_ts = array_column(GiaTaiSanCongDm::where('madiaban',$m_donvi->where('madv',$inputs['madv'])->first()->madiaban)->get()->toArray(),'tentaisan','mataisan');
+
+            //dd($inputs);
+            return view('manage.dinhgia.giathuemuanhaxh.kekhai.index')
+                ->with('model', $model->get())
+                ->with('inputs', $inputs)
+                ->with('m_diaban', $m_diaban)
+                ->with('a_diaban', array_column($m_diaban->where('level', 'H')->toarray(), 'tendiaban', 'madiaban'))
+                ->with('a_ts', $a_ts)
+                ->with('m_donvi', $m_donvi)
+                ->with('m_donvi_th', $m_donvi_th)
+                ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
+                ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
+                ->with('pageTitle', 'Thông tin hồ sơ');
+        } else
+            return view('errors.notlogin');
+    }
+
+    public function index_cu(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();
             $inputs['paginate'] = isset($inputs['paginate']) ? $inputs['paginate'] : 5;
@@ -69,7 +117,7 @@ class GiaTaiSanCongController extends Controller
             return view('errors.notlogin');
     }
 
-    public function create(Request $request){
+    public function create_cu(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();
 
@@ -92,7 +140,7 @@ class GiaTaiSanCongController extends Controller
             return view('errors.notlogin');
     }
 
-    public function store(Request $request){
+    public function store_cu(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();
             $inputs['mahs'] = $inputs['mahuyen'].getdate()[0];
@@ -105,7 +153,7 @@ class GiaTaiSanCongController extends Controller
             return view('errors.notlogin');
     }
 
-    public function edit($id){
+    public function edit_cu($id){
         if(Session::has('admin')){
             $model = GiaTaiSanCong::findOrFail($id);
             $modeldb = DiaBanHd::where('district',$model->mahuyen)
@@ -128,7 +176,7 @@ class GiaTaiSanCongController extends Controller
             return view('errors.notlogin');
     }
 
-    public function update(Request $request,$id){
+    public function update_cu(Request $request,$id){
         if(Session::has('admin')){
             $inputs = $request->all();
             $inputs['thoidiemden'] = getDateToDb($inputs['thoidiemden']);
@@ -183,7 +231,7 @@ class GiaTaiSanCongController extends Controller
             return view('errors.notlogin');
     }
 
-    public function destroy(Request $request){
+    public function destroy_cu(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();
             $id = $inputs['iddelete'];
@@ -191,42 +239,6 @@ class GiaTaiSanCongController extends Controller
             $district = $model->district;
             $model->delete();
             return redirect('giataisancong?&mahuyen='.$district);
-        }else
-            return view('errors.notlogin');
-    }
-
-    public function hoanthanh(Request $request){
-        if(Session::has('admin')){
-            $inputs = $request->all();
-            $id = $inputs['idhoanthanh'];
-            $model = GiaTaiSanCong::findOrFail($id);
-            $model->trangthai = 'HT';
-            $model->save();
-            return redirect('giataisancong');
-        }else
-            return view('errors.notlogin');
-    }
-
-    public function huyhoanthanh(Request $request){
-        if(Session::has('admin')){
-            $inputs = $request->all();
-            $id = $inputs['idhuyhoanthanh'];
-            $model = GiaTaiSanCong::findOrFail($id);
-            $model->trangthai = 'HHT';
-            $model->save();
-            return redirect('giataisancong');
-        }else
-            return view('errors.notlogin');
-    }
-
-    public function congbo(Request $request){
-        if(Session::has('admin')){
-            $inputs = $request->all();
-            $id = $inputs['idcongbo'];
-            $model = GiaTaiSanCong::findOrFail($id);
-            $model->trangthai = 'CB';
-            $model->save();
-            return redirect('giataisancong');
         }else
             return view('errors.notlogin');
     }

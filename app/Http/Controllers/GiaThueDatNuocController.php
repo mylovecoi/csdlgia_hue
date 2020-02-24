@@ -82,7 +82,7 @@ class GiaThueDatNuocController extends Controller
             $model->lichsu = json_encode($a_lichsu);
             $model->save();
 
-            return redirect('/giathuematdatmatnuoc/modify?mahs='.$model->mahs.'&act=true');
+            return redirect('/giathuematdatmatnuoc/modify?mahs='.$model->mahs.'&act=true&addnew=true');
         }else
             return view('errors.notlogin');
     }

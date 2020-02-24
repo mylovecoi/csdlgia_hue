@@ -192,7 +192,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-success btn-xs" onclick="clearForm()"><i class="fa fa-plus"></i>&nbsp;Thêm mới vị trí</button>
+                                    <button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-success btn-xs" onclick="clearForm()">
+                                        <i class="fa fa-plus"></i>&nbsp;Thêm mới vị trí</button>
                                 </div>
                             </div>
                         </div>
@@ -236,7 +237,15 @@
             @if($inputs['act'] == 'true')
                 <div class="row">
                     <div class="col-md-12" style="text-align: center">
-                        <a href="{{url('giathuematdatmatnuoc/danhsach?madv='.$model->madv)}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                        <!-- thêm mới hồ sơ, sau đó nhấn quay lại ==> tự động xoa hồ sơ thêm mới -->
+                        @if(isset($inputs['addnew']))
+                            <a href="{{url('giathuematdatmatnuoc/delete?mahs='.$model->mahs)}}" class="btn btn-danger">
+                                <i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                        @else
+                            <a href="{{url('giathuematdatmatnuoc/danhsach?madv='.$model->madv)}}" class="btn btn-danger">
+                                <i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                        @endif
+
                         <button type="submit" class="btn green"><i class="fa fa-check"></i> Hoàn thành</button>
                     </div>
                 </div>

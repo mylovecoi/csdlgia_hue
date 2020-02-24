@@ -4,34 +4,33 @@ namespace App\Http\Controllers\manage\giataisancong;
 
 use App\Model\manage\dinhgia\giadatphanloai\GiaDatPhanLoaiDm;
 use App\Model\manage\dinhgia\GiaTaiSanCongDm;
+use App\Model\system\dmdvt;
+use App\Model\system\dsdiaban;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
 class GiaTaiSanCongDmController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         if (Session::has('admin')) {
-//            if(can('kkgiacldat','index')) {
-                $model = GiaTaiSanCongDm::all();
-                return view('manage.dinhgia.giataisancong.danhmuc.index')
-                    ->with('model',$model)
-                    ->with('pageTitle','Danh mục giá tài sản công');
-//            }else
-//                return view('errors.noperm');
+            $inputs = $request->all();
+            $inputs['url'] = '/giathuetscong';
+            $a_diaban = getDiaBan_NhapLieu(\session('admin')->level, \session('admin')->madiaban);
+            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
+            $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
+            //dd($inputs);
+            $model = GiaTaiSanCongDm::where('madiaban', $inputs['madiaban'])->get();
 
-        } else
-            return view('errors.notlogin');
-    }
-
-    public function create(){
-        if (Session::has('admin')) {
-//            if(can('kkgiacldat','create')) {
-                return view('manage.dinhgia.giataisancong.danhmuc.create')
-                    ->with('pageTitle','Danh mục giá tài sản công');
-//            }else
-//                return view('errors.noperm');
-
+            $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
+            return view('manage.dinhgia.giataisancong.danhmuc.index')
+                ->with('model', $model)
+                ->with('a_dvt', $a_dvt)
+                ->with('a_diaban', array_column($m_diaban->wherein('level',['T','H','X'])->toarray(),'tendiaban','madiaban'))
+                //->with('a_diaban', getDiaBan_HoSo($m_diaban))
+                ->with('inputs', $inputs)
+                ->with('a_hientrang',getHienTrang_NhaXH())
+                ->with('pageTitle', 'Danh mục giá tài sản công');
         } else
             return view('errors.notlogin');
     }
@@ -41,38 +40,40 @@ class GiaTaiSanCongDmController extends Controller
             $inputs = $request->all();
             $inputs['giatri'] = getMoneyToDb($inputs['giatri']);
             $inputs['dientich'] = getMoneyToDb($inputs['dientich']);
-            GiaTaiSanCongDm::create($inputs);
-            return redirect('giataisancongdm');
-        } else
+            //dd($inputs);
+            $check = GiaTaiSanCongDm::where('mataisan',$inputs['mataisan'])->first();
+
+            if ($check == null) {
+                $inputs['mataisan'] = getdate()[0];
+                GiaTaiSanCongDm::create($inputs);
+            } else {
+                $check->update($inputs);
+            }
+
+            return redirect('/giathuetscong/danhmuc');
+        }else
             return view('errors.notlogin');
     }
 
-    public function edit($id){
-        if(Session::has('admin')){
-            $model = GiaTaiSanCongDm::findOrFail($id);
-            return view('manage.dinhgia.giataisancong.danhmuc.edit')
-                ->with('model',$model)
-                ->with('pageTitle','Thông tư giá tài sản công');
-        } else
-            return view('errors.notlogin');
-    }
+    public function edit(Request $request){
+        if (!Session::has('admin')) {
+            $result = array(
+                'status' => 'fail',
+                'message' => 'permission denied',
+            );
+            die(json_encode($result));
+        }
 
-    public function update(Request $request,$id){
-        if(Session::has('admin')){
-            $inputs = $request->all();
-            $inputs['giatri'] = getMoneyToDb($inputs['giatri']);
-            $inputs['dientich'] = getMoneyToDb($inputs['dientich']);
-            GiaTaiSanCongDm::findOrFail($id)->update($inputs);
-            return redirect('giataisancongdm');
-        } else
-            return view('errors.notlogin');
+        $inputs = $request->all();
+        $model = GiaTaiSanCongDm::where('mataisan', $inputs['mataisan'])->first();
+        die($model);
     }
 
     public function destroy(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();
-            GiaTaiSanCongDm::where('id',$inputs['iddelete'])->delete();
-            return redirect('giataisancongdm');
+            GiaTaiSanCongDm::where('mataisan',$inputs['mataisan'])->delete();
+            return redirect('/giathuetscong/danhmuc');
         } else
             return view('errors.notlogin');
     }

@@ -160,52 +160,87 @@
                     </li>
                 @endif
 
-
-                    @if(chkPer('csdlmucgiahhdv','dinhgia', 'gianuocsh','index'))
-                        <li>
-                            <a href="javascript:;">
-                                Giá nước sạch sinh hoạt
-                                <span class="arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                @if(chkPer('csdlmucgiahhdv','dinhgia', 'gianuocsh', 'danhmuc','index'))
+                @if(chkPer('csdlmucgiahhdv','dinhgia', 'gianuocsh','index'))
+                    <li>
+                        <a href="javascript:;">
+                            Giá nước sạch sinh hoạt
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            @if(chkPer('csdlmucgiahhdv','dinhgia', 'gianuocsh', 'danhmuc','index'))
+                                <li>
+                                    <a href="{{url('/gianuocsachsinhhoat/danhmuc')}}">Danh mục</a>
+                                </li>
+                            @endif
+                            @if(chkPer('csdlmucgiahhdv','dinhgia', 'gianuocsh', 'hoso','index'))
+                                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
                                     <li>
-                                        <a href="{{url('/gianuocsachsinhhoat/danhmuc')}}">Danh mục</a>
-                                    </li>
-                                @endif
-                                @if(chkPer('csdlmucgiahhdv','dinhgia', 'gianuocsh', 'hoso','index'))
-                                    @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
-                                        <li>
-                                            <a href="{{url('/gianuocsachsinhhoat/danhsach')}}">
-                                                Thông tin hồ sơ
-                                            </a>
-                                        </li>
-                                    @endif
-
-                                    @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
-                                        <li>
-                                            <a href="{{url('/gianuocsachsinhhoat/xetduyet')}}">
-                                                Xét duyệt hồ sơ
-                                            </a>
-                                        </li>
-                                    @endif
-
-                                    <li>
-                                        <a href="{{url('/gianuocsachsinhhoat/timkiem')}}">
-                                            Tìm kiếm hồ sơ
+                                        <a href="{{url('/gianuocsachsinhhoat/danhsach')}}">
+                                            Thông tin hồ sơ
                                         </a>
                                     </li>
                                 @endif
 
-                                @if(chkPer('csdlmucgiahhdv','dinhgia', 'gianuocsh', 'khac','baocao'))
+                                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
                                     <li>
-                                        <a href="{{url('/gianuocsachsinhhoat/baocao')}}">Báo cáo tổng hợp</a>
+                                        <a href="{{url('/gianuocsachsinhhoat/xetduyet')}}">
+                                            Xét duyệt hồ sơ
+                                        </a>
                                     </li>
                                 @endif
-                            </ul>
-                        </li>
-                    @endif
 
+                                <li>
+                                    <a href="{{url('/gianuocsachsinhhoat/timkiem')}}">
+                                        Tìm kiếm hồ sơ
+                                    </a>
+                                </li>
+                            @endif
+
+                            <li>
+                                <a href="{{url('/gianuocsachsinhhoat/baocao')}}">Báo cáo tổng hợp</a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+
+                @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetscong','index'))
+                    <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+                        data-original-title="Giá cho thuê tài sản Nhà nước là công trình kết cấu hạ tầng đầu tư từ nguồn ngân sách địa phương">
+                        <a href="javascript:;">
+                            Giá thuê tài sản công<span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetscong', 'danhmuc','index'))
+                                <li>
+                                    <a href="{{url('/giathuetscong/danhmuc')}}">Danh mục</a>
+                                </li>
+                            @endif
+                            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetscong', 'hoso','index'))
+                                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                                    <li>
+                                        <a href="{{url('/giathuetscong/danhsach')}}">
+                                            Thông tin hồ sơ
+                                        </a>
+                                    </li>
+                                @endif
+
+                                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                                    <li>
+                                        <a href="{{url('/giathuetscong/xetduyet')}}">
+                                            Xét duyệt hồ sơ
+                                        </a>
+                                    </li>
+                                @endif
+
+                                <li>
+                                    <a href="{{url('/giathuetscong/timkiem')}}">
+                                        Tìm kiếm hồ sơ
+                                    </a>
+                                </li>
+                            @endif
+                        </ul>
+                    </li>
+                @endif
 
             <!-- Cũ -->
             @if(chkPer('csdlmucgiahhdv','dinhgia','giacldat','index'))
@@ -352,54 +387,6 @@
                                 Giá bán nhà tái định cư
                             </a>
                         @endif
-                    </li>
-                @endif
-            @endif
-
-
-            @if(canGeneral('giathuetscong','index'))
-                @if(can('giathuetscong','index'))
-                    <li>
-                        <a href="javascript:;">
-                            Giá thuê tài sản công<span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            @if(can('kkgiathuetscong','index'))
-                                <li>
-                                    <a href="{{url('thongtinthuetaisancong')}}">Thông tin giá thuê tài sản công</a>
-                                </li>
-                            @endif
-                            @if(can('thgiathuetscong','timkiem'))
-                                <li>
-                                    <a href="{{url('timkiemthongtinthuetaisancong')}}">Tìm kiếm thông tin</a>
-                                </li>
-                            @endif
-                        </ul>
-                    </li>
-                @endif
-            @endif
-
-            @if(canGeneral('giathuetscong','index'))
-                @if(can('giathuetscong','index'))
-                    <li class="tooltips" data-container="body" data-placement="right" data-html="true"
-                        data-original-title="Giá cho thuê tài sản Nhà nước là công trình kết cấu hạ tầng đầu tư từ nguồn ngân sách địa phương">
-                        <a href="javascript:;">
-                            Giá tài sản công<span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            <li>
-                                <a href="{{url('giataisancongdm')}}">
-                                    Danh mục tài sản công
-                                </a>
-                            </li>
-                            @if(can('kkgiathuetscong','index'))
-                                <li>
-                                    <a href="{{url('giataisancong')}}">
-                                        Hồ sơ giá tài sản công
-                                    </a>
-                                </li>
-                            @endif
-                        </ul>
                     </li>
                 @endif
             @endif

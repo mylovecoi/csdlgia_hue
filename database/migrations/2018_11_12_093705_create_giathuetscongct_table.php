@@ -15,9 +15,7 @@ class CreateGiathuetscongctTable extends Migration
     {
         Schema::create('giathuetscongct', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tents')->nullable();
-            $table->string('soluong')->nullable();
-            $table->string('dvt')->nullable();
+            $table->string('mataisan')->nullable();
             $table->string('dongiathue')->nullable();
             $table->string('dvthue')->nullable();
             $table->string('hdthue')->nullable();

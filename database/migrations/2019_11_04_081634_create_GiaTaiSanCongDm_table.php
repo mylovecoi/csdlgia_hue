@@ -21,8 +21,9 @@ class CreateGiaTaiSanCongDmTable extends Migration
             $table->string('dvt')->nullable();
             $table->string('mota')->nullable();
             $table->double('giatri')->default(0);
-            $table->string('mahuyen')->nullable();
-            $table->string('maxa')->nullable();
+            $table->string('hientrang')->nullable();
+            $table->string('madiaban')->nullable();
+            $table->string('madv')->nullable();
             $table->timestamps();
         });
     }
