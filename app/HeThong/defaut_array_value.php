@@ -116,6 +116,16 @@ function getHienTrang_NhaXH(){
     );
 }
 
+function getPhanLoaiSPDVCI(){
+    return array(
+        'SANPHAM'=>'Sản phẩm',
+        'DVCI' => 'Dịch vụ công ích',
+        'DVSNC' => 'Dịch vụ sự nghiệp công',
+        'HHDV' => 'Hàng hóa, dịch vụ',
+        'KHAC' => 'Sản phẩm, dịch vụ khác',
+    );
+}
+
 function getDiaBan_Level($level, $madiaban = null)
 {
     if (in_array($level, ['SSA', 'T', 'ADMIN'])) {

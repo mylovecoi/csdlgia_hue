@@ -491,25 +491,35 @@ Route::post('giathuenhacongvu/import_excel','manage\thuenhacongvu\GiaThueNhaCong
 Route::get('giathuenhacongvu/prints','manage\thuenhacongvu\GiaThueNhaCongVuController@BcGiaThueNhaCongVu');
 
 //Giá sản phẩm dịch vụ công ích
-Route::get('giaspdvci','manage\giaspdvci\GiaSpDvCiController@index');
-Route::get('giaspdvci/create','manage\giaspdvci\GiaSpDvCiController@create');
-Route::post('giaspdvci','manage\giaspdvci\GiaSpDvCiController@store');
-Route::get('giaspdvci/{id}/edit','manage\giaspdvci\GiaSpDvCiController@edit');
-Route::patch('giaspdvci/{id}','manage\giaspdvci\GiaSpDvCiController@update');
-Route::get('giaspdvci/{id}','manage\giaspdvci\GiaSpDvCiController@show');
-Route::post('giaspdvci/destroy','manage\giaspdvci\GiaSpDvCiController@destroy');
+Route::group(['prefix'=>'giaspdvci'],function (){
+    Route::get('danhmuc','manage\giaspdvci\giaspdvcidmController@index');
+    Route::post('danhmuc','manage\giaspdvci\giaspdvcidmController@store');
+    Route::get('show_dm','manage\giaspdvci\giaspdvcidmController@edit');
+    Route::post('delete_dm','manage\giaspdvci\giaspdvcidmController@destroy');
 
-Route::post('giaspdvci/congbo','manage\giaspdvci\GiaSpDvCiController@congbo');
-Route::post('giaspdvci/huycongbo','manage\giaspdvci\GiaSpDvCiController@huycongbo');
-Route::post('giaspdvci/hoanthanh','manage\giaspdvci\GiaSpDvCiController@hoanthanh');
-Route::post('giaspdvci/huyhoanthanh','manage\giaspdvci\GiaSpDvCiController@huyhoanthanh');
-Route::get('tkgiaspdvci','manage\giaspdvci\GiaSpDvCiController@search');
+    Route::get('danhsach','manage\giaspdvci\GiaSpDvCiController@index');
+    Route::get('new','manage\giaspdvci\GiaSpDvCiController@create');
+    Route::get('modify','manage\giaspdvci\GiaSpDvCiController@edit');
+    Route::post('modify','manage\giaspdvci\GiaSpDvCiController@update');
+    Route::post('delete','manage\giaspdvci\GiaSpDvCiController@destroy');
+    Route::get('delete','manage\giaspdvci\GiaSpDvCiController@destroy');
 
+    Route::get('store_ct','manage\giaspdvci\GiaSpDvCiCtController@store');
+    Route::get('get_ct','manage\giaspdvci\GiaSpDvCiCtController@show');
+    Route::get('del_ct','manage\giaspdvci\GiaSpDvCiCtController@destroy');
 
-Route::post('giaspdvcict/store','manage\giaspdvci\GiaSpDvCiCtController@store');
-Route::get('giaspdvcict/edit','manage\giaspdvci\GiaSpDvCiCtController@edit');
-Route::post('giaspdvcict/update','manage\giaspdvci\GiaSpDvCiCtController@update');
-Route::get('giaspdvcict/del','manage\giaspdvci\GiaSpDvCiCtController@destroy');
+    Route::post('chuyenhs','manage\giaspdvci\GiaSpDvCiController@chuyenhs');
+    Route::get('prints','manage\giaspdvci\GiaSpDvCiController@ketxuat');
+
+    Route::get('xetduyet','manage\giaspdvci\GiaSpDvCiController@xetduyet');
+    Route::post('chuyenxd','manage\giaspdvci\GiaSpDvCiController@chuyenxd');
+    Route::post('tralai','manage\giaspdvci\GiaSpDvCiController@tralai');
+    Route::post('congbo','manage\giaspdvci\GiaSpDvCiController@congbo');
+
+    Route::get('timkiem','manage\giaspdvci\GiaSpDvCiController@timkiem');
+    Route::post('timkiem','manage\giaspdvci\GiaSpDvCiController@ketquatk');
+});
+
 
 //Giá lệ phí trước bạ nhà
 Route::get('lephitruocbanha','manage\gialephitruocbanha\GiaLpTbNhaController@index');

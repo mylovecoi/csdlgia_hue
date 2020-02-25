@@ -242,6 +242,43 @@
                     </li>
                 @endif
 
+                @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvci','index'))
+                    <li>
+                        <a href="javascript:;">
+                            Giá sản phẩm, dịch vụ công ích,... đặt hàng<span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvci', 'danhmuc','index'))
+                                <li>
+                                    <a href="{{url('/giaspdvci/danhmuc')}}">Danh mục</a>
+                                </li>
+                            @endif
+                            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvci', 'hoso','index'))
+                                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                                    <li>
+                                        <a href="{{url('/giaspdvci/danhsach')}}">
+                                            Thông tin hồ sơ
+                                        </a>
+                                    </li>
+                                @endif
+
+                                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                                    <li>
+                                        <a href="{{url('/giaspdvci/xetduyet')}}">
+                                            Xét duyệt hồ sơ
+                                        </a>
+                                    </li>
+                                @endif
+
+                                <li>
+                                    <a href="{{url('/giaspdvci/timkiem')}}">
+                                        Tìm kiếm hồ sơ
+                                    </a>
+                                </li>
+                            @endif
+                        </ul>
+                    </li>
+                @endif
             <!-- Cũ -->
             @if(chkPer('csdlmucgiahhdv','dinhgia','giacldat','index'))
                 {{--Bảng giá đất--}}
@@ -433,33 +470,6 @@
                             @if(can('thtrogiatrocuoc','timkiem'))
                                 <li>
                                     <a href="javascript:;">Tìm kiếm thông tin mức trợ giá trợ cước</a>
-                                </li>
-                            @endif
-                        </ul>
-                    </li>
-                @endif
-            @endif
-
-            @if(canGeneral('giaspdvci','index'))
-                @if(can('giaspdvci','index'))
-                    <li>
-                        <a href="javascript:;">
-                            Giá SP, DVCI, DVSNC, HH-DV đặt hàng <span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            {{--@if(can('dmgiaspdvci','index'))--}}
-                            {{--<li>--}}
-                            {{--<a href="javascript:;">Danh mục SP, DVCI, DVSNC, HH-DV đặt hàng</a>--}}
-                            {{--</li>--}}
-                            {{--@endif--}}
-                            @if(can('kkgiaspdvci','index'))
-                                <li>
-                                    <a href="{{url('giaspdvci')}}">Thông tin giá SP, DVCI, DVSNC, HH-DV đặt hàng</a>
-                                </li>
-                            @endif
-                            @if(can('thgiaspdvci','timkiem'))
-                                <li>
-                                    <a href="{{url('tkgiaspdvci')}}">Tìm kiếm thông tin</a>
                                 </li>
                             @endif
                         </ul>

@@ -4,16 +4,17 @@ namespace App\Model\manage\dinhgia\giaspdvci;
 
 use Illuminate\Database\Eloquent\Model;
 
-class GiaSpDvCiCt extends Model
+class giaspdvcidm extends Model
 {
-    protected $table = 'giaspdvcict';
+    protected $table = 'giaspdvcidm';
     protected $fillable = [
         'id',
-        'mahs',
         'maspdv',
-        'mota',
+        'tenspdv',
         'dvt',
-        'dongia',
-        'trangthai',
+        'mota',
+        'phanloai',
+        'hientrang',
+        'madiaban',
     ];
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGiaspdvcictTable extends Migration
+class CreateGiaspdvcidmTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,16 @@ class CreateGiaspdvcictTable extends Migration
      */
     public function up()
     {
-        Schema::create('giaspdvcict', function (Blueprint $table) {
+        Schema::create('giaspdvcidm', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('mahs')->nullable();
             $table->string('maspdv')->nullable();
-            $table->string('trangthai')->nullable();
-            $table->text('mota')->nullable();
+            $table->string('tenspdv')->nullable();
+            $table->string('dientich')->nullable();
             $table->string('dvt')->nullable();
-            $table->string('dongia')->nullable();
+            $table->string('mota')->nullable();
+            $table->string('phanloai')->nullable();
+            $table->string('hientrang')->nullable();
+            $table->string('madiaban')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +34,6 @@ class CreateGiaspdvcictTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('giaspdvcict');
+        Schema::dropIfExists('giaspdvcidm');
     }
 }

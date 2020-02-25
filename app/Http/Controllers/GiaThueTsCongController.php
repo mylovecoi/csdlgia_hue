@@ -2,21 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\GiaDatDiaBanDm;
-use App\GiaThueDatNuoc;
-use App\GiaThueDatNuocCt;
 use App\GiaThueTsCong;
 use App\GiaThueTsCongCt;
-use App\GiaThueTsCongCtDf;
 use App\Model\manage\dinhgia\GiaTaiSanCongDm;
 use App\Model\system\dsdiaban;
 use App\Model\system\dsdonvi;
 use App\Model\system\view_dsdiaban_donvi;
-use App\Model\view\view_giathuedatnuoc;
 use App\Model\view\view_giathuetscong;
-use App\Town;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
 class GiaThueTsCongController extends Controller
