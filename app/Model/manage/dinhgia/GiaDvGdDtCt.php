@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Model\manage\dinhgia;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +10,7 @@ class GiaDvGdDtCt extends Model
     protected $fillable = [
         'id',
         'mahs',
+        'maspdv',
         'mota',
         'giadv',
     ];

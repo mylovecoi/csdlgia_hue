@@ -279,6 +279,55 @@
                         </ul>
                     </li>
                 @endif
+
+                @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvgddt','index'))
+                    <li>
+                        <a href="javascript:;">
+                            Giá dịch vụ đào tạo<span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvgddt', 'danhmuc','index'))
+                                <li>
+                                    <a href="{{url('/giadvgddt/danhmuc')}}">Danh mục</a>
+                                </li>
+                            @endif
+                            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvgddt', 'hoso','index'))
+                                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                                    <li>
+                                        <a href="{{url('/giadvgddt/danhsach')}}">
+                                            Thông tin hồ sơ
+                                        </a>
+                                    </li>
+                                @endif
+
+                                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                                    <li>
+                                        <a href="{{url('/giadvgddt/xetduyet')}}">
+                                            Xét duyệt hồ sơ
+                                        </a>
+                                    </li>
+                                @endif
+
+                                <li>
+                                    <a href="{{url('/giadvgddt/timkiem')}}">
+                                        Tìm kiếm hồ sơ
+                                    </a>
+                                </li>
+                            @endif
+                        </ul>
+                    </li>
+                @endif
+
+                @if(canGeneral('giadvkcb','index'))
+                    @if(can('giadvkcb','index'))
+                        <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+                            data-original-title="Giá dịch vụ khám bệnh, chữa bệnh đối với cơ sở khám bệnh, chữa bệnh của Nhà nước thuộc phạm vi quản lý của địa phương">
+                            <a href="{{url('dichvukcb')}}">
+                                Giá dịch vụ khám chữa bệnh
+                            </a>
+                        </li>
+                    @endif
+                @endif
             <!-- Cũ -->
             @if(chkPer('csdlmucgiahhdv','dinhgia','giacldat','index'))
                 {{--Bảng giá đất--}}
@@ -428,27 +477,7 @@
                 @endif
             @endif
 
-            @if(canGeneral('giadvgddt','index'))
-                @if(can('giadvgddt','index'))
-                    <li class="tooltips" data-container="body" data-placement="right" data-html="true"
-                        data-original-title="Giá dịch vụ giáo dục, đào tạo áp dụng đối với cơ sở giáo dục mầm non, phổ thông công lập thuộc tỉnh">
-                        <a href="{{url('giadvgiaoducdaotao')}}">
-                            Giá dịch vụ đào tạo
-                        </a>
-                    </li>
-                @endif
-            @endif
 
-            @if(canGeneral('giadvkcb','index'))
-                @if(can('giadvkcb','index'))
-                    <li class="tooltips" data-container="body" data-placement="right" data-html="true"
-                        data-original-title="Giá dịch vụ khám bệnh, chữa bệnh đối với cơ sở khám bệnh, chữa bệnh của Nhà nước thuộc phạm vi quản lý của địa phương">
-                        <a href="{{url('dichvukcb')}}">
-                            Giá dịch vụ khám chữa bệnh
-                        </a>
-                    </li>
-                @endif
-            @endif
 
             @if(canGeneral('trogiatrocuoc','index'))
                 @if(can('trogiatrocuoc','index'))

@@ -383,21 +383,34 @@ Route::group(['prefix'=>'gianuocsachsinhhoat'], function (){
     Route::post('baocao/baocaonuocsh1','manage\gianuocsachsh\GiaNuocShBcController@Bc1');
 });
 //Giá DV GD-ĐT
+Route::group(['prefix'=>'giadvgddt'],function (){
+    Route::get('danhmuc','manage\giadvgddt\giadvgddtdmController@index');
+    Route::post('danhmuc','manage\giadvgddt\giadvgddtdmController@store');
+    Route::get('show_dm','manage\giadvgddt\giadvgddtdmController@edit');
+    Route::post('delete_dm','manage\giadvgddt\giadvgddtdmController@destroy');
 
-Route::get('giadvgiaoducdaotao','manage\GiaDvGdDtController@index');
-Route::post('giadvgiaoducdaotao/add','manage\GiaDvGdDtController@store');
-Route::get('giadvgiaoducdaotao/edittt','manage\GiaDvGdDtController@edit');
-Route::post('giadvgiaoducdaotao/update','manage\GiaDvGdDtController@update');
-Route::post('giadvgiaoducdaotao/destroy','manage\GiaDvGdDtController@destroy');
-Route::post('giadvgiaoducdaotao/delete','manage\GiaDvGdDtController@multidelete');
-Route::post('giadvgiaoducdaotao/congbo','manage\GiaDvGdDtController@congbo');
-Route::post('giadvgiaoducdaotao/huycongbo','manage\GiaDvGdDtController@huycongbo');
-Route::post('giadvgiaoducdaotao/checkmulti','manage\GiaDvGdDtController@checkmulti');
-Route::get('giadvgiaoducdaotao/nhandulieutuexcel','manage\GiaDvGdDtController@nhandulieutuexcel');
-Route::post('giadvgiaoducdaotao/import_excel','manage\GiaDvGdDtController@importexcel');
-Route::get('giadvgiaoducdaotao/prints','manage\GiaDvGdDtController@BcGiaDvGdDt');
-Route::post('giadvgiaoducdaotao/hoanthanh','manage\GiaDvGdDtController@hoanthanh');
-Route::post('giadvgiaoducdaotao/huyhoanthanh','manage\GiaDvGdDtController@huyhoanthanh');
+    Route::get('danhsach','manage\giadvgddt\GiaDvGdDtController@index');
+    Route::get('new','manage\giadvgddt\GiaDvGdDtController@create');
+    Route::get('modify','manage\giadvgddt\GiaDvGdDtController@edit');
+    Route::post('modify','manage\giadvgddt\GiaDvGdDtController@update');
+    Route::post('delete','manage\giadvgddt\GiaDvGdDtController@destroy');
+    Route::get('delete','manage\giadvgddt\GiaDvGdDtController@destroy');
+
+    Route::get('store_ct','manage\giadvgddt\GiaDvGdDtCtController@store');
+    Route::get('get_ct','manage\giadvgddt\GiaDvGdDtCtController@show');
+    Route::get('del_ct','manage\giadvgddt\GiaDvGdDtCtController@destroy');
+
+    Route::post('chuyenhs','manage\giadvgddt\GiaDvGdDtController@chuyenhs');
+    Route::get('prints','manage\giadvgddt\GiaDvGdDtController@ketxuat');
+
+    Route::get('xetduyet','manage\giadvgddt\GiaDvGdDtController@xetduyet');
+    Route::post('chuyenxd','manage\giadvgddt\GiaDvGdDtController@chuyenxd');
+    Route::post('tralai','manage\giadvgddt\GiaDvGdDtController@tralai');
+    Route::post('congbo','manage\giadvgddt\GiaDvGdDtController@congbo');
+
+    Route::get('timkiem','manage\giadvgddt\GiaDvGdDtController@timkiem');
+    Route::post('timkiem','manage\giadvgddt\GiaDvGdDtController@ketquatk');
+});
 
 //Giá thuê mua nhà XH
 Route::group(['prefix'=>'thuemuanhaxahoi'],function (){

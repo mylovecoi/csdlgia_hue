@@ -15,8 +15,10 @@ class CreateDmgiadvgddtTable extends Migration
     {
         Schema::create('dmgiadvgddt', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('manhom')->nullable();
-            $table->string('tennhom')->nullable();
+            $table->string('maspdv')->unique();
+            $table->string('tenspdv')->nullable();
+            $table->string('phanloai')->nullable();
+            $table->string('hientrang')->nullable();
             $table->timestamps();
         });
     }

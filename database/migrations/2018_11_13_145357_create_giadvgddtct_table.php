@@ -16,6 +16,7 @@ class CreateGiadvgddtctTable extends Migration
         Schema::create('giadvgddtct', function (Blueprint $table) {
             $table->increments('id');
             $table->string('mahs')->nullable();
+            $table->string('maspdv')->nullable();
             $table->text('mota')->nullable();
             $table->string('giadv')->nullable();
             $table->timestamps();

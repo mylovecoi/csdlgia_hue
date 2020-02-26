@@ -15,7 +15,7 @@ class CreateGiaspdvcidmTable extends Migration
     {
         Schema::create('giaspdvcidm', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('maspdv')->nullable();
+            $table->string('maspdv')->unique();
             $table->string('tenspdv')->nullable();
             $table->string('dientich')->nullable();
             $table->string('dvt')->nullable();
