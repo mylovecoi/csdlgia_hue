@@ -176,23 +176,45 @@ Route::get('thuetainguyenct/update','manage\thuetn\ThueTaiNguyenCtController@upd
 Route::get('baocaothuetainguyen','manage\thuetn\ReportsThueTnController@index');
 Route::post('/baocaothuetainguyen/bc1','manage\thuetn\ReportsThueTnController@Bc1');
 
-
 //DV Khám chữa bệnh
-Route::get('dichvukcb','manage\dvkcb\DvKcbController@index');
-Route::post('dichvukcb/add','manage\dvkcb\DvKcbController@store');
-Route::get('dichvukcb/edittt','manage\dvkcb\DvKcbController@edit');
-Route::post('dichvukcb/update','manage\dvkcb\DvKcbController@update');
-Route::post('dichvukcb/delete','manage\dvkcb\DvKcbController@multidelete');
-Route::post('dichvukcb/destroy','manage\dvkcb\DvKcbController@destroy');
-Route::post('dichvukcb/congbo','manage\dvkcb\DvKcbController@congbo');
-Route::post('dichvukcb/huycongbo','manage\dvkcb\DvKcbController@huycongbo');
-Route::post('dichvukcb/checkmulti','manage\dvkcb\DvKcbController@checkmulti');
-Route::get('dichvukcb/nhandulieutuexcel','manage\dvkcb\DvKcbController@nhandulieutuexcel');
-Route::post('dichvukcb/importexcel','manage\dvkcb\DvKcbController@importexcel');
-Route::get('dichvukcb/prints','manage\dvkcb\DvKcbController@BcGiaDvKcb');
-Route::post('dichvukcb/huyhoanthanh','manage\dvkcb\DvKcbController@huyhoanthanh');
-Route::post('dichvukcb/hoanthanh','manage\dvkcb\DvKcbController@hoanthanh');
 
+Route::group(['prefix'=>'giadvkcb'], function (){
+    Route::get('danhmuc','manage\giadvkcb\dvkcbdmController@index');
+    Route::post('danhmuc','manage\giadvkcb\dvkcbdmController@store');
+    Route::get('show_dm','manage\giadvkcb\dvkcbdmController@edit');
+    Route::post('delete_dm','manage\giadvkcb\dvkcbdmController@destroy');
+
+    Route::get('danhsach','manage\giadvkcb\DvKcbController@index');
+    Route::get('get_hs','manage\giadvkcb\DvKcbController@edit');
+    Route::post('modify','manage\giadvkcb\DvKcbController@store');
+    Route::post('delete','manage\giadvkcb\DvKcbController@destroy');
+
+    Route::post('chuyenhs','manage\giadvkcb\DvKcbController@chuyenhs');
+    Route::get('prints','manage\giadvkcb\DvKcbController@ketxuat');
+
+    Route::get('xetduyet','manage\giadvkcb\DvKcbController@xetduyet');
+    Route::post('chuyenxd','manage\giadvkcb\DvKcbController@chuyenxd');
+    Route::post('tralai','manage\giadvkcb\DvKcbController@tralai');
+    Route::post('congbo','manage\giadvkcb\DvKcbController@congbo');
+
+    Route::get('timkiem','manage\giadvkcb\DvKcbController@timkiem');
+    Route::post('timkiem','manage\giadvkcb\DvKcbController@ketquatk');
+
+    Route::get('dichvukcb','manage\dvkcb\DvKcbController@index');
+    Route::post('dichvukcb/add','manage\dvkcb\DvKcbController@store');
+    Route::get('dichvukcb/edittt','manage\dvkcb\DvKcbController@edit');
+    Route::post('dichvukcb/update','manage\dvkcb\DvKcbController@update');
+    Route::post('dichvukcb/delete','manage\dvkcb\DvKcbController@multidelete');
+    Route::post('dichvukcb/destroy','manage\dvkcb\DvKcbController@destroy');
+    Route::post('dichvukcb/congbo','manage\dvkcb\DvKcbController@congbo');
+    Route::post('dichvukcb/huycongbo','manage\dvkcb\DvKcbController@huycongbo');
+    Route::post('dichvukcb/checkmulti','manage\dvkcb\DvKcbController@checkmulti');
+    Route::get('dichvukcb/nhandulieutuexcel','manage\dvkcb\DvKcbController@nhandulieutuexcel');
+    Route::post('dichvukcb/importexcel','manage\dvkcb\DvKcbController@importexcel');
+    Route::get('dichvukcb/prints','manage\dvkcb\DvKcbController@BcGiaDvKcb');
+    Route::post('dichvukcb/huyhoanthanh','manage\dvkcb\DvKcbController@huyhoanthanh');
+    Route::post('dichvukcb/hoanthanh','manage\dvkcb\DvKcbController@hoanthanh');
+});
 
 //Giá HH-DV khác
 Route::resource('nhomhanghoadichvu','NhomHhDvKController');

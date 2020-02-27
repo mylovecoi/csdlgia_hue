@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Http\Controllers\manage\giaspdvci;
+namespace App\Http\Controllers\manage\giadvkcb;
 
+use App\Model\manage\dinhgia\giadvkcb\dvkcbdm;
 use App\Model\manage\dinhgia\giaspdvci\giaspdvcidm;
 use App\Model\system\dmdvt;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
-class giaspdvcidmController extends Controller
+class dvkcbdmController extends Controller
 {
     public function index(){
         if(Session::has('admin')){
-            $model = giaspdvcidm::all();
+            $model = dvkcbdm::all();
             $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
-            $inputs['url'] = '/giaspdvci';
-            return view('manage.dinhgia.giaspdvci.danhmuc.index')
+            $inputs['url'] = '/giadvkcb';
+            return view('manage.dinhgia.giadvkcb.danhmuc.index')
                 ->with('model',$model)
                 ->with('a_dvt',$a_dvt)
                 ->with('inputs',$inputs)
-                ->with('a_phanloai',getPhanLoaiSPDVCI())
-                ->with('pageTitle','Danh mục sản phẩm, dịch vụ công ích');
+                ->with('pageTitle','Danh mục dịch vụ khám chữa bệnh');
         }else
             return view('errors.notlogin');
     }
@@ -28,18 +28,20 @@ class giaspdvcidmController extends Controller
     public function store(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();
+            //dd($inputs);
             $chk_dvt = dmdvt::where('dvt', $inputs['dvt'])->get();
             if (count($chk_dvt) == 0) {
                 dmdvt::insert(['dvt' => $inputs['dvt']]);
             }
-            $check = giaspdvcidm::where('maspdv',$inputs['maspdv'])->first();
+
+            $check = dvkcbdm::where('maspdv',$inputs['maspdv'])->first();
             if ($check == null) {
                 $inputs['maspdv'] = getdate()[0];
-                giaspdvcidm::create($inputs);
+                dvkcbdm::create($inputs);
             } else {
                 $check->update($inputs);
             }
-            return redirect('/giaspdvci/danhmuc');
+            return redirect('/giadvkcb/danhmuc');
         }else
             return view('errors.notlogin');
     }
@@ -54,15 +56,15 @@ class giaspdvcidmController extends Controller
         }
 
         $inputs = $request->all();
-        $model = giaspdvcidm::where('maspdv',$inputs['maspdv'])->first();
+        $model = dvkcbdm::where('maspdv',$inputs['maspdv'])->first();
         die($model);
     }
 
     public function destroy(Request $request){
         if(Session::has('admin')){
             $inputs=$request->all();
-            giaspdvcidm::where('maspdv',$inputs['maspdv'])->first()->delete();
-            return redirect('giaspdvci/danhmuc');
+            dvkcbdm::where('maspdv',$inputs['maspdv'])->first()->delete();
+            return redirect('giadvkcb/danhmuc');
         }else
             return view('errors.notlogin');
     }

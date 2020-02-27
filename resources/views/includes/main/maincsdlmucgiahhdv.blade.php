@@ -318,15 +318,42 @@
                     </li>
                 @endif
 
-                @if(canGeneral('giadvkcb','index'))
-                    @if(can('giadvkcb','index'))
-                        <li class="tooltips" data-container="body" data-placement="right" data-html="true"
-                            data-original-title="Giá dịch vụ khám bệnh, chữa bệnh đối với cơ sở khám bệnh, chữa bệnh của Nhà nước thuộc phạm vi quản lý của địa phương">
-                            <a href="{{url('dichvukcb')}}">
-                                Giá dịch vụ khám chữa bệnh
-                            </a>
-                        </li>
-                    @endif
+                @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvkcb','index'))
+                    <li>
+                        <a href="javascript:;">
+                            Giá dịch vụ khám chữa bệnh<span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvkcb', 'danhmuc','index'))
+                                <li>
+                                    <a href="{{url('/giadvkcb/danhmuc')}}">Danh mục</a>
+                                </li>
+                            @endif
+                            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvkcb', 'hoso','index'))
+                                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                                    <li>
+                                        <a href="{{url('/giadvkcb/danhsach')}}">
+                                            Thông tin hồ sơ
+                                        </a>
+                                    </li>
+                                @endif
+
+                                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                                    <li>
+                                        <a href="{{url('/giadvkcb/xetduyet')}}">
+                                            Xét duyệt hồ sơ
+                                        </a>
+                                    </li>
+                                @endif
+
+                                <li>
+                                    <a href="{{url('/giadvkcb/timkiem')}}">
+                                        Tìm kiếm hồ sơ
+                                    </a>
+                                </li>
+                            @endif
+                        </ul>
+                    </li>
                 @endif
             <!-- Cũ -->
             @if(chkPer('csdlmucgiahhdv','dinhgia','giacldat','index'))

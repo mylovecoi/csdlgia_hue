@@ -12,22 +12,14 @@ class CreateDvkcbctTable extends Migration
      * @return void
      */
     public function up()
-    {
+    {//chưa dùng
         Schema::create('dvkcbct', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('maxa')->nullable();
-            $table->string('mahuyen')->nullable();
-            $table->string('district')->nullable();
             $table->string('mahs')->nullable();
-            $table->string('madv')->nullable();
-            $table->string('manhom')->nullable();
-            $table->string('magoc')->nullable();
-            $table->string('capdo')->nullable();
-            $table->string('tendichvu')->nullable();
+            $table->string('maspdv')->nullable();
             $table->string('dvt')->nullable();
-            $table->string('gc')->nullable();
-            $table->string('sapxep')->nullable();
-            $table->string('giadv')->nullable();
+            $table->double('giadv')->default(0);
+            $table->string('ghichu')->nullable();
             $table->timestamps();
         });
     }

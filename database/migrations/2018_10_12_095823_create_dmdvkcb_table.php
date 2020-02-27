@@ -15,15 +15,12 @@ class CreateDmdvkcbTable extends Migration
     {
         Schema::create('dmdvkcb', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('madv')->nullable();
-            $table->string('manhom')->nullable();
-            $table->string('magoc')->nullable();
-            $table->string('capdo')->nullable();
-            $table->string('tendichvu')->nullable();
+            $table->string('maspdv')->unique();
+            $table->string('tenspdv')->nullable();
             $table->string('dvt')->nullable();
-            $table->string('gc')->nullable();
-            $table->string('sapxep')->nullable();
-            $table->string('theodoi')->nullable();
+            $table->string('mota')->nullable();
+            $table->string('phanloai')->nullable();
+            $table->string('hientrang')->nullable();
             $table->timestamps();
         });
     }

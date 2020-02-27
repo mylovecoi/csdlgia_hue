@@ -304,7 +304,7 @@
     </div>
 
 
-    @include('manage.dinhgia.dvkcb.include.modal_dialog')
+    @include('manage.dinhgia.giadvkcb.include.modal_dialog')
     @include('includes.script.inputmask-ajax-scripts')
     @include('includes.script.create-header-scripts')
 @stop
