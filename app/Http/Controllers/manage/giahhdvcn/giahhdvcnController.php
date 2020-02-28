@@ -1,21 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\manage\trogiatrocuoc;
+namespace App\Http\Controllers\manage\giahhdvcn;
 
-
+use App\Model\manage\dinhgia\giahhdvcn\giahhdvcn;
+use App\Model\manage\dinhgia\giahhdvcn\giahhdvcnct;
+use App\Model\manage\dinhgia\giahhdvcn\giahhdvcndm;
+use App\Model\manage\dinhgia\giaspdvci\GiaSpDvCi;
+use App\Model\manage\dinhgia\giaspdvci\GiaSpDvCiCt;
 use App\Model\manage\dinhgia\giaspdvci\giaspdvcidm;
-use App\Model\manage\dinhgia\trogiatrocuoc\trogiatrocuoc;
-use App\Model\manage\dinhgia\trogiatrocuoc\trogiatrocuocct;
-use App\Model\manage\dinhgia\trogiatrocuoc\trogiatrocuocdm;
 use App\Model\system\dsdiaban;
 use App\Model\system\dsdonvi;
 use App\Model\system\view_dsdiaban_donvi;
-use App\Model\view\view_trogiatrocuoc;
+use App\Model\view\view_giahhdvcn;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
-class trogiatrocuocController extends Controller
+class giahhdvcnController extends Controller
 {
     public function index(Request $request)
     {
@@ -27,25 +28,25 @@ class trogiatrocuocController extends Controller
         // - SSA => lấy tất cả
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $inputs['url'] = '/trogiatrocuoc';
+            $inputs['url'] = '/giahhdvcn';
             //lấy địa bàn
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             $m_donvi = getDonViNhapLieu(session('admin')->level);
-            $m_donvi_th = getDonViTongHop('trogiatrocuoc',\session('admin')->level, \session('admin')->madiaban);
+            $m_donvi_th = getDonViTongHop('giahhdvcn',\session('admin')->level, \session('admin')->madiaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $inputs['nam'] = $inputs['nam'] ?? 'all';
 
             //lấy thông tin đơn vị
-            $model = trogiatrocuoc::where('madv', $inputs['madv']);
+            $model = giahhdvcn::where('madv', $inputs['madv']);
             if ($inputs['nam'] != 'all')
                 $model = $model->whereYear('thoidiem', $inputs['nam']);
             //Ko dung $inputs['madiaban'] do $m_diaban chứa cả T, H
-            //$a_ts = array_column(trogiatrocuocdm::all()->toArray(),'tenspdv','maspdv');
+            //$a_ts = array_column(giahhdvcndm::all()->toArray(),'tenspdv','maspdv');
 
             //dd($inputs);
-            return view('manage.dinhgia.trogiatrocuoc.kekhai.index')
+            return view('manage.dinhgia.giahhdvcn.kekhai.index')
                 ->with('model', $model->get())
                 ->with('inputs', $inputs)
                 ->with('m_diaban', $m_diaban)
@@ -66,7 +67,7 @@ class trogiatrocuocController extends Controller
             $inputs = $request->all();
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->where('level','H')->first();
-            $model = new trogiatrocuoc();
+            $model = new giahhdvcn();
             $model->mahs = getdate()[0];
             $model->madiaban = $m_diaban->madiaban ?? null;
             $model->madv = $inputs['madv'];
@@ -83,7 +84,7 @@ class trogiatrocuocController extends Controller
             $model->lichsu = json_encode($a_lichsu);
             $model->save();
 
-            return redirect('/trogiatrocuoc/modify?mahs='.$model->mahs.'&act=true&addnew=true');
+            return redirect('/giahhdvcn/modify?mahs='.$model->mahs.'&act=true&addnew=true');
         }else
             return view('errors.notlogin');
     }
@@ -95,12 +96,12 @@ class trogiatrocuocController extends Controller
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             $m_donvi = getDonViNhapLieu(session('admin')->level);
-            $model = trogiatrocuoc::where('mahs',$inputs['mahs'])->first();
-            $modelct = trogiatrocuocct::where('mahs',$model->mahs)->get();
-            $inputs['url'] = '/trogiatrocuoc';
-            $a_spdv = array_column(trogiatrocuocdm::all()->toArray(),
+            $model = giahhdvcn::where('mahs',$inputs['mahs'])->first();
+            $modelct = giahhdvcnct::where('mahs',$model->mahs)->get();
+            $inputs['url'] = '/giahhdvcn';
+            $a_spdv = array_column(giahhdvcndm::all()->toArray(),
                 'tenspdv','maspdv');
-            return view('manage.dinhgia.trogiatrocuoc.kekhai.edit')
+            return view('manage.dinhgia.giahhdvcn.kekhai.edit')
                 ->with('model',$model)
                 ->with('modelct',$modelct)
                 ->with('m_diaban',$m_diaban)
@@ -116,10 +117,10 @@ class trogiatrocuocController extends Controller
         if(Session::has('admin')){
             $inputs = $request->all();
             //dd($inputs);
-            $model = trogiatrocuoc::where('mahs',$inputs['mahs'])->first();
+            $model = giahhdvcn::where('mahs',$inputs['mahs'])->first();
             $model->delete();
-            trogiatrocuocct::where('mahs',$model->mahs)->delete();
-            return redirect('trogiatrocuoc/danhsach?&madv='.$model->madv);
+            giahhdvcnct::where('mahs',$model->mahs)->delete();
+            return redirect('giahhdvcn/danhsach?&madv='.$model->madv);
         }else
             return view('errors.notlogin');
     }
@@ -129,9 +130,9 @@ class trogiatrocuocController extends Controller
             $inputs = $request->all();
             //dd($inputs);
             $inputs['thoidiem'] = getDateToDb($inputs['thoidiem']);
-            $model = trogiatrocuoc::where('mahs', $inputs['mahs'])->first();
+            $model = giahhdvcn::where('mahs', $inputs['mahs'])->first();
             $model->update($inputs);
-            return redirect('trogiatrocuoc/danhsach?&madv='.$model->madv);
+            return redirect('giahhdvcn/danhsach?&madv='.$model->madv);
         }else
             return view('errors.notlogin');
     }
@@ -143,7 +144,7 @@ class trogiatrocuocController extends Controller
         // level == 'T' => set madv_t = $inputs['macqcq']; trangthai_t = 'CHT' (tương đương tạo mới hoso)
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = trogiatrocuoc::where('mahs', $inputs['mahs'])->first();
+            $model = giahhdvcn::where('mahs', $inputs['mahs'])->first();
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => 'HT',
@@ -173,7 +174,7 @@ class trogiatrocuocController extends Controller
                 $model->trangthai_h = 'CHT';
             }
             $model->save();
-            return redirect('trogiatrocuoc/danhsach?madv=' . $model->madv);
+            return redirect('giahhdvcn/danhsach?madv=' . $model->madv);
         } else
             return view('errors.notlogin');
     }
@@ -184,13 +185,13 @@ class trogiatrocuocController extends Controller
         //lấy thông tin đơn vị đễ lấy level
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $inputs['url'] = '/trogiatrocuoc';
+            $inputs['url'] = '/giahhdvcn';
             //lấy địa bàn
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
 
             $m_donvi = getDonViXetDuyet(session('admin')->level);
-            $m_donvi_th = getDonViTongHop('trogiatrocuoc',\session('admin')->level, \session('admin')->madiaban);
+            $m_donvi_th = getDonViTongHop('giahhdvcn',\session('admin')->level, \session('admin')->madiaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $inputs['nam'] = $inputs['nam'] ?? 'all';
@@ -203,7 +204,7 @@ class trogiatrocuocController extends Controller
 
             switch ($inputs['level']){
                 case 'H':{
-                    $model = trogiatrocuoc::where('madv_h', $inputs['madv']);
+                    $model = giahhdvcn::where('madv_h', $inputs['madv']);
                     if ($inputs['nam'] != 'all')
                         $model = $model->whereYear('thoidiem_h', $inputs['nam']);
                     $model = $model->get();
@@ -220,7 +221,7 @@ class trogiatrocuocController extends Controller
                     break;
                 }
                 case 'T':{
-                    $model = trogiatrocuoc::where('madv_t', $inputs['madv']);
+                    $model = giahhdvcn::where('madv_t', $inputs['madv']);
                     if ($inputs['nam'] != 'all')
                         $model = $model->whereYear('thoidiem_t', $inputs['nam']);
                     $model = $model->get();
@@ -237,7 +238,7 @@ class trogiatrocuocController extends Controller
                     break;
                 }
                 case 'ADMIN':{
-                    $model = trogiatrocuoc::where('madv_ad', $inputs['madv']);
+                    $model = giahhdvcn::where('madv_ad', $inputs['madv']);
                     if ($inputs['nam'] != 'all')
                         $model = $model->whereYear('thoidiem_ad', $inputs['nam']);
                     $model = $model->get();
@@ -255,7 +256,7 @@ class trogiatrocuocController extends Controller
                 }
             }
             //dd($model);
-            return view('manage.dinhgia.trogiatrocuoc.xetduyet.index')
+            return view('manage.dinhgia.giahhdvcn.xetduyet.index')
                 ->with('model', $model)
                 ->with('inputs', $inputs)
                 ->with('m_diaban', $m_diaban)
@@ -277,7 +278,7 @@ class trogiatrocuocController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             //dd($inputs);
-            $model = trogiatrocuoc::where('mahs', $inputs['mahs'])->first();
+            $model = giahhdvcn::where('mahs', $inputs['mahs'])->first();
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => 'HT',
@@ -297,7 +298,7 @@ class trogiatrocuocController extends Controller
 
             //dd($model);
             $model->save();
-            return redirect('trogiatrocuoc/xetduyet?madv=' . $inputs['madv']);
+            return redirect('giahhdvcn/xetduyet?madv=' . $inputs['madv']);
         } else
             return view('errors.notlogin');
     }
@@ -306,7 +307,7 @@ class trogiatrocuocController extends Controller
         //Truyền vào mahs và macqcq
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = trogiatrocuoc::where('mahs', $inputs['mahs'])->first();
+            $model = giahhdvcn::where('mahs', $inputs['mahs'])->first();
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => 'HHT',
@@ -319,7 +320,7 @@ class trogiatrocuocController extends Controller
             setTraLai($inputs['madv'], $model, ['macqcq' => null, 'trangthai' => 'HHT', 'lydo' => null]);
             //dd($model);
             $model->save();
-            return redirect('trogiatrocuoc/xetduyet?madv=' . $inputs['madv']);
+            return redirect('giahhdvcn/xetduyet?madv=' . $inputs['madv']);
         } else
             return view('errors.notlogin');
     }
@@ -328,7 +329,7 @@ class trogiatrocuocController extends Controller
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = trogiatrocuoc::where('mahs', $inputs['mahs'])->first();
+            $model = giahhdvcn::where('mahs', $inputs['mahs'])->first();
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => $inputs['trangthai_ad'],
@@ -340,7 +341,7 @@ class trogiatrocuocController extends Controller
             setCongBo($model, ['trangthai' => $inputs['trangthai_ad'],
                 'congbo' => $inputs['trangthai_ad'] == 'CB' ? 'DACONGBO' : 'CHUACONGBO']);
             $model->save();
-            return redirect('trogiatrocuoc/xetduyet?madv=' . $model->madv_ad);
+            return redirect('giahhdvcn/xetduyet?madv=' . $model->madv_ad);
         } else
             return view('errors.notlogin');
     }
@@ -354,14 +355,13 @@ class trogiatrocuocController extends Controller
             $model = $this->getHoSo($inputs);
             $m_donvi = dsdonvi::where('madv', $inputs['madv'])->first();
             $m_diaban = dsdiaban::wherein('madiaban',array_column($model->toarray(),'madiaban'))->get();
-            $a_ts = array_column(trogiatrocuocdm::all()->toArray(),'tenspdv','maspdv');
+            $a_ts = array_column(giahhdvcndm::all()->toArray(),'tenspdv','maspdv');
 
-            return view('manage.dinhgia.trogiatrocuoc.reports.baocao')
+            return view('manage.dinhgia.giahhdvcn.reports.baocao')
                 ->with('model',$model)
                 ->with('m_donvi',$m_donvi)
                 ->with('m_diaban',$m_diaban)
                 ->with('a_dm',$a_ts)
-                ->with('a_pl',getPhanLoaiTroGia())
                 ->with('inputs',$inputs)
                 ->with('pageTitle','Thông tin hồ sơ');
         }else
@@ -375,28 +375,28 @@ class trogiatrocuocController extends Controller
         switch ($inputs['level']) {
             case 'H':
             {
-                $model = view_trogiatrocuoc::where('madv_h', $inputs['madv']);
+                $model = view_giahhdvcn::where('madv_h', $inputs['madv']);
                 if ($inputs['nam'] != 'all')
                     $model = $model->whereYear('thoidiem_h', $inputs['nam']);
                 break;
             }
             case 'T':
             {
-                $model = view_trogiatrocuoc::where('madv_t', $inputs['madv']);
+                $model = view_giahhdvcn::where('madv_t', $inputs['madv']);
                 if ($inputs['nam'] != 'all')
                     $model = $model->whereYear('thoidiem_t', $inputs['nam']);
                 break;
             }
             case 'ADMIN':
             {
-                $model = view_trogiatrocuoc::where('madv_ad', $inputs['madv']);
+                $model = view_giahhdvcn::where('madv_ad', $inputs['madv']);
                 if ($inputs['nam'] != 'all')
                     $model = $model->whereYear('thoidiem_ad', $inputs['nam']);
                 break;
             }
             default:
             {//mặc định lấy đơn vị nhâp liệu
-                $model = view_trogiatrocuoc::where('madv', $inputs['madv']);
+                $model = view_giahhdvcn::where('madv', $inputs['madv']);
                 if ($inputs['nam'] != 'all')
                     $model = $model->whereYear('thoidiem', $inputs['nam']);
                 break;
@@ -411,12 +411,11 @@ class trogiatrocuocController extends Controller
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
             //dd($m_diaban);
-            $a_ts = array_column(trogiatrocuocdm::all()->toArray(),'tenspdv','maspdv');
-            return view('manage.dinhgia.trogiatrocuoc.timkiem.index')
+            $a_ts = array_column(giahhdvcndm::all()->toArray(),'tenspdv','maspdv');
+            return view('manage.dinhgia.giahhdvcn.timkiem.index')
                 ->with('m_diaban',$m_diaban)
                 ->with('m_donvi',$m_donvi)
                 ->with('a_dm',$a_ts)
-                ->with('a_pl',getPhanLoaiTroGia())
                 ->with('pageTitle','Tìm kiếm thông tin hồ sơ');
         }else
             return view('errors.notlogin');
@@ -428,7 +427,7 @@ class trogiatrocuocController extends Controller
             //Lấy hết hồ sơ trên địa bàn rồi bắt đầu tìm kiểm
             $inputs = $request->all();
             $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
-            $model = view_trogiatrocuoc::wherein('madv',array_column($m_donvi->toarray(),'madv'))->get();
+            $model = view_giahhdvcn::wherein('madv',array_column($m_donvi->toarray(),'madv'))->get();
             //dd($inputs);
 
             if($inputs['madv'] != 'all'){
@@ -436,10 +435,6 @@ class trogiatrocuocController extends Controller
             }
             if($inputs['maspdv'] != 'all') {
                 $model = $model->where('maspdv', $inputs['maspdv']);
-            }
-
-            if($inputs['phanloai'] != 'all') {
-                $model = $model->where('phanloai', $inputs['phanloai']);
             }
 
             if(getDayVn($inputs['thoidiem_tu']) != ''){
@@ -456,12 +451,11 @@ class trogiatrocuocController extends Controller
             }
             //dd($model);
             $a_ts = array_column(giaspdvcidm::all()->toArray(),'tenspdv','maspdv');
-            return view('manage.dinhgia.trogiatrocuoc.timkiem.result')
+            return view('manage.dinhgia.giahhdvcn.timkiem.result')
                 ->with('model',$model)
                 ->with('a_diaban',array_column($m_donvi->toarray(),'tendiaban','madiaban'))
                 ->with('a_donvi',array_column($m_donvi->toarray(),'tendv','madv'))
                 ->with('a_dm',$a_ts)
-                ->with('a_pl',getPhanLoaiTroGia())
                 ->with('pageTitle','Tìm kiếm thông tin hồ sơ');
         }else
             return view('errors.notlogin');

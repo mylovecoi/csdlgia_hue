@@ -38,7 +38,6 @@
                                 <th width="2%" style="text-align: center">STT</th>
                                 <th style="text-align: center">Đơn vị nhập</th>
                                 <th style="text-align: center">Thời điểm</th>
-                                <th style="text-align: center">Phân loại</th>
                                 <th style="text-align: center">Tên sản phẩm, dịch vụ</th>
                                 <th style="text-align: center">Thông tin hồ sơ</th>
                                 <th style="text-align: center">Đơn giá</th>
@@ -51,7 +50,6 @@
                                     <td style="text-align: center">{{$key + 1}}</td>
                                     <td>{{$a_donvi[$tt->madv] ?? ''}}</td>
                                     <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
-                                    <td>{{$a_pl[$tt->phanloai] ?? ''}}</td>
                                     <td>{{$tt->tenspdv}}</td>
                                     <td>{{$tt->mota}}</td>
                                     <td style="text-align: center">{{dinhdangso($tt->dongia)}}</td>
@@ -62,7 +60,7 @@
                     </table>
                     <div class="row">
                         <div class="col-md-12" style="text-align: center">
-                            <a href="{{url('trogiatrocuoc/timkiem')}}" class="btn btn-danger">
+                            <a href="{{url('giahhdvcn/timkiem')}}" class="btn btn-danger">
                                 <i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                         </div>
                     </div>
