@@ -177,7 +177,6 @@ Route::get('baocaothuetainguyen','manage\thuetn\ReportsThueTnController@index');
 Route::post('/baocaothuetainguyen/bc1','manage\thuetn\ReportsThueTnController@Bc1');
 
 //DV Khám chữa bệnh
-
 Route::group(['prefix'=>'giadvkcb'], function (){
     Route::get('danhmuc','manage\giadvkcb\dvkcbdmController@index');
     Route::post('danhmuc','manage\giadvkcb\dvkcbdmController@store');
@@ -199,21 +198,35 @@ Route::group(['prefix'=>'giadvkcb'], function (){
 
     Route::get('timkiem','manage\giadvkcb\DvKcbController@timkiem');
     Route::post('timkiem','manage\giadvkcb\DvKcbController@ketquatk');
+});
 
-    Route::get('dichvukcb','manage\dvkcb\DvKcbController@index');
-    Route::post('dichvukcb/add','manage\dvkcb\DvKcbController@store');
-    Route::get('dichvukcb/edittt','manage\dvkcb\DvKcbController@edit');
-    Route::post('dichvukcb/update','manage\dvkcb\DvKcbController@update');
-    Route::post('dichvukcb/delete','manage\dvkcb\DvKcbController@multidelete');
-    Route::post('dichvukcb/destroy','manage\dvkcb\DvKcbController@destroy');
-    Route::post('dichvukcb/congbo','manage\dvkcb\DvKcbController@congbo');
-    Route::post('dichvukcb/huycongbo','manage\dvkcb\DvKcbController@huycongbo');
-    Route::post('dichvukcb/checkmulti','manage\dvkcb\DvKcbController@checkmulti');
-    Route::get('dichvukcb/nhandulieutuexcel','manage\dvkcb\DvKcbController@nhandulieutuexcel');
-    Route::post('dichvukcb/importexcel','manage\dvkcb\DvKcbController@importexcel');
-    Route::get('dichvukcb/prints','manage\dvkcb\DvKcbController@BcGiaDvKcb');
-    Route::post('dichvukcb/huyhoanthanh','manage\dvkcb\DvKcbController@huyhoanthanh');
-    Route::post('dichvukcb/hoanthanh','manage\dvkcb\DvKcbController@hoanthanh');
+Route::group(['prefix'=>'trogiatrocuoc'], function (){
+    Route::get('danhmuc','manage\trogiatrocuoc\trogiatrocuocdmController@index');
+    Route::post('danhmuc','manage\trogiatrocuoc\trogiatrocuocdmController@store');
+    Route::get('show_dm','manage\trogiatrocuoc\trogiatrocuocdmController@edit');
+    Route::post('delete_dm','manage\trogiatrocuoc\trogiatrocuocdmController@destroy');
+    //
+    Route::get('danhsach','manage\trogiatrocuoc\trogiatrocuocController@index');
+    Route::get('new','manage\trogiatrocuoc\trogiatrocuocController@create');
+    Route::get('modify','manage\trogiatrocuoc\trogiatrocuocController@edit');
+    Route::post('modify','manage\trogiatrocuoc\trogiatrocuocController@update');
+    Route::post('delete','manage\trogiatrocuoc\trogiatrocuocController@destroy');
+    Route::get('delete','manage\trogiatrocuoc\trogiatrocuocController@destroy');
+
+    Route::get('store_ct','manage\trogiatrocuoc\trogiatrocuocctController@store');
+    Route::get('get_ct','manage\trogiatrocuoc\trogiatrocuocctController@show');
+    Route::get('del_ct','manage\trogiatrocuoc\trogiatrocuocctController@destroy');
+
+    Route::post('chuyenhs','manage\trogiatrocuoc\trogiatrocuocController@chuyenhs');
+    Route::get('prints','manage\trogiatrocuoc\trogiatrocuocController@ketxuat');
+
+    Route::get('xetduyet','manage\trogiatrocuoc\trogiatrocuocController@xetduyet');
+    Route::post('chuyenxd','manage\trogiatrocuoc\trogiatrocuocController@chuyenxd');
+    Route::post('tralai','manage\trogiatrocuoc\trogiatrocuocController@tralai');
+    Route::post('congbo','manage\trogiatrocuoc\trogiatrocuocController@congbo');
+
+    Route::get('timkiem','manage\trogiatrocuoc\trogiatrocuocController@timkiem');
+    Route::post('timkiem','manage\trogiatrocuoc\trogiatrocuocController@ketquatk');
 });
 
 //Giá HH-DV khác

@@ -9,7 +9,7 @@ use App\DmGiaRung;
 use App\Model\manage\dinhgia\giadvkcb\DvKcb;
 use App\Model\manage\dinhgia\giadvkcb\dvkcbdm;
 use App\Model\manage\dinhgia\GiaRung;
-use App\Model\manage\dinhgia\giaspdvci\giaspdvcidm;
+use App\Model\manage\dinhgia\giaspdvci\trogiatrocuocdm;
 use App\Model\system\dmdvt;
 use App\Model\system\dsdiaban;
 use App\Model\system\dsdonvi;

@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\manage\giadvkcb;
+namespace App\Http\Controllers\manage\trogiatrocuoc;
 
-use App\Model\manage\dinhgia\giaspdvci\trogiatrocuocct;
-use App\Model\manage\dinhgia\giaspdvci\trogiatrocuocdm;
-use App\Model\manage\dinhgia\GiaTaiSanCongDm;
+use App\Model\manage\dinhgia\trogiatrocuoc\trogiatrocuocct;
+use App\Model\manage\dinhgia\trogiatrocuoc\trogiatrocuocdm;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
-class dvkcbctController extends Controller
+class trogiatrocuocctController extends Controller
 {
     public function store(Request $request){
         if(!Session::has('admin')) {

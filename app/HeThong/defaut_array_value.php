@@ -126,6 +126,15 @@ function getPhanLoaiSPDVCI(){
     );
 }
 
+function getPhanLoaiTroGia(){
+    return array(
+        'NGANSACH'=>'Chi từ ngân sách địa phương và trung ương',
+        'BANLE' => 'Mức giá hoặc khung giá bán lẻ',
+        'KHOKHAN' => 'Cung ứng hàng hóa, dịch vụ thiết yếu phục vụ đồng bào miền núi, vùng sâu, xa và hải đảo',
+        'KHAC' => 'Trợ giá, trợ cước khác',
+    );
+}
+
 function getDiaBan_Level($level, $madiaban = null)
 {
     if (in_array($level, ['SSA', 'T', 'ADMIN'])) {

@@ -33,7 +33,7 @@
         function capnhatts(){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: '/giaspdvci/store_ct',
+                url: '{{$inputs['url']}}' + '/store_ct',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -60,7 +60,7 @@
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             //alert(id);
             $.ajax({
-                url: '/giaspdvci/get_ct',
+                url: '{{$inputs['url']}}' + '/get_ct',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -82,7 +82,7 @@
         function delrow(){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: '/giaspdvci/del_ct',
+                url: '{{$inputs['url']}}' + '/del_ct',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -109,7 +109,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Hồ sơ giá sản phẩm, dịch vụ công ích
+        Hồ sơ mức trợ giá, trợ cước
     </h3>
     <!-- END PAGE HEADER-->
 
@@ -117,7 +117,7 @@
     <div class="row center">
         <div class="col-md-12 center">
             <!-- BEGIN VALIDATION STATES-->
-            {!! Form::model($model, ['method' => 'post', 'url'=>'giaspdvci/modify', 'class'=>'horizontal-form','id'=>'update_thongtinthuetaisancong']) !!}
+            {!! Form::model($model, ['method' => 'post', 'url'=>$inputs['url'].'/modify', 'class'=>'horizontal-form','id'=>'update_thongtinthuetaisancong']) !!}
             <div class="portlet box blue">
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
@@ -197,10 +197,10 @@
                     <div class="col-md-12" style="text-align: center">
                         <!-- thêm mới hồ sơ, sau đó nhấn quay lại ==> tự động xoa hồ sơ thêm mới -->
                         @if(isset($inputs['addnew']))
-                            <a href="{{url('giaspdvci/delete?mahs='.$model->mahs)}}" class="btn btn-danger">
+                            <a href="{{url($inputs['url'].'/delete?mahs='.$model->mahs)}}" class="btn btn-danger">
                                 <i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                         @else
-                            <a href="{{url('giaspdvci/danhsach?madv='.$model->madv)}}" class="btn btn-danger">
+                            <a href="{{url($inputs['url'].'/danhsach?madv='.$model->madv)}}" class="btn btn-danger">
                                 <i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                         @endif
 
@@ -232,7 +232,7 @@
     <!--Model frm_modify-->
     {!! Form::open(['method' => 'post', 'url'=>'', 'class'=>'horizontal-form','id'=>'frm_modify']) !!}
     <div class="modal fade bs-modal-lg" id="modal-create" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -249,7 +249,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label">Đơn giá</label>
                                 <input type="text" id="dongia" name="dongia" data-mask="fdecimal" class="form-control" style="font-weight: bold;text-align: right">

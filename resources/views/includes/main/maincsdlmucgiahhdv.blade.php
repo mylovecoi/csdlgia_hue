@@ -355,6 +355,45 @@
                         </ul>
                     </li>
                 @endif
+
+                @if(chkPer('csdlmucgiahhdv','dinhgia', 'trogiatrocuoc','index'))
+                    <li>
+                        <a href="javascript:;">
+                            Mức trợ giá, trợ cước<span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            @if(chkPer('csdlmucgiahhdv','dinhgia', 'trogiatrocuoc', 'danhmuc','index'))
+                                <li>
+                                    <a href="{{url('/trogiatrocuoc/danhmuc')}}">Danh mục</a>
+                                </li>
+                            @endif
+                            @if(chkPer('csdlmucgiahhdv','dinhgia', 'trogiatrocuoc', 'hoso','index'))
+                                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                                    <li>
+                                        <a href="{{url('/trogiatrocuoc/danhsach')}}">
+                                            Thông tin hồ sơ
+                                        </a>
+                                    </li>
+                                @endif
+
+                                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                                    <li>
+                                        <a href="{{url('/trogiatrocuoc/xetduyet')}}">
+                                            Xét duyệt hồ sơ
+                                        </a>
+                                    </li>
+                                @endif
+
+                                <li>
+                                    <a href="{{url('/trogiatrocuoc/timkiem')}}">
+                                        Tìm kiếm hồ sơ
+                                    </a>
+                                </li>
+                            @endif
+                        </ul>
+                    </li>
+                @endif
+
             <!-- Cũ -->
             @if(chkPer('csdlmucgiahhdv','dinhgia','giacldat','index'))
                 {{--Bảng giá đất--}}
@@ -500,35 +539,6 @@
                                 Giá bán nhà tái định cư
                             </a>
                         @endif
-                    </li>
-                @endif
-            @endif
-
-
-
-            @if(canGeneral('trogiatrocuoc','index'))
-                @if(can('trogiatrocuoc','index'))
-                    <li>
-                        <a href="javascript:;">
-                            Mức trợ giá, trợ cước<span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            @if(can('dmtrogiatrocuoc','index'))
-                                <li>
-                                    <a href="javascript:;">Danh mục mức trợ giá, trợ cước</a>
-                                </li>
-                            @endif
-                            @if(can('kktrogiatrocuoc','index'))
-                                <li>
-                                    <a href="javascript:;">Thông tin mức trợ giá trợ cước</a>
-                                </li>
-                            @endif
-                            @if(can('thtrogiatrocuoc','timkiem'))
-                                <li>
-                                    <a href="javascript:;">Tìm kiếm thông tin mức trợ giá trợ cước</a>
-                                </li>
-                            @endif
-                        </ul>
                     </li>
                 @endif
             @endif

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\manage\giaspdvci;
 
 use App\Model\manage\dinhgia\giaspdvci\GiaSpDvCiCt;
 use App\Model\manage\dinhgia\giaspdvci\giaspdvcidm;
-use App\Model\manage\dinhgia\GiaTaiSanCongDm;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;

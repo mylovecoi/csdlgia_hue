@@ -2,19 +2,13 @@
 
 namespace App\Http\Controllers\manage\giaspdvci;
 
-use App\District;
-use App\GiaThueTsCong;
-use App\GiaThueTsCongCt;
 use App\Model\manage\dinhgia\giaspdvci\GiaSpDvCi;
 use App\Model\manage\dinhgia\giaspdvci\GiaSpDvCiCt;
 use App\Model\manage\dinhgia\giaspdvci\giaspdvcidm;
-use App\Model\manage\dinhgia\GiaTaiSanCongDm;
 use App\Model\system\dsdiaban;
 use App\Model\system\dsdonvi;
 use App\Model\system\view_dsdiaban_donvi;
 use App\Model\view\view_giaspdvci;
-use App\Model\view\view_giathuetscong;
-use App\Town;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -46,7 +40,7 @@ class GiaSpDvCiController extends Controller
             if ($inputs['nam'] != 'all')
                 $model = $model->whereYear('thoidiem', $inputs['nam']);
             //Ko dung $inputs['madiaban'] do $m_diaban chứa cả T, H
-            $a_ts = array_column(GiaTaiSanCongDm::where('madiaban',$m_donvi->where('madv',$inputs['madv'])->first()->madiaban)->get()->toArray(),'tentaisan','mataisan');
+            $a_ts = array_column(giaspdvcidm::where('madiaban',$m_donvi->where('madv',$inputs['madv'])->first()->madiaban)->get()->toArray(),'tentaisan','mataisan');
 
             //dd($inputs);
             return view('manage.dinhgia.giaspdvci.kekhai.index')
@@ -70,7 +64,7 @@ class GiaSpDvCiController extends Controller
             $inputs = $request->all();
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->where('level','H')->first();
-            $model = new giaspdvci();
+            $model = new GiaSpDvCi();
             $model->mahs = getdate()[0];
             $model->madiaban = $m_diaban->madiaban ?? null;
             $model->madv = $inputs['madv'];
@@ -99,8 +93,8 @@ class GiaSpDvCiController extends Controller
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             $m_donvi = getDonViNhapLieu(session('admin')->level);
-            $model = giaspdvci::where('mahs',$inputs['mahs'])->first();
-            $modelct = giaspdvciCt::where('mahs',$model->mahs)->get();
+            $model = GiaSpDvCi::where('mahs',$inputs['mahs'])->first();
+            $modelct = GiaSpDvCiCt::where('mahs',$model->mahs)->get();
             $inputs['url'] = '/giaspdvci';
             $a_spdv = array_column(giaspdvcidm::all()->toArray(),
                 'tenspdv','maspdv');
@@ -120,9 +114,9 @@ class GiaSpDvCiController extends Controller
         if(Session::has('admin')){
             $inputs = $request->all();
             //dd($inputs);
-            $model = giaspdvci::where('mahs',$inputs['mahs'])->first();
+            $model = GiaSpDvCi::where('mahs',$inputs['mahs'])->first();
             $model->delete();
-            giaspdvciCt::where('mahs',$model->mahs)->delete();
+            GiaSpDvCict::where('mahs',$model->mahs)->delete();
             return redirect('giaspdvci/danhsach?&madv='.$model->madv);
         }else
             return view('errors.notlogin');
@@ -133,7 +127,7 @@ class GiaSpDvCiController extends Controller
             $inputs = $request->all();
             //dd($inputs);
             $inputs['thoidiem'] = getDateToDb($inputs['thoidiem']);
-            $model = giaspdvci::where('mahs', $inputs['mahs'])->first();
+            $model = GiaSpDvCi::where('mahs', $inputs['mahs'])->first();
             $model->update($inputs);
             return redirect('giaspdvci/danhsach?&madv='.$model->madv);
         }else
@@ -147,7 +141,7 @@ class GiaSpDvCiController extends Controller
         // level == 'T' => set madv_t = $inputs['macqcq']; trangthai_t = 'CHT' (tương đương tạo mới hoso)
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = giaspdvci::where('mahs', $inputs['mahs'])->first();
+            $model = GiaSpDvCi::where('mahs', $inputs['mahs'])->first();
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => 'HT',
@@ -207,7 +201,7 @@ class GiaSpDvCiController extends Controller
 
             switch ($inputs['level']){
                 case 'H':{
-                    $model = giaspdvci::where('madv_h', $inputs['madv']);
+                    $model = GiaSpDvCi::where('madv_h', $inputs['madv']);
                     if ($inputs['nam'] != 'all')
                         $model = $model->whereYear('thoidiem_h', $inputs['nam']);
                     $model = $model->get();
@@ -224,7 +218,7 @@ class GiaSpDvCiController extends Controller
                     break;
                 }
                 case 'T':{
-                    $model = giaspdvci::where('madv_t', $inputs['madv']);
+                    $model = GiaSpDvCi::where('madv_t', $inputs['madv']);
                     if ($inputs['nam'] != 'all')
                         $model = $model->whereYear('thoidiem_t', $inputs['nam']);
                     $model = $model->get();
@@ -241,7 +235,7 @@ class GiaSpDvCiController extends Controller
                     break;
                 }
                 case 'ADMIN':{
-                    $model = giaspdvci::where('madv_ad', $inputs['madv']);
+                    $model = GiaSpDvCi::where('madv_ad', $inputs['madv']);
                     if ($inputs['nam'] != 'all')
                         $model = $model->whereYear('thoidiem_ad', $inputs['nam']);
                     $model = $model->get();
@@ -281,7 +275,7 @@ class GiaSpDvCiController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             //dd($inputs);
-            $model = giaspdvci::where('mahs', $inputs['mahs'])->first();
+            $model = GiaSpDvCi::where('mahs', $inputs['mahs'])->first();
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => 'HT',
@@ -310,7 +304,7 @@ class GiaSpDvCiController extends Controller
         //Truyền vào mahs và macqcq
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = giaspdvci::where('mahs', $inputs['mahs'])->first();
+            $model = GiaSpDvCi::where('mahs', $inputs['mahs'])->first();
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => 'HHT',
@@ -332,7 +326,7 @@ class GiaSpDvCiController extends Controller
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = giaspdvci::where('mahs', $inputs['mahs'])->first();
+            $model = GiaSpDvCi::where('mahs', $inputs['mahs'])->first();
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => $inputs['trangthai_ad'],
@@ -463,93 +457,4 @@ class GiaSpDvCiController extends Controller
         }else
             return view('errors.notlogin');
     }
-
-
-
-
-    public function index_cu(Request $request){
-        if(Session::has('admin')){
-            $inputs = $request->all();
-            $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
-            $model = new GiaSpDvCi();
-            if($inputs['nam'] != 'all')
-                $model = $model->whereYear('ngayqd',$inputs['nam']);
-            $model = $model->get();
-            return view('manage.dinhgia.giaspdvci.index')
-                ->with('model',$model)
-                ->with('inputs',$inputs)
-                ->with('pageTitle','Thông tin hồ sơ giá sản phẩm dịch vụ công ích');
-
-        }else
-            return view('errors.notlogin');
-    }
-
-    public function create_cu(Request $request){
-        if(Session::has('admin')){
-            $inputs = $request->all();
-            $modeldel = GiaSpDvCiCt::where('trangthai','CXD')->delete();
-            $inputs['mahs'] = getdate()[0];
-            return view('manage.dinhgia.giaspdvci.create')
-                ->with('inputs', $inputs)
-                ->with('pageTitle', 'Thêm mới giá sản phẩm, dịch vụ công ích');
-        }else
-            return view('errors.notlogin');
-    }
-
-    public function store_cu(Request $request){
-        if(Session::has('admin')){
-            $inputs = $request->all();
-            $model = new GiaSpDvCi();
-            $inputs['ngayqd'] = getDateToDb($inputs['ngayqd']);
-            $inputs['trangthai'] = 'CHT';
-            $model->create($inputs);
-            $modelct = GiaSpDvCiCt::where('mahs',$inputs['mahs'])
-                ->update(['trangthai' => 'XD']);
-            $nam = date('Y',strtotime(getDateToDb($inputs['ngayqd'])));
-            return redirect('giaspdvci?&nam='.$nam);
-
-        }else
-            return view('errors.notlogin');
-    }
-
-    public function edit_cu($id){
-        if(Session::has('admin')) {
-            $model = GiaSpDvCi::find($id);
-            $modelct = GiaSpDvCiCt::where('mahs',$model->mahs)
-                ->get();
-            return view('manage.dinhgia.giaspdvci.edit')
-                ->with('model', $model)
-                ->with('modelct', $modelct)
-                ->with('pageTitle', 'Chỉnh sửa giá sản phẩm dịch vụ công ích');
-        }else
-            return view('errors.notlogin');
-    }
-
-    public function update_cu(Request $request,$id){
-        if(Session::has('admin')) {
-            $inputs = $request->all();
-            $model = GiaSpDvCi::findOrFail($id);
-            $inputs['ngayqd'] = getDateToDb($inputs['ngayqd']);
-            $model->update($inputs);
-            $modelct = GiaSpDvCiCt::where('mahs',$inputs['mahs'])
-                ->update(['trangthai' => 'XD']);
-            $nam = date('Y',strtotime(getDateToDb($inputs['ngayqd'])));
-            return redirect('giaspdvci?&nam='.$nam);
-        }else
-            return view('errors.notlogin');
-    }
-
-    public function destroy_cu(Request $request){
-        if(Session::has('admin')){
-            $inputs = $request->all();
-            $id = $inputs['destroy_id'];
-            $model = GiaSpDvCi::findOrFail($id);
-            $modelct = GiaSpDvCiCt::where('mahs',$model->mahs)->delete();
-            $model->delete();
-            return redirect('giaspdvci');
-
-        }else
-            return view('errors.notlogin');
-    }
-
 }
