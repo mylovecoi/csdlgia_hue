@@ -72,7 +72,7 @@ License: You must have a valid license purchased only from themeforest(the above
 			<div class="col-md-12">
 				<div class="form-group">
 					<label class="control-label">Mã số thuế của doanh nghiệp</label>
-					{!!Form::text('maxa', null, array('id' => 'maxa','class' => 'form-control required'))!!}
+					{!!Form::text('madv', null, array('id' => 'madv','class' => 'form-control required'))!!}
 				</div>
 			</div>
 		</div>

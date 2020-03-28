@@ -1,4 +1,5 @@
 <?php
+/* 20.03.2020
 //Route::resource('hosokkdkg','manage\kekhaidkg\KkDkgController');
 Route::get('hosokkdkg','manage\kekhaidkg\KkDkgController@index');
 Route::get('hosokkdkg/create','manage\kekhaidkg\KkDkgController@create');
@@ -88,5 +89,5 @@ Route::get('kkgiamhbogct/del','manage\kekhaidkg\kekhaimhbog\KkMhBogCtController@
 Route::get('baocaokkmhbog','manage\kekhaidkg\kekhaimhbog\KkMhBogBcController@index');
 Route::post('baocaokkmhbog/bc1','manage\kekhaidkg\kekhaimhbog\KkMhBogBcController@bc1');
 Route::post('baocaokkmhbog/bc2','manage\kekhaidkg\kekhaimhbog\KkMhBogBcController@bc2');
-
+*/
 ?>

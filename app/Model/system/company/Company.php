@@ -9,8 +9,9 @@ class Company extends Model
     protected $table = 'company';
     protected $fillable = [
         'id',
-        'maxa',
-        'mahuyen',
+        'madv',
+        'macqcq',
+        'madiaban',
         'tendn',
         'diachi',
         'tel',
@@ -48,5 +49,6 @@ class Company extends Model
         'duong',
         'thocgao',
         'thuocpcb',
+        'kiemtra',
     ];
 }

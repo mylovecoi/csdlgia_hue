@@ -2464,6 +2464,10 @@ function getGiaoDien()
             'giaspdvci' => array('index' => '0', 'congbo' => '0'),
             'giahhdvcn' => array('index' => '0', 'congbo' => '0'),
         ),
+        'bog' => array(
+            'index' => '0', 'congbo' => '0',
+            'bog' => array('index' => '0', 'congbo' => '0'),
+        ),
         'hhdv' => array(
             'index' => '0', 'congbo' => '0',
             'giahhdvk' => array('index' => '0', 'congbo' => '0'),
@@ -2505,7 +2509,7 @@ function getGiaoDien()
             'dvlt' => array('index' => '0', 'congbo' => '0'),
             'dlbb' => array('index' => '0', 'congbo' => '0'),
             'tqkdl' => array('index' => '0', 'congbo' => '0'),
-            'bog' => array('index' => '0', 'congbo' => '0'),
+
         ),
     );
     $gui['csdlthamdinhgia'] = array(
@@ -2639,6 +2643,21 @@ function getPhanQuyen()
             ),
             'giahhdvcn' => array(
                 'index' => '0',
+                'danhmuc' => array('index' => '0', 'modify' => '0',),
+                'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+            ),
+        ),
+        /*
+         Bình ổn giá:
+        - Danh mục: thay đổi đăng ký/ kê khai
+        - Xét duyệt thông tin doanh nghiệp
+        - Hồ sơ đăng ký
+         * */
+        'bog' => array(
+            'index' => '0',
+            'bog' => array(
+                'index' => '0',
+                'thongtin' => array('index' => '0', 'modify' => '0',),
                 'danhmuc' => array('index' => '0', 'modify' => '0',),
                 'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
             ),
@@ -2779,10 +2798,6 @@ function getPhanQuyen()
                 'index' => '0',
                 'hoso' => array('index' => '0', 'approve' => '0',),
             ),
-            'bog' => array(
-                'index' => '0',
-                'hoso' => array('index' => '0', 'approve' => '0',),
-            ),
         ),
     );
     $gui['csdlthamdinhgia'] = array(
@@ -2885,6 +2900,7 @@ function getDbl($obj) {
 }
 
 //Kiểm tra giao diện + phân quyền tài khoản
+//Kiểm tra level: nếu là DN thì kiểm tra xem có ở lĩnh vực kinh doanh đó ko
 function chkPer($csdl = null, $group = null, $feature = null , $action = null, $per = null){
     if(session('admin')->level == 'SSA') {
         return true;
@@ -2923,7 +2939,7 @@ function canKkGiaGr($manganh){
     }else{
         if(session('admin')->level == 'H' || session('admin')->level == 'X'){
             $checkXH = \App\Model\system\dmnganhnghekd\DmNgheKd::where('manganh',$manganh)
-                ->where('mahuyen',session('admin')->mahuyen)
+                //->where('mahuyen',session('admin')->mahuyen)
                 ->where('theodoi','TD')
                 ->count();
             if($checkXH > 0)
@@ -2932,7 +2948,7 @@ function canKkGiaGr($manganh){
                 return false;
         }else{
             $checkdn = \App\Model\system\company\CompanyLvCc::where('manganh',$manganh)
-                ->where('maxa',session('admin')->maxa)
+                ->where('madv',session('admin')->madv)
                 ->count();
             if($checkdn > 0)
                 return true;
@@ -2962,14 +2978,14 @@ function canKkGiaCt($manganh = null, $manghe = null){
                 ->where('theodoi','TD');
             if($modelnghe->count() > 0){
                 if(session('admin')->level == 'H' || session('admin')->level == 'X'){
-                    $modelcheck = $modelnghe->where('mahuyen',session('admin')->mahuyen)
-                        ->count();
-                    if($modelcheck > 0)
-                        return true;
-                    else
-                        return false;
+                    //$modelcheck = $modelnghe->where('mahuyen',session('admin')->mahuyen)->count();
+                    return true;
+//                    if($modelcheck > 0)
+//                        return true;
+//                    else
+//                        return false;
                 }else{
-                    $dncheck = \App\Model\system\company\CompanyLvCc::where('maxa',session('admin')->maxa)
+                    $dncheck = \App\Model\system\company\CompanyLvCc::where('madv',session('admin')->madv)
                         ->where('manganh',$manganh)
                         ->where('manghe',$manghe)
                         ->count();
@@ -3239,15 +3255,16 @@ function getTtPhong($str)
     return $str;
 }
 
-function getNgayHieuLuc($ngaynhap,$pl){
-    $dayngaynhap = date('D',strtotime($ngaynhap));
-    if($pl == 'DVLT')
+function KiemTraNgayApDung($ngayapdung, $pl){
+    /* cũ 27.03.2020
+     $dayngaynhap = date('D', strtotime($ngaynhap));
+    if ($pl == 'DVLT')
         $thoihan = isset(getGeneralConfigs()['thoihanlt']) ? getGeneralConfigs()['thoihanlt'] : 5;
-    elseif($pl == 'DVVT')
+    elseif ($pl == 'DVVT')
         $thoihan = isset(getGeneralConfigs()['thoihanvt']) ? getGeneralConfigs()['thoihanvt'] : 5;
-    elseif($pl == 'TPCNTE6T')
+    elseif ($pl == 'TPCNTE6T')
         $thoihan = isset(getGeneralConfigs()['thoihangs']) ? getGeneralConfigs()['thoihangs'] : 5;
-    elseif($pl == 'TACN')
+    elseif ($pl == 'TACN')
         $thoihan = isset(getGeneralConfigs()['thoihantacn']) ? getGeneralConfigs()['thoihantacn'] : 5;
     $ngaynghi = 0;
 
@@ -3261,6 +3278,36 @@ function getNgayHieuLuc($ngaynhap,$pl){
         $ngayhieuluc = date('Y-m-d', mktime(0, 0, 0, date("m"), date("d") + $thoihan + $ngaynghi, date("Y")));
     }
     return $ngayhieuluc;
+     * */
+    /*
+     while (strtotime($ngaychuyen) < strtotime($ngayduyet)) {
+                $checkngay = NgayNghiLe::where('tungay', '<=', $ngaychuyen)
+                    ->where('denngay', '>=', $ngaychuyen)->get();
+                if (count($checkngay) > 0)
+                    $ngaylv = $ngaylv;
+                elseif (date('D', strtotime($ngaychuyen)) == 'Sat')
+                    $ngaylv = $ngaylv;
+                elseif (date('D', strtotime($ngaychuyen)) == 'Sun')
+                    $ngaylv = $ngaylv;
+                else
+                    $ngaylv = $ngaylv + 1;
+                //dd($ngaylv);
+                $datestart = date_create($ngaychuyen);
+                $datestartnew = date_modify($datestart, "+1 days");
+                $ngaychuyen = date_format($datestartnew, "Y-m-d");
+
+            }
+     * */
+
+    $chk = false;
+    /* ý tưởng
+
+     Lấy ngày áp dụng + Số ngày đc áp dụng + Ngày nghỉ ??? Ngày hiện tại
+    Nếu >=   => true
+        <    => false
+     * */
+    $chk = true;
+    return $chk;
 }
 
 function Thang2Quy($thang){

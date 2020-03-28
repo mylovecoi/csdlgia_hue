@@ -6,7 +6,6 @@
     <!-- END THEME STYLES -->
 @stop
 
-
 @section('custom-script')
     <!-- BEGIN PAGE LEVEL PLUGINS -->
 
@@ -18,68 +17,10 @@
     <script>
         jQuery(document).ready(function() {
             TableManaged.init();
+            $('#madiaban').change(function() {
+                window.location.href = '{{$inputs['url']}}' + '/danhsach?madiaban=' + $(this).val();
+            });
         });
-        function getId(id){
-            document.getElementById("iddelete").value=id;
-        }
-
-        function confirmTraLai(id){
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            //alert(id);
-            $.ajax({
-                url: '/ajax/registerthongtin',
-                type: 'GET',
-                data: {
-                    _token: CSRF_TOKEN,
-                    id: id
-                },
-                dataType: 'JSON',
-                success: function (data) {
-                    if (data.status == 'success') {
-                        $('#tttralai').replaceWith(data.message);
-                    }
-                }
-            })
-        }
-        function ClickTraLai(){
-            if($('#lydo').val() != ''){
-                toastr.success("Thông tin đăng ký đã được trả lại!", "Thành công!");
-                $("#frm_tralai").unbind('submit').submit();
-            }else{
-                toastr.error("Bạn cần nhập lý do trả lại hồ sơ", "Lỗi!!!");
-                $("#frm_tralai").submit(function (e) {
-                    e.preventDefault();
-                });
-            }
-
-        }
-        
-        $(function(){
-            $('#level').change(function() {
-                var current_path_url = '/register?';
-                var level = '&level='+$('#level').val();
-                var url = current_path_url + level;
-                window.location.href = url;
-            });
-
-            $('#mahuyen').change(function() {
-                var mahuyen = '&mahuyen='+ $('#mahuyen').val();
-                var level = '&level='+$('#level').val();
-                var url = '/register?'  + mahuyen + level;
-
-                window.location.href = url;
-            });
-            $('#maxa').change(function() {
-                var current_path_url = '/register?';
-                var level = '&level='+$('#level').val();
-                var maxa = '&maxa='+$('#maxa').val();
-                var url = current_path_url + level + maxa;
-                window.location.href = url;
-            });
-        })
-        function ClickDelete(){
-            $('#frm_delete').submit();
-        }
     </script>
 @stop
 
@@ -92,17 +33,24 @@
         <div class="col-md-12">
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box">
-                <div class="portlet-body">
-                    <div class="portlet-body">
+                <div class="portlet-body form-horizontal">
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label style="font-weight: bold">Địa bàn đăng ký</label>
+                                {!! Form::select('madiaban', $a_diaban, $inputs['madiaban'], array('id' => 'madiaban', 'class' => 'form-control'))!!}
+                            </div>
+                        </div>
+                    </div>
 
                     <table class="table table-striped table-bordered table-hover" id="sample_3">
                         <thead>
                         <tr>
-                            <th style="text-align: center" width="2%">STT</th>
-                            <th style="text-align: center" width="30%">Tên doanh nghiệp</th>
+                            <th style="text-align: center" width="5%">STT</th>
+                            <th style="text-align: center">Tên doanh nghiệp</th>
                             <th style="text-align: center" width="10%">Mã số thuế</th>
                             <th style="text-align: center" width="10%">Trạng thái</th>
-                            <th style="text-align: center" width="20%">Thao tác</th>
+                            <th style="text-align: center" width="10%">Thao tác</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -110,7 +58,7 @@
                             <tr class="odd gradeX">
                                 <td style="text-align: center">{{$key + 1}}</td>
                                 <td class="active" ><b style="color: blue;">{{$tt->name}}</b><br>Ngày đăng ký:&nbsp;{{getDateTime($tt->created_at)}}<br>{{($tt->updated_at != $tt->created_at ? 'Ngày cập nhật: '.getDateTime($tt->updated_at) : '')}}</td>
-                                <td>{{$tt->maxa}}</td>
+                                <td>{{$tt->madv}}</td>
                                 <td align="center">
                                     <span class="badge badge-danger">{{$tt->status}}</span>
                                     <br>
@@ -119,7 +67,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{url('register/'.$tt->id)}}" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
+                                    <a href="{{url($inputs['url'].'/modify?madv='.$tt->madv)}}" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -131,61 +79,4 @@
             <!-- END EXAMPLE TABLE PORTLET-->
         </div>
     </div>
-
-    <!-- BEGIN DASHBOARD STATS -->
-
-    <!-- END DASHBOARD STATS -->
-
-    <div class="clearfix"></div>
-    <!--Model chuyển-->
-    <div class="modal fade" id="tralai-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                {!! Form::open(['url'=>'register/tralai','id' => 'frm_tralai'])!!}
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Đồng ý trả lại đăng ký tài khoản?</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <div class="form-group" id="tttralai">
-                        </div>
-                        <label><b>Lý do</b></label>
-                        <textarea id="lydo" class="form-control" name="lydo" cols="30" rows="5"></textarea></div>
-                </div>
-                <input type="hidden" name="pl" id="pl">
-                <div class="modal-footer">
-                    <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
-                    <button type="submit" class="btn blue" onclick="ClickTraLai()">Đồng ý</button>
-
-                </div>
-                {!! Form::close() !!}
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-
-
-        <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                {!! Form::open(['url'=>'register/delete','id' => 'frm_delete'])!!}
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Đồng ý xóa?</h4>
-                </div>
-                <input type="hidden" name="iddelete" id="iddelete">
-                <div class="modal-footer">
-                    <button type="submit" class="btn blue" onclick="ClickDelete()">Đồng ý</button>
-                    <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
-                </div>
-                {!! Form::close() !!}
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-
-
 @stop

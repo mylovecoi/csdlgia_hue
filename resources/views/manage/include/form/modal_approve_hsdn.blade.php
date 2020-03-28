@@ -13,6 +13,21 @@
             <div class="modal-body">
                 <p style="color: #0000FF">Hồ sơ đã hoàn thành sẽ được chuyển lên đơn vị tiếp nhận. Bạn cần liên hệ đơn vị tiếp nhận để chỉnh sửa hồ sơ nếu cần!</p>
                 <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Họ và tên người nộp</label>
+                            <input type="text" id="nguoinop" name="nguoinop" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Số điện thoại liên hệ</label>
+                            <input type="tel" id="dtll" name="dtll" class="form-control" maxlength="15">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label">Cơ quan tiếp nhận<span class="require">*</span></label>
@@ -45,7 +60,28 @@
     }
 
     function confirmChuyen(mahs,url) {
-        $('#frm_chuyen').attr('action', url);
-        $('#frm_chuyen').find("[id='mahs']").val(mahs);
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        //alert(id);
+        $.ajax({
+            url: '{{$inputs['url']}}' +'/kiemtra',
+            type: 'GET',
+            data: {
+                _token: CSRF_TOKEN,
+                mahs: mahs
+            },
+            dataType: 'JSON',
+            success: function (data) {
+                if(data.status == 'success') {
+                    $('#chuyen-modal-confirm').modal("show");
+                    $('#frm_chuyen').attr('action', url);
+                    $('#frm_chuyen').find("[id='mahs']").val(mahs);
+                }else{
+                    toastr.error(data.message,'Lỗi.');
+                }
+            }
+        })
+
+
+
     }
 </script>

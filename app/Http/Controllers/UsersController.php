@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Company;
 use App\District;
 use App\DmDvQl;
 use App\DnDvGs;
@@ -12,6 +11,7 @@ use App\DnTaCn;
 use App\DonViDvVt;
 use App\DonViDvVtReg;
 use App\GeneralConfigs;
+use App\Model\system\company\Company;
 use App\Model\system\dsdiaban;
 use App\Model\system\dsdonvi;
 use App\Register;
@@ -55,7 +55,13 @@ class UsersController extends Controller
         //1. level = SSA ->
         if ($ttuser->level != "SSA") {
             //2. level != SSA -> lấy thông tin đơn vị, hệ thống để thiết lập lại
-            $m_donvi = dsdonvi::where('madv',$ttuser->madv)->first();
+            if($ttuser->level == "DN"){
+                $m_donvi = Company::where('madv',$ttuser->madv)->first();
+                //dd($m_donvi);
+            }else{
+                $m_donvi = dsdonvi::where('madv',$ttuser->madv)->first();
+            }
+            //dd($ttuser);
             $ttuser->madiaban = $m_donvi->madiaban;
             $ttuser->maqhns = $m_donvi->maqhns;
             $ttuser->tendv = $m_donvi->tendv;

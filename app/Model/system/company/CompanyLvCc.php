@@ -10,10 +10,10 @@ class CompanyLvCc extends Model
     protected $fillable = [
         'id',
         'mahs',
-        'maxa',
+        'madv',
         'manganh',
         'manghe',
-        'mahuyen',
+        'macqcq',
         'trangthai',
     ];
 }

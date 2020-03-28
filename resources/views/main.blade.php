@@ -358,12 +358,16 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </ul>
                                     </li>
                                 @endif
-                                @if(can('register','index'))
-                                    <li><a href="{{url('register')}}">Tài khoản đăng ký</a></li>
+                                @if(chkPer('hethong', 'hethong', 'dangky', 'index'))
+                                    <li><a href="{{url('dangky/danhsach')}}">Tài khoản đăng ký</a></li>
+                                @endif
+
+                                @if(chkPer('hethong', 'hethong', 'danhmucnganhkd', 'index'))
+                                    <li><a href="{{url('/dmnganhnghe/danhsach')}}">Danh mục ngành nghề kinh doanh</a> </li>
                                 @endif
 
                                 @if(session('admin')->level == 'SSA')
-                                    <li><a href="{{url('/danhmucnganhkd')}}">Danh mục ngành nghề kinh doanh</a> </li>
+
                                     <li><a href="{{url('/chucnang')}}">Danh mục chức năng hệ thống</a> </li>
                                     <li><a href="{{url('/general')}}">Cấu hình hệ thống</a></li>
                                 @endif

@@ -65,7 +65,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <div class="content">
 	<!-- BEGIN LOGIN FORM -->
 		{!! Form::open(['url'=>'/signin','id' => 'form-login', 'class'=>'form-horizontal form-validate']) !!}
-		<p class="form-title"><span style="font-size: 19px">Welcome. </span><span style="color: #c9dce9; font-size: 17px">Please login</span></p>
+		<p class="form-title"><span style="font-size: 19px">Đăng nhập hệ thống</span></p>
 		<div class="alert alert-danger display-hide">
 			<button class="close" data-close="alert"></button>
 			<span>
@@ -73,23 +73,23 @@ License: You must have a valid license purchased only from themeforest(the above
 		</div>
 		<div class="form-group">
 			<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-			<label class="control-label visible-ie8 visible-ie9">Username</label>
+			<label class="control-label visible-ie8 visible-ie9">Tài khoản</label>
 			<div class="input-icon">
 				<i class="fa fa-user"></i>
-				<input class="form-control required" type="text" autocomplete="off" placeholder="Username" name="username" id="username" autofocus
-						value="{{isset($inputs['username']) ? $inputs['username'] : ''}}">
+				<input class="form-control required" type="text" autocomplete="off" placeholder="Tài khoản" name="username" id="username" autofocus
+						value="{{isset($inputs['username']) ?? ''}}">
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="control-label visible-ie8 visible-ie9">Password</label>
+			<label class="control-label visible-ie8 visible-ie9">Mật khẩu</label>
 			<div class="input-icon">
 				<i class="fa fa-lock"></i>
-				<input class="form-control required" type="password" autocomplete="off" placeholder="Password" name="password" id="password"/>
+				<input class="form-control required" type="password" autocomplete="off" placeholder="Mật khẩu" name="password" id="password"/>
 			</div>
 		</div>
 		<div class="form-actions">
 			<button type="submit" class="btn red pull-right" id="login_button" onclick="validatePassword();">
-				Login <i class="m-icon-swapright m-icon-white"></i>
+				Đăng nhập <i class="m-icon-swapright m-icon-white"></i>
 			</button>
 			<br>
 		</div>
@@ -102,7 +102,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		</div>
 		<div class="create-account">
 			<p>
-				Bạn chưa có tài khoản?&nbsp;<a href="{{url('dangkytaikhoantruycap')}}">
+				Bạn chưa có tài khoản?&nbsp;<a href="{{url('/doanhnghiep/dangky')}}">
 					Đăng ký tài khoản </a>
 			</p>
 			<p>

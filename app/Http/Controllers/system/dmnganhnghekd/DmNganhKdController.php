@@ -12,18 +12,16 @@ class DmNganhKdController extends Controller
     public function index(){
         if (Session::has('admin')) {
             $model = DmNganhKd::all();
+            $inputs = array('url'=>'/dmnganhnghe');
             return view('system.dmnganhnghekd.nganh')
                 ->with('model',$model)
+                ->with('inputs',$inputs)
                 ->with('pageTitle', 'Danh mục ngành kinh doanh');
         }else
             return view('errors.notlogin');
     }
 
     public function edit(Request $request){
-        $result = array(
-            'status' => 'fail',
-            'message' => 'error',
-        );
         if (!Session::has('admin')) {
             $result = array(
                 'status' => 'fail',
@@ -33,20 +31,23 @@ class DmNganhKdController extends Controller
         }
 
         $inputs = $request->all();
-        $id = $inputs['id'];
-        $model = DmNganhKd::findOrFail($id);
+        $model = DmNganhKd::where('manganh',$inputs['manganh'])->first();
         die($model);
     }
 
-    public function update(Request $request){
+    public function store(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = DmNganhKd::where('id',$inputs['edit_id'])
-                ->first();
-            $model->theodoi = $inputs['edit_theodoi'];
-            $model->save();
-            return redirect('danhmucnganhkd');
-        }else
+            $model = DmNganhKd::where('manganh', $inputs['manganh'])->first();
+
+            if ($model == null) {
+                //$inputs['maspdv'] = getdate()[0];
+                DmNganhKd::create($inputs);
+            } else {
+                $model->update($inputs);
+            }
+            return redirect('/dmnganhnghe/danhsach');
+        } else
             return view('errors.notlogin');
     }
 }

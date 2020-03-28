@@ -18,7 +18,7 @@
 </head>
 <body id="error-page" class="animated bounceInLeft">
 <div id="error-page-content"><h1>Trả lại</h1><h2>Tài khoản bị trả lại!!! </h2>
-    <p>Tên doanh nghiệp: <b>{{$modelcompany->tendn}}</b> - Mã số thuế: <b>{{$modelcompany->maxa}}</b></p>
+    <p>Tên doanh nghiệp: <b>{{$modelcompany->tendn}}</b> - Mã số thuế: <b>{{$modelcompany->madv}}</b></p>
     <p>Địa chỉ: {{$modelcompany->diachi}}</p>
     <p><h4>Lý do: <b>{{$modeluser->lydo}}</b></h4></p>
     <p><a href="{{url('dangkytaikhoantruycap/checkmadangky')}}">Bấm vào đây </a> để chỉnh sửa thông tin đăng ký <p>

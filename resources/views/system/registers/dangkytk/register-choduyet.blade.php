@@ -18,7 +18,7 @@
 </head>
 <body id="error-page" class="animated bounceInLeft">
 <div id="error-page-content"><h1>Chờ duyệt</h1><h3>Tài khoản đang chờ được xét duyệt!!! </h3>
-    <p>Tên doanh nghiệp: <b>{{$modelcompany->tendn}}</b> - Mã số thuế: <b>{{$modelcompany->maxa}}</b></p>
+    <p>Tên doanh nghiệp: <b>{{$modelcompany->tendn}}</b> - Mã số thuế: <b>{{$modelcompany->madv}}</b></p>
     <p>Địa chỉ: {{$modelcompany->diachi}}</p>
     <p>Thông tin đăng ký đang chờ xét duyệt!!!</p>
     <p><a href='{{ url('/') }}'>Bấm vào đây</a> để quay lại trang chủ.</p></div>

@@ -56,7 +56,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Danh mục ngành nghề<small>&nbsp;kinh doanh</small>
+        Danh mục ngành nghề&nbsp;kinh doanh
     </h3>
 
     <!-- END PAGE HEADER-->

@@ -15,8 +15,9 @@ class CreateCompanyTable extends Migration
     {
         Schema::create('company', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('maxa',30)->nullable();
-            $table->string('mahuyen')->nullable();
+            $table->string('madv',30)->nullable();
+            $table->string('macqcq')->nullable();
+            $table->string('madiaban')->nullable();
             $table->string('tendn')->nullable();
             $table->string('diachi')->nullable();
             $table->string('tel')->nullable();
@@ -53,6 +54,7 @@ class CreateCompanyTable extends Migration
             $table->double('duong')->default(0);
             $table->double('thocgao')->default(0);
             $table->double('thuocpcb')->default(0);
+            $table->boolean('kiemtra')->default(true);//đơn vị có pải xét duyệt ngày áp dụng ko
             $table->timestamps();
         });
     }

@@ -432,7 +432,61 @@
                     </li>
                 @endif
 
+
+
             <!-- Cũ -->
+                @if(canKkGiaGr('BOG'))
+                    <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+                        data-original-title="Tổ chức, cá nhận Giá đăng ký theo yêu cầu của Sở Tài chính, sở quản lý ngành">
+                        <a href="javascript:;">
+                            <span class="title">Mặt hàng trong danh mục bình ổn giá</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            @if($modeldm = \App\Model\system\dmnganhnghekd\DmNgheKd::where('manganh','BOG')
+                                    ->where('theodoi','TD')
+                                    ->get())
+                            @endif
+
+                            @foreach($modeldm as $dm)
+                                @if(canKkGiaCt('BOG',$dm->manghe))
+                                    @if($dm->mahuyen != '')
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">{{$dm->tennghe}}</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                @if(session('admin')->level == 'DN')
+                                                    @if($dm->phanloai == 'DK')
+                                                        <li><a href="{{url('hosokkdkg?manghe='.$dm->manghe)}}">Giá đăng ký</a></li>
+                                                    @else
+                                                        <li><a href="{{url('kkgiamhbog?manghe='.$dm->manghe)}}">Giá kê khai</a></li>
+                                                    @endif
+                                                @else
+                                                    <li><a href="{{url('thongtinmathangbog?manghe='.$dm->manghe)}}">Phân loại TTMH</a></li>
+                                                    @if($dm->phanloai == 'DK')
+                                                        <li><a href="{{url('thongtindnkkgdk?manghe='.$dm->manghe)}}">Giá đăng ký</a></li>
+                                                        <li><a href="{{url('xetduyetkkdkg?manghe='.$dm->manghe)}}">Xét duyệt HS Giá đăng ký</a></li>
+
+                                                    @else
+                                                        <li><a href="{{url('thongtindnkkmhbog?manghe='.$dm->manghe)}}">Giá kê khai</a></li>
+                                                        <li><a href="{{url('xetduyetkkmhbog?manghe='.$dm->manghe)}}">Xét duyệt HS giá kê khai</a></li>
+                                                    @endif
+                                                    <li><a href="{{url('timkiemkkdkg?manghe='.$dm->manghe)}}">Tìm kiếm TT Giá đăng ký</a></li>
+                                                    <li><a href="{{url('timkiemkkmhbog?manghe='.$dm->manghe)}}">Tìm kiếm TT giá kê khai</a></li>
+                                                    <li><a href="{{url('baocaokekhaidkg?manghe='.$dm->manghe)}}">BCTH Giá đăng ký</a></li>
+                                                    <li><a href="{{url('baocaokkmhbog?manghe='.$dm->manghe)}}">BCTH hợp giá kê khai</a></li>
+                                                @endif
+                                            </ul>
+                                        </li>
+                                    @endif
+                                @endif
+                            @endforeach
+                        </ul>
+                    </li>
+                @endif
+
             @if(chkPer('csdlmucgiahhdv','dinhgia','giacldat','index'))
                 {{--Bảng giá đất--}}
                 <li>
@@ -584,6 +638,97 @@
     </li>
 @endif
 
+@if(chkPer('csdlmucgiahhdv','bog'))
+    <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+        data-original-title="Tổ chức, cá nhận Giá đăng ký theo yêu cầu của Sở Tài chính, sở quản lý ngành">
+        <a href="javascript:;">
+            <i class="icon-folder"></i>
+            <span class="title">Bình ổn giá</span>
+            <span class="arrow"></span>
+        </a>
+        <ul class="sub-menu">
+            <!--
+                - Chỉ có 1 phần nhập liệu sau đó vào hồ sơ chọn danh mục hàng để kê khai
+                1. Tài khoản các sở
+                    1.1 Danh mục: thay đổi đăng ký / kê khai
+                    1.2 Thông tin doanh nghiêp
+                    1.3 Xét duyệt
+                    1.4 Tìm kiếm
+                    1.5 Báo cáo (nếu có)
+                2. Tài khoản doanh nghiệp
+                    2.1 Thông tin doanh nghiệp
+                    2.2 Thông tin mặt hàng theo từng nhóm nghề (có thể bỏ nếu chọn copy mặt hàng của hồ sơ trước)
+                    2.3 Kê khai hồ sơ: chọn nghề -> load danh mục (phân loại hồ sơ: đăng ký/ kê khai theo danh mục)
+
+            -->
+            @if(session('admin')->level == 'DN')
+                <li>
+                    <a href="{{url('/binhongia/danhsach?madv='.session('admin')->madv)}}">Thông tin hồ sơ</a>
+                </li>
+            @else
+                @if(chkPer('csdlmucgiahhdv','bog', 'bog', 'danhmuc','index'))
+                    <li>
+                        <a href="{{url('/binhongia/mathang')}}">Phân loại mặt hàng</a>
+                    </li>
+                @endif
+
+                @if(chkPer('csdlmucgiahhdv','bog', 'bog', 'hoso','index'))
+                    @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                        <!-- chức năng nhập liệu cho đơn vị -->
+                        <li><a href="{{url('/binhongia/danhsach')}}">Thông tin hồ sơ</a></li>
+                        <li><a href="{{url('/binhongia/xetduyet')}}">Xét duyệt hồ sơ</a></li>
+
+                        <li><a href="{{url('timkiemkkdkg?manghe=')}}">Tìm kiếm hồ sơ</a></li>
+                        <li><a href="{{url('baocaokekhaidkg?manghe=')}}">Báo cáo tổng hợp</a></li>
+                    @endif
+                @endif
+            @endif
+
+
+
+            @if($modeldm = \App\Model\system\dmnganhnghekd\DmNgheKd::where('manganh','BOG')
+                    ->where('theodoi','TD')
+                    ->get())
+            @endif
+
+            @foreach($modeldm as $dm)
+                @if(canKkGiaCt('BOG',$dm->manghe))
+                    @if($dm->mahuyen != '')
+                        <li>
+                            <a href="javascript:;">
+                                <span class="title">{{$dm->tennghe}}</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(session('admin')->level == 'DN')
+                                    @if($dm->phanloai == 'DK')
+                                        <li><a href="{{url('hosokkdkg?manghe='.$dm->manghe)}}">Giá đăng ký</a></li>
+                                    @else
+                                        <li><a href="{{url('kkgiamhbog?manghe='.$dm->manghe)}}">Giá kê khai</a></li>
+                                    @endif
+                                @else
+                                    <li><a href="{{url('thongtinmathangbog?manghe='.$dm->manghe)}}">Phân loại TTMH</a></li>
+                                    @if($dm->phanloai == 'DK')
+                                        <li><a href="{{url('thongtindnkkgdk?manghe='.$dm->manghe)}}">Giá đăng ký</a></li>
+                                        <li><a href="{{url('xetduyetkkdkg?manghe='.$dm->manghe)}}">Xét duyệt HS Giá đăng ký</a></li>
+
+                                    @else
+                                        <li><a href="{{url('thongtindnkkmhbog?manghe='.$dm->manghe)}}">Giá kê khai</a></li>
+                                        <li><a href="{{url('xetduyetkkmhbog?manghe='.$dm->manghe)}}">Xét duyệt HS giá kê khai</a></li>
+                                    @endif
+                                    <li><a href="{{url('timkiemkkdkg?manghe='.$dm->manghe)}}">Tìm kiếm TT Giá đăng ký</a></li>
+                                    <li><a href="{{url('timkiemkkmhbog?manghe='.$dm->manghe)}}">Tìm kiếm TT giá kê khai</a></li>
+                                    <li><a href="{{url('baocaokekhaidkg?manghe='.$dm->manghe)}}">BCTH Giá đăng ký</a></li>
+                                    <li><a href="{{url('baocaokkmhbog?manghe='.$dm->manghe)}}">BCTH hợp giá kê khai</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                @endif
+            @endforeach
+        </ul>
+    </li>
+@endif
 
 @if(canGeneral('giahhdvk','index'))
     @if(can('giahhdvk','index'))
@@ -1299,55 +1444,8 @@
                         @endif
                         {{--OK--}}
                     @endif
-                    @if(canKkGiaGr('BOG'))
-                        <li class="tooltips" data-container="body" data-placement="right" data-html="true"
-                            data-original-title="Tổ chức, cá nhận Giá đăng ký theo yêu cầu của Sở Tài chính, sở quản lý ngành">
-                            <a href="javascript:;">
-                                <span class="title">Mặt hàng trong danh mục bình ổn giá</span>
-                                <span class="arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                @if($modeldm = \App\Model\system\dmnganhnghekd\DmNgheKd::where('manganh','BOG')
-                                        ->where('theodoi','TD')
-                                        ->get())@endif
-                                @foreach($modeldm as $dm)
-                                    @if(canKkGiaCt('BOG',$dm->manghe))
-                                        @if($dm->mahuyen != '')
-                                            <li>
-                                                <a href="javascript:;">
-                                                    <span class="title">{{$dm->tennghe}}</span>
-                                                    <span class="arrow"></span>
-                                                </a>
-                                                <ul class="sub-menu">
-                                                    @if(session('admin')->level == 'DN')
-                                                        @if($dm->phanloai == 'DK')
-                                                            <li><a href="{{url('hosokkdkg?manghe='.$dm->manghe)}}">Giá đăng ký</a></li>
-                                                        @else
-                                                            <li><a href="{{url('kkgiamhbog?manghe='.$dm->manghe)}}">Giá kê khai</a></li>
-                                                        @endif
-                                                    @else
-                                                        <li><a href="{{url('thongtinmathangbog?manghe='.$dm->manghe)}}">Phân loại TTMH</a></li>
-                                                        @if($dm->phanloai == 'DK')
-                                                            <li><a href="{{url('thongtindnkkgdk?manghe='.$dm->manghe)}}">Giá đăng ký</a></li>
-                                                            <li><a href="{{url('xetduyetkkdkg?manghe='.$dm->manghe)}}">Xét duyệt HS Giá đăng ký</a></li>
 
-                                                        @else
-                                                            <li><a href="{{url('thongtindnkkmhbog?manghe='.$dm->manghe)}}">Giá kê khai</a></li>
-                                                            <li><a href="{{url('xetduyetkkmhbog?manghe='.$dm->manghe)}}">Xét duyệt HS giá kê khai</a></li>
-                                                        @endif
-                                                        <li><a href="{{url('timkiemkkdkg?manghe='.$dm->manghe)}}">Tìm kiếm TT Giá đăng ký</a></li>
-                                                        <li><a href="{{url('timkiemkkmhbog?manghe='.$dm->manghe)}}">Tìm kiếm TT giá kê khai</a></li>
-                                                        <li><a href="{{url('baocaokekhaidkg?manghe='.$dm->manghe)}}">BCTH Giá đăng ký</a></li>
-                                                        <li><a href="{{url('baocaokkmhbog?manghe='.$dm->manghe)}}">BCTH hợp giá kê khai</a></li>
-                                                    @endif
-                                                </ul>
-                                            </li>
-                                        @endif
-                                    @endif
-                                @endforeach
-                            </ul>
-                        </li>
-                    @endif
+
             </ul>
         </li>
     @endif

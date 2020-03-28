@@ -4,42 +4,46 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Thêm mới lĩnh vực kinh doanh</h4>
+                <h4 class="modal-title">Thông tin lĩnh vực kinh doanh</h4>
             </div>
             <div class="modal-body" id="ttmhbog">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label class="control-label">Ngành</label>
-                            <select class="form-control" name="add_manganh" id="add_manganh">
-                                <option>-Chọn ngành kinh doanh--</option>
-                                @foreach($nganhs as $nganh)
-                                    <option value="{{$nganh->manganh}}">{{$nganh->tennganh}}</option>
+                            <label class="control-label">Ngành - Nghề</label>
+                            <select class="form-control select2me" name="manghe" id="manghe">
+                                @foreach($m_nganh as $nganh)
+                                    <optgroup label="{{$nganh->tennganh}}">
+                                        <?php $mode_ct = $m_nghe->where('manganh',$nganh->manganh); ?>
+                                        @foreach($mode_ct as $ct)
+                                            <option value="{{$ct->manghe}}">{{$ct->tennghe}}</option>
+                                        @endforeach
+                                    </optgroup>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="control-label">Nghề</label>
-                            <select class="form-control" name="add_manghe" id="add_manghe">
-                                <option>-Chọn ngành kinh doanh--</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
+
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label">Đơn vị nhận hồ sơ</label>
-                            <select class="form-control" name="add_mahuyen" id="add_mahuyen">
-                                <option>-Chọn đơn vị nhận hồ sơ--</option>
+                            <select class="form-control select2me" id="macqcq" name="macqcq">
+                                <option value="all">-Chọn đơn vị nhận hồ sơ--</option>
+                                @foreach($m_diaban as $diaban)
+                                    <optgroup label="{{$diaban->tendiaban}}">
+                                        <?php $donvi = $m_donvi->where('madiaban',$diaban->madiaban); ?>
+                                        @foreach($donvi as $ct)
+                                            <option value="{{$ct->madv}}">{{$ct->tendv}}</option>
+                                        @endforeach
+                                    </optgroup>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                 </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-default">Thoát</button>
@@ -50,24 +54,7 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-<!--Model edit-->
-<div class="modal fade bs-modal-lg" id="modal-edit" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Chỉnh sửa lĩnh vực kinh doanh</h4>
-            </div>
-            <div class="modal-body" id="edit_lvcc">
-            </div>
-            <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn btn-default">Thoát</button>
-                <button type="button" class="btn btn-primary" onclick="updatett()">Cập nhật</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-</div>
+
 <!--Modal Wide Width-->
 <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog ">
@@ -86,15 +73,16 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+
 <script>
-    $('#maxa').change(function(){
+    $('#madv').change(function(){
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             type: 'GET',
             url: '/ajax/checkmasothue',
             data: {
                 _token: CSRF_TOKEN,
-                maxa:$(this).val()
+                madv:$(this).val()
             },
             dataType: 'JSON',
             success: function (data) {
@@ -102,8 +90,8 @@
                     toastr.success("Mã số thuế sử dụng được!", "Thành công!");
                 }else{
                     toastr.error("Bạn cần nhập lại mã số thuế", "Mã số thuế nhập vào đã tồn tại hoặc đã được đăng ký!!!");
-                    $('input[name="maxa"]').val('');
-                    $('input[name="maxa"]').focus();
+                    $('input[name="madv"]').val('');
+                    $('input[name="madv"]').focus();
                 }
 
             }
@@ -132,59 +120,55 @@
 
         });
     });
-    $('#add_manganh').change(function () {
-        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        $.ajax({
-            type: 'GET',
-            url: '/companylvcc/getmanghe',
-            data: {
-                _token: CSRF_TOKEN,
-                manganh: $(this).val()
-            },
-            dataType: 'JSON',
-            success: function (data) {
-                if (data.status == 'success') {
-                    $('#add_manghe').replaceWith(data.message);
-                    $('#add_mahuyen').val('');
-                    getDvQl();
-                }
+
+    function add_lvkd() {
+        if ($('#madv').val() == '' || $('#madv').val() == null) {
+            toastr.error('Mã số thuế không được bỏ trống.', 'Lỗi mã số thuế');
+            $('#madv').focus();
+        } else {
+            var mahs = $('#mahs').val();
+            if (mahs == '{{$inputs['mahs']}}') {//tạo lại mã hồ sơ do có trường hợp trùng thời gian
+                $('#mahs').val(mahs + '_' + $('#madv').val());
             }
-        });
-    });
+            $('#modal-create').modal("show");
+        }
+
+    }
+
+    {{--$('#manghe').change(function () {--}}
+    {{--    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');--}}
+    {{--    $.ajax({--}}
+    {{--        type: 'GET',--}}
+    {{--        url: '{{$inputs['url']}}' +'/get_dvql',--}}
+    {{--        data: {--}}
+    {{--            _token: CSRF_TOKEN,--}}
+    {{--            manghe: $(this).val(),--}}
+
+    {{--        },--}}
+    {{--        dataType: 'JSON',--}}
+    {{--        success: function (data) {--}}
+    {{--            if (data.status == 'success')--}}
+    {{--                $('#macqcq').replaceWith(data.message);--}}
+    {{--        }--}}
+
+    {{--    });--}}
+    {{--});--}}
+
     function getDvQl(){
-        $('#add_manghe').change(function () {
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            $.ajax({
-                type: 'GET',
-                url: '/companylvcc/getdvql',
-                data: {
-                    _token: CSRF_TOKEN,
-                    manghe: $(this).val(),
-                    manganh: $('#add_manganh').val()
-                },
-                dataType: 'JSON',
-                success: function (data) {
 
-                    if (data.status == 'success')
-                        $('#add_mahuyen').replaceWith(data.message);
-                }
-
-            });
-        });
     }
 
     function capnhatts(){
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
-            url: '/companylvcc/store',
+            url: '{{$inputs['url']}}' + '/store_lvkd',
             type: 'GET',
             data: {
                 _token: CSRF_TOKEN,
-                manganh: $('#add_manganh').val(),
-                manghe: $('#add_manghe').val(),
-                mahuyen: $('#add_mahuyen').val(),
+                manghe: $('#manghe').val(),
+                macqcq: $('#macqcq').val(),
                 mahs: $('#mahs').val(),
-                maxa:$('#maxa').val()
+                madv:$('#madv').val()
             },
             dataType: 'JSON',
             success: function (data) {
@@ -195,86 +179,51 @@
                         TableManaged.init();
                     });
                     $('#modal-create').modal("hide");
-                }else {
-                    toastr.error('Trùng lặp ngành nghề', "Lỗi!!!");
-                    $('#modal-create').modal("hide");
                 }
             }
         })
     }
 
-    function getidedit(id){
+    function getidedit(manghe){
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        alert(id);
         $.ajax({
-            url: '/companylvcc/edit',
+            url: '{{$inputs['url']}}' + '/edit_lvkd',
             type: 'GET',
             data: {
                 _token: CSRF_TOKEN,
-                id: id,
-                mahs: $('#mahs').val(),
-                maxa: $('#maxa').val()
-
+                manghe: manghe,
+                mahs: $('#mahs').val()
             },
             dataType: 'JSON',
             success: function (data) {
-                if(data.status == 'success')
-                    $('#edit_lvcc').replaceWith(data.message);
+                $('#macqcq').val(data.macqcq).trigger('change');
+                $('#manghe').val(data.manghe).trigger('change');
+                //alert(data.macqcq);
             }
         })
     }
 
-    function updatett(){
-        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        $.ajax({
-            url: '/companylvcc/update',
-            type: 'GET',
-            data: {
-                _token: CSRF_TOKEN,
-                mahuyen: $('#edit_mahuyen').val(),
-                mahs: $('#mahs').val(),
-                maxa: $('#maxa').val(),
-                id: $('#edit_id').val()
-            },
-            dataType: 'JSON',
-            success: function (data) {
-                if(data.status == 'success') {
-                    toastr.success("Chỉnh sửa thông tin thành công!");
-                    $('#dsts').replaceWith(data.message);
-                    jQuery(document).ready(function() {
-                        TableManaged.init();
-                    });
-                    $('#modal-edit').modal("hide");
-                }
-            }
-        })
-    }
+
     function getid(id){
         document.getElementById("iddelete").value=id;
     }
     function deleteRow() {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
-            url: '/companylvcc/delete',
+            url: '{{$inputs['url']}}' + '/delete_lvkd',
             type: 'GET',
             data: {
                 _token: CSRF_TOKEN,
-                id: $('input[name="iddelete"]').val(),
-                mahs: $('#mahs').val(),
-                maxa: $('#maxa').val()
+                id: $('input[name="iddelete"]').val()
             },
             dataType: 'JSON',
             success: function (data) {
-                //if(data.status == 'success') {
                 toastr.success("Bạn đã xóa thông tin thành công!", "Thành công!");
                 $('#dsts').replaceWith(data.message);
                 jQuery(document).ready(function () {
                     TableManaged.init();
                 });
-
                 $('#modal-delete').modal("hide");
-
-                //}
             }
         })
     }

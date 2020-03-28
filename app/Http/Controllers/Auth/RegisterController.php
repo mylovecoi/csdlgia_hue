@@ -8,6 +8,9 @@ use App\Http\Requests\system\RegisterRequest;
 use App\Jobs\SendMail;
 use App\Model\system\company\Company;
 use App\Model\system\company\CompanyLvCc;
+use App\Model\system\dmnganhnghekd\DmNgheKd;
+use App\Model\system\dsdiaban;
+use App\Model\system\view_dsdiaban_donvi;
 use App\User;
 use App\Users;
 use App\Model\system\dmnganhnghekd\DmNganhKd;
@@ -82,14 +85,22 @@ class RegisterController extends Controller
 
     public function create(){
         $inputs['mahs'] = getdate()[0];
-        $nganhs = DmNganhKd::where('theodoi','TD')
-            ->get();
-        $modelct = CompanyLvCc::where('mahs',$inputs['mahs'])
-            ->get();
+        $inputs['url'] = '/doanhnghiep';
+        $m_nganh = DmNganhKd::where('theodoi','TD')->get();
+        $m_nghe = DmNgheKd::where('theodoi','TD')->get();
+        //dd($m_nghe);
+        //$m_donvi = getDonViXetDuyet(session('admin')->level);
+        $m_donvi = view_dsdiaban_donvi::where('chucnang', 'TONGHOP')
+            ->wherein('level', ['T', 'H', 'X'])->get();
+        $m_diaban = dsdiaban::wherein('level', ['T', 'H', 'X'])->get();
+
         return view('system.registers.dangkytk.create')
-            ->with('nganhs', $nganhs)
+            ->with('m_nganh', $m_nganh)
+            ->with('m_nghe', $m_nghe)
             ->with('inputs',$inputs)
-            ->with('modelct',$modelct)
+            ->with('modelct',nullValue())
+            ->with('m_diaban', $m_diaban)
+            ->with('m_donvi', $m_donvi)
             ->with('pageTitle','Đăng ký tài khoản truy cập');
     }
 
@@ -99,7 +110,7 @@ class RegisterController extends Controller
         $model = new Company();
         if(isset($inputs['tailieu'])){
             $ipf1 = $request->file('tailieu');
-            $inputs['ipt1'] = $inputs['maxa'].'.'.$ipf1->getClientOriginalExtension();
+            $inputs['ipt1'] = $inputs['madv'].'.'.$ipf1->getClientOriginalExtension();
             $ipf1->move(public_path() . '/data/doanhnghiep/', $inputs['ipt1']);
             $inputs['tailieu']= $inputs['ipt1'];
         }
@@ -110,18 +121,16 @@ class RegisterController extends Controller
             $modeluser->name = $inputs['tendn'];
             $modeluser->status = 'Chờ xét duyệt';
             $modeluser->level  = 'DN';
-            $modeluser->maxa  = $inputs['maxa'];
+            $modeluser->madv  = $inputs['madv'];
             $modeluser->save();
-            $modellvcc = CompanyLvCc::where('mahs',$inputs['mahs'])
-                ->update(['maxa' => $inputs['maxa'],'trangthai' => 'XD']);
-
+            CompanyLvCc::where('mahs',$inputs['mahs'])
+                ->update(['madv' => $inputs['madv'],'trangthai' => 'XD']);
         }
-        $modeldn = Company::where('maxa',$inputs['maxa'])
-            ->first();
+        $modeldn = Company::where('madv',$inputs['madv'])->first();
         $modeldv = GeneralConfigs::first();
         $tg = getDateTime(Carbon::now()->toDateTimeString());
         $contentdn = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã nhận yêu cầu đăng ký thông tin doanh nghiệp . Mã số đăng ký: '.$inputs['mahs'].'!!!';
-        $contentht = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã nhận yêu cầu thay đổi thông tin doanh nghiệp '.$modeldn->tendn.' - mã số thuế '.$modeldn->maxa.' Mã số đăng ký: '.$inputs['mahs'].' !!!';
+        $contentht = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã nhận yêu cầu thay đổi thông tin doanh nghiệp '.$modeldn->tendn.' - mã số thuế '.$modeldn->madv.' Mã số đăng ký: '.$inputs['mahs'].' !!!';
         $run = new SendMail($modeldn,$contentdn,$modeldv,$contentht);
         $run->handle();
         //dispatch($run);
@@ -165,9 +174,9 @@ class RegisterController extends Controller
 
     public function search(Request $request){
         $inputs = $request->all();
-        $modelcompany = Company::where('maxa',$inputs['maxa'])
+        $modelcompany = Company::where('madv',$inputs['madv'])
             ->first();
-        $modeluser = Users::where('maxa',$inputs['maxa'])
+        $modeluser = Users::where('madv',$inputs['madv'])
             ->where('level','DN')
             ->first();
         if(isset($modeluser)) {
@@ -220,95 +229,110 @@ class RegisterController extends Controller
             return view('system.registers.dangkytk.register-errors-checkmadk');
     }
 
-    public function index(){
+    public function index(Request $request){
         if (Session::has('admin')) {
-            if (session('admin')->level == 'T') {
-                $model = Users::where('status','Chờ xét duyệt')
-                    ->Orwhere('status','Bị trả lại')
-                    ->where('level','DN')
-                    ->get();
-                return view('system.registers.xetduyet.index')
-                    ->with('model', $model)
-                    ->with('pageTitle', 'Xét duyệt tài khoản truy cập vào chương trình');
-            }else
-                return view('errors.perm');
-        }else
+            $inputs = $request->all();
+            $inputs['url'] = '/dangky';
+            //load địa bàn, lấy thông tin đầu tiên, load đăng ký trên địa bàn
+            //căn cứ level để lấy địa bàn SSA, ADMIN -> all
+            //  lấy theo mã địa bàn
+
+            $a_diaban = getDiaBan_HeThong(\session('admin')->level, \session('admin')->madiaban);
+            $inputs['madiaban'] = $inputs['madiaban'] ?? array_key_first($a_diaban);
+            $m_company = Company::where('madiaban', $inputs['madiaban'])->get();
+            $model = Users::wherein('status', ['Chờ xét duyệt', 'Bị trả lại'])
+                ->wherein('madv', array_column($m_company->toarray(),'madv'))
+                ->where('level', 'DN')
+                ->get();
+            //dd($m_company);
+            return view('system.registers.xetduyet.index')
+                ->with('model', $model)
+                ->with('inputs', $inputs)
+                ->with('a_diaban', $a_diaban)
+                ->with('pageTitle', 'Xét duyệt tài khoản đăng ký');
+
+        } else
             return view('errors.notlogin');
     }
 
-    public function show($id){
+    public function show(Request $request){
         if (Session::has('admin')) {
-            if (session('admin')->level == 'T') {
-                $model = Users::findOrFail($id);
-                $modelcompany = Company::where('maxa',$model->maxa)
-                    ->first();
-                $modellvcc = CompanyLvCc::join('town', 'town.maxa', '=', 'companylvcc.mahuyen')
-                    ->join('dmnganhkd', 'dmnganhkd.manganh', '=', 'companylvcc.manganh')
-                    ->join('dmnghekd', 'dmnghekd.manghe', '=', 'companylvcc.manghe')
-                    ->select('companylvcc.*', 'town.tendv', 'dmnganhkd.tennganh', 'dmnghekd.tennghe')
-                    ->where('companylvcc.maxa', $model->maxa)
-                    ->get();
-                return view('system.registers.xetduyet.show')
-                    ->with('model', $model)
-                    ->with('modelcompany',$modelcompany)
-                    ->with('modellvcc',$modellvcc)
-                    ->with('pageTitle', 'Thông tin tài khoản đề nghị truy cập vào chương trình');
-            }else
+            $inputs = $request->all();
+            $inputs['url'] = '/dangky';
+            if(!chkPer('hethong', 'hethong', 'dangky', 'index')){
                 return view('errors.perm');
-        }else
+            }
+
+            $model = Users::where('madv', $inputs['madv'])->first();
+            $m_company = Company::where('madv', $model->madv)->first();
+            $m_lvkd = CompanyLvCc::where('madv', $model->madv)->get();
+            $a_nghe = array_column( DmNgheKd::where('theodoi','TD')->get()->toarray(),'tennghe','manghe');
+            $a_cqcq = array_column(view_dsdiaban_donvi::wherein('madv', array_column($m_lvkd->toarray(),'macqcq'))->get()->toarray(),'tendv','madv');
+            //dd($m_company);
+            return view('system.registers.xetduyet.show')
+                ->with('model', $model)
+                ->with('inputs', $inputs)
+                ->with('m_company', $m_company)
+                ->with('m_lvkd', $m_lvkd)
+                ->with('a_nghe', $a_nghe)
+                ->with('a_cqcq', $a_cqcq)
+                ->with('pageTitle', 'Chi tiết doanh nghiệp đăng ký');
+
+        } else
             return view('errors.notlogin');
     }
 
     public function tralai(Request $request){
         if (Session::has('admin')) {
-            if (session('admin')->level == 'T') {
-                $inputs = $request->all();
-                $model = Users::where('id',$inputs['tralai_id'])
-                   ->first();
-                $model->lydo = $inputs['lydo'];
-                $model->status = 'Bị trả lại';
-                $model->save();
-                $modeldn = Company::where('maxa',$model->maxa)->first();
-                $modeldv = GeneralConfigs::first();
-                $tg = getDateTime(Carbon::now()->toDateTimeString());
-                $contentdn = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã trả lại yêu cầu đăng ký thông tin doanh nghiệp!!!';
-                $contentht = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã trả lại yêu cầu thay đổi thông tin doanh nghiệp '.$modeldn->tendn.' - mã số thuế '.$modeldn->maxa.' Mã số đăng ký: '
-                    .$model->mahs.'Lý do trả lại: '.$inputs['lydo'].' !!!';
-                $run = new SendMail($modeldn,$contentdn,$modeldv,$contentht);
-                $run->handle();
-                //dispatch($run);
-                return redirect('register');
-            }else
+            $inputs = $request->all();
+
+            if(!chkPer('hethong', 'hethong', 'dangky', 'index')){
                 return view('errors.perm');
+            }
+            //dd($inputs);
+            $m_company = Company::where('mahs', $inputs['mahs'])->first();
+            $m_user = Users::where('madv', $m_company->madv)->first();
+            $m_user->lydo = $inputs['lydo'];
+            $m_user->status = 'Bị trả lại';
+            $m_user->save();
+            $modeldv = GeneralConfigs::first();
+            $tg = getDateTime(Carbon::now()->toDateTimeString());
+            $contentdn = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã trả lại yêu cầu đăng ký thông tin doanh nghiệp!!!';
+            $contentht = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã trả lại yêu cầu thay đổi thông tin doanh nghiệp '.$m_company->tendn.' - mã số thuế '.$m_company->madv.' Mã số đăng ký: '
+                .$m_company->mahs.'Lý do trả lại: '.$inputs['lydo'].' !!!';
+            $run = new SendMail($m_company,$contentdn,$modeldv,$contentht);
+            $run->handle();
+            return redirect('dangky/danhsach?madiaban='.$m_company->madiaban);
         }else
             return view('errors.notlogin');
     }
 
-    public function kichhoat(Request $request){
+    public function kichhoat(Request $request)
+    {
         if (Session::has('admin')) {
-            if (session('admin')->level == 'T') {
-                $inputs = $request->all();
-                $model = Users::where('id',$inputs['kichhoat_id'])
-                    ->first();
-                $model->status = 'Kích hoạt';
-                if($model->save()) {
-                    $modelcompany = Company::where('maxa', $model->maxa)
-                        ->first();
-                    $modelcompany->trangthai = 'Kích hoạt';
-                    $modelcompany->save();
-                }
-                $modeldn = Company::where('maxa',$model->maxa)->first();
-                $modeldv = GeneralConfigs::first();
-                $tg = getDateTime(Carbon::now()->toDateTimeString());
-                $contentdn = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã duyệt yêu cầu đăng ký thông tin doanh nghiệp!!!';
-                $contentht = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã nhận yêu cầu thay đổi thông tin doanh nghiệp '.$modeldn->tendn.' - mã số thuế '.$modeldn->maxa.' Mã số đăng ký: '.$model->mahs.' !!!';
-                $run = new SendMail($modeldn,$contentdn,$modeldv,$contentht);
-                $run->handle();
-                //dispatch($run);
-                return redirect('register');
-            }else
+            $inputs = $request->all();
+            if (!chkPer('hethong', 'hethong', 'dangky', 'index')) {
                 return view('errors.perm');
-        }else
+            }
+            $m_company = Company::where('mahs', $inputs['mahs'])->first();
+            $m_user = Users::where('madv', $m_company->madv)->first();
+            $m_user->status = 'Kích hoạt';
+            if ($m_user->save()) {
+
+                $m_company->trangthai = 'Kích hoạt';
+                $m_company->save();
+            }
+            //dd($m_company);
+            $modeldv = GeneralConfigs::first();
+            $tg = getDateTime(Carbon::now()->toDateTimeString());
+            $contentdn = 'Vào lúc: ' . $tg . ', hệ thống CSDL giá đã duyệt yêu cầu đăng ký thông tin doanh nghiệp!!!';
+            $contentht = 'Vào lúc: ' . $tg . ', hệ thống CSDL giá đã nhận yêu cầu thay đổi thông tin doanh nghiệp ' . $m_company->tendn . ' - mã số thuế ' . $m_company->madv . ' Mã số đăng ký: ' . $m_company->mahs . ' !!!';
+            $run = new SendMail($m_company, $contentdn, $modeldv, $contentht);
+            $run->handle();
+            //dispatch($run);
+            return redirect('dangky/danhsach?madiaban=' . $m_company->madiaban);
+
+        } else
             return view('errors.notlogin');
     }
 

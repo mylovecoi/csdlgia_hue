@@ -15,8 +15,9 @@ class CreateKkmhbogctTable extends Migration
     {
         Schema::create('kkmhbogct', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('maxa',30)->nullable();
-            $table->string('mahuyen',30)->nullable();
+            $table->string('madv')->nullable();
+            $table->string('madiaban')->nullable();
+            $table->string('maxp')->nullable();
             $table->string('mahs',30)->nullable();
             $table->string('tenhh')->nullable();
             $table->text('quycach')->nullable();

@@ -1,9 +1,41 @@
 <?php
+Route::group(['prefix'=>'binhongia'],function (){
+    Route::get('mathang','manage\binhongia\MatHangBogController@index');
+    Route::post('mathang/update','manage\binhongia\MatHangBogController@update');
+
+    Route::get('store_ct','manage\binhongia\KkMhBogCtController@store');
+    Route::get('show_ct','manage\binhongia\KkMhBogCtController@show');
+    Route::get('del_ct','manage\binhongia\KkMhBogCtController@destroy');
+
+    Route::get('danhsach','manage\binhongia\KkMhBogController@index');
+    Route::get('create','manage\binhongia\KkMhBogController@create');
+    Route::post('create','manage\binhongia\KkMhBogController@store');
+    Route::get('modify','manage\binhongia\KkMhBogController@edit');
+    Route::get('xemhoso','manage\binhongia\KkMhBogController@show');
+    Route::post('delete','manage\binhongia\KkMhBogController@destroy');
+
+    Route::get('kiemtra','manage\binhongia\KkMhBogXdController@kiemtra');
+    Route::post('chuyenhs','manage\binhongia\KkMhBogXdController@chuyenhs');
+    Route::get('get_sohs','manage\binhongia\KkMhBogXdController@get_sohs');
+    Route::post('duyeths','manage\binhongia\KkMhBogXdController@duyeths');
+    Route::get('xetduyet','manage\binhongia\KkMhBogXdController@xetduyet');
+    Route::post('chuyenxd','manage\binhongia\KkMhBogXdController@chuyenxd');
+    Route::post('tralai','manage\binhongia\KkMhBogXdController@tralai');
+    Route::post('congbo','manage\binhongia\KkMhBogXdController@congbo');
+
+    Route::get('timkiem','manage\binhongia\KkMhBogController@timkiem');
+    Route::post('timkiem','manage\binhongia\KkMhBogController@ketquatk');
+
+
+
+
+
+});
+/* 20.03.2020
 Route::resource('dmmhbinhongia','DmMhBinhOnGiaController');
 Route::get('dmmhbinhongia/edittt','DmMhBinhOnGiaController@show');
 Route::post('dmmhbinhongia/update','DmMhBinhOnGiaController@update');
 Route::post('dmmhbinhongia/delete','DmMhBinhOnGiaController@destroy');
-
 
 Route::resource('binhongia','BinhOnGiaController');
 Route::post('binhongia/delete','BinhOnGiaController@destroy');
@@ -56,4 +88,5 @@ Route::get('timkiem','DangKyGiaBOGController@indexdkgtk');
 Route::get('baocaodkg','BaoCaoDkgController@index');
 Route::get('baocaodkg/BcMhBog','BaoCaoDkgController@BcMhBog');
 Route::get('baocao/{id}/Bc1','BaoCaoDkgController@BC1');
+*/
 ?>

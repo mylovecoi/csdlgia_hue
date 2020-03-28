@@ -18,7 +18,7 @@ class CreateDmnghekdTable extends Migration
             $table->string('manganh')->nullable();
             $table->string('manghe')->nullable();
             $table->string('tennghe')->nullable();
-            $table->string('mahuyen')->nullable();
+            $table->string('madv')->nullable();//trường hợp mỗi mặt hàng do một đơn vị chủ quản # nhau
             $table->string('theodoi')->nullable();
             $table->string('phanloai')->nullable();
             $table->timestamps();

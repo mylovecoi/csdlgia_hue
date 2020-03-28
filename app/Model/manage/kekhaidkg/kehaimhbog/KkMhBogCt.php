@@ -9,8 +9,8 @@ class KkMhBogCt extends Model
     protected $table = 'kkmhbogct';
     protected $fillable = [
         'id',
-        'maxa',
-        'mahuyen',
+        'madv',
+        'madiaban',
         'mahs',
         'tenhh',
         'quycach',

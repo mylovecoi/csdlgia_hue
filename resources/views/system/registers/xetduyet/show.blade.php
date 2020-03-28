@@ -9,14 +9,14 @@
     <script type="text/javascript" src="{{url('assets/global/plugins/jquery-validation/js/jquery.validate.min.js')}}"></script>
     <!--cript src="{{url('assets/admin/pages/scripts/form-validation.js')}}"></script-->
     <script>
-        function getId(id){
-            document.getElementById("kichhoat_id").value=id;
+        function getId(mahs){
+            $('#frm_kichhoat').find("[name='mahs']").val(mahs);
         }
         function ClickKichHoat(){
-            $('#frm_create').submit();
+            $('#frm_kichhoat').submit();
         }
-        function getIdTraLai(id){
-            document.getElementById("tralai_id").value=id;
+        function getIdTraLai(mahs){
+            $('#frm_tralai').find("[name='mahs']").val(mahs);
         }
         function ClickTraLai(){
             if($('#lydo').val() != ''){
@@ -55,7 +55,7 @@
                                     <b>Tên doanh nghiệp</b>
                                 </td>
                                 <td style="width:35%">
-                                <span class="text-muted">{{$modelcompany->tendn}}
+                                <span class="text-muted">{{$m_company->tendn}}
                                 </span>
                                 </td>
                             </tr>
@@ -64,7 +64,7 @@
                                     <b>Mã số thuế</b>
                                 </td>
                                 <td style="width:35%">
-                                <span class="text-muted">{{$modelcompany->maxa}}
+                                <span class="text-muted">{{$m_company->madv}}
                                 </span>
                                 </td>
                             </tr>
@@ -73,7 +73,7 @@
                                     <b>Địa chỉ</b>
                                 </td>
                                 <td style="width:35%">
-                                <span class="text-muted">{{$modelcompany->diachi}}
+                                <span class="text-muted">{{$m_company->diachi}}
                                 </span>
                                 </td>
                             </tr>
@@ -82,7 +82,7 @@
                                     <b>Số điện thoại</b>
                                 </td>
                                 <td style="width:35%">
-                                <span class="text-muted">{{$modelcompany->tel}}
+                                <span class="text-muted">{{$m_company->tel}}
                                 </span>
                                 </td>
                             </tr>
@@ -91,7 +91,7 @@
                                     <b>Số Fax</b>
                                 </td>
                                 <td style="width:35%">
-                                <span class="text-muted">{{$modelcompany->fax}}
+                                <span class="text-muted">{{$m_company->fax}}
                                 </span>
                                 </td>
                             </tr>
@@ -100,7 +100,7 @@
                                     <b>Email quản lý</b>
                                 </td>
                                 <td style="width:35%">
-                                <span class="text-muted">{{$modelcompany->email}}
+                                <span class="text-muted">{{$m_company->email}}
                                 </span>
                                 </td>
                             </tr>
@@ -145,7 +145,7 @@
                                     <b>Địa danh</b>
                                 </td>
                                 <td style="width:35%">
-                                <span class="text-muted">{{$modelcompany->diadanh}}
+                                <span class="text-muted">{{$m_company->diadanh}}
                                 </span>
                                 </td>
                             </tr>
@@ -163,7 +163,7 @@
                                     <b>Mã đăng ký</b>
                                 </td>
                                 <td style="width:35%">
-                                <span class="text-muted">{{$modelcompany->mahs}}
+                                <span class="text-muted">{{$m_company->mahs}}
                                 </span>
                                 </td>
                             </tr>
@@ -182,21 +182,18 @@
                         </table>
                         <table class="table table-striped table-bordered table-hover" id="sample_3">
                             <tr>
-                                <th>STT</th>
-                                <th>Ngành</th>
-                                <th>Nghề</th>
+                                <th width="5%">STT</th>
+                                <th>Ngành nghề kinh doanh</th>
                                 <th>Đơn vị nhận hồ sơ</th>
                             </tr>
-                            @foreach($modellvcc as $key=> $lvcc)
-                            <tr>
-                                <td>{{$key+1}}</td>
-                                <td>{{$lvcc->tennganh}}</td>
-                                <td>{{$lvcc->tennghe}}</td>
-                                <td>{{$lvcc->tendv}}</td>
-                            </tr>
+                            @foreach($m_lvkd as $key=> $lvcc)
+                                <tr>
+                                    <td class="text-center">{{$key+1}}</td>
+                                    <td>{{$a_nghe[$lvcc->manghe] ?? ''}}</td>
+                                    <td>{{$a_cqcq[$lvcc->macqcq] ?? ''}}</td>
+                                </tr>
                             @endforeach
                         </table>
-
                     </div>
             <!-- END FORM-->
             </div>
@@ -204,10 +201,12 @@
     </div>
     <div class="row" style="text-align: center">
         <div class="cod-md-12">
-            <a href="{{url('register')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+            <a href="{{url($inputs['url'].'/danhsach?madiaban='.$m_company->madiaban)}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
             @if($model->status != 'Bị trả lại')
-            <button type="button" class="btn green" onclick="getId('{{$model->id}}')" data-target="#create-modal" data-toggle="modal"><i class="fa fa-check"></i> Kích hoạt tài khoản truy cập</button>
-            <button type="button" class="btn red" onclick="getIdTraLai('{{$model->id}}')" data-target="#tralai-modal" data-toggle="modal"><i class="fa fa-mail-forward"></i> Trả lại hồ sơ đăng ký tài khoản truy cập</button>
+                <button type="button" class="btn green" onclick="getId('{{$m_company->mahs}}')" data-target="#create-modal" data-toggle="modal">
+                    <i class="fa fa-check"></i> Kích hoạt tài khoản</button>
+                <button type="button" class="btn red" onclick="getIdTraLai('{{$m_company->mahs}}')" data-target="#tralai-modal" data-toggle="modal">
+                    <i class="fa fa-mail-forward"></i> Trả lại hồ sơ đăng ký</button>
             @endif
 
         </div>
@@ -220,17 +219,17 @@
     <div class="modal fade" id="create-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url'=>'register/kichhoat','id' => 'frm_kichhoat'])!!}
+                {!! Form::open(['url'=>$inputs['url']. '/kichhoat','id' => 'frm_kichhoat'])!!}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Đồng ý kích hoạt tài khoản?</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Doanh nghiệp <b>{{$modelcompany->tendn}}</b> - tài khoản truy cập <b>{{$model->username}}</b></label>
+                        <label>Doanh nghiệp <b>{{$m_company->tendn}}</b> - tài khoản truy cập <b>{{$model->username}}</b></label>
                     </div>
                 </div>
-                <input type="hidden" name="kichhoat_id" id="kichhoat_id">
+                <input type="hidden" name="mahs">
                 <div class="modal-footer">
                     <button type="submit" class="btn blue" onclick="ClickKichHoat()">Đồng ý</button>
                     <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
@@ -244,21 +243,21 @@
     <div class="modal fade" id="tralai-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url'=>'register/tralai','id' => 'frm_tralai'])!!}
+                {!! Form::open(['url'=>$inputs['url'].'/tralai','id' => 'frm_tralai'])!!}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Đồng ý trả lại hồ sơ tài khoản?</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Doanh nghiệp <b>{{$modelcompany->tendn}}</b> - tài khoản truy cập <b>{{$model->username}}</b></label>
+                        <label>Doanh nghiệp <b>{{$m_company->tendn}}</b> - tài khoản truy cập <b>{{$model->username}}</b></label>
                     </div>
                     <div class="form-group">
                         <label>Lý do trả lại</label>
                         <textarea class="form-control" id="lydo" name="lydo"></textarea>
                     </div>
                 </div>
-                <input type="hidden" name="tralai_id" id="tralai_id">
+                <input type="hidden" name="mahs">
                 <div class="modal-footer">
                     <button type="submit" class="btn blue" onclick="ClickTraLai()">Đồng ý</button>
                     <button type="button" class="btn default" data-dismiss="modal">Hủy</button>

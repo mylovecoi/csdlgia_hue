@@ -63,7 +63,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <img src="{{ url('images/LIFESOFT.png')}}"  width="130" alt="Công ty TNHH phát triển phần mềm Cuộc Sống"/>
     </a-->
     <h2 style="text-transform: uppercase;"><b style="color: white">ĐĂNG KÝ TÀI KHOẢN ĐĂNG NHẬP <br><br>PHẦN MỀM CƠ SỞ DỮ LIỆU VỀ GIÁ
-            {{isset(getGeneralConfigs()['diadanh']) ? getGeneralConfigs()['diadanh'] : ''}}</b></h2>
+            {{isset(getGeneralConfigs()['diadanh']) ?? ''}}</b></h2>
 </div>
 <!-- END LOGO -->
 <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
@@ -73,7 +73,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN LOGIN -->
 <div class="content">
     <!-- BEGIN REGISTER FORM -->
-    {!! Form::open(['url'=>'dangkytaikhoantruycap','id' => 'register_create', 'class'=>'form control','files'=>true,'enctype'=>'multipart/form-data']) !!}
+    {!! Form::open(['url'=>$inputs['url'].'/dangky', 'method'=>'post', 'id' => 'register_create', 'class'=>'form control', 'files'=>true, 'enctype'=>'multipart/form-data']) !!}
     <!--form class="register-form" action="index.html" method="post" novalidate="novalidate" style="display: block;"-->
     <div class="row">
         <div class="col-md-12">
@@ -89,7 +89,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Mã số thuế</label>
-                        {!!Form::text('maxa', null, array('id' => 'maxa','class' => 'form-control required'))!!}
+                        {!!Form::text('madv', null, array('id' => 'madv','class' => 'form-control required'))!!}
                     </div>
                 </div>
             </div>
@@ -175,6 +175,15 @@ License: You must have a valid license purchased only from themeforest(the above
                         {!!Form::text('diadanh', null, array('id' => 'diadanh','class' => 'form-control required'))!!}
                     </div>
                 </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Địa bàn đăng ký</label>
+                        {!!Form::select('madiaban', array_column($m_diaban->toarray(),'tendiaban','madiaban'), null, array('id' => 'madiaban','class' => 'form-control'))!!}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Giấy đăng ký kinh doanh</label>
@@ -187,8 +196,8 @@ License: You must have a valid license purchased only from themeforest(the above
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-success btn-xs"><i class="fa fa-plus"></i>&nbsp;Thêm mới thông tin lĩnh vực kinh doanh</button>
-                        &nbsp;
+                        <button type="button" onclick="add_lvkd()" data-toggle="modal" class="btn btn-success btn-xs">
+                            <i class="fa fa-plus"></i>&nbsp;Thêm mới thông tin lĩnh vực kinh doanh</button>                        &nbsp;
                     </div>
                 </div>
             </div>
@@ -197,11 +206,8 @@ License: You must have a valid license purchased only from themeforest(the above
                     <table class="table table-striped table-bordered table-hover" id="sample_3">
                         <thead>
                         <tr>
-                            <th width="2%" style="text-align: center">STT</th>
-                            <th style="text-align: center">Mã ngành</th>
-                            <th style="text-align: center">Tên ngành</th>
-                            <th style="text-align: center">Mã nghề</th>
-                            <th style="text-align: center">Tên nghề</th>
+                            <th width="5%" style="text-align: center">STT</th>
+                            <th style="text-align: center">Tên ngành nghề kinh doanh</th>
                             <th style="text-align: center">Đơn vị quản lý</th>
                             <th style="text-align: center">Thao tác</th>
                         </tr>
@@ -210,14 +216,13 @@ License: You must have a valid license purchased only from themeforest(the above
                         @foreach($modelct as $key=>$ct)
                             <tr>
                                 <td style="text-align: center">{{$key+1}}</td>
-                                <td>{{$ct->manganh}}</td>
-                                <td>{{$ct->tennganh}}</td>
-                                <td>{{$ct->manghe}}</td>
                                 <td>{{$ct->tennghe}}</td>
                                 <td>{{$ct->tendv}}</td>
                                 <td>
-                                    <button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getidedit({{$ct->id}});" ><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</button>
-                                    <button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid({{$ct->id}});" ><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
+                                    <button type="button" class="btn btn-default btn-xs mbs" onclick="getidedit({{$ct->manghe}});" >
+                                        <i class="fa fa-edit"></i>&nbsp;Sửa</button>
+                                    <button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid({{$ct->id}});" >
+                                        <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
                                 </td>
                             </tr>
                         @endforeach
@@ -230,7 +235,7 @@ License: You must have a valid license purchased only from themeforest(the above
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label class="control-label">Username</label>
+                        <label class="control-label">Tài khoản đăng nhập</label>
                         {!!Form::text('username', null, array('id' => 'username','class' => 'form-control required','data-mask'=>"user"))!!}
                     </div>
                 </div>
@@ -238,13 +243,13 @@ License: You must have a valid license purchased only from themeforest(the above
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="control-label">Password</label>
+                        <label class="control-label">Mật khẩu</label>
                         {!!Form::text('password', null, array('id' => 'password','class' => 'form-control required'))!!}
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="control-label">Re-type Your Password</label>
+                        <label class="control-label">Nhập lại mật khẩu</label>
                         {!!Form::text('rpassword', null, array('id' => 'rpassword','class' => 'form-control required'))!!}
                     </div>
                 </div>
@@ -371,7 +376,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 tendn: {
                     required: true
                 },
-                maxa: {
+                madv: {
                     required: true
                 },
                 email: {
@@ -402,7 +407,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
             messages: { // custom messages for radio buttons and checkboxes
                 tendn: "Nhập thông tin về doanh nghiệp!!!",
-                maxa: "Nhập thông tin mã số thuế!!!",
+                madv: "Nhập thông tin mã số thuế!!!",
                 diachi: "Nhập thông tin địa chỉ!!!",
                 email: "Nhập thông tin email!!!",
                 noidknopthue: "Nhập thông tin nơi đăng ký nộp thuế!!!",
@@ -456,9 +461,9 @@ License: You must have a valid license purchased only from themeforest(the above
             $('#tendn').parent().addClass('has-error');
             ok = false;
         }
-        if (!$('#maxa').val()) {
+        if (!$('#madv').val()) {
             str += '  - Mã số thuế \n';
-            $('#maxa').parent().addClass('has-error');
+            $('#madv').parent().addClass('has-error');
             ok = false;
         }
         if (!$('#diachi').val()) {

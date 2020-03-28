@@ -121,7 +121,7 @@ class AjaxController extends Controller
             if($inputs['pl'] == 'district')
                 $model = District::where('mahuyen',$inputs['maqhns'])->count();
             elseif($inputs['pl'] == 'town')
-                $model = Town::where('maxa',$inputs['maqhns'])->count();
+                $model = Town::where('madv',$inputs['maqhns'])->count();
             else
                 $model = 0;
             if ($model == 0) {
@@ -138,7 +138,7 @@ class AjaxController extends Controller
             'message' => 'error',
         );
         $inputs = $request->all();
-        $model = Company::where('maxa',$inputs['maxa'])
+        $model = Company::where('madv',$inputs['madv'])
             ->count();
 
         if ($model == 0) {
@@ -169,7 +169,7 @@ class AjaxController extends Controller
                 ->first();
 
             $result['message'] = '<div class="form-group" id="tttralai"> ';
-            $result['message'] .= '<label style="color: blue"><b>'.$modelhs->tendn.'</b> - Mã số thuế: <b>'.$modelhs->maxa.'</b></label>';
+            $result['message'] .= '<label style="color: blue"><b>'.$modelhs->tendn.'</b> - Mã số thuế: <b>'.$modelhs->madv.'</b></label>';
             $result['message'] .= '<input type="hidden" id="idhs" name="idhs" value="'.$inputs['id'].'">';
             $result['message'] .= '</div>';
 

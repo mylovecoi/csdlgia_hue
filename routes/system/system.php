@@ -45,14 +45,6 @@ Route::post('company','system\company\CompanyController@store');
 Route::get('company/{id}/edit','system\company\CompanyController@edit');
 Route::patch('company/{id}','system\company\CompanyController@update');
 
-Route::get('companylvcc/getmanghe','system\company\CompanyLvCcController@getmanghe');
-Route::get('companylvcc/getdvql','system\company\CompanyLvCcController@getdvql');
-Route::get('companylvcc/edit','system\company\CompanyLvCcController@edit');
-Route::get('companylvcc/update','system\company\CompanyLvCcController@update');
-Route::get('companylvcc/store','system\company\CompanyLvCcController@store');
-Route::get('companylvcc/delete','system\company\CompanyLvCcController@delete');
-
-
 //Route::resource('xetduyet_thaydoi_ttdoanhnghiep','XdTdTtDnController');
 //Route::post('xetduyet_thaydoi_ttdoanhnghiep/tralai','XdTdTtDnController@tralai');
 //Route::get('xetduyet_thaydoi_ttdoanhnghiep/{id}/duyet','XdTdTtDnController@duyet');
@@ -101,30 +93,48 @@ Route::get('thongtindonvi/edit','ThongTinDonViController@edit');
 Route::post('thongtindonvi','ThongTinDonViController@update');
 
 //Danh mục ngành nghề
-Route::get('danhmucnganhkd','system\dmnganhnghekd\DmNganhKdController@index');
-Route::get('danhmucnganhkd/edit','system\dmnganhnghekd\DmNganhKdController@edit');
-Route::post('danhmucnganhkd/update','system\dmnganhnghekd\DmNganhKdController@update');
+Route::group(['prefix'=>'dmnganhnghe'],function (){
+    Route::get('danhsach','system\dmnganhnghekd\DmNganhKdController@index');
+    Route::get('get_hs','system\dmnganhnghekd\DmNganhKdController@edit');
+    Route::post('store','system\dmnganhnghekd\DmNganhKdController@store');
 
-Route::get('danhmucnghekd','system\dmnganhnghekd\DmNgheKdController@index');
-Route::get('danhmucnghekd/edit','system\dmnganhnghekd\DmNgheKdController@edit');
-Route::post('danhmucnghekd/update','system\dmnganhnghekd\DmNgheKdController@update');
+    Route::get('chitiet','system\dmnganhnghekd\DmNgheKdController@index');
+    Route::get('chitiet/edit','system\dmnganhnghekd\DmNgheKdController@edit');
+    Route::post('chitiet/store','system\dmnganhnghekd\DmNgheKdController@store');
+});
 
+Route::group(['prefix'=>'doanhnghiep'],function (){
+    Route::get('dangky','Auth\RegisterController@create');
+    Route::post('dangky','Auth\RegisterController@store');
+
+    Route::get('get_dvql','system\company\CompanyLvCcController@getdvql');
+    Route::get('edit_lvkd','system\company\CompanyLvCcController@edit');
+    Route::get('store_lvkd','system\company\CompanyLvCcController@store');
+    Route::get('delete_lvkd','system\company\CompanyLvCcController@delete');
+
+    //Route::get('companylvcc/update','system\company\CompanyLvCcController@update');
+    //chưa làm
+    Route::post('dangkytaikhoantruycap','Auth\RegisterController@store');
+    Route::patch('dangkytaikhoantruycap/{id}/update','Auth\RegisterController@update');
+    Route::get('dangkytaikhoantruycap/checkmadangky','Auth\RegisterController@checkmadk');
+    Route::post('dangkytaikhoantruycap/checkmadangky','Auth\RegisterController@submitcheckmadk');
+
+    //Route::get('companylvcc/getmanghe','system\company\CompanyLvCcController@getmanghe');
+});
 //Đăng ký tài khoản
-Route::get('dangkytaikhoantruycap','Auth\RegisterController@create');
-Route::post('dangkytaikhoantruycap','Auth\RegisterController@store');
-Route::patch('dangkytaikhoantruycap/{id}/update','Auth\RegisterController@update');
+
+Route::group(['prefix'=>'dangky'],function (){
+    Route::get('danhsach','Auth\RegisterController@index');
+    Route::get('modify','Auth\RegisterController@show');
+    Route::post('tralai','Auth\RegisterController@tralai');
+    Route::post('kichhoat','Auth\RegisterController@kichhoat');
+});
 Route::get('ajax/checkuser','AjaxController@checkusername');
 Route::get('ajax/checkmasothue','AjaxController@checkmasothue');
 Route::get('searchtkdangky','Auth\RegisterController@searchindex');
 Route::post('searchtkdangky','Auth\RegisterController@search');
 
-Route::get('dangkytaikhoantruycap/checkmadangky','Auth\RegisterController@checkmadk');
-Route::post('dangkytaikhoantruycap/checkmadangky','Auth\RegisterController@submitcheckmadk');
 
-Route::get('register','Auth\RegisterController@index');
-Route::get('register/{id}','Auth\RegisterController@show');
-Route::post('register/tralai','Auth\RegisterController@tralai');
-Route::post('register/kichhoat','Auth\RegisterController@kichhoat');
 
 
 ?>

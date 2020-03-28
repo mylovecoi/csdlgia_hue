@@ -16,10 +16,10 @@ class CreateCompanylvccTable extends Migration
         Schema::create('companylvcc', function (Blueprint $table) {
             $table->increments('id');
             $table->string('mahs')->nullable();
-            $table->string('maxa')->nullable();
+            $table->string('madv')->nullable();
             $table->string('manganh')->nullable();
             $table->string('manghe')->nullable();
-            $table->string('mahuyen')->nullable();
+            $table->string('macqcq')->nullable();
             $table->string('trangthai')->nullable();
             $table->timestamps();
         });

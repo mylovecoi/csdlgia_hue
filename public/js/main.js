@@ -17,6 +17,11 @@ $(function () {
         url = url.substring(0, index - 1) + '/danhsach';
     }
 
+    index = url.indexOf('chitiet');
+    if (index > 0) {
+        url = url.substring(0, index - 1) + '/danhsach';
+    }
+
     index = chk.indexOf('create');
     if(index > -1) {
         url = '';
