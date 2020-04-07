@@ -17,15 +17,15 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="selGender" class="control-label">Lý do trả lại</label>
-                            {!! Form::textarea('lydo', null, array('id' => 'lydo','class' => 'form-control', 'rows'=>'3')) !!}
+                            <label class="control-label">Lý do trả lại</label>
+                            {!! Form::textarea('lydo', null, array('id' => 'lydo','class' => 'form-control', 'rows'=>'3','required'=>'required')) !!}
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
-                <button type="submit" data-dismiss="modal" class="btn btn-primary" onclick="clickTraLai()">Đồng ý</button>
+                <button id="btn_tralai" type="submit" class="btn btn-primary" onclick="clickTraLai()">Đồng ý</button>
             </div>
         </div>
     </div>
@@ -34,12 +34,36 @@
 
 <script>
     function clickTraLai(){
-        $('#frm_tralai').submit();
+        if($('#frm_tralai').find("[id='lydo']".val() == '')){
+            toastr.error('Lý do trả lại không được bỏ trống.','Lỗi.')
+        }else{
+            $('#frm_tralai').submit();
+        }
     }
 
     function confirmTraLai(mahs,url,madv) {
         $('#frm_tralai').attr('action', url);
         $('#frm_tralai').find("[id='mahs']").val(mahs);
         $('#frm_tralai').find("[id='madv']").val(madv);
+        $('#btn_tralai').show();
+    }
+
+    function viewLyDo(mahs,madv) {
+        $('#btn_tralai').hide();
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        //alert(id);
+        $.ajax({
+            url: '{{$inputs['url']}}' + '/get_sohs',
+            type: 'GET',
+            data: {
+                _token: CSRF_TOKEN,
+                mahs: mahs,
+                madv: madv
+            },
+            dataType: 'JSON',
+            success: function (data) {
+                $('#frm_tralai').find("[id='lydo']").val(data.lydo);
+            }
+        })
     }
 </script>

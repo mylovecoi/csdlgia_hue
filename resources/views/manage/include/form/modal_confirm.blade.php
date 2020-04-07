@@ -16,7 +16,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label">Số hồ sơ nhận<span class="require">*</span></label>
-                            <input type="text" style="text-align: center" id="sohsnhan" name="sohsnhan" class="form-control" data-mask="fdecimal" autofocus>
+                            <input type="text" style="text-align: center" id="sohsnhan" name="sohsnhan" class="form-control" data-mask="fdecimal" required autofocus/>
                         </div>
                     </div>
 
@@ -30,7 +30,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
-                <button type="submit" data-dismiss="modal" class="btn btn-primary" onclick="clickDuyetHS()">Đồng ý</button>
+                <button type="submit" class="btn btn-primary" onclick="clickDuyetHS()">Đồng ý</button>
             </div>
         </div>
     </div>
@@ -39,7 +39,11 @@
 
 <script>
     function clickDuyetHS(){
-        $('#frm_duyeths').submit();
+        if($('#frm_duyeths').find("[id='sohsnhan']".val() == '')){
+            toastr.error('Số hồ sơ nhận không được bỏ trống.','Lỗi.')
+        }else{
+            $('#frm_duyeths').submit();
+        }
     }
 
     function confirmDuyetHS(mahs,url,madv) {

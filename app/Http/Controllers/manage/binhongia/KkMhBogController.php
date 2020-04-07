@@ -11,10 +11,9 @@ use App\Model\system\company\CompanyLvCc;
 use App\Model\system\dmnganhnghekd\DmNgheKd;
 use App\Model\system\dsdiaban;
 use App\Model\system\view_dsdiaban_donvi;
+use App\Model\view\view_binhongia;
 use App\Model\view\view_dmnganhnghe;
-use App\NgayNghiLe;
 use App\Town;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -206,6 +205,7 @@ class KkMhBogController extends Controller
             $input = $request->all();
             $mahs = $input['mahs'];
             $modelkk = KkMhBog::where('mahs',$mahs)->first();
+            //chưa gán lại số hồ sơ; thòi gian theo macqcq
             $modeldn = Company::where('madv',$modelkk->madv)->first();
             $modelkkct = KkMhBogCt::where('mahs',$modelkk->mahs)->get();
             $modelcqcq = view_dsdiaban_donvi::where('madv', $modelkk->macqcq)->first();
@@ -252,66 +252,72 @@ class KkMhBogController extends Controller
             return view('errors.notlogin');
     }
 
-
-
     public function timkiem(){
-        if(Session::has('admin')){
-            $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
-            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
-            //dd($m_diaban);
-            $a_dm = array_column(dvkcbdm::all()->toArray(),'tenspdv','maspdv');
-            return view('manage.dinhgia.giadvkcb.timkiem.index')
-                ->with('m_diaban',$m_diaban)
-                ->with('m_donvi',$m_donvi)
-                ->with('a_dm',$a_dm)
-                ->with('pageTitle','Tìm kiếm thông tin hồ sơ');
+        if (Session::has('admin')) {
+            //$inputs = $request->all();
+            $inputs['url'] = '/binhongia';
+            $m_donvi = getDoanhNghiep(session('admin')->level, session('admin')->madiaban);
+            $m_diaban = dsdiaban::wherein('madiaban', a_unique(array_column($m_donvi->toArray(),'madiaban')))->get();
+            $m_dm = view_dmnganhnghe::where('manganh', 'BOG')->get();
+
+            //dd($m_bog);
+            return view('manage.bog.timkiem.index')
+                ->with('inputs', $inputs)
+                ->with('m_diaban', $m_diaban)
+                ->with('a_dm', array_column($m_dm->toarray(),'tennghe','manghe'))
+                ->with('m_donvi', $m_donvi)
+                ->with('a_phanloai',  array('DK'=>'Đăng ký giá','KK'=>'Kê khai giá'))
+                ->with('pageTitle', 'Tìm kiếm hồ sơ giá kê khai mặt hàng bình ổn giá');
+
         }else
             return view('errors.notlogin');
     }
 
     public function ketquatk(Request $request){
-        if(Session::has('admin')){
+        if (Session::has('admin')) {
             //Chỉ tìm kiếm hồ sơ do đơn vị nhập (các hồ sơ chuyển đơn vị cấp trên ko tính)
             //Lấy hết hồ sơ trên địa bàn rồi bắt đầu tìm kiểm
             $inputs = $request->all();
-            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
-            $model = view_giadvkcb::wherein('madv',array_column($m_donvi->toarray(),'madv'))->get();
+            $inputs['url'] = '/binhongia';
+            $m_donvi = getDoanhNghiep(session('admin')->level, session('admin')->madiaban);
+            $model = view_binhongia::wherein('madv', array_column($m_donvi->toarray(), 'madv'));
             //dd($inputs);
 
-            if($inputs['madv'] != 'all'){
-                $model = $model->where('madv',$inputs['madv']);
+            if ($inputs['madv'] != 'all') {
+                $model = $model->where('madv', $inputs['madv']);
             }
-            if($inputs['maspdv'] != 'all'){
-                $model = $model->where('maspdv',$inputs['maspdv']);
-            }
-            if($inputs['tenbv'] != ''){
-                $model = $model->where('tenbv','like',getTimkiemLike($inputs['maspdv'],1));
+            if ($inputs['manghe'] != 'all') {
+                $model = $model->where('manghe', $inputs['manghe']);
             }
 
-            if(getDayVn($inputs['thoidiem_tu']) != ''){
-                $model = $model->where('thoidiem','>=',$inputs['thoidiem_tu']);
+            if ($inputs['tenhh'] != '') {
+                //$model = $model->where('tenhh', 'like', $inputs['tenhh'].'%');
+                $model = $model->where('tenhh', 'like', getTimkiemLike($inputs['tenhh'], 1));
+                //$model = $model->where('tenhh',$inputs['tenhh']);
+            }
+            //dd($model);
+            if (getDayVn($inputs['ngayapdung_tu']) != '') {
+                $model = $model->where('ngayhieuluc', '>=', $inputs['ngayapdung_tu']);
             }
 
-            if(getDayVn($inputs['thoidiem_den']) != ''){
-                $model = $model->where('thoidiem','<=',$inputs['thoidiem_den']);
+            if (getDayVn($inputs['ngayapdung_den']) != '') {
+                $model = $model->where('ngayhieuluc', '<=', $inputs['ngayapdungden']);
             }
 
-            $model = $model->where('dongia','>=',chkDbl($inputs['giatri_tu']));
-            if(chkDbl($inputs['giatri_den']) > 0){
-                $model = $model->where('giatri','<=',chkDbl($inputs['giatri_den']));
+            $model = $model->where('giakk', '>=', chkDbl($inputs['giakk_tu']));
+            if (chkDbl($inputs['giakk_den']) > 0) {
+                $model = $model->where('giakk', '<=', chkDbl($inputs['giakk_den']));
             }
 
-            $a_dm = array_column(dvkcbdm::all()->toArray(),'tenspdv','maspdv');
-            return view('manage.dinhgia.giadvkcb.timkiem.result')
-                ->with('model',$model)
-                ->with('a_diaban',array_column($m_donvi->toarray(),'tendiaban','madiaban'))
-                ->with('a_donvi',array_column($m_donvi->toarray(),'tendv','madv'))
-                ->with('a_dm',$a_dm)
-                ->with('pageTitle','Tìm kiếm thông tin giá dịch vụ khám chữa bệnh');
-        }else
+            $a_dm = array_column(view_dmnganhnghe::where('manganh', 'BOG')->get()->toArray(), 'tennghe', 'manghe');
+            return view('manage.bog.timkiem.result')
+                ->with('model', $model->get())
+                ->with('inputs', $inputs)
+                ->with('a_diaban', array_column($m_donvi->toarray(), 'tendiaban', 'madiaban'))
+                ->with('a_donvi', array_column($m_donvi->toarray(), 'tendv', 'madv'))
+                ->with('a_dm', $a_dm)
+                ->with('pageTitle', 'Tìm kiếm thông tin giá mặt hàng bình ổn giá');
+        } else
             return view('errors.notlogin');
     }
-
-
 }

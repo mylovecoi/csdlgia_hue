@@ -16,6 +16,6 @@ SELECT        dbo.giadvgddt.madiaban, dbo.giadvgddt.maxp, dbo.giadvgddt.mahs, db
                          dbo.giadvgddt.thoidiem_ad, dbo.giadvgddt.macqcq_ad, dbo.giadvgddt.madv_ad, dbo.giadvgddt.lydo_ad, dbo.giadvgddt.thongtin_ad, dbo.giadvgddt.trangthai_ad, dbo.giadvgddtct.giadv, dbo.giadvgddtct.maspdv,
                          dbo.dmgiadvgddt.tenspdv, dbo.dmgiadvgddt.phanloai
 FROM            dbo.giadvgddt INNER JOIN
-                         dbo.giadvgddtct ON dbo.giadvgddt.mahs = dbo.giadvgddtct.mahs CROSS JOIN
-                         dbo.dmgiadvgddt
+                         dbo.giadvgddtct ON dbo.giadvgddt.mahs = dbo.giadvgddtct.mahs INNER JOIN
+                         dbo.dmgiadvgddt ON dbo.giadvgddtct.maspdv = dbo.dmgiadvgddt.maspdv
  */

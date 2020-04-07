@@ -26,10 +26,9 @@ Route::group(['prefix'=>'binhongia'],function (){
     Route::get('timkiem','manage\binhongia\KkMhBogController@timkiem');
     Route::post('timkiem','manage\binhongia\KkMhBogController@ketquatk');
 
-
-
-
-
+    Route::get('baocao','manage\binhongia\KkMhBogBcController@index');
+    Route::post('bc1','manage\binhongia\KkMhBogBcController@bc1');
+    Route::post('bc2','manage\binhongia\KkMhBogBcController@bc2');
 });
 /* 20.03.2020
 Route::resource('dmmhbinhongia','DmMhBinhOnGiaController');

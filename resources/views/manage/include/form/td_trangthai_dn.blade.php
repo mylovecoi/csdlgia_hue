@@ -5,6 +5,7 @@
         <span class="badge badge-danger">Chờ duyệt</span>
     @elseif ($tt->trangthai == "DD")
         <span class="badge badge-info">Đã duyệt</span>
+        </br> {{getDayVn($tt->ngaynhan)}}
     @elseif ($tt->trangthai == "CB")
         <span class="badge badge-success">Công bố</span>
     @elseif ($tt->trangthai == "HCB")

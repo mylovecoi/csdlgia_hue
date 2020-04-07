@@ -98,7 +98,7 @@
                             <th style="text-align: center">Số</br>quyết định</th>
                             <th style="text-align: center">Thời điểm</br>áp dụng</th>
                             <th style="text-align: center">Hình thức</br>kê khai</th>
-                            <th style="text-align: center">Ghi chú</th>
+{{--                            <th style="text-align: center">Ghi chú</th>--}}
                             <th style="text-align: center">Trạng thái</th>
                             <th style="text-align: center">Cơ quan tiếp nhận</th>
                             <th width="20%" style="text-align: center">Thao tác</th>
@@ -112,7 +112,7 @@
                             <td class="success">{{$tt->socv}}</td>
                             <td class="text-center" style="font-weight: bold">{{getDayVn($tt->ngayhieuluc)}}</td>
                             <td style="text-align: center; font-weight: bold">{{$a_phanloai[$tt->phanloai] ?? ''}}</td>
-                            <td>{{$tt->ghichu}}</td>
+{{--                            <td>{{$tt->ghichu}}</td>--}}
                             @include('manage.include.form.td_trangthai_dn')
                             <td style="text-align: left">{{$a_donvi_th[$tt->macqcq]?? ''}}</td>
                             <td>
@@ -127,6 +127,10 @@
 
                                     <button type="button" onclick="confirmDelete('{{$tt->mahs}}','{{$inputs['url'].'/delete'}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
                                         <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
+                                @endif
+                                @if($tt->trangthai=='TL')
+                                    <button type="button" onclick="viewLyDo('{{$tt->mahs}}','{{$tt->madv}}')" data-target="#tralai-modal-confirm" data-toggle="modal" class="btn btn-default btn-xs mbs">
+                                        <i class="fa fa-search"></i>&nbsp;Lý do trả lại</button>
                                 @endif
                             </td>
                         </tr>
@@ -192,4 +196,5 @@
 
     @include('manage.include.form.modal_del_hs')
     @include('manage.include.form.modal_approve_hsdn')
+    @include('manage.include.form.modal_unapprove_dn')
 @stop

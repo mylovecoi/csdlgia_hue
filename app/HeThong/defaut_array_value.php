@@ -321,9 +321,10 @@ function setTraLaiDN($macqcq, $hoso, $a_tralai)
     }
     if ($macqcq == $hoso->macqcq_ad) {
         $hoso->macqcq_ad = null;
-        $hoso->trangthai_ad = $a_tralai['trangthai'] ?? 'CHT';
+        $hoso->trangthai_ad = $a_tralai['trangthai'] ?? 'CC';
         $hoso->lydo_ad = $a_tralai['lydo'] ?? null;
     }
+
     //Gán trạng thái của đơn vị tiếp nhận hồ sơ
     if ($macqcq == $hoso->madv_h) {
         $hoso->macqcq_h = null;
@@ -353,24 +354,19 @@ function setTraLaiDN($macqcq, $hoso, $a_tralai)
     }
 }
 
-function setCongBoDN($level, $hoso, $a_hoanthanh)
+function setCongBoDN($hoso, $a_hoanthanh)
 {
-    if ($level == 'T') {
-        $hoso->madv_t = $a_hoanthanh['madv'] ?? null;
-        $hoso->ngaychuyen_t = $a_hoanthanh['thoidiem'] ?? null;
-        $hoso->trangthai_t = $a_hoanthanh['trangthai'] ?? 'CHT';
+    //chưa set lại trạng thái cho đơn vị cấp dưới ( đơn vị tổng hợp chuyển nên)
+    $hoso->ngaynhan_ad = $a_hoanthanh['ngaynhan'] ?? null;
+    $hoso->trangthai_ad = $a_hoanthanh['trangthai'] ?? 'CHT';
+    $hoso->madv_ad = $a_hoanthanh['madv'] ?? null;
+    if($hoso->macqcq_h == $hoso->madv_ad){
+        $hoso->ngaynhan_h = $a_hoanthanh['ngaynhan'] ?? null;
+        $hoso->trangthai_h = $a_hoanthanh['trangthai'] ?? 'CCB';
     }
-
-    if ($level == 'ADMIN') {
-        $hoso->madv_ad = $a_hoanthanh['madv'] ?? null;
-        $hoso->ngaychuyen_ad = $a_hoanthanh['thoidiem'] ?? null;
-        $hoso->trangthai_ad = $a_hoanthanh['trangthai'] ?? 'CHT';
-    }
-
-    if ($level == 'H') {
-        $hoso->madv_h = $a_hoanthanh['madv'] ?? null;
-        $hoso->ngaychuyen_h = $a_hoanthanh['thoidiem'] ?? null;
-        $hoso->trangthai_h = $a_hoanthanh['trangthai'] ?? 'CHT';
+    if($hoso->macqcq_t == $hoso->madv_ad){
+        $hoso->ngaynhan_t = $a_hoanthanh['ngaynhan'] ?? null;
+        $hoso->trangthai_t = $a_hoanthanh['trangthai'] ?? 'CCB';
     }
 }
 
@@ -475,4 +471,5 @@ function setCongBo($hoso, $a_congbo){
     $hoso->trangthai_ad = $a_congbo['trangthai'];
     $hoso->congbo = $a_congbo['congbo'];
 }
+
 ?>

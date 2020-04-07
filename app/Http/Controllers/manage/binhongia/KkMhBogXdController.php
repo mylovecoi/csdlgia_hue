@@ -39,6 +39,7 @@ class KkMhBogXdController extends Controller
             $model->lichsu = json_encode($a_lichsu);
             $model->macqcq = $inputs['macqcq'];
             $model->trangthai = 'CD';
+            $model->ngaychuyen = date('Y-m-d H:i:s');
             //kiểm tra đơn vị tiếp nhận
             $chk_dvcq = view_dsdiaban_donvi::where('madv', $inputs['macqcq'])->first();
             if ($chk_dvcq->count() && $chk_dvcq->level == 'T') {
@@ -102,29 +103,6 @@ class KkMhBogXdController extends Controller
 
     //cũ 27.03.2020 => xem bỏ
 
-    public function search(Request $request){
-        if (Session::has('admin')) {
-            $inputs = $request->all();
-            $inputs['mh'] = DmNgheKd::where('manghe',$inputs['manghe'])->first()->tennghe;
-            $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
-            $inputs['tenhh'] = isset($inputs['tenhh']) ? $inputs['tenhh'] : '';
-            $model = KkMhBogCt::leftJoin('kkmhbog','kkmhbog.mahs','=','kkmhbogct.mahs')
-                ->leftjoin('company','company.maxa','=','kkmhbog.maxa')
-                ->whereYear('kkmhbog.ngayhieuluc',$inputs['nam'])
-                ->select('kkmhbogct.*','company.tendn','kkmhbog.ngayhieuluc')
-                ->where('phanloai',$inputs['manghe'])
-                ->where('kkmhbog.trangthai','DD');
-            if($inputs['tenhh'] != '')
-                $model = $model->where('kkmhbogct.tenhh','like','%'.$inputs['tenhh'].'%');
-            $model = $model->get();
-
-            return view('manage.kkgia.dkg.kekhaimhbog.timkiem.index')
-                ->with('model',$model)
-                ->with('inputs',$inputs)
-                ->with('pageTitle','Tìm kiếm thông tin giá kê khai ' .$inputs['mh']);
-        }else
-            return view('errors.notlogin');
-    }
 
     //<editor-fold des="Chức năng xét duyệt">
     public function xetduyet(Request $request)
@@ -149,19 +127,22 @@ class KkMhBogXdController extends Controller
             //gán lại thông tin về trường madv, thoidiem để truyền sang form index
             //xét macqcq để tìm đơn vị chuyển đến
             $a_ttdv = array_column(Company::all()->toArray(),'tendn', 'madv');
-
+            $a_donvi_th = array_column($m_donvi->toarray(),'tendv','madv');
             switch ($inputs['level']){
                 case 'H':{
                     $model = KkMhBog::where('madv_h', $inputs['madv']);
                     if ($inputs['nam'] != 'all')
                         $model = $model->whereYear('ngaychuyen_h', $inputs['nam']);
                     $model = $model->get();
+                    $m_com = Company::wherein('madv', array_column($model->toarray(),'madv'))->get();
+                    $a_com = array_column($m_com->toarray(),'madiaban','madv');
                     foreach ($model as $ct){
-                        $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
-                        $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
+                        $ct->madiaban = $a_com[$ct->madv] ?? null;
+                        //$ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
+                        $ct->tendv_ch = $a_ttdv[$ct->madv] ?? '';
                         $ct->madv = $ct->madv_h;
-                        $ct->macqcq = $ct->macqcq_h;
-                        $ct->tencqcq = $a_ttdv[$ct->macqcq] ?? '';
+                        //$ct->macqcq = $ct->macqcq_h;
+                        //$ct->tencqcq = $a_ttdv[$ct->macqcq] ?? '';
                         $ct->ngaychuyen = $ct->ngaychuyen_h;
                         $ct->trangthai = $ct->trangthai_h;
                         $ct->level = $inputs['level'];
@@ -173,12 +154,15 @@ class KkMhBogXdController extends Controller
                     if ($inputs['nam'] != 'all')
                         $model = $model->whereYear('ngaychuyen_t', $inputs['nam']);
                     $model = $model->get();
+                    $m_com = Company::wherein('madv', array_column($model->toarray(),'madv'))->get();
+                    $a_com = array_column($m_com->toarray(),'madiaban','madv');
                     foreach ($model as $ct){
-                        $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
-                        $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
+                        $ct->madiaban = $a_com[$ct->madv] ?? null;
+                        //$ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
+                        $ct->tendv_ch = $a_ttdv[$ct->madv] ?? '';
                         $ct->madv = $ct->madv_t;
                         $ct->macqcq = $ct->macqcq_t;
-                        $ct->tencqcq = $a_ttdv[$ct->macqcq] ?? '';
+                        $ct->tencqcq = $a_donvi_th[$ct->macqcq] ?? '';
                         $ct->ngaychuyen = $ct->ngaychuyen_t;
                         $ct->trangthai = $ct->trangthai_t;
                         $ct->level = $inputs['level'];
@@ -190,12 +174,16 @@ class KkMhBogXdController extends Controller
                     if ($inputs['nam'] != 'all')
                         $model = $model->whereYear('ngaychuyen_ad', $inputs['nam']);
                     $model = $model->get();
+                    $m_com = Company::wherein('madv', array_column($model->toarray(),'madv'))->get();
+                    $a_com = array_column($m_com->toarray(),'madiaban','madv');
+                    //dd($a_donvi_th);
                     foreach ($model as $ct){
-                        $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
-                        $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
+                        $ct->madiaban = $a_com[$ct->madv] ?? null;
+                        //$ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
+                        $ct->tendv_ch = $a_ttdv[$ct->madv] ?? '';
                         $ct->madv = $ct->madv_ad;
-                        $ct->macqcq = $ct->macqcq_ad;
-                        $ct->tencqcq = $a_ttdv[$ct->macqcq] ?? '';
+                        //$ct->macqcq = $ct->macqcq_ad;
+                        $ct->tencqcq = $a_donvi_th[$ct->macqcq] ?? '';
                         $ct->ngaychuyen = $ct->ngaychuyen_ad;
                         $ct->trangthai = $ct->trangthai_ad;
                         $ct->level = $inputs['level'];
@@ -204,7 +192,6 @@ class KkMhBogXdController extends Controller
                 }
             }
             //dd($model);
-
             return view('manage.bog.xetduyet.index')
                 ->with('model', $model)
                 ->with('inputs', $inputs)
@@ -237,6 +224,9 @@ class KkMhBogXdController extends Controller
             );
 
             $model->lichsu = json_encode($a_lichsu);
+            $model->ngaynhan = $inputs['ngaynhan'];
+            //gán lại trạng thái cho doanh nghiệp
+            $model->trangthai = 'DD';
             $model->ngaynhan = $inputs['ngaynhan'];
             //kiểm tra thông tin đơn vị
             setDuyetHS($inputs['madv'], $model, ['trangthai' => 'DD', 'ngaynhan' => $inputs['ngaynhan'], 'lydo' => null]);
@@ -279,13 +269,13 @@ class KkMhBogXdController extends Controller
                 'macqcq' => $inputs['macqcq'],
                 'madv' => $inputs['madv'],
             );
-
+            //dd($model);
             $model->lichsu = json_encode($a_lichsu);
             //kiểm tra thông tin đơn vị
             setHoanThanhDV($inputs['madv'], $model, ['macqcq' => $inputs['macqcq'], 'trangthai' => 'CCB']);
             //kiểm tra đơn vị tiếp nhận
             $chk_dvcq = view_dsdiaban_donvi::where('madv', $inputs['macqcq'])->first();
-            setCongBoDN($chk_dvcq->level, $model, ['madv' => $inputs['macqcq'], 'trangthai' => 'CCB', 'thoidiem' => date('Y-m-d')]);
+            setCongBoDN($model, ['madv' => $inputs['macqcq'], 'trangthai' => 'CCB', 'ngaynhan' => date('Y-m-d')]);
 
             //dd($model);
             $model->save();
@@ -332,15 +322,15 @@ class KkMhBogXdController extends Controller
                 'thoigian' => date('Y-m-d H:i:s'),
             );
             $model->lichsu = json_encode($a_lichsu);
-            setCongBo($model, ['trangthai' => $inputs['trangthai_ad'],
-                'congbo' => $inputs['trangthai_ad'] == 'CB' ? 'DACONGBO' : 'CHUACONGBO']);
+            setCongBoDN($model, ['trangthai' => $inputs['trangthai_ad'],
+                'congbo' => $inputs['trangthai_ad'] == 'CB' ? 'DACONGBO' : 'CHUACONGBO',
+                'ngaynhan' => date('Y-m-d H:i:s'),]);
             $model->save();
             return redirect('binhongia/xetduyet?madv=' . $model->madv_ad);
         } else
             return view('errors.notlogin');
     }
     //</editor-fold>
-
 
     public function ttdnkkmhbog(Request $request){
         $result = array(
@@ -374,6 +364,7 @@ class KkMhBogXdController extends Controller
         }
         die(json_encode($result));
     }
+
     public function tralai_c(Request $request){
         if (Session::has('admin')) {
             if (session('admin')->level == 'T' || session('admin')->level == 'H') {
@@ -407,6 +398,7 @@ class KkMhBogXdController extends Controller
         }else
             return view('errors.notlogin');
     }
+
     public function ttnhanhs(Request $request){
         $result = array(
             'status' => 'fail',
@@ -457,6 +449,7 @@ class KkMhBogXdController extends Controller
         }
         die(json_encode($result));
     }
+
     public function getsohsnhan($mahuyen,$phanloai){
         $idmax = KkMhBog::where('trangthai', 'DD')
             ->where('mahuyen', $mahuyen)
@@ -469,6 +462,29 @@ class KkMhBogXdController extends Controller
         } else
             $stt = 1;
         return $stt;
+    }
+
+    public function get_sohs(Request $request){
+        if (!Session::has('admin')) {
+            $result = array(
+                'status' => 'fail',
+                'message' => 'permission denied',
+            );
+            die(json_encode($result));
+        }
+
+        $inputs = $request->all();
+        $model = KkMhBog::where('mahs', $inputs['mahs'])->first();
+        if ($model->madv_h == $inputs['madv']) {
+            $model->lydo = $model->lydo_h;
+        }
+        if ($model->madv_t == $inputs['madv']) {
+            $model->lydo = $model->lydo_t;
+        }
+        if ($model->madv_ad == $inputs['madv']) {
+            $model->lydo = $model->lydo_ad;
+        }
+        die($model);
     }
 
     public function lydo(Request $request){

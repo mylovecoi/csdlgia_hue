@@ -4,7 +4,9 @@ namespace App\Model\manage\kekhaidkg\kehaimhbog;
 
 use Illuminate\Database\Eloquent\Model;
 
-class KkMhBog extends Model
+class
+
+KkMhBog extends Model
 {
     protected $table = 'kkmhbog';
     protected $fillable = [

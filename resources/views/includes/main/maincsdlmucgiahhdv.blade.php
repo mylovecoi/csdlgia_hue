@@ -638,6 +638,48 @@
     </li>
 @endif
 
+@if(chkPer('csdlmucgiahhdv','hhdv'))
+    <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+        data-original-title="Giá thị trường hàng hóa dịch vụ khác do UBND tỉnh, thành phố trực thuộc trung ương và các Bộ quản lý ngành, lĩnh vực tự quy định thuộc nội dung CSDL giá của mình">
+        <a href="javascript:;">
+            <i class="icon-folder"></i>
+            <span class="title">Hàng hóa, dịch vụ khác</span>
+            <span class="arrow"></span>
+        </a>
+        <ul class="sub-menu">
+            @if(can('dmgiahhdvk','index'))
+                <li>
+                    <a href="{{url('nhomhanghoadichvu')}}">Danh mục</a>
+                </li>
+            @endif
+            @if(can('kkgiahhdvk','index'))
+                <li>
+                    <a href="{{url('giahhdvkhac')}}">Thông tin hồ sơ</a>
+                </li>
+            @endif
+            @if(can('thgiahhdvk','timkiem'))
+                <li>
+                    <a href="{{url('timkiemgiahhdvkhac')}}">Tìm kiếm thông tin</a>
+                </li>
+            @endif
+        <!-- session('admin')->chucnang == 'TONGHOP'; tùy theo level h, t để load đơn vị cấp dưới -->
+            @if(session('admin')->level == 'H' || session('admin')->level == 'T')
+                @if(can('thgiahhdvk','tonghop'))
+                    <li>
+                        <a href="{{url('tonghopgiahhdvk')}}">Tổng hợp giá HH-DV khác</a>
+                    </li>
+                @endif
+            @endif
+
+            @if(can('thgiahhdvk','baocao'))
+                <li>
+                    <a href="{{url('reportshanghoadichvukhac')}}">Báo cáo tổng hợp</a>
+                </li>
+            @endif
+        </ul>
+    </li>
+@endif
+
 @if(chkPer('csdlmucgiahhdv','bog'))
     <li class="tooltips" data-container="body" data-placement="right" data-html="true"
         data-original-title="Tổ chức, cá nhận Giá đăng ký theo yêu cầu của Sở Tài chính, sở quản lý ngành">
@@ -677,101 +719,13 @@
                         <!-- chức năng nhập liệu cho đơn vị -->
                         <li><a href="{{url('/binhongia/danhsach')}}">Thông tin hồ sơ</a></li>
                         <li><a href="{{url('/binhongia/xetduyet')}}">Xét duyệt hồ sơ</a></li>
-
-                        <li><a href="{{url('timkiemkkdkg?manghe=')}}">Tìm kiếm hồ sơ</a></li>
-                        <li><a href="{{url('baocaokekhaidkg?manghe=')}}">Báo cáo tổng hợp</a></li>
+                        <li><a href="{{url('/binhongia/timkiem')}}">Tìm kiếm hồ sơ</a></li>
+                        <li><a href="{{url('/binhongia/baocao')}}">Báo cáo tổng hợp</a></li>
                     @endif
                 @endif
             @endif
-
-
-
-            @if($modeldm = \App\Model\system\dmnganhnghekd\DmNgheKd::where('manganh','BOG')
-                    ->where('theodoi','TD')
-                    ->get())
-            @endif
-
-            @foreach($modeldm as $dm)
-                @if(canKkGiaCt('BOG',$dm->manghe))
-                    @if($dm->mahuyen != '')
-                        <li>
-                            <a href="javascript:;">
-                                <span class="title">{{$dm->tennghe}}</span>
-                                <span class="arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                @if(session('admin')->level == 'DN')
-                                    @if($dm->phanloai == 'DK')
-                                        <li><a href="{{url('hosokkdkg?manghe='.$dm->manghe)}}">Giá đăng ký</a></li>
-                                    @else
-                                        <li><a href="{{url('kkgiamhbog?manghe='.$dm->manghe)}}">Giá kê khai</a></li>
-                                    @endif
-                                @else
-                                    <li><a href="{{url('thongtinmathangbog?manghe='.$dm->manghe)}}">Phân loại TTMH</a></li>
-                                    @if($dm->phanloai == 'DK')
-                                        <li><a href="{{url('thongtindnkkgdk?manghe='.$dm->manghe)}}">Giá đăng ký</a></li>
-                                        <li><a href="{{url('xetduyetkkdkg?manghe='.$dm->manghe)}}">Xét duyệt HS Giá đăng ký</a></li>
-
-                                    @else
-                                        <li><a href="{{url('thongtindnkkmhbog?manghe='.$dm->manghe)}}">Giá kê khai</a></li>
-                                        <li><a href="{{url('xetduyetkkmhbog?manghe='.$dm->manghe)}}">Xét duyệt HS giá kê khai</a></li>
-                                    @endif
-                                    <li><a href="{{url('timkiemkkdkg?manghe='.$dm->manghe)}}">Tìm kiếm TT Giá đăng ký</a></li>
-                                    <li><a href="{{url('timkiemkkmhbog?manghe='.$dm->manghe)}}">Tìm kiếm TT giá kê khai</a></li>
-                                    <li><a href="{{url('baocaokekhaidkg?manghe='.$dm->manghe)}}">BCTH Giá đăng ký</a></li>
-                                    <li><a href="{{url('baocaokkmhbog?manghe='.$dm->manghe)}}">BCTH hợp giá kê khai</a></li>
-                                @endif
-                            </ul>
-                        </li>
-                    @endif
-                @endif
-            @endforeach
         </ul>
     </li>
-@endif
-
-@if(canGeneral('giahhdvk','index'))
-    @if(can('giahhdvk','index'))
-        <li class="tooltips" data-container="body" data-placement="right" data-html="true"
-            data-original-title="Giá thị trường hàng hóa dịch vụ khác do UBND tỉnh, thành phố trực thuộc trung ương và các Bộ quản lý ngành, lĩnh vực tự quy định thuộc nội dung CSDL giá của mình">
-            <a href="javascript:;">
-                <i class="icon-folder"></i>
-                <span class="title">Giá HH-DV khác </span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-                @if(can('dmgiahhdvk','index'))
-                    <li>
-                        <a href="{{url('nhomhanghoadichvu')}}">Danh mục HH-DV</a>
-                    </li>
-                @endif
-                @if(can('kkgiahhdvk','index'))
-                    <li>
-                        <a href="{{url('giahhdvkhac')}}">Thông tin hồ sơ</a>
-                    </li>
-                @endif
-                @if(can('thgiahhdvk','timkiem'))
-                    <li>
-                        <a href="{{url('timkiemgiahhdvkhac')}}">Tìm kiếm thông tin</a>
-                    </li>
-                @endif
-                    <!-- session('admin')->chucnang == 'TONGHOP'; tùy theo level h, t để load đơn vị cấp dưới -->
-                @if(session('admin')->level == 'H' || session('admin')->level == 'T')
-                    @if(can('thgiahhdvk','tonghop'))
-                    <li>
-                        <a href="{{url('tonghopgiahhdvk')}}">Tổng hợp giá HH-DV khác</a>
-                    </li>
-                    @endif
-                @endif
-
-                @if(can('thgiahhdvk','baocao'))
-                    <li>
-                        <a href="{{url('reportshanghoadichvukhac')}}">Báo cáo tổng hợp</a>
-                    </li>
-                @endif
-            </ul>
-        </li>
-    @endif
 @endif
 
 @if(canGeneral('giathitruong','index'))

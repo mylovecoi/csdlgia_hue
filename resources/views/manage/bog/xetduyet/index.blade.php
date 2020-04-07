@@ -48,8 +48,8 @@
                     <div class="caption">
                     </div>
                     <div class="actions">
-                        <a href="{{url($inputs['url'].'/prints?madv='.$inputs['madv'].'&nam='. $inputs['nam'])}}" class="btn btn-default btn-sm" target="_blank">
-                            <i class="fa fa-print"></i> In danh sách</a>
+{{--                        <a href="{{url($inputs['url'].'/prints?madv='.$inputs['madv'].'&nam='. $inputs['nam'])}}" class="btn btn-default btn-sm" target="_blank">--}}
+{{--                            <i class="fa fa-print"></i> In danh sách</a>--}}
                     </div>
                 </div>
 
@@ -84,7 +84,7 @@
                                 <th style="text-align: center">Địa bàn</th>
                                 <th style="text-align: center">Thời điểm<br>chuyển</th>
                                 <th style="text-align: center">Trạng thái</th>
-                                <th style="text-align: center">Cơ quan tiếp nhận hồ sơ</th>
+                                <th style="text-align: center">Cơ quan xét duyệt hồ sơ</th>
                                 <th style="text-align: center" width="20%">Thao tác</th>
                             </tr>
                         </thead>
@@ -115,16 +115,25 @@
                                                         <i class="fa fa-times"></i> Trả lại</button>
                                                 @endif
                                             @else
-                                                @if(in_array($tt->trangthai, ['CD']))
+                                                @if($tt->trangthai=='CD')
                                                     <button type="button" onclick="confirmDuyetHS('{{$tt->mahs}}','{{$inputs['url'].'/duyeths'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#duyeths-modal-confirm" data-toggle="modal">
                                                         <i class="fa fa-check"></i> Duyệt hồ sơ</button>
-                                                @else
+                                                @endif
+
+                                                @if(in_array($tt->trangthai, ['DD','TL']))
                                                     <button type="button" onclick="confirmChuyenXD('{{$tt->mahs}}','{{$inputs['url'].'/chuyenxd'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#chuyenxd-modal-confirm" data-toggle="modal">
                                                         <i class="fa fa-check"></i> Chuyển công bố</button>
                                                 @endif
 
+                                                @if(in_array($tt->trangthai, ['CD','DD','TL']))
                                                     <button type="button" onclick="confirmTraLai('{{$tt->mahs}}','{{$inputs['url'].'/tralai'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#tralai-modal-confirm" data-toggle="modal">
                                                         <i class="fa fa-times"></i> Trả lại</button>
+                                                @endif
+
+                                                @if($tt->trangthai=='TL')
+                                                    <button type="button" onclick="viewLyDo('{{$tt->mahs}}','{{$tt->madv}}')" data-target="#tralai-modal-confirm" data-toggle="modal" class="btn btn-default btn-xs mbs">
+                                                        <i class="fa fa-search"></i>&nbsp;Lý do trả lại</button>
+                                                @endif
                                             @endif
                                         @endif
                                     </td>
