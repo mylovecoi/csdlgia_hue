@@ -24,7 +24,7 @@ include('system/system.php');
 
 //Manage
 include('manage/bog.php');
-include('manage/dangkygia.php');
+//include('manage/dangkygia.php');
 include('manage/dinhgia.php');
 include('manage/thamdinhgia.php');
 include('manage/thamdinhgiahh.php');

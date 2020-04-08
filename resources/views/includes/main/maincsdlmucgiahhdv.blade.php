@@ -8,7 +8,7 @@
             <span class="arrow"></span>
         </a>
         <ul class="sub-menu">
-            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadatpl','index'))
+            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadatpl'))
                 <li>
                     <a href="javascript:;">
                         <span class="title">Giá đất phân loại</span>
@@ -48,7 +48,7 @@
                 </li>
             @endif
 
-            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuedatnuoc','index'))
+            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuedatnuoc'))
                 <li>
                     <a href="javascript:;">
                         Giá thuê đất, nước<span class="arrow"></span>
@@ -81,7 +81,7 @@
                 </li>
             @endif
 
-            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giarung','index'))
+            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giarung'))
                 <li class="tooltips" data-container="body" data-placement="right" data-html="true"
                     data-original-title="Giá rừng bao gồm rừng sản xuất, rừng phòng hộ và rừng đặc dụng thuộc sở hữu toàn dân do Nhà nước làm đại diện chủ sở hữu">
                     <a href="javascript:;">
@@ -121,7 +121,7 @@
                 </li>
             @endif
 
-                @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuemuanhaxh','index'))
+                @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuemuanhaxh'))
                     <li class="tooltips" data-container="body" data-placement="right" data-html="true">
                         <a href="javascript:;">
                             Giá thuê mua nhà xã hội
@@ -160,7 +160,7 @@
                     </li>
                 @endif
 
-                @if(chkPer('csdlmucgiahhdv','dinhgia', 'gianuocsh','index'))
+                @if(chkPer('csdlmucgiahhdv','dinhgia', 'gianuocsh'))
                     <li>
                         <a href="javascript:;">
                             Giá nước sạch sinh hoạt
@@ -203,7 +203,7 @@
                     </li>
                 @endif
 
-                @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetscong','index'))
+                @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetscong'))
                     <li class="tooltips" data-container="body" data-placement="right" data-html="true"
                         data-original-title="Giá cho thuê tài sản Nhà nước là công trình kết cấu hạ tầng đầu tư từ nguồn ngân sách địa phương">
                         <a href="javascript:;">
@@ -242,7 +242,7 @@
                     </li>
                 @endif
 
-                @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvci','index'))
+                @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvci'))
                     <li>
                         <a href="javascript:;">
                             Giá sản phẩm, dịch vụ công ích,... đặt hàng<span class="arrow"></span>
@@ -280,7 +280,7 @@
                     </li>
                 @endif
 
-                @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvgddt','index'))
+                @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvgddt'))
                     <li>
                         <a href="javascript:;">
                             Giá dịch vụ đào tạo<span class="arrow"></span>
@@ -318,7 +318,7 @@
                     </li>
                 @endif
 
-                @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvkcb','index'))
+                @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvkcb'))
                     <li>
                         <a href="javascript:;">
                             Giá dịch vụ khám chữa bệnh<span class="arrow"></span>
@@ -356,7 +356,7 @@
                     </li>
                 @endif
 
-                @if(chkPer('csdlmucgiahhdv','dinhgia', 'trogiatrocuoc','index'))
+                @if(chkPer('csdlmucgiahhdv','dinhgia', 'trogiatrocuoc'))
                     <li>
                         <a href="javascript:;">
                             Mức trợ giá, trợ cước<span class="arrow"></span>
@@ -394,7 +394,7 @@
                     </li>
                 @endif
 
-                @if(chkPer('csdlmucgiahhdv','dinhgia', 'giahhdvcn','index'))
+                @if(chkPer('csdlmucgiahhdv','dinhgia', 'giahhdvcn'))
                     <li>
                         <a href="javascript:;">
                             Giá hàng hóa, dịch vụ khác theo quy định của pháp luật chuyên ngành<span class="arrow"></span>
@@ -432,62 +432,7 @@
                     </li>
                 @endif
 
-
-
-            <!-- Cũ -->
-                @if(canKkGiaGr('BOG'))
-                    <li class="tooltips" data-container="body" data-placement="right" data-html="true"
-                        data-original-title="Tổ chức, cá nhận Giá đăng ký theo yêu cầu của Sở Tài chính, sở quản lý ngành">
-                        <a href="javascript:;">
-                            <span class="title">Mặt hàng trong danh mục bình ổn giá</span>
-                            <span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            @if($modeldm = \App\Model\system\dmnganhnghekd\DmNgheKd::where('manganh','BOG')
-                                    ->where('theodoi','TD')
-                                    ->get())
-                            @endif
-
-                            @foreach($modeldm as $dm)
-                                @if(canKkGiaCt('BOG',$dm->manghe))
-                                    @if($dm->mahuyen != '')
-                                        <li>
-                                            <a href="javascript:;">
-                                                <span class="title">{{$dm->tennghe}}</span>
-                                                <span class="arrow"></span>
-                                            </a>
-                                            <ul class="sub-menu">
-                                                @if(session('admin')->level == 'DN')
-                                                    @if($dm->phanloai == 'DK')
-                                                        <li><a href="{{url('hosokkdkg?manghe='.$dm->manghe)}}">Giá đăng ký</a></li>
-                                                    @else
-                                                        <li><a href="{{url('kkgiamhbog?manghe='.$dm->manghe)}}">Giá kê khai</a></li>
-                                                    @endif
-                                                @else
-                                                    <li><a href="{{url('thongtinmathangbog?manghe='.$dm->manghe)}}">Phân loại TTMH</a></li>
-                                                    @if($dm->phanloai == 'DK')
-                                                        <li><a href="{{url('thongtindnkkgdk?manghe='.$dm->manghe)}}">Giá đăng ký</a></li>
-                                                        <li><a href="{{url('xetduyetkkdkg?manghe='.$dm->manghe)}}">Xét duyệt HS Giá đăng ký</a></li>
-
-                                                    @else
-                                                        <li><a href="{{url('thongtindnkkmhbog?manghe='.$dm->manghe)}}">Giá kê khai</a></li>
-                                                        <li><a href="{{url('xetduyetkkmhbog?manghe='.$dm->manghe)}}">Xét duyệt HS giá kê khai</a></li>
-                                                    @endif
-                                                    <li><a href="{{url('timkiemkkdkg?manghe='.$dm->manghe)}}">Tìm kiếm TT Giá đăng ký</a></li>
-                                                    <li><a href="{{url('timkiemkkmhbog?manghe='.$dm->manghe)}}">Tìm kiếm TT giá kê khai</a></li>
-                                                    <li><a href="{{url('baocaokekhaidkg?manghe='.$dm->manghe)}}">BCTH Giá đăng ký</a></li>
-                                                    <li><a href="{{url('baocaokkmhbog?manghe='.$dm->manghe)}}">BCTH hợp giá kê khai</a></li>
-                                                @endif
-                                            </ul>
-                                        </li>
-                                    @endif
-                                @endif
-                            @endforeach
-                        </ul>
-                    </li>
-                @endif
-
-            @if(chkPer('csdlmucgiahhdv','dinhgia','giacldat','index'))
+            @if(chkPer('csdlmucgiahhdv','dinhgia','giacldat'))
                 {{--Bảng giá đất--}}
                 <li>
                     <a href="javascript:;">
@@ -638,7 +583,7 @@
     </li>
 @endif
 
-@if(chkPer('csdlmucgiahhdv','hhdv'))
+@if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk'))
     <li class="tooltips" data-container="body" data-placement="right" data-html="true"
         data-original-title="Giá thị trường hàng hóa dịch vụ khác do UBND tỉnh, thành phố trực thuộc trung ương và các Bộ quản lý ngành, lĩnh vực tự quy định thuộc nội dung CSDL giá của mình">
         <a href="javascript:;">
@@ -647,6 +592,12 @@
             <span class="arrow"></span>
         </a>
         <ul class="sub-menu">
+            @if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'danhmuc','index'))
+                <li>
+                    <a href="{{url('/giahhdvk/danhmuc')}}">Danh mục</a>
+                </li>
+            @endif
+            ----
             @if(can('dmgiahhdvk','index'))
                 <li>
                     <a href="{{url('nhomhanghoadichvu')}}">Danh mục</a>

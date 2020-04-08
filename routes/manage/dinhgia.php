@@ -258,51 +258,58 @@ Route::group(['prefix'=>'giahhdvcn'], function (){
     Route::post('timkiem','manage\giahhdvcn\giahhdvcnController@ketquatk');
 });
 //Giá HH-DV khác
-Route::resource('nhomhanghoadichvu','NhomHhDvKController');
-Route::get('nhomhanghoadichvu/show','NhomHhDvKController@show');
-Route::post('nhomhanghoadichvu/update','NhomHhDvKController@update');
-Route::resource('dmhanghoadichvu','DmHhDvKController');
-Route::get('dmhanghoadichvu/show','DmHhDvKController@show');
-Route::post('dmhanghoadichvu/update','DmHhDvKController@update');
+Route::group(['prefix'=>'giahhdvk'], function (){
+    Route::get('danhmuc','NhomHhDvKController@index');
 
-Route::post('giahhdvkhac/danhmucmau','GiaHhDvKController@filemau');
-Route::get('giahhdvkhac/nhanexcel','GiaHhDvKController@nhanexcel');
-Route::post('giahhdvkhac/import_excel','GiaHhDvKController@import_excel');
 
-Route::resource('giahhdvkhac','GiaHhDvKController');
-Route::post('giahhdvkhac/create','GiaHhDvKController@create');
-Route::post('giahhdvkhac/delete','GiaHhDvKController@destroy');
-Route::post('giahhdvkhac/hoanthanh','GiaHhDvKController@hoanthanh');
-Route::post('giahhdvkhac/huyhoanthanh','GiaHhDvKController@huyhoanthanh');
-Route::post('giahhdvkhac/congbo','GiaHhDvKController@congbo');
-Route::get('timkiemgiahhdvkhac','GiaHhDvKController@search');
 
-Route::get('/giahhdvkhacctdf/edit','GiaHhDvKCtDfController@edit');
-Route::get('/giahhdvkhacctdf/update','GiaHhDvKCtDfController@update');
+    Route::resource('nhomhanghoadichvu','NhomHhDvKController');
+    Route::get('nhomhanghoadichvu/show','NhomHhDvKController@show');
+    Route::post('nhomhanghoadichvu/update','NhomHhDvKController@update');
+    Route::resource('dmhanghoadichvu','DmHhDvKController');
+    Route::get('dmhanghoadichvu/show','DmHhDvKController@show');
+    Route::post('dmhanghoadichvu/update','DmHhDvKController@update');
 
-Route::get('/giahhdvkhacct/edit','GiaHhDvKCtController@edit');
-Route::post('/giahhdvkhacct/update','GiaHhDvKCtController@update');
+    Route::post('giahhdvkhac/danhmucmau','GiaHhDvKController@filemau');
+    Route::get('giahhdvkhac/nhanexcel','GiaHhDvKController@nhanexcel');
+    Route::post('giahhdvkhac/import_excel','GiaHhDvKController@import_excel');
 
-Route::get('reportshanghoadichvukhac','ReportsHhDvKController@index');
-Route::post('reportshanghoadichvukhac/bc1','ReportsHhDvKController@bc1');
-Route::post('reportshanghoadichvukhac/bc2','ReportsHhDvKController@bc2');
-Route::post('reportshanghoadichvukhac/exWordBc2','ReportsHhDvKController@exWordBc2');
-        //Tổng hợp
-Route::resource('tonghopgiahhdvk','ThGiaHhDvKController');
-Route::post('tonghopgiahhdvk/create','ThGiaHhDvKController@create');
-Route::post('tonghopgiahhdvk/delete','ThGiaHhDvKController@destroy');
-Route::post('tonghopgiahhdvk/hoanthanh','ThGiaHhDvKController@hoanthanh');
-Route::post('tonghopgiahhdvk/huyhoanthanh','ThGiaHhDvKController@huyhoanthanh');
-Route::post('tonghopgiahhdvk/congbo','ThGiaHhDvKController@congbo');
+    Route::resource('giahhdvkhac','GiaHhDvKController');
+    Route::post('giahhdvkhac/create','GiaHhDvKController@create');
+    Route::post('giahhdvkhac/delete','GiaHhDvKController@destroy');
+    Route::post('giahhdvkhac/hoanthanh','GiaHhDvKController@hoanthanh');
+    Route::post('giahhdvkhac/huyhoanthanh','GiaHhDvKController@huyhoanthanh');
+    Route::post('giahhdvkhac/congbo','GiaHhDvKController@congbo');
+    Route::get('timkiemgiahhdvkhac','GiaHhDvKController@search');
+
+    Route::get('/giahhdvkhacctdf/edit','GiaHhDvKCtDfController@edit');
+    Route::get('/giahhdvkhacctdf/update','GiaHhDvKCtDfController@update');
+
+    Route::get('/giahhdvkhacct/edit','GiaHhDvKCtController@edit');
+    Route::post('/giahhdvkhacct/update','GiaHhDvKCtController@update');
+
+    Route::get('reportshanghoadichvukhac','ReportsHhDvKController@index');
+    Route::post('reportshanghoadichvukhac/bc1','ReportsHhDvKController@bc1');
+    Route::post('reportshanghoadichvukhac/bc2','ReportsHhDvKController@bc2');
+    Route::post('reportshanghoadichvukhac/exWordBc2','ReportsHhDvKController@exWordBc2');
+    //Tổng hợp
+    Route::resource('tonghopgiahhdvk','ThGiaHhDvKController');
+    Route::post('tonghopgiahhdvk/create','ThGiaHhDvKController@create');
+    Route::post('tonghopgiahhdvk/delete','ThGiaHhDvKController@destroy');
+    Route::post('tonghopgiahhdvk/hoanthanh','ThGiaHhDvKController@hoanthanh');
+    Route::post('tonghopgiahhdvk/huyhoanthanh','ThGiaHhDvKController@huyhoanthanh');
+    Route::post('tonghopgiahhdvk/congbo','ThGiaHhDvKController@congbo');
 //Route::post('tonghopgiahhdvkthang/create','ThGiaHhDvKController@createthang');
-Route::post('tonghopgiahhdvkthang/create','ThGiaHhDvKController@tonghopthang');
+    Route::post('tonghopgiahhdvkthang/create','ThGiaHhDvKController@tonghopthang');
 
-Route::get('thgiahhdvk/{id}/exportXML','ThGiaHhDvKController@exportXML');
-Route::get('thgiahhdvk/{id}/exportEx','ThGiaHhDvKController@exportEx');
+    Route::get('thgiahhdvk/{id}/exportXML','ThGiaHhDvKController@exportXML');
+    Route::get('thgiahhdvk/{id}/exportEx','ThGiaHhDvKController@exportEx');
 
 
-Route::get('/thgiahhdvkct/edit','ThGiaHhDvKCtController@edit');
-Route::post('/thgiahhdvkct/update','ThGiaHhDvKCtController@update');
+    Route::get('/thgiahhdvkct/edit','ThGiaHhDvKCtController@edit');
+    Route::post('/thgiahhdvkct/update','ThGiaHhDvKCtController@update');
+});
+
 //
 //Route::get('thgiahhdvkctdf/edit','ThGiaHhDvKCtDfController@show');
 //Route::get('thgiahhdvkctdf/update','ThGiaHhDvKCtDfController@update');

@@ -97,30 +97,29 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <div class="actions">
-                        @if(can('dmhhdvk','create'))
-                        <button type="button" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
+                        @if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'danhmuc', 'modify'))
+                            <button type="button" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
+                                <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
                         @endif
                     </div>
                 </div>
                 <hr>
                 <div class="portlet-body">
                     <div class="portlet-body">
-                    <table class="table table-striped table-bordered table-hover" id="sample_3">
+                    <table class="table table-striped table-bordered table-hover" id="sample_4">
                         <thead>
                         <tr>
-                            <th style="text-align: center" width="2%">STT</th>
-                            <th style="text-align: center">Mã thông tư</th>
+                            <th style="text-align: center" width="5%">STT</th>
                             <th style="text-align: center">Tên thông tư</th>
-                            <th style="text-align: center">Theo dõi</th>
-                            <th style="text-align: center" width="20%">Thao tác</th>
+                            <th style="text-align: center" width="15%">Theo dõi</th>
+                            <th style="text-align: center" width="15%">Thao tác</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($model as $key=>$tt)
                         <tr class="odd gradeX">
                             <td style="text-align: center">{{$key + 1}}</td>
-                            <td>{{$tt->matt}}</td>
-                            <td class="active" >{{$tt->tentt}}</td>
+                            <td class="active" >{{$tt->tennhom}}</td>
                             <td style="text-align: center">
                                 @if($tt->theodoi == 'KTD')
                                     <span class="badge badge-active">Không theo dõi</span>
@@ -129,11 +128,15 @@
                                 @endif
                             </td>
                             <td>
-                                @if(can('dmgiahhdvk','edit'))
-                                <button type="button" onclick="ClickEdit('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#modal-edit" data-toggle="modal"><i class="fa fa-edit"></i>&nbsp;Sửa</button>
+                                @if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'danhmuc', 'modify'))
+                                    <button type="button" onclick="ClickEdit('{{$tt->manhom}}')" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
+                                        <i class="fa fa-edit"></i>&nbsp;Sửa</button>
+                                    <button type="button" onclick="getId('{{$tt->manhom}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal" style="margin: 2px">
+                                        <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
                                 @endif
                                 @if($tt->theodoi == 'TD')
-                                <a href="{{url('dmhanghoadichvu?&matt='.$tt->matt)}}" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
+                                    <a href="{{url($url.'danhmuc/chitiet?&matt='.$tt->manhom)}}" class="btn btn-default btn-xs mbs">
+                                        <i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
                                 @endif
                             </td>
                         </tr>

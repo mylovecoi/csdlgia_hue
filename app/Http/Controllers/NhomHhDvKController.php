@@ -12,11 +12,12 @@ class NhomHhDvKController extends Controller
 {
     public function index(){
         if(Session::has('admin')){
+            $inputs['url'] = '/giahhdvk';
             $model = NhomHhDvK::all();
             return view('manage.dinhgia.giahhdvk.danhmuc.nhom.index')
                 ->with('model',$model)
+                ->with('inputs',$inputs)
                 ->with('pageTitle','Thông tin nhóm hàng hóa dịch vụ');
-
         }else
             return view('errors.notlogin');
     }
