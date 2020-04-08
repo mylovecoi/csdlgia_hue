@@ -9,8 +9,7 @@ class DmHhDvK extends Model
     protected $table = 'dmhhdvk';
     protected $fillable = [
         'id',
-        'manhom',
-        'nhom',
+        'matt',
         'mahhdv',
         'tenhhdv',
         'dacdiemkt',

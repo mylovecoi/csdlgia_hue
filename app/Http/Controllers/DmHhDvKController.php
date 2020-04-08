@@ -13,12 +13,13 @@ class DmHhDvKController extends Controller
     public function index(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
+            $inputs['url'] = '/giahhdvk';
             $modelnhom = NhomHhDvK::where('matt',$inputs['matt'])->first();
             $model = DmHhDvK::where('matt',$inputs['matt'])
                 ->get();
             return view('manage.dinhgia.giahhdvk.danhmuc.chitiet.index')
                 ->with('model',$model)
-                ->with('matt',$inputs['matt'])
+                ->with('inputs',$inputs)
                 ->with('modelnhom',$modelnhom)
                 ->with('pageTitle','Thông tin chi tiết hàng hóa dịch vụ');
 

@@ -19,69 +19,38 @@
         jQuery(document).ready(function() {
             TableManaged.init();
         });
-        function getId(id){
-            document.getElementById("iddelete").value=id;
+        function getId(maso){
+            $('#frm_delete').find("[id='matt']").val(maso);
         }
         function ClickDelete(){
             $('#frm_delete').submit();
         }
-        function ClickCreate(){
-            var valid=true;
-            var message='';
-            var tentt = $('#tentt').val();
-            var matt = $('#matt').val();
 
-
-            if(matt == '' || tentt == ''){
-                valid=false;
-                message +='Các thông tin nhập không được bỏ trống \n';
-            }
-            if(valid){
-                $("#frm_create").unbind('submit').submit();
-            }else{
-                $("#frm_create").submit(function (e) {
-                    e.preventDefault();
-                });
-                toastr.error(message,'Lỗi!.');
-            }
-        }
-        function ClickUpdate(){
-            var valid=true;
-            var message='';
-            var tentt = $('#edit_tentt').val();
-
-            if(tennhom == '' ){
-                valid=false;
-                message +='Các thông tin nhập không được bỏ trống \n';
-            }
-            if(valid){
-                $("#frm_update").unbind('submit').submit();
-            }else{
-                $("#frm_update").submit(function (e) {
-                    e.preventDefault();
-                });
-                toastr.error(message,'Lỗi!.');
-            }
-        }
-        function ClickEdit(id){
+        function ClickEdit(maso){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: 'nhomhanghoadichvu/show',
+                url: '{{$inputs['url']}}' + '/show_nhomdm',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: id
+                    matt: maso
                 },
                 dataType: 'JSON',
                 success: function (data) {
-                    if (data.status == 'success') {
-                        $('#edit-tt').replaceWith(data.message);
-                    }
+                    var form = $('#frm_create');
+                    form.find("[name='matt']").val(data.matt);
+                    form.find("[name='tentt']").val(data.tentt);
+                    form.find("[name='theodoi']").val(data.theodoi).trigger('change');
+                    //form.find("[name='phanloai']").val(data.phanloai).trigger('change');
                 },
                 error: function (message) {
                     toastr.error(message, 'Lỗi!');
                 }
             });
+        }
+        function new_hs() {
+            var form = $('#frm_create');
+            form.find("[name='matt']").val('NEW');
         }
     </script>
 @stop
@@ -98,7 +67,7 @@
                 <div class="portlet-title">
                     <div class="actions">
                         @if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'danhmuc', 'modify'))
-                            <button type="button" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
+                            <button type="button" onclick="new_hs()" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
                                 <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
                         @endif
                     </div>
@@ -119,7 +88,7 @@
                         @foreach($model as $key=>$tt)
                         <tr class="odd gradeX">
                             <td style="text-align: center">{{$key + 1}}</td>
-                            <td class="active" >{{$tt->tennhom}}</td>
+                            <td class="active" >{{$tt->tentt}}</td>
                             <td style="text-align: center">
                                 @if($tt->theodoi == 'KTD')
                                     <span class="badge badge-active">Không theo dõi</span>
@@ -129,13 +98,13 @@
                             </td>
                             <td>
                                 @if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'danhmuc', 'modify'))
-                                    <button type="button" onclick="ClickEdit('{{$tt->manhom}}')" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
+                                    <button type="button" onclick="ClickEdit('{{$tt->matt}}')" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
                                         <i class="fa fa-edit"></i>&nbsp;Sửa</button>
-                                    <button type="button" onclick="getId('{{$tt->manhom}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal" style="margin: 2px">
+                                    <button type="button" onclick="getId('{{$tt->matt}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal" style="margin: 2px">
                                         <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
                                 @endif
                                 @if($tt->theodoi == 'TD')
-                                    <a href="{{url($url.'danhmuc/chitiet?&matt='.$tt->manhom)}}" class="btn btn-default btn-xs mbs">
+                                    <a href="{{url($inputs['url'].'/danhmuc/detail?matt='.$tt->matt)}}" class="btn btn-default btn-xs mbs">
                                         <i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
                                 @endif
                             </td>
@@ -158,31 +127,36 @@
     <div class="modal fade" id="modal-create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url'=>'nhomhanghoadichvu','id' => 'frm_create'])!!}
+                {!! Form::open(['url'=>$inputs['url'].'/nhomdm', 'method'=>'post','id' => 'frm_create'])!!}
+                <input type="hidden" name="matt" />
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Thêm mới nhóm hàng hóa dịch vụ?</h4>
+                    <h4 class="modal-title">Thông tin thông tư, quyết định</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="control-label">Mã thông tư<span class="require">*</span></label>
-                                <input type="text" name="matt" id="matt" class="form-control">
+                                <label class="control-label">Tên thông tư, quyết định<span class="require">*</span></label>
+                                <input name="tentt" id="tentt" class="form-control" required>
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="control-label">Tên thông tư<span class="require">*</span></label>
-                                <input type="text" name="tentt" id="tentt" class="form-control">
+                                <label class="control-label">Trạng thái</label>
+                                <select name="theodoi" id="theodoi" class="form-control">
+                                    <option value="TD">Đang theo dõi</option>
+                                    <option value="KTD">Không theo dõi</option>
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn blue" onclick="ClickCreate()">Đồng ý</button>
+                    <button type="submit" class="btn blue">Đồng ý</button>
                     <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
                 </div>
                 {!! Form::close() !!}
@@ -191,27 +165,24 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
-    <!--Model-edit-->
-    <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
+                {!! Form::open(['url'=>$inputs['url'].'/delete_nhomdm','id' => 'frm_delete'])!!}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Chỉnh sửa nhóm hàng hóa dịch vụ?</h4>
+                    <h4 class="modal-title">Đồng ý xóa?</h4>
                 </div>
-                {!! Form::open(['url'=>'nhomhanghoadichvu/update','id' => 'frm_update'])!!}
-                <div class="modal-body" id="edit-tt">
-                </div>
+                <input type="hidden" name="matt" id="matt">
                 <div class="modal-footer">
-                    <button type="submit" class="btn blue" onclick="ClickUpdate()">Đồng ý</button>
+                    <button type="submit" class="btn blue" onclick="ClickDelete()">Đồng ý</button>
                     <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
                 </div>
                 {!! Form::close() !!}
-
             </div>
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
     </div>
-
 @stop

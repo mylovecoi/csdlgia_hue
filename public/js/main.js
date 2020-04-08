@@ -22,6 +22,11 @@ $(function () {
         url = url.substring(0, index - 1) + '/danhsach';
     }
 
+    index = url.indexOf('detail');
+    if (index > 0) {
+        url = url.substring(0, index - 1);
+    }
+
     index = chk.indexOf('create');
     if(index > -1) {
         url = '';

@@ -260,8 +260,10 @@ Route::group(['prefix'=>'giahhdvcn'], function (){
 //Giá HH-DV khác
 Route::group(['prefix'=>'giahhdvk'], function (){
     Route::get('danhmuc','NhomHhDvKController@index');
-
-
+    Route::post('nhomdm','NhomHhDvKController@store');
+    Route::get('show_nhomdm','NhomHhDvKController@show_nhomdm');
+    Route::get('danhmuc/detail','DmHhDvKController@index');
+    Route::post('dm','DmHhDvKController@store');
 
     Route::resource('nhomhanghoadichvu','NhomHhDvKController');
     Route::get('nhomhanghoadichvu/show','NhomHhDvKController@show');
