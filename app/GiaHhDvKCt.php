@@ -10,21 +10,11 @@ class GiaHhDvKCt extends Model
     protected $fillable = [
         'id',
         'mahs',
-        'maxa',
-        'mahuyen',
-        'district',
-        'manhom',
-        'nhom',
         'mahhdv',
-        'tenhhdv',
-        'dacdiemkt',
-        'dvt',
-        'xuatxu',
         'gialk',
         'gia',
         'loaigia',
         'nguontt',
         'ghichu',
-        'trangthai',
     ];
 }

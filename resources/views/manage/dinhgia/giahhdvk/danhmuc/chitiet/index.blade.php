@@ -39,8 +39,11 @@
                 dataType: 'JSON',
                 success: function (data) {
                     var form = $('#frm_create');
-                    //form.find("[name='matt']").val(data.matt);
-                    //form.find("[name='tentt']").val(data.tentt);
+                    form.find("[name='mahhdv']").prop('readonly', true);
+                    form.find("[name='mahhdv']").val(data.mahhdv);
+                    form.find("[name='tenhhdv']").val(data.tenhhdv);
+                    form.find("[name='dacdiemkt']").val(data.dacdiemkt);
+                    form.find("[name='dvt']").val(data.dvt).trigger('change');
                     //form.find("[name='theodoi']").val(data.theodoi).trigger('change');
 
                 },
@@ -51,7 +54,10 @@
         }
         function new_hs() {
             var form = $('#frm_create');
-            form.find("[name='matt']").val('NEW');
+            form.find("[name='mahhdv']").val(null);
+            form.find("[name='tenhhdv']").val(null);
+            form.find("[name='dacdiemkt']").val(null);
+            form.find("[name='mahhdv']").prop('readonly', false);
         }
     </script>
 @stop
@@ -83,10 +89,11 @@
                         <thead>
                         <tr>
                             <th style="text-align: center" width="2%">STT</th>
+                            <th style="text-align: center">Mã số</th>
                             <th style="text-align: center">Tên hàng hóa dịch vụ</th>
                             <th style="text-align: center">Đặc điểm kỹ thuật</th>
                             <th style="text-align: center">Đơn vị<br>tính</th>
-                            <th style="text-align: center">Theo dõi</th>
+{{--                            <th style="text-align: center">Theo dõi</th>--}}
                             <th style="text-align: center" width="15%">Thao tác</th>
                         </tr>
                         </thead>
@@ -94,20 +101,23 @@
                         @foreach($model as $key=>$tt)
                         <tr class="odd gradeX">
                             <td style="text-align: center">{{$key + 1}}</td>
+                            <td>{{$tt->mahhdv}}</td>
                             <td class="success" style="font-weight: bold">{{$tt->tenhhdv}}</td>
                             <td>{{$tt->dacdiemkt}}</td>
                             <td style="text-align: center">{{$tt->dvt}}</td>
-                            <td style="text-align: center">
-                                @if($tt->theodoi == 'KTD')
-                                    <span class="badge badge-active">Không theo dõi</span>
-                                @else
-                                    <span class="badge badge-success">Theo dõi</span>
-                                @endif
-                            </td>
+{{--                            <td style="text-align: center">--}}
+{{--                                @if($tt->theodoi == 'KTD')--}}
+{{--                                    <span class="badge badge-active">Không theo dõi</span>--}}
+{{--                                @else--}}
+{{--                                    <span class="badge badge-success">Theo dõi</span>--}}
+{{--                                @endif--}}
+{{--                            </td>--}}
                             <td>
                                 @if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'danhmuc', 'modify'))
-                                    <button type="button" onclick="ClickEdit('{{$tt->mahhdv}}')" class="btn btn-default btn-xs mbs" data-target="#modal-edit" data-toggle="modal">
+                                    <button type="button" onclick="ClickEdit('{{$tt->mahhdv}}')" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
                                         <i class="fa fa-edit"></i>&nbsp;Sửa</button>
+                                    <button type="button" onclick="getId('{{$tt->mahhdv}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal" style="margin: 2px">
+                                        <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
                                 @endif
                             </td>
                         </tr>
@@ -136,10 +146,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label">Mã hàng hóa dịch vụ<span class="require">*</span></label>
-                                <input type="text" name="mahhdv" id="mahhdv" class="form-control">
+                                <input type="text" name="mahhdv" id="mahhdv" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -148,7 +158,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label">Tên hàng hóa dịch vụ<span class="require">*</span></label>
-                                <input type="text" name="tenhhdv" id="tenhhdv" class="form-control require">
+                                <input type="text" name="tenhhdv" id="tenhhdv" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -163,17 +173,16 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group">
-                                <label class="control-label">Đơn vị tính<span class="require">*</span></label>
-                                <input type="text" name="dvt" id="dvt" class="form-control require">
+                                @include('manage.include.form.input_dvt')
                             </div>
                         </div>
                     </div>
                 </div>
                 <input type="hidden" name="matt" id="matt" value="{{$inputs['matt']}}">
                 <div class="modal-footer">
-                    <button type="submit" class="btn blue" onclick="ClickCreate()">Đồng ý</button>
+                    <button type="submit" class="btn blue">Đồng ý</button>
                     <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
                 </div>
                 {!! Form::close() !!}
@@ -182,4 +191,26 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+
+    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                {!! Form::open(['url'=>$inputs['url'].'/delete_dm','id' => 'frm_delete'])!!}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Đồng ý xóa?</h4>
+                </div>
+                <input type="hidden" name="mahhdv" id="mahhdv">
+                <div class="modal-footer">
+                    <button type="submit" class="btn blue" onclick="ClickDelete()">Đồng ý</button>
+                    <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
+                </div>
+                {!! Form::close() !!}
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    @include('manage.include.form.modal_dvt')
 @stop

@@ -37,8 +37,6 @@ Route::get('giadatdiaban/prints','GiaDatDiaBanController@bcgiadatdiaban');
 Route::resource('thongtugiadatdiaban','manage\giadatdiaban\TtGiaDatDiaBanController');
 Route::post('thongtugiadatdiaban/delete','manage\giadatdiaban\TtGiaDatDiaBanController@destroy');
 
-
-
 //giá đất theo phân loại
 Route::group(['prefix'=>'giadatphanloai'],function (){
     Route::get('danhsach','manage\giadatphanloai\GiaDatPhanLoaiController@index');
@@ -59,7 +57,6 @@ Route::group(['prefix'=>'giadatphanloai'],function (){
     Route::post('timkiem','manage\giadatphanloai\GiaDatPhanLoaiController@ketquatk');
     //
 });
-
 
 //Lệ phí trước bạ
 Route::resource('nhomlephitruocba','NhomLePhiTruocBaController');
@@ -110,7 +107,6 @@ Route::group(['prefix'=>'giathuematdatmatnuoc'], function (){
     Route::get('chitiet/del','GiaThueDatNuocCtController@destroy');
 });
 
-
 //Giá rừng
 Route::group(['prefix'=>'giarung'], function (){
     Route::get('danhmuc','manage\giarung\DmGiaRungController@index');
@@ -138,7 +134,6 @@ Route::group(['prefix'=>'giarung'], function (){
     Route::get('timkiem','manage\giarung\GiaRungController@timkiem');
     Route::post('timkiem','manage\giarung\GiaRungController@ketquatk');
 });
-
 
 //Thuế tài nguyên
 
@@ -259,11 +254,25 @@ Route::group(['prefix'=>'giahhdvcn'], function (){
 });
 //Giá HH-DV khác
 Route::group(['prefix'=>'giahhdvk'], function (){
+    //danh mục
     Route::get('danhmuc','NhomHhDvKController@index');
     Route::post('nhomdm','NhomHhDvKController@store');
     Route::get('show_nhomdm','NhomHhDvKController@show_nhomdm');
+    Route::post('delete_nhomdm','NhomHhDvKController@destroy');
     Route::get('danhmuc/detail','DmHhDvKController@index');
     Route::post('dm','DmHhDvKController@store');
+    Route::post('delete_dm','DmHhDvKController@destroy');
+    Route::get('show_dm','DmHhDvKController@edit');
+    //hồ sơ
+    Route::post('danhmucmau','GiaHhDvKController@filemau');
+    Route::get('danhsach','GiaHhDvKController@index');
+    Route::get('new','GiaHhDvKController@create');
+    Route::get('modify','manage\gianuocsachsh\GiaNuocShController@edit');
+    Route::post('modify','manage\gianuocsachsh\GiaNuocShController@update');
+
+    Route::post('delete','manage\gianuocsachsh\GiaNuocShController@destroy');
+    Route::post('chuyenhs','manage\gianuocsachsh\GiaNuocShController@chuyenhs');
+
 
     Route::resource('nhomhanghoadichvu','NhomHhDvKController');
     Route::get('nhomhanghoadichvu/show','NhomHhDvKController@show');
@@ -310,6 +319,32 @@ Route::group(['prefix'=>'giahhdvk'], function (){
 
     Route::get('/thgiahhdvkct/edit','ThGiaHhDvKCtController@edit');
     Route::post('/thgiahhdvkct/update','ThGiaHhDvKCtController@update');
+
+//    Route::get('danhsach','manage\gianuocsachsh\GiaNuocShController@index');
+//    Route::get('new','manage\gianuocsachsh\GiaNuocShController@create');
+//    Route::get('modify','manage\gianuocsachsh\GiaNuocShController@edit');
+//    Route::post('modify','manage\gianuocsachsh\GiaNuocShController@update');
+//
+//    Route::post('delete','manage\gianuocsachsh\GiaNuocShController@destroy');
+//    Route::post('chuyenhs','manage\gianuocsachsh\GiaNuocShController@chuyenhs');
+//
+//    Route::get('xetduyet','manage\gianuocsachsh\GiaNuocShController@xetduyet');
+//    Route::post('chuyenxd','manage\gianuocsachsh\GiaNuocShController@chuyenxd');
+//    Route::post('tralai','manage\gianuocsachsh\GiaNuocShController@tralai');
+//    Route::post('congbo','manage\gianuocsachsh\GiaNuocShController@congbo');
+//
+//    Route::get('nhandulieutuexcel','manage\giarung\GiaNuocShController@nhandulieutuexcel');
+//    Route::post('importexcel','manage\giarung\GiaNuocShController@importexcel');
+//
+//    Route::get('timkiem','manage\gianuocsachsh\GiaNuocShController@timkiem');
+//    Route::post('timkiem','manage\gianuocsachsh\GiaNuocShController@ketquatk');
+//    //Route::get('timkiem/printf','manage\gianuocsachsh\GiaNuocShTkController@printf');
+//
+//    Route::get('edit_ct','manage\gianuocsachsh\GiaNuocShCtController@edit');
+//    Route::get('update_ct','manage\gianuocsachsh\GiaNuocShCtController@update');
+//
+//    Route::get('baocao','manage\gianuocsachsh\GiaNuocShBcController@index');
+//    Route::post('baocao/baocaonuocsh1','manage\gianuocsachsh\GiaNuocShBcController@Bc1');
 });
 
 //

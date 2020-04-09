@@ -16,22 +16,12 @@ class CreateGiahhdvkctTable extends Migration
         Schema::create('giahhdvkct', function (Blueprint $table) {
             $table->increments('id');
             $table->string('mahs')->nullable();
-            $table->string('maxa')->nullable();
-            $table->string('mahuyen')->nullable();
-            $table->string('district')->nullable();
-            $table->string('manhom')->nullable();
-            $table->string('nhom')->nullable();
             $table->string('mahhdv')->nullable();
-            $table->string('tenhhdv')->nullable();
-            $table->text('dacdiemkt')->nullable();
-            $table->string('xuatxu')->nullable();
-            $table->string('dvt')->nullable();
             $table->string('gialk')->nullable();
             $table->string('gia')->nullable();
             $table->string('loaigia')->nullable();
             $table->string('nguontt')->nullable();
             $table->text('ghichu')->nullable();
-            $table->string('trangthai')->nullable();
             $table->timestamps();
         });
     }

@@ -597,6 +597,35 @@
                     <a href="{{url('/giahhdvk/danhmuc')}}">Danh mục</a>
                 </li>
             @endif
+
+            @if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'hoso','index'))
+                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                    <li>
+                        <a href="{{url('/giahhdvk/danhsach')}}">
+                            Thông tin hồ sơ
+                        </a>
+                    </li>
+                @endif
+
+                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                    <li>
+                        <a href="{{url('/giahhdvk/xetduyet')}}">
+                            Xét duyệt hồ sơ
+                        </a>
+                    </li>
+                @endif
+
+                <li>
+                    <a href="{{url('/giahhdvk/timkiem')}}">
+                        Tìm kiếm hồ sơ
+                    </a>
+                </li>
+            @endif
+
+            <li>
+                <a href="{{url('/giahhdvk/baocao')}}">Báo cáo tổng hợp</a>
+            </li>
+
             ----
             @if(can('dmgiahhdvk','index'))
                 <li>
