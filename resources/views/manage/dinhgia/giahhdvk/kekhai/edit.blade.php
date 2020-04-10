@@ -37,7 +37,7 @@
     <div class="row center">
         <div class="col-md-12 center">
             <!-- BEGIN VALIDATION STATES-->
-            {!! Form::model($model, ['method' => 'PATCH', 'url'=>'giahhdvkhac/'. $model->id, 'class'=>'horizontal-form','id'=>'update_giahhdvkhac']) !!}
+            {!! Form::model($model, ['method' => 'post', 'url'=>$inputs['url'].'/store', 'class'=>'horizontal-form','id'=>'update_giahhdvkhac']) !!}
             <meta name="csrf-token" content="{{ csrf_token() }}" />
             <div class="portlet box blue">
                 <div class="portlet-body form">
@@ -48,16 +48,17 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Theo thông tư quyết định</label>
-                                    <label class="control-label" style="color: blue;font-weight: bold">{{$tennhom}}</label>
+                                    {!!Form::select('', $a_tt, null, array('id' => '','class' => 'form-control select2me', 'disabled'=>'disabled'))!!}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Đia bàn:</label>
-                                    <label class="control-label" style="color: blue;font-weight: bold">{{$diaban}}</label>
+                                    {!!Form::select('', $a_diaban, null, array('id' => '','class' => 'form-control', 'disabled'=>'disabled'))!!}
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -83,7 +84,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Ngày áp dụng<span class="require">*</span></label>
-                                    {!!Form::text('ngayapdung',date('d/m/Y',  strtotime($model->ngayapdung)), array('id' => 'ngayapdung','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                                    {!! Form::input('date', 'thoidiem', null, array('id' => 'thoidiem', 'class' => 'form-control', 'required'))!!}
                                 </div>
                             </div>
                             <!--/span-->
@@ -91,15 +92,15 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Số quyết định liền kề<span class="require">*</span></label>
+                                    <label class="control-label">Số quyết định liền kề</label>
                                     {!!Form::text('soqdlk',null, array('id' => 'soqdlk','class' => 'form-control'))!!}
                                 </div>
                             </div>
                             <!--/span-->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Ngày báo cáo liền kề<span class="require">*</span></label>
-                                    {!!Form::text('ngayapdunglk',($model->ngayapdunglk != '' ? date('d/m/Y',  strtotime($model->ngayapdunglk)) : null), array('id' => 'ngayapdunglk','data-inputmask'=>"'alias': 'date'",'class' => 'form-control'))!!}
+                                    <label class="control-label">Ngày báo cáo liền kề</label>
+                                    {!! Form::input('date', 'thoidiemlk', null, array('id' => 'thoidiemlk', 'class' => 'form-control'))!!}
                                 </div>
                             </div>
                             <!--/span-->
@@ -114,15 +115,18 @@
                             </div>
                         </div>
                         <input type="hidden" name="mahs" id="mahs" value="{{$model->mahs}}">
+                        <input type="hidden" name="matt" id="matt" value="{{$model->matt}}">
+                        <input type="hidden" name="madv" id="madv" value="{{$model->madv}}">
+                        <input type="hidden" name="thang" id="thang" value="{{$model->thang}}">
+                        <input type="hidden" name="nam" id="nam" value="{{$model->nam}}">
+                        <input type="hidden" name="madiaban" id="madiaban" value="{{$model->madiaban}}">
                         <h4 style="color: blue">Thông tin chi tiết</h4>
                         <div class="row" id="dsts">
                             <div class="col-md-12">
-                                <table class="table table-striped table-bordered table-hover" id="sample_3">
+                                <table class="table table-striped table-bordered table-hover" id="sample_4">
                                     <thead>
                                     <tr>
                                         <th width="2%" style="text-align: center">STT</th>
-                                        <th style="text-align: center">Mã nhóm<br>hàng hóa<br> dịch vụ</th>
-                                        <th style="text-align: center">Tên nhóm <br>hàng hóa<br> dịch vụ</th>
                                         <th style="text-align: center">Mã <br>hàng hóa<br> dịch vụ</th>
                                         <th style="text-align: center">Tên hàng hóa dịch vụ</th>
                                         <th style="text-align: center">Đặc điểm kỹ thuật</th>
@@ -136,16 +140,17 @@
                                     @foreach($modelct as $key=>$tt)
                                         <tr>
                                             <td style="text-align: center">{{$key+1}}</td>
-                                            <td style="text-align: center">{{$tt->manhom}}</td>
-                                            <td style="text-align: left">{{$tt->nhom}}</td>
                                             <td style="text-align: center">{{$tt->mahhdv}}</td>
-                                            <td class="active" style="font-weight: bold">{{$tt->tenhhdv}}</td>
+                                            <td class="active" style="font-weight: bold">{{$a_dm[$tt->mahhdv] ?? ''}}</td>
                                             <td style="text-align: left">{{$tt->dacdiemkt}}</td>
                                             <td style="text-align: center">{{$tt->dvt}}</td>
                                             <td style="text-align: right;font-weight: bold">{{number_format($tt->gialk)}}</td>
                                             <td style="text-align: right;font-weight: bold">{{number_format($tt->gia)}}</td>
                                             <td>
-                                                <button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem({{$tt->id}})"><i class="fa fa-edit"></i>&nbsp;Nhập giá</button>
+                                                @if(in_array($model->trangthai, ['CHT', 'HHT']))
+                                                    <button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem({{$tt->id}})">
+                                                        <i class="fa fa-edit"></i>&nbsp;Nhập giá</button>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -161,9 +166,14 @@
             </div>
             <div class="row">
                 <div class="col-md-12" style="text-align: center">
-                    <a href="{{url('giahhdvkhac?&district='.$model->district.'&trangthai='.$model->trangthai)}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
-                    <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
-                    <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i>Cập nhật</button>
+                    <a href="{{url($inputs['url'].'/danhsach?madiaban='.$model->madiaban)}}" class="btn btn-danger">
+                        <i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                    @if($inputs['act'] == 'true')
+                        <button type="reset" class="btn btn-default">
+                            <i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
+                        <button type="submit" class="btn green" onclick="validateForm()">
+                            <i class="fa fa-check"></i>Hoàn thành</button>
+                    @endif
                 </div>
             </div>
             {!! Form::close() !!}
@@ -175,7 +185,6 @@
 
     <script type="text/javascript">
         function validateForm(){
-
             var validator = $("#update_giahhdvkhac").validate({
                 rules: {
                     ten :"required"

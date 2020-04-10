@@ -19,7 +19,7 @@ class CreateThgiahhdvkTable extends Migration
             $table->date('ngaychotbc')->nullable();
             $table->string('sobc')->nullable();
             $table->string('ttbc')->nullable();
-            $table->string('manhom')->nullable();
+            $table->string('matt')->nullable();
             $table->string('mahs')->nullable();
             $table->string('phanloai')->nullable();//15 ngày đầu tháng, 15 ngày cuối tháng, tháng
             $table->string('thang')->nullable();

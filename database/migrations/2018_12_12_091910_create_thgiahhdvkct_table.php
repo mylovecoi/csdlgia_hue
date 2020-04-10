@@ -17,13 +17,9 @@ class CreateThgiahhdvkctTable extends Migration
             $table->increments('id');
             $table->string('mahs')->nullable();
             $table->date('ngaychotbc')->nullable();
-            $table->string('manhom')->nullable();
+            $table->string('matt')->nullable();
             $table->string('nhom')->nullable();
             $table->string('mahhdv')->nullable();
-            $table->string('tenhhdv')->nullable();
-            $table->string('dacdiemkt')->nullable();
-            $table->string('xuatxu')->nullable();
-            $table->string('dvt')->nullable();
             $table->string('gialk')->nullable();
             $table->string('gia')->nullable();
             $table->string('loaigia')->nullable();

@@ -42,14 +42,26 @@ $(function () {
     index = chk.indexOf('edit');
     if(index > -1) {
         url = '';
-        for (var i = 0; i < index - 1; i++) {
-            if(i == index - 2){
+        for (var i = 0; i < index; i++) {
+            if(i == index - 1){
                 url += chk[i];
             }else {
                 url += chk[i] + "/";
             }
         }
     }
+
+    // index = chk.indexOf('edit');
+    // if(index > -1) {
+    //     url = '';
+    //     for (var i = 0; i < index - 1; i++) {
+    //         if(i == index - 2){
+    //             url += chk[i];
+    //         }else {
+    //             url += chk[i] + "/";
+    //         }
+    //     }
+    // }
 
     chk = url.split('/');
 

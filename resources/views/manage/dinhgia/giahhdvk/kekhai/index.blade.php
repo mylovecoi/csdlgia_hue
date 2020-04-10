@@ -109,7 +109,7 @@
                                     Tháng {{$tt->thang}}/{{$tt->nam}}
                                     <br>{{$a_dv[$tt->madv] ?? ''}}
                                 </td>
-                                <td class="active" style="font-weight: bold">{{$a_tt[$tt->matt] ?? ''}}</td>
+                                <td class="active" style="font-weight: bold">{{$a_nhom[$tt->matt] ?? ''}}</td>
                                 <td>Số: {{$tt->soqd}}<br>Ngày: {{getDayVn($tt->thoidiem)}}</td>
                                 <td>Số: {{$tt->soqdlk}}<br>Ngày: {{getDayVn($tt->thoidiemlk)}}</td>
                                 @include('manage.include.form.td_trangthai')
@@ -252,42 +252,6 @@
         {!! Form::close() !!}
     </div>
 
-    <!--Modal Delete-->
-    <div id="delete-modal-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
-        {!! Form::open(['url'=>$inputs['url'].'/delete','id' => 'frm_delete'])!!}
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header modal-header-primary">
-                    <button type="button" data-dismiss="modal" aria-hidden="true"
-                            class="close">&times;</button>
-                    <h4 id="modal-header-primary-label" class="modal-title">Đồng ý xoá?</h4>
-                    <input type="hidden" name="iddelete" id="iddelete">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
-                    <button type="submit" data-dismiss="modal" class="btn btn-primary" onclick="clickdelete()">Đồng ý</button>
-                </div>
-            </div>
-        </div>
-        {!! Form::close() !!}
-    </div>
-    <script>
-        function clickdelete(){
-            $('#frm_delete').submit();
-        }
-    </script>
-
-    <script>
-        function clickhoanthanh(){
-            $('#frm_hoanthanh').submit();
-        }
-        function clickcongbo(){
-            $('#frm_congbo').submit();
-        }
-        function clickhuyhoanthanh(){
-            $('#frm_huyhoanthanh').submit();
-        }
-    </script>
-
+    @include('manage.include.form.modal_del_hs')
+    @include('manage.include.form.modal_approve_hs')
 @stop
