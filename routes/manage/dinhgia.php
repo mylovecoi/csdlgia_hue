@@ -286,6 +286,12 @@ Route::group(['prefix'=>'giahhdvk'], function (){
     //Tổng hợp
     Route::get('tonghop','ThGiaHhDvKController@index');
     Route::post('tonghop/createthang','ThGiaHhDvKController@createthang');
+    Route::post('tonghop/store','ThGiaHhDvKController@store');
+    Route::get('tonghop/edit','ThGiaHhDvKController@edit');
+    Route::get('tonghop/edit_ct','ThGiaHhDvKCtController@edit');
+    Route::post('tonghop/update_ct','ThGiaHhDvKCtController@update');
+    Route::post('tonghop/delete','ThGiaHhDvKController@destroy');
+
     Route::post('tonghopgiahhdvk/delete','ThGiaHhDvKController@destroy');
     Route::post('tonghopgiahhdvk/hoanthanh','ThGiaHhDvKController@hoanthanh');
     Route::post('tonghopgiahhdvk/huyhoanthanh','ThGiaHhDvKController@huyhoanthanh');

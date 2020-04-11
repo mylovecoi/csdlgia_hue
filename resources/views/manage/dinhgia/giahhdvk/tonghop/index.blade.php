@@ -136,7 +136,7 @@
                         @foreach($model as $key=>$ct)
                             <tr>
                                 <td style="text-align: center">{{$key+1}}</td>
-                                <td style="font-weight: bold">{{$ct->tentt}}</td>
+                                <td style="font-weight: bold">{{$a_tt[$ct->matt]}}</td>
                                 <td style="font-weight: bold">Tháng {{$ct->thang}} /Năm {{$ct->nam}}</td>
                                 {{--<td>{{$ct->ttbc}}</td>--}}
                                 <td style="text-align: center">{{getDayVn($ct->ngaybc)}}</td>
@@ -153,15 +153,15 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{url($inputs['url'].'tonghop/chitiet?mahs'.$ct->mahs)}}" class="btn btn-default btn-xs mbs" target="_blank">
-                                        <i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
-                                    <a href="{{url($inputs['url'].'/edit?mahs='.$ct->mahs)}}" class="btn btn-default btn-xs mbs">
+{{--                                    <a href="{{url($inputs['url'].'/tonghop/chitiet?mahs'.$ct->mahs)}}" class="btn btn-default btn-xs mbs" target="_blank">--}}
+{{--                                        <i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>--}}
+                                    <a href="{{url($inputs['url'].'/tonghop/edit?mahs='.$ct->mahs)}}" class="btn btn-default btn-xs mbs">
                                         <i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
-                                    <a href="{{url($inputs['url'].'tonghop/exportXML?mahs='.$ct->mahs)}}" class="btn btn-default btn-xs mbs">
+                                    <a href="{{url($inputs['url'].'/tonghop/exportXML?mahs='.$ct->mahs)}}" class="btn btn-default btn-xs mbs">
                                         <i class="fa fa-file-code-o"></i>&nbsp;Xuất file XML</a>
-                                    <a href="{{url($inputs['url'].'tonghop/exportEx?mahs='.$ct->mahs)}}" class="btn btn-default btn-xs mbs">
+                                    <a href="{{url($inputs['url'].'/tonghop/exportEx?mahs='.$ct->mahs)}}" class="btn btn-default btn-xs mbs">
                                         <i class="fa fa-file-code-o"></i>&nbsp;Xuất file Excel</a>
-                                    <button type="button" onclick="confirmDelete('{{$ct->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
+                                    <button type="button" onclick="confirmDelete('{{$ct->mahs}}','{{$inputs['url'].'/tonghop/delete'}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
                                         <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
 
                                 </td>
@@ -287,4 +287,5 @@
         </div>
         {!! Form::close() !!}
     </div>
+    @include('manage.include.form.modal_del_hs')
 @stop

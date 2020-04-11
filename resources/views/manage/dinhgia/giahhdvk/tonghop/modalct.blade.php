@@ -2,7 +2,7 @@
     function editItem(id) {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
-            url: '/thgiahhdvkct/edit',
+            url: '{{$inputs['url']}}' + '/tonghop/edit_ct',
             type: 'GET',
             data: {
                 _token: CSRF_TOKEN,
@@ -10,16 +10,12 @@
             },
             dataType: 'JSON',
             success: function (data) {
-                $('#edit_manhom').val(data.manhom);
-                $('#edit_nhom').val(data.nhom);
-                $('#edit_mahhdv').val(data.mahhdv);
-                $('#edit_tenhhdv').val(data.tenhhdv);
-                $('#edit_dacdiemkt').val(data.dacdiemkt);
-                $('#edit_dvt').val(data.dvt);
-                $('#edit_gialk').val(data.gialk);
-                $('#edit_gia').val(data.gia);
-                $('#edit_ghichu').val(data.ghichu);
-                $('#edit_id').val(data.id);
+                $('#mahhdv').val(data.mahhdv).trigger('change');
+                //$('#tenhhdv').val(data.tenhhdv);
+                $('#gialk').val(data.gialk);
+                $('#gia').val(data.gia);
+                $('#ghichu').val(data.ghichu);
+                $('#id').val(data.id);
             },
             error: function (message) {
                 toastr.error(message, 'Lỗi!');
@@ -32,19 +28,17 @@
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 //        alert(CSRF_TOKEN);
         $.ajax({
-            url: '/thgiahhdvkct/update',
-            type: 'POST',
+            url: '{{$inputs['url']}}' + '/tonghop/update_ct',
+            type: 'post',
             data: {
                 _token: CSRF_TOKEN,
-                id: $('#edit_id').val(),
-                dacdiemkt: $('#edit_dacdiemkt').val(),
-                dvt: $('#edit_dvt').val(),
-                gialk: $('#edit_gialk').val(),
-                gia: $('#edit_gia').val(),
-                loaigia: $('#edit_loaigia').val(),
-                nguontt: $('#edit_nguontt').val(),
-                ghichu: $('#edit_ghichu').val(),
-                mahs: $('#mahs').val(),
+                id: $('#id').val(),
+                nguontt: $('#nguontt').val(),
+                loaigia: $('#loaigia').val(),
+                gialk: $('#gialk').val(),
+                gia: $('#gia').val(),
+                ghichu: $('#ghichu').val(),
+                //mahs: $('#mahs').val(),
             },
             dataType: 'JSON',
             success: function (data) {
@@ -55,7 +49,6 @@
                         TableManaged.init();
                     });
                     $('#modal-edit').modal("hide");
-
 
                 }else
                     toastr.error("Bạn cần kiểm tra lại thông tin vừa nhập!", "Lỗi!");
@@ -72,52 +65,19 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">Mã nhóm: </label>
-                            <input type="text" id="edit_manhom" name="edit_manhom" class="form-control" disabled>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">Tên nhóm: </label>
-                            <input type="text" id="edit_nhom" name="edit_nhom" class="form-control" disabled>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label">Mã hàng hóa </label>
-                            <input type="text" id="edit_mahhdv" name="edit_mahhdv" class="form-control" disabled>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">Tên hàng hóa </label>
-                            <input type="text" id="edit_tenhhdv" name="edit_tenhhdv" class="form-control" disabled>
+                            {!!Form::select('', $a_dm, null, array('id' => 'mahhdv','class' => 'form-control select2me', 'disabled'=>'disabled'))!!}
                         </div>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label class="control-label">Đặc điểm kỹ thuật</label>
-                            <input type="text" id="edit_dacdiemkt" name="edit_dacdiemkt" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">Đơn vị tính</label>
-                            <input type="text" id="edit_dvt" name="edit_dvt" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
                             <label class="control-label">Loại giá</label>
-                            <select class="form-control" id="edit_loaigia" name="edit_loaigia">
+                            <select class="form-control" id="loaigia" name="loaigia">
                                 <option value="Giá bán buôn">Giá bán buôn</option>
                                 <option value="Giá bán lẻ">Giá bán lẻ</option>
                                 <option value="Giá kê khai">Giá kê khai</option>
@@ -130,13 +90,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Giá kỳ trước</label>
-                            <input type="text" name="edit_gialk" id="edit_gialk" class="form-control" data-mask="fdecimal" style="text-align: right; font-weight: bold">
+                            <input type="text" name="gialk" id="gialk" class="form-control" data-mask="fdecimal" style="text-align: right; font-weight: bold">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Giá kỳ này</label>
-                            <input type="text" name="edit_gia" id="edit_gia" class="form-control" data-mask="fdecimal" style="text-align: right; font-weight: bold">
+                            <input type="text" name="gia" id="gia" class="form-control" data-mask="fdecimal" style="text-align: right; font-weight: bold">
                         </div>
                     </div>
                 </div>
@@ -144,7 +104,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label">Nguồn thông tin</label>
-                            <select class="form-control" id="edit_nguontt" name="edit_nguontt">
+                            <select class="form-control" id="nguontt" name="nguontt">
                                 <option value="Do trục tiếp điều tra, thu thập">Do trục tiếp điều tra, thu thập</option>
                                 <option value="Hợp đồng mua tin">Hợp đồng mua tin</option>
                                 <option value="Do cơ quan/đơn vị quản lý nhà nước có liên quan cung cấp/báo cáo theo quy định">Do cơ quan/đơn vị quản lý nhà nước có liên quan cung cấp/báo cáo theo quy định</option>
@@ -158,11 +118,11 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label">Ghi chú</label>
-                            <input type="text" id="edit_ghichu" name="edit_ghichu" class="form-control">
+                            <input type="text" id="ghichu" name="ghichu" class="form-control">
                         </div>
                     </div>
                 </div>
-                <input type="hidden" id="edit_id" name="edit_id">
+                <input type="hidden" id="id" name="id">
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-default">Thoát</button>

@@ -130,16 +130,18 @@ class ThGiaHhDvKController extends Controller
 
     public function store(Request $request){
         if (Session::has('admin')) {
-            if (session('admin')->level == 'T' || session('admin')->level == 'H') {
+            if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'khac','tonghop')){
                 $inputs = $request->all();
                 $inputs['ngaybc'] = getDateToDb($inputs['ngaybc']);
-                $inputs['trangthai'] = 'CHT';
-                $model = new ThGiaHhDvK();
-                if($model->create($inputs)){
-                    $modelct = ThGiaHhDvKCt::where('mahs',$inputs['mahs'])
-                        ->update(['trangthai' => 'XD']);
+                $model = ThGiaHhDvK::where('mahs',$inputs['mahs'])->first();
+                if($model == null){
+                    $inputs['trangthai'] = 'CHT';
+                    ThGiaHhDvK::create($inputs);
+                }else{
+                    $model->update($inputs);
                 }
-                return redirect('tonghopgiahhdvk?&matt='.$inputs['matt'].'&nam='.$inputs['nam'].'&phanloai='.$inputs['phanloai']);
+
+                return redirect('/giahhdvk/tonghop');
             }else
                 return view('errors.perm');
         }else
@@ -186,38 +188,33 @@ class ThGiaHhDvKController extends Controller
             return view('errors.notlogin');
     }
 
-    public function edit($id){
-        if (session('admin')->level == 'T' || session('admin')->level == 'H') {
-            $model = ThGiaHhDvK::findOrFail($id);
-            $modelct = ThGiaHhDvKCt::where('mahs',$model->mahs)
-                ->get();
-            $modelnhom = NhomHhDvK::where('matt',$model->matt)->first();
-            return view('manage.dinhgia.giahhdvk.tonghop.edit')
-                ->with('modelct',$modelct)
-                ->with('modelnhom',$modelnhom)
-                ->with('model',$model)
-                ->with('pageTitle','Tổng hợp giá hàng hóa dịch vụ khác chỉnh sửa');
-        }else
-            return view('errors.perm');
-    }
-
-    public function update(Request $request,$id){
+    public function edit(Request $request){
         if (Session::has('admin')) {
-            if (session('admin')->level == 'T' || session('admin')->level == 'H') {
+            if (chkPer('csdlmucgiahhdv', 'hhdv', 'giahhdvk', 'khac', 'tonghop')) {
                 $inputs = $request->all();
-                $inputs['ngaybc'] = getDateToDb($inputs['ngaybc']);
-                $model = ThGiaHhDvK::findOrFail($id);
-                $model->update($inputs);
-                return redirect('tonghopgiahhdvk?&matt='.$model->matt.'&nam='.$model->nam.'&phanloai='.$model->phanloai);
-
-            }else
+                $inputs['url'] = '/giahhdvk';
+                $model = ThGiaHhDvK::where('mahs', $inputs['mahs'])->first();
+                $modelct = ThGiaHhDvKCt::where('mahs', $model->mahs)->get();
+                $modelnhom = NhomHhDvK::where('matt', $model->matt)->first();
+                $modeldm = DmHhDvK::where('matt', $model->matt)->get();
+                return view('manage.dinhgia.giahhdvk.tonghop.edit')
+                    ->with('model', $model)
+                    ->with('modelct', $modelct)
+                    ->with('modelnhom', $modelnhom)
+                    ->with('a_dm',array_column($modeldm->toarray(), 'tenhhdv', 'mahhdv'))
+                    ->with('inputs', $inputs)
+                    ->with('pageTitle', 'Tổng hợp giá hàng hóa, dịch vụ chỉnh sửa');
+            } else
                 return view('errors.perm');
-        }else
+        } else
             return view('errors.notlogin');
     }
 
+
+
     public function destroy(Request $request){
         if (Session::has('admin')) {
+            dd(1);
             if (session('admin')->level == 'T' || session('admin')->level == 'H') {
                 $inputs = $request->all();
                 $model = ThGiaHhDvK::where('id',$inputs['iddelete'])
@@ -229,42 +226,6 @@ class ThGiaHhDvKController extends Controller
 
             }else
                 return view('errors.perm');
-        }else
-            return view('errors.notlogin');
-    }
-
-    public function hoanthanh(Request $request){
-        if(Session::has('admin')){
-            $inputs = $request->all();
-            $id = $inputs['idhoanthanh'];
-            $model = ThGiaHhDvK::findOrFail($id);
-            $model->trangthai = 'HT';
-            $model->save();
-            return redirect('tonghopgiahhdvk?&matt='.$model->matt.'&nam='.$model->nam.'&phanloai='.$model->phanloai);
-        }else
-            return view('errors.notlogin');
-    }
-
-    public function huyhoanthanh(Request $request){
-        if(Session::has('admin')){
-            $inputs = $request->all();
-            $id = $inputs['idhuyhoanthanh'];
-            $model = ThGiaHhDvK::findOrFail($id);
-            $model->trangthai = 'CHT';
-            $model->save();
-            return redirect('tonghopgiahhdvk?&matt='.$model->matt.'&nam='.$model->nam.'&phanloai='.$model->phanloai);
-        }else
-            return view('errors.notlogin');
-    }
-
-    public function congbo(Request $request){
-        if(Session::has('admin')){
-            $inputs = $request->all();
-            $id = $inputs['idcongbo'];
-            $model = ThGiaHhDvK::findOrFail($id);
-            $model->congbo = 'CB';
-            $model->save();
-            return redirect('tonghopgiahhdvk?&matt='.$model->matt.'&nam='.$model->nam.'&phanloai='.$model->phanloai);
         }else
             return view('errors.notlogin');
     }
@@ -370,6 +331,7 @@ class ThGiaHhDvKController extends Controller
         if (Session::has('admin')) {
             if (chkPer('csdlmucgiahhdv', 'hhdv', 'giahhdvk', 'khac', 'tonghop')) {
                 $inputs = $request->all();
+                $inputs['url'] = '/giahhdvk';
                 //dd($inputs);
                 $model = ThGiaHhDvK::where('matt', $inputs['matt'])
                     ->where('thang', $inputs['thang'])
@@ -395,7 +357,6 @@ class ThGiaHhDvKController extends Controller
                 $modelcthskk = GiaHhDvKCt::wherein('mahs', $m_hoso->toArray())
                     ->where('gia', '<>', 0)->get();
                 //dd($modelcthskk->select('mahhdv','tenhhdv','gia')->get()->toArray());
-
 
                 $modeldm = DmHhDvK::where('matt', $inputs['matt'])->get();
                 //dd($modeldm);
@@ -429,6 +390,7 @@ class ThGiaHhDvKController extends Controller
                     ->with('model', $model)
                     ->with('modelct', $modelct)
                     ->with('modelnhom', $modelnhom)
+                    ->with('a_dm',array_column($modeldm->toarray(), 'tenhhdv', 'mahhdv'))
                     ->with('inputs', $inputs)
                     ->with('pageTitle', 'Tổng hợp giá hàng hóa dịch vụ khác');
 
@@ -542,5 +504,55 @@ class ThGiaHhDvKController extends Controller
             return view('errors.notlogin');
     }
 
+    public function update(Request $request,$id){
+        if (Session::has('admin')) {
+            if (session('admin')->level == 'T' || session('admin')->level == 'H') {
+                $inputs = $request->all();
+                $inputs['ngaybc'] = getDateToDb($inputs['ngaybc']);
+                $model = ThGiaHhDvK::findOrFail($id);
+                $model->update($inputs);
+                return redirect('tonghopgiahhdvk?&matt='.$model->matt.'&nam='.$model->nam.'&phanloai='.$model->phanloai);
+
+            }else
+                return view('errors.perm');
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function hoanthanh(Request $request){
+        if(Session::has('admin')){
+            $inputs = $request->all();
+            $id = $inputs['idhoanthanh'];
+            $model = ThGiaHhDvK::findOrFail($id);
+            $model->trangthai = 'HT';
+            $model->save();
+            return redirect('tonghopgiahhdvk?&matt='.$model->matt.'&nam='.$model->nam.'&phanloai='.$model->phanloai);
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function huyhoanthanh(Request $request){
+        if(Session::has('admin')){
+            $inputs = $request->all();
+            $id = $inputs['idhuyhoanthanh'];
+            $model = ThGiaHhDvK::findOrFail($id);
+            $model->trangthai = 'CHT';
+            $model->save();
+            return redirect('tonghopgiahhdvk?&matt='.$model->matt.'&nam='.$model->nam.'&phanloai='.$model->phanloai);
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function congbo(Request $request){
+        if(Session::has('admin')){
+            $inputs = $request->all();
+            $id = $inputs['idcongbo'];
+            $model = ThGiaHhDvK::findOrFail($id);
+            $model->congbo = 'CB';
+            $model->save();
+            return redirect('tonghopgiahhdvk?&matt='.$model->matt.'&nam='.$model->nam.'&phanloai='.$model->phanloai);
+        }else
+            return view('errors.notlogin');
+    }
 
 }
