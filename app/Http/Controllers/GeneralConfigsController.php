@@ -113,8 +113,9 @@ class GeneralConfigsController extends Controller
                         }
                     }
                 }
-
-                $a_chucnang = array_column(danhmucchucnang::all()->toArray(),'mota','maso');
+                //dd($gui);
+                //$a_chucnang = array_column(danhmucchucnang::all()->toArray(),'mota','maso');
+                $a_chucnang = array();
                 //dd($gui);
 
                 return view('system.general.setting')

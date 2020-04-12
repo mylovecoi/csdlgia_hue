@@ -7,7 +7,12 @@ $(function () {
     }
     var chk = url.split('/');
 
-    var index = url.indexOf('modify');
+    var index = url.indexOf('perm');
+    if (index > 0) {
+        url = url.substring(0, index - 1) + '/danhsach';
+    }
+
+    index = url.indexOf('modify');
     if (index > 0) {
         url = url.substring(0, index - 1) + '/danhsach';
     }

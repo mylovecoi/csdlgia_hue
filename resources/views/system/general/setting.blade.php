@@ -54,7 +54,7 @@
                             @foreach($setting as $k_csdl=>$v_csdl)
                                 <tr style="font-weight: bold;" class="success">
                                     <td class="text-left" style="text-transform: uppercase;">{{toAlpha($i++)}}</td>
-                                    <td>{{isset($a_chucnang[$k_csdl]) ? $a_chucnang[$k_csdl] : $k_csdl}}</td>
+                                    <td>{{$a_chucnang[$k_csdl] ?? $k_csdl}}</td>
                                     <td class="text-center">
                                         @if($v_csdl['index'] == '1')
                                             <i class="fa fa-check"></i>
@@ -149,14 +149,13 @@
         <!-- /.modal-dialog -->
     </div>
 
-
     <script>
-    function change(roles, index, congbo, chucnang){
-        $('#index').val(index).trigger('change');
-        $('#index').attr('name','roles' + roles+'[index]');
-        $('#congbo').val(congbo).trigger('change');
-        $('#congbo').attr('name','roles' + roles+'[congbo]');
-        document.getElementById("chucnang").innerHTML ='Chức năng: ' + chucnang;
-    }
+        function change(roles, index, congbo, chucnang){
+            $('#index').val(index).trigger('change');
+            $('#index').attr('name','roles' + roles+'[index]');
+            $('#congbo').val(congbo).trigger('change');
+            $('#congbo').attr('name','roles' + roles+'[congbo]');
+            document.getElementById("chucnang").innerHTML ='Chức năng: ' + chucnang;
+        }
     </script>
 @stop

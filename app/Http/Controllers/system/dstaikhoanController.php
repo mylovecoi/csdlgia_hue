@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\system;
 
+use App\GeneralConfigs;
 use App\Model\system\dsdiaban;
 use App\Model\system\dsdonvi;
 use App\Users;
@@ -170,6 +171,12 @@ class dstaikhoanController extends Controller
             return view('errors.notlogin');
     }
 
+    /*
+     Load setting
+    load quyền mặc định
+    Load quyền user
+    Cập nhật quyền user vào quyền mặc định (để luôn chạy theo quyền hệ thống, nếu có thay đổi quyền, thêm quyền thì luôn có)
+     * */
     public function permission(Request $request)
     {
         if (Session::has('admin')) {
@@ -178,20 +185,68 @@ class dstaikhoanController extends Controller
                 return view('errors.noperm');
             }
             $inputs = $request->all();
+            //dd($inputs);
+            $m_gui = GeneralConfigs::first();
+            //$gui = getGiaoDien();
+            $setting = json_decode($m_gui->setting, true);
+            $permission = getPhanQuyen();
+            //dd($permission);
             $model = Users::where('username',$inputs['username'])->first();
-            $permission = json_decode($model->permission,true);
-            $setting = getPhanQuyen();
-            foreach($setting as $k_csdl => $v_csdl){
+            $per_user = json_decode($model->permission,true);
 
+            foreach($permission as $key => $val){
+                if(!isset($per_user[$key])){
+                    unset($permission[$key]);
+                }else{
+                    $per = $per_user[$key];
+                    foreach ($val as $k1=>$v1){
+                        if(!is_array($v1)){
+                            $permission[$key][$k1] = $per[$k1] ?? $permission[$key][$k1];
+                        }else{
+                            foreach ($v1 as $k2=>$v2){
+                                $permission[$key][$k1][$k2] = $per[$k1][$k2] ?? $permission[$key][$k1][$k2];
+                            }
+                        }
+                    }
+                }
             }
-            dd($setting);
+            //chạy $setting nếu cái nào index = 0 => unset()
+
+            foreach($setting as $k1 => $v1){
+                if(!isset($v1['index']) || $v1['index'] == '0'){
+                    unset($setting[$k1]);
+                    continue;
+                }
+                //xóa các giá trị đơn: index, congbo,... chỉ để mảng để duyệt
+                foreach ($v1 as $k2 => $v2){
+                    if(!is_array($v2) || !isset($v2['index']) || $v2['index'] == '0'){
+                        unset($setting[$k1][$k2]);
+                        continue;
+                    }
+                    foreach ($v2 as $k3 => $v3){
+                        if(!is_array($v3) || !isset($v3['index']) || $v3['index'] == '0'){
+                            unset($setting[$k1][$k2][$k3]);
+                            continue;
+                        }
+                    }
+                }
+            }
+            //dd($setting);
             return view('system.taikhoan.perms')
-                ->with('permission', json_decode($permission))
+                ->with('permission', $permission)
                 ->with('setting', $setting)
                 ->with('model', $model)
                 ->with('pageTitle', 'Phân quyền cho tài khoản');
 
         } else
             return view('errors.notlogin');
+    }
+
+    function DeQuy($array){
+        foreach ($array as $key=>$val){
+            if(is_array($val)){
+
+            }
+        }
     }
 }
