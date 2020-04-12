@@ -631,37 +631,6 @@
             <li>
                 <a href="{{url('/giahhdvk/baocao')}}">Báo cáo tổng hợp</a>
             </li>
-
-            ----
-            @if(can('dmgiahhdvk','index'))
-                <li>
-                    <a href="{{url('nhomhanghoadichvu')}}">Danh mục</a>
-                </li>
-            @endif
-            @if(can('kkgiahhdvk','index'))
-                <li>
-                    <a href="{{url('giahhdvkhac')}}">Thông tin hồ sơ</a>
-                </li>
-            @endif
-            @if(can('thgiahhdvk','timkiem'))
-                <li>
-                    <a href="{{url('timkiemgiahhdvkhac')}}">Tìm kiếm thông tin</a>
-                </li>
-            @endif
-        <!-- session('admin')->chucnang == 'TONGHOP'; tùy theo level h, t để load đơn vị cấp dưới -->
-            @if(session('admin')->level == 'H' || session('admin')->level == 'T')
-                @if(can('thgiahhdvk','tonghop'))
-                    <li>
-                        <a href="{{url('tonghopgiahhdvk')}}">Tổng hợp giá HH-DV khác</a>
-                    </li>
-                @endif
-            @endif
-
-            @if(can('thgiahhdvk','baocao'))
-                <li>
-                    <a href="{{url('reportshanghoadichvukhac')}}">Báo cáo tổng hợp</a>
-                </li>
-            @endif
         </ul>
     </li>
 @endif

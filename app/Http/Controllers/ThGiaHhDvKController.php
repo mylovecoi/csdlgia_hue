@@ -4,18 +4,17 @@ namespace App\Http\Controllers;
 
 use App\DiaBanHd;
 use App\District;
-use App\DmGiaDvGdDt;
 use App\DmHhDvK;
 use App\GiaHhDvK;
 use App\GiaHhDvKCt;
 use App\Model\system\dsdiaban;
+use App\Model\view\view_thgiahhdvk;
 use App\NhomHhDvK;
 use App\ThGiaHhDvK;
 use App\ThGiaHhDvKCt;
 use App\ThGiaHhDvKCtDf;
 use App\Town;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
@@ -210,19 +209,16 @@ class ThGiaHhDvKController extends Controller
             return view('errors.notlogin');
     }
 
-
-
     public function destroy(Request $request){
         if (Session::has('admin')) {
-            dd(1);
-            if (session('admin')->level == 'T' || session('admin')->level == 'H') {
+            if (chkPer('csdlmucgiahhdv', 'hhdv', 'giahhdvk', 'khac', 'tonghop')) {
                 $inputs = $request->all();
-                $model = ThGiaHhDvK::where('id',$inputs['iddelete'])
-                    ->first();
-                $modelct = ThGiaHhDvKCt::where('mahs',$model->mahs)->delete();
+                //dd($inputs);
+                $model = ThGiaHhDvK::where('mahs', $inputs['mahs'])->first();
+                ThGiaHhDvKCt::where('mahs',$model->mahs)->delete();
                 $model->delete();
 
-                return redirect('tonghopgiahhdvk');
+                return redirect('/giahhdvk/tonghop');
 
             }else
                 return view('errors.perm');
@@ -230,43 +226,31 @@ class ThGiaHhDvKController extends Controller
             return view('errors.notlogin');
     }
 
-    public function exportXML($id){
-        $model = ThGiaHhDvK::findOrFail($id);
-        $modelct = ThGiaHhDvKCt::where('mahs',$model->mahs)
-            ->geT();
+    public function exportXML(Request $request){
+        $inputs = $request->all();
+        $model = ThGiaHhDvK::where('mahs', $inputs['mahs'])->first();
+        $modelct = ThGiaHhDvKCt::where('mahs',$model->mahs)->get();
         $modeldm = NhomHhDvK::where('matt',$model->matt)->first();
         //dd($modelct);
         $data = '<?xml version="1.0" encoding="UTF-8"?>';
         $data .= '<title>'.$model->ttbc.',ngày báo cáo: '.getDayVn($model->ngaybc);
         $data .= '<name>'.$modeldm->manhom.'. '.$modeldm->tennhom;
         $data .= '<data>';
-        $modelgr = ThGiaHhDvKCt::where('mahs',$model->mahs)
-            ->select('manhom','nhom')
-            ->groupBy('manhom','nhom')
-            ->get();
-        foreach($modelgr as $gr){
-            $data .='<gr>';
-            $data .='<manhom>'.$gr->manhom.'</manhom>';
-            $data .='<tennhom>'.$gr->tennhom.'</tennhom>';
-
-            $modelctgr = $modelct->where('manhom',$gr->manhom);
-            foreach($modelctgr as $ct){
-                $data .='<row>';
-                $data .='<stt>'.$ct->mahhdv.'</stt>';
-                $data .='<tenhhdv>'.$ct->tenhhdv.'</tenhhdv>';
-                $data .='<dacdiemkt>'.$ct->dacdiemkt.'</dacdiemkt>';
-                $data .='<dvt>'.$ct->dvt.'</dvt>';
-                $data .='<loaigia>$ct->loaigia</loaigia>';
-                $data .='<dongialk>'.$ct->gialk.'</dongialk>';
-                $data .='<dongia>'.$ct->gia.'</dongia>';
-                $data .='<muctg>'.(($ct->gia)-($ct->gialk)).'</muctg>';
-                $data .='<tyle>'.(number_format($ct->gialk) == 0 ? number_format($ct->gia) == 0 ? 0 : 100
-                    : dinhdangsothapphan(($ct->gia-$ct->gialk)/$ct->gialk,2)).'</tyle>';
-                $data .='<nguontin>'.$ct->nguontin.'</nguontin>';
-                $data .='<ghichu>'.$ct->ghichu.'</ghichu>';
-                $data .='</row>';
-            }
-            $data .='</gr>';
+        foreach($modelct as $ct){
+            $data .='<row>';
+            $data .='<stt>'.$ct->mahhdv.'</stt>';
+            $data .='<tenhhdv>'.$ct->tenhhdv.'</tenhhdv>';
+            $data .='<dacdiemkt>'.$ct->dacdiemkt.'</dacdiemkt>';
+            $data .='<dvt>'.$ct->dvt.'</dvt>';
+            $data .='<loaigia>$ct->loaigia</loaigia>';
+            $data .='<dongialk>'.$ct->gialk.'</dongialk>';
+            $data .='<dongia>'.$ct->gia.'</dongia>';
+            $data .='<muctg>'.(($ct->gia)-($ct->gialk)).'</muctg>';
+            $data .='<tyle>'.(number_format($ct->gialk) == 0 ? number_format($ct->gia) == 0 ? 0 : 100
+                : dinhdangsothapphan(($ct->gia-$ct->gialk)/$ct->gialk,2)).'</tyle>';
+            $data .='<nguontin>'.$ct->nguontin.'</nguontin>';
+            $data .='<ghichu>'.$ct->ghichu.'</ghichu>';
+            $data .='</row>';
         }
         $data .='</data>';
         $data .='</name>';
@@ -274,43 +258,24 @@ class ThGiaHhDvKController extends Controller
 
         $fp ='hhdvk'.$model->id.'.xml';
 
-        File::put(public_path('/xml/'.$fp),$data);
-        return Response::download(public_path('/xml/'.$fp));
+        File::put(public_path('data/xml/'.$fp),$data);
+        return Response::download(public_path('data/xml/'.$fp));
     }
 
-    function exportEx($id){
+    function exportEx(Request $request){
         if (Session::has('admin')) {
-            $model = ThGiaHhDvK::findOrFail($id);
-            $modelct = ThGiaHhDvKCt::where('mahs',$model->mahs)
-                ->get();
+            $inputs = $request->all();
+            $model = ThGiaHhDvK::where('mahs', $inputs['mahs'])->first();
+            $modelct = view_thgiahhdvk::where('mahs',$model->mahs)->get();
+            //dd($modelct);
             $modelnhom = NhomHhDvK::where('matt',$model->matt)->first();
-            $modelgr = ThGiaHhDvKCt::where('mahs',$model->mahs)
-                ->select('manhom','nhom')
-                ->groupBy('manhom','nhom')
-                ->get();
-            if(session('admin')->level == 'T'){
-                $inputs['dvcaptren'] = getGeneralConfigs()['tendvcqhienthi'];
-                $inputs['dv'] = getGeneralConfigs()['tendvhienthi'];
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }elseif(session('admin')->level == 'H'){
-                $modeldv = District::where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }else{
-                $modeldv = Town::where('maxa',session('admin')->maxa)
-                    ->where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }
-            Excel::create('THHANGHOA',function($excel) use($model,$modelct,$modelnhom,$modelgr,$inputs){
-                $excel->sheet('THHANGHOA', function($sheet) use($model,$modelct,$modelnhom,$modelgr,$inputs){
+
+            Excel::create('THHANGHOA',function($excel) use($model,$modelct,$modelnhom,$inputs){
+                $excel->sheet('THHANGHOA', function($sheet) use($model,$modelct,$modelnhom,$inputs){
                     $sheet->loadView('manage.dinhgia.giahhdvk.tonghop.show_excel')
                         ->with('modelct',$modelct)
                         ->with('modelnhom',$modelnhom)
                         ->with('model',$model)
-                        ->with('modelgr',$modelgr)
                         ->with('inputs',$inputs)
                         ->with('pageTitle','Danh mục hàng hóa');
                     //$sheet->setPageMargin(0.25);
@@ -320,7 +285,7 @@ class ThGiaHhDvKController extends Controller
 
                     //$sheet->setColumnFormat(array('D' => '#,##0.00'));
                 });
-            })->download('xls');
+            })->download('xlsx');
 
         } else
             return view('errors.notlogin');

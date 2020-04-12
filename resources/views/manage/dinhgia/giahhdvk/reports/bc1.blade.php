@@ -11,8 +11,8 @@
     <table width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:0 auto 20px; text-align: center;">
         <tr>
             <td width="40%">
-                <span style="text-transform: uppercase">{{$inputs['dvcaptren']}}</span><br>
-                <span style="text-transform: uppercase;font-weight: bold">{{$inputs['dv']}}</span><br>
+                <span style="text-transform: uppercase">{{session('admin')->tendvhienthi}}</span><br>
+                <span style="text-transform: uppercase;font-weight: bold">{{session('admin')->tendvcqhienthi}}</span><br>
                 <hr style="width: 10%"> <br>
                 Số: ...
             </td>
@@ -20,7 +20,7 @@
                 <b>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM<br>
                     Độc lập - Tự do - Hạnh phúc</b><br>
                 <hr style="width: 15%"><br>
-                <i>{{$inputs['diadanh']}}, ngày .... tháng .... năm ....</i>
+                <i>{{session('admin')->diadanh}}, ngày .... tháng .... năm ....</i>
             </td>
         </tr>
     </table>
@@ -57,29 +57,23 @@
         </tr>
     </thead>
     <tbody>
-    @foreach($modelgr as $sttgr=>$gr)
-        <tr>
-            <td>{{romanNumerals($sttgr + 1)}}</td>
-            <td style="text-align: center">{{$gr->manhom}}</td>
-            <td colspan="10" style="font-weight: bold">{{$gr->nhom}}</td>
-        </tr>
-        @if($ttct = $modelct->where('manhom',$gr->manhom))@endif
-            @foreach($ttct as $key=>$tt)
-                <tr>
-                    <td style="text-align: center">{{$key+1}}</td>
-                    <td style="text-align: center">{{$tt->mahhdv}}</td>
-                    <td>{{$tt->tenhhdv}}</td>
-                    <td>{{$tt->dacdiemkt}}</td>
-                    <td style="text-align: center">{{$tt->dvt}}</td>
-                    <td style="text-align: right;font-weight: bold">{{dinhdangsothapphan($tt->giathlk,5)}}</td>
-                    <td style="text-align: right;font-weight: bold">{{dinhdangsothapphan($tt->giath,5)}}</td>
-                    <td style="text-align: right;font-weight: bold">{{dinhdangsothapphan($tt->giath - $tt->giathlk,5)}}</td>
-                    <td style="text-align: right;font-weight: bold">{{number_format($tt->giathlk) == 0 ? number_format($tt->giath) == 0 ? 0 : 100
-                                    : dinhdangsothapphan(($tt->giath-$tt->giathlk)/$tt->giathlk,5)}}</td>
-                    <td></td>
-                </tr>
-            @endforeach
+
+        @foreach($modelct as $key=>$tt)
+            <tr>
+                <td style="text-align: center">{{$key+1}}</td>
+                <td style="text-align: center">{{$tt->mahhdv}}</td>
+                <td>{{$tt->tenhhdv}}</td>
+                <td>{{$tt->dacdiemkt}}</td>
+                <td style="text-align: center">{{$tt->dvt}}</td>
+                <td style="text-align: right;font-weight: bold">{{dinhdangsothapphan($tt->giathlk,5)}}</td>
+                <td style="text-align: right;font-weight: bold">{{dinhdangsothapphan($tt->giath,5)}}</td>
+                <td style="text-align: right;font-weight: bold">{{dinhdangsothapphan($tt->giath - $tt->giathlk,5)}}</td>
+                <td style="text-align: right;font-weight: bold">{{number_format($tt->giathlk) == 0 ? number_format($tt->giath) == 0 ? 0 : 100
+                                : dinhdangsothapphan(($tt->giath-$tt->giathlk)/$tt->giathlk,5)}}</td>
+                <td></td>
+            </tr>
         @endforeach
+
     </tbody>
 </table>
 <table width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:20px auto; text-align: center;">

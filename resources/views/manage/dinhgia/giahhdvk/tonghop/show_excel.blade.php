@@ -21,8 +21,8 @@
 <table width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:0 auto 20px; text-align: center;">
     <tr>
         <td width="40%">
-            <span style="text-transform: uppercase">{{$inputs['dvcaptren']}}</span><br>
-            <span style="text-transform: uppercase;font-weight: bold">{{$inputs['dv']}}</span><br>
+            <span style="text-transform: uppercase">{{session('admin')->tendvhienthi}}</span><br>
+            <span style="text-transform: uppercase;font-weight: bold">{{session('admin')->tendvcqhienthi}}</span><br>
             <hr style="width: 10%"> <br>
             Số: ..{{$model->soqd}}..
         </td>
@@ -30,7 +30,7 @@
             <b>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM<br>
                 Độc lập - Tự do - Hạnh phúc</b><br>
             <hr style="width: 15%"><br>
-            <i>{{$inputs['diadanh']}}, ngày ..{{date('d',strtotime($model->ngaybc))}}.. tháng ..{{date('m',strtotime($model->ngaybc))}}.. năm ..{{date('Y',strtotime($model->ngaybc))}}..</i>
+            <i>{{session('admin')->diadanh}}, ngày ..{{date('d',strtotime($model->ngaybc))}}.. tháng ..{{date('m',strtotime($model->ngaybc))}}.. năm ..{{date('Y',strtotime($model->ngaybc))}}..</i>
         </td>
     </tr>
 </table>
@@ -71,14 +71,9 @@
     </tr>
     </thead>
     <tbody id="ttts">
-    @foreach($modelgr as $sttgr=>$gr)
-        <tr>
-            <td>{{romanNumerals($sttgr + 1)}}</td>
-            <td style="text-align: center">{{$gr->manhom}}</td>
-            <td colspan="10" style="font-weight: bold">{{$gr->nhom}}</td>
-        </tr>
-        @if($ttct = $modelct->where('manhom',$gr->manhom))@endif
-        @foreach($ttct as $key=>$tt)
+
+
+        @foreach($modelct as $key=>$tt)
             <tr>
                 <td style="text-align: center">{{$key+1}}</td>
                 <td style="text-align: center">{{$tt->mahhdv}}</td>
@@ -95,8 +90,6 @@
                 <td>{{$tt->ghichu}}</td>
             </tr>
         @endforeach
-    @endforeach
-
 
     </tbody>
 

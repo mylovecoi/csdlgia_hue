@@ -291,34 +291,20 @@ Route::group(['prefix'=>'giahhdvk'], function (){
     Route::get('tonghop/edit_ct','ThGiaHhDvKCtController@edit');
     Route::post('tonghop/update_ct','ThGiaHhDvKCtController@update');
     Route::post('tonghop/delete','ThGiaHhDvKController@destroy');
+//
+    Route::get('tonghop/exportXML','ThGiaHhDvKController@exportXML');
+    Route::get('tonghop/exportEx','ThGiaHhDvKController@exportEx');
 
-    Route::post('tonghopgiahhdvk/delete','ThGiaHhDvKController@destroy');
-    Route::post('tonghopgiahhdvk/hoanthanh','ThGiaHhDvKController@hoanthanh');
-    Route::post('tonghopgiahhdvk/huyhoanthanh','ThGiaHhDvKController@huyhoanthanh');
-    Route::post('tonghopgiahhdvk/congbo','ThGiaHhDvKController@congbo');
-//Route::post('tonghopgiahhdvkthang/create','ThGiaHhDvKController@createthang');
-    Route::post('tonghopgiahhdvkthang/create','ThGiaHhDvKController@tonghopthang');
-
-    Route::get('thgiahhdvk/{id}/exportXML','ThGiaHhDvKController@exportXML');
-    Route::get('thgiahhdvk/{id}/exportEx','ThGiaHhDvKController@exportEx');
-
-
-    Route::get('/thgiahhdvkct/edit','ThGiaHhDvKCtController@edit');
-    Route::post('/thgiahhdvkct/update','ThGiaHhDvKCtController@update');
-
-    //
-
-
-    Route::get('giahhdvkhac/nhanexcel','GiaHhDvKController@nhanexcel');
-    Route::post('giahhdvkhac/import_excel','GiaHhDvKController@import_excel');
+    Route::get('nhanexcel','GiaHhDvKController@nhanexcel');
+    Route::post('import_excel','GiaHhDvKController@import_excel');
 
 
 
 
-    Route::get('reportshanghoadichvukhac','ReportsHhDvKController@index');
-    Route::post('reportshanghoadichvukhac/bc1','ReportsHhDvKController@bc1');
-    Route::post('reportshanghoadichvukhac/bc2','ReportsHhDvKController@bc2');
-    Route::post('reportshanghoadichvukhac/exWordBc2','ReportsHhDvKController@exWordBc2');
+    Route::get('baocao','ReportsHhDvKController@index');
+    Route::post('bc1','ReportsHhDvKController@bc1');
+    Route::post('bc2','ReportsHhDvKController@bc2');
+    Route::post('exWordBc2','ReportsHhDvKController@exWordBc2');
 
 
 //    Route::get('danhsach','manage\gianuocsachsh\GiaNuocShController@index');
