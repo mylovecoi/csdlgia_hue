@@ -55,28 +55,28 @@
                             <th rowspan="2" width="7%">Thao</br>tác</th>
                         </tr>
                         <tr>
-                            <th width="5%">Danh sách</th>
-                            <th width="5%">Thay đổi</th>
+                            <th width="5%">Danh</br>sách</th>
+                            <th width="5%">Thay</br>đổi</th>
 
-                            <th width="5%">Danh sách</th>
-                            <th width="5%">Thay đổi</th>
-                            <th width="5%">Hoàn thành</th>
+                            <th width="5%">Danh</br>sách</th>
+                            <th width="5%">Thay</br>đổi</th>
+                            <th width="5%">Hoàn</br>thành</th>
 
-                            <th width="5%">Tổng hợp</th>
+                            <th width="5%">Tổng</br>hợp</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php $i = 1; ?>
-                        @foreach($setting as $k_csdl=>$v_csdl)
+                        @foreach($setting as $k1=>$v1)
                             <tr style="font-weight: bold;" class="success">
                                 <td class="text-left" style="text-transform: uppercase;">{{toAlpha($i++)}}</td>
-                                <td>{{$a_chucnang[$k_csdl] ?? $k_csdl}}</td>
-                                <td class="text-center">
-
-                                </td>
-                                <td class="text-center">
-{{--                                    {!! $v_csdl['congbo'] == 1 ? '<i class="fa fa-check"></i>':'' !!} --}}
-                                </td>
+                                <td class="text-line-through">{{$a_chucnang[$k1] ?? $k1}}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td class="text-center">
                                     <button type="button" onclick="change()" class="btn btn-default btn-xs mbs" data-target="#edit-modal" data-toggle="modal">
                                         <i class="fa fa-refresh"></i></button>
@@ -84,40 +84,46 @@
                             </tr>
                             <!-- Duyệt các group chức năng: Định giá; Kê khai; Phí, lệ phí; ... -->
                             <?php $j = 1; ?>
-                            @foreach($v_csdl as $k_gr=>$v_gr)
+                            @foreach($v1 as $k2=>$v2)
+                                <tr  style="font-style: italic;font-weight: bold;" class="info">
+                                    <td class="text-center">{{romanNumerals($j++)}}</td>
+                                    <td>{{$a_chucnang[$k2] ?? $k2}}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-center">
+                                        <button type="button" onclick="change()" class="btn btn-default btn-xs mbs" data-target="#edit-modal" data-toggle="modal">
+                                            <i class="fa fa-refresh"></i></button>
+                                    </td>
+                                </tr>
 
-                                    <tr  style="font-style: italic;font-weight: bold;" class="info">
-                                        <td class="text-center">{{romanNumerals($j++)}}</td>
-                                        <td>{{$a_chucnang[$k_gr] ?? $k_gr}}</td>
+                                <?php $m = 1; ?>
+                                @foreach($v2 as $k3=>$v3)
+                                    <tr>
+                                        <td class="text-right">{{$m++}}</td>
+                                        <td>{{$a_chucnang[$k3] ?? $k3}}</td>
                                         <td class="text-center">
-{{--                                            {!!$v_gr['index'] == 1 ? '<i class="fa fa-check"></i>':''!!} --}}
+{{--                                                    {!!$v['index'] == 1 ? '<i class="fa fa-check"></i>':''!!} --}}
                                         </td>
-                                        <td class="text-center"> </td>
+                                        <td class="text-center">
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
                                         <td class="text-center">
                                             <button type="button" onclick="change()" class="btn btn-default btn-xs mbs" data-target="#edit-modal" data-toggle="modal">
                                                 <i class="fa fa-refresh"></i></button>
                                         </td>
                                     </tr>
-
-                                    <?php $m = 1; ?>
-                                    @foreach($v_gr as $k=>$v)
-
-                                            <tr>
-                                                <td class="text-right">{{$m++}}</td>
-                                                <td>{{$a_chucnang[$k] ?? $k}}</td>
-                                                <td class="text-center">
-{{--                                                    {!!$v['index'] == 1 ? '<i class="fa fa-check"></i>':''!!} --}}
-                                                </td>
-                                                <td class="text-center">
-                                                </td>
-                                                <td class="text-center">
-                                                    <button type="button" onclick="change()" class="btn btn-default btn-xs mbs" data-target="#edit-modal" data-toggle="modal">
-                                                        <i class="fa fa-refresh"></i></button>
-                                                </td>
-                                            </tr>
-
-                                    @endforeach
-
+                                @endforeach
                             @endforeach
                         @endforeach
                         </tbody>

@@ -2551,7 +2551,45 @@ function getGiaoDien()
 function getPhanQuyen()
 {
     $gui = array();
+    //csdl
+    $gui['csdlmucgiahhdv'] = array(
+        'index' => '0',);
+    $gui['csdlthamdinhgia'] = array(
+        'index' => '0',
+    );
+    $gui['csdlvbqlnn'] = array(
+        'index' => '0',
+    );
+    $gui['csdlttpvctqlnn'] = array(
+        'index' => '0',
+    );
+    $gui['hethong'] = array(
+        'index' => '0',
+    );
 
+    //nhóm chức năng
+    $gui['dinhgia'] = array(
+            'index' => '0',);
+    $gui['bog'] = array(
+            'index' => '0',);
+    $gui['hhdv'] = array(
+            'index' => '0',);
+    $gui['philephi'] = array(
+            'index' => '0',);
+    $gui['taisan'] = array(
+            'index' => '0',);
+    $gui['kknygia'] = array(
+            'index' => '0',);
+    $gui['thamdinhgia'] = array(
+            'index' => '0',);
+    $gui['vbqlnn'] = array(
+            'index' => '0',);
+    $gui['ttpvctqlnn'] = array(
+            'index' => '0',);
+    $gui['hethong'] = array(
+            'index' => '0',);
+
+    //chức năng chi tiết
     $gui['giacldat'] = array(
         'index' => '0',
         'danhmuc' => array('index' => '0', 'modify' => '0',),

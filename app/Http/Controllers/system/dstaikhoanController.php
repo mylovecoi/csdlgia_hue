@@ -189,29 +189,26 @@ class dstaikhoanController extends Controller
             $m_gui = GeneralConfigs::first();
             //$gui = getGiaoDien();
             $setting = json_decode($m_gui->setting, true);
-            $permission = getPhanQuyen();
-            //dd($permission);
+            $per = getPhanQuyen();
+            //dd($per);
             $model = Users::where('username',$inputs['username'])->first();
             $per_user = json_decode($model->permission,true);
 
-            foreach($permission as $key => $val){
-                if(!isset($per_user[$key])){
-                    unset($permission[$key]);
-                }else{
-                    $per = $per_user[$key];
+            foreach($per as $key => $val){
+                if(isset($per_user[$key])){
+                    $p_u = $per_user[$key];
                     foreach ($val as $k1=>$v1){
                         if(!is_array($v1)){
-                            $permission[$key][$k1] = $per[$k1] ?? $permission[$key][$k1];
+                            $per[$key][$k1] = $p_u[$k1] ?? $per[$key][$k1];
                         }else{
                             foreach ($v1 as $k2=>$v2){
-                                $permission[$key][$k1][$k2] = $per[$k1][$k2] ?? $permission[$key][$k1][$k2];
+                                $per[$key][$k1][$k2] = $p_u[$k1][$k2] ?? $per[$key][$k1][$k2];
                             }
                         }
                     }
                 }
             }
             //chạy $setting nếu cái nào index = 0 => unset()
-
             foreach($setting as $k1 => $v1){
                 if(!isset($v1['index']) || $v1['index'] == '0'){
                     unset($setting[$k1]);
@@ -231,22 +228,14 @@ class dstaikhoanController extends Controller
                     }
                 }
             }
-            //dd($setting);
+            //dd($per);
             return view('system.taikhoan.perms')
-                ->with('permission', $permission)
+                ->with('per', $per)
                 ->with('setting', $setting)
                 ->with('model', $model)
                 ->with('pageTitle', 'Phân quyền cho tài khoản');
 
         } else
             return view('errors.notlogin');
-    }
-
-    function DeQuy($array){
-        foreach ($array as $key=>$val){
-            if(is_array($val)){
-
-            }
-        }
     }
 }

@@ -3744,6 +3744,10 @@ Iconic labels
 /***
 Text states
 ***/
+.text-line-through {
+  text-decoration: line-through;
+}
+
 .text-default {
   color: #c6c6c6;
 }
