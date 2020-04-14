@@ -18,7 +18,52 @@
     <script>
         jQuery(document).ready(function() {
             TableManaged.init();
+            $('#index').change(function () {
+              // if($(this).prop('checked')){
+              //     $('#dm').show();
+              //     $('#hs').show();
+              //     $('#khac').show();
+              // }else{
+              //     $('#dm').hide();
+              //     $('#hs').hide();
+              //     $('#khac').hide();
+              // }
+            });
         });
+        function change(maso, chucnang){
+            // var obj = JSON.parse('{ "name":"John", "age":30, "city":"New York"}');
+            // alert(obj.name);
+            $('#dm').hide();
+            $('#hs').hide();
+            $('#khac').hide();
+            document.getElementById("chucnang").innerHTML ='Chức năng: ' + chucnang;
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $('#maso').val(maso);
+            $.ajax({
+                url: '/taikhoan/get_perm',
+                type: 'GET',
+                data: {
+                    _token: CSRF_TOKEN,
+                    username: $('#username').val(),
+                    maso: maso
+                },
+                dataType: 'JSON',
+                success: function (data) {
+                    if(data.status == 'success'){
+                        $('#chitiet').replaceWith(data.message);
+                        jQuery(document).ready(function() {
+                            // Metronic.init(); // init metronic core componets
+                            // Layout.init(); // init layout
+                            // QuickSidebar.init(); // init quick sidebar
+                            //Demo.init(); // init demo features
+                        });
+                    }
+                },
+                error: function (message) {
+                    toastr.error(message, 'Lỗi!');
+                }
+            });
+        }
     </script>
 
 @stop
@@ -29,7 +74,7 @@
         Quản lý phân quyền chức năng cho<small>&nbsp;tài khoản</small>
     </h3>
     <!-- END PAGE HEADER-->
-    {!! Form::open(['url' => '/taikhoan/perm'])!!}
+
     <div class="row">
         <div class="col-md-12">
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -37,7 +82,6 @@
                 <div class="portlet-title">
                     <div class="caption" style="color: #000000">
                         Tên tài khoản: {{$model->name .' ( Tài khoản truy cập: '. $model->username. ')' }}
-                        <input type="hidden" name="id" id="id" value="{{$model->id}}">
                     </div>
                     <div class="actions">
                     </div>
@@ -51,7 +95,7 @@
                             <th rowspan="2">Nội dung CSDL địa phương</th>
                             <th colspan="2">Danh mục</th>
                             <th colspan="3">Hồ sơ</th>
-                            <th>Khác</th>
+                            <th colspan="2">Khác</th>
                             <th rowspan="2" width="7%">Thao</br>tác</th>
                         </tr>
                         <tr>
@@ -63,6 +107,7 @@
                             <th width="5%">Hoàn</br>thành</th>
 
                             <th width="5%">Tổng</br>hợp</th>
+                            <th width="5%">Thông</br>tin</br>DN</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -70,7 +115,8 @@
                         @foreach($setting as $k1=>$v1)
                             <tr style="font-weight: bold;" class="success">
                                 <td class="text-left" style="text-transform: uppercase;">{{toAlpha($i++)}}</td>
-                                <td class="text-line-through">{{$a_chucnang[$k1] ?? $k1}}</td>
+                                <td class="{{(!isset($per[$k1]['index']) || $per[$k1]['index'] == '0') ? 'text-line-through' : ''}}">{{$a_chucnang[$k1] ?? $k1}}</td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -78,7 +124,7 @@
                                 <td></td>
                                 <td></td>
                                 <td class="text-center">
-                                    <button type="button" onclick="change()" class="btn btn-default btn-xs mbs" data-target="#edit-modal" data-toggle="modal">
+                                    <button type="button" onclick="change('{{$a_chucnang[$k1] ?? $k1}}','{{$k1}}')" class="btn btn-default btn-xs mbs" data-target="#edit-modal" data-toggle="modal">
                                         <i class="fa fa-refresh"></i></button>
                                 </td>
                             </tr>
@@ -87,7 +133,8 @@
                             @foreach($v1 as $k2=>$v2)
                                 <tr  style="font-style: italic;font-weight: bold;" class="info">
                                     <td class="text-center">{{romanNumerals($j++)}}</td>
-                                    <td>{{$a_chucnang[$k2] ?? $k2}}</td>
+                                    <td class="{{(!isset($per[$k2]['index']) || $per[$k2]['index'] == '0') ? 'text-line-through' : ''}}">{{$a_chucnang[$k2] ?? $k2}}</td>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -95,8 +142,10 @@
                                     <td></td>
                                     <td></td>
                                     <td class="text-center">
-                                        <button type="button" onclick="change()" class="btn btn-default btn-xs mbs" data-target="#edit-modal" data-toggle="modal">
-                                            <i class="fa fa-refresh"></i></button>
+                                        @if(isset($per[$k1]['index']) && $per[$k1]['index'] == '1')
+                                            <button type="button" onclick="change('{{$a_chucnang[$k2] ?? $k2}}','{{$k2}}')" class="btn btn-default btn-xs mbs" data-target="#edit-modal" data-toggle="modal">
+                                                <i class="fa fa-refresh"></i></button>
+                                        @endif
                                     </td>
                                 </tr>
 
@@ -104,23 +153,61 @@
                                 @foreach($v2 as $k3=>$v3)
                                     <tr>
                                         <td class="text-right">{{$m++}}</td>
-                                        <td>{{$a_chucnang[$k3] ?? $k3}}</td>
+                                        <td class="{{(!isset($per[$k3]['index']) || $per[$k3]['index'] == '0') ? 'text-line-through' : ''}}">{{$a_chucnang[$k3] ?? $k3}}</td>
                                         <td class="text-center">
-{{--                                                    {!!$v['index'] == 1 ? '<i class="fa fa-check"></i>':''!!} --}}
+                                            @if(isset($per[$k3]['danhmuc']['index']))
+                                                {!!  $per[$k3]['danhmuc']['index'] == 1 ? '<i class="fa fa-check"></i>':'' !!}
+                                            @else
+                                                 <i class="fa fa-ban"></i>
+                                            @endif
                                         </td>
                                         <td class="text-center">
+                                            @if(isset($per[$k3]['danhmuc']['modify']))
+                                                {!!  $per[$k3]['danhmuc']['modify'] == 1 ? '<i class="fa fa-check"></i>':'' !!}
+                                            @else
+                                                <i class="fa fa-ban"></i>
+                                            @endif
                                         </td>
                                         <td class="text-center">
+                                            @if(isset($per[$k3]['hoso']['index']))
+                                                {!!  $per[$k3]['hoso']['index'] == 1 ? '<i class="fa fa-check"></i>':'' !!}
+                                            @else
+                                                <i class="fa fa-ban"></i>
+                                            @endif
                                         </td>
                                         <td class="text-center">
+                                            @if(isset($per[$k3]['hoso']['modify']))
+                                                {!!  $per[$k3]['hoso']['modify'] == 1 ? '<i class="fa fa-check"></i>':'' !!}
+                                            @else
+                                                <i class="fa fa-ban"></i>
+                                            @endif
                                         </td>
                                         <td class="text-center">
+                                            @if(isset($per[$k3]['hoso']['approve']))
+                                                {!!  $per[$k3]['hoso']['approve'] == 1 ? '<i class="fa fa-check"></i>':'' !!}
+                                            @else
+                                                <i class="fa fa-ban"></i>
+                                            @endif
                                         </td>
                                         <td class="text-center">
+                                            @if(isset($per[$k3]['khac']['baocao']))
+                                                {!!  $per[$k3]['khac']['baocao'] == 1 ? '<i class="fa fa-check"></i>':'' !!}
+                                            @else
+                                                <i class="fa fa-ban"></i>
+                                            @endif
                                         </td>
                                         <td class="text-center">
-                                            <button type="button" onclick="change()" class="btn btn-default btn-xs mbs" data-target="#edit-modal" data-toggle="modal">
-                                                <i class="fa fa-refresh"></i></button>
+                                            @if(isset($per[$k3]['khac']['company']))
+                                                {!!  $per[$k3]['khac']['company'] == 1 ? '<i class="fa fa-check"></i>':'' !!}
+                                            @else
+                                                <i class="fa fa-ban"></i>
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            @if(isset($per[$k1]['index']) && isset($per[$k2]['index']) && $per[$k1]['index'] == '1'&& $per[$k2]['index'] == '1')
+                                                <button type="button" onclick="change('{{$a_chucnang[$k3] ?? $k3}}','{{$k3}}')" class="btn btn-default btn-xs mbs" data-target="#edit-modal" data-toggle="modal">
+                                                    <i class="fa fa-refresh"></i></button>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -134,14 +221,104 @@
         <div class="col-md-12" style="text-align: center">
             <a href="{{url('/taikhoan/danhsach?madv='.$model->madv)}}" class="btn btn-danger">
                 <i class="fa fa-reply"></i>&nbsp;Quay lại</a>
-            <button type="submit" class="btn btn-primary">
-                <i class="fa fa-check"></i> Cập nhật</button>
         </div>
     </div>
 
-    {!! Form::close() !!}
         <!-- END EXAMPLE TABLE PORTLET-->
-        <div class="clearfix"></div>
+    <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                {!! Form::open(['url'=>'/taikhoan/perm','id' => 'frm_delete','method'=>'POST'])!!}
+                <input type="hidden" name="maso" id="maso" />
+                <input type="hidden" name="username" id="username" value="{{$model->username}}" />
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 id="chucnang" class="modal-title">Chức năng:</h4>
+                </div>
 
+                <div class="modal-body" id="chitiet">
+                    <div class="row" >
+                        <div class="col-md-offset-4 col-md-8">
+                            <div class="md-checkbox">
+                                <input type="checkbox" id="index" name="index" class="md-check">
+                                <label for="index">
+                                    <span></span><span class="check"></span><span class="box"></span>Phân quyền chức năng</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div id="dm">
+                        <h4>Danh mục</h4>
+                        <div class="row">
+                            <div class="col-md-offset-1 col-md-3">
+                                <div class="md-checkbox">
+                                    <input type="checkbox" id="dm_index" name="dm_index" class="md-check">
+                                    <label for="dm_index">
+                                        <span></span><span class="check"></span><span class="box"></span>Danh sách</label>
+                                </div>
+                            </div>
 
+                            <div class="col-md-3">
+                                <div class="md-checkbox">
+                                    <input type="checkbox" id="dm_modify" name="dm_modify" class="md-check">
+                                    <label for="dm_modify">
+                                        <span></span><span class="check"></span><span class="box"></span>Thay đổi</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="hs">
+                        <h4>Hồ sơ</h4>
+                        <div class="row">
+                            <div class="col-md-offset-1 col-md-3">
+                                <div class="md-checkbox">
+                                    <input type="checkbox" id="hs_index" name="hs_index" class="md-check">
+                                    <label for="hs_index">
+                                        <span></span><span class="check"></span><span class="box"></span>Danh sách</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="md-checkbox">
+                                    <input type="checkbox" id="hs_modify" name="hs_modify" class="md-check">
+                                    <label for="hs_modify">
+                                        <span></span><span class="check"></span><span class="box"></span>Thay đổi</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="md-checkbox">
+                                    <input type="checkbox" id="hs_approve" name="hs_approve" class="md-check">
+                                    <label for="hs_approve">
+                                        <span></span><span class="check"></span><span class="box"></span>Hoàn thành</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="khac">
+                        <h4>Chức năng khác</h4>
+                        <div class="row" >
+                            <div class="col-md-offset-1 col-md-3">
+                                <div class="md-checkbox">
+                                    <input type="checkbox" id="khac_tonghop" name="khac_tonghop" class="md-check">
+                                    <label for="khac_tonghop">
+                                        <span></span><span class="check"></span><span class="box"></span>Tổng hợp</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn blue">Đồng ý</button>
+                    <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
+                </div>
+                {!! Form::close() !!}
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 @stop

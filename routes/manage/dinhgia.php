@@ -294,44 +294,13 @@ Route::group(['prefix'=>'giahhdvk'], function (){
 //
     Route::get('tonghop/exportXML','ThGiaHhDvKController@exportXML');
     Route::get('tonghop/exportEx','ThGiaHhDvKController@exportEx');
-
-    Route::get('nhanexcel','GiaHhDvKController@nhanexcel');
-    Route::post('import_excel','GiaHhDvKController@import_excel');
-
-
-
-
     Route::get('baocao','ReportsHhDvKController@index');
     Route::post('bc1','ReportsHhDvKController@bc1');
     Route::post('bc2','ReportsHhDvKController@bc2');
     Route::post('exWordBc2','ReportsHhDvKController@exWordBc2');
 
-
-//    Route::get('danhsach','manage\gianuocsachsh\GiaNuocShController@index');
-//    Route::get('new','manage\gianuocsachsh\GiaNuocShController@create');
-//    Route::get('modify','manage\gianuocsachsh\GiaNuocShController@edit');
-//    Route::post('modify','manage\gianuocsachsh\GiaNuocShController@update');
-//
-//    Route::post('delete','manage\gianuocsachsh\GiaNuocShController@destroy');
-//    Route::post('chuyenhs','manage\gianuocsachsh\GiaNuocShController@chuyenhs');
-//
-//    Route::get('xetduyet','manage\gianuocsachsh\GiaNuocShController@xetduyet');
-//    Route::post('chuyenxd','manage\gianuocsachsh\GiaNuocShController@chuyenxd');
-//    Route::post('tralai','manage\gianuocsachsh\GiaNuocShController@tralai');
-//    Route::post('congbo','manage\gianuocsachsh\GiaNuocShController@congbo');
-//
-//    Route::get('nhandulieutuexcel','manage\giarung\GiaNuocShController@nhandulieutuexcel');
-//    Route::post('importexcel','manage\giarung\GiaNuocShController@importexcel');
-//
-//    Route::get('timkiem','manage\gianuocsachsh\GiaNuocShController@timkiem');
-//    Route::post('timkiem','manage\gianuocsachsh\GiaNuocShController@ketquatk');
-//    //Route::get('timkiem/printf','manage\gianuocsachsh\GiaNuocShTkController@printf');
-//
-//    Route::get('edit_ct','manage\gianuocsachsh\GiaNuocShCtController@edit');
-//    Route::get('update_ct','manage\gianuocsachsh\GiaNuocShCtController@update');
-//
-//    Route::get('baocao','manage\gianuocsachsh\GiaNuocShBcController@index');
-//    Route::post('baocao/baocaonuocsh1','manage\gianuocsachsh\GiaNuocShBcController@Bc1');
+    Route::get('nhanexcel','GiaHhDvKController@nhanexcel');
+    Route::post('import_excel','GiaHhDvKController@import_excel');
 });
 
 //

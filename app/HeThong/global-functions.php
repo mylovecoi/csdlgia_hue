@@ -2488,7 +2488,7 @@ function getGiaoDien()
         ),
         'kknygia' => array(
             'index' => '0', 'congbo' => '0',
-            'thongtin' => array('index' => '0', 'congbo' => '0'),//xét duyệt thay đổi thông tin của đơn vị
+            'thongtinkknygia' => array('index' => '0', 'congbo' => '0'),//xét duyệt thay đổi thông tin của đơn vị
             'vlxd' => array('index' => '0', 'congbo' => '0'),
             'xmtxd' => array('index' => '0', 'congbo' => '0'),
             'dvhdtmck' => array('index' => '0', 'congbo' => '0'),
@@ -2683,7 +2683,7 @@ function getPhanQuyen()
     );
     $gui['bog'] = array(
         'index' => '0',
-        'thongtin' => array('index' => '0', 'modify' => '0',),
+        'khac' => array('company' => '0'),
         'danhmuc' => array('index' => '0', 'modify' => '0',),
         'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
     );

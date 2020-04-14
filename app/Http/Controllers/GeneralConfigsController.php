@@ -94,20 +94,20 @@ class GeneralConfigsController extends Controller
                 //dd($setting);
                 foreach($gui as $k_csdl=>$v_csdl) {
                     if(isset($setting[$k_csdl])){
-                        $gui[$k_csdl]['index'] = $setting[$k_csdl]['index'];
-                        $gui[$k_csdl]['congbo'] = $setting[$k_csdl]['congbo'];
+                        $gui[$k_csdl]['index'] = $setting[$k_csdl]['index'] ?? $gui[$k_csdl]['index'];
+                        $gui[$k_csdl]['congbo'] = $setting[$k_csdl]['congbo'] ?? $gui[$k_csdl]['congbo'];
                         if (!is_array($v_csdl)) {
                             continue;
                         }
                         foreach ($v_csdl as $k_gr => $v_gr) {
                             if(isset($setting[$k_csdl][$k_gr])){
-                                $gui[$k_csdl]['index'] = $setting[$k_csdl]['index'];
-                                $gui[$k_csdl]['congbo'] = $setting[$k_csdl]['congbo'];
+                                $gui[$k_csdl]['index'] = $setting[$k_csdl]['index'] ?? $gui[$k_csdl]['index'];
+                                $gui[$k_csdl]['congbo'] = $setting[$k_csdl]['congbo']?? $gui[$k_csdl]['congbo'];
                                 if (!is_array($v_gr)) {
                                     continue;
                                 }
                                 foreach ($v_gr as $k => $v) {
-                                    $gui[$k_csdl][$k_gr][$k] = $setting[$k_csdl][$k_gr][$k];
+                                    $gui[$k_csdl][$k_gr][$k] = $setting[$k_csdl][$k_gr][$k]?? $gui[$k_csdl][$k_gr][$k];
                                 }
                             }
                         }

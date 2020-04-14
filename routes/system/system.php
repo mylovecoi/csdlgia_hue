@@ -35,7 +35,8 @@ Route::group(['prefix'=>'taikhoan'],function(){
     Route::post('delete','system\dstaikhoanController@delete');
 
     Route::get('perm', 'system\dstaikhoanController@permission');
-    Route::post('perm', 'system\dstaikhoanController@permission');
+    Route::post('perm', 'system\dstaikhoanController@store_perm');
+    Route::get('get_perm', 'system\dstaikhoanController@get_perm');
 });
 Route::resource('district','DistrictController');
 Route::resource('town','TownController');
