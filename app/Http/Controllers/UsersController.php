@@ -54,12 +54,14 @@ class UsersController extends Controller
         //kiểm tra tài khoản
         //1. level = SSA ->
         if ($ttuser->level != "SSA") {
+            //dd($ttuser);
             //2. level != SSA -> lấy thông tin đơn vị, hệ thống để thiết lập lại
+
             if($ttuser->level == "DN"){
                 $m_donvi = Company::where('madv',$ttuser->madv)->first();
-                //dd($m_donvi);
             }else{
                 $m_donvi = dsdonvi::where('madv',$ttuser->madv)->first();
+
             }
             //dd($ttuser);
             $ttuser->madiaban = $m_donvi->madiaban;
@@ -78,7 +80,8 @@ class UsersController extends Controller
             //Lấy thông tin địa bàn
             $m_diaban = dsdiaban::where('madiaban',$ttuser->madiaban)->first();
             $ttuser->tendiaban = $m_diaban->tendiaban;
-            $ttuser->level = $m_diaban->level;
+            //Doanh nghiệp giữ nguyên level; Đơn vị HC lấy level theo địa bàn
+            $ttuser->level = $ttuser->level == 'DN'? $ttuser->level: $m_diaban->level;
             //Lấy setting gán luôn vào phiên đăng nhập
             $ttuser->setting = json_decode(GeneralConfigs::first()->setting, true);
             $ttuser->permission = json_decode($ttuser->permission, true);

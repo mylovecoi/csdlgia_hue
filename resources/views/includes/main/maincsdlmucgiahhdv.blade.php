@@ -195,10 +195,11 @@
                                     </a>
                                 </li>
                             @endif
-
-                            <li>
-                                <a href="{{url('/gianuocsachsinhhoat/baocao')}}">Báo cáo tổng hợp</a>
-                            </li>
+                            @if(chkPer('csdlmucgiahhdv','dinhgia', 'gianuocsh', 'khac','baocao'))
+                                <li>
+                                    <a href="{{url('/gianuocsachsinhhoat/baocao')}}">Báo cáo tổng hợp</a>
+                                </li>
+                            @endif
                         </ul>
                     </li>
                 @endif
@@ -658,27 +659,23 @@
                     2.3 Kê khai hồ sơ: chọn nghề -> load danh mục (phân loại hồ sơ: đăng ký/ kê khai theo danh mục)
 
             -->
-            @if(session('admin')->level == 'DN')
-                <li>
-                    <a href="{{url('/binhongia/danhsach?madv='.session('admin')->madv)}}">Thông tin hồ sơ</a>
-                </li>
-            @else
-                @if(chkPer('csdlmucgiahhdv','bog', 'bog', 'danhmuc','index'))
-                    <li>
-                        <a href="{{url('/binhongia/mathang')}}">Phân loại mặt hàng</a>
-                    </li>
-                @endif
 
-                @if(chkPer('csdlmucgiahhdv','bog', 'bog', 'hoso','index'))
-                    @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
-                        <!-- chức năng nhập liệu cho đơn vị -->
-                        <li><a href="{{url('/binhongia/danhsach')}}">Thông tin hồ sơ</a></li>
-                        <li><a href="{{url('/binhongia/xetduyet')}}">Xét duyệt hồ sơ</a></li>
-                        <li><a href="{{url('/binhongia/timkiem')}}">Tìm kiếm hồ sơ</a></li>
-                        <li><a href="{{url('/binhongia/baocao')}}">Báo cáo tổng hợp</a></li>
-                    @endif
+            @if(chkPer('csdlmucgiahhdv','bog', 'bog', 'danhmuc','index'))
+                <li>
+                    <a href="{{url('/binhongia/mathang')}}">Phân loại mặt hàng</a>
+                </li>
+            @endif
+
+            @if(chkPer('csdlmucgiahhdv','bog', 'bog', 'hoso','index'))
+                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                    <!-- chức năng nhập liệu cho đơn vị -->
+                    <li><a href="{{url('/binhongia/danhsach')}}">Thông tin hồ sơ</a></li>
+                    <li><a href="{{url('/binhongia/xetduyet')}}">Xét duyệt hồ sơ</a></li>
+                    <li><a href="{{url('/binhongia/timkiem')}}">Tìm kiếm hồ sơ</a></li>
+                    <li><a href="{{url('/binhongia/baocao')}}">Báo cáo tổng hợp</a></li>
                 @endif
             @endif
+
         </ul>
     </li>
 @endif

@@ -272,6 +272,25 @@ License: You must have a valid license purchased only from themeforest(the above
                     </li>
                     @include('includes.main.maincsdlmucgiahhdv')
                 @endif
+                <!-- Tách riêng các phân hệ doanh nghiệp do ko có phân quyền ==>chkPer('csdlmucgiahhdv') ko kiểm tra dc DN  -->
+                @if(chkPer('csdlmucgiahhdv','bog') && session('admin')->level == 'DN')
+                    <li class="heading">
+                        <h3 class="uppercase">CSDL về mức giá HH-DV</h3>
+                    </li>
+                    <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+                        data-original-title="Tổ chức, cá nhân đăng ký theo yêu cầu của Sở Tài chính, Sở quản lý ngành">
+                        <a href="javascript:;">
+                            <i class="icon-folder"></i>
+                            <span class="title">Bình ổn giá</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="{{url('/binhongia/danhsach?madv='.session('admin')->madv)}}">Thông tin hồ sơ</a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
 
                 @if(chkPer('csdlthamdinhgia'))
                     <li class="heading">

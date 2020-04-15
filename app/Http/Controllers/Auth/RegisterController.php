@@ -107,6 +107,7 @@ class RegisterController extends Controller
     public function store(Request $request){
         $inputs = $request->all();
         $inputs['trangthai'] = 'Chưa kích hoạt';
+        $inputs['level']  = 'DN';
         $model = new Company();
         if(isset($inputs['tailieu'])){
             $ipf1 = $request->file('tailieu');
