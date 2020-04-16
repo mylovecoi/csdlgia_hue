@@ -63,7 +63,7 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <div class="actions">
-                        @if(chkPer('csdlmucgiahhdv','hethong', 'danhmucnganhkd', 'modify'))
+                        @if(chkPer('csdlmucgiahhdv','hethong', 'danhmucnganhkd','danhmuc', 'modify'))
                             <button type="button" onclick="new_hs()" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
                                 <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
                         @endif
@@ -96,9 +96,11 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <button type="button" onclick="ClickEdit('{{$tt->manganh}}')" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
-                                        <i class="fa fa-edit"></i>&nbsp;Sửa</button>
-                                    @if($tt->theodoi == 'TD')
+                                    @if(chkPer('csdlmucgiahhdv','hethong', 'danhmucnganhkd','danhmuc', 'modify'))
+                                        <button type="button" onclick="ClickEdit('{{$tt->manganh}}')" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
+                                            <i class="fa fa-edit"></i>&nbsp;Sửa</button>
+                                    @endif
+                                        @if($tt->theodoi == 'TD')
                                         <a href="{{url('/dmnganhnghe/chitiet?&manganh='.$tt->manganh)}}" class="btn btn-default btn-xs mbs">
                                             <i class="fa fa-eye"></i> Xem chi tiết</a>
                                     @endif

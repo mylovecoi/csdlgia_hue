@@ -70,7 +70,7 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <div class="actions">
-                        @if(chkPer('csdlmucgiahhdv','hethong', 'danhmucnganhkd', 'modify'))
+                        @if(chkPer('csdlmucgiahhdv','hethong', 'danhmucnganhkd','danhmuc', 'modify'))
                             <button type="button" onclick="new_hs()" class="btn btn-default btn-xs mbs" data-target="#modal-edit" data-toggle="modal">
                                 <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
                         @endif
@@ -118,8 +118,10 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <button type="button" onclick="ClickEdit('{{$tt->manghe}}')" class="btn btn-default btn-xs mbs" data-target="#modal-edit" data-toggle="modal">
-                                        <i class="fa fa-edit"></i>&nbsp;Sửa</button>
+                                    @if(chkPer('csdlmucgiahhdv','hethong', 'danhmucnganhkd','danhmuc', 'modify'))
+                                        <button type="button" onclick="ClickEdit('{{$tt->manghe}}')" class="btn btn-default btn-xs mbs" data-target="#modal-edit" data-toggle="modal">
+                                            <i class="fa fa-edit"></i>&nbsp;Sửa</button>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

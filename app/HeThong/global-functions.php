@@ -2545,8 +2545,17 @@ function getGiaoDien()
     );
     $gui['hethong'] = array(
         'index' => '0', 'congbo' => '0',
-        'hethong' => array(
-            'index' => '0', 'congbo' => '0',
+        'hethong_pq' => array(
+            'index' => '0','congbo' => '0',
+            'danhsachdiaban' => array('index' => '0','congbo' => '0',),
+            'danhsachxaphuong' => array('index' => '0','congbo' => '0',),
+            'danhsachdonvi' => array('index' => '0','congbo' => '0',),
+            'danhsachtaikhoan' => array('index' => '0','congbo' => '0',),
+            'ngaynghile' => array('index' => '0','congbo' => '0',),
+            'danhmucnganhkd' => array('index' => '0','congbo' => '0',),
+            'dangky' => array('index' => '0','congbo' => '0',),
+            'chucnang' => array('index' => '0','congbo' => '0',),
+            'thongtin' => array('index' => '0','congbo' => '0',),
         ),
     );
     return $gui;
@@ -2573,25 +2582,25 @@ function getPhanQuyen()
 
     //nhóm chức năng
     $gui['dinhgia'] = array(
-            'index' => '0',);
+        'index' => '0',);
     $gui['bog'] = array(
-            'index' => '0',);
+        'index' => '0',);
     $gui['hhdv'] = array(
-            'index' => '0',);
+        'index' => '0',);
     $gui['philephi'] = array(
-            'index' => '0',);
+        'index' => '0',);
     $gui['taisan'] = array(
-            'index' => '0',);
+        'index' => '0',);
     $gui['kknygia'] = array(
-            'index' => '0',);
+        'index' => '0',);
     $gui['thamdinhgia'] = array(
-            'index' => '0',);
+        'index' => '0',);
     $gui['vbqlnn'] = array(
-            'index' => '0',);
+        'index' => '0',);
     $gui['ttpvctqlnn'] = array(
-            'index' => '0',);
-    $gui['hethong'] = array(
-            'index' => '0',);
+        'index' => '0',);
+    $gui['hethong_pq'] = array(
+        'index' => '0',);
 
     //chức năng chi tiết
     $gui['giacldat'] = array(
@@ -2849,14 +2858,43 @@ function getPhanQuyen()
         'index' => '0',
         'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
     );
+
     $gui['danhsachdiaban'] = array(
         'index' => '0',
-        'chucnang' => array('index' => '0', 'modify' => '0'),
+        'danhmuc' => array('index' => '0', 'modify' => '0'),
+    );
+
+    $gui['danhsachxaphuong'] = array(
+        'index' => '0',
+        'danhmuc' => array('index' => '0', 'modify' => '0'),
     );
     $gui['danhsachdonvi'] = array(
         'index' => '0',
-        'chucnang' => array('index' => '0', 'modify' => '0'),);
+        'danhmuc' => array('index' => '0', 'modify' => '0'),);
 
+    $gui['danhsachtaikhoan'] = array(
+        'index' => '0',
+        'danhmuc' => array('index' => '0', 'modify' => '0'),);
+
+    $gui['ngaynghile'] = array(
+        'index' => '0',
+        'danhmuc' => array('index' => '0', 'modify' => '0'),);
+
+    $gui['danhmucnganhkd'] = array(
+        'index' => '0',
+        'danhmuc' => array('index' => '0', 'modify' => '0'),);
+
+    $gui['dangky'] = array(
+        'index' => '0',
+        'danhmuc' => array('index' => '0', 'modify' => '0'),);
+
+    $gui['chucnang'] = array(
+        'index' => '0',
+        'danhmuc' => array('index' => '0', 'modify' => '0'),);
+
+    $gui['thongtin'] = array(
+        'index' => '0',
+        'danhmuc' => array('index' => '0', 'modify' => '0'),);
     return $gui;
 }
 

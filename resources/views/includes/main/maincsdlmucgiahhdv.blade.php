@@ -770,33 +770,56 @@
     @endif
 @endif
 
-@if(canGeneral('giaphilephi','index'))
-    @if(can('giaphilephi','index'))
-        <li class="javascript:;">
-            <a href="javascript:;">
-                <i class="icon-folder"></i>
-                <span class="title">Phí, lệ phí</span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-                @if(can('dmgiaphilephi','index'))
+@if(chkPer('csdlmucgiahhdv','philephi', 'giaphilephi'))
+    <li class="javascript:;">
+        <a href="javascript:;">
+            <i class="icon-folder"></i>
+            <span class="title">Phí, lệ phí</span>
+            <span class="arrow"></span>
+        </a>
+        <ul class="sub-menu">
+            @if(chkPer('csdlmucgiahhdv','philephi', 'giaphilephi','danhmuc','index'))
+                <li>
+                    <a href="{{url('/giaphilephi/danhmuc')}}">Danh mục</a>
+                </li>
+            @endif
+            @if(chkPer('csdlmucgiahhdv','philephi', 'giaphilephi', 'hoso','index'))
+                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
                     <li>
-                        <a href="{{url('nhomphilephi')}}">Danh mục nhóm phí lệ phí</a>
+                        <a href="{{url('/giaphilephi/danhsach')}}">
+                            Thông tin hồ sơ
+                        </a>
                     </li>
                 @endif
-                @if(can('kkgiaphilephi','index'))
+
+                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
                     <li>
-                        <a href="{{url('philephi')}}">Thông tin giá phí, lệ phí</a>
+                        <a href="{{url('/giaphilephi/xetduyet')}}">
+                            Xét duyệt hồ sơ
+                        </a>
                     </li>
                 @endif
-                @if(can('thgiaphilephi','timkiem'))
-                    <li>
-                        <a href="{{url('timkiemthongtinphilephi')}}">Tìm kiếm thông tin</a>
-                    </li>
-                @endif
-            </ul>
-        </li>
-    @endif
+
+                <li>
+                    <a href="{{url('/giaphilephi/timkiem')}}">
+                        Tìm kiếm hồ sơ
+                    </a>
+                </li>
+            @endif
+
+            @if(can('kkgiaphilephi','index'))
+                <li>
+                    <a href="{{url('philephi')}}">Thông tin giá phí, lệ phí</a>
+                </li>
+            @endif
+            @if(can('thgiaphilephi','timkiem'))
+                <li>
+                    <a href="{{url('timkiemthongtinphilephi')}}">Tìm kiếm thông tin</a>
+                </li>
+            @endif
+        </ul>
+    </li>
+
 @endif
 
 @if(canGeneral('thanhlytaisan','index'))

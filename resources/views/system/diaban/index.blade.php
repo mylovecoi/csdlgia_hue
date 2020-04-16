@@ -41,7 +41,7 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <div class="actions">
-                        @if(chkPer('hethong', 'hethong', 'danhsachdiaban', 'modify'))
+                        @if(chkPer('hethong', 'hethong', 'danhsachdiaban','danhmuc', 'modify'))
                             <button type="button" onclick="add()" class="btn btn-default btn-xs" data-target="#modify-modal" data-toggle="modal">
                                 <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
                         @endif
@@ -67,7 +67,7 @@
                                     <td class="active" >{{$tt->tendiaban}}</td>
                                     <td>{{$a_phanloai[$tt->level] ?? ''}}</td>
                                     <td>
-                                        @if(chkPer('hethong', 'hethong', 'danhsachdiaban', 'modify'))
+                                        @if(chkPer('hethong', 'hethong', 'danhsachdiaban','danhmuc', 'modify'))
                                             <button type="button" onclick="edit('{{$tt->madiaban}}','{{$tt->tendiaban}}','{{$tt->level}}')" class="btn btn-default btn-xs mbs" data-target="#modify-modal" data-toggle="modal">
                                                 <i class="fa fa-edit"></i>&nbsp;Sửa</button>
 

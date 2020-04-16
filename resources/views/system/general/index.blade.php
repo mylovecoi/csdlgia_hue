@@ -26,12 +26,16 @@
                     <div class="caption">
                     </div>
                     <div class="actions">
+
                         @if(session('admin')->level =='SSA')
+                            <a href="{{url('setting')}}" class="btn btn-default btn-sm">
+                                <i class="icon-settings"></i> Setting</a>
+                        @endif
+
+                        @if(chkPer('hethong', 'hethong', 'thongtin','danhmuc', 'modify')))
                             @if($model->count() >0)
                                 <a href="{{url('general/'.$model->id.'/edit')}}" class="btn btn-default btn-sm">
-                                <i class="fa fa-edit"></i> Chỉnh sửa </a>
-                                <a href="{{url('setting')}}" class="btn btn-default btn-sm">
-                                    <i class="icon-settings"></i> Setting</a>
+                                    <i class="fa fa-edit"></i> Chỉnh sửa </a>
                             @else
                                 <a href="{{url('general/create')}}" class="btn btn-default btn-sm">
                                     <i class="fa fa-plus"></i> Thêm mới</a>

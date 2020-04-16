@@ -44,7 +44,7 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <div class="actions">
-                        @if(chkPer('hethong', 'hethong', 'danhsachtaikhoan', 'modify'))
+                        @if(chkPer('hethong', 'hethong', 'danhsachtaikhoan','danhmuc', 'modify'))
                             <a href="{{url('/taikhoan/create?&madv='.$inputs['madv'])}}" class="btn btn-default btn-xs">
                                 <i class="fa fa-plus"></i> Thêm mới</a>
                         @endif
@@ -97,7 +97,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if(chkPer('hethong', 'hethong', 'danhsachtaikhoan', 'modify'))
+                                        @if(chkPer('hethong', 'hethong', 'danhsachtaikhoan','danhmuc', 'modify'))
                                             <a href="{{url('/taikhoan/modify?username='.$tt->username)}}" class="btn btn-default btn-xs mbs">
                                                 <i class="fa fa-edit"></i> Sửa</a>
 

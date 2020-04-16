@@ -186,13 +186,22 @@ class dstaikhoanController extends Controller
             }
             $inputs = $request->all();
             //dd($inputs);
-            $m_gui = GeneralConfigs::first();
-            //$gui = getGiaoDien();
-            $setting = json_decode($m_gui->setting, true);
+
             $per = getPhanQuyen();
-            //dd($setting);
             $model = Users::where('username',$inputs['username'])->first();
             $per_user = json_decode($model->permission,true);
+            $m_donvi = dsdonvi::where('madv',$model->madv)->first();
+
+            $m_gui = GeneralConfigs::first();
+            //$gui = getGiaoDien();
+
+            if($m_donvi->chucnang == 'QUANTRI'){
+                $setting['hethong'] = json_decode($m_gui->setting, true)['hethong']?? array();
+            }else{
+                //loại phân quyền hệ thống nếu có
+                $setting = json_decode($m_gui->setting, true);
+                if(isset($setting['hethong'])){unset($setting['hethong']);}
+            }
 
             foreach($per as $key => $val){
                 if(isset($per_user[$key])){

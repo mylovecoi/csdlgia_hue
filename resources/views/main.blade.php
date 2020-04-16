@@ -318,81 +318,55 @@ License: You must have a valid license purchased only from themeforest(the above
                     2. Tài khoản quản trị hệ thống chucnang=QUANTRI
                 -->
                 @if((chkPer('hethong') && session('admin')->chucnang == 'QUANTRI') || session('admin')->level == 'SSA')
-                    @if(can('system','index'))
-                        <li class="heading">
-                            <h3 class="uppercase">Hệ thống</h3>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <i class="icon-settings"></i>
-                                <span class="title">Quản trị hệ thống</span>
-                                <span class="arrow "></span>
-                            </a>
-                            <ul class="sub-menu">
-                                @if(chkPer('hethong', 'hethong', 'danhsachdiaban', 'index'))
-                                    <li><a href="{{url('/diaban/danhsach')}}">Danh sách địa bàn</a></li>
-                                @endif
-                                @if(chkPer('hethong', 'hethong', 'danhsachxaphuong', 'index'))
-                                    <li><a href="{{url('/xaphuong/danhsach')}}">Danh sách xã, phường, thị trấn</a></li>
-                                @endif
-                                @if(chkPer('hethong', 'hethong', 'danhsachdonvi', 'index'))
-                                    <li><a href="{{url('/donvi/danhsach')}}">Danh sách đơn vị</a></li>
-                                @endif
-                                @if(chkPer('hethong', 'hethong', 'danhsachtaikhoan', 'index'))
-                                    <li><a href="{{url('/taikhoan/danhsach')}}">Danh sách tài khoản</a></li>
-                                @endif
+                    <li class="heading">
+                        <h3 class="uppercase">Hệ thống</h3>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <i class="icon-settings"></i>
+                            <span class="title">Quản trị hệ thống</span>
+                            <span class="arrow "></span>
+                        </a>
+                        <ul class="sub-menu">
+                            @if(chkPer('hethong', 'hethong', 'danhsachdiaban'))
+                                <li><a href="{{url('/diaban/danhsach')}}">Danh sách địa bàn</a></li>
+                            @endif
 
-                                @if(can('ngaynghile','index'))
-                                    <li><a href="{{url('thongtinngaynghile')}}">Thông tin ngày nghỉ lễ</a></li>
-                                @endif
-                                @if(can('dmdiadanh','index'))
-                                    <li><a href="{{url('danhmucdiadanh')}}">Danh mục địa danh</a></li>
-                                @endif
-                                @if(can('districts','index'))
-                                    <li><a href="{{url('district')}}">Danh sách đơn vị quản lý</a></li>
-                                @endif
+                            @if(chkPer('hethong', 'hethong', 'danhsachxaphuong'))
+                                <li><a href="{{url('/xaphuong/danhsach')}}">Danh sách xã, phường, thị trấn</a></li>
+                            @endif
 
-                                @if(can('towns','index'))
-                                    <li><a href="{{url('town')}}">Danh sách đơn vị</a></li>
-                                @endif
-                                @if(can('companies','index'))
-                                    <li><a href="{{url('company')}}">Danh sách doanh nghiệp</a></li>
-                                @endif
+                            @if(chkPer('hethong', 'hethong', 'danhsachdonvi', 'index'))
+                                <li><a href="{{url('/donvi/danhsach')}}">Danh sách đơn vị</a></li>
+                            @endif
 
-                                @if(can('users','index'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Danh sách tài khoản</span>
-                                            <span class="arrow "></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            @if(session('admin')->level == 'T' || session('admin')->level == 'H')
-                                                <li><a href="{{url('users')}}">Tài khoản đơn vị</a></li>
-                                            @endif
-                                            @if(session('admin')->level == 'T' || session('admin')->level == 'H' || session('admin')->level == 'X')
-                                                @if(can('companies','index'))
-                                                    <li><a href="{{url('userscompany')}}">Tài khoản doanh nghiệp</a></li>
-                                                @endif
-                                            @endif
-                                        </ul>
-                                    </li>
-                                @endif
-                                @if(chkPer('hethong', 'hethong', 'dangky', 'index'))
-                                    <li><a href="{{url('dangky/danhsach')}}">Tài khoản đăng ký</a></li>
-                                @endif
+                            @if(chkPer('hethong', 'hethong', 'danhsachtaikhoan'))
+                                <li><a href="{{url('/taikhoan/danhsach')}}">Danh sách tài khoản</a></li>
+                            @endif
 
-                                @if(chkPer('hethong', 'hethong', 'danhmucnganhkd', 'index'))
-                                    <li><a href="{{url('/dmnganhnghe/danhsach')}}">Danh mục ngành nghề kinh doanh</a> </li>
-                                @endif
+                            @if(can('ngaynghile','index'))
+                                <li><a href="{{url('thongtinngaynghile')}}">Thông tin ngày nghỉ lễ</a></li>
+                            @endif
 
-                                @if(session('admin')->level == 'SSA')
+                            @if(chkPer('hethong', 'hethong', 'danhmucnganhkd'))
+                                <li><a href="{{url('/dmnganhnghe/danhsach')}}">Danh mục ngành nghề kinh doanh</a> </li>
+                            @endif
 
-                                    <li><a href="{{url('/chucnang')}}">Danh mục chức năng hệ thống</a> </li>
-                                    <li><a href="{{url('/general')}}">Cấu hình hệ thống</a></li>
-                                @endif
-                            </ul>
-                        </li>
-                        @endif
+                            @if(chkPer('hethong', 'hethong', 'dangky', 'index'))
+                                <li><a href="{{url('dangky/danhsach')}}">Tài khoản đăng ký</a></li>
+                                <li><a href="{{url('userscompany')}}">Tài khoản doanh nghiệp</a></li>
+                            @endif
+
+                            @if(chkPer('hethong', 'hethong', 'chucnang'))
+                                <li><a href="{{url('/chucnang')}}">Danh mục chức năng hệ thống</a> </li>
+                            @endif
+
+                            @if(chkPer('hethong', 'hethong', 'thongtin'))
+                                <li><a href="{{url('/general')}}">Cấu hình hệ thống</a></li>
+                            @endif
+                        </ul>
+                    </li>
+
                     @endif
 
                 <!-- lưu 09/01/2020
