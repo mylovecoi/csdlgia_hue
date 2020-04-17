@@ -806,17 +806,6 @@
                     </a>
                 </li>
             @endif
-
-            @if(can('kkgiaphilephi','index'))
-                <li>
-                    <a href="{{url('philephi')}}">Thông tin giá phí, lệ phí</a>
-                </li>
-            @endif
-            @if(can('thgiaphilephi','timkiem'))
-                <li>
-                    <a href="{{url('timkiemthongtinphilephi')}}">Tìm kiếm thông tin</a>
-                </li>
-            @endif
         </ul>
     </li>
 

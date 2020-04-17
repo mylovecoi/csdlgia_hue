@@ -17,7 +17,8 @@ class CreatePhilephictTable extends Migration
             $table->increments('id');
             $table->string('mahs')->nullable();
             $table->text('ptcp')->nullable();
-            $table->string('mucthuphi')->nullable();
+            $table->double('mucthutu')->default(0);
+            $table->double('mucthuden')->default(0);
             $table->text('ghichu')->nullable();
             $table->timestamps();
         });

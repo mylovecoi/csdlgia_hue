@@ -11,7 +11,8 @@ class PhiLePhiCt extends Model
         'id',
         'mahs',
         'ptcp',
-        'mucthuphi',
+        'mucthutu',
+        'mucthuden',
         'ghichu'
 
     ];
