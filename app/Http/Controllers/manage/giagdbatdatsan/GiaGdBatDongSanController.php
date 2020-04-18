@@ -380,9 +380,6 @@ class GiaGdBatDongSanController extends Controller
             if($inputs['madv'] != 'all'){
                 $model = $model->where('madv',$inputs['madv']);
             }
-            if($inputs['maspdv'] != 'all') {
-                $model = $model->where('maspdv', $inputs['maspdv']);
-            }
 
             if(getDayVn($inputs['thoidiem_tu']) != ''){
                 $model = $model->where('thoidiem','>=',$inputs['thoidiem_tu']);
@@ -393,12 +390,10 @@ class GiaGdBatDongSanController extends Controller
             }
 
             //dd($model);
-            $a_dm = array_column(DmPhiLePhi::all()->toArray(),'tennhom','manhom');
             return view('manage.dinhgia.giagdbatdongsan.timkiem.result')
                 ->with('model',$model->get())
                 ->with('a_diaban',array_column($m_donvi->toarray(),'tendiaban','madiaban'))
                 ->with('a_donvi',array_column($m_donvi->toarray(),'tendv','madv'))
-                ->with('a_dm',$a_dm)
                 ->with('pageTitle','Tìm kiếm thông tin hồ sơ');
         }else
             return view('errors.notlogin');

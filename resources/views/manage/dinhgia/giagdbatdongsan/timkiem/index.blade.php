@@ -17,14 +17,14 @@
 
 @section('content')
     <h3 class="page-title">
-        Tìm kiếm hồ sơ phí, lệ phí
+        Tìm kiếm hồ sơ giá giao dịch bất động sản
     </h3>
 
     <!-- END PAGE HEADER-->
     <div class="row center">
         <div class="col-md-12 center">
             <!-- BEGIN VALIDATION STATES-->
-            {!! Form::open(['url'=>'giaphilephi/timkiem', 'method'=>'post' , 'id' => 'create_timkiem', 'class'=>'horizontal-form']) !!}
+            {!! Form::open(['url'=>'giabatdongsan/timkiem', 'method'=>'post' , 'id' => 'create_timkiem', 'class'=>'horizontal-form']) !!}
             {{--            <input type="hidden" name="madv" value="{{$inputs['madv']}}">--}}
             <div class="portlet box blue">
                 <div class="portlet-body form">
@@ -47,18 +47,6 @@
                                     </select>
                                 </div>
                             </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">Tên sản phẩm, dịch vụ</label>
-                                    <select class="form-control select2me" name="maspdv" id="maspdv">
-                                        <option value="all">-- Tất cả sản phẩm, dịch vụ --</option>
-                                        @foreach($a_dm as $key=>$val)
-                                            <option value="{{$key}}">{{$val}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
                         </div>
 
                         <div class="row">
@@ -73,23 +61,6 @@
                                 <div class="form-group">
                                     <label class="control-label">Thời gian nhập đến</label>
                                     {!! Form::input('date', 'thoidiem_den', null, array('id' => 'thoidiem_den', 'class' => 'form-control'))!!}
-                                </div>
-                            </div>
-                            <!--/span-->
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">Đơn giá từ</label>
-                                    {!!Form::text('giatri_tu', null, array('id' => 'giatri_tu','class' => 'form-control','data-mask'=>'fdecimal'))!!}
-                                </div>
-                            </div>
-                            <!--/span-->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">Đơn giá đến</label>
-                                    {!!Form::text('giatri_den', null, array('id' => 'giatri_den','class' => 'form-control','data-mask'=>'fdecimal'))!!}
                                 </div>
                             </div>
                             <!--/span-->

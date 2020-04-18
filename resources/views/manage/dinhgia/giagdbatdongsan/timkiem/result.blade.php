@@ -38,10 +38,9 @@
                                 <th width="2%" style="text-align: center">STT</th>
                                 <th style="text-align: center">Đơn vị nhập</th>
                                 <th style="text-align: center">Thời điểm</th>
-                                <th style="text-align: center">Tên sản phẩm, dịch vụ</th>
                                 <th style="text-align: center">Thông tin hồ sơ</th>
-                                <th style="text-align: center">Mức phí từ</th>
-                                <th style="text-align: center">Mức phí đến</th>
+                                <th style="text-align: center">Đơn vị ban hành</th>
+
                             </tr>
                         </thead>
 
@@ -51,10 +50,8 @@
                                     <td style="text-align: center">{{$key + 1}}</td>
                                     <td>{{$a_donvi[$tt->madv] ?? ''}}</td>
                                     <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
-                                    <td>{{$a_dm[$tt->manhom] ?? ''}}</td>
-                                    <td>{{$tt->soqd}}</td>
-                                    <td style="text-align: center">{{dinhdangso($tt->mucthutu)}}</td>
-                                    <td style="text-align: center">{{dinhdangso($tt->mucthuden)}}</td>
+                                    <td>{{$tt->mota}}</td>
+                                    <td>{{$tt->dvbanhanh}}</td>
                                 </tr>
                             @endforeach
 
@@ -62,7 +59,7 @@
                     </table>
                     <div class="row">
                         <div class="col-md-12" style="text-align: center">
-                            <a href="{{url('giaphilephi/timkiem')}}" class="btn btn-danger">
+                            <a href="{{url('giabatdongsan/timkiem')}}" class="btn btn-danger">
                                 <i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                         </div>
                     </div>
