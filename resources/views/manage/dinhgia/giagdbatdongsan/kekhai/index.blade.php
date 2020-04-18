@@ -35,7 +35,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Thông tin hồ sơ  phí lệ phí
+        Thông tin hồ sơ giá giao dịch bất động sản
     </h3>
 
     <!-- END PAGE HEADER-->
@@ -47,7 +47,7 @@
                     <div class="caption">
                     </div>
                     <div class="actions">
-                        @if(chkPer('csdlmucgiahhdv','philephi', 'giaphilephi','hoso','modify'))
+                        @if(chkPer('csdlmucgiahhdv','taisan', 'giabatdongsan', 'hoso', 'modify'))
                             <a href="{{url($inputs['url'].'/new?madv='.$inputs['madv'])}}" class="btn btn-default btn-sm">
                                 <i class="fa fa-plus"></i> Thêm mới </a>
 {{--                            <a href="{{url($inputs['url'].'/nhandulieutuexcel')}}" class="btn btn-default btn-sm">--}}
@@ -82,11 +82,11 @@
                             </div>
                         </div>
                     </div>
-                    <table id="sample_3" class="table table-striped table-bordered table-hover">
+                    <table id="sample_4" class="table table-striped table-bordered table-hover">
                         <thead>
                         <tr>
                             <th width="2%" style="text-align: center">STT</th>
-                            <th style="text-align: center">Nhóm phí, lệ phí</th>
+                            <th style="text-align: center">Địa bàn</th>
                             <th style="text-align: center">Số QĐ</th>
                             <th style="text-align: center">Mô tả</th>
                             <th style="text-align: center">Thời điểm</br>áp dụng</th>
@@ -100,14 +100,14 @@
                         @foreach($model as $key=>$tt)
                             <tr>
                                 <td style="text-align: center">{{$key + 1}}</td>
-                                <td style="text-align: left">{{$a_dm[$tt->manhom] ?? ''}}</td>
-                                <td style="text-align: left">{{$tt->soqd}}</td>
-                                <td style="text-align: left">{{$tt->mota}}</td>
-                                <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
+                                <td style="text-align: left">{{$a_diaban[$tt->madiaban] ?? ''}}</td>
+                                <td style="text-align: left">{{$tt->kyhieuvb}}</td>
+                                <td style="text-align: left">{{$tt->tieude}}</td>
+                                <td style="text-align: center">{{getDayVn($tt->ngayapdung)}}</td>
                                 @include('manage.include.form.td_trangthai')
                                 <td style="text-align: left">{{$a_donvi_th[$tt->macqcq]?? ''}}</td>
                                 <td>
-                                    @if(chkPer('csdlmucgiahhdv','philephi', 'giaphilephi','hoso','modify') && in_array($tt->trangthai,['CHT', 'HHT']))
+                                    @if(chkPer('csdlmucgiahhdv','taisan', 'giabatdongsan','hoso','modify') && in_array($tt->trangthai,['CHT', 'HHT']))
                                         <a href="{{url($inputs['url'].'/modify?mahs='.$tt->mahs.'&act=true')}}" class="btn btn-default btn-xs mbs">
                                             <i class="fa fa-edit"></i>&nbsp;Chi tiết</a>
                                         <button type="button" onclick="confirmDelete('{{$tt->mahs}}','{{$inputs['url'].'/delete'}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
@@ -116,10 +116,12 @@
                                         <a href="{{url($inputs['url'].'/modify?mahs='.$tt->mahs.'&act=false')}}" target="_blank" class="btn btn-default btn-xs mbs">
                                             <i class="fa fa-eye"></i>&nbsp;Chi tiết</a>
                                     @endif
-                                    @if(chkPer('csdlmucgiahhdv','philephi', 'giaphilephi','hoso', 'approve')&& in_array($tt->trangthai,['CHT', 'HHT']))
+                                    @if(chkPer('csdlmucgiahhdv','taisan', 'giabatdongsan','hoso', 'approve')&& in_array($tt->trangthai,['CHT', 'HHT']))
                                         <button type="button" onclick="confirmChuyen('{{$tt->mahs}}','{{$inputs['url'].'/chuyenhs'}}')" class="btn btn-default btn-xs mbs" data-target="#chuyen-modal-confirm" data-toggle="modal">
                                             <i class="fa fa-check"></i> Hoàn thành</button>
                                     @endif
+                                    <button type="button" onclick="get_attack('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
+                                        <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
                                 </td>
                             </tr>
                         @endforeach
@@ -134,6 +136,7 @@
             <!-- END DASHBOARD STATS -->
         </div>
     </div>
+    @include('manage.include.form.modal_attackfile')
     @include('manage.include.form.modal_approve_hs')
     @include('manage.include.form.modal_del_hs')
 @stop

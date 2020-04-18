@@ -808,7 +808,6 @@
             @endif
         </ul>
     </li>
-
 @endif
 
 @if(canGeneral('thanhlytaisan','index'))
@@ -835,17 +834,39 @@
     @endif
 @endif
 
-@if(canGeneral('giabatdongsan','index'))
-    @if(can('giabatdongsan','index'))
-        @if(can('hsgiabatdongsan','index'))
-            <li class="javascript:;">
-            <a href="{{url('giagiaodichbatdongsan')}}">
-                <i class="icon-folder"></i>
-                <span class="title">Giá giao dịch bất động sản</span>
-            </a>
-        </li>
-        @endif
-    @endif
+@if(chkPer('csdlmucgiahhdv','taisan', 'giabatdongsan'))
+    <li class="javascript:;">
+        <a href="javascript:;">
+            <i class="icon-folder"></i>
+            <span class="title">Giao dịch bất động sản</span>
+            <span class="arrow"></span>
+        </a>
+        <ul class="sub-menu">
+            @if(chkPer('csdlmucgiahhdv','taisan', 'giabatdongsan', 'hoso', 'index'))
+                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                    <li>
+                        <a href="{{url('/giabatdongsan/danhsach')}}">
+                            Thông tin hồ sơ
+                        </a>
+                    </li>
+                @endif
+
+                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                    <li>
+                        <a href="{{url('/giabatdongsan/xetduyet')}}">
+                            Xét duyệt hồ sơ
+                        </a>
+                    </li>
+                @endif
+
+                <li>
+                    <a href="{{url('/giabatdongsan/timkiem')}}">
+                        Tìm kiếm hồ sơ
+                    </a>
+                </li>
+            @endif
+        </ul>
+    </li>
 @endif
 
 @if(canGeneral('muataisan','index'))

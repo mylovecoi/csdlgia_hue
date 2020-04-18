@@ -625,18 +625,25 @@ Route::post('lptbnhaclcl/update','manage\gialephitruocbanha\GiaLpTbNhaCtClclCont
 Route::get('lptbnhaclcl/del','manage\gialephitruocbanha\GiaLpTbNhaCtClclController@destroy');
 
 //Giá giao dịch bất động sản
-Route::get('giagiaodichbatdongsan','manage\giagdbatdatsan\GiaGdBatDongSanController@index');
-Route::get('giagiaodichbatdongsan/create','manage\giagdbatdatsan\GiaGdBatDongSanController@create');
-Route::post('giagiaodichbatdongsan','manage\giagdbatdatsan\GiaGdBatDongSanController@store');
-Route::get('giagiaodichbatdongsan/{id}/edit','manage\giagdbatdatsan\GiaGdBatDongSanController@edit');
-Route::patch('giagiaodichbatdongsan/{id}','manage\giagdbatdatsan\GiaGdBatDongSanController@update');
-Route::post('giagiaodichbatdongsan/delete','manage\giagdbatdatsan\GiaGdBatDongSanController@destroy');
-Route::get('giagiaodichbatdongsan/dinhkem','manage\giagdbatdatsan\GiaGdBatDongSanController@show');
+//Giá sản phẩm dịch vụ công ích
+Route::group(['prefix'=>'giabatdongsan'],function (){
+    Route::get('danhsach','manage\giagdbatdatsan\GiaGdBatDongSanController@index');
+    Route::get('new','manage\giagdbatdatsan\GiaGdBatDongSanController@create');
 
-Route::post('giagiaodichbatdongsan/hoanthanh','manage\giagdbatdatsan\GiaGdBatDongSanController@hoanthanh');
-Route::post('giagiaodichbatdongsan/huyhoanthanh','manage\giagdbatdatsan\GiaGdBatDongSanController@huyhoanthanh');
-Route::post('giagiaodichbatdongsan/congbo','manage\giagdbatdatsan\GiaGdBatDongSanController@congbo');
-Route::post('giagiaodichbatdongsan/huycongbo','manage\giagdbatdatsan\GiaGdBatDongSanController@huycongbo');
+    Route::get('modify','manage\giagdbatdatsan\GiaGdBatDongSanController@edit');
+    Route::post('modify','manage\giagdbatdatsan\GiaGdBatDongSanController@store');
+    Route::post('delete','manage\giagdbatdatsan\GiaGdBatDongSanController@destroy');
+    Route::get('dinhkem','manage\giagdbatdatsan\GiaGdBatDongSanController@show');
 
+    Route::post('chuyenhs','manage\giagdbatdatsan\GiaGdBatDongSanController@chuyenhs');
+    //Route::get('prints','manage\giaspdvci\GiaSpDvCiController@ketxuat');
 
+    Route::get('xetduyet','manage\giagdbatdatsan\GiaGdBatDongSanController@xetduyet');
+    Route::post('chuyenxd','manage\giagdbatdatsan\GiaGdBatDongSanController@chuyenxd');
+    Route::post('tralai','manage\giagdbatdatsan\GiaGdBatDongSanController@tralai');
+    Route::post('congbo','manage\giagdbatdatsan\GiaGdBatDongSanController@congbo');
+
+    Route::get('timkiem','manage\giagdbatdatsan\GiaGdBatDongSanController@timkiem');
+    Route::post('timkiem','manage\giagdbatdatsan\GiaGdBatDongSanController@ketquatk');
+});
 ?>

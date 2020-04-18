@@ -158,6 +158,18 @@ function getDiaBan_NhapLieu($level, $madiaban = null)
         'tendiaban', 'madiaban');
 }
 
+//Lấy danh sách địa bàn các đơn vị xã huyện
+function getDiaBan_XaHuyen($level, $madiaban = null)
+{
+    if (in_array($level, ['SSA', 'T', 'ADMIN'])) {
+        return array_column(App\Model\system\dsdiaban::wherein('level', ['X', 'H'])->get()->toarray(),
+            'tendiaban', 'madiaban');
+    }
+
+    return array_column(App\Model\system\dsdiaban::where('madiaban', $madiaban)->get()->toarray(),
+        'tendiaban', 'madiaban');
+}
+
 //Lấy danh sách địa bàn theo level hệ thống
 function getDiaBan_HeThong($level, $madiaban = null)
 {

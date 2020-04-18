@@ -29,100 +29,13 @@
         jQuery(document).ready(function() {
             TableManaged.init();
         });
-        function clearForm(){
-            var form = $('#frm_modify');
-            form.find("[name='mucthuphi']").val('');
-            form.find("[name='ptcp']").val('');
-            form.find("[name='ghichuct']").val('');
-            form.find("[name='idct']").val(0);
-        }
-        function createmhbog(){
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            $.ajax({
-                url: '{{$inputs['url']}}' + '/store_ct',
-                type: 'GET',
-                data: {
-                    _token: CSRF_TOKEN,
-                    ptcp: $('#ptcp').val(),
-                    mucthutu: $('#mucthutu').val(),
-                    mucthuden: $('#mucthuden').val(),
-                    ghichu: $('#ghichuct').val(),
-                    mahs: $('#mahs').val(),
-                    id: $('#idct').val(),
-                },
-                dataType: 'JSON',
-                success: function (data) {
-                    if (data.status == 'success') {
-                        toastr.success("Cập nhật thông tin phí lệ phí", "Thành công!");
-                        $('#dsmhbog').replaceWith(data.message);
-                        jQuery(document).ready(function() {
-                            TableManaged.init();
-                        });
-                        $('#modal-create').modal("hide");
-
-                    } else
-                        toastr.error("Bạn cần kiểm tra lại thông tin vừa nhập!", "Lỗi!");
-                }
-            })
-
-        }
-        function editmhbog(id) {
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            //alert(id);
-            $.ajax({
-                url: '{{$inputs['url']}}' + '/show_ct',
-                type: 'GET',
-                data: {
-                    _token: CSRF_TOKEN,
-                    id: id
-                },
-                dataType: 'JSON',
-                success: function (data) {
-                    var form = $('#frm_modify');
-                    form.find("[name='mucthutu']").val(data.mucthutu);
-                    form.find("[name='mucthuden']").val(data.mucthuden);
-                    form.find("[name='ptcp']").val(data.ptcp);
-                    form.find("[name='ghichuct']").val(data.ghichu);
-                    form.find("[name='idct']").val(data.id);
-                }
-            })
-        }
-
-        function getid(id){
-            document.getElementById("iddelete").value=id;
-        }
-        function delmhbog() {
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            $.ajax({
-                url: '{{$inputs['url']}}' + '/del_ct',
-                type: 'GET',
-                data: {
-                    _token: CSRF_TOKEN,
-                    id: $('input[name="iddelete"]').val(),
-                    mahs: $('#mahs').val()
-                },
-                dataType: 'JSON',
-                success: function (data) {
-                    //if(data.status == 'success') {
-                    toastr.success("Bạn đã xóa thông tin phí lệ phí!", "Thành công!");
-                    $('#dsmhbog').replaceWith(data.message);
-                    jQuery(document).ready(function() {
-                        TableManaged.init();
-                    });
-
-                    $('#modal-delete').modal("hide");
-
-                    //}
-                }
-            })
-        }
     </script>
 
 @stop
 
 @section('content')
     <h3 class="page-title">
-        Thông tin hồ sơ phí, lệ phí<small> chỉnh sửa</small>
+        Thông tin hồ sơ giá giao dịch bất động sản
     </h3>
     <!-- END PAGE HEADER-->
 
@@ -135,24 +48,23 @@
                 </div-->
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
-                    {!! Form::model($model, ['method' => 'post', 'url'=>$inputs['url'].'/modify', 'class'=>'horizontal-form','id'=>'update_philephi']) !!}
+                    {!! Form::model($model, ['method' => 'post', 'url'=>$inputs['url'].'/modify', 'class'=>'horizontal-form','id'=>'update_philephi', 'files'=>true]) !!}
                         <meta name="csrf-token" content="{{ csrf_token() }}" />
                         <input type="hidden" name="mahs" id="mahs" value="{{$model->mahs}}">
                         <input type="hidden" name="madv" id="madv" value="{{$model->madv}}">
                         <div class="form-body">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label">Nhóm phí lệ phí<span class="require">*</span></label>
-                                        {!!Form::select('manhom', $a_dm, null, array('id' => 'manhom','class' => 'form-control select2me'))!!}
+                                        <label class="control-label">Địa bàn</label>
+                                        {!!Form::select('madiaban', $a_diaban, null, array('id' => 'madiaban','class' => 'form-control select2me'))!!}
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
+
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label">Mô tả<span class="require">*</span></label>
-                                        {!!Form::textarea('mota',null, array('id' => 'mota','class' => 'form-control','required', 'autofocus', 'rows'=>3))!!}
+                                        <label class="control-label">Xã phường</label>
+                                        {!!Form::select('maxp', $a_xp, null, array('id' => 'maxp','class' => 'form-control select2me'))!!}
                                     </div>
                                 </div>
                             </div>
@@ -160,23 +72,41 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label">Số quyết định</label>
-                                        {!!Form::text('soqd',null, array('id' => 'soqd','class' => 'form-control'))!!}
+                                        <label class="control-label">Đơn vị ban hành<span class="require">*</span></label>
+                                        {!!Form::text('dvbanhanh',null, array('id' => 'dvbanhanh','class' => 'form-control required'))!!}
                                     </div>
                                 </div>
-
+                                <!--/span-->
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label">Ngày áp dụng<span class="require">*</span></label>
+                                        <label class="control-label">Ký hiệu văn bản<span class="require">*</span></label>
+                                        {!!Form::text('kyhieuvb',null, array('id' => 'kyhieuvb','class' => 'form-control required'))!!}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Ngày ban hành<span class="require">*</span></label>
                                         {!! Form::input('date', 'thoidiem', null, array('id' => 'thoidiem', 'class' => 'form-control', 'required'))!!}
                                     </div>
                                 </div>
-{{--                                <div class="col-md-6">--}}
-{{--                                    <div class="form-group">--}}
-{{--                                        <label class="control-label">Đơn vị tính</label>--}}
-{{--                                        {!!Form::text('dvt',null, array('id' => 'dvt','class' => 'form-control required'))!!}--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Ngày áp dụng</label>
+                                        {!! Form::input('date', 'ngayapdung', null, array('id' => 'ngayapdung', 'class' => 'form-control'))!!}
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label">Tiêu đề</label>
+                                        {!!Form::text('tieude',null, array('id' => 'tieude','class' => 'form-control required'))!!}
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="row">
@@ -186,53 +116,21 @@
                                         {!!Form::text('ghichu',null, array('id' => 'ghichu','class' => 'form-control'))!!}
                                     </div>
                                 </div>
+                                <!--/span-->
                             </div>
-
+                            {!!Form::hidden('mahs',null, array('id' => 'mahs','class' => 'form-control'))!!}
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-success btn-xs" onclick="clearForm()">
-                                            <i class="fa fa-plus"></i>&nbsp;Thêm mới thông tin</button>
+                                        <label class="control-label">File đính kèm</label>
+                                        @if($model->ipf1 != '')
+                                            <a href="{{url('/data/giagdbatdongsan/'.$model->ipf1)}}" target="_blank">{{$model->ipf1}}</a>
+                                        @endif
+                                        <input name="ipf1" id="ipf1" type="file">
                                     </div>
                                 </div>
-                                <!--/span-->
                             </div>
 
-                            <div class="row" id="dsmhbog">
-                                <div class="col-md-12">
-                                    <table class="table table-striped table-bordered table-hover" id="sample_3">
-                                        <thead>
-                                        <tr>
-                                            <th width="2%" style="text-align: center">STT</th>
-                                            <th style="text-align: center">Tên phí</th>
-                                            <th style="text-align: center">Mức thu từ</th>
-                                            <th style="text-align: center">Mức thu đến</th>
-                                            <th style="text-align: center">Ghi chú</th>
-                                            <th width="15%" style="text-align: center">Thao tác</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($modelct as $key=>$ct)
-                                        <tr>
-                                            <td style="text-align: center">{{$key+1}}</td>
-                                            <td style="text-align: left">{{$ct->ptcp}}</td>
-                                            <td style="text-align: right;font-weight: bold">{{number_format($ct->mucthutu)}}</td>
-                                            <td style="text-align: right;font-weight: bold">{{number_format($ct->mucthuden)}}</td>
-                                            <td style="text-align: left">{{$ct->ghichu}}</td>
-                                            <td>
-                                                @if(in_array($model->trangthai, ['CHT', 'HHT']))
-                                                    <button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editmhbog({{$ct->id}})">
-                                                        <i class="fa fa-edit"></i>&nbsp;Sửa</button>
-                                                    <button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid({{$ct->id}})" >
-                                                        <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
                         </div>
                     <!-- END FORM-->
                 </div>
