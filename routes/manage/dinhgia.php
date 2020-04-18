@@ -625,7 +625,6 @@ Route::post('lptbnhaclcl/update','manage\gialephitruocbanha\GiaLpTbNhaCtClclCont
 Route::get('lptbnhaclcl/del','manage\gialephitruocbanha\GiaLpTbNhaCtClclController@destroy');
 
 //Giá giao dịch bất động sản
-//Giá sản phẩm dịch vụ công ích
 Route::group(['prefix'=>'giabatdongsan'],function (){
     Route::get('danhsach','manage\giagdbatdatsan\GiaGdBatDongSanController@index');
     Route::get('new','manage\giagdbatdatsan\GiaGdBatDongSanController@create');
@@ -646,4 +645,21 @@ Route::group(['prefix'=>'giabatdongsan'],function (){
     Route::get('timkiem','manage\giagdbatdatsan\GiaGdBatDongSanController@timkiem');
     Route::post('timkiem','manage\giagdbatdatsan\GiaGdBatDongSanController@ketquatk');
 });
+
+//Giá trúng thầu của HH-DV được mua sắm theo QĐ của PL về đấu thầu
+Route::group(['prefix'=>'muataisan'],function (){
+    Route::get('danhsach', 'manage\muataisan\MuaTaiSanController@index');
+
+    Route::get('thongtinmuataisan/create', 'manage\muataisan\MuaTaiSanController@create');
+    Route::post('thongtinmuataisan', 'manage\muataisan\MuaTaiSanController@store');
+    Route::get('thongtinmuataisan/dinhkem', 'manage\muataisan\MuaTaiSanController@show');
+    Route::post('thongtinmuataisan/delete', 'manage\muataisan\MuaTaiSanController@destroy');
+    Route::get('thongtinmuataisan/{id}/edit', 'manage\muataisan\MuaTaiSanController@edit');
+    Route::patch('thongtinmuataisan/{id}', 'manage\muataisan\MuaTaiSanController@update');
+    Route::post('thongtinmuataisan/hoanthanh', 'manage\muataisan\MuaTaiSanController@hoanthanh');
+    Route::post('thongtinmuataisan/huyhoanthanh', 'manage\muataisan\MuaTaiSanController@huyhoanthanh');
+    Route::post('thongtinmuataisan/congbo', 'manage\muataisan\MuaTaiSanController@congbo');
+    Route::post('thongtinmuataisan/huycongbo', 'manage\muataisan\MuaTaiSanController@huycongbo');
+});
+
 ?>
