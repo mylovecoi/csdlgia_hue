@@ -3,14 +3,6 @@
 @section('custom-style')
     <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/select2/select2.css')}}"/>
-    <!--link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css')}}"/-->
-    <!-- BEGIN THEME STYLES -->
-    <!--link href="{{url('assets/global/css/components.css')}}" id="style_components" rel="stylesheet" type="text/css"/>
-    <link href="{{url('assets/global/css/plugins.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{url('assets/admin/layout/css/layout.css')}}" rel="stylesheet" type="text/css"/>
-    <link id="style_color" href="{{url('assets/admin/layout/css/themes/darkblue.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{url('assets/admin/layout/css/custom.css')}}" rel="stylesheet" type="text/css"/-->
     <!-- END THEME STYLES -->
 @stop
 
@@ -21,56 +13,72 @@
     <script type="text/javascript" src="{{url('assets/global/plugins/select2/select2.min.js')}}"></script>
     <script type="text/javascript" src="{{url('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js')}}"></script>
     <script type="text/javascript" src="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
-    <!--script type="text/javascript" src="{{url('assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js')}}"></script>
-    <script type="text/javascript" src="{{url('assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js')}}"></script>
-    <script type="text/javascript" src="{{url('assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js')}}"></script-->
     <!-- END PAGE LEVEL PLUGINS -->
     <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
     <script>
         jQuery(document).ready(function() {
             TableManaged.init();
         });
-        function getId(id){
-            document.getElementById("iddelete").value=id;
+        function getId(soqd){
+            $('#frm_delete').find("[id='soqd']").val(soqd);
         }
-        $(function(){
-            $('#nam').change(function() {
-                var namhs = $('#nam').val();
-                var url = '/dmqdgiadat?&nam='+namhs;
-                window.location.href = url;
-            });
+        function ClickDelete(){
+            $('#frm_delete').submit();
+        }
 
-        });
+        function ClickEdit(maso){
+            $('#frm_create').find("[name='soqd']").prop('readonly',true);
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                url: '{{$inputs['url']}}' + '/show_dm',
+                type: 'GET',
+                data: {
+                    _token: CSRF_TOKEN,
+                    soqd: maso
+                },
+                dataType: 'JSON',
+                success: function (data) {
+                    var form = $('#frm_create');
+                    form.find("[name='soqd']").val(data.soqd);
+                    form.find("[name='ngayqd_banhanh']").val(data.ngayqd_banhanh);
+                    form.find("[name='ngayqd_apdung']").val(data.ngayqd_apdung);
+                    form.find("[name='mota']").val(data.mota);
+                },
+                error: function (message) {
+                    toastr.error(message, 'Lỗi!');
+                }
+            });
+        }
+        function new_hs() {
+            var form = $('#frm_create');
+            //Nhà xã hội cho thuê
+            form.find("[name='soqd']").prop('readonly',false);
+            form.find("[name='soqd']").val('');
+            form.find("[name='mota']").val('');
+        }
     </script>
 @stop
 
 @section('content')
-
     <h3 class="page-title">
-        Thông tin quyết định quy định<small>&nbsp;giá đất theo địa bàn</small>
+        Quyết định quy định giá đất
     </h3>
     <!-- END PAGE HEADER-->
     <div class="row">
         <div class="col-md-12">
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
-            <div class="portlet box wi">
+            <div class="portlet box">
                 <div class="portlet-title">
-                    <div class="caption">
-                    </div>
                     <div class="actions">
-                        @if(can('dmgiacldat','create'))
-                        <a href="{{url('thongtugiadatdiaban/create')}}" class="btn btn-default btn-sm">
-                            <i class="fa fa-plus"></i> Thêm mới </a>
+                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giacldat', 'danhmuc','modify'))
+                            <button type="button" onclick="new_hs()" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
+                                <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
                         @endif
-                        <!--a href="" class="btn btn-default btn-sm">
-                            <i class="fa fa-print"></i> Print </a-->
                     </div>
                 </div>
                 <hr>
-                <div class="portlet-body">
-                    <div class="table-toolbar">
-                    </div>
-                    <table class="table table-striped table-bordered table-hover" id="sample_3">
+                <div class="portlet-body form-horizontal">
+                    <table class="table table-striped table-bordered table-hover" id="sample_4">
                         <thead>
                         <tr>
                             <!--th class="table-checkbox">
@@ -87,50 +95,108 @@
                         </thead>
                         <tbody>
                         @foreach($model as $key=>$tt)
-                        <tr>
-                            <td style="text-align: center">{{$key + 1}}</td>
-                            <td class="success">{{$tt->soqd}}</td>
-                            <td class="text-center">{{getDayVn($tt->ngaybanhanh)}}</td>
-                            <td class="text-center">{{getDayVn($tt->ngayapdung)}}</td>
-                            <td>{{$tt->mota}}</td>
-                            <td>{{$tt->ghichu}}</td>
-                            <td>
-                                @if(can('dmgiacldat','edit'))
-                                <a href="{{url('thongtugiadatdiaban/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs">
-                                    <i class="fa fa-edit"></i> Chỉnh sửa </a>
-                                @endif
-                                @if($tt->ipf1 != '')
-                                    <a href="{{url('data/giadatdiaban/'.$tt->ipf1)}}" class="btn btn-default btn-xs mbs"><i class="fa fa-cloud-download"></i> File đính kèm</a>
-                                @endif
-                                @if(can('dmgiacldat','delete'))
-                                <button type="button" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal" onclick="getId('{{$tt->id}}')">
-                                    <i class="fa fa-trash-o"></i>&nbsp; Xóa</button>
-                                @endif
-                            </td>
-                        </tr>
+                            <tr>
+                                <td style="text-align: center">{{$key + 1}}</td>
+                                <td class="success">{{$tt->soqd}}</td>
+                                <td class="text-center">{{getDayVn($tt->ngayqd_banhanh)}}</td>
+                                <td class="text-center">{{getDayVn($tt->ngayqd_apdung)}}</td>
+                                <td>{{$tt->mota}}</td>
+                                <td>{{$tt->ghichu}}</td>
+                                <td>
+                                    @if(chkPer('csdlmucgiahhdv','dinhgia', 'giacldat', 'danhmuc','modify'))
+                                        <button type="button" onclick="ClickEdit('{{$tt->soqd}}')" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
+                                            <i class="fa fa-edit"></i>&nbsp;Sửa</button>
+                                        <button type="button" onclick="getId('{{$tt->soqd}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal" style="margin: 2px">
+                                            <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
+                                    @endif
+                                    @if($tt->ipf1 != '')
+                                        <a href="{{url('data/giadatdiaban/'.$tt->ipf1)}}" class="btn btn-default btn-xs mbs"><i class="fa fa-cloud-download"></i> File đính kèm</a>
+                                    @endif
+                                </td>
+                            </tr>
                         @endforeach
                         </tbody>
                     </table>
                 </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
             </div>
-            <!-- END EXAMPLE TABLE PORTLET-->
         </div>
     </div>
-
     <!-- BEGIN DASHBOARD STATS -->
 
     <!-- END DASHBOARD STATS -->
-    <div class="clearfix">
-    </div>
-    <div class="modal fade" id="delete-modal-confirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modal-create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url'=>'thongtugiadatdiaban/delete','id' => 'frm_delete'])!!}
+                {!! Form::open(['url'=>$inputs['url'].'/danhmuc', 'method'=>'post','id' => 'frm_create','files'=>true])!!}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Thông tin quyết định quy định giá đất</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Số quyết định<span class="require">*</span></label>
+                                {!!Form::text('soqd',null, array('id' => 'soqd','class' => 'form-control required'))!!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Ngày ban hành<span class="require">*</span></label>
+                                {!! Form::input('date', 'ngayqd_banhanh', null, array('id' => 'ngayqd_banhanh', 'class' => 'form-control', 'required'))!!}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Ngày áp dụng<span class="require">*</span></label>
+                                {!! Form::input('date', 'ngayqd_apdung', null, array('id' => 'ngayqd_apdung', 'class' => 'form-control', 'required'))!!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Mô tả</label>
+                                {!!Form::textarea('mota',null, array('id' => 'mota','class' => 'form-control','rows'=>'3'))!!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">File đính kèm </label>
+                                {!!Form::file('ipf1',null, array('id' => 'ipf1','class' => 'form-control'))!!}
+                            </div>
+                        </div>
+                    </div>
+                <input type="hidden" name="ma" />
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn blue">Đồng ý</button>
+                    <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
+                </div>
+                {!! Form::close() !!}
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                {!! Form::open(['url'=>$inputs['url'].'/delete_dm','id' => 'frm_delete'])!!}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Đồng ý xóa?</h4>
                 </div>
-                <input type="hidden" name="iddelete" id="iddelete">
+                <input type="hidden" name="soqd" id="soqd">
                 <div class="modal-footer">
                     <button type="submit" class="btn blue" onclick="ClickDelete()">Đồng ý</button>
                     <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
@@ -141,9 +207,6 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
-    <script>
-        function ClickDelete(){
-            $('#frm-demlete').submit();
-        }
-    </script>
+
+    @include('includes.script.create-header-scripts')
 @stop

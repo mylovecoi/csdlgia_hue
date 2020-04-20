@@ -443,12 +443,12 @@
                     <ul class="sub-menu">
                         @if(chkPer('csdlmucgiahhdv','dinhgia','giacldat','danhmuc','index'))
                             <li>
-                                <a href="{{url('thongtugiadatdiaban')}}">Thông tư giá đất địa bàn</a>
+                                <a href="{{url('giacldat/danhmuc')}}">Thông tư giá đất địa bàn</a>
                             </li>
                         @endif
                         @if(chkPer('csdlmucgiahhdv','dinhgia','giacldat','hoso','index'))
                             <li>
-                                <a href="{{url('giadatdiaban')}}">
+                                <a href="{{url('giacldat/danhsach')}}">
                                     Giá đất theo địa bàn
                                 </a>
                             </li>

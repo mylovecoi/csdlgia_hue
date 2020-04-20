@@ -18,24 +18,37 @@ Route::get('reportsgiacldat','GiaCacLoaiDatController@show');
 
 Route::get('timkiemthongtingiacacloaidat','GiaCacLoaiDatController@search');
 
-//Giá đất địa bàn
-Route::get('giadatdiaban','GiaDatDiaBanController@index');
-Route::get('giadatdiaban/nhandulieutuexcel','GiaDatDiaBanController@nhandulieutuexcel');
-Route::post('giadatdiaban/import_excel','GiaDatDiaBanController@importexcel');
-Route::post('giadatdiaban/delete','GiaDatDiaBanController@multidelete');
-Route::get('giadatdiaban/edittt','GiaDatDiaBanController@edit');
-Route::post('giadatdiaban/update','GiaDatDiaBanController@update');
-Route::post('giadatdiaban/destroy','GiaDatDiaBanController@destroy');
-Route::post('giadatdiaban/add','GiaDatDiaBanController@store');
-Route::post('giadatdiaban/congbo','GiaDatDiaBanController@congbo');
-Route::post('giadatdiaban/huycongbo','GiaDatDiaBanController@huycongbo');
-Route::post('giadatdiaban/hoanthanh','GiaDatDiaBanController@hoanthanh');
-Route::post('giadatdiaban/huyhoanthanh','GiaDatDiaBanController@huyhoanthanh');
-Route::post('giadatdiaban/checkmulti','GiaDatDiaBanController@checkmulti');
-Route::get('giadatdiaban/prints','GiaDatDiaBanController@bcgiadatdiaban');
 
-Route::resource('thongtugiadatdiaban','manage\giadatdiaban\TtGiaDatDiaBanController');
-Route::post('thongtugiadatdiaban/delete','manage\giadatdiaban\TtGiaDatDiaBanController@destroy');
+//Giá đất địa bàn (bảng giá đất)
+Route::group(['prefix'=>'giacldat'],function (){
+    Route::get('danhmuc','manage\giadatdiaban\TtGiaDatDiaBanController@index');
+    Route::post('danhmuc','manage\giadatdiaban\TtGiaDatDiaBanController@store');
+    Route::post('update_dm','manage\giadatdiaban\TtGiaDatDiaBanController@update');
+    Route::post('delete_dm','manage\giadatdiaban\TtGiaDatDiaBanController@destroy');
+    Route::get('show_dm','manage\giadatdiaban\TtGiaDatDiaBanController@show');
+
+    Route::get('danhsach','GiaDatDiaBanController@index');
+    Route::post('modify','GiaDatDiaBanController@store');
+    Route::get('get_hs','GiaDatDiaBanController@edit');
+    Route::post('delete','GiaDatDiaBanController@destroy');
+
+    Route::post('chuyenhs','manage\giadatphanloai\GiaDatPhanLoaiController@chuyenhs');
+    Route::get('print','manage\giadatphanloai\GiaDatPhanLoaiController@ketxuat');
+
+    Route::get('giadatdiaban/nhandulieutuexcel','GiaDatDiaBanController@nhandulieutuexcel');
+    Route::post('giadatdiaban/import_excel','GiaDatDiaBanController@importexcel');
+    Route::post('giadatdiaban/delete','GiaDatDiaBanController@multidelete');
+    Route::get('giadatdiaban/edittt','GiaDatDiaBanController@edit');
+    Route::post('giadatdiaban/update','GiaDatDiaBanController@update');
+    Route::post('giadatdiaban/destroy','GiaDatDiaBanController@destroy');
+    Route::post('giadatdiaban/add','GiaDatDiaBanController@store');
+    Route::post('giadatdiaban/congbo','GiaDatDiaBanController@congbo');
+    Route::post('giadatdiaban/huycongbo','GiaDatDiaBanController@huycongbo');
+    Route::post('giadatdiaban/hoanthanh','GiaDatDiaBanController@hoanthanh');
+    Route::post('giadatdiaban/huyhoanthanh','GiaDatDiaBanController@huyhoanthanh');
+    Route::post('giadatdiaban/checkmulti','GiaDatDiaBanController@checkmulti');
+    Route::get('giadatdiaban/prints','GiaDatDiaBanController@bcgiadatdiaban');
+});
 
 //giá đất theo phân loại
 Route::group(['prefix'=>'giadatphanloai'],function (){

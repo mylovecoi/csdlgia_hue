@@ -3,8 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\DiaBanHd;
+use App\DmGiaRung;
 use App\GiaDatDiaBan;
 use App\GiaDatDiaBanDm;
+use App\Model\manage\dinhgia\giadatdiaban\TtGiaDatDiaBan;
+use App\Model\manage\dinhgia\GiaRung;
+use App\Model\system\dmdvt;
+use App\Model\system\dsdiaban;
+use App\Model\system\dsxaphuong;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -13,44 +19,48 @@ use Illuminate\Support\Facades\File;
 
 class GiaDatDiaBanController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
-            $inputs['maloaidat'] = isset($inputs['maloaidat']) ? $inputs['maloaidat'] : 'All';
-            $inputs['khuvuc'] = isset($inputs['khuvuc']) ? $inputs['khuvuc'] : '';
-            $inputs['mota'] = isset($inputs['mota']) ? $inputs['mota'] : '';
-            $inputs['paginate'] = isset($inputs['paginate']) ? $inputs['paginate'] : 5;
-            $diabans = DiaBanHd::where('level','H')
-                ->get();
-            $loaidats = GiaDatDiaBanDm::all();
-            if(session('admin')->level == 'T' || session('admin')->level == 'H')
-                $inputs['district'] = isset($inputs['district']) ? $inputs['district'] : 'All';
-            else
-                $inputs['district'] = session('admin')->districts;
+            $inputs['url'] = '/giacldat';
+            //lấy địa bàn
+            //$a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
+            $a_diaban = getDiaBan_XaHuyen(session('admin')->level,session('admin')->madiaban);
+            $m_donvi = getDonViNhapLieu(session('admin')->level);
+            //$m_donvi_th = getDonViTongHop('giacldat',\session('admin')->level, \session('admin')->madiaban);
+            $m_donvi_th = getDonViTongHop('giacldat',\session('admin')->level, \session('admin')->madiaban);
+            $inputs['madiaban'] = $inputs['madiaban'] ?? array_key_first($a_diaban);
+            $inputs['madv'] = $m_donvi->first()->madv;
 
-            $model  = GiaDatDiaBan::join('diabanhd','diabanhd.district','=','giadatdiaban.district')
-                ->where('diabanhd.level','H')
-                ->join('giadatdiabandm','giadatdiaban.maloaidat','=','giadatdiabandm.maloaidat')
-                ->select('giadatdiaban.*','diabanhd.diaban','giadatdiabandm.loaidat');
-            if($inputs['nam'] != 'all')
-                $model = $model->where('giadatdiaban.nam',$inputs['nam']);
-            if($inputs['district'] !='All')
-                $model = $model->where('giadatdiaban.district',$inputs['district']);
-            if($inputs['maloaidat'] != 'All')
-                $model = $model->where('giadatdiaban.maloaidat',$inputs['maloaidat']);
-            if($inputs['khuvuc'] != '')
-                $model = $model->where('giadatdiaban.khuvuc','like', '%'.$inputs['khuvuc'].'%');
-            if($inputs['mota'] != '')
-                $model = $model->where('giadatdiaban.mota','like', '%'.$inputs['mota'].'%');
-            $model = $model->paginate($inputs['paginate']);
-            return view('manage.dinhgia.giadatdiaban.index')
-                ->with('model',$model)
-                ->with('inputs',$inputs)
-                ->with('diabans',$diabans)
-                ->with('loaidats',$loaidats)
-                ->with('pageTitle','Thông tin gia đất theo địa bàn');
-
+            $inputs['nam'] = $inputs['nam'] ?? 'all';
+            $inputs['maxp'] = $inputs['maxp'] ?? 'all';
+            $inputs['maloaidat'] = $inputs['maloaidat'] ?? 'all';
+            $a_loaidat = array_column(GiaDatDiaBanDm::all()->toArray(),'loaidat','maloaidat');
+            $a_xp = array_column(dsxaphuong::where('madiaban',$inputs['madiaban'])->get()->toarray(),'tenxp', 'maxp');
+            $a_qd = array_column(TtGiaDatDiaBan::all()->toarray(),'mota', 'soqd');
+            //lấy thông tin đơn vị
+            $model = GiaDatDiaBan::where('madiaban', $inputs['madiaban']);
+            if ($inputs['nam'] != 'all')
+                $model = $model->where('nam', $inputs['nam']);
+            if ($inputs['maxp'] != 'all')
+                $model = $model->where('maxp', $inputs['maxp']);
+            if ($inputs['maloaidat'] != 'all')
+                $model = $model->where('maloaidat', $inputs['maloaidat']);
+            //dd($inputs);
+            return view('manage.dinhgia.giadatdiaban.kekhai.index')
+                ->with('model', $model->get())
+                ->with('inputs', $inputs)
+                //->with('m_diaban', $m_diaban)
+                ->with('a_diaban', $a_diaban)
+                ->with('a_loaidat', $a_loaidat)
+                ->with('a_xp', $a_xp)
+                ->with('a_qd', $a_qd)
+                ->with('m_donvi', $m_donvi)
+                ->with('m_donvi_th', $m_donvi_th)
+                ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
+                ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
+                ->with('pageTitle', 'Thông tin hồ sơ giá đất');
         } else
             return view('errors.notlogin');
     }
@@ -99,7 +109,7 @@ class GiaDatDiaBanController extends Controller
                 $modelctnew->giavt5 = (isset($data[$i][$inputs['giavt5']]) && $data[$i][$inputs['giavt5']] != '' ? chkDbl($data[$i][$inputs['giavt5']]) : 0);
                 $modelctnew->hesok = (isset($data[$i][$inputs['hesok']]) && $data[$i][$inputs['hesok']] != '' ? chkDbl($data[$i][$inputs['hesok']]) : 1);
                 $modelctnew->soqd = $inputs['soqd'];
-                $modelctnew->username = session('admin')->name.'('.session('admin')->username.')' ;
+                //$modelctnew->username = session('admin')->name.'('.session('admin')->username.')' ;
                 $modelctnew->thaotac = 'Import';
                 $modelctnew->trangthai = 'CHT';
                 $modelctnew->save();
@@ -128,20 +138,15 @@ class GiaDatDiaBanController extends Controller
     public function destroy(Request $request){
         if(Session::has('admin')){
             $inputs=$request->all();
-            $id = $inputs['destroy_id'];
-            $model = GiaDatDiaBan::findOrFail($id);
+            $model = GiaDatDiaBan::where('maso',$inputs['mahs'])->first();
             $model->delete();
 
-            return redirect('giadatdiaban?&nam='.$model->nam.'&district='.$model->district.'&maloaidat='.$model->maloaidat);
+            return redirect('giacldat/danhsach?&nam='.$model->nam.'&madiaban='.$model->madiaban);
         }else
             return view('errors.notlogin');
     }
 
     public function edit(Request $request){
-        $result = array(
-            'status' => 'fail',
-            'message' => 'error',
-        );
         if (!Session::has('admin')) {
             $result = array(
                 'status' => 'fail',
@@ -151,174 +156,29 @@ class GiaDatDiaBanController extends Controller
         }
 
         $inputs = $request->all();
-        $id = $inputs['id'];
-        $model = GiaDatDiaBan::findOrFail($id);
-        $diabans = DiaBanHd::where('level','H')->get();
-        $loaidats = GiaDatDiaBanDm::all();
-
-
-        $result['message'] = '<div class="modal-body" id="edit_node">';
-
-        $result['message'] .= '<div class="row">';
-        $result['message'] .= '<div class="col-md-6">';
-        $result['message'] .= '<div class="form-group">';
-        $result['message'] .= '<label class="control-label">Năm<span class="require">*</span></label>';
-        $result['message'] .= '<select class="form-control" id="edit_nam" name="edit_nam">';
-        $nam_start = 2015;
-        $nam_stop = intval(date('Y')) + 1;
-        for($i = $nam_start; $i <= $nam_stop; $i++) {
-            $result['message'] .= '<option value="'.$i.'"'.($i == $model->nam ? 'selected' : '').'>Năm '.$i.'</option>';
-        }
-        $result['message'] .= '</select>';
-        $result['message'] .= '</div>';
-        $result['message'] .= '</div>';
-        $result['message'] .= '<div class="col-md-6">';
-        $result['message'] .= '<div class="form-group">';
-        $result['message'] .= '<label class="control-label">Địa bàn<span class="require">*</span></label>';
-        $result['message'] .= '<select class="form-control" id="edit_district" name="edit_district">';
-        foreach($diabans as $diaban){
-            $result['message'] .= '<option value="'.$diaban->district.'"'.($diaban->district == $model->district ? 'selected' : '').'>'.$diaban->diaban.'</option>';
-        }
-        $result['message'] .= '</select>';
-        $result['message'] .= '</div>';
-        $result['message'] .= '</div>';
-        $result['message'] .= '</div>';
-
-        $result['message'] .= '<div class="row">';
-        $result['message'] .= '<div class="col-md-12">';
-        $result['message'] .= '<div class="form-group">';
-        $result['message'] .= '<label class="control-label">Loại đất<span class="require">*</span></label>';
-        $result['message'] .= '<select class="form-control" id="edit_maloaidat" name="edit_maloaidat">';
-        foreach($loaidats as $loaidat){
-            $result['message'] .= '<option value="'.$loaidat->maloaidat.'" '.($loaidat->maloaidat == $model->maloaidat ? 'selected' : '').'>'.$loaidat->loaidat.'</option>';
-        }
-        $result['message'] .= '</select>';
-        $result['message'] .= '</div>';
-        $result['message'] .= '</div>';
-        $result['message'] .= '</div>';
-
-        $result['message'] .= '<div class="row">';
-        $result['message'] .= '<div class="col-md-12">';
-        $result['message'] .= '<div class="form-group">';
-        $result['message'] .= '<label class="control-label">Khu vực<span class="require">*</span></label>';
-        $result['message'] .= '<textarea name="edit_khuvuc" id="edit_khuvuc" class="form-control">'.$model->khuvuc;
-        $result['message'] .= '</textarea></div></div>';
-        $result['message'] .= '</div>';
-
-        $result['message'] .= '<div class="row">';
-        $result['message'] .= '<div class="col-md-12">';
-        $result['message'] .= '<div class="form-group">';
-        $result['message'] .= '<label class="control-label">Mô tả<span class="require">*</span></label>';
-        $result['message'] .= '<textarea name="edit_mota" id="edit_mota" class="form-control">'.$model->mota;
-        $result['message'] .= '</textarea></div></div>';
-        $result['message'] .= '</div>';
-
-        $result['message'] .= '<div class="row">';
-        $result['message'] .= '<div class="col-md-6">';
-        $result['message'] .= '<div class="form-group">';
-        $result['message'] .= '<label class="control-label">Giá vị trí I<span class="require">*</span></label>';
-        $result['message'] .= '<input type="text" name="edit_giavt1" id="edit_giavt1" class="form-control" data-mask="fdecimal" style="text-align: right; font-weight: bold" value="' . $model->giavt1 . '" ' . '/>';
-
-        $result['message'] .= '</div></div>';
-        $result['message'] .= '<div class="col-md-6">';
-        $result['message'] .= '<div class="form-group">';
-        $result['message'] .= '<label class="control-label">Giá vị trí II<span class="require">*</span></label>';
-        $result['message'] .= '<input type="text" name="edit_giavt2" id="edit_giavt2" class="form-control" data-mask="fdecimal" style="text-align: right; font-weight: bold" value="' . $model->giavt2 . '" ' . '/>';
-        $result['message'] .= '</div></div>';
-        $result['message'] .= '</div>';
-
-        $result['message'] .= '<div class="row">';
-        $result['message'] .= '<div class="col-md-6">';
-        $result['message'] .= '<div class="form-group">';
-        $result['message'] .= '<label class="control-label">Giá vị trí III<span class="require">*</span></label>';
-        $result['message'] .= '<input type="text" name="edit_giavt3" id="edit_giavt3" class="form-control" data-mask="fdecimal" style="text-align: right; font-weight: bold" value="' . $model->giavt3 . '" ' . '/>';
-
-        $result['message'] .= '</div></div>';
-        $result['message'] .= '<div class="col-md-6">';
-        $result['message'] .= '<div class="form-group">';
-        $result['message'] .= '<label class="control-label">Giá vị trí IV<span class="require">*</span></label>';
-        $result['message'] .= '<input type="text" name="edit_giavt4" id="edit_giavt4" class="form-control" data-mask="fdecimal" style="text-align: right; font-weight: bold" value="' . $model->giavt4 . '" ' . '/>';
-        $result['message'] .= '</div></div>';
-        $result['message'] .= '</div>';
-
-        $result['message'] .= '<div class="row">';
-        $result['message'] .= '<div class="col-md-6">';
-        $result['message'] .= '<div class="form-group">';
-        $result['message'] .= '<label class="control-label">Giá vị trí V<span class="require">*</span></label>';
-        $result['message'] .= '<input type="text" name="edit_giavt5" id="edit_giavt5" class="form-control" data-mask="fdecimal" style="text-align: right; font-weight: bold" value="' . $model->giavt5 . '" ' . '/>';
-        $result['message'] .= '</div></div>';
-        $result['message'] .= '<div class="col-md-6">';
-        $result['message'] .= '<div class="form-group">';
-        $result['message'] .= '<label class="control-label">Hệ số K<span class="require">*</span></label>';
-        $result['message'] .= '<input type="text" name="edit_hesok" id="edit_hesok" class="form-control" data-mask="fdecimal" style="text-align: right; font-weight: bold" value="' . $model->hesok . '" ' . '/>';
-
-        $result['message'] .= '</div></div>';
-        $result['message'] .= '</div>';
-
-        $result['message'] .= '<div class="row">';
-        $result['message'] .= '<div class="col-md-12">';
-        $result['message'] .= '<div class="form-group">';
-        $result['message'] .= '<label class="control-label">Số quyết định<span class="require">*</span></label>';
-        $result['message'] .= '<input type="text" name="edit_soqd" id="edit_soqd" class="form-control" value="'.$model->soqd.'">';
-        $result['message'] .= '</div></div>';
-        $result['message'] .= '</div>';
-
-        $result['message'] .= '<input type="hidden" name="edit_id" id="edit_id" class="form-control" value="' . $model->id . '"/>';
-
-
-
-
-        $result['message'] .= '</div>';
-        $result['status'] = 'success';
-
-
-        die(json_encode($result));
-    }
-
-    public function update(Request $request){
-        if(Session::has('admin')){
-            $inputs=$request->all();
-            $model = GiaDatDiaBan::where('id',$inputs['edit_id'])->first();
-            $model->district = $inputs['edit_district'];
-            $model->nam = $inputs['edit_nam'];
-            $model->maloaidat = $inputs['edit_maloaidat'];
-            $model->khuvuc = $inputs['edit_khuvuc'];
-            $model->mota = $inputs['edit_mota'];
-            $model->giavt1 = chkDbl($inputs['edit_giavt1']);
-            $model->giavt2 = chkDbl($inputs['edit_giavt2']);
-            $model->giavt3 = chkDbl($inputs['edit_giavt3']);
-            $model->giavt4 = chkDbl($inputs['edit_giavt4']);
-            $model->giavt5 = chkDbl($inputs['edit_giavt5']);
-            $model->hesok = chkDbl($inputs['edit_hesok']);
-            $model->soqd = $inputs['edit_soqd'];
-            $model->save();
-
-
-            return redirect('giadatdiaban?&nam='.$inputs['edit_nam'].'&district='.$inputs['edit_district'].'&maloaidat='.$inputs['edit_maloaidat']);
-        }else
-            return view('errors.notlogin');
+        $model = GiaDatDiaBan::where('maso',$inputs['maso'])->first();
+        die($model);
     }
 
     public function store(Request $request){
         if(Session::has('admin')){
             $inputs=$request->all();
-            $model = new GiaDatDiaBan();
-            $model->district = $inputs['add_district'];
-            $model->nam = $inputs['add_nam'];
-            $model->maloaidat = $inputs['add_maloaidat'];
-            $model->khuvuc = $inputs['add_khuvuc'];
-            $model->mota = $inputs['add_mota'];
-            $model->giavt1 = chkDbl($inputs['add_giavt1']);
-            $model->giavt2 = chkDbl($inputs['add_giavt2']);
-            $model->giavt3 = chkDbl($inputs['add_giavt3']);
-            $model->giavt4 = chkDbl($inputs['add_giavt4']);
-            $model->giavt5 = chkDbl($inputs['add_giavt5']);
-            $model->hesok = chkDbl($inputs['add_hesok']);
-            $model->soqd = $inputs['add_soqd'];
-            $model->trangthai = 'CHT';
-            $model->save();
+            $inputs['giavt1'] = chkDbl($inputs['giavt1']);
+            $inputs['giavt2'] = chkDbl($inputs['giavt2']);
+            $inputs['giavt3'] = chkDbl($inputs['giavt3']);
+            $inputs['giavt4'] = chkDbl($inputs['giavt4']);
+            $inputs['hesok'] = chkDbl($inputs['hesok']);
 
-            return redirect('giadatdiaban?&nam='.$inputs['add_nam'].'&district='.$inputs['add_district'].'&maloaidat='.$inputs['add_maloaidat']);
+            $model = GiaDatDiaBan::where('maso',$inputs['maso'])->first();
+            if($model == null){
+                $inputs['trangthai'] = 'CHT';
+                $inputs['maso'] = getdate()[0];
+                GiaDatDiaBan::create($inputs);
+            }else{
+                $model->update($inputs);
+            }
+
+            return redirect('/giacldat/danhsach?&nam='.$inputs['nam'].'&madiaban='.$inputs['madiaban']);
         }else
             return view('errors.notlogin');
     }

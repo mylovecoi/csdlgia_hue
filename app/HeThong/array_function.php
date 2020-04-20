@@ -33,6 +33,18 @@ function a_unique($array){
     return $tmp;
 }
 
+/*
+ * Hàm tạo mảng mới bằng cách gộp 2 mảng vào với nhau
+ * Ko dùng array_merge() do mảng có key là dạng số (ví dụ: 9099824) sẽ tự chuyển về số nên khi gộp với mảng string sẽ lỗi
+*/
+
+function a_merge($array1, $array2){
+    foreach ($array2 as $key=>$val){
+        $array1[$key] = $val;
+    }
+    return $array1;
+}
+
 //Hàm tạo mảng mới bằng cách lấy ra những dòng thỏa mãn điều kiện trong mảng cũ
 //điều kiện tìm kiềm: contain
 //$justvals = chỉ lấy phần tử đầu tiên tìm đc

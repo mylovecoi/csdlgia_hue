@@ -15,12 +15,11 @@ class CreateTtgiadatdiabanTable extends Migration
     {
         Schema::create('ttgiadatdiaban', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('mahs')->nullable();
-            $table->string('soqd')->nullable();
-            $table->date('ngaybanhanh')->nullable();
-            $table->date('ngayapdung')->nullable();
+            //$table->string('mahs')->nullable();
+            $table->string('soqd')->unique();
+            $table->date('ngayqd_banhanh')->nullable();
+            $table->date('ngayqd_apdung')->nullable();
             $table->string('mota')->nullable();
-            $table->string('ipt1')->nullable();
             $table->string('ipf1')->nullable();
             $table->text('ghichu')->nullable();
             $table->timestamps();

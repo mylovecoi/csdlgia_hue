@@ -15,20 +15,10 @@ class TtGiaDatDiaBanController extends Controller
         if (Session::has('admin')) {
             if(can('dmgiacldat','index')) {
                 $model = TtGiaDatDiaBan::all();
+                $inputs['url'] = '/giacldat';
                 return view('manage.dinhgia.giadatdiaban.thongtuquyetdinh.index')
                     ->with('model',$model)
-                    ->with('pageTitle','Thông tư giá đất theo địa bàn');
-            }else
-                return view('errors.noperm');
-
-        } else
-            return view('errors.notlogin');
-    }
-
-    public function create(){
-        if (Session::has('admin')) {
-            if(can('dmgiacldat','create')) {
-                return view('manage.dinhgia.giadatdiaban.thongtuquyetdinh.create')
+                    ->with('inputs',$inputs)
                     ->with('pageTitle','Thông tư giá đất theo địa bàn');
             }else
                 return view('errors.noperm');
@@ -40,57 +30,44 @@ class TtGiaDatDiaBanController extends Controller
     public function store(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();
-            $inputs['mahs'] = getdate()[0];
-            $inputs['ngayapdung'] = getDateToDb($inputs['ngayapdung']);
-            $inputs['ngaybanhanh'] = getDateToDb($inputs['ngaybanhanh']);
+            $inputs['soqd'] = chuanhoachuoi($inputs['soqd']);
+            $inputs['ngayqd_banhanh'] = getDateToDb($inputs['ngayqd_banhanh']);
+            $inputs['ngayqd_apdung'] = getDateToDb($inputs['ngayqd_apdung']);
             if(isset($inputs['ipf1'])){
                 $ipf1 = $request->file('ipf1');
-                $inputs['ipt1'] = $inputs['mahs'] .'.'.$ipf1->getClientOriginalExtension();
-                $ipf1->move(public_path() . '/data/giadatdiaban/', $inputs['ipt1']);
-                $inputs['ipf1']= $inputs['ipt1'];
-            }
-            $model = new TtGiaDatDiaBan();
-            $model->create($inputs);
-            return redirect('thongtugiadatdiaban');
-        } else
-            return view('errors.notlogin');
-    }
-
-    public function edit($id){
-        if(Session::has('admin')){
-            $model = TtGiaDatDiaBan::findOrFail($id);
-            return view('manage.dinhgia.giadatdiaban.thongtuquyetdinh.edit')
-                ->with('model',$model)
-                ->with('pageTitle','Thông tư giá đất theo địa bàn chỉnh sửa');
-        } else
-            return view('errors.notlogin');
-    }
-
-    public function update(Request $request,$id){
-        if(Session::has('admin')){
-            $inputs = $request->all();
-            $model = TtGiaDatDiaBan::findOrFail($id);
-            $inputs['ngayapdung'] = getDateToDb($inputs['ngayapdung']);
-            $inputs['ngaybanhanh'] = getDateToDb($inputs['ngaybanhanh']);
-            if(isset($inputs['ipf1'])){
-                $ipf1 = $request->file('ipf1');
-                $inputs['ipt1'] = $model->mahs .'.'.$ipf1->getClientOriginalExtension();
-                $ipf1->move(public_path() . '/data/giadatdiaban/', $inputs['ipt1']);
-                $inputs['ipf1']= $inputs['ipt1'];
+                $name = $inputs['soqd'] .'&1.'.$ipf1->getClientOriginalName();
+                $ipf1->move(public_path() . '/data/giadatdiaban/', $name);
+                $inputs['ipf1']= $name;
             }
 
-            $model->update($inputs);
-            return redirect('thongtugiadatdiaban');
+            $model = TtGiaDatDiaBan::where('soqd',$inputs['soqd'])->first();
+            if($model == null){
+                $inputs['trangthai'] = 'CHT';
+                TtGiaDatDiaBan::create($inputs);
+            }else{
+                $model->update($inputs);
+            }
+            return redirect('/giacldat/danhmuc/');
         } else
             return view('errors.notlogin');
     }
 
+    public function show(Request $request)
+    {
+        $result = array(
+            'status' => 'fail',
+            'message' => 'error',
+        );
+
+        $inputs = $request->all();
+        $model = TtGiaDatDiaBan::where('soqd',$inputs['soqd'])->first();
+        die($model);
+    }
     public function destroy(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();
-            $model = TtGiaDatDiaBan::where('id',$inputs['iddelete'])
-                ->delete();
-            return redirect('thongtugiadatdiaban');
+            TtGiaDatDiaBan::where('soqd',$inputs['soqd'])->delete();
+            return redirect('/giacldat/danhmuc/');
         } else
             return view('errors.notlogin');
     }

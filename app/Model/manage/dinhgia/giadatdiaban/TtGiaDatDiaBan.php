@@ -9,12 +9,10 @@ class TtGiaDatDiaBan extends Model
     protected $table = 'ttgiadatdiaban';
     protected $fillable = [
         'id',
-        'mahs',
         'soqd',
-        'ngaybanhanh',
-        'ngayapdung',
+        'ngayqd_banhanh',
+        'ngayqd_apdung',
         'mota',
-        'ipt1',
         'ipf1',
         'ghichu',
     ];
