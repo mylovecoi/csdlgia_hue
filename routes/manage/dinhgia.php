@@ -661,17 +661,22 @@ Route::group(['prefix'=>'giabatdongsan'],function (){
 //Giá trúng thầu của HH-DV được mua sắm theo QĐ của PL về đấu thầu
 Route::group(['prefix'=>'muataisan'],function (){
     Route::get('danhsach', 'manage\muataisan\MuaTaiSanController@index');
+    Route::get('new', 'manage\muataisan\MuaTaiSanController@create');
+    Route::post('modify', 'manage\muataisan\MuaTaiSanController@store');
+    Route::get('modify', 'manage\muataisan\MuaTaiSanController@edit');
+    Route::get('dinhkem','manage\muataisan\MuaTaiSanController@show');
+    Route::post('delete', 'manage\muataisan\MuaTaiSanController@destroy');
 
-    Route::get('thongtinmuataisan/create', 'manage\muataisan\MuaTaiSanController@create');
-    Route::post('thongtinmuataisan', 'manage\muataisan\MuaTaiSanController@store');
-    Route::get('thongtinmuataisan/dinhkem', 'manage\muataisan\MuaTaiSanController@show');
-    Route::post('thongtinmuataisan/delete', 'manage\muataisan\MuaTaiSanController@destroy');
-    Route::get('thongtinmuataisan/{id}/edit', 'manage\muataisan\MuaTaiSanController@edit');
-    Route::patch('thongtinmuataisan/{id}', 'manage\muataisan\MuaTaiSanController@update');
-    Route::post('thongtinmuataisan/hoanthanh', 'manage\muataisan\MuaTaiSanController@hoanthanh');
-    Route::post('thongtinmuataisan/huyhoanthanh', 'manage\muataisan\MuaTaiSanController@huyhoanthanh');
-    Route::post('thongtinmuataisan/congbo', 'manage\muataisan\MuaTaiSanController@congbo');
-    Route::post('thongtinmuataisan/huycongbo', 'manage\muataisan\MuaTaiSanController@huycongbo');
+    Route::post('chuyenhs','manage\muataisan\MuaTaiSanController@chuyenhs');
+    //Route::get('prints','manage\giaspdvci\GiaSpDvCiController@ketxuat');
+
+    Route::get('xetduyet','manage\muataisan\MuaTaiSanController@xetduyet');
+    Route::post('chuyenxd','manage\muataisan\MuaTaiSanController@chuyenxd');
+    Route::post('tralai','manage\muataisan\MuaTaiSanController@tralai');
+    Route::post('congbo','manage\muataisan\MuaTaiSanController@congbo');
+
+    Route::get('timkiem','manage\muataisan\MuaTaiSanController@timkiem');
+    Route::post('timkiem','manage\muataisan\MuaTaiSanController@ketquatk');
 });
 
 ?>

@@ -884,11 +884,6 @@
             <span class="arrow"></span>
         </a>
         <ul class="sub-menu">
-            @if(chkPer('csdlmucgiahhdv','taisan', 'muataisan','danhmuc','index'))
-                <li>
-                    <a href="{{url('/muataisan/danhmuc')}}">Danh mục</a>
-                </li>
-            @endif
             @if(chkPer('csdlmucgiahhdv','taisan', 'muataisan', 'hoso', 'index'))
                 @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
                     <li>
