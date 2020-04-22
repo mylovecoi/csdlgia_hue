@@ -32,22 +32,21 @@ Route::group(['prefix'=>'giacldat'],function (){
     Route::get('get_hs','GiaDatDiaBanController@edit');
     Route::post('delete','GiaDatDiaBanController@destroy');
 
-    Route::post('chuyenhs','manage\giadatphanloai\GiaDatPhanLoaiController@chuyenhs');
+    Route::post('chuyenhs','GiaDatDiaBanController@chuyenhs');
+    Route::post('chuyenhs_mul','GiaDatDiaBanController@chuyenhs_mul');
     Route::get('print','manage\giadatphanloai\GiaDatPhanLoaiController@ketxuat');
 
-    Route::get('giadatdiaban/nhandulieutuexcel','GiaDatDiaBanController@nhandulieutuexcel');
-    Route::post('giadatdiaban/import_excel','GiaDatDiaBanController@importexcel');
-    Route::post('giadatdiaban/delete','GiaDatDiaBanController@multidelete');
-    Route::get('giadatdiaban/edittt','GiaDatDiaBanController@edit');
-    Route::post('giadatdiaban/update','GiaDatDiaBanController@update');
-    Route::post('giadatdiaban/destroy','GiaDatDiaBanController@destroy');
-    Route::post('giadatdiaban/add','GiaDatDiaBanController@store');
-    Route::post('giadatdiaban/congbo','GiaDatDiaBanController@congbo');
-    Route::post('giadatdiaban/huycongbo','GiaDatDiaBanController@huycongbo');
-    Route::post('giadatdiaban/hoanthanh','GiaDatDiaBanController@hoanthanh');
-    Route::post('giadatdiaban/huyhoanthanh','GiaDatDiaBanController@huyhoanthanh');
-    Route::post('giadatdiaban/checkmulti','GiaDatDiaBanController@checkmulti');
-    Route::get('giadatdiaban/prints','GiaDatDiaBanController@bcgiadatdiaban');
+    Route::get('xetduyet','GiaDatDiaBanController@xetduyet');
+    Route::post('chuyenxd','GiaDatDiaBanController@chuyenxd');
+    Route::post('chuyenxd_mul','GiaDatDiaBanController@chuyenxd_mul');
+    Route::post('tralai','GiaDatDiaBanController@tralai');
+    Route::post('tralai_mul','GiaDatDiaBanController@tralai_mul');
+    Route::post('congbo','GiaDatDiaBanController@congbo');
+    Route::post('congbo_mul','GiaDatDiaBanController@congbo_mul');
+    Route::get('prints','GiaDatDiaBanController@bcgiadatdiaban');
+
+    Route::get('nhandulieutuexcel','GiaDatDiaBanController@nhandulieutuexcel');
+    Route::post('import_excel','GiaDatDiaBanController@importexcel');
 });
 
 //giá đất theo phân loại

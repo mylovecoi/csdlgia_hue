@@ -430,6 +430,86 @@ function setHoanThanhCQ($level, $hoso, $a_hoanthanh)
     }
 }
 
+function setHoanThanhDV_Dat($madv, $hoso, $a_hoanthanh)
+{
+    if ($madv == $hoso->madv) {
+        $hoso->macqcq = $a_hoanthanh['macqcq'] ?? null;
+        $hoso->trangthai = $a_hoanthanh['trangthai'] ?? 'CHT';
+    }
+
+    if ($madv == $hoso->madv_h) {
+        $hoso->macqcq_h = $a_hoanthanh['macqcq'] ?? null;
+        $hoso->trangthai_h = $a_hoanthanh['trangthai'] ?? 'CHT';
+    }
+
+    if ($madv == $hoso->madv_t) {
+        $hoso->macqcq_t = $a_hoanthanh['macqcq'] ?? null;
+        $hoso->trangthai_t = $a_hoanthanh['trangthai'] ?? 'CHT';
+    }
+
+    if ($madv == $hoso->madv_ad) {
+        $hoso->macqcq_ad = $a_hoanthanh['macqcq'] ?? null;
+        $hoso->trangthai_ad = $a_hoanthanh['trangthai'] ?? 'CHT';
+    }
+}
+
+function setHoanThanhCQ_Dat($level, $hoso, $a_hoanthanh)
+{
+    if ($level == 'T') {
+        $hoso->madv_t = $a_hoanthanh['madv'] ?? null;
+        $hoso->trangthai_t = $a_hoanthanh['trangthai'] ?? 'CHT';
+    }
+
+    if ($level == 'ADMIN') {
+        $hoso->madv_ad = $a_hoanthanh['madv'] ?? null;
+        $hoso->trangthai_ad = $a_hoanthanh['trangthai'] ?? 'CHT';
+    }
+
+    if ($level == 'H') {
+        $hoso->madv_h = $a_hoanthanh['madv'] ?? null;
+        $hoso->trangthai_h = $a_hoanthanh['trangthai'] ?? 'CHT';
+    }
+}
+
+function setTraLai_Dat($macqcq, $hoso, $a_tralai)
+{
+    //Gán trạng thái của đơn vị chuyển hồ sơ
+    if ($macqcq == $hoso->macqcq) {
+        $hoso->macqcq = null;
+        $hoso->trangthai = $a_tralai['trangthai'] ?? 'CHT';
+    }
+    if ($macqcq == $hoso->macqcq_h) {
+        $hoso->macqcq_h = null;
+        $hoso->trangthai_h = $a_tralai['trangthai'] ?? 'CHT';
+    }
+    if ($macqcq == $hoso->macqcq_t) {
+        $hoso->macqcq_t = null;
+        $hoso->trangthai_t = $a_tralai['trangthai'] ?? 'CHT';
+    }
+    if ($macqcq == $hoso->macqcq_ad) {
+        $hoso->macqcq_ad = null;
+        $hoso->trangthai_ad = $a_tralai['trangthai'] ?? 'CHT';
+    }
+    //Gán trạng thái của đơn vị tiếp nhận hồ sơ
+    if ($macqcq == $hoso->madv_h) {
+        $hoso->macqcq_h = null;
+        $hoso->trangthai_h = null;
+        $hoso->madv_h = null;
+    }
+
+    if ($macqcq == $hoso->madv_t) {
+        $hoso->macqcq_t = null;
+        $hoso->trangthai_t = null;
+        $hoso->madv_t = null;
+    }
+
+    if ($macqcq == $hoso->madv_ad) {
+        $hoso->macqcq_ad = null;
+        $hoso->trangthai_ad = null;
+        $hoso->madv_ad = null;
+    }
+}
+
 function setTraLai($macqcq, $hoso, $a_tralai)
 {
     //Gán trạng thái của đơn vị chuyển hồ sơ

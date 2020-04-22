@@ -18,7 +18,6 @@ class CreateGiadatdiabanTable extends Migration
             $table->string('maso')->unique(); //lưu thay id -- để trong trường hợp cần lưu chi tiết thay đổi giá
             $table->string('madiaban')->nullable();
             $table->string('maxp')->nullable();
-            $table->string('madv')->nullable(20);
             $table->string('soqd')->nullable();
             $table->string('nam')->nullable();
 
@@ -39,9 +38,24 @@ class CreateGiadatdiabanTable extends Migration
             $table->double('hesok')->default(1);
 
             $table->double('sapxep')->default(0);
-            $table->string('trangthai')->nullable();
             $table->string('congbo')->nullable(25);
             $table->text('lichsu')->nullable(); //Thao tác lịch sử hồ sơ theo dạng JSON
+
+            $table->string('macqcq')->nullable(20);
+            $table->string('trangthai')->nullable();
+            $table->string('madv')->nullable(20);
+            //Thông tin Hô sơ khi gửi đơn vị cấp trên (Cấp H, T tùy theo level đơn vị khởi tạo)
+            $table->string('macqcq_h')->nullable(20);
+            $table->string('madv_h')->nullable(20);
+            $table->string('trangthai_h')->nullable();
+            //Thông tin Hô sơ khi gửi đơn vị cấp trên (Cấp T tùy theo level đơn vị khởi tạo)
+            $table->string('macqcq_t')->nullable(20);
+            $table->string('madv_t')->nullable(20);
+            $table->string('trangthai_t')->nullable();
+            //Thông tin Hồ sơ khi gửi đến đơn vị tổng hợp toàn Tỉnh
+            $table->string('macqcq_ad')->nullable(20);
+            $table->string('madv_ad')->nullable(20);
+            $table->string('trangthai_ad')->nullable();
             $table->timestamps();
         });
     }

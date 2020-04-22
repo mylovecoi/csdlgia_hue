@@ -38,7 +38,7 @@
             <div class="portlet box blue">
                 <div class="portlet-body form">
                     <!-- BEGIN FORM -->
-                    {!! Form::open(['url'=>'/giadatdiaban/import_excel', 'method'=>'post' , 'files'=>true, 'id' => 'create_hscb','enctype'=>'multipart/form-data']) !!}
+                    {!! Form::open(['url'=>'/giacldat/import_excel', 'method'=>'post' , 'files'=>true, 'id' => 'create_hscb','enctype'=>'multipart/form-data']) !!}
                         <meta name="csrf-token" content="{{ csrf_token() }}" />
                         <div class="form-body">
                             <!-- Thông tin chung-->
@@ -48,44 +48,52 @@
                                         <div class="portlet-body" style="display: block;">
                                             <div class="form-body">
                                                 <div class="row">
-                                                    <div class="col-md-3">
-                                                        <div class="form-group">
-                                                        <label>Năm</label>
-                                                        <select class="form-control" name="nam" id="nam">
-                                                            @if ($nam_start = 2015 ) @endif
-                                                            @if ($nam_stop = intval(date('Y')) + 1) @endif
-                                                            @for($i = $nam_start; $i <= $nam_stop; $i++)
-                                                                <option value="{{$i}}" {{$i== date('Y') ? 'selected' : ''}}>Năm {{$i}}</option>
-                                                            @endfor
-                                                        </select>
+                                                    <div class="form-group">
+                                                        <div class="col-md-4">
+                                                            <label class="control-label">Năm</label>
+                                                            {!! Form::select('nam', getNam(), date('Y'), array('id' => 'nam', 'class' => 'form-control'))!!}
+                                                        </div>
+
+                                                        <div class="col-md-4">
+                                                            <label class="control-label">Địa bàn</label>
+                                                            {!!Form::select('madiaban', $a_diaban, null, array('id' => 'madiaban','class' => 'form-control'))!!}
+                                                        </div>
+
+                                                        <div class="col-md-4">
+                                                            <label class="control-label">Xã phường</label>
+                                                            {!!Form::select('maxp', $a_xp, null, array('id' => 'maxp','class' => 'form-control select2me'))!!}
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3">
-                                                        <div class="form-group">
-                                                        <label>Địa bàn</label>
-                                                        <select class="form-control" name="district" id="district">
-                                                            @foreach($districts as $district)
-                                                                <option value="{{$district->district}}">{{$district->diaban}}</option>
-                                                            @endforeach
-                                                        </select>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <div class="col-md-4">
+                                                            <label class="control-label">Loại đất</label>
+                                                            {!!Form::select('maloaidat', $a_loaidat, null, array('id' => 'maloaidat','class' => 'form-control select2me'))!!}
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                        <label>Loại đất</label>
-                                                        <select class="form-control" name="maloaidat" id="maloaidat">
-                                                            @foreach($loaidats as $loaidat)
-                                                                <option value="{{$loaidat->maloaidat}}">{{$loaidat->loaidat}}</option>
-                                                            @endforeach
-                                                        </select>
+
+                                                        <div class="col-md-4">
+                                                            <label class="control-label">Đơn vị</label>
+                                                            <select class="form-control select2me" id="madv">
+                                                                @foreach($a_diaban as $key=>$val)
+                                                                    <optgroup label="{{$val}}">
+                                                                        <?php $donvi = $m_donvi->where('madiaban',$key); ?>
+                                                                        @foreach($donvi as $ct)
+                                                                            <option value="{{$ct->madv}}">{{$ct->tendv}}</option>
+                                                                        @endforeach
+                                                                    </optgroup>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="form-group">
+
+                                                        <div class="col-md-4">
                                                             <label class="control-label">Số quyết định<span class="require">*</span></label>
-                                                            {!!Form::text('soqd', null, array('id' => 'soqd','class' => 'form-control required'))!!}
+                                                            {!!Form::select('soqd', $a_qd, null, array('id' => 'soqd','class' => 'form-control select2me'))!!}
                                                         </div>
                                                     </div>
+                                                </div>
+
+                                                <div class="row">
                                                     <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label class="control-label">Khu vực<span class="require">*</span></label>
@@ -93,16 +101,16 @@
                                                         </div>
                                                     </div>
 
+{{--                                                    <div class="col-md-3">--}}
+{{--                                                        <div class="form-group">--}}
+{{--                                                            <label class="control-label">Mô tả<span class="require">*</span></label>--}}
+{{--                                                            {!!Form::text('mota', 'C', array('id' => 'mota','class' => 'form-control required'))!!}--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
                                                     <div class="col-md-3">
                                                         <div class="form-group">
-                                                            <label class="control-label">Mô tả<span class="require">*</span></label>
-                                                            {!!Form::text('mota', 'C', array('id' => 'mota','class' => 'form-control required'))!!}
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="form-group">
-                                                            <label class="control-label">MĐSD<span class="require">*</span></label>
-                                                            {!!Form::text('mdsd', 'D', array('id' => 'mdsd','class' => 'form-control required'))!!}
+                                                            <label class="control-label">Loại đường</label>
+                                                            {!!Form::text('loaiduong', 'D', array('id' => 'loaiduong','class' => 'form-control required'))!!}
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
@@ -141,26 +149,30 @@
                                                             {!!Form::text('hesok', 'J', array('id' => 'hesok','class' => 'form-control required'))!!}
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Nhận từ dòng<span class="require">*</span></label>
-                                                            {!!Form::text('tudong', '4', array('id' => 'tudong','class' => 'form-control required','data-mask'=>'fdecimal'))!!}
-                                                        </div>
-                                                    </div>
-                                                    <!--/span-->
-                                                    <div class="col-md-3">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Nhận đến dòng</label>
-                                                            {!!Form::text('dendong', '111', array('id' => 'dendong','class' => 'form-control','data-mask'=>'fdecimal'))!!}
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="form-group">
-                                                            <label class="control-label">File dữ liệu<span class="require">*</span></label>
-                                                            <input id="fexcel" name="fexcel" type="file"  accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
-                                                        </div>
+
+                                                </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Nhận từ dòng<span class="require">*</span></label>
+                                                        {!!Form::text('tudong', '4', array('id' => 'tudong','class' => 'form-control required','data-mask'=>'fdecimal'))!!}
                                                     </div>
                                                 </div>
+
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Nhận đến dòng</label>
+                                                        {!!Form::text('dendong', '111', array('id' => 'dendong','class' => 'form-control','data-mask'=>'fdecimal'))!!}
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">File dữ liệu<span class="require">*</span></label>
+                                                        <input id="fexcel" name="fexcel" type="file"  accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                                    </div>
+                                                </div>
+                                            </div>
                                             </div>
                                         </div>
                                     <!-- END PORTLET-->
@@ -193,11 +205,11 @@
                 ok = false;
             }
 
-            if (!$('#mota').val()) {
-                str += '  - Mô tả \n';
-                $('#mota').parent().addClass('has-error');
-                ok = false;
-            }
+            // if (!$('#mota').val()) {
+            //     str += '  - Mô tả \n';
+            //     $('#mota').parent().addClass('has-error');
+            //     ok = false;
+            // }
 
             if (!$('#giavt1').val()) {
                 str += '  - Giá đất VT1 \n';

@@ -102,12 +102,15 @@
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giacldat', 'hoso', 'modify'))
                             <button type="button" onclick="new_hs('{{$inputs['madv']}}')" class="btn btn-default btn-xs mbs" data-target="#modal-modify" data-toggle="modal">
                                 <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
-                            <a href="{{url($inputs['url'].'/nhandulieutuexcel?madv='.$inputs['madv'])}}" class="btn btn-default btn-sm">
+                            <a href="{{url($inputs['url'].'/nhandulieutuexcel')}}" class="btn btn-default btn-sm">
                                 <i class="fa fa-file-excel-o"></i> Nhận dữ liệu</a>
                         @endif
-
-                        <a href="{{url($inputs['url'].'/prints?&nam='.$inputs['nam'].'&madv='.$inputs['madv'])}}" class="btn btn-default btn-sm" target="_blank">
-                            <i class="fa fa-print"></i> In</a>
+                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giacldat', 'hoso', 'approve'))
+                            <button type="button" class="btn btn-default btn-xs mbs" data-target="#check-modal-confirm" data-toggle="modal">
+                                <i class="fa fa-check"></i>&nbsp;Hoàn thành</button>
+                        @endif
+                            <a href="{{url($inputs['url'].'/prints?&nam='.$inputs['nam'].'&madiaban='.$inputs['madiaban'].'&maxp='.$inputs['maxp'].'&maloaidat='.$inputs['maloaidat'])}}" class="btn btn-default btn-sm" target="_blank">
+                                <i class="fa fa-print"></i> In</a>
                     </div>
                 </div>
                 <hr>
@@ -330,6 +333,82 @@
                 {!! Form::close() !!}
             </div>
         </div>
+    </div>
+
+    <div id="check-modal-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+        {!! Form::open(['url'=>$inputs['url'].'/chuyenhs_mul','id' => 'frm_checkmulti'])!!}
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <button type="button" data-dismiss="modal" aria-hidden="true"
+                            class="close">&times;</button>
+                    <h4 id="modal-header-primary-label" class="modal-title">Đồng ý hoàn thành dữ liệu?</h4>
+                </div>
+                <div class="modal-body">
+{{--                    <div class="row">--}}
+{{--                        <div class="col-md-12">--}}
+{{--                            <div class="form-group">--}}
+{{--                                <label class="control-label">Trạng thái<span class="require">*</span></label>--}}
+{{--                                <select class="form-control" name="trangthaicheck" id="trangthaicheck">--}}
+{{--                                    <option value="CB">Công bố</option>--}}
+{{--                                    <option value="HT">Hủy công bố</option>--}}
+{{--                                </select>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Cơ quan tiếp nhận<span class="require">*</span></label>
+                                <select class="form-control select2me" name="macqcq">
+                                    @foreach($a_diaban_th as $key=>$val)
+                                        <optgroup label="{{$val}}">
+                                            <?php $donvi = $m_donvi_th->where('madiaban',$key); ?>
+                                            @foreach($donvi as $ct)
+                                                <option value="{{$ct->madv}}">{{$ct->tendv}}</option>
+                                            @endforeach
+                                        </optgroup>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label class="control-label">Năm</label>
+                                {!! Form::select('nam', getNam(true), date('Y'), array('class' => 'form-control'))!!}
+                            </div>
+
+                            <div class="col-md-9">
+                                <label class="control-label">Loại đất</label>
+                                {!!Form::select('maloaidat', a_merge(['all'=>'--Tất cả--'], $a_loaidat), $inputs['maloaidat'], array('class' => 'form-control select2me'))!!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label class="control-label">Địa bàn</label>
+                                {!!Form::select('madiaban', [$inputs['madiaban']=> $a_diaban[$inputs['madiaban']] ?? ''], null, array('class' => 'form-control'))!!}
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="control-label">Xã, phường</label>
+                                {!!Form::select('maxp', a_merge(['all'=>'--Tất cả--'], $a_xp), $inputs['maxp'], array('class' => 'form-control'))!!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
+                    <button type="submit" class="btn btn-primary" >Đồng ý</button>
+                </div>
+            </div>
+        </div>
+        {!! Form::close() !!}
     </div>
 
     <script>

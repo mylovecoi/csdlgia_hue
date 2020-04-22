@@ -453,6 +453,13 @@
                                 </a>
                             </li>
                         @endif
+                        @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                            <li>
+                                <a href="{{url('/giacldat/xetduyet')}}">
+                                    Xét duyệt hồ sơ
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </li>
             @endif
