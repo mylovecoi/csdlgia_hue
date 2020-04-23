@@ -911,30 +911,44 @@
     </li>
 @endif
 
-@if(canGeneral('muataisan','index'))
-    @if(can('muataisan','index'))
-        @if(can('hsmuataisan','index'))
-            <li class="javascript:;">
+@if(chkPer('csdlmucgiahhdv','philephi', 'phichuyengia'))
+    <li class="javascript:;">
         <a href="javascript:;">
             <i class="icon-folder"></i>
-            <span class="title">Giá trúng thầu của HH-DV được mua sắm theo QĐ của PL về đấu thầu</span>
-            {{--<span class="arrow"></span>--}}
+            <span class="title">Hàng hóa chuyển từ phí sang giá</span>
+            <span class="arrow"></span>
         </a>
         <ul class="sub-menu">
-            @if(can('hsmuataisan','index'))
+            @if(chkPer('csdlmucgiahhdv','philephi', 'phichuyengia','danhmuc','index'))
                 <li>
-                    <a href="{{url('thongtinmuataisan')}}">Thông tin trúng thầu HH-DV</a>
+                    <a href="{{url('/phichuyengia/danhmuc')}}">Danh mục</a>
                 </li>
             @endif
-            @if(can('thmuataisan','timkiem'))
+            @if(chkPer('csdlmucgiahhdv','philephi', 'phichuyengia', 'hoso','index'))
+                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                    <li>
+                        <a href="{{url('/phichuyengia/danhsach')}}">
+                            Thông tin hồ sơ
+                        </a>
+                    </li>
+                @endif
+
+                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                    <li>
+                        <a href="{{url('/phichuyengia/xetduyet')}}">
+                            Xét duyệt hồ sơ
+                        </a>
+                    </li>
+                @endif
+
                 <li>
-                    <a href="{{url('timkiemmuataisan')}}">Tìm kiếm thông tin</a>
+                    <a href="{{url('/phichuyengia/timkiem')}}">
+                        Tìm kiếm hồ sơ
+                    </a>
                 </li>
             @endif
         </ul>
     </li>
-        @endif
-    @endif
 @endif
 
 @if(canGeneral('giagocvlxd','index'))

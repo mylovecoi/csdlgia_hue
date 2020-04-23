@@ -2482,7 +2482,9 @@ function getGiaoDien()
             'gialephitruocba' => array('index' => '0', 'congbo' => '0'),
             'gialephitruocbanha' => array('index' => '0', 'congbo' => '0'),
             'giaphilephi' => array('index' => '0', 'congbo' => '0'),
+            'phichuyengia' => array('index' => '0', 'congbo' => '0'),
         ),
+
         'taisan' => array(
             'index' => '0', 'congbo' => '0',
             'thanhlytaisan' => array('index' => '0', 'congbo' => '0'),
@@ -2625,6 +2627,11 @@ function getPhanQuyen()
         'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
     );
     $gui['giathuetn'] = array(
+        'index' => '0',
+        'danhmuc' => array('index' => '0', 'modify' => '0',),
+        'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+    );
+    $gui['phichuyengia'] = array(
         'index' => '0',
         'danhmuc' => array('index' => '0', 'modify' => '0',),
         'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),

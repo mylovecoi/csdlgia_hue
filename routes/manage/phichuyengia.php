@@ -1,35 +1,33 @@
 <?php
 //Giá Nước sạch sinh hoạt
 Route::group(['prefix'=>'phichuyengia'], function (){
-    Route::get('danhmuc','manage\gianuocsachsh\DmGiaNuocSachShController@index');
-    Route::post('danhmuc','manage\gianuocsachsh\DmGiaNuocSachShController@store');
-    Route::get('show_dm','manage\gianuocsachsh\DmGiaNuocSachShController@edit');
-    Route::post('delete_dm','manage\gianuocsachsh\DmGiaNuocSachShController@destroy');
+    Route::get('danhmuc','manage\phichuyengia\dmphichuyengiaController@index');
+    Route::post('danhmuc','manage\phichuyengia\dmphichuyengiaController@store');
+    Route::get('show_dm','manage\phichuyengia\dmphichuyengiaController@edit');
+    Route::post('delete_dm','manage\phichuyengia\dmphichuyengiaController@destroy');
 
-    Route::get('danhsach','manage\gianuocsachsh\GiaNuocShController@index');
-    Route::get('new','manage\gianuocsachsh\GiaNuocShController@create');
-    Route::get('modify','manage\gianuocsachsh\GiaNuocShController@edit');
-    Route::post('modify','manage\gianuocsachsh\GiaNuocShController@update');
+    Route::get('get_ct','manage\phichuyengia\phichuyengiactController@show');
+    Route::get('store_ct','manage\phichuyengia\phichuyengiactController@store');
+    Route::get('delete_ct','manage\phichuyengia\phichuyengiactController@destroy');
 
-    Route::post('delete','manage\gianuocsachsh\GiaNuocShController@destroy');
-    Route::post('chuyenhs','manage\gianuocsachsh\GiaNuocShController@chuyenhs');
+    Route::get('danhsach','manage\phichuyengia\phichuyengiaController@index');
+    Route::get('new','manage\phichuyengia\phichuyengiaController@create');
+    Route::get('modify','manage\phichuyengia\phichuyengiaController@edit');
+    Route::post('modify','manage\phichuyengia\phichuyengiaController@update');
 
-    Route::get('xetduyet','manage\gianuocsachsh\GiaNuocShController@xetduyet');
-    Route::post('chuyenxd','manage\gianuocsachsh\GiaNuocShController@chuyenxd');
-    Route::post('tralai','manage\gianuocsachsh\GiaNuocShController@tralai');
-    Route::post('congbo','manage\gianuocsachsh\GiaNuocShController@congbo');
+    Route::post('delete','manage\phichuyengia\phichuyengiaController@destroy');
+    Route::post('chuyenhs','manage\phichuyengia\phichuyengiaController@chuyenhs');
+    //
+    Route::get('xetduyet','manage\phichuyengia\phichuyengiaController@xetduyet');
+    Route::post('chuyenxd','manage\phichuyengia\phichuyengiaController@chuyenxd');
+    Route::post('tralai','manage\phichuyengia\phichuyengiaController@tralai');
+    Route::post('congbo','manage\phichuyengia\phichuyengiaController@congbo');
 
-    Route::get('nhandulieutuexcel','manage\giarung\GiaNuocShController@nhandulieutuexcel');
-    Route::post('importexcel','manage\giarung\GiaNuocShController@importexcel');
+    //Route::get('nhandulieutuexcel','manage\giarung\GiaNuocShController@nhandulieutuexcel');
+    //Route::post('importexcel','manage\giarung\GiaNuocShController@importexcel');
 
-    Route::get('timkiem','manage\gianuocsachsh\GiaNuocShController@timkiem');
-    Route::post('timkiem','manage\gianuocsachsh\GiaNuocShController@ketquatk');
-    //Route::get('timkiem/printf','manage\gianuocsachsh\GiaNuocShTkController@printf');
-
-    Route::get('edit_ct','manage\gianuocsachsh\GiaNuocShCtController@edit');
-    Route::get('update_ct','manage\gianuocsachsh\GiaNuocShCtController@update');
-
-    Route::get('baocao','manage\gianuocsachsh\GiaNuocShBcController@index');
-    Route::post('baocao/baocaonuocsh1','manage\gianuocsachsh\GiaNuocShBcController@Bc1');
+    Route::get('timkiem','manage\phichuyengia\phichuyengiaController@timkiem');
+    Route::post('timkiem','manage\phichuyengia\phichuyengiaController@ketquatk');
+    Route::get('prints','manage\phichuyengia\phichuyengiaController@ketxuat');
 });
 ?>
