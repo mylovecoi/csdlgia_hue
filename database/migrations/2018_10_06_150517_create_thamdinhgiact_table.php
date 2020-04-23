@@ -15,6 +15,8 @@ class CreateThamdinhgiactTable extends Migration
     {
         Schema::create('thamdinhgiact', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('mahs')->nullable();
+            $table->string('manhom')->nullable();
             $table->string('mats')->nullable();
             $table->text('tents')->nullable();
             $table->text('dacdiempl')->nullable();
@@ -29,7 +31,6 @@ class CreateThamdinhgiactTable extends Migration
             $table->double('giaththamdinh')->default(0);
             $table->double('giakththamdinh')->default(0);
             $table->string('gc')->nullable();
-            $table->string('mahs')->nullable();
             $table->timestamps();
         });
     }

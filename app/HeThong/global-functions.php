@@ -2524,7 +2524,7 @@ function getGiaoDien()
             'index' => '0', 'congbo' => '0',
             'dmhhthamdinhgia' => array('index' => '0', 'congbo' => '0'),
             'dmdonvi' => array('index' => '0', 'congbo' => '0'),
-            'thamdinhgia' => array('index' => '0', 'congbo' => '0'),
+            'thamdinh' => array('index' => '0', 'congbo' => '0'),
             'cungcapgia' => array('index' => '0', 'congbo' => '0'),
         ),
     );
@@ -2841,7 +2841,7 @@ function getPhanQuyen()
         'index' => '0',
         'danhmuc' => array('index' => '0', 'modify' => '0',),
     );
-    $gui['thamdinhgia'] = array(
+    $gui['thamdinh'] = array(
         'index' => '0',
         'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
     );
@@ -3169,7 +3169,7 @@ function getPhanQuyen_cu()
                 'index' => '0',
                 'danhmuc' => array('index' => '0', 'modify' => '0',),
             ),
-            'thamdinhgia' => array(
+            'thamdinh' => array(
                 'index' => '0',
                 'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
             ),
