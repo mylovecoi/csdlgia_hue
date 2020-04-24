@@ -1,7 +1,25 @@
 <?php
 //Excel
 Route::group(['prefix'=>'thamdinhgia'],function () {
+    //đơn vị thẩm định giá
     Route::get('donvi', 'dsdonvitdgController@index');
+    Route::post('donvi', 'dsdonvitdgController@store');
+    Route::get('show_dv', 'dsdonvitdgController@edit');
+    Route::post('delete_dv', 'dsdonvitdgController@destroy');
+    //danh mục hàng hóa
+    Route::get('danhmuc','DmNhomHangHoaController@index');
+    Route::post('danhmuc', 'DmNhomHangHoaController@store');
+    Route::get('show_dm', 'DmNhomHangHoaController@show');
+    Route::get('epExcel','DmNhomHangHoaController@epExcel');
+
+    Route::get('danhmuc/detail','DmHangHoaController@index');
+    Route::post('danhmuc/detail','DmHangHoaController@store');
+    Route::get('show_dm_ct', 'DmHangHoaController@show');
+    //Hồ sơ thẩm định
+    Route::get('danhsach', 'ThamDinhGiaController@index');
+    Route::get('new', 'ThamDinhGiaController@create');
+
+    //
 
     Route::get('thamdinhgia/nhanexcel', 'ThamDinhGiaController@nhanexcel');
     Route::post('thamdinhgia/import_excel', 'ThamDinhGiaController@import_excel');

@@ -19,76 +19,44 @@
         jQuery(document).ready(function() {
             TableManaged.init();
         });
-        function getId(id){
-            document.getElementById("iddelete").value=id;
+        function getId(maso){
+            $('#frm_delete').find("[id='manhom']").val(manhom);
         }
         function ClickDelete(){
             $('#frm_delete').submit();
         }
-        function ClickCreate(){
-            var valid=true;
-            var message='';
-            var tennhom = $('#tennhom').val();
-            var manhom = $('#manhom').val();
-
-
-            if(tennhom == '' || manhom == ''){
-                valid=false;
-                message +='Các thông tin nhập không được bỏ trống \n';
-            }
-            if(valid){
-                $("#frm_create").unbind('submit').submit();
-            }else{
-                $("#frm_create").submit(function (e) {
-                    e.preventDefault();
-                });
-                toastr.error(message,'Lỗi!.');
-            }
-        }
-        function ClickUpdate(){
-            var valid=true;
-            var message='';
-            var tennhom = $('#edit_tennhom').val();
-
-            if(tennhom == '' ){
-                valid=false;
-                message +='Các thông tin nhập không được bỏ trống \n';
-            }
-            if(valid){
-                $("#frm_update").unbind('submit').submit();
-            }else{
-                $("#frm_update").submit(function (e) {
-                    e.preventDefault();
-                });
-                toastr.error(message,'Lỗi!.');
-            }
-        }
-        function ClickEdit(id){
+        function ClickEdit(manhom){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: 'dmnhomhanghoa/show',
+                url: '{{$inputs['url']}}' + '/show_dm',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: id
+                    manhom: manhom
                 },
                 dataType: 'JSON',
                 success: function (data) {
-                    if (data.status == 'success') {
-                        $('#edit-tt').replaceWith(data.message);
-                    }
+                    var form = $('#frm_create');
+                    form.find("[name='manhom']").val(data.manhom);
+                    form.find("[name='tennhom']").val(data.tennhom);
                 },
                 error: function (message) {
                     toastr.error(message, 'Lỗi!');
                 }
             });
         }
+        function new_hs() {
+            var form = $('#frm_create');
+            //Nhà xã hội cho thuê
+            form.find("[name='manhom']").val(null);
+            form.find("[name='tennhom']").val(null);
+        }
     </script>
 @stop
 
 @section('content')
     <h3 class="page-title">
-        Danh mục nhóm  <small>&nbsp;hàng hóa</small>
+        Danh mục nhóm hàng hóa
     </h3>
     <!-- END PAGE HEADER-->
     <div class="row">
@@ -97,8 +65,9 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <div class="actions">
-                        @if(can('dmhhthamdinhgia','create'))
-                        <button type="button" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
+                        @if(chkPer('csdlthamdinhgia','thamdinhgia', 'dmhhthamdinhgia', 'danhmuc','modify'))
+                            <button type="button" onclick="new_hs()" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
+                                <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
                         @endif
                     </div>
                 </div>
@@ -128,12 +97,17 @@
                                 @endif
                             </td>
                             <td>
-                                @if(can('dmhhthamdinhgia','edit'))
-                                <button type="button" onclick="ClickEdit('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#modal-edit" data-toggle="modal"><i class="fa fa-edit"></i>&nbsp;Sửa</button>
+                                @if(chkPer('csdlthamdinhgia','thamdinhgia', 'dmhhthamdinhgia', 'danhmuc', 'modify'))
+                                    <button type="button" onclick="ClickEdit('{{$tt->manhom}}')" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
+                                        <i class="fa fa-edit"></i>&nbsp;Sửa</button>
+{{--                                    <button type="button" onclick="getId('{{$tt->maso}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal" style="margin: 2px">--}}
+{{--                                        <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>--}}
                                 @endif
                                 @if($tt->theodoi == 'TD')
-                                <a href="{{url('dmhanghoa?&manhom='.$tt->manhom)}}" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
-                                <a href="{{url('dmnhomhanghoa/epExcel?&manhom='.$tt->manhom)}}" class="btn btn-default btn-xs mbs" target="_blank"><i class="fa fa-cloud-download"></i>&nbsp;Xuất dữ liệu</a>
+                                    <a href="{{url($inputs['url'].'/danhmuc/detail?&manhom='.$tt->manhom)}}" class="btn btn-default btn-xs mbs">
+                                        <i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
+                                    <a href="{{url($inputs['url'].'/epExcel?&manhom='.$tt->manhom)}}" class="btn btn-default btn-xs mbs" target="_blank">
+                                        <i class="fa fa-cloud-download"></i>&nbsp;Xuất dữ liệu</a>
                                 @endif
                             </td>
                         </tr>
@@ -154,7 +128,7 @@
     <div class="modal fade" id="modal-create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url'=>'dmnhomhanghoa','id' => 'frm_create'])!!}
+                {!! Form::open(['url'=>$inputs['url'].'/danhmuc','id' => 'frm_create'])!!}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Thêm mới nhóm  hàng hóa?</h4>
@@ -164,7 +138,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label">Mã nhóm<span class="require">*</span></label>
-                                <input type="text" name="manhom" id="manhom" class="form-control">
+                                <input type="text" name="manhom" id="manhom" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -172,13 +146,13 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label">Tên nhóm<span class="require">*</span></label>
-                                <input type="text" name="tennhom" id="tennhom" class="form-control">
+                                <input type="text" name="tennhom" id="tennhom" class="form-control" required>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn blue" onclick="ClickCreate()">Đồng ý</button>
+                    <button type="submit" class="btn blue">Đồng ý</button>
                     <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
                 </div>
                 {!! Form::close() !!}

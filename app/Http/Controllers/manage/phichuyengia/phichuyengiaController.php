@@ -193,8 +193,6 @@ class phichuyengiaController extends Controller
     }
     //</editor-fold>
 
-
-
     //<editor-fold des="Chức năng xét duyệt">
     public function xetduyet(Request $request)
     {

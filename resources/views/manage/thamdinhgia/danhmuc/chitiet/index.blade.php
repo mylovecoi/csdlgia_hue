@@ -19,71 +19,34 @@
         jQuery(document).ready(function() {
             TableManaged.init();
         });
-        function getId(id){
-            document.getElementById("iddelete").value=id;
-        }
-        function ClickDelete(){
-            $('#frm_delete').submit();
-        }
-        function ClickCreate(){
-            var valid=true;
-            var message='';
-            var nhomhh = $('#nhomhh').val();
-            var tenhh = $('#tenhh').val();
 
-
-            if(nhomhh == '' || tenhh == ''){
-                valid=false;
-                message +='Các thông tin nhập không được bỏ trống \n';
-            }
-            if(valid){
-                $("#frm_create").unbind('submit').submit();
-            }else{
-                $("#frm_create").submit(function (e) {
-                    e.preventDefault();
-                });
-                toastr.error(message,'Lỗi!.');
-            }
-        }
-        function ClickUpdate(){
-            var valid=true;
-            var message='';
-            var nhomhh = $('#edit_nhomhh').val();
-            var tenhh = $('#edit_tenhh').val();
-
-
-            if(nhomhh == '' || tenhh == ''){
-                valid=false;
-                message +='Các thông tin nhập không được bỏ trống \n';
-            }
-            if(valid){
-                $("#frm_update").unbind('submit').submit();
-            }else{
-                $("#frm_update").submit(function (e) {
-                    e.preventDefault();
-                });
-                toastr.error(message,'Lỗi!.');
-            }
-        }
-        function ClickEdit(id){
+        function ClickEdit(mahanghoa){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: 'dmhanghoa/show',
+                url: '{{$inputs['url']}}' + '/show_dm_ct',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: id
+                    mahanghoa: mahanghoa
                 },
                 dataType: 'JSON',
                 success: function (data) {
-                    if (data.status == 'success') {
-                        $('#edit-tt').replaceWith(data.message);
-                    }
+                    var form = $('#frm_create');
+                    form.find("[name='mahanghoa']").val(data.mahanghoa);
+                    form.find("[name='tenhanghoa']").val(data.tenhanghoa);
+                    form.find("[name='thongsokt']").val(data.thongsokt);
+                    form.find("[name='xuatxu']").val(data.xuatxu);
+                    form.find("[name='dvt']").val(data.dvt).trigger('change');
                 },
                 error: function (message) {
                     toastr.error(message, 'Lỗi!');
                 }
             });
+        }
+        function new_hs() {
+            var form = $('#frm_create');
+            form.find("[name='mahanghoa']").val(null);
+            form.find("[name='mahanghoa']").val(null);
         }
     </script>
 @stop
@@ -91,7 +54,7 @@
 @section('content')
 
     <h3 class="page-title">
-        Danh mục hàng hóa <b style="color: blue">{{$modelnhom->tennhom}}</b><small>&nbsp;chi tiết</small>
+        Nhóm hàng hóa: {{$modelnhom->tennhom}}
     </h3>
     <!-- END PAGE HEADER-->
     <div class="row">
@@ -100,10 +63,11 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <div class="actions">
-                        @if(can('dmhhthamdinhgia','create'))
-                        <button type="button" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
+                        @if(chkPer('csdlthamdinhgia','thamdinhgia', 'dmhhthamdinhgia', 'danhmuc','modify'))
+                            <button type="button" onclick="new_hs()" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
+                                <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
                         @endif
-                        <a href="{{url('dmnhomhanghoa')}}" class="btn btn-default btn-sm">
+                        <a href="{{url($inputs['url'].'/danhmuc')}}" class="btn btn-default btn-sm">
                             <i class="fa fa-reply"></i> Quay lại </a>
                     </div>
                 </div>
@@ -139,9 +103,8 @@
                                 @endif
                             </td>
                             <td>
-                                @if(can('dmhhthamdinhgia','edit'))
-                                <button type="button" onclick="ClickEdit('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#modal-edit" data-toggle="modal"><i class="fa fa-edit"></i>&nbsp;Sửa</button>
-                                @endif
+                                <button type="button" onclick="ClickEdit('{{$tt->mahanghoa}}')" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
+                                    <i class="fa fa-edit"></i>&nbsp;Sửa</button>
                             </td>
                         </tr>
                         @endforeach
@@ -161,7 +124,7 @@
     <div class="modal fade" id="modal-create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url'=>'dmhanghoa','id' => 'frm_create'])!!}
+                {!! Form::open(['url'=>$inputs['url'].'/danhmuc/detail','id' => 'frm_create'])!!}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Thêm mới thông tin hàng hóa!</h4>
@@ -174,6 +137,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -182,6 +146,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -190,6 +155,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -198,17 +164,20 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label">Xuất xứ<span class="require">*</span></label>
                                 <input type="text" name="xuatxu" id="xuatxu" class="form-control">
                             </div>
                         </div>
-                        <div class="col-md-6">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
                             <div class="form-group">
-                                <label class="control-label">Đơn vị tính<span class="require">*</span></label>
-                                <input type="text" name="dvt" id="dvt" class="form-control">
+                                @include('manage.include.form.input_dvt')
                             </div>
                         </div>
                     </div>
@@ -225,29 +194,7 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
-    <!--Model-edit-->
-    <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Chỉnh sửa thông tin hàng hóa!</h4>
-                </div>
-                {!! Form::open(['url'=>'dmhanghoa/update','id' => 'frm_update'])!!}
-                <div class="modal-body" id="edit-tt">
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn blue" onclick="ClickUpdate()">Đồng ý</button>
-                    <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
-                </div>
-                {!! Form::close() !!}
+</div>
 
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-
-
-
+    @include('manage.include.form.modal_dvt')
 @stop
