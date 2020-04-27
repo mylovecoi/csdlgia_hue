@@ -14,7 +14,7 @@ class dsxaphuongController extends Controller
     {
         if (Session::has('admin')) {
             //tài khoản SSA; tài khoản quản trị + có phân quyền
-            if (!chkPer('hethong', 'hethong', 'danhsachxaphuong', 'index')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachxaphuong', 'index')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();
@@ -35,7 +35,7 @@ class dsxaphuongController extends Controller
     public function modify(Request $request){
         if (Session::has('admin')) {
             //tài khoản SSA; tài khoản quản trị + có phân quyền
-            if (!chkPer('hethong', 'hethong', 'danhsachxaphuong', 'modify')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachxaphuong', 'modify')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();
@@ -57,7 +57,7 @@ class dsxaphuongController extends Controller
     public function delete(Request $request){
         if (Session::has('admin')) {
             //tài khoản SSA; tài khoản quản trị + có phân quyền
-            if (!chkPer('hethong', 'hethong', 'danhsachxaphuong', 'modify')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachxaphuong', 'modify')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();

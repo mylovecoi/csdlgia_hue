@@ -15,7 +15,7 @@ class GeneralConfigsController extends Controller
     public function index()
     {
         if (Session::has('admin')) {
-            if(chkPer('hethong', 'hethong', 'thongtin','danhmuc', 'modify')){
+            if(chkPer('hethong', 'hethong_pq', 'thongtin','danhmuc', 'modify')){
                 $model = GeneralConfigs::first();
                 return view('system.general.index')
                     ->with('model',$model)
@@ -30,7 +30,7 @@ class GeneralConfigsController extends Controller
 
     public function create(){
         if (Session::has('admin')) {
-            if(chkPer('hethong', 'hethong', 'thongtin','danhmuc', 'modify')){
+            if(chkPer('hethong', 'hethong_pq', 'thongtin','danhmuc', 'modify')){
                 return view('system.general.create')
                     ->with('pageTitle', 'Thêm mới thông tin đơn vị được cấp bản quyền');
             }else{
@@ -42,7 +42,7 @@ class GeneralConfigsController extends Controller
 
     public function store(Request $request){
         if (Session::has('admin')) {
-            if(chkPer('hethong', 'hethong', 'thongtin','danhmuc', 'modify')){
+            if(chkPer('hethong', 'hethong_pq', 'thongtin','danhmuc', 'modify')){
                 $inputs = $request->all();
                 $model = new GeneralConfigs();
                 $model->create($inputs);
@@ -57,7 +57,7 @@ class GeneralConfigsController extends Controller
     public function edit($id)
     {
         if (Session::has('admin')) {
-            if(chkPer('hethong', 'hethong', 'thongtin','danhmuc', 'modify')){
+            if(chkPer('hethong', 'hethong_pq', 'thongtin','danhmuc', 'modify')){
                 $model = GeneralConfigs::first();
                 return view('system.general.edit')
                     ->with('model', $model)
@@ -72,7 +72,7 @@ class GeneralConfigsController extends Controller
     public function update(Request $request,$id)
     {
         if (Session::has('admin')) {
-            if(chkPer('hethong', 'hethong', 'thongtin','danhmuc', 'modify')){
+            if(chkPer('hethong', 'hethong_pq', 'thongtin','danhmuc', 'modify')){
                 $inputs = $request->all();
                 $model = GeneralConfigs::findOrFail($id);
                 $model->update($inputs);

@@ -16,7 +16,7 @@ class dstaikhoanController extends Controller
     {
         if (Session::has('admin')) {
             //tài khoản SSA; tài khoản quản trị + có phân quyền
-            if (!chkPer('hethong', 'hethong', 'danhsachtaikhoan', 'index')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan', 'index')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();
@@ -48,7 +48,7 @@ class dstaikhoanController extends Controller
 
     public function create(Request $request){
         if (Session::has('admin')) {
-            if (!chkPer('hethong', 'hethong', 'danhsachtaikhoan', 'modify')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan', 'modify')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();
@@ -66,7 +66,7 @@ class dstaikhoanController extends Controller
 
     public function store(Request $request){
         if (Session::has('admin')) {
-            if (!chkPer('hethong', 'hethong', 'danhsachtaikhoan', 'modify')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan', 'modify')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();
@@ -87,7 +87,7 @@ class dstaikhoanController extends Controller
 
     public function copy(Request $request){
         if (Session::has('admin')) {
-            if (!chkPer('hethong', 'hethong', 'danhsachtaikhoan', 'modify')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan', 'modify')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();
@@ -101,7 +101,7 @@ class dstaikhoanController extends Controller
 
     public function store_copy(Request $request){
         if (Session::has('admin')) {
-            if (!chkPer('hethong', 'hethong', 'danhsachtaikhoan', 'modify')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan', 'modify')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();
@@ -122,7 +122,7 @@ class dstaikhoanController extends Controller
 
     public function modify(Request $request){
         if (Session::has('admin')) {
-            if (!chkPer('hethong', 'hethong', 'danhsachtaikhoan', 'modify')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan', 'modify')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();
@@ -140,7 +140,7 @@ class dstaikhoanController extends Controller
 
     public function update(Request $request){
         if (Session::has('admin')) {
-            if (!chkPer('hethong', 'hethong', 'danhsachtaikhoan', 'modify')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan', 'modify')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();
@@ -160,7 +160,7 @@ class dstaikhoanController extends Controller
     public function delete(Request $request){
         if (Session::has('admin')) {
             //tài khoản SSA; tài khoản quản trị + có phân quyền
-            if (!chkPer('hethong', 'hethong', 'danhsachtaikhoan', 'modify')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan', 'modify')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();
@@ -181,7 +181,7 @@ class dstaikhoanController extends Controller
     {
         if (Session::has('admin')) {
             //tài khoản SSA; tài khoản quản trị + có phân quyền
-            if (!chkPer('hethong', 'hethong', 'danhsachtaikhoan', 'modify')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan', 'modify')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();
@@ -251,7 +251,7 @@ class dstaikhoanController extends Controller
     function store_perm(Request $request){
         if (Session::has('admin')) {
             //tài khoản SSA; tài khoản quản trị + có phân quyền
-            if (!chkPer('hethong', 'hethong', 'danhsachtaikhoan', 'modify')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan', 'modify')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();

@@ -32,7 +32,7 @@
                                 <i class="icon-settings"></i> Setting</a>
                         @endif
 
-                        @if(chkPer('hethong', 'hethong', 'thongtin','danhmuc', 'modify')))
+                        @if(chkPer('hethong', 'hethong_pq', 'thongtin','danhmuc', 'modify')))
                             @if($model->count() >0)
                                 <a href="{{url('general/'.$model->id.'/edit')}}" class="btn btn-default btn-sm">
                                     <i class="fa fa-edit"></i> Chỉnh sửa </a>

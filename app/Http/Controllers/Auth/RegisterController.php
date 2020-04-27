@@ -260,7 +260,7 @@ class RegisterController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['url'] = '/dangky';
-            if(!chkPer('hethong', 'hethong', 'dangky', 'index')){
+            if(!chkPer('hethong', 'hethong_pq', 'dangky', 'index')){
                 return view('errors.perm');
             }
 
@@ -287,7 +287,7 @@ class RegisterController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
 
-            if(!chkPer('hethong', 'hethong', 'dangky', 'index')){
+            if(!chkPer('hethong', 'hethong_pq', 'dangky', 'index')){
                 return view('errors.perm');
             }
             //dd($inputs);
@@ -312,7 +312,7 @@ class RegisterController extends Controller
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            if (!chkPer('hethong', 'hethong', 'dangky', 'index')) {
+            if (!chkPer('hethong', 'hethong_pq', 'dangky', 'index')) {
                 return view('errors.perm');
             }
             $m_company = Company::where('mahs', $inputs['mahs'])->first();
