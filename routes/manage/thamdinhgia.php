@@ -18,7 +18,23 @@ Route::group(['prefix'=>'thamdinhgia'],function () {
     //Hồ sơ thẩm định
     Route::get('danhsach', 'ThamDinhGiaController@index');
     Route::get('new', 'ThamDinhGiaController@create');
-
+    Route::get('modify', 'ThamDinhGiaController@edit');
+    Route::post('modify','ThamDinhGiaController@update');
+    Route::post('delete','ThamDinhGiaController@destroy');
+    Route::post('chuyenhs','ThamDinhGiaController@chuyenhs');
+    Route::get('xetduyet','ThamDinhGiaController@xetduyet');
+    Route::post('chuyenxd','ThamDinhGiaController@chuyenxd');
+    Route::post('tralai','ThamDinhGiaController@tralai');
+    Route::post('congbo','ThamDinhGiaController@congbo');
+    Route::get('timkiem','ThamDinhGiaController@timkiem');
+    Route::post('timkiem','ThamDinhGiaController@ketquatk');
+        //chi tiết hồ sơ
+    Route::get('get_ct', 'ThamDinhGiaCtController@edit');
+    Route::get('store_ct', 'ThamDinhGiaCtController@store');
+    Route::get('delete_ct', 'ThamDinhGiaCtController@destroy');
+    //Báo cáo
+    Route::get('baocao', 'ReportsThamDinhGiaController@index');
+    Route::post('baocao/BC1', 'ReportsThamDinhGiaController@Bc1');
     //
 
     Route::get('thamdinhgia/nhanexcel', 'ThamDinhGiaController@nhanexcel');

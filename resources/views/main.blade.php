@@ -328,40 +328,40 @@ License: You must have a valid license purchased only from themeforest(the above
                             <span class="arrow "></span>
                         </a>
                         <ul class="sub-menu">
-                            @if(chkPer('hethong', 'hethong', 'danhsachdiaban'))
+                            @if(chkPer('hethong', 'hethong_pq', 'danhsachdiaban'))
                                 <li><a href="{{url('/diaban/danhsach')}}">Danh sách địa bàn</a></li>
                             @endif
 
-                            @if(chkPer('hethong', 'hethong', 'danhsachxaphuong'))
+                            @if(chkPer('hethong', 'hethong_pq', 'danhsachxaphuong'))
                                 <li><a href="{{url('/xaphuong/danhsach')}}">Danh sách xã, phường, thị trấn</a></li>
                             @endif
 
-                            @if(chkPer('hethong', 'hethong', 'danhsachdonvi', 'index'))
+                            @if(chkPer('hethong', 'hethong_pq', 'danhsachdonvi', 'index'))
                                 <li><a href="{{url('/donvi/danhsach')}}">Danh sách đơn vị</a></li>
                             @endif
 
-                            @if(chkPer('hethong', 'hethong', 'danhsachtaikhoan'))
+                            @if(chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan'))
                                 <li><a href="{{url('/taikhoan/danhsach')}}">Danh sách tài khoản</a></li>
                             @endif
 
-                            @if(can('ngaynghile','index'))
+                            @if(chkPer('hethong', 'hethong_pq', 'ngaynghile'))
                                 <li><a href="{{url('thongtinngaynghile')}}">Thông tin ngày nghỉ lễ</a></li>
                             @endif
 
-                            @if(chkPer('hethong', 'hethong', 'danhmucnganhkd'))
+                            @if(chkPer('hethong', 'hethong_pq', 'danhmucnganhkd'))
                                 <li><a href="{{url('/dmnganhnghe/danhsach')}}">Danh mục ngành nghề kinh doanh</a> </li>
                             @endif
 
-                            @if(chkPer('hethong', 'hethong', 'dangky', 'index'))
+                            @if(chkPer('hethong', 'hethong_pq', 'dangky', 'index'))
                                 <li><a href="{{url('dangky/danhsach')}}">Tài khoản đăng ký</a></li>
                                 <li><a href="{{url('userscompany')}}">Tài khoản doanh nghiệp</a></li>
                             @endif
 
-                            @if(chkPer('hethong', 'hethong', 'chucnang'))
+                            @if(chkPer('hethong', 'hethong_pq', 'chucnang'))
                                 <li><a href="{{url('/chucnang')}}">Danh mục chức năng hệ thống</a> </li>
                             @endif
 
-                            @if(chkPer('hethong', 'hethong', 'thongtin'))
+                            @if(chkPer('hethong', 'hethong_pq', 'thongtin'))
                                 <li><a href="{{url('/general')}}">Cấu hình hệ thống</a></li>
                             @endif
                         </ul>

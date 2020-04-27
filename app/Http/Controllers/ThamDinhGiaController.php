@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DiaBanHd;
 use App\District;
 use App\DmHangHoa;
+use App\dsdonvitdg;
 use App\Model\system\dmdvt;
 use App\Model\system\dsdiaban;
 use App\Model\system\dsdonvi;
@@ -80,12 +81,13 @@ class ThamDinhGiaController extends Controller
             $inputs['url'] = '/thamdinhgia';
             $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
             $modelct = nullValue();
+            $m_dvtdg = dsdonvitdg::all();
             return view('manage.thamdinhgia.kekhai.edit')
                 ->with('model', $model)
                 ->with('modelct', $modelct)
                 //->with('a_dm', array_column($m_danhmuc->toArray(),'tengia','maso'))
                 //->with('a_diaban', getDiaBan_HoSo($m_diaban->where('level', 'H'), true))
-                //->with('m_donvi', $m_donvi)
+                ->with('m_dvtdg', $m_dvtdg)
                 ->with('a_dvt', $a_dvt)
                 ->with('inputs', $inputs)
                 ->with('pageTitle', 'Chỉnh sửa phí chuyển sang giá');
@@ -97,21 +99,24 @@ class ThamDinhGiaController extends Controller
     public function edit(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
+            //$a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             //$m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             //$m_donvi = getDonViNhapLieu(session('admin')->level);
             $inputs['url'] = '/thamdinhgia';
             $model = ThamDinhGia::where('mahs', $inputs['mahs'])->first();
             $modelct = ThamDinhGiaCt::where('mahs', $model->mahs)->get();
-            $m_danhmuc = dmphichuyengia::all();
+            $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
+            $m_dvtdg = dsdonvitdg::all();
             return view('manage.thamdinhgia.kekhai.edit')
                 ->with('model', $model)
                 ->with('modelct', $modelct)
-                ->with('a_dm', array_column($m_danhmuc->toArray(),'tengia','maso'))
+                ->with('a_dvt', $a_dvt)
+                ->with('m_dvtdg', $m_dvtdg)
+                //->with('a_dm', array_column($m_danhmuc->toArray(),'tengia','maso'))
                 //->with('a_diaban', getDiaBan_HoSo($m_diaban->where('level', 'H'), true))
                 //->with('m_donvi', $m_donvi)
                 ->with('inputs', $inputs)
-                ->with('pageTitle', 'Chỉnh sửa giá nước sinh hoạt');
+                ->with('pageTitle', 'Chỉnh sửa hồ sơ thẩm định giá');
 
         } else
             return view('errors.notlogin');
@@ -121,6 +126,34 @@ class ThamDinhGiaController extends Controller
         if(Session::has('admin')) {
             $inputs = $request->all();
             $inputs['thoidiem'] = getDateToDb($inputs['thoidiem']);
+            $inputs['thoihan'] = getDateToDb($inputs['thoidiem']);
+            if(isset($inputs['ipf1'])){
+                $ipf1 = $request->file('ipf1');
+                $name = $inputs['mahs'] .'&1.'.$ipf1->getClientOriginalName();
+                $ipf1->move(public_path() . '/data/thamdinhgia/', $name);
+                $inputs['ipf1']= $name;
+            }
+
+            if(isset($inputs['ipf2'])){
+                $ipf2 = $request->file('ipf2');
+                $name = $inputs['mahs'] .'&2.'.$ipf2->getClientOriginalName();
+                $ipf2->move(public_path() . '/data/thamdinhgia/', $name);
+                $inputs['ipf2']= $name;
+            }
+
+            if(isset($inputs['ipf3'])){
+                $ipf3 = $request->file('ipf3');
+                $name = $inputs['mahs'] .'&3.'.$ipf3->getClientOriginalName();
+                $ipf3->move(public_path() . '/data/thamdinhgia/', $name);
+                $inputs['ipf3']= $name;
+            }
+            if(isset($inputs['ipf4'])){
+                $ipf4 = $request->file('ipf4');
+                $name = $inputs['mahs'] .'&4.'.$ipf4->getClientOriginalName();
+                $ipf4->move(public_path() . '/data/thamdinhgia/', $name);
+                $inputs['ipf4']= $name;
+            }
+
             $model = ThamDinhGia::where('mahs', $inputs['mahs'])->first();
             if($model == null){
                 $inputs['trangthai'] = 'CHT';
@@ -268,7 +301,7 @@ class ThamDinhGiaController extends Controller
                 }
             }
             //dd($model);
-            return view('manage.phichuyengia.xetduyet.index')
+            return view('manage.thamdinhgia.xetduyet.index')
                 ->with('model', $model)
                 ->with('inputs', $inputs)
                 ->with('m_diaban', $m_diaban)
@@ -423,11 +456,11 @@ class ThamDinhGiaController extends Controller
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
             //dd($m_diaban);
-            $a_dm = array_column(dmphichuyengia::all()->toArray(),'tengia','maso');
+            //$a_dm = array_column(dmphichuyengia::all()->toArray(),'tengia','maso');
             return view('manage.thamdinhgia.timkiem.index')
                 ->with('m_diaban',$m_diaban)
                 ->with('m_donvi',$m_donvi)
-                ->with('a_dm',$a_dm)
+                //->with('a_dm',$a_dm)
                 ->with('pageTitle','Tìm kiếm thông tin hồ sơ');
         }else
             return view('errors.notlogin');
@@ -439,14 +472,14 @@ class ThamDinhGiaController extends Controller
             //Lấy hết hồ sơ trên địa bàn rồi bắt đầu tìm kiểm
             $inputs = $request->all();
             $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
-            $model = view_thamdinhgia::wherein('madv',array_column($m_donvi->toarray(),'madv'))->get();
+            $model = view_thamdinhgia::wherein('madv',array_column($m_donvi->toarray(),'madv'));
             //dd($model);
 
             if($inputs['madv'] != 'all'){
                 $model = $model->where('madv',$inputs['madv']);
             }
-            if($inputs['maso'] != 'all') {
-                $model = $model->where('maso', getTimkiemLike($inputs['maso']));
+            if($inputs['tents'] != '') {
+                $model = $model->where('tents', 'like', getTimkiemLike($inputs['tents']));
             }
 
             if(getDayVn($inputs['thoidiem_tu']) != ''){
@@ -457,13 +490,18 @@ class ThamDinhGiaController extends Controller
                 $model = $model->where('thoidiem','<=',$inputs['thoidiem_den']);
             }
 
-            $model = $model->where('mucgia','>=',chkDbl($inputs['giatri_tu']));
-            if(chkDbl($inputs['giatri_den']) > 0){
-                $model = $model->where('mucgia','<=',chkDbl($inputs['giatri_den']));
+            $model = $model->where('nguyengiadenghi','>=',chkDbl($inputs['nguyengiadenghi_tu']));
+            if(chkDbl($inputs['nguyengiadenghi_den']) > 0){
+                $model = $model->where('nguyengiadenghi','<=',chkDbl($inputs['nguyengiadenghi_den']));
+            }
+
+            $model = $model->where('nguyengiathamdinh','>=',chkDbl($inputs['nguyengiathamdinh_tu']));
+            if(chkDbl($inputs['nguyengiathamdinh_den']) > 0){
+                $model = $model->where('nguyengiathamdinh','<=',chkDbl($inputs['nguyengiathamdinh_den']));
             }
             //dd($model);
             return view('manage.thamdinhgia.timkiem.result')
-                ->with('model',$model)
+                ->with('model',$model->get())
                 ->with('a_diaban',array_column($m_donvi->toarray(),'tendiaban','madiaban'))
                 ->with('a_donvi',array_column($m_donvi->toarray(),'tendv','madv'))
 

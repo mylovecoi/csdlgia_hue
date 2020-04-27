@@ -36,8 +36,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Hồ sơ <small> giá sản phẩm, dịch vụ công ích, dịch vụ sự nghiệp công và hàng hóa, dịch vụ được địa phương đặt hàng, giao kế hoạch sản xuất, kinh doanh
-        </small>
+        Hồ sơ thẩm định giá
     </h3>
 
     <!-- END PAGE HEADER-->
@@ -77,16 +76,17 @@
                             </div>
                         </div>
                     </div>
-                    <table id="sample_3" class="table table-striped table-bordered table-hover">
+                    <table id="sample_4" class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th width="2%" style="text-align: center">STT</th>
-                                <th style="text-align: center">Cơ quan chuyển hồ sơ</th>
+                                <th style="text-align: center">Cơ quan<br>chuyển hồ sơ</th>
                                 <th style="text-align: center">Địa bàn</th>
-                                <th style="text-align: center">Thời điểm <br>xác định</th>
-                                <th style="text-align: center">Vị trí đất</th>
+                                <th style="text-align: center">Thời điểm<br>xác định</th>
+                                <th style="text-align: center">Thông tin tài<br>sản thẩm định</th>
+                                <th style="text-align: center">Đơn vị yêu cầu<br>thẩm định</th>
                                 <th style="text-align: center">Trạng thái</th>
-                                <th style="text-align: center">Cơ quan tiếp nhận hồ sơ</th>
+                                <th style="text-align: center">Cơ quan tiếp<br>nhận hồ sơ</th>
                                 <th style="text-align: center" width="20%">Thao tác</th>
                             </tr>
                         </thead>
@@ -98,7 +98,8 @@
                                     <td style="text-align: left">{{$tt->tendv_ch}}</td>
                                     <td style="text-align: center">{{$a_diaban[$tt->madiaban] ?? ''}}</td>
                                     <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
-                                    <td style="text-align: left">{{$tt->vitri}}</td>
+                                    <td>{{$tt->tttstd}}</td>
+                                    <td>{{$tt->dvyeucau}}</td>
                                     @include('manage.include.form.td_trangthai')
                                     <td style="text-align: left">{{$tt->tencqcq}}</td>
                                     <td>
