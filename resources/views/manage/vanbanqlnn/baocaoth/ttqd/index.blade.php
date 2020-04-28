@@ -59,9 +59,9 @@
                     <div class="caption">
                     </div>
                     <div class="actions">
-                        @if(can('bcthvegia','create'))
-                        <a href="{{url('baocaothvegia/create?&phanloai='.$inputs['phanloai'])}}" class="btn btn-default btn-sm">
-                            <i class="fa fa-plus"></i> Thêm mới </a>
+                        @if(chkPer('csdlvbqlnn','vbqlnn','bcthvegia','hoso', 'modify'))
+                            <a href="{{url('baocaothvegia/create?&phanloai='.$inputs['phanloai'])}}" class="btn btn-default btn-sm">
+                                <i class="fa fa-plus"></i> Thêm mới </a>
                         @endif
 
                         <!--a href="" class="btn btn-default btn-sm">
@@ -92,13 +92,14 @@
                                 <td style="text-align: center">{{getDayVn($tt->ngaybanhanh)}}</td>
                                 <td style="text-align: center">{{getDayVn($tt->ngayapdung)}}</td>
                                 <td>
-                                    @if(can('bcthvegia','edit'))
-                                    <a href="{{url('baocaothvegia/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
-                                    @endif
-                                    <button type="button" onclick="get_attack('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal"><i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
-                                    @if(can('bcthvegia','delete'))
-                                    <button type="button" onclick="confirmDelete('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
-                                        Xóa</button>
+                                    <button type="button" onclick="get_attack('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
+                                        <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
+                                    @if(chkPer('csdlvbqlnn','vbqlnn','bcthvegia','hoso', 'modify'))
+                                        <a href="{{url('baocaothvegia/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs">
+                                            <i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
+
+                                        <button type="button" onclick="confirmDelete('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
+                                            <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
                                     @endif
                                 </td>
                             </tr>

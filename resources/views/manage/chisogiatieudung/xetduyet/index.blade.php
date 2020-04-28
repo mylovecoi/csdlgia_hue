@@ -130,35 +130,37 @@
                                 <td>
                                     <button type="button" onclick="get_attack('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal"><i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
                                     @if($tt->trangthai == 'CHT' || $tt->trangthai == 'HHT')
-                                        @if(chkPer('csdlvbqlnn','vbqlnn','chisogiatieudung','hoso', 'modify'))
+                                        @if(session('admin')->mahuyen == $tt->mahuyen)
+                                            @if(can('chisogiatieudung','edit'))
                                             <a href="{{url('baocaochisogiatieudung/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
-                                            <button type="button" onclick="confirmDelete('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
-                                                <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
+                                            @endif
+                                            @if(can('chisogiatieudung','approve'))
+                                                <button type="button" onclick="confirmHoanthanh('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#hoanthanh-modal-confirm" data-toggle="modal"><i class="fa fa-check"></i>&nbsp;Hoàn thành</button>
+                                            @endif
+                                            @if(can('chisogiatieudung','delete'))
+                                                @if($tt->trangthai == 'CHT')
+                                                <button type="button" onclick="confirmDelete('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
+                                                    Xóa</button>
+                                                @endif
+                                            @endif
                                         @endif
-
-                                        @if(chkPer('csdlvbqlnn','vbqlnn','chisogiatieudung','hoso', 'approve'))
-                                            <button type="button" onclick="confirmHoanthanh('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#hoanthanh-modal-confirm" data-toggle="modal">
-                                                <i class="fa fa-check"></i>&nbsp;Hoàn thành</button>
+                                    @endif
+                                    @if($tt->trangthai == 'HT' || $tt->trangthai == 'CB')
+                                        @if(session('admin')->level == 'T' || session('admin')->level == 'H')
+                                            @if($tt->trangthai == 'HT')
+                                                @if(can('chisogiatieudung','congbo'))
+                                                    @if($tt->congbo != 'CB')
+                                                    <button type="button" onclick="confirmCB('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal-confirm" data-toggle="modal"><i class="fa fa-send"></i>&nbsp;
+                                                        Công bố</button>
+                                                    @endif
+                                                @endif
+                                            @endif
+                                            @if(can('chisogiatieudung','approve'))
+                                                <button type="button" onclick="confirmHHT('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#huyhoanthanh-modal-confirm" data-toggle="modal"><i class="fa fa-times"></i>&nbsp;
+                                                    Hủy hoàn thành</button>
+                                            @endif
                                         @endif
                                     @endif
-
-                                    @if(in_array(session('admin')->level, ['ADMIN','SSA']) && $tt->trangthai == 'HT'
-                                        && chkPer('csdlvbqlnn','vbqlnn','chisogiatieudung','hoso', 'approve'))
-                                            <button type="button" onclick="confirmCB('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal-confirm" data-toggle="modal"><i class="fa fa-send"></i>&nbsp;
-                                                Công bố</button>
-                                    @endif
-
-                                    @if(chkPer('csdlvbqlnn','vbqlnn','chisogiatieudung','hoso', 'approve') && $tt->trangthai == 'HT')
-                                        <button type="button" onclick="confirmHHT('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#huyhoanthanh-modal-confirm" data-toggle="modal"><i class="fa fa-times"></i>&nbsp;
-                                            Hủy hoàn thành</button>
-                                    @endif
-
-                                    @if(chkPer('csdlvbqlnn','vbqlnn','chisogiatieudung','hoso', 'approve')
-                                        && $tt->trangthai == 'CB' && in_array(session('admin')->level, ['ADMIN','SSA']))
-                                            <button type="button" onclick="confirmHHT('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#huyhoanthanh-modal-confirm" data-toggle="modal"><i class="fa fa-times"></i>&nbsp;
-                                                Hủy công bố</button>
-                                    @endif
-
                                 </td>
                             </tr>
                             @endforeach

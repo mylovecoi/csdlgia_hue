@@ -37,14 +37,14 @@
                                         'gia'=>'Văn bản về giá',
                                         'philephi'=>'Văn bản phí, lệ phí')
                                         ,null,
-                                        array('id' => 'phanloai', 'class' => 'form-control'))
+                                        array('id' => 'phanloai', 'class' => 'form-control select2me'))
                                         !!}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Loại văn bản<span class="require">*</span></label>
-                                        {!! Form::select('loaivb',getLoaiVbQlNn(),null, ['id' => 'loaivb','class' => 'form-control required']) !!}
+                                        {!! Form::select('loaivb',getLoaiVbQlNn(),null, ['id' => 'loaivb','class' => 'form-control select2me required']) !!}
                                     </div>
                                 </div>
                             </div>
