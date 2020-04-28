@@ -57,10 +57,10 @@ class UsersController extends Controller
             //dd($ttuser);
             //2. level != SSA -> lấy thông tin đơn vị, hệ thống để thiết lập lại
 
-            if($ttuser->level == "DN"){
-                $m_donvi = Company::where('madv',$ttuser->madv)->first();
-            }else{
-                $m_donvi = dsdonvi::where('madv',$ttuser->madv)->first();
+            if ($ttuser->level == "DN") {
+                $m_donvi = Company::where('madv', $ttuser->madv)->first();
+            } else {
+                $m_donvi = dsdonvi::where('madv', $ttuser->madv)->first();
 
             }
             //dd($ttuser);
@@ -78,14 +78,20 @@ class UsersController extends Controller
             $ttuser->diadanh = $m_donvi->diadanh;
             $ttuser->chucnang = $m_donvi->chucnang;
             //Lấy thông tin địa bàn
-            $m_diaban = dsdiaban::where('madiaban',$ttuser->madiaban)->first();
+            $m_diaban = dsdiaban::where('madiaban', $ttuser->madiaban)->first();
             $ttuser->tendiaban = $m_diaban->tendiaban;
             //Doanh nghiệp giữ nguyên level; Đơn vị HC lấy level theo địa bàn
-            $ttuser->level = $ttuser->level == 'DN'? $ttuser->level: $m_diaban->level;
-            //Lấy setting gán luôn vào phiên đăng nhập
-            $ttuser->setting = json_decode(GeneralConfigs::first()->setting, true);
-            $ttuser->permission = json_decode($ttuser->permission, true);
+            $ttuser->level = $ttuser->level == 'DN' ? $ttuser->level : $m_diaban->level;
         }
+        //Lấy setting gán luôn vào phiên đăng nhập
+        $m_gen = GeneralConfigs::first();
+        $ttuser->setting = json_decode($m_gen->setting, true);
+        $ttuser->permission = json_decode($ttuser->permission, true);
+        $ttuser->ipf1 = $m_gen->ipf1;
+        $ttuser->ipf2 = $m_gen->ipf2;
+        $ttuser->ipf3 = $m_gen->ipf3;
+        $ttuser->ipf4 = $m_gen->ipf4;
+        $ttuser->ipf5 = $m_gen->ipf5;
         //dd($ttuser);
         Session::put('admin', $ttuser);
         return redirect('')

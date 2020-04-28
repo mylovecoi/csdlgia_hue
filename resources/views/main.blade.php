@@ -192,15 +192,23 @@ License: You must have a valid license purchased only from themeforest(the above
                     <ul>
                     </ul>
                 </li>
-                {{--<li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">--}}
-                    {{--<a href="http://help.csdlgia.vn" class="dropdown-toggle" target="_blank">--}}
-                        {{--<i class="fa fa-folder-open-o"></i>--}}
-					{{--<span class="badge badge-default">--}}
-					{{--Help</span>--}}
-                    {{--</a>--}}
-                    {{--<ul>--}}
-                    {{--</ul>--}}
-                {{--</li>--}}
+                <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <i class="fa fa-folder-open-o"></i>
+					<span class="badge badge-default">
+					Help</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-default">
+                        <li>
+                            <a href="{{url('/thongtinhotro')}}" target="_blank"> Thông tin hỗ trợ</a>
+                        </li>
+                        @if(session('admin')->ipf1 != '')
+                            <li>
+                                <a href="{{url('/data/huongdan/'.session('admin')->ipf1)}}" target="_blank">Tài liệu hướng dẫn</a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
                 <li class="dropdown dropdown-user">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" >
                         <img alt="" class="img-circle" src="{{url('/images/avatar/default-user.png')}}"/>
@@ -359,6 +367,10 @@ License: You must have a valid license purchased only from themeforest(the above
 
                             @if(chkPer('hethong', 'hethong_pq', 'chucnang'))
                                 <li><a href="{{url('/chucnang')}}">Danh mục chức năng hệ thống</a> </li>
+                            @endif
+                            <!-- chức năng này không có => chỉ có quyền SSA mới lên -->
+                            @if(chkPer('hethong', 'hethong_pq', 'vanphong'))
+                                <li><a href="{{url('/vanphonghotro')}}">Văn phòng hỗ trợ</a> </li>
                             @endif
 
                             @if(chkPer('hethong', 'hethong_pq', 'thongtin'))

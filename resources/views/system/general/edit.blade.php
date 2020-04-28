@@ -28,7 +28,7 @@
                 </div-->
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
-                    {!! Form::model($model, ['method' => 'PATCH', 'url'=>'general/'. $model->id, 'class'=>'horizontal-form','id'=>'update_general']) !!}
+                    {!! Form::model($model, ['method' => 'PATCH', 'url'=>'general/'. $model->id, 'class'=>'horizontal-form','id'=>'update_general', 'files'=>true]) !!}
                     <meta name="csrf-token" content="{{ csrf_token() }}" />
                     <div class="form-body">
                         <div class="row">
@@ -113,11 +113,24 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="control-label">Thông tin hợp đồng</label>
-                                        <textarea id="thongtinhd" class="form-control" name="thongtinhd" cols="10" rows="5"
+                                        <textarea id="thongtinhd" class="form-control" name="thongtinhd" cols="10" rows="3"
                                                   placeholder="Thông tin, số điện thoại liên lạc với các bộ phận">{{$model->thongtinhd}}</textarea>
                                 </div>
                             </div>
                         </div>
+                        @if(session('admin')->level == 'SSA')
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">File hướng dẫn sử dụng: </label>
+                                    @if(isset($model->ipf1))
+                                        <a href="{{url('/data/huongdan/'.$model->ipf1)}}" target="_blank">{{$model->ipf1}}</a>
+                                    @endif
+                                    <input name="ipf1" id="ipf1" type="file">
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                         <!--div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">

@@ -827,12 +827,12 @@ function getDbl($obj) {
 //do đó chạy thẳng đến hàm kiểm tra $action để ko pải lập lại thao tác
 function chkPer($csdl = null, $group = null, $feature = null , $action = null, $per = null)
 {
+    //dd(session('admin'));
     //@if(chkPer('csdlmucgiahhdv','bog', 'bog', 'danhmuc','index')
     if (session('admin')->level == 'SSA') {
         return true;
     }
 
-    //dd(session('admin'));
     if (session('admin')->level == 'DN') {
         $a_nghe = array_column(CompanyLvCc::where('madv', session('admin')->madv)->get()->toarray(), 'manghe');
         $a_nganh = array_column(view_dmnganhnghe::wherein('manghe', $a_nghe)->get()->toarray(), 'manganh');
