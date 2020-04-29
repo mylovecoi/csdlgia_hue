@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\system;
 
 use App\GeneralConfigs;
+use App\Model\system\danhmucchucnang;
 use App\Model\system\dsdiaban;
 use App\Model\system\dsdonvi;
 use App\Users;
@@ -237,11 +238,13 @@ class dstaikhoanController extends Controller
                     }
                 }
             }
+            $a_chucnang = array_column(danhmucchucnang::all()->toArray(),'menu','maso');
             //dd($per);
             return view('system.taikhoan.perms')
                 ->with('per', $per)
                 ->with('setting', $setting)
                 ->with('model', $model)
+                ->with('a_chucnang', $a_chucnang)
                 ->with('pageTitle', 'Phân quyền cho tài khoản');
 
         } else
