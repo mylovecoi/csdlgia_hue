@@ -120,11 +120,10 @@ Route::group(['prefix'=>'doanhnghiep'],function (){
     Route::patch('dangkytaikhoantruycap/{id}/update','Auth\RegisterController@update');
     Route::get('dangkytaikhoantruycap/checkmadangky','Auth\RegisterController@checkmadk');
     Route::post('dangkytaikhoantruycap/checkmadangky','Auth\RegisterController@submitcheckmadk');
-
     //Route::get('companylvcc/getmanghe','system\company\CompanyLvCcController@getmanghe');
 });
-//Đăng ký tài khoản
 
+//Đăng ký tài khoản
 Route::group(['prefix'=>'dangky'],function (){
     Route::get('danhsach','Auth\RegisterController@index');
     Route::get('modify','Auth\RegisterController@show');
@@ -136,7 +135,19 @@ Route::get('ajax/checkmasothue','AjaxController@checkmasothue');
 Route::get('searchtkdangky','Auth\RegisterController@searchindex');
 Route::post('searchtkdangky','Auth\RegisterController@search');
 
+//Danh sách chức năng
+Route::group(['prefix'=>'chucnang'],function (){
+    Route::get('danhsach','system\danhmucchucnangController@index');
+    Route::get('get_chucnang','system\danhmucchucnangController@edit');
+    Route::post('store','system\danhmucchucnangController@store');
+    Route::post('delete','system\danhmucchucnangController@destroy');
+});
 
-
-
+//Văn phòng hỗ trợ
+Route::group(['prefix'=>'vanphonghotro'],function (){
+    Route::get('danhsach','system\dsvanphongController@index');
+    Route::get('get_chucnang','system\dsvanphongController@edit');
+    Route::post('store','system\dsvanphongController@store');
+    Route::post('delete','system\dsvanphongController@destroy');
+});
 ?>

@@ -16,12 +16,6 @@
                     </a>
                     <ul class="sub-menu">
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadatpl', 'hoso','index'))
-{{--                            <li>--}}
-{{--                                <a href="{{url('giadatphanloaidm')}}">--}}
-{{--                                    Danh mục các loại đất--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-
                             @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giadatphanloai/danhsach')}}">

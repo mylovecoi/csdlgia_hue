@@ -22,6 +22,7 @@ class CreateDsvanphongTable extends Migration
             $table->string('sdt')->nullable();
             $table->string('skype')->nullable();
             $table->string('facebook')->nullable();
+            $table->integer('stt')->default(99);
             $table->timestamps();
         });
     }
