@@ -16,6 +16,6 @@ class dsvanphong extends Model
         'sdt',
         'skype',
         'facebook',
-        'stt'
+        'stt',
     ];
 }

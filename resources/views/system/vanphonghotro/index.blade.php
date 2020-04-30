@@ -6,7 +6,6 @@
     <!-- END THEME STYLES -->
 @stop
 
-
 @section('custom-script')
     <!-- BEGIN PAGE LEVEL PLUGINS -->
 
@@ -203,7 +202,7 @@
         }
 
         function new_hs() {
-            $('#maso').val('NEW');
+            $('#frm_modify').find("[id='maso']").val('NEW');
             $('#hoten').val(null);
             $('#chucvu').val(null);
             $('#sdt').val(null);
@@ -221,7 +220,7 @@
                 },
                 dataType: 'JSON',
                 success: function (data) {
-                    $('#maso').val(data.maso);
+                    $('#frm_modify').find("[id='maso']").val(data.maso);
                     $('#vanphong').val(data.vanphong).trigger('change');
                     $('#hoten').val(data.hoten);
                     $('#chucvu').val(data.chucvu);
