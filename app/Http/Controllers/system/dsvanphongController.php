@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\system;
-use App\Model\system\danhmucchucnang;
 use App\Model\system\dsvanphong;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

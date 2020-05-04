@@ -58,7 +58,7 @@
 
                             @foreach($model as $ct)
                                 <tr>
-                                    <td class="text-left" style="text-transform: uppercase;">{{$ct->stt}}</td>
+                                    <td class="text-left" style="text-transform: uppercase;">{{$ct->sapxep}}</td>
                                     <td>{{$ct->vanphong}}</td>
                                     <td class="success">{{$ct->hoten}}</td>
                                     <td>{{$ct->chucvu}}</td>
@@ -126,7 +126,7 @@
 
                         <div class="col-md-6">
                             <label class="control-label">Sắp xếp</label>
-                            {!!Form::text('stt', null, array('id' => 'stt','class' => 'form-control'))!!}
+                            {!!Form::text('sapxep', null, array('id' => 'sapxep','class' => 'form-control'))!!}
                         </div>
                     </div>
                 </div>
@@ -206,7 +206,7 @@
             $('#hoten').val(null);
             $('#chucvu').val(null);
             $('#sdt').val(null);
-            $('#stt').val(99);
+            $('#sapxep').val(99);
         }
 
         function change(maso, magoc, capdo) {
@@ -225,7 +225,7 @@
                     $('#hoten').val(data.hoten);
                     $('#chucvu').val(data.chucvu);
                     $('#sdt').val(data.sdt);
-                    $('#stt').val(data.stt);
+                    $('#sapxep').val(data.sapxep);
                 },
                 error: function (message) {
                     toastr.error(message, 'Lỗi!');

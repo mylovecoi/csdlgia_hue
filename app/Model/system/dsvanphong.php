@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class dsvanphong extends Model
 {
-    protected $table = 'dsvanphong';
+    protected $table = 'vanphonghotro';
     protected $fillable = [
         'id',
         'maso',
@@ -16,6 +16,6 @@ class dsvanphong extends Model
         'sdt',
         'skype',
         'facebook',
-        'stt',
+        'sapxep',
     ];
 }
