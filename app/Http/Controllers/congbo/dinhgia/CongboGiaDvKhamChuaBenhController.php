@@ -4,6 +4,7 @@ namespace App\Http\Controllers\congbo\dinhgia;
 
 use App\DiaBanHd;
 use App\Model\manage\dinhgia\DvKcb;
+use App\Model\view\view_giadvkcb;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -17,31 +18,20 @@ class CongboGiaDvKhamChuaBenhController extends Controller
     public function index(Request $request)
     {
         $inputs = $request->all();
-        $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
-        $inputs['district'] = isset($inputs['district']) ? $inputs['district'] : 'all';
-        $inputs['tenbv'] = isset($inputs['tenbv']) ? $inputs['tenbv'] : '';
-        $inputs['mota'] = isset($inputs['mota']) ? $inputs['mota'] : '';
-        $inputs['paginate'] = isset($inputs['paginate']) ? $inputs['paginate'] : 5;
-        $districts = DiaBanHd::where('level','H')
-            ->get();
-        $model  = DvKcb::join('diabanhd','diabanhd.district','=','dvkcb.district')
-            ->where('diabanhd.level','H')
-            ->select('dvkcb.*','diabanhd.diaban');
-        if($inputs['nam'] != 'all')
-            $model = $model->whereYear('dvkcb.thoidiem',$inputs['nam']);
-        if($inputs['district'] !='all')
-            $model = $model->where('dvkcb.district',$inputs['district']);
-        if($inputs['tenbv'] != '')
-            $model = $model->where('dvkcb.tenbv','like', '%'.$inputs['tenbv'].'%');
-        if($inputs['mota'] != '')
-            $model = $model->where('dvkcb.mota','like', '%'.$inputs['mota'].'%');
-        $model = $model->where('trangthai','CB');
-        $model = $model->paginate($inputs['paginate']);
+        $inputs['url'] = '/cbgianuocsachsinhhoat';
+        $a_diaban = getDiaBan_XaHuyen('ADMIN');
+        $inputs['nam'] = $inputs['nam'] ?? 'all';
+        $model = view_giadvkcb::where('congbo', 'DACONGBO');
+        if ($inputs['nam'] != 'all')
+            $model = $model->whereYear('thoidiem', $inputs['nam']);
+
+        //dd($model->get());
         return view('congbo.DinhGia.GiaDvKhamChuaBenh.index')
-            ->with('model',$model)
+            ->with('model',$model->get())
+            ->with('a_diaban',$a_diaban)
             ->with('inputs',$inputs)
-            ->with('districts',$districts)
             ->with('pageTitle','Thông tin giá dịch vụ khám chữa bệnh');
+
     }
 
     /**

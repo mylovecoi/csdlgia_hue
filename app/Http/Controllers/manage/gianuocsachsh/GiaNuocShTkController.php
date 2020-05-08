@@ -43,9 +43,10 @@ class GiaNuocShTkController extends Controller
     public function printf(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : 'ALL';
-            $inputs['soqd']= isset($inputs['soqd']) ? $inputs['soqd'] : '';
-            $inputs['mota'] = isset($inputs['mota']) ? $inputs['mota'] : '';
+            dd($inputs);
+
+            $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : 'all';
+
             if( $inputs['nam'] == 'All' && $inputs['soqd'] == '' && $inputs['mota'] == '' ){
                 $model = GiaNuocSh::whereIn('trangthai',['HT','CB'])
                     ->get();

@@ -450,7 +450,7 @@ Route::group(['prefix'=>'gianuocsachsinhhoat'], function (){
 
     Route::get('timkiem','manage\gianuocsachsh\GiaNuocShController@timkiem');
     Route::post('timkiem','manage\gianuocsachsh\GiaNuocShController@ketquatk');
-    //Route::get('timkiem/printf','manage\gianuocsachsh\GiaNuocShTkController@printf');
+    Route::get('printf','manage\gianuocsachsh\GiaNuocShController@ketxuat');
 
     Route::get('edit_ct','manage\gianuocsachsh\GiaNuocShCtController@edit');
     Route::get('update_ct','manage\gianuocsachsh\GiaNuocShCtController@update');

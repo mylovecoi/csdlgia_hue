@@ -14,5 +14,6 @@ class dsnhomtaikhoan extends Model
         'permission',
         'macdinh',
         'ghichu',
+        'chucnang',
     ];
 }

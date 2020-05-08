@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\congbo\dinhgia;
 
 use App\DiaBanHd;
+use App\Model\manage\dinhgia\GiaTaiSanCongDm;
 use App\Model\manage\dinhgia\GiaThueNhaCongVu;
+use App\Model\view\view_giathuetscong;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -17,28 +19,18 @@ class CongboGiaThueNhaCongVuController extends Controller
     public function index(Request $request)
     {
         $inputs = $request->all();
-        $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
-        $inputs['manhom'] = isset($inputs['manhom']) ? $inputs['manhom'] : 'all';
-        $inputs['tenduan'] = isset($inputs['tenduan']) ? $inputs['tenduan'] : '';
-        $inputs['paginate'] = isset($inputs['paginate']) ? $inputs['paginate'] : 5;
-        $districts = DiaBanHd::where('level','H')
-            ->get();
-        $inputs['district'] = isset($inputs['district']) ? $inputs['district'] : 'all';
-        $model  = GiaThueNhaCongVu::join('diabanhd','diabanhd.district','=','giathuenhacongvu.district')
-            ->where('diabanhd.level','H')
-            ->select('giathuenhacongvu.*','diabanhd.diaban')
-        ->where('trangthai','CB');
-        if($inputs['nam'] != 'all')
-            $model = $model->whereYear('giathuenhacongvu.thoidiemht',$inputs['nam']);
-        if($inputs['district'] !='all')
-            $model = $model->where('giathuenhacongvu.district',$inputs['district']);
-        if($inputs['tenduan'] != '')
-            $model = $model->where('giathuenhacongvu.tenduan','like', '%'.$inputs['tenduan'].'%');
-        $model = $model->paginate($inputs['paginate']);
+        $inputs['url'] = '/cbgiathuenhacongvu';
+        $a_diaban = getDiaBan_XaHuyen('ADMIN');
+        $inputs['nam'] = $inputs['nam'] ?? 'all';
+        $model = view_giathuetscong::where('congbo', 'DACONGBO');
+        if ($inputs['nam'] != 'all')
+            $model = $model->whereYear('thoidiem', $inputs['nam']);
+        $a_ts = array_column(GiaTaiSanCongDm::all()->toArray(),'tentaisan','mataisan');
         return view('congbo.DinhGia.ThueNhaCongVu.index')
-            ->with('model',$model)
+            ->with('model',$model->get())
             ->with('inputs',$inputs)
-            ->with('districts',$districts)
+            ->with('a_diaban',$a_diaban)
+            ->with('a_ts',$a_ts)
             ->with('pageTitle','Thông tin giá thuê nhà ở công vụ');
     }
 

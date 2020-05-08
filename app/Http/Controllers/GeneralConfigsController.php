@@ -78,11 +78,11 @@ class GeneralConfigsController extends Controller
                     $ipf1 = $request->file('ipf1');
                     $inputs['ipf1'] = '&1.'.$ipf1->getClientOriginalName();
                     $ipf1->move(public_path() . '/data/huongdan/', $inputs['ipf1']);
-
+                    session('admin')->ipf1 = $inputs['ipf1'];
                 }
                 $model = GeneralConfigs::findOrFail($id);
                 $model->update($inputs);
-                session('admin')->ipf1 = $inputs['ipf1'];
+
                 return redirect('general');
             }else{
                 return view('errors.noperm');

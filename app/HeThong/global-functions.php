@@ -113,6 +113,7 @@ function getGiaoDien()
             'index' => '0','congbo' => '0',
             'danhsachdiaban' => array('index' => '0','congbo' => '0',),
             'danhsachxaphuong' => array('index' => '0','congbo' => '0',),
+            'nhomtaikhoan' => array('index' => '0','congbo' => '0',),
             'danhsachdonvi' => array('index' => '0','congbo' => '0',),
             'danhsachtaikhoan' => array('index' => '0','congbo' => '0',),
             'ngaynghile' => array('index' => '0','congbo' => '0',),
@@ -443,9 +444,13 @@ function getPhanQuyen()
         'index' => '0',
         'danhmuc' => array('index' => '0', 'modify' => '0'),);
 
-    $gui['danhsachtaikhoan'] = array(
+    $gui['nhomtaikhoan'] = array(
         'index' => '0',
         'danhmuc' => array('index' => '0', 'modify' => '0'),);
+
+    $gui['danhsachtaikhoan'] = array(
+            'index' => '0',
+            'danhmuc' => array('index' => '0', 'modify' => '0'),);
 
     $gui['ngaynghile'] = array(
         'index' => '0',
@@ -818,6 +823,49 @@ function getDbl($obj) {
         return $obj;
     }else
         return 0;
+}
+
+function chkCongBo($maso = null)
+{
+    $b_ketqua = false;
+    $model = \App\GeneralConfigs::first();
+    if($model != null && $model->setting != '')
+        $gui = json_decode($model->setting, true);
+    else {
+        $per = '{
+
+                }';
+        $gui = json_decode($per, true);
+    }
+
+    //dd($gui);
+    foreach($gui as $k1 => $v1){
+        if($k1 == $maso && isset($v1['congbo']) && $v1['congbo'] == '1'){
+            $b_ketqua = true;
+            goto ketqua;
+        }
+        if(!is_array($v1)){
+            continue;
+        }
+        foreach ($v1 as $k2 => $v2){
+            if($k2 == $maso && isset($v2['congbo']) && $v2['congbo'] == '1'){
+                $b_ketqua = true;
+                goto ketqua;
+            }
+            if(!is_array($v2)){
+                continue;
+            }
+            foreach ($v2 as $k3 => $v3){
+                if($k3 == $maso && isset($v3['congbo']) && $v3['congbo'] == '1'){
+                    $b_ketqua = true;
+                    goto ketqua;
+                }
+            }
+        }
+    }
+
+    ketqua:
+    return $b_ketqua;
 }
 
 //Kiểm tra giao diện + phân quyền tài khoản

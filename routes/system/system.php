@@ -24,6 +24,17 @@ Route::group(['prefix'=>'donvi'], function(){
     Route::post('delete','system\dsdonviController@delete');
 });
 
+Route::group(['prefix'=>'nhomtaikhoan'],function(){
+    Route::get('danhsach', 'system\dsnhomtaikhoanController@index');
+    Route::post('store', 'system\dsnhomtaikhoanController@store');
+    Route::get('get_tk', 'system\dsnhomtaikhoanController@edit');
+    Route::post('delete','system\dsnhomtaikhoanController@delete');
+
+    Route::get('perm', 'system\dsnhomtaikhoanController@permission');
+    Route::post('perm', 'system\dsnhomtaikhoanController@store_perm');
+    Route::get('get_perm', 'system\dsnhomtaikhoanController@get_perm');
+});
+
 Route::group(['prefix'=>'taikhoan'],function(){
     Route::get('danhsach', 'system\dstaikhoanController@index');
     Route::get('create', 'system\dstaikhoanController@create');
@@ -38,6 +49,7 @@ Route::group(['prefix'=>'taikhoan'],function(){
     Route::post('perm', 'system\dstaikhoanController@store_perm');
     Route::get('get_perm', 'system\dstaikhoanController@get_perm');
 });
+
 Route::resource('district','DistrictController');
 Route::resource('town','TownController');
 
