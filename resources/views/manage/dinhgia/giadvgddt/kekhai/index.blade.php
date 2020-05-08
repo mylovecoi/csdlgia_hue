@@ -52,8 +52,8 @@
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvgddt', 'hoso', 'modify'))
                             <a href="{{url($inputs['url'].'/new?madv='.$inputs['madv'])}}" class="btn btn-default btn-sm">
                                 <i class="fa fa-plus"></i> Thêm mới </a>
-                            <a href="{{url($inputs['url'].'/nhandulieutuexcel')}}" class="btn btn-default btn-sm">
-                                <i class="fa fa-file-excel-o"></i> Nhận dữ liệu</a>
+{{--                            <a href="{{url($inputs['url'].'/nhandulieutuexcel')}}" class="btn btn-default btn-sm">--}}
+{{--                                <i class="fa fa-file-excel-o"></i> Nhận dữ liệu</a>--}}
                         @endif
 
                         <a href="{{url($inputs['url'].'/prints?madv='.$inputs['madv'].'&nam='. $inputs['nam'])}}" class="btn btn-default btn-sm" target="_blank">

@@ -38,7 +38,7 @@
             <div class="portlet box blue">
                 <div class="portlet-body form">
                     <!-- BEGIN FORM -->
-                    {!! Form::open(['url'=>'/giahhdvkhac/import_excel', 'method'=>'post' , 'files'=>true, 'id' => 'create_hscb','enctype'=>'multipart/form-data']) !!}
+                    {!! Form::open(['url'=>'/giahhdvk/import_excel', 'method'=>'post' , 'files'=>true, 'id' => 'create_hscb','enctype'=>'multipart/form-data']) !!}
                         <meta name="csrf-token" content="{{ csrf_token() }}" />
                         <div class="form-body">
                             <!-- Thông tin chung-->
@@ -50,6 +50,13 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
+                                                            <label>Đơn vị báo cáo</label>
+                                                            {!!Form::select('madv', $a_dv, null, array('id' => 'madv','class' => 'form-control select2me'))!!}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
                                                             <label class="control-label">Tháng báo cáo<span class="require">*</span></label>
                                                             {!! Form::select(
                                                             'thang',
@@ -60,7 +67,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label class="control-label">Năm báo cáo<span class="require">*</span></label>
                                                             <select name="nam" id="nam" class="form-control">
@@ -173,7 +180,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <input type="hidden" id="district" name="district" value="{{$inputs['district']}}">
+
                                             </div>
 
                                         </div>

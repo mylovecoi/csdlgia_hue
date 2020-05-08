@@ -227,8 +227,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">Đến ngày<span class="require">*</span></label>
-                                {!! Form::input('date', 'denngay', null, array('id' => 'denngay', 'class' => 'form-control', 'required'))!!}
+                                <label class="control-label">Đến ngày</label>
+                                {!! Form::input('date', 'denngay', null, array('id' => 'denngay', 'class' => 'form-control'))!!}
                             </div>
                         </div>
                     </div>
