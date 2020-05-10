@@ -207,7 +207,7 @@
                         <ul class="sub-menu">
                             @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetscong', 'danhmuc','index'))
                                 <li>
-                                    <a href="{{url('/giathuetscong/danhmuc')}}">Danh mục</a>
+                                    <a href="{{url('/giathuetscong/danhmuc?phanloai=giathuetscong')}}">Danh mục</a>
                                 </li>
                             @endif
                             @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetscong', 'hoso','index'))
@@ -833,6 +833,47 @@
         </ul>
     </li>
     @endif
+@endif
+
+@if(chkPer('csdlmucgiahhdv','taisan', 'taisancong'))
+    <li class="javascript:;">
+        <a href="javascript:;">
+            <i class="icon-folder"></i>
+            <span class="title">Giá tài sản công</span>
+            <span class="arrow"></span>
+        </a>
+        <ul class="sub-menu">
+            @if(chkPer('csdlmucgiahhdv','taisan', 'taisancong', 'danhmuc','index'))
+                <li>
+                    <a href="{{url('/taisancong/danhmuc?phanloai=taisancong')}}">Danh mục</a>
+                </li>
+            @endif
+
+            @if(chkPer('csdlmucgiahhdv','taisan', 'taisancong', 'hoso', 'index'))
+                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                    <li>
+                        <a href="{{url('/taisancong/danhsach')}}">
+                            Thông tin hồ sơ
+                        </a>
+                    </li>
+                @endif
+
+                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                    <li>
+                        <a href="{{url('/taisancong/xetduyet')}}">
+                            Xét duyệt hồ sơ
+                        </a>
+                    </li>
+                @endif
+
+                <li>
+                    <a href="{{url('/taisancong/timkiem')}}">
+                        Tìm kiếm hồ sơ
+                    </a>
+                </li>
+            @endif
+        </ul>
+    </li>
 @endif
 
 @if(chkPer('csdlmucgiahhdv','taisan', 'giabatdongsan'))

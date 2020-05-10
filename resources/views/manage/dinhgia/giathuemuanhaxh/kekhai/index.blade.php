@@ -90,11 +90,11 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <div class="actions">
-                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'thuemuanhaxahoi', 'hoso', 'modify'))
+                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuemuanhaxh', 'hoso', 'modify'))
                             <button type="button" onclick="new_hs('{{$inputs['madv']}}')" class="btn btn-default btn-xs mbs" data-target="#modal-modify" data-toggle="modal">
                                 <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
-                            <a href="{{url($inputs['url'].'/nhandulieutuexcel?madv='.$inputs['madv'])}}" class="btn btn-default btn-sm">
-                                <i class="fa fa-file-excel-o"></i> Nhận dữ liệu</a>
+{{--                            <a href="{{url($inputs['url'].'/nhandulieutuexcel?madv='.$inputs['madv'])}}" class="btn btn-default btn-sm">--}}
+{{--                                <i class="fa fa-file-excel-o"></i> Nhận dữ liệu</a>--}}
                         @endif
 
                         <a href="{{url($inputs['url'].'/prints?&nam='.$inputs['nam'].'&madv='.$inputs['madv'])}}" class="btn btn-default btn-sm" target="_blank">
@@ -152,14 +152,14 @@
                                     <td style="text-align: left">{{$a_donvi_th[$tt->macqcq]?? ''}}</td>
                                     @include('manage.include.form.td_trangthai')
                                     <td>
-                                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'thuemuanhaxahoi', 'hoso', 'modify') && in_array($tt->trangthai,['CHT', 'HHT']))
+                                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuemuanhaxh', 'hoso', 'modify') && in_array($tt->trangthai,['CHT', 'HHT']))
                                             <button type="button" onclick="edittt('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#modal-modify" data-toggle="modal" style="margin: 2px">
                                                 <i class="fa fa-edit"></i>&nbsp;Chi tiết</button>
                                             <button type="button" onclick="confirmDelete('{{$tt->mahs}}','{{$inputs['url'].'/delete'}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
                                                 <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
                                         @endif
 
-                                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'thuemuanhaxahoi', 'hoso', 'approve')&& in_array($tt->trangthai,['CHT', 'HHT']))
+                                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuemuanhaxh', 'hoso', 'approve')&& in_array($tt->trangthai,['CHT', 'HHT']))
                                             <button type="button" onclick="confirmChuyen('{{$tt->mahs}}','{{$inputs['url'].'/chuyenhs'}}')" class="btn btn-default btn-xs mbs" data-target="#chuyen-modal-confirm" data-toggle="modal">
                                                 <i class="fa fa-check"></i> Hoàn thành</button>
                                         @endif

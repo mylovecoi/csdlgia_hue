@@ -53,6 +53,7 @@ function getGiaoDien()
             'giabatdongsan' => array('index' => '0', 'congbo' => '0'),
             'muataisan' => array('index' => '0', 'congbo' => '0'),
             'giagocvlxd' => array('index' => '0', 'congbo' => '0'),
+            'taisancong' => array('index' => '0', 'congbo' => '0'),
         ),
         'kknygia' => array(
             'index' => '0', 'congbo' => '0',
@@ -310,6 +311,11 @@ function getPhanQuyen()
     );
     $gui['giagocvlxd'] = array(
         'index' => '0',
+        'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+    );
+    $gui['taisancong'] = array(
+        'index' => '0',
+        'danhmuc' => array('index' => '0', 'modify' => '0',),
         'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
     );
     $gui['thongtinkknygia'] = array(

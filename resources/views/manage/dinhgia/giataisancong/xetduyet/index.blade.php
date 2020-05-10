@@ -19,7 +19,7 @@
             TableManaged.init();
 
             function changeUrl() {
-                var current_path_url ='{{$inputs['url']}}' + '/xetduyet?';
+                var current_path_url = '{{$inputs['url']}}' +'/xetduyet?';
                 var url = current_path_url + 'nam=' + $('#nam').val() + '&madv=' + $('#madv').val();
                 window.location.href = url;
             }
@@ -31,41 +31,12 @@
                 changeUrl();
             });
         });
-
-        function edittt(mahs) {
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            $.ajax({
-                url: '{{$inputs['url']}}' + '/get_hs',
-                type: 'GET',
-                data: {
-                    _token: CSRF_TOKEN,
-                    mahs: mahs
-                },
-                dataType: 'JSON',
-                success: function (data) {
-                    var form = $('#frm_modify');
-                    form.find("[name='thoidiem']").val(data.thoidiem);
-                    form.find("[name='tungay']").val(data.tungay);
-                    form.find("[name='denngay']").val(data.denngay);
-                    form.find("[name='madiaban']").val(data.madiaban).trigger('change');
-                    form.find("[name='maso']").val(data.maso).trigger('change');
-                    form.find("[name='mota']").val(data.mota);
-                    form.find("[name='dvt']").val(data.dvt).trigger('change');
-                    form.find("[name='dientich']").val(data.dientich);
-                    form.find("[name='dongia']").val(data.dongia);
-                    form.find("[name='soqd']").val(data.soqd);
-                },
-                error: function (message) {
-                    toastr.error(message, 'Lỗi!');
-                }
-            });
-        }
     </script>
 @stop
 
 @section('content')
     <h3 class="page-title">
-        Thông tin Hồ sơ giá cho thuê, thuê mua nhà xã hội
+        Thông tin hồ sơ giá tài sản công
     </h3>
 
     <!-- END PAGE HEADER-->
@@ -111,8 +82,8 @@
                                 <th width="2%" style="text-align: center">STT</th>
                                 <th style="text-align: center">Cơ quan chuyển hồ sơ</th>
                                 <th style="text-align: center">Địa bàn</th>
-                                <th style="text-align: center">Thời điểm <br>xác định</th>
-                                <th style="text-align: center">Tên dự án</th>
+                                <th style="text-align: center">Thời điểm<br>xác định</th>
+                                <th style="text-align: center">Tên tài sản</th>
                                 <th style="text-align: center">Trạng thái</th>
                                 <th style="text-align: center">Cơ quan tiếp nhận hồ sơ</th>
                                 <th style="text-align: center" width="20%">Thao tác</th>
@@ -126,22 +97,12 @@
                                     <td style="text-align: left">{{$tt->tendv_ch}}</td>
                                     <td style="text-align: center">{{$a_diaban[$tt->madiaban] ?? ''}}</td>
                                     <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
-                                    <td style="text-align: left">{{$tt->tenduan}}</td>
+                                    <td style="text-align: left">{{$a_dm[$tt->mataisan] ?? ''}}</td>
                                     @include('manage.include.form.td_trangthai')
                                     <td style="text-align: left">{{$tt->tencqcq}}</td>
                                     <td>
-                                        <button type="button" onclick="edittt('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#modal-modify" data-toggle="modal" style="margin: 2px">
-                                            <i class="fa fa-eye"></i>&nbsp;Chi tiết</button>
-                                        <!--
-                                        Xem xét bổ sung madv_ad, trangthai_ad,
-                                        Tùy level mà chức năng nút chuyển lại khác nhau
-                                        Đơn vị tiếp nhận có tổng hợp Toàn tỉnh
-                                        ADMIN-> Công bố
-                                        T->
-                                        H->Hoàn thành (có đơn
 
-                                        -->
-                                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuemuanhaxh', 'hoso', 'approve'))
+                                        @if(chkPer('csdlmucgiahhdv','taisan', 'taisancong', 'hoso', 'approve'))
                                             @if($tt->level == 'ADMIN')
                                                 @if($tt->trangthai == 'CB')
                                                     <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','{{$inputs['url'].'/congbo'}}', 'HCB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
@@ -177,96 +138,6 @@
         <!-- END DASHBOARD STATS -->
         </div>
     </div>
-    <!--Modal edit-->
-    <div id="modal-modify" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
-        {!! Form::open(['url'=>'', 'id' => 'frm_modify', 'class'=>'horizontal-form']) !!}
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header modal-header-primary">
-                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-                    <h4 id="modal-header-primary-label" class="modal-title">Thông tin giá thuê môi trường rừng</h4>
-                </div>
-                <div class="modal-body" id="edit_node">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">Thời điểm<span class="require">*</span></label>
-                                {!! Form::input('date', 'thoidiem', null, array('id' => 'thoidiem', 'class' => 'form-control', 'required'))!!}
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">Số quyết định</label>
-                                <input name="soqd" id="soqd" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">Địa bàn</label>
-                                {!!Form::select('madiaban', $a_diaban, null, array('id' => 'madiaban','class' => 'form-control'))!!}
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">Tên nhà xã hội</label>
-                                {!!Form::select('maso', $a_nhaxh, null, array('id' => 'maso','class' => 'form-control'))!!}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">Từ ngày<span class="require">*</span></label>
-                                {!! Form::input('date', 'tungay', null, array('id' => 'tungay', 'class' => 'form-control', 'required'))!!}
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">Đến ngày<span class="require">*</span></label>
-                                {!! Form::input('date', 'denngay', null, array('id' => 'denngay', 'class' => 'form-control', 'required'))!!}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">Mô tả</label>
-                                <input name="mota" id="mota" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">Đơn vị tính</label>
-                                <input name="dvt" id="dvt" class="form-control" required>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">Đơn giá<span class="require">*</span></label>
-                                <input type="text" name="dongia" id="dongia" class="form-control text-right" data-mask="fdecimal" required>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
-                </div>
-            </div>
-        </div>
-        {!! Form::close() !!}
-    </div>
-
     @include('manage.include.form.modal_congbo')
     @include('manage.include.form.modal_approve_xd')
     @include('manage.include.form.modal_unapprove_xd')

@@ -18,6 +18,10 @@ class DmNgheKd extends Model
     ];
 }
 /*
+ INSERT INTO "dmnganhkd" ("manganh", "tennganh", "theodoi") VALUES
+('KKNYGIA', 'Mặt hàng kê khai, đăng ký, niêm yết giá', 'TD'),
+('BOG','Mặt bình ổn giá','TD');
+
  INSERT INTO "dmnghekd" ("manganh", "manghe", "tennghe", "madv", "theodoi", "phanloai") VALUES
 ('BOG', 'XD', N'Xăng Dầu', 'STCCB', 'TD','KK'),
 ('BOG', 'DBL', N'Điện bán lẻ', 'STCCB', 'TD','KK'),
@@ -45,4 +49,5 @@ class DmNgheKd extends Model
 ('KKNYGIA', 'VTXB', N'Cước vận tải hành khách bằng xe buýt theo tuyến cố định', 'SGTVT', 'TD','KK'),
 ('KKNYGIA', 'VTXTX', N'Cước vận tải hành khách bằng xe taxi', 'SGTVT', 'TD','KK'),
 ('KKNYGIA', 'VCHK', N'Cước vận chuyển hành khách: xe buýt, xe điện, bè mảng', 'SGTVT', 'TD','KK');
+
  * */

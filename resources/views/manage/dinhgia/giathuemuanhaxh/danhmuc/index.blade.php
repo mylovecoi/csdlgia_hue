@@ -71,7 +71,7 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <div class="actions">
-                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'thuemuanhaxahoi', 'danhmuc','modify'))
+                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuemuanhaxh', 'danhmuc','modify'))
                             <button type="button" onclick="new_hs()" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
                                 <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
                         @endif
@@ -100,7 +100,7 @@
                                     <td>{{getDayVn($tt->thoigian)}}</td>
                                     <td>{{$a_hientrang[$tt->hientrang] ?? ''}}</td>
                                     <td>
-                                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'thuemuanhaxahoi', 'danhmuc','modify'))
+                                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuemuanhaxh', 'danhmuc','modify'))
                                             <button type="button" onclick="ClickEdit('{{$tt->maso}}')" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
                                                 <i class="fa fa-edit"></i>&nbsp;Sửa</button>
                                             <button type="button" onclick="getId('{{$tt->maso}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal" style="margin: 2px">

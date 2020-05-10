@@ -36,4 +36,5 @@ INSERT INTO "dmnhomhanghoa" ("manhom", "tennhom", "theodoi") VALUES
 ('15',N'Đồ dùng hàng ngày (bát, ấm chén, chăn màn….)', 'TD'),
 ('16',N'Đồ dịch vụ công ích, cây cảnh', 'TD'),
 ('17',N'Hàng hóa khác', 'TD')
+
  * */

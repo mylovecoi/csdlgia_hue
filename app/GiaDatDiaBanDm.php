@@ -28,4 +28,5 @@ INSERT INTO [dbo].[giadatdiabandm] ( "maloaidat", "loaidat") VALUES
 ('DOTDT', N'Đất ở tại đô thị'),
 ('DTMDVTDT', N'Đất thương mại, dịch vụ tại đô thị'),
 ('DSXKDPNNTDT', N'Đất sản xuất kinh doanh phi nông nghiệp không phải là đất thương mại, dịch vụ tại đô thi');
+
  */
