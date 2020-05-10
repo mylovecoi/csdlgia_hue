@@ -15,7 +15,7 @@ class CreateTtdntdctTable extends Migration
     {
         Schema::create('ttdntdct', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('maxa')->nullable();
+            $table->string('madv')->nullable();
             $table->string('manganh')->nullable();
             $table->string('manghe')->nullable();
             $table->string('mahuyen')->nullable();

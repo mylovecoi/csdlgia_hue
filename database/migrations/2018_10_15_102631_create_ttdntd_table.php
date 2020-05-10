@@ -15,8 +15,8 @@ class CreateTtdntdTable extends Migration
     {
         Schema::create('ttdntd', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('maxa',30)->nullable();
-            $table->string('mahuyen')->nullable();
+            $table->string('madv',30)->unique();
+            $table->string('madiaban')->nullable();
             $table->string('tendn')->nullable();
             $table->string('diachi')->nullable();
             $table->string('tel')->nullable();

@@ -889,17 +889,21 @@ function chkPer($csdl = null, $group = null, $feature = null , $action = null, $
 
     if (session('admin')->level == 'DN') {
         $a_nghe = array_column(CompanyLvCc::where('madv', session('admin')->madv)->get()->toarray(), 'manghe');
-        $a_nganh = array_column(view_dmnganhnghe::wherein('manghe', $a_nghe)->get()->toarray(), 'manganh');
+        $a_nganh = a_unique(array_column(view_dmnganhnghe::wherein('manghe', $a_nghe)->get()->toarray(), 'manganh'));
         //Doanh nghiệp không phân quyền
         if ($per != null) {
             return true;
         }
+        //dd($a_nganh);
         //kiểm tra giao diện
         if ($feature == null) {//chkPer('csdlmucgiahhdv','bog'): kiểm tra doanh nghiệp có ngành đó ko
+            //dd('1'.$group);
             return in_array(strtoupper($group), $a_nganh);
         } else {
+            //dd('2'.$group);
             return in_array(strtoupper($feature), $a_nghe);
         }
+
     }
     //kiểm tra giao diên xem có sử dụng ko
     if ($per != null) {

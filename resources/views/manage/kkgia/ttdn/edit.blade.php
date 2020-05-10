@@ -195,10 +195,7 @@
                                         <thead>
                                         <tr>
                                             <th width="2%" style="text-align: center">STT</th>
-                                            <th style="text-align: center">Mã ngành</th>
-                                            <th style="text-align: center">Tên ngành</th>
-                                            <th style="text-align: center">Mã nghề</th>
-                                            <th style="text-align: center">Tên nghề</th>
+                                            <th style="text-align: center">Ngành nghề kinh doanh</th>
                                             <th style="text-align: center">Đơn vị quản lý</th>
                                             <th style="text-align: center">Thao tác</th>
                                         </tr>
@@ -207,14 +204,11 @@
                                         @foreach($modellvcc as $key=>$lvcc)
                                             <tr>
                                                 <td>{{$key+1}}</td>
-                                                <td>{{$lvcc->manganh}}</td>
-                                                <td>{{$lvcc->tennganh}}</td>
-                                                <td>{{$lvcc->manghe}}</td>
-                                                <td>{{$lvcc->tennghe}}</td>
+                                                <td>{{$a_nghe[$lvcc->manghe] ?? ''}}</td>
                                                 <td>{{$lvcc->tendv}}</td>
                                                 <td>
-                                                    <button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getidedit({{$lvcc->id}});" ><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</button>
-                                                    <button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid({{$lvcc->id}});" ><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
+                                                    <button type="button" onclick="getid({{$lvcc->id}});" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs">
+                                                        <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
                                                 </td>
                                             </tr>
                                         @endforeach

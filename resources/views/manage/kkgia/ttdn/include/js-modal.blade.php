@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Thêm mới lĩnh vực kinh doanh</h4>
+                <h4 class="modal-title">Thông tin lĩnh vực kinh doanh</h4>
             </div>
             <div class="modal-body" id="ttmhbog">
                 <div class="row">

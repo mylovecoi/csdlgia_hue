@@ -238,6 +238,21 @@ class dstaikhoanController extends Controller
                     }
                 }
             }
+            //chạy thêm lần nữa để xóa các phân hệ ko phân quyền trong hệ thống
+            // chỉ có ssa, admin mới hiện lên để phân quyền
+            if( $m_donvi->chucnang == 'QUANTRI' && !in_array(session('admin')->level, ['SSA', 'ADMIN'])){
+                foreach($setting as $k1 => $v1){
+                    foreach ($v1 as $k2 => $v2){
+                        foreach ($v2 as $k3 => $v3){
+                            if(!isset($per[$k3]['index']) || $per[$k3]['index'] == '0'){
+                                unset($setting[$k1][$k2][$k3]);
+                            }
+                        }
+                    }
+                }
+                //dd($setting);
+            }
+
             $a_chucnang = array_column(danhmucchucnang::all()->toArray(),'menu','maso');
             //dd($per);
             return view('system.taikhoan.perms')

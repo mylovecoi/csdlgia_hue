@@ -42,17 +42,17 @@
                     <div class="caption">
                     </div>
                     <div class="actions">
-                        @if(can('ttdn','edit'))
-                            @if(count($modeltttd) == 0 )
-                                <a href="{{url('thongtindoanhnghiep/'.$model->id.'/edit')}}" class="btn btn-default btn-sm">
-                                    <i class="fa fa-edit"></i> Thay đổi thông tin </a>
-                            @elseif($modeltttd->trangthai != 'CD')
-                                <a href="{{url('thongtindoanhnghiep/'.$modeltttd->id.'/chinhsua')}}" class="btn btn-default btn-sm">
-                                    <i class="fa fa-edit"></i> Chỉnh sửa thông tin </a>
-                                <a href="{{url('thongtindoanhnghiep/'.$modeltttd->id.'/chuyen')}}" class="btn btn-default btn-sm">
-                                    <i class="fa fa-share-square-o"></i> Chuyển thông tin</a>
-                            @endif
+                        <!--  10/05/2020 tạm khóa để triển khai Huế
+                        @if($modeltttd == null)
+                            <a href="{{url('thongtindoanhnghiep/'.$model->id.'/edit')}}" class="btn btn-default btn-sm">
+                                <i class="fa fa-edit"></i> Thay đổi thông tin </a>
+                        @elseif($modeltttd->trangthai != 'CD')
+                            <a href="{{url('thongtindoanhnghiep/'.$modeltttd->id.'/chinhsua')}}" class="btn btn-default btn-sm">
+                                <i class="fa fa-edit"></i> Chỉnh sửa thông tin </a>
+                            <a href="{{url('thongtindoanhnghiep/'.$modeltttd->id.'/chuyen')}}" class="btn btn-default btn-sm">
+                                <i class="fa fa-share-square-o"></i> Chuyển thông tin</a>
                         @endif
+                                -->
                         <!--a href="" class="btn btn-default btn-sm">
                             <i class="fa fa-print"></i> Print </a-->
                     </div>
@@ -135,15 +135,13 @@
                             <table class="table table-striped table-bordered table-hover" id="sample_3">
                                 <tr>
                                     <th>STT</th>
-                                    <th>Ngành</th>
-                                    <th>Nghề</th>
+                                    <th>Ngành nghề kinh doanh</th>
                                     <th>Đơn vị nhận hồ sơ</th>
                                 </tr>
                                 @foreach($modellvcc as $key=> $lvcc)
                                     <tr>
                                         <td>{{$key+1}}</td>
-                                        <td>{{$lvcc->tennganh}}</td>
-                                        <td>{{$lvcc->tennghe}}</td>
+                                        <td>{{$a_nghe[$lvcc->manghe] ?? ''}}</td>
                                         <td>{{$lvcc->tendv}}</td>
                                     </tr>
                                 @endforeach
@@ -211,15 +209,14 @@
                             <table class="table table-striped table-bordered table-hover" id="sample_3">
                                 <tr>
                                     <th>STT</th>
-                                    <th>Ngành</th>
+                                    <th>Ngành nghề kinh doanh</th>
                                     <th>Nghề</th>
                                     <th>Đơn vị nhận hồ sơ</th>
                                 </tr>
                                 @foreach($modeltttdct as $key=> $ttdncttd)
                                     <tr>
                                         <td>{{$key+1}}</td>
-                                        <td>{{$ttdncttd->tennganh}}</td>
-                                        <td>{{$ttdncttd->tennghe}}</td>
+                                        <td>{{$a_nghe[$ttdncttd->manghe] ?? ''}}</td>
                                         <td>{{$ttdncttd->tendv}}</td>
                                     </tr>
                                 @endforeach

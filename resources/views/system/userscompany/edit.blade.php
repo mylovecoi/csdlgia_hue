@@ -78,7 +78,7 @@
                                         <b>Mã số thuế</b>
                                     </td>
                                     <td style="width:35%">
-                                <span class="text-muted">{{$modelcompany->maxa}}
+                                <span class="text-muted">{{$modelcompany->madv}}
                                 </span>
                                     </td>
                                 </tr>
@@ -168,16 +168,14 @@
                             <table class="table table-striped table-bordered table-hover" id="sample_3">
                                 <tr>
                                     <th>STT</th>
-                                    <th>Ngành</th>
-                                    <th>Nghề</th>
+                                    <th>Tên ngành nghề kinh doanh</th>
                                     <th>Đơn vị nhận hồ sơ</th>
                                 </tr>
                                 @foreach($modellvcc as $key=> $lvcc)
                                     <tr>
                                         <td>{{$key+1}}</td>
-                                        <td>{{$lvcc->tennganh}}</td>
-                                        <td>{{$lvcc->tennghe}}</td>
-                                        <td>{{$lvcc->tendv}}</td>
+                                        <td>{{$a_nghe[$lvcc->manghe] ?? ''}}</td>
+                                        <td>{{$a_dv[$lvcc->madv] ?? ''}}</td>
                                     </tr>
                                 @endforeach
                             </table>
@@ -186,7 +184,6 @@
             </div>
             <div style="text-align: center">
                 <a href="{{url('userscompany?&level='.$model->level)}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
-                <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
                 <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i> Cập nhật</button>
             </div>
             {!! Form::close() !!}

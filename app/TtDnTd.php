@@ -9,8 +9,9 @@ class TtDnTd extends Model
     protected $table = 'ttdntd';
     protected $fillable = [
         'id',
-        'maxa',
-        'mahuyen',
+        'madv',
+        'macqcq',
+        'madiaban',
         'tendn',
         'diachi',
         'tel',
