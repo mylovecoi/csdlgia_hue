@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\congbo\kekhaigia;
 
+use App\Model\view\view_thamdinhgia;
 use App\ThamDinhGiaCt;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -19,20 +20,17 @@ class CongboThamDinhGiaController extends Controller
         $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
         $inputs['tents'] = isset($inputs['tents']) ? $inputs['tents'] : '';
         $inputs['paginate'] = isset($inputs['paginate']) ? $inputs['paginate'] : 5;
-        $model = ThamDinhGiaCt::join('thamdinhgia','thamdinhgiact.mahs','=','thamdinhgia.mahs')
-            ->join('town','thamdinhgia.maxa','=','town.maxa')
-            ->select('thamdinhgiact.*','thamdinhgia.thoidiem','thamdinhgia.thuevat','thamdinhgia.sotbkl','thamdinhgia.thaotac','thamdinhgia.dvyeucau',
-                'thamdinhgia.thoihan','thamdinhgia.ppthamdinh','town.tendv')
-            ->where('thamdinhgia.congbo','CB');
+        $model = view_thamdinhgia::where('congbo', 'DACONGBO');
+
         if($inputs['nam'] != 'all')
-            $model = $model->whereYear('thamdinhgia.thoidiem',$inputs['nam']);
+            $model = $model->whereYear('thoidiem',$inputs['nam']);
         if($inputs['tents'] != '')
-            $model = $model->where('thamdinhgiact.tents','like','%'.$inputs['tents'].'%');
-        $model = $model->paginate($inputs['paginate']);
+            $model = $model->where('tents','like','%'.$inputs['tents'].'%');
+        //$model = $model->paginate($inputs['paginate']);
 
         return view('congbo.ThamDinhGia.index')
             ->with('inputs',$inputs)
-            ->with('model',$model)
+            ->with('model',$model->get())
             ->with('pageTitle','Thông tin thẩm định giá tại địa phương');
     }
 

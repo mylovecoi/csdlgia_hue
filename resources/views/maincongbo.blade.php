@@ -207,7 +207,7 @@ License: You must have a valid license purchased only from themeforest(the above
 {{--                                    <li><a href="{{url('coming')}}">Mức trợ giá, trợ cước</a></li>--}}
                                 </ul>
                             </li>
-                            <li><a href="{{url('coming')}}"><i class="icon-folder"></i>&nbsp;Giá HH-DV khác</a></li>
+{{--                            <li><a href="{{url('coming')}}"><i class="icon-folder"></i>&nbsp;Giá HH-DV khác</a></li>--}}
                             <li><a href="{{url('cbgialephitruocba')}}"><i class="icon-folder"></i>&nbsp;Giá lệ phí trước bạ</a></li>
                             <li><a href="{{url('cbphilephi')}}"><i class="icon-folder"></i>&nbsp;Phí, lệ phí</a></li>
 
@@ -258,7 +258,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         </li>
                     @endif
 
-                    @if(chkCongBo('csdlvbqlnn'))
+                    @if(chkCongBo('csdlvbqlnn1233523'))
                         <li class="menu-dropdown classic-menu-dropdown">
                         <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">&nbsp;Văn bản QLNN về giá, BCTH <i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu pull-left">
@@ -276,7 +276,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     </li>
                     @endif
 
-                    @if(chkCongBo('csdlttpvctqlnn'))
+                    @if(chkCongBo('csdlttpvctqlnn21412421'))
                         <li class="menu-dropdown classic-menu-dropdown ">
                         <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">&nbsp;Thông tin QLNN về giá <i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu pull-left">
