@@ -685,7 +685,101 @@
 
         </ul>
     </li>
+
+    <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+        data-original-title="Tổ chức, cá nhận Giá đăng ký theo yêu cầu của Sở Tài chính, sở quản lý ngành">
+        <a href="javascript:;">
+            <i class="icon-folder"></i>
+            <span class="title">Etanol nhiên liệu không biến tính,khí tự nhiên hóa lỏng(LNG),khí thiên nhiên nén(CNG)</span>
+            <span class="arrow"></span>
+        </a>
+        <ul class="sub-menu">
+            <li>
+                <a href="{{url('/giaetanol/mathang')}}">Phân loại mặt hàng</a>
+            </li>
+
+            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                <li><a href="{{url('/giaetanol/danhsach')}}">Thông tin hồ sơ</a></li>
+                <li><a href="{{url('/giaetanol/xetduyet')}}">Xét duyệt hồ sơ</a></li>
+                <li><a href="{{url('/giaetanol/timkiem')}}">Tìm kiếm hồ sơ</a></li>
+                <li><a href="{{url('/giaetanol/baocao')}}">Báo cáo tổng hợp</a></li>
+            @endif
+        </ul>
+    </li>
+
+    <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+        data-original-title="Tổ chức, cá nhận Giá đăng ký theo yêu cầu của Sở Tài chính, sở quản lý ngành">
+        <a href="javascript:;">
+            <i class="icon-folder"></i>
+            <span class="title">Sách giáo khoa</span>
+            <span class="arrow"></span>
+        </a>
+        <ul class="sub-menu">
+            <li>
+                <a href="{{url('/giasach/mathang')}}">Phân loại mặt hàng</a>
+            </li>
+
+            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                <li><a href="{{url('/giasach/danhsach')}}">Thông tin hồ sơ</a></li>
+                <li><a href="{{url('/giasach/xetduyet')}}">Xét duyệt hồ sơ</a></li>
+                <li><a href="{{url('/giasach/timkiem')}}">Tìm kiếm hồ sơ</a></li>
+                <li><a href="{{url('/giasach/baocao')}}">Báo cáo tổng hợp</a></li>
+            @endif
+        </ul>
+    </li>
+
+    <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+        data-original-title="Tổ chức, cá nhận Giá đăng ký theo yêu cầu của Sở Tài chính, sở quản lý ngành">
+        <a href="javascript:;">
+            <i class="icon-folder"></i>
+            <span class="title">Than</span>
+            <span class="arrow"></span>
+        </a>
+        <ul class="sub-menu">
+            <li>
+                <a href="{{url('/giathan/mathang')}}">Phân loại mặt hàng</a>
+            </li>
+
+            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                <li><a href="{{url('/giathan/danhsach')}}">Thông tin hồ sơ</a></li>
+                <li><a href="{{url('/giathan/xetduyet')}}">Xét duyệt hồ sơ</a></li>
+                <li><a href="{{url('/giathan/timkiem')}}">Tìm kiếm hồ sơ</a></li>
+                <li><a href="{{url('/giathan/baocao')}}">Báo cáo tổng hợp</a></li>
+            @endif
+        </ul>
+    </li>
+
+    <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+        data-original-title="Tổ chức, cá nhận Giá đăng ký theo yêu cầu của Sở Tài chính, sở quản lý ngành">
+        <a href="javascript:;">
+            <i class="icon-folder"></i>
+            <span class="title">Giấy in, viết (dạng cuộn), giấy in báo sản xuất trong nước</span>
+            <span class="arrow"></span>
+        </a>
+        <ul class="sub-menu">
+            <li>
+                <a href="{{url('/giayin/mathang')}}">Phân loại mặt hàng</a>
+            </li>
+
+            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                <li><a href="{{url('/giayin/danhsach')}}">Thông tin hồ sơ</a></li>
+                <li><a href="{{url('/giayin/xetduyet')}}">Xét duyệt hồ sơ</a></li>
+                <li><a href="{{url('/giayin/timkiem')}}">Tìm kiếm hồ sơ</a></li>
+                <li><a href="{{url('/giayin/baocao')}}">Báo cáo tổng hợp</a></li>
+            @endif
+        </ul>
+    </li>
 @endif
+
+
+
+
+
+
+
+
+
+
 
 @if(canGeneral('giathitruong','index'))
     @if(can('giathitruong','index'))

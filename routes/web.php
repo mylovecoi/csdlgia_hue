@@ -24,6 +24,10 @@ include('system/system.php');
 
 //Manage
 include('manage/bog.php');
+include('manage/giaetanol.php');
+include('manage/giasach.php');
+include('manage/giathan.php');
+include('manage/giayin.php');
 //include('manage/dangkygia.php');
 include('manage/dinhgia.php');
 include('manage/thamdinhgia.php');

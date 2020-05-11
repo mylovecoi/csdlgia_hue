@@ -560,6 +560,11 @@ function getPermissionDefault($level) {
                             'approve'=>1,
                         ),
 
+            /*'etanol'=>array(
+                'index'=>1,
+            ),*/
+
+
             'kknygia'=>array(
                 'index'=>1,
             ),
@@ -2472,6 +2477,10 @@ function getGiaoDien()
             'index' => '0', 'congbo' => '0',
             'bog' => array('index' => '0', 'congbo' => '0'),
         ),
+        /*'etanol' => array(
+            'index' => '0', 'congbo' => '0',
+            'etanol' => array('index' => '0', 'congbo' => '0'),
+        ),*/
         'hhdv' => array(
             'index' => '0', 'congbo' => '0',
             'giahhdvk' => array('index' => '0', 'congbo' => '0'),

@@ -12,6 +12,7 @@ class KkGiaEtanol extends Model
         'maxa',
         'mahuyen',
         'mahs',
+        'madv',
         'ngaynhap',
         'ngayhieuluc',
         'socv',
