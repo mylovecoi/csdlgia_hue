@@ -13,7 +13,7 @@ class dsdiabanController extends Controller
     {
         if (Session::has('admin')) {
             //tài khoản SSA; tài khoản quản trị + có phân quyền
-            if (!chkPer('hethong', 'hethong', 'danhsachdiaban', 'index')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachdiaban', 'index')) {
                 return view('errors.noperm');
             }
 
@@ -32,7 +32,7 @@ class dsdiabanController extends Controller
     public function modify(Request $request){
         if (Session::has('admin')) {
             //tài khoản SSA; tài khoản quản trị + có phân quyền
-            if (!chkPer('hethong', 'hethong', 'danhsachdiaban', 'modify')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachdiaban', 'modify')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();
@@ -55,7 +55,7 @@ class dsdiabanController extends Controller
     public function delete(Request $request){
         if (Session::has('admin')) {
             //tài khoản SSA; tài khoản quản trị + có phân quyền
-            if (!chkPer('hethong', 'hethong', 'danhsachdiaban', 'modify')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachdiaban', 'modify')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();

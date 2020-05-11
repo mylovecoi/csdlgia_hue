@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\DiaBanHd;
+use App\Model\system\dsdiaban;
+use App\Model\view\view_thamdinhgia;
 use App\ThamDinhGiaCt;
 use App\Town;
 use Illuminate\Http\Request;
@@ -13,12 +15,13 @@ class ReportsThamDinhGiaController extends Controller
 {
     public function index(){
         if (Session::has('admin')) {
-            $m_dv = Town::all();
-            $maxa = $m_dv->first()->maxa;
+            $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
+            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
+            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
 
             return view('manage.thamdinhgia.reports.index')
-                ->with('m_dv',$m_dv)
-                ->with('maxa',$maxa)
+                ->with('m_diaban',$m_diaban)
+                ->with('m_donvi',$m_donvi)
                 ->with('pageTitle', 'Báo cáo tổng hợp tài sản thẩm định giá');
 
         }else
@@ -28,12 +31,21 @@ class ReportsThamDinhGiaController extends Controller
     public function Bc1(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = ThamDinhGiaCt::join('thamdinhgia','thamdinhgia.mahs','=','thamdinhgiact.mahs')
-                ->whereBetween('thamdinhgia.thoidiem',[$inputs['ngaytu'], $inputs['ngayden']])
-                ->select('thamdinhgiact.*','thamdinhgia.diadiem','thamdinhgia.thoidiem','thamdinhgia.ppthamdinh','thamdinhgia.mucdich'
-                ,'thamdinhgia.dvyeucau','thamdinhgia.thoihan');
-            if($inputs['maxa'] != '')
-                $model = $model->where('thamdinhgia.maxa',$inputs['maxa']);
+            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
+            $model = view_thamdinhgia::wherein('madv',array_column($m_donvi->toarray(),'madv'));
+            //dd($model);
+
+            if($inputs['madv'] != 'all'){
+                $model = $model->where('madv',$inputs['madv']);
+            }
+
+            if(getDayVn($inputs['ngaytu']) != ''){
+                $model = $model->where('thoidiem','>=',$inputs['ngaytu']);
+            }
+
+            if(getDayVn($inputs['ngayden']) != ''){
+                $model = $model->where('thoidiem','<=',$inputs['ngayden']);
+            }
             $model = $model->get();
             return view('manage.thamdinhgia.reports.BC1')
                 ->with('model',$model)

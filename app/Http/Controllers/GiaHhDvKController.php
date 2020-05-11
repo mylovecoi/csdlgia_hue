@@ -536,7 +536,6 @@ class GiaHhDvKController extends Controller
             return view('errors.notlogin');
     }
 
-
     public function search(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();
@@ -690,12 +689,11 @@ class GiaHhDvKController extends Controller
     public function nhanexcel(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();
-            $m_nhom =array_column(NhomHhDvK::where('theodoi', 'TD')
+            $m_nhom = array_column(NhomHhDvK::where('theodoi', 'TD')
                 ->get()->toarray(), 'tentt','matt');
-            if(session('admin')->level == 'X')
-                $inputs['district'] = session('admin')->district;
-
+            $m_donvi = getDonViNhapLieu(session('admin')->level);
             return view('manage.dinhgia.giahhdvk.excel.information')
+                ->with('a_dv', array_column($m_donvi->toarray(),'tendv','madv'))
                 ->with('a_nhom', $m_nhom)
                 ->with('inputs',$inputs)
                 ->with('pageTitle', 'Nhận dữ liệu hàng hóa từ file Excel');
@@ -706,14 +704,80 @@ class GiaHhDvKController extends Controller
     function import_excel(Request $request){
         if(Session::has('admin')){
             $inputs=$request->all();
+            dd($inputs);
+
+            if (isset($inputs['mattbc']) && isset($inputs['madiaban'])) {
+                $model = GiaHhDvK::where('matt', $inputs['mattbc'])
+                    ->where('thang', $inputs['thang'])
+                    ->where('nam', $inputs['nam'])
+                    ->where('madiaban', $inputs['madiaban'])
+                    ->first();
+                /*
+                 nếu đã có báo cáo thì mở báo cáo đã tạo ra
+                 * */
+                if ($model != null) {
+                    return redirect('/giahhdvk/modify?mahs='.$model->mahs.'&act=false');
+                    //gọi đến hàm modify
+                } else {
+                    //xóa các chi tiết ko có hồ sơ (dữ liệu thừa do khi tạo mới thì tự thêm vào trong chi tiết mà ko cần lưu hồ sơ)
+                    DB::statement("DELETE FROM giahhdvkct WHERE mahs not in (SELECT mahs FROM giahhdvk where madv='" . $inputs['madv'] . "')");
+
+                    $model = new GiaHhDvK();
+                    //$tennhom = NhomHhDvK::where('matt', $inputs['mattbc'])->first()->tentt;
+                    //$diaban = DiaBanHd::where('district', $inputs['districtbc'])->where('level', 'H')->first()->diaban;
+                    $m_lk = GiaHhDvK::where('trangthai', 'HT')
+                        ->where('matt', $inputs['mattbc'])
+                        ->where('madiaban', $inputs['madiaban'])
+                        ->orderby('thoidiem', 'desc')->first();
+                    if ($m_lk != null) {
+                        $model->soqdlk = $m_lk->soqd;
+                        $model->thoidiemlk = $m_lk->thoidiemlk;
+                        $a_ctlk = array_column(GiaHhDvKCt::where('mahs', $m_lk->mahs)->get()->toarray(), 'mahhdv', 'gia');
+                    }
+                    $model->mahs = $inputs['madiaban'] . '_' . getdate()[0];
+                    $model->matt = $inputs['mattbc'];
+                    $model->madiaban = $inputs['madiaban'];
+                    $model->madv = $inputs['madv'];
+                    $model->trangthai  = 'CHT';
+                    $model->thang = $inputs['thang'];
+                    $model->nam = $inputs['nam'];
+                    $m_dm = DmHhDvK::where('matt', $inputs['mattbc'])->get();
+                    $a_dm = array();
+                    foreach ($m_dm as $dm) {
+                        $a_dm[] = [
+                            'mahs' => $model->mahs,
+                            'mahhdv' => $dm->mahhdv,
+                            'loaigia' => 'Giá bán lẻ',
+                            'nguontt' => 'Do cơ quan/đơn vị quản lý nhà nước có liên quan cung cấp/báo cáo theo quy định',
+                            'gia' => $a_ctlk[$dm->mahhdv] ?? 0,
+                            'gialk' => $a_ctlk[$dm->mahhdv] ?? 0,
+                        ];
+                    }
+                    //dd($a_dm);
+                    GiaHhDvKCt::insert($a_dm);
+                    $modelct = GiaHhDvKCt::where('mahs', $model->mahs)->get();
+                    $a_diaban = array_column(dsdiaban::where('madiaban', $inputs['madiaban'])->get()->toarray(), 'tendiaban', 'madiaban');
+                    $a_tt = array_column(NhomHhDvK::where('matt', $inputs['mattbc'])->get()->toarray(), 'tentt', 'matt');
+                    $a_dm = array_column(DmHhDvK::where('matt', $inputs['mattbc'])->get()->toarray(), 'tenhhdv', 'mahhdv');
+                    return view('manage.dinhgia.giahhdvk.kekhai.edit')
+                        ->with('model', $model)
+                        ->with('modelct', $modelct)
+                        ->with('a_diaban', $a_diaban)
+                        ->with('a_tt', $a_tt)
+                        ->with('a_dm', $a_dm)
+                        ->with('inputs', $inputs)
+                        ->with('pageTitle', 'Thông tin giá hàng hóa dịch vụ thêm mới');
+                }
+            } else
+                dd('Lỗi!Bạn cần xem lại thao tác!');
+
             //$inputs['phanloaibc'] = $inputs['phanloai'];
             $inputs['thangbc'] = $inputs['thang'];
             $inputs['nambc'] = $inputs['nam'];
             $inputs['districtbc'] = $inputs['district'];
             $inputs['mattbc'] = $inputs['matt'];
             //dd($inputs);
-            $dels = GiaHhDvKCt::where('district',$inputs['district'])
-                ->where('trangthai','CXD')->delete();
+
             $modelkt = GiaHhDvK::where('matt',$inputs['matt'])
                 ->where('thang',$inputs['thang'])
                 ->where('nam',$inputs['nam'])

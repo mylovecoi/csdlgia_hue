@@ -175,12 +175,12 @@ class GiaDatDiaBanController extends Controller
     public function store(Request $request){
         if(Session::has('admin')){
             $inputs=$request->all();
-            $inputs['giavt1'] = chkDbl($inputs['giavt1']);
-            $inputs['giavt2'] = chkDbl($inputs['giavt2']);
-            $inputs['giavt3'] = chkDbl($inputs['giavt3']);
-            $inputs['giavt4'] = chkDbl($inputs['giavt4']);
-            $inputs['hesok'] = chkDbl($inputs['hesok']);
-
+            $inputs['giavt1'] = getDoubleToDb($inputs['giavt1']);
+            $inputs['giavt2'] = getDoubleToDb($inputs['giavt2']);
+            $inputs['giavt3'] = getDoubleToDb($inputs['giavt3']);
+            $inputs['giavt4'] = getDoubleToDb($inputs['giavt4']);
+            $inputs['hesok'] = getDoubleToDb($inputs['hesok']);
+            //dd($inputs);
             $model = GiaDatDiaBan::where('maso',$inputs['maso'])->first();
             if($model == null){
                 $inputs['trangthai'] = 'CHT';

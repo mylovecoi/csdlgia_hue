@@ -4,6 +4,8 @@ namespace App\Http\Controllers\congbo\dinhgia;
 
 use App\DiaBanHd;
 use App\GiaThueDatNuoc;
+use App\Model\system\dsdiaban;
+use App\Model\view\view_giathuedatnuoc;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -17,20 +19,19 @@ class CongboGiaThueDatNuocController extends Controller
     public function index(Request $request)
     {
         $inputs = $request->all();
-        $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
-        $modeldb = DiaBanHd::where('level','H')->get();
-        $inputs['diaban'] = isset($inputs['diaban']) ? $inputs['diaban'] : $modeldb->first()->district;
-        $inputs['trangthai'] = isset($inputs['trangthai']) ? $inputs['trangthai'] : 'HT';
-        $model = GiaThueDatNuoc::join('giathuedatnuocct','giathuedatnuocct.mahs','GiaThueDatNuoc.mahs')
-            ->whereYear('ngayapdung',$inputs['nam']);
-        if($inputs['diaban'] != '')
-            $model = $model->where('district',$inputs['diaban']);
+        $inputs['url'] = '/cbgiathuedatnuoc';
+        $a_diaban = getDiaBan_XaHuyen('ADMIN');
+        $inputs['madiaban'] = $inputs['madiaban'] ?? array_key_first($a_diaban);
+        $inputs['nam'] = $inputs['nam'] ?? 'all';
 
-        $model=$model->where('trangthai','CB')->get();
+        $model = view_giathuedatnuoc::where('congbo', 'DACONGBO');
+        if ($inputs['nam'] != 'all')
+            $model = $model->whereYear('thoidiem', $inputs['nam']);
+
         return view('congbo.DinhGia.GiaThueDatNuoc.index')
-            ->with('model',$model)
-            ->with('modeldb',$modeldb)
-            ->with('inputs',$inputs)
+            ->with('model', $model->get())
+            ->with('inputs', $inputs)
+            ->with('a_diaban', $a_diaban)
             ->with('pageTitle','Thông tin hồ sơ thuê mặt đất, mặt nước');
     }
 

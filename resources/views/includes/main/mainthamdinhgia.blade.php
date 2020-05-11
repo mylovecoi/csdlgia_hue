@@ -1,13 +1,4 @@
-@if(canGeneral('thamdinhgia','index'))
-    @if(canGeneral('dmhhthamdinhgia','index'))
-        @if(can('dmhhthamdinhgia','index'))
-            <li><a href="{{url('dmnhomhanghoa')}}">
-                <i class="icon-folder"></i>
-                <span class="title">Danh mục hàng hóa</span></a>
-        </li>
-        @endif
-    @endif
-    @if(can('thamdinhgia','index'))
+    @if(chkPer('csdlthamdinhgia','thamdinhgia'))
         <li>
         <a href="javascript:;">
             <i class="icon-folder"></i>
@@ -15,24 +6,46 @@
             <span class="arrow"></span>
         </a>
         <ul class="sub-menu">
-            @if(can('kkthamdinhgia','index'))
-            <li>
-                <a href="{{url('thamdinhgia')}}">Hồ sơ thẩm định giá</a>
-            </li>
+            @if(chkPer('csdlthamdinhgia','thamdinhgia', 'dmdonvi', 'danhmuc', 'index'))
+                <li>
+                    <a href="{{url('/thamdinhgia/donvi')}}">Danh mục đơn vị</a>
+                </li>
             @endif
-            @if(can('ththamdinhgia','timkiem'))
-            <li>
-                <a href="{{url('timkiemthamdinhgia')}}">Tìm kiếm thông tin</a>
-            </li>
+
+            @if(chkPer('csdlthamdinhgia','thamdinhgia', 'dmhhthamdinhgia', 'danhmuc', 'index'))
+                <li>
+                    <a href="{{url('/thamdinhgia/danhmuc')}}">Danh mục hàng hóa</a>
+                </li>
             @endif
-            @if(can('ththamdinhgia','baocao'))
-            <li>
-                <a href="{{url('baocaoththamdinhgia')}}">Báo cáo tổng hợp</a>
-            </li>
+
+            @if(chkPer('csdlthamdinhgia','thamdinhgia', 'thamdinh', 'hoso','index'))
+                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                    <li>
+                        <a href="{{url('/thamdinhgia/danhsach')}}">
+                            Thông tin hồ sơ
+                        </a>
+                    </li>
+                @endif
+
+                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                    <li>
+                        <a href="{{url('/thamdinhgia/xetduyet')}}">
+                            Xét duyệt hồ sơ
+                        </a>
+                    </li>
+                @endif
+
+                <li>
+                    <a href="{{url('/thamdinhgia/timkiem')}}">
+                        Tìm kiếm hồ sơ
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url('/thamdinhgia/baocao')}}">Báo cáo tổng hợp</a>
+                </li>
             @endif
         </ul>
     </li>
-    @endif
 @endif
 
 @if(canGeneral('cungcapgia','index'))

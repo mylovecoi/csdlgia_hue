@@ -29,7 +29,8 @@
 <table cellspacing="0" cellpadding="0" border="0">
     <tr>
         <td style="text-align: center; text-transform: uppercase;" width="30%">
-            <b>SỞ TÀI CHÍNH TỈNH, THÀNH PHỐ</b><br>
+            <span style="text-transform: uppercase">{{session('admin')->tendvhienthi}}</span><br>
+            <span style="text-transform: uppercase;font-weight: bold">{{session('admin')->tendvcqhienthi}}</span><br>
             --------<br>
         </td>
         <td style="text-align: left;" width="70%">
@@ -90,7 +91,7 @@
             <th style="text-align: left">{{$ts->ppthamdinh}}</th>
             <th style="text-align: left">{{$ts->mucdich}}</th>
             <th style="text-align: left">{{$ts->dvyeucau}}</th>
-            <th style="text-align: right">{{number_format($ts->giatritstd)}}</th>
+            <th style="text-align: right">{{dinhdangso($ts->giatritstd)}}</th>
             <th>{{getDayVn($ts->thoihan)}}</th>
             <th style="text-align: left">{{$ts->gc}}</th>
         </tr>

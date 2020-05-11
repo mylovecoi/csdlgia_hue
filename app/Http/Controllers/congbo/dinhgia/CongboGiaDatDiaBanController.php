@@ -5,6 +5,8 @@ namespace App\Http\Controllers\congbo\dinhgia;
 use App\DiaBanHd;
 use App\GiaDatDiaBan;
 use App\GiaDatDiaBanDm;
+use App\Model\manage\dinhgia\giadatdiaban\TtGiaDatDiaBan;
+use App\Model\system\dsxaphuong;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -17,35 +19,45 @@ class CongboGiaDatDiaBanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
-        //if (Session::has('admin')) {
-            $inputs = $request->all();
-            $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
-            $inputs['district'] = isset($inputs['district']) ? $inputs['district'] : 'All';
-            $inputs['maloaidat'] = isset($inputs['maloaidat']) ? $inputs['maloaidat'] : 'All';
-            $inputs['khuvuc'] = isset($inputs['khuvuc']) ? $inputs['khuvuc'] : '';
-            $inputs['mota'] = isset($inputs['mota']) ? $inputs['mota'] : '';
-            $inputs['paginate'] = isset($inputs['paginate']) ? $inputs['paginate'] : 5;
-            $diabans = DiaBanHd::where('level','H')
-                ->get();
-            $loaidats = GiaDatDiaBanDm::all();
+    {$inputs = $request->all();
+        $inputs['url'] = '/cbgiadatdiaban';
+        //lấy địa bàn
+        //$a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
+        $a_diaban = getDiaBan_XaHuyen('ADMIN');
+        //$m_donvi = getDonViNhapLieu('ADMIN');
+        //$m_donvi_th = getDonViTongHop('giacldat',\session('admin')->level, \session('admin')->madiaban);
+        //$m_donvi_th = getDonViTongHop('giacldat',\session('admin')->level, \session('admin')->madiaban);
+        $inputs['madiaban'] = $inputs['madiaban'] ?? array_key_first($a_diaban);
 
-            $model  = GiaDatDiaBan::join('diabanhd','diabanhd.district','=','giadatdiaban.district')
-                ->join('giadatdiabandm','giadatdiaban.maloaidat','=','giadatdiabandm.maloaidat')
-                ->select('giadatdiaban.*','diabanhd.diaban','giadatdiabandm.loaidat');
+        $inputs['nam'] = $inputs['nam'] ?? 'all';
+        $inputs['maxp'] = $inputs['maxp'] ?? 'all';
+        $inputs['maloaidat'] = $inputs['maloaidat'] ?? 'all';
+        $a_loaidat = array_column(GiaDatDiaBanDm::all()->toArray(),'loaidat','maloaidat');
+        $a_xp = array_column(dsxaphuong::where('madiaban',$inputs['madiaban'])->get()->toarray(),'tenxp', 'maxp');
+        $a_qd = array_column(TtGiaDatDiaBan::all()->toarray(),'mota', 'soqd');
+        //lấy thông tin đơn vị
+        $model = GiaDatDiaBan::where('madiaban', $inputs['madiaban'])->where('congbo', 'DACONGBO');
+        if ($inputs['nam'] != 'all')
+            $model = $model->where('nam', $inputs['nam']);
+        if ($inputs['maxp'] != 'all')
+            $model = $model->where('maxp', $inputs['maxp']);
+        if ($inputs['maloaidat'] != 'all')
+            $model = $model->where('maloaidat', $inputs['maloaidat']);
+        //dd($inputs);
+        return view('congbo.DinhGia.GiaDatDiaBan.index')
+            ->with('model', $model->get())
+            ->with('inputs', $inputs)
+            //->with('m_diaban', $m_diaban)
+            ->with('a_diaban', $a_diaban)
+            ->with('a_loaidat', $a_loaidat)
+            ->with('a_xp', $a_xp)
+            ->with('a_qd', $a_qd)
+            //->with('m_donvi', $m_donvi)
+            //->with('m_donvi_th', $m_donvi_th)
+            //->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
+            //->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
+            ->with('pageTitle', 'Thông tin hồ sơ giá đất');
 
-            if($inputs['nam'] != 'all')
-                $model = $model->where('giadatdiaban.nam',$inputs['nam']);
-            if($inputs['district'] !='All')
-                $model = $model->where('giadatdiaban.district',$inputs['district']);
-            if($inputs['maloaidat'] != 'All')
-                $model = $model->where('giadatdiaban.maloaidat',$inputs['maloaidat']);
-            if($inputs['khuvuc'] != '')
-                $model = $model->where('giadatdiaban.khuvuc','like', '%'.$inputs['khuvuc'].'%');
-            if($inputs['mota'] != '')
-                $model = $model->where('giadatdiaban.mota','like', '%'.$inputs['mota'].'%');
-            $model = $model->where('trangthai','CB');
-            $model = $model->paginate($inputs['paginate']);
         return view('congbo.DinhGia.GiaDatDiaBan.index')
                 ->with('model',$model)
                 ->with('inputs',$inputs)

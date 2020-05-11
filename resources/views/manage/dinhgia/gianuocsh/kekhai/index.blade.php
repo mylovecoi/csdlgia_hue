@@ -54,7 +54,7 @@
                                 {{--<i class="fa fa-file-excel-o"></i> Nhận dữ liệu</a>--}}
                         @endif
 
-                        <a href="{{url($inputs['url'].'/prints?madv='.$inputs['madv'].'&nam='. $inputs['nam'])}}" class="btn btn-default btn-sm" target="_blank">
+                        <a href="{{url($inputs['url'].'/printf?madv='.$inputs['madv'].'&nam='. $inputs['nam'])}}" class="btn btn-default btn-sm" target="_blank">
                             <i class="fa fa-print"></i> In danh sách</a>
                     </div>
                 </div>

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\congbo\dinhgia;
 
+use App\Model\manage\dinhgia\gianuocsachsh\GiaNuocSachShDm;
 use App\Model\manage\dinhgia\gianuocsachsh\GiaNuocSh;
+use App\Model\view\view_gianuocsh;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -16,15 +18,18 @@ class CongboGiaNuocSinhHoatController extends Controller
     public function index(Request $request)
     {
         $inputs = $request->all();
-        $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
-        $inputs['paginate'] = isset($inputs['paginate']) ? $inputs['paginate'] : 5;
-        $model = GiaNuocSh::join('gianuocshct','gianuocshct.mahs','GiaNuocSh.mahs')
-            ->where('GiaNuocSh.trangthai','CB');
-        if($inputs['nam'] != 'all')
-            $model = $model->whereYear('ngayapdung',$inputs['nam']);
-        $model = $model->paginate($inputs['paginate']);
+        $inputs['url'] = '/cbgianuocsachsinhhoat';
+        $a_diaban = getDiaBan_XaHuyen('ADMIN');
+        $inputs['nam'] = $inputs['nam'] ?? 'all';
+        $model = view_gianuocsh::where('congbo', 'DACONGBO');
+        if ($inputs['nam'] != 'all')
+            $model = $model->whereYear('thoidiem', $inputs['nam']);
+        $a_dm = array_column( GiaNuocSachShDm::all()->toArray(),'doituongsd','madoituong');
+
         return view('congbo.DinhGia.GiaNuocSinhHoat.index')
-            ->with('model',$model)
+            ->with('model',$model->get())
+            ->with('a_dm',$a_dm)
+            ->with('a_diaban',$a_diaban)
             ->with('inputs',$inputs)
             ->with('pageTitle','Thông tin hồ sơ giá nước sạch sinh hoạt');
     }

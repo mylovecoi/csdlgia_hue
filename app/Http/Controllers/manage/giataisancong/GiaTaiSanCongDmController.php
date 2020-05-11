@@ -15,7 +15,7 @@ class GiaTaiSanCongDmController extends Controller
     public function index(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $inputs['url'] = '/giathuetscong';
+            $inputs['url'] = isset($inputs['phanloai']) ? ('/'.$inputs['phanloai']) : '/giathuetscong';
             $a_diaban = getDiaBan_NhapLieu(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
@@ -50,7 +50,8 @@ class GiaTaiSanCongDmController extends Controller
                 $check->update($inputs);
             }
 
-            return redirect('/giathuetscong/danhmuc');
+            return redirect($inputs['phanloai'].'/danhmuc?phanloai='.$inputs['phanloai']);
+
         }else
             return view('errors.notlogin');
     }
@@ -73,7 +74,8 @@ class GiaTaiSanCongDmController extends Controller
         if(Session::has('admin')){
             $inputs = $request->all();
             GiaTaiSanCongDm::where('mataisan',$inputs['mataisan'])->delete();
-            return redirect('/giathuetscong/danhmuc');
+            return redirect($inputs['phanloai'].'/danhmuc?phanloai='.$inputs['phanloai']);
+            //return redirect('/giathuetscong/danhmuc');
         } else
             return view('errors.notlogin');
     }

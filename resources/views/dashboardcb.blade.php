@@ -56,29 +56,29 @@
                         <div class="scroller" style="height: 308px;" data-always-visible="1" data-rail-visible="0"  style="min-height: 587px" >
                             <ul class="feeds">
                                 @foreach($model as $tt)
-                                        <li>
-                                            <div class="col1">
-                                                <div class="cont">
-                                                    <div class="cont-col1">
-                                                        <div class="label label-sm label-success">
-                                                            <i class="fa fa-bar-chart-o"></i>
-                                                        </div>
+                                    <li>
+                                        <div class="col1">
+                                            <div class="cont">
+                                                <div class="cont-col1">
+                                                    <div class="label label-sm label-success">
+                                                        <i class="fa fa-bar-chart-o"></i>
                                                     </div>
-                                                    <div class="cont-col2">
-                                                        <div class="desc" id="tentb" name="tentb">
-                                                            <button onclick="get_attack('{{$tt->id}}')"  style="color: #ff0000;border: none;background-color: #fafafa; text-align: left" data-target="#dinhkem-modal-confirm" data-toggle="modal">&nbsp;{{$tt->tieude}} &emsp; </button><br>
-                                                        </div>
+                                                </div>
+                                                <div class="cont-col2">
+                                                    <div class="desc" id="tentb" name="tentb">
+                                                        <button onclick="get_attack('{{$tt->id}}')"  style="color: #ff0000;border: none;background-color: #fafafa; text-align: left" data-target="#dinhkem-modal-confirm" data-toggle="modal">&nbsp;{{$tt->tieude}} &emsp; </button><br>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
 
-                                            <div class="col2">
-                                                <div class="date" style="color: #808080">
-                                                    {{getDayVn($tt->ngaybanhanh)}}
-                                                </div>
+                                        <div class="col2">
+                                            <div class="date" style="color: #808080">
+                                                {{getDayVn($tt->ngaybanhanh)}}
                                             </div>
+                                        </div>
 
-                                        </li>
+                                    </li>
                                 @endforeach
                             </ul>
                         </div>

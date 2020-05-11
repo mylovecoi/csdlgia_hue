@@ -145,6 +145,7 @@
             <div class="modal-content">
                 {!! Form::open(['url'=>$inputs['url'].'/danhmuc', 'method'=>'post','id' => 'frm_create'])!!}
                 <input type="hidden" name="mataisan" />
+                <input type="hidden" name="phanloai" value="{{$inputs['phanloai']}}" />
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Thông tin tài sản công</h4>
@@ -179,14 +180,13 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
+                        <div class="form-group">
+                            <div class="col-md-6">
                                 <label class="control-label">Diện tích</label>
                                 <input type="text" name="dientich" id="dientich" class="form-control" data-mask="fdecimal" style="text-align: right; font-weight: bold">
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
+
+                            <div class="col-md-6">
                                 @include('manage.include.form.input_dvt')
                             </div>
                         </div>
@@ -228,6 +228,7 @@
                     <h4 class="modal-title">Đồng ý xóa?</h4>
                 </div>
                 <input type="hidden" name="mataisan" id="mataisan">
+                <input type="hidden" name="phanloai" value="{{$inputs['phanloai']}}" />
                 <div class="modal-footer">
                     <button type="submit" class="btn blue" onclick="ClickDelete()">Đồng ý</button>
                     <button type="button" class="btn default" data-dismiss="modal">Hủy</button>

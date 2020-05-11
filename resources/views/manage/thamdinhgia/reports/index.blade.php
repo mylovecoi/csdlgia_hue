@@ -13,7 +13,7 @@
 
 
     <h3 class="page-title">
-       Báo cáo tổng hợp<small> &nbsp;Thẩm định giá tài sản NN</small>
+       Báo cáo tổng hợp<small>&nbsp;Thẩm định giá tài sản </small>
     </h3>
     <!-- END PAGE HEADER-->
 

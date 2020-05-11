@@ -60,6 +60,7 @@
                 dataType: 'JSON',
                 success: function (data) {
                     var form = $('#frm_modify');
+                    form.find("[name='maso']").val(data.maso);
                     form.find("[name='nam']").val(data.nam);
                     form.find("[name='madiaban']").val(data.madiaban).trigger('change');
                     form.find("[name='maxp']").val(data.maxp).trigger('change');
@@ -425,4 +426,8 @@
     @include('manage.include.form.modal_del_hs')
     @include('includes.script.inputmask-ajax-scripts')
     @include('includes.script.create-header-scripts')
+    <!--
+    include('includes.script.inputmask-ajax-scripts')
+    include('includes.script.create-header-scripts')
+    -->
 @stop

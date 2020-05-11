@@ -215,6 +215,7 @@ class ChiSoGiaTieuDungController extends Controller
             $id = $inputs['idcongbo'];
             $model = ChiSoGiaTieuDung::findOrFail($id);
             $model->congbo = 'CB';
+            $model->trangthai = 'CB';
             $model->save();
             return redirect('baocaochisogiatieudung');
         }else

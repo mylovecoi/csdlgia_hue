@@ -30,7 +30,7 @@
               // }
             });
         });
-        function change(maso, chucnang){
+        function change(chucnang,maso){
             // var obj = JSON.parse('{ "name":"John", "age":30, "city":"New York"}');
             // alert(obj.name);
             $('#dm').hide();

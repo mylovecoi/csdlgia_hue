@@ -1,9 +1,6 @@
 <?php
 Route::get('','HomeController@index');
-Route::get('thongtinhotro',function(){
-    return view('thongtinhotro')
-        ->with('pageTitle','Thông tin hỗ trợ');
-});
+Route::get('thongtinhotro','system\dsvanphongController@hotro');
 //Route::get('/testword', 'HomeController@testword');
 //Route::get('/ajax/checkngay','AjaxController@checkngay');
 //Route::get('/ajax/checkngaykk','AjaxController@checkngaykk');
@@ -36,7 +33,8 @@ include('manage/kekhaigia.php');
 include('manage/vbqlnn.php');
 include('manage/thanhlytaisan.php');
 include('manage/cungcapgiahh.php');
-include('manage/muataisan.php');
+//include('manage/muataisan.php');
+include('manage/phichuyengia.php');
 include('manage/chisogiatieudung.php');
 include('manage/giagocvlxd.php');
 include('manage/giadatduan.php');

@@ -9,7 +9,7 @@ class TtDnTdCt extends Model
     protected $table = 'ttdntdct';
     protected $fillable = [
         'id',
-        'maxa',
+        'madv',
         'manganh',
         'manghe',
         'mahuyen',

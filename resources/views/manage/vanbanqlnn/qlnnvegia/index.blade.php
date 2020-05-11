@@ -73,7 +73,7 @@
                         <div class="caption">
                         </div>
                         <div class="actions">
-                            @if(can('vbgia','create'))
+                            @if(chkPer('csdlvbqlnn','vbqlnn','vbgia','hoso','modify'))
                             <a href="{{url('vanbanqlnnvegia/create')}}" class="btn btn-default btn-sm">
                                 <i class="fa fa-plus"></i> Thêm mới </a>
                             @endif
@@ -123,13 +123,14 @@
                                 <td style="text-align: center">{{getDayVn($tt->ngaybanhanh)}}</td>
                                 <td style="text-align: center">{{getDayVn($tt->ngayapdung)}}</td>
                                 <td>
-                                    @if(can('vbgia','edit'))
-                                    <a href="{{url('vanbanqlnnvegia/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
-                                    @endif
-                                    <button type="button" onclick="get_attack('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal"><i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
-                                    @if(can('vbgia','delete'))
-                                    <button type="button" onclick="confirmDelete('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
-                                        Xóa</button>
+                                    <button type="button" onclick="get_attack('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
+                                        <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
+                                    @if(chkPer('csdlvbqlnn','vbqlnn','vbgia','hoso','modify'))
+                                        <a href="{{url('vanbanqlnnvegia/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs">
+                                            <i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
+
+                                        <button type="button" onclick="confirmDelete('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
+                                            <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
                                     @endif
                                 </td>
                             </tr>

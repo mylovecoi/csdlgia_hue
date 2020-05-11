@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\congbo\dinhgia;
 
 use App\DiaBanHd;
+use App\DmGiaDvGdDt;
 use App\Model\manage\dinhgia\GiaDvGdDt;
+use App\Model\view\view_giadvgddt;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -17,30 +19,19 @@ class CongboGiaDvGiaoDucDaoTaoController extends Controller
     public function index(Request $request)
     {
         $inputs = $request->all();
-        $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : (date('Y').'-'.(date('Y')+1));
-        $inputs['district'] = isset($inputs['district']) ? $inputs['district'] : 'All';
-        $inputs['khuvuc'] = isset($inputs['khuvuc']) ? $inputs['khuvuc'] : '';
-        $inputs['mota'] = isset($inputs['mota']) ? $inputs['mota'] : '';
-        $inputs['paginate'] = isset($inputs['paginate']) ? $inputs['paginate'] : 5;
-        $model = GiaDvGdDt::join('diabanhd','diabanhd.district','=','giadvgddt.district')
-            ->where('diabanhd.level','H')
-            ->select('giadvgddt.*','diabanhd.diaban');
-        if($inputs['nam'] != 'all')
-            $model = $model->where('giadvgddt.nam',$inputs['nam']);
-        if($inputs['district'] != 'All')
-            $model = $model ->where('giadvgddt.district',$inputs['district']);
-        if($inputs['khuvuc'] != '')
-            $model = $model->where('giadvgddt.khuvuc','like', '%'.$inputs['khuvuc'].'%');
-        if($inputs['mota'] != '')
-            $model = $model->where('giadvgddt.mota','like', '%'.$inputs['mota'].'%');
-        $model = $model->where('trangthai','CB');
-        $model = $model->paginate($inputs['paginate']);
-        $diabans = DiaBanHd::where('level','H')
-            ->get();
+        $inputs['url'] = '/cbgiadvgiaoducdaotao';
+        $a_diaban = getDiaBan_XaHuyen('ADMIN');
+        $inputs['nam'] = $inputs['nam'] ?? 'all';
+        $inputs['madiaban'] = $inputs['madiaban'] ?? array_key_first($a_diaban);
+        $model = view_giadvgddt::where('congbo', 'DACONGBO')->where('madiaban',$inputs['madiaban']);
+        if ($inputs['nam'] != 'all')
+            $model = $model->where('nam', $inputs['nam']);
+
+        //dd($model->get());
         return view('congbo.DinhGia.GiaDvGDDT.index')
-            ->with('model',$model)
+            ->with('model',$model->get())
+            ->with('a_diaban',$a_diaban)
             ->with('inputs',$inputs)
-            ->with('diabans',$diabans)
             ->with('pageTitle', 'Giá dịch vụ giáo dục đào tạo');
     }
 

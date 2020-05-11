@@ -184,11 +184,8 @@ License: You must have a valid license purchased only from themeforest(the above
             <!-- DOC: Remove data-hover="dropdown" and data-close-others="true" attributes below to disable the dropdown opening on mouse hover -->
             <div class="hor-menu ">
                 <ul class="nav navbar-nav">
-                    <li class="menu-dropdown classic-menu-dropdown ">
-                        <a href="{{url('giahanghoadichvu')}}">&nbsp;Dashboard</a>
-                    </li>
-                    @if(canGeneral('csdlmucgiahhdv','congbo'))
-                    <li class="menu-dropdown classic-menu-dropdown ">
+                    @if(chkCongBo('csdlmucgiahhdv'))
+                        <li class="menu-dropdown classic-menu-dropdown ">
                         <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">&nbsp;CSDL về mức giá HH-DV<i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu pull-left">
                             <li class=" dropdown-submenu">
@@ -204,17 +201,18 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <li><a href="{{url('cbthuemuanhaxh')}}">Giá thuê mua nhà XH</a></li>
                                     <li><a href="{{url('cbgiathuenhacongvu')}}">Giá thuê nhà công vụ</a></li>
                                     <li><a href="{{url('cbgianuocsachsinhhoat')}}">Giá nước sạch sinh hoạt</a></li>
-                                    <li><a href="{{url('cbgiathuetaisan')}}">Giá thuê tài sản công</a></li>
+{{--                                    <li><a href="{{url('cbgiathuetaisan')}}">Giá thuê tài sản công</a></li>--}}
                                     <li><a href="{{url('cbgiadvgiaoducdaotao')}}">Giá dịch vụ GD-ĐT</a></li>
                                     <li><a href="{{url('cbdichvukcb')}}">Giá dịch vụ KCB</a></li>
-                                    <li><a href="{{url('coming')}}">Mức trợ giá, trợ cước</a></li>
+{{--                                    <li><a href="{{url('coming')}}">Mức trợ giá, trợ cước</a></li>--}}
                                 </ul>
                             </li>
-                            <li><a href="{{url('coming')}}"><i class="icon-folder"></i>&nbsp;Giá HH-DV khác</a></li>
+{{--                            <li><a href="{{url('coming')}}"><i class="icon-folder"></i>&nbsp;Giá HH-DV khác</a></li>--}}
                             <li><a href="{{url('cbgialephitruocba')}}"><i class="icon-folder"></i>&nbsp;Giá lệ phí trước bạ</a></li>
                             <li><a href="{{url('cbphilephi')}}"><i class="icon-folder"></i>&nbsp;Phí, lệ phí</a></li>
+
                             @if(canGeneral('kkgia','congbo'))
-                            <li class=" dropdown-submenu">
+                                <li class=" dropdown-submenu">
                                 <a href="">
                                     <i class="icon-folder"></i>
                                     &nbsp;Kê khai - niêm yết giá</a>
@@ -253,22 +251,23 @@ License: You must have a valid license purchased only from themeforest(the above
                         </ul>
                     </li>
                     @endif
-                    @if(canGeneral('csdlthamdinhgia','congbo'))
-                        @if(canGeneral('thamdinhgia','congbo'))
+
+                    @if(chkCongBo('csdlthamdinhgia'))
                         <li class="menu-dropdown classic-menu-dropdown">
-                            <a data-hover="megamenu-dropdown" data-close-others="true"  href="{{url('cbthamdinhgia')}}">&nbsp;CSDL Thẩm định giá ĐP</a>
+                            <a data-hover="megamenu-dropdown" data-close-others="true" href="{{url('cbthamdinhgia')}}">&nbsp;CSDL Thẩm định giá</a>
                         </li>
-                        @endif
                     @endif
-                    @if(canGeneral('csdlvbqlnn','congbo'))
-                    <li class="menu-dropdown classic-menu-dropdown">
+
+                    @if(chkCongBo('csdlvbqlnn1233523'))
+                        <li class="menu-dropdown classic-menu-dropdown">
                         <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">&nbsp;Văn bản QLNN về giá, BCTH <i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu pull-left">
                             @if(canGeneral('vbgia','congbo'))
                                 <li><a href="{{url('cbvanbanqlnnvegia')}}"><i class="icon-folder"></i> &nbsp;Văn bản QLNN về giá, phí lệ phí</a></li>
                             @endif
                             @if(canGeneral('bcthvegia','congbo'))
-                                @if ($modelbcthvegia = \App\Model\manage\vanbanplvegia\baocaoth\BcThVeGiaDm::where('theodoi','TD')->get())@endif
+                                @if ($modelbcthvegia = \App\Model\manage\vanbanplvegia\baocaoth\BcThVeGiaDm::all())
+                                    @endif
                                 @foreach($modelbcthvegia as $bcthvegia)
                                     <li><a href="{{url('coming')}}"><i class="icon-folder"></i> &nbsp;{{$bcthvegia->mota}}</a></li>
                                 @endforeach
@@ -276,11 +275,12 @@ License: You must have a valid license purchased only from themeforest(the above
                         </ul>
                     </li>
                     @endif
-                    @if(canGeneral('csdlttpvctqlnn','congbo'))
-                    <li class="menu-dropdown classic-menu-dropdown ">
+
+                    @if(chkCongBo('csdlttpvctqlnn21412421'))
+                        <li class="menu-dropdown classic-menu-dropdown ">
                         <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">&nbsp;Thông tin QLNN về giá <i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu pull-left">
-                            @if($ttpvctqlnn = \App\Model\manage\ttpvctqlnn\TtPvCtQlNnDm::where('theodoi','TD')->get())@endif
+                            @if($ttpvctqlnn = \App\Model\manage\ttpvctqlnn\TtPvCtQlNnDm::all())@endif
                             @foreach($ttpvctqlnn as $ttpv)
                                 <li>
                                     <a href="{{url('coming')}}"><i class="icon-folder"></i> {{$ttpv->mota}}</span></a>
@@ -289,11 +289,12 @@ License: You must have a valid license purchased only from themeforest(the above
                         </ul>
                     </li>
                     @endif
+
                     <li class="menu-dropdown classic-menu-dropdown ">
-                        <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">&nbsp;Support<i class="fa fa-angle-down"></i></a>
+                        <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">&nbsp;Hỗ trợ<i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu pull-left">
-                            <li><a href="{{url('danhsachusertaphuan')}}"><i class="icon-folder"></i> &nbsp;Danh sách tài khoản tập huấn</a></li>
-                            <li><a href="{{url('thongtinhotro')}}" target="_blank"><i class="icon-folder"></i> &nbsp;Thông tin hỗ trợ</a></li>
+                            <li><a href="{{url('/danhsachusertaphuan')}}"><i class="icon-folder"></i> &nbsp;Danh sách tài khoản tập huấn</a></li>
+                            <li><a href="{{url('/thongtinhotro')}}" target="_blank"><i class="icon-folder"></i> &nbsp;Thông tin hỗ trợ</a></li>
                         </ul>
                     </li>
                 </ul>

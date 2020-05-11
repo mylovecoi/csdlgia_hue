@@ -437,12 +437,11 @@ class GiaNuocShController extends Controller
         if(Session::has('admin')){
             $inputs = $request->all();
             $inputs['nam'] = $inputs['nam'] ?? 'all';
-            //lấy thông tin đơn vị
             $model = $this->getHoSo($inputs);
             $m_donvi = dsdonvi::where('madv', $inputs['madv'])->first();
             $m_diaban = dsdiaban::wherein('madiaban',array_column($model->toarray(),'madiaban'))->get();
-
-            return view('manage.dinhgia.thuematdatmatnuoc.reports.print')
+            //dd($model);
+            return view('manage.dinhgia.gianuocsh.reports.print')
                 ->with('model',$model)
                 ->with('m_donvi',$m_donvi)
                 ->with('m_diaban',$m_diaban)
@@ -459,28 +458,65 @@ class GiaNuocShController extends Controller
         switch ($inputs['level']) {
             case 'H':
             {
-                $model = view_giathuedatnuoc::where('madv_h', $inputs['madv']);
+                $model = GiaNuocSh::where('madv_h', $inputs['madv']);
                 if ($inputs['nam'] != 'all')
                     $model = $model->whereYear('thoidiem_h', $inputs['nam']);
                 break;
             }
             case 'T':
             {
-                $model = view_giathuedatnuoc::where('madv_t', $inputs['madv']);
+                $model = GiaNuocSh::where('madv_t', $inputs['madv']);
                 if ($inputs['nam'] != 'all')
                     $model = $model->whereYear('thoidiem_t', $inputs['nam']);
                 break;
             }
             case 'ADMIN':
             {
-                $model = view_giathuedatnuoc::where('madv_ad', $inputs['madv']);
+                $model = GiaNuocSh::where('madv_ad', $inputs['madv']);
                 if ($inputs['nam'] != 'all')
                     $model = $model->whereYear('thoidiem_ad', $inputs['nam']);
                 break;
             }
             default:
             {//mặc định lấy đơn vị nhâp liệu
-                $model = view_giathuedatnuoc::where('madv', $inputs['madv']);
+                $model = GiaNuocSh::where('madv', $inputs['madv']);
+                if ($inputs['nam'] != 'all')
+                    $model = $model->whereYear('thoidiem', $inputs['nam']);
+                break;
+            }
+        }
+        return $model->get();
+    }
+
+    function getHoSoct($inputs)
+    {
+        $m_donvi = view_dsdiaban_donvi::where('madv', $inputs['madv'])->first();
+        $inputs['level'] = $m_donvi->chucnang != 'NHAPLIEU' ? $m_donvi->level : 'NHAPLIEU';
+        switch ($inputs['level']) {
+            case 'H':
+            {
+                $model = view_gianuocsh::where('madv_h', $inputs['madv']);
+                if ($inputs['nam'] != 'all')
+                    $model = $model->whereYear('thoidiem_h', $inputs['nam']);
+                break;
+            }
+            case 'T':
+            {
+                $model = view_gianuocsh::where('madv_t', $inputs['madv']);
+                if ($inputs['nam'] != 'all')
+                    $model = $model->whereYear('thoidiem_t', $inputs['nam']);
+                break;
+            }
+            case 'ADMIN':
+            {
+                $model = view_gianuocsh::where('madv_ad', $inputs['madv']);
+                if ($inputs['nam'] != 'all')
+                    $model = $model->whereYear('thoidiem_ad', $inputs['nam']);
+                break;
+            }
+            default:
+            {//mặc định lấy đơn vị nhâp liệu
+                $model = view_gianuocsh::where('madv', $inputs['madv']);
                 if ($inputs['nam'] != 'all')
                     $model = $model->whereYear('thoidiem', $inputs['nam']);
                 break;

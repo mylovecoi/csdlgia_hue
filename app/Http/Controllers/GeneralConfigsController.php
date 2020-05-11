@@ -15,7 +15,7 @@ class GeneralConfigsController extends Controller
     public function index()
     {
         if (Session::has('admin')) {
-            if(chkPer('hethong', 'hethong', 'thongtin','danhmuc', 'modify')){
+            if(chkPer('hethong', 'hethong_pq', 'thongtin','danhmuc', 'modify')){
                 $model = GeneralConfigs::first();
                 return view('system.general.index')
                     ->with('model',$model)
@@ -30,7 +30,7 @@ class GeneralConfigsController extends Controller
 
     public function create(){
         if (Session::has('admin')) {
-            if(chkPer('hethong', 'hethong', 'thongtin','danhmuc', 'modify')){
+            if(chkPer('hethong', 'hethong_pq', 'thongtin','danhmuc', 'modify')){
                 return view('system.general.create')
                     ->with('pageTitle', 'Thêm mới thông tin đơn vị được cấp bản quyền');
             }else{
@@ -42,7 +42,7 @@ class GeneralConfigsController extends Controller
 
     public function store(Request $request){
         if (Session::has('admin')) {
-            if(chkPer('hethong', 'hethong', 'thongtin','danhmuc', 'modify')){
+            if(chkPer('hethong', 'hethong_pq', 'thongtin','danhmuc', 'modify')){
                 $inputs = $request->all();
                 $model = new GeneralConfigs();
                 $model->create($inputs);
@@ -57,7 +57,7 @@ class GeneralConfigsController extends Controller
     public function edit($id)
     {
         if (Session::has('admin')) {
-            if(chkPer('hethong', 'hethong', 'thongtin','danhmuc', 'modify')){
+            if(chkPer('hethong', 'hethong_pq', 'thongtin','danhmuc', 'modify')){
                 $model = GeneralConfigs::first();
                 return view('system.general.edit')
                     ->with('model', $model)
@@ -72,10 +72,17 @@ class GeneralConfigsController extends Controller
     public function update(Request $request,$id)
     {
         if (Session::has('admin')) {
-            if(chkPer('hethong', 'hethong', 'thongtin','danhmuc', 'modify')){
+            if(chkPer('hethong', 'hethong_pq', 'thongtin','danhmuc', 'modify')){
                 $inputs = $request->all();
+                if(isset($inputs['ipf1'])){
+                    $ipf1 = $request->file('ipf1');
+                    $inputs['ipf1'] = '&1.'.$ipf1->getClientOriginalName();
+                    $ipf1->move(public_path() . '/data/huongdan/', $inputs['ipf1']);
+                    session('admin')->ipf1 = $inputs['ipf1'];
+                }
                 $model = GeneralConfigs::findOrFail($id);
                 $model->update($inputs);
+
                 return redirect('general');
             }else{
                 return view('errors.noperm');
@@ -114,8 +121,8 @@ class GeneralConfigsController extends Controller
                     }
                 }
                 //dd($gui);
-                //$a_chucnang = array_column(danhmucchucnang::all()->toArray(),'mota','maso');
-                $a_chucnang = array();
+                $a_chucnang = array_column(danhmucchucnang::all()->toArray(),'menu','maso');
+                //$a_chucnang = array();
                 //dd($gui);
 
                 return view('system.general.setting')

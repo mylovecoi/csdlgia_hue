@@ -130,9 +130,9 @@ class GiaDvGdDtController extends Controller
     public function destroy(Request $request){
         if(Session::has('admin')){
             $inputs=$request->all();
-            $model = where('mahs',$inputs['mahs'])->first();
+            $model = GiaDvGdDt::where('mahs',$inputs['mahs'])->first();
             $model->delete();
-            return redirect('giadvgddt/danhsach?&nam=' . $model->nam . '&madv=' . $model->madv);
+            return redirect('giadvgddt/danhsach?madv=' . $model->madv);
         }else
             return view('errors.notlogin');
     }
@@ -457,15 +457,18 @@ class GiaDvGdDtController extends Controller
             $inputs['nam'] = $inputs['nam'] ?? 'all';
             //lấy thông tin đơn vị
             $model = $this->getHoSo($inputs);
+            $model_ct = view_giadvgddt::wherein('mahs',array_column($model->toarray(),'mahs'))->get();
             $m_donvi = dsdonvi::where('madv', $inputs['madv'])->first();
             $m_diaban = dsdiaban::wherein('madiaban',array_column($model->toarray(),'madiaban'))->get();
-            $a_ts = array_column(trogiatrocuocdm::all()->toArray(),'tenspdv','maspdv');
-            return view('manage.dinhgia.giaspdvci.reports.baocao')
+            $a_ts = array_column(giadvgddtdm::all()->toArray(),'tenspdv','maspdv');
+
+            return view('manage.dinhgia.giadvgddt.reports.baocao')
                 ->with('model',$model)
+                ->with('model_ct',$model_ct)
                 ->with('m_donvi',$m_donvi)
                 ->with('m_diaban',$m_diaban)
                 ->with('a_dm',$a_ts)
-                ->with('a_pl',getPhanLoaiSPDVCI())
+                ->with('a_diaban',getDiaBan_HeThong('ADMIN'))
                 ->with('inputs',$inputs)
                 ->with('pageTitle','Thông tin hồ sơ');
         }else
@@ -473,6 +476,43 @@ class GiaDvGdDtController extends Controller
     }
 
     function getHoSo($inputs)
+    {
+        $m_donvi = view_dsdiaban_donvi::where('madv', $inputs['madv'])->first();
+        $inputs['level'] = $m_donvi->chucnang != 'NHAPLIEU' ? $m_donvi->level : 'NHAPLIEU';
+        switch ($inputs['level']) {
+            case 'H':
+            {
+                $model = GiaDvGdDt::where('madv_h', $inputs['madv']);
+                if ($inputs['nam'] != 'all')
+                    $model = $model->where('nam', $inputs['nam']);
+                break;
+            }
+            case 'T':
+            {
+                $model = GiaDvGdDt::where('madv_t', $inputs['madv']);
+                if ($inputs['nam'] != 'all')
+                    $model = $model->where('nam', $inputs['nam']);
+                break;
+            }
+            case 'ADMIN':
+            {
+                $model = GiaDvGdDt::where('madv_ad', $inputs['madv']);
+                if ($inputs['nam'] != 'all')
+                    $model = $model->where('nam', $inputs['nam']);
+                break;
+            }
+            default:
+            {//mặc định lấy đơn vị nhâp liệu
+                $model = GiaDvGdDt::where('madv', $inputs['madv']);
+                if ($inputs['nam'] != 'all')
+                    $model = $model->where('nam', $inputs['nam']);
+                break;
+            }
+        }
+        return $model->get();
+    }
+
+    function getHoSo_ct($inputs)
     {
         $m_donvi = view_dsdiaban_donvi::where('madv', $inputs['madv'])->first();
         $inputs['level'] = $m_donvi->chucnang != 'NHAPLIEU' ? $m_donvi->level : 'NHAPLIEU';

@@ -1,3 +1,10 @@
+
+<?php
+	$model_vp = \App\Model\system\dsvanphong::all();
+	$a_vp = a_unique(array_column($model_vp->toArray(),'vanphong'));
+	$col =(int) 12 / (count($a_vp)>0?count($a_vp) : 1);
+	$col = $col < 4 ? 4 : $col;
+?>
 <div class="row">
 	<div class="col-md-12">
 		<div class="well">
@@ -11,73 +18,40 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-md-6">
+	@foreach($a_vp as $vp)
+		<?php $vanphong = $model_vp->where('vanphong', $vp);  ?>
+		<div class="col-md-{{$col}}">
 		<!-- BEGIN PORTLET -->
-		<div class="portlet light ">
+		<div class="portlet light" minlength="350px">
 			<div class="portlet-title">
 				<div class="caption caption-md">
 					<i class="icon-bar-chart theme-font hide"></i>
-					<span class="caption-subject font-blue-madison bold uppercase">Phòng TKBT I - quản lý địa bàn các tỉnh phía Nam</span>
+					<span class="caption-subject font-blue-madison bold uppercase">{{$vp}}</span>
 				</div>
 			</div>
 			<div class="portlet-body">
 				<div class="table-scrollable table-scrollable-borderless">
 					<table class="table table-hover table-light">
 						<thead>
-						<tr class="uppercase">
-							<th colspan="2">
-								Cán bộ hỗ trợ
-							</th>
-							<th>
-								TEL
-							</th>
-						</tr>
+							<tr class="uppercase">
+								<th colspan="2">
+									Cán bộ hỗ trợ
+								</th>
+								<th>
+									Số điện thoại
+								</th>
+							</tr>
 						</thead>
 						<tbody>
-						<tr>
-							<td class="fit">
-								<img class="user-pic" src="{{url('images/avatar/default-user.png')}}">
-							</td>
-							<td>
-								<a href="" class="primary-link">Nguyễn Xuân Trường</a>
-							</td>
-							<td style="text-align: center">
-								<span class="bold theme-font">0917 737456</span>
-							</td>
-						</tr>
-						<tr>
-							<td class="fit">
-								<img class="user-pic" src="{{url('images/avatar/default-user.png')}}">
-							</td>
-							<td>
-								<a href="" class="primary-link">Hoàng Ngọc Long</a>
-							</td>
-							<td style="text-align: center">
-								<span class="bold theme-font">0985 365683</span>
-							</td>
-						</tr>
-						<tr>
-							<td class="fit">
-								<img class="user-pic" src="{{url('images/avatar/default-user.png')}}">
-							</td>
-							<td>
-								<a href="" class="primary-link">Tạ Đình Hữu</a>
-							</td>
-							<td style="text-align: center">
-								<span class="bold theme-font">0917 179993</span>
-							</td>
-						</tr>
-						<tr>
-							<td class="fit">
-								<img class="user-pic" src="{{url('images/avatar/default-user.png')}}">
-							</td>
-							<td>
-								<a href="" class="primary-link">Trần Đức Long</a>
-							</td>
-							<td style="text-align: center">
-								<span class="bold theme-font">0396 074886</span>
-							</td>
-						</tr>
+							@foreach($vanphong as $ct)
+							<tr>
+								<td class="fit">
+									<img class="user-pic" src="{{url('images/avatar/default-user.png')}}">
+								</td>
+								<td>{{$ct->hoten}}</td>
+								<td style="text-align: center">{{$ct->sdt}}</td>
+							</tr>
+							@endforeach
 						</tbody>
 					</table>
 				</div>
@@ -85,78 +59,6 @@
 		</div>
 		<!-- END PORTLET -->
 	</div>
-	<div class="col-md-6">
-		<!-- BEGIN PORTLET -->
-		<div class="portlet light ">
-			<div class="portlet-title">
-				<div class="caption caption-md">
-					<i class="icon-bar-chart theme-font hide"></i>
-					<span class="caption-subject font-blue-madison bold uppercase">Phòng TKBT II - quản lý địa bàn các tỉnh phía Bắc </span>
-				</div>
-			</div>
-			<div class="portlet-body">
-				<div class="table-scrollable table-scrollable-borderless">
-					<table class="table table-hover table-light">
-						<thead>
-						<tr class="uppercase">
-							<th colspan="2" style="text-transform: uppercase">
-								Cán bộ hỗ trợ
-							</th>
-							<th>
-								TEL
-							</th>
-						</tr>
-						</thead>
-						<tbody>
-						<tr>
-							<td class="fit">
-								<img class="user-pic" src="{{url('images/avatar/default-user.png')}}">
-							</td>
-							<td>
-								<a href="" class="primary-link">Hoàng Văn Sáng</a>
-							</td>
-							<td style="text-align: center">
-								<span class="bold theme-font">0974 090 556</span>
-							</td>
-						</tr>
-						<tr>
-							<td class="fit">
-								<img class="user-pic" src="{{url('images/avatar/default-user.png')}}">
-							</td>
-							<td>
-								<a href="" class="primary-link">Nguyễn Văn Dũng</a>
-							</td>
-							<td style="text-align: center">
-								<span class="bold theme-font">0986 012094</span>
-							</td>
-						</tr>
-						<tr>
-							<td class="fit">
-								<img class="user-pic" src="{{url('images/avatar/default-user.png')}}">
-							</td>
-							<td>
-								<a href="" class="primary-link">Nguyễn Văn Đạt</a>
-							</td>
-							<td style="text-align: center">
-								<span class="bold theme-font">0966 305 359</span>
-							</td>
-						</tr>
-						<tr>
-							<td class="fit">
-								<img class="user-pic" src="{{url('images/avatar/default-user.png')}}">
-							</td>
-							<td>
-								<a href="" class="primary-link">Ngô Thế Dương</a>
-							</td>
-							<td style="text-align: center">
-								<span class="bold theme-font">0916 678 911</span>
-							</td>
-						</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-		<!-- END PORTLET -->
-	</div>
+	@endforeach
+
 </div>

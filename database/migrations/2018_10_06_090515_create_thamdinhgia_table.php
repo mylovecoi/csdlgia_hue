@@ -15,8 +15,11 @@ class CreateThamdinhgiaTable extends Migration
     {
         Schema::create('thamdinhgia', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('madiaban')->nullable();
+            $table->string('maxp')->nullable();
+            $table->string('mahs')->unique();
+
             $table->string('diadiem')->nullable();
-            $table->date('thoidiem')->nullable();
             $table->string('ppthamdinh')->nullable();
             $table->string('mucdich')->nullable();
             $table->string('dvyeucau')->nullable();
@@ -25,32 +28,49 @@ class CreateThamdinhgiaTable extends Migration
             $table->string('hosotdgia')->nullable();
             $table->string('nguonvon')->nullable();
             $table->string('phanloai',20)->nullable();
-            $table->string('trangthai')->nullable();
+
             $table->string('quy')->nullable();
-            $table->string('mahuyen')->nullable();
-            $table->string('maxa')->nullable();
-            $table->string('mahs')->nullable();
             $table->string('thuevat')->nullable();
             $table->string('songaykq')->nullable();
             $table->string('tttstd')->nullable();
             $table->text('ghichu')->nullable();
             $table->string('congbo')->nullable();
             $table->string('thaotac')->nullable();
-
-            $table->string('ipt1')->nullable();
             $table->string('ipf1')->nullable();
-
-            $table->string('ipt2')->nullable();
             $table->string('ipf2')->nullable();
-
-            $table->string('ipt3')->nullable();
             $table->string('ipf3')->nullable();
-
-            $table->string('ipt4')->nullable();
             $table->string('ipf4')->nullable();
-
-            $table->string('ipt5')->nullable();
             $table->string('ipf5')->nullable();
+            $table->text('lichsu')->nullable(); //Thao tác lịch sử hồ sơ theo dạng JSON
+
+            //Thông tin hồ sơ khi khởi tạo (level lấy theo thông tin đơn vị)
+            $table->date('thoidiem')->nullable();
+            $table->string('macqcq')->nullable(20);
+            $table->string('madv')->nullable(20);
+            $table->string('lydo')->nullable();
+            $table->string('thongtin')->nullable();
+            $table->string('trangthai')->nullable(20);
+//Thông tin Hô sơ khi gửi đơn vị cấp trên (Cấp H, T tùy theo level đơn vị khởi tạo)
+            $table->date('thoidiem_h')->nullable();
+            $table->string('macqcq_h')->nullable(20);
+            $table->string('madv_h')->nullable(20);
+            $table->string('lydo_h')->nullable();
+            $table->string('thongtin_h')->nullable();
+            $table->string('trangthai_h')->nullable(20);
+//Thông tin Hô sơ khi gửi đơn vị cấp trên (Cấp T tùy theo level đơn vị khởi tạo)
+            $table->date('thoidiem_t')->nullable();
+            $table->string('macqcq_t')->nullable(20);
+            $table->string('madv_t')->nullable(20);
+            $table->string('lydo_t')->nullable();
+            $table->string('thongtin_t')->nullable();
+            $table->string('trangthai_t')->nullable(20);
+//Thông tin Hồ sơ khi gửi đến đơn vị tổng hợp toàn Tỉnh
+            $table->date('thoidiem_ad')->nullable();
+            $table->string('macqcq_ad')->nullable(20);
+            $table->string('madv_ad')->nullable(20);
+            $table->string('lydo_ad')->nullable();
+            $table->string('thongtin_ad')->nullable();
+            $table->string('trangthai_ad')->nullable(20);
             $table->timestamps();
         });
     }
