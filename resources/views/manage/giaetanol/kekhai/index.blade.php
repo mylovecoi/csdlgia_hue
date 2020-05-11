@@ -45,7 +45,7 @@
 -->
 @section('content')
     <h5 class="page-title">
-        Thông tin hồ sơ kê khai giá etanol</small>
+        Thông tin hồ sơ kê khai mh giá etanol</small>
 
     </h5>
     <!-- END PAGE HEADER-->
