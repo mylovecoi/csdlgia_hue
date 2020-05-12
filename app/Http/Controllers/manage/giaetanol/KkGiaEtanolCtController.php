@@ -5,6 +5,7 @@ namespace App\Http\Controllers\manage\giaetanol;
 use App\Model\manage\kekhaigia\kkgiaetanol\KkGiaEtanolCt;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class KkGiaEtanolCtController extends Controller
 {
@@ -19,8 +20,8 @@ class KkGiaEtanolCtController extends Controller
         }
         $inputs = $request->all();
         //dd($inputs);
-        $inputs['gialk'] = getDoubleToDb($inputs['gialk']);
-        $inputs['giakk'] = getDoubleToDb($inputs['giakk']);
+        $inputs['dongialk'] = getDoubleToDb($inputs['dongialk']);
+        $inputs['dongia'] = getDoubleToDb($inputs['dongia']);
         //$inputs['trangthai'] = 'CXD';
 
         $model = KkGiaEtanolCt::where('id',$inputs['id'])->first();

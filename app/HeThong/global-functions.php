@@ -4173,4 +4173,17 @@ function getThoiDiem(){
     ];
 }
 
+function chkCongBo($csdl = null, $group = null, $feature = null){
+    $b_true = false;
+    $m_gen = \App\GeneralConfigs::first();
+    $gui = json_decode($m_gen->setting, true);
+    if($feature != null && isset($gui[$csdl][$group][$feature]['congbo']) && $gui[$csdl][$group][$feature]['congbo'] == '1') {
+        $b_true = true;
+    }elseif($group != null && isset($gui[$csdl][$group]['congbo']) && $gui[$csdl][$group]['congbo'] == '1'){
+        $b_true = true;
+    }elseif(isset($gui[$csdl]['congbo']) && $gui[$csdl]['congbo'] == '1'){
+        $b_true = true;
+    }
+    return $b_true;
+}
 ?>

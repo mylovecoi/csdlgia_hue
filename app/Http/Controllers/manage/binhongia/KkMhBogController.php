@@ -94,7 +94,7 @@ class KkMhBogController extends Controller
             $m_bog = view_dmnganhnghe::where('manganh', 'BOG')->get();
             $m_lvkd = CompanyLvCc::where('madv', $inputs['madv'])
                 ->wherein('manghe',array_column($m_bog->toarray(),'manghe'))->get();
-            dd($m_lvkd);
+            //dd($m_lvkd);
             //lấy danh mục nghề theo đơn vị đăng ký
             $m_bog = $m_bog->wherein('manghe',array_column($m_lvkd->toarray(),'manghe'));
 

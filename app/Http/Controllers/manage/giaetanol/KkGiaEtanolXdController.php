@@ -7,7 +7,9 @@ use App\Model\system\company\Company;
 use App\Model\system\company\CompanyLvCc;
 use App\Model\system\dmnganhnghekd\DmNgheKd;
 use App\Model\system\dsdiaban;
+use App\Model\system\view_dsdiaban_donvi;
 use App\Town;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -33,24 +35,24 @@ class KkGiaEtanolXdController extends Controller
                 'madv' => $model->madv
             );
 
-            $model->lichsu = json_encode($a_lichsu);
-            $model->macqcq = $inputs['macqcq'];
+            //$model->lichsu = json_encode($a_lichsu);
+            //$model->macqcq = $inputs['macqcq'];
             $model->trangthai = 'CD';
             $model->ngaychuyen = date('Y-m-d H:i:s');
             //kiểm tra đơn vị tiếp nhận
             $chk_dvcq = view_dsdiaban_donvi::where('madv', $inputs['macqcq'])->first();
             if ($chk_dvcq->count() && $chk_dvcq->level == 'T') {
-                $model->madv_t = $inputs['macqcq'];
-                $model->ngaychuyen_t = date('Y-m-d');
-                $model->trangthai_t = 'CD';
+               // $model->madv_t = $inputs['macqcq'];
+                //$model->ngaychuyen_t = date('Y-m-d');
+                $model->trangthai = 'CD';
             } else if ($chk_dvcq->count() && $chk_dvcq->level == 'ADMIN') {
-                $model->madv_ad = $inputs['macqcq'];
-                $model->ngaychuyen_ad = date('Y-m-d');
-                $model->trangthai_ad = 'CD';
+                //$model->madv_ad = $inputs['macqcq'];
+                //$model->ngaychuyen_ad = date('Y-m-d');
+                $model->trangthai= 'CD';
             } else {
-                $model->madv_h = $inputs['macqcq'];
-                $model->ngaychuyen_h = date('Y-m-d');
-                $model->trangthai_h = 'CD';
+                //$model->madv_h = $inputs['macqcq'];
+                //$model->ngaychuyen_h = date('Y-m-d');
+                $model->trangthai = 'CD';
             }
 
             if($model->save()){
@@ -58,12 +60,14 @@ class KkGiaEtanolXdController extends Controller
                 $modeldv = dsdiaban::where('madiaban',$model->madiaban)->first();
                 $dmnghe = DmNgheKd::where('manghe',$model->manghe)->first();
                 $tg = getDateTime(Carbon::now()->toDateTimeString());
+                /*
                 $contentdn = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã nhận được hồ sơ '.$dmnghe->tennghe.' của doanh nghiệp. Số công văn: '.$model->socv.
                     ' - Ngày áp dung: '.getDayVn($model->ngayhieuluc).'- Thông tin người nộp: '.$inputs['nguoinop'].'-Số điện thoại liên hệ: '.$inputs['dtll'].'!!!';
                 $contentht = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã nhận được hồ sơ '.$dmnghe->tennghe.' của doanh nghiệp '.$modeldn->tendn.' - mã số thuế '.$modeldn->maxa.
                     ' Số công văn: '.$model->socv.' - Ngày áp dung: '.getDayVn($model->ngayhieuluc).'- Thông tin người nộp: '.$inputs['nguoinop'].'-Số điện thoại liên hệ: '.$inputs['dtll'].'!!!';
                 $run = new SendMail($modeldn,$contentdn,$modeldv,$contentht);
                 $run->handle();
+                */
                 //dispatch($run);
             }
             return redirect('giaetanol/danhsach?madv=' . $model->madv);
@@ -73,29 +77,11 @@ class KkGiaEtanolXdController extends Controller
 
     public function kiemtra(Request $request){
         $result = array(
-            'status' => 'fail',
-            'message' => '"Ngày thực hiện mức giá kê khai không thể sử dụng được! Bạn cần chỉnh sửa lại thông tin trước khi chuyển", "Lỗi!!!"',
+            'status' => 'success',
+            'message' => 'Ngày áp dụng hợp lệ.',
         );
-        if(!Session::has('admin')) {
-            $result = array(
-                'status' => 'fail',
-                'message' => '"Bạn cần đăng nhập tài khoản để chuyển hồ so", "Lỗi!!!"',
-            );
-            die(json_encode($result));
-        }
-        $inputs = $request->all();
-        $m_hs = KkGiaEtanol::where('mahs',$inputs['mahs'])->first();
-        $m_com = Company::where('madv',$m_hs->madv)->first();
+        die(json_encode($result));
 
-        if($m_com->kiemtra && KiemTraNgayApDung($m_hs->ngayapdung,'bog')){
-            $result = array(
-                'status' => 'success',
-                'message' => 'Ngày áp dụng hợp lệ.',
-            );
-            die(json_encode($result));
-        }else{
-            die(json_encode($result));
-        }
     }
 
     //cũ 27.03.2020 => xem bỏ
@@ -110,7 +96,7 @@ class KkGiaEtanolXdController extends Controller
             $inputs = $request->all();
             $inputs['url'] = '/giaetanol';
             //lấy địa bàn
-            $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
+            $a_diaban = getDiaBan_Level(session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
 
             $m_donvi = getDonViXetDuyet(session('admin')->level);
@@ -127,18 +113,11 @@ class KkGiaEtanolXdController extends Controller
             $a_donvi_th = array_column($m_donvi->toarray(),'tendv','madv');
 
 
-            $model = KkGiaEtanol::where('congbo','CONGBO')
-                ->orwhere('congbo','CHUACONGBO');
+            $model = KkGiaEtanol::all();
             if ($inputs['nam'] != 'all')
                 $model = $model->whereYear('ngaychuyen', $inputs['nam']);
-            $model = $model->get();
             $m_com = Company::wherein('madv', array_column($model->toarray(),'madv'))->get();
             $a_com = array_column($m_com->toarray(),'madiaban','madv');
-            foreach ($model as $ct){
-                $ct->mahs = $a_com[$ct->madv] ?? null;
-            }
-
-            //dd($model);
             return view('manage.giaetanol.xetduyet.index')
                 ->with('model', $model)
                 ->with('inputs', $inputs)
@@ -161,7 +140,7 @@ class KkGiaEtanolXdController extends Controller
             $model = KkGiaEtanol::where('mahs', $inputs['mahs'])->first();
             $inputs['level'] = view_dsdiaban_donvi::where('madv', $inputs['madv'])->first()->level ?? 'H';
 
-            $a_lichsu = json_decode($model->lichsu, true);
+            //$a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => 'DD',
                 'username' => session('admin')->username,
@@ -170,26 +149,27 @@ class KkGiaEtanolXdController extends Controller
                 'madv' => $inputs['madv'],
             );
 
-            $model->lichsu = json_encode($a_lichsu);
+            //$model->lichsu = json_encode($a_lichsu);
             $model->ngaynhan = $inputs['ngaynhan'];
             //gán lại trạng thái cho doanh nghiệp
             $model->trangthai = 'DD';
             $model->ngaynhan = $inputs['ngaynhan'];
-            //kiểm tra thông tin đơn vị
-            setDuyetHS($inputs['madv'], $model, ['trangthai' => 'DD', 'ngaynhan' => $inputs['ngaynhan'], 'lydo' => null]);
 
+            //kiểm tra thông tin đơn vị
+            //setDuyetHS($inputs['madv'], $model, ['trangthai' => 'DD', 'ngaynhan' => $inputs['ngaynhan'], 'lydo' => null]);
+            //dd($model->toarray());
             if ($model->save()) {
                 $modeldn = Company::where('madv', $model->madv)->first();
                 $modeldv = dsdiaban::where('madiaban', $model->madiaban)->first();
                 $dmnghe = DmNgheKd::where('manghe', $model->manghe)->first();
                 $tg = getDateTime(Carbon::now()->toDateTimeString());
-
+                /*
                 $contentdn = 'Vào lúc: ' . $tg . ', hệ thống CSDL giá đã duyệt hồ sơ ' . $dmnghe->tennghe . ' của doanh nghiệp. Số công văn: ' . $model->socv .
                     ' - Ngày áp dung: ' . getDayVn($model->ngayhieuluc) . '- Số hồ sơ nhận: ' . $inputs['sohsnhan'] . '- Ngày nhận: ' . getDayVn($inputs['ngaynhan']) . '!!!';
                 $contentht = 'Vào lúc: ' . $tg . ', hệ thống CSDL giá đã duyệt hồ sơ ' . $dmnghe->tennghe . ' của doanh nghiệp ' . $modeldn->tendn . ' - mã số thuế ' . $modeldn->madv .
                     '. Số công văn: ' . $model->socv . ' - Ngày áp dung: ' . getDayVn($model->ngayhieuluc) . '- Số hồ sơ nhận: ' . $inputs['sohsnhan'] . '- Ngày nhận: ' . getDayVn($inputs['ngaynhan']) . '!!!';
                 $run = new SendMail($modeldn, $contentdn, $modeldv, $contentht);
-                $run->handle();
+                $run->handle();*/
                 //dispatch($run);
             }
 
@@ -217,13 +197,14 @@ class KkGiaEtanolXdController extends Controller
                 'madv' => $inputs['madv'],
             );
             //dd($model);
-            $model->lichsu = json_encode($a_lichsu);
+            //$model->lichsu = json_encode($a_lichsu);
             //kiểm tra thông tin đơn vị
-            setHoanThanhDV($inputs['madv'], $model, ['macqcq' => $inputs['macqcq'], 'trangthai' => 'CCB']);
+            //setHoanThanhDV($inputs['madv'], $model, ['macqcq' => $inputs['macqcq'], 'trangthai' => 'CCB']);
+            //setHoanThanhDV($inputs['madv'], $model, ['macqcq' => $inputs['macqcq'], 'trangthai' => 'CCB']);
             //kiểm tra đơn vị tiếp nhận
             $chk_dvcq = view_dsdiaban_donvi::where('madv', $inputs['macqcq'])->first();
-            setCongBoDN($model, ['madv' => $inputs['macqcq'], 'trangthai' => 'CCB', 'ngaynhan' => date('Y-m-d')]);
-
+            //setCongBoDN($model, ['madv' => $inputs['macqcq'], 'trangthai' => 'CCB', 'ngaynhan' => date('Y-m-d')]);
+            $model->trangthai = 'CB';
             //dd($model);
             $model->save();
             return redirect('giaetanol/xetduyet?madv=' . $inputs['madv']);
@@ -245,7 +226,7 @@ class KkGiaEtanolXdController extends Controller
                 'madv' => $inputs['madv'],
                 'lydo' => $inputs['lydo'],
             );
-            $model->lichsu = json_encode($a_lichsu);
+            //$model->lichsu = json_encode($a_lichsu);
             $model->lydo = $inputs['lydo'];
             $model->ngaynhan = null;
             setTraLaiDN($inputs['madv'], $model, ['macqcq' => null, 'trangthai' => 'TL', 'lydo' => $inputs['lydo']]);
@@ -268,7 +249,7 @@ class KkGiaEtanolXdController extends Controller
                 'mota' => $inputs['trangthai_ad'] == 'CB' ? 'Công bố hồ sơ' : 'Hủy công bố hồ sơ',
                 'thoigian' => date('Y-m-d H:i:s'),
             );
-            $model->lichsu = json_encode($a_lichsu);
+           // $model->lichsu = json_encode($a_lichsu);
             setCongBoDN($model, ['trangthai' => $inputs['trangthai_ad'],
                 'congbo' => $inputs['trangthai_ad'] == 'CB' ? 'DACONGBO' : 'CHUACONGBO',
                 'ngaynhan' => date('Y-m-d H:i:s'),]);

@@ -166,7 +166,7 @@
 
 
     <h3 class="page-title">
-        Thông tin mặt hàng {{$modelmh->tenmh}} etanol<small> chỉnh sửa</small>
+        Thông tin mặt hàng etanol<small> chỉnh sửa</small>
     </h3>
     <!-- END PAGE HEADER-->
 

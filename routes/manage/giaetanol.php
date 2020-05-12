@@ -13,7 +13,7 @@ Route::group(['prefix'=>'giaetanol'],function (){
     Route::post('timkiem','manage\giaetanol\KkGiaEtanolController@ketquatk');
 
     Route::get('xetduyet','manage\giaetanol\KkGiaEtanolXdController@xetduyet');
-    Route::get('kiemtra','manage\giaetanol\KkGiaEtanolXdController@kiemtra');
+    Route::get('check','manage\giaetanol\KkGiaEtanolXdController@kiemtra');
     Route::post('chuyenhs','manage\giaetanol\KkGiaEtanolXdController@chuyenhs');
     Route::get('get_sohs','manage\giaetanol\KkGiaEtanolXdController@get_sohs');
     Route::post('duyeths','manage\giaetanol\KkGiaEtanolXdController@duyeths');

@@ -680,7 +680,7 @@
         </ul>
     </li>
 
-    <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+    <!--li class="tooltips" data-container="body" data-placement="right" data-html="true"
         data-original-title="Tổ chức, cá nhận Giá đăng ký theo yêu cầu của Sở Tài chính, sở quản lý ngành">
         <a href="javascript:;">
             <i class="icon-folder"></i>
@@ -743,7 +743,7 @@
         </ul>
     </li>
 
-    <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+    <li-- class="tooltips" data-container="body" data-placement="right" data-html="true"
         data-original-title="Tổ chức, cá nhận Giá đăng ký theo yêu cầu của Sở Tài chính, sở quản lý ngành">
         <a href="javascript:;">
             <i class="icon-folder"></i>
@@ -762,7 +762,7 @@
                 <li><a href="{{url('/giayin/baocao')}}">Báo cáo tổng hợp</a></li>
             @endif
         </ul>
-    </li>
+    </li-->
 @endif
 
 
@@ -1108,4 +1108,4 @@
         </li>
     @endif
 @endif
-
+@include('includes.main.include.kknygia')

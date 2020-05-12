@@ -10,6 +10,7 @@ use App\Model\system\company\CompanyLvCc;
 use App\Model\system\dmnganhnghekd\DmNgheKd;
 use App\Model\system\dsdiaban;
 use App\Model\system\view_dsdiaban_donvi;
+use App\Model\view\view_binhongia;
 use App\Model\view\view_dmnganhnghe;
 use App\Town;
 use Carbon\Carbon;
@@ -89,10 +90,10 @@ class KkGiaEtanolController extends Controller
             //lấy danh mục nghề theo đơn vị đăng ký
             $m_etanol = $m_etanol->wherein('manghe',array_column($m_lvkd->toarray(),'manghe'));
             /*dd($m_etanol);*/
-            $model = KkGiaEtanol::where('madv',$inputs['madv'])->get();
+            $model = KkGiaEtanol::where('maxa',$inputs['madv'])->get();
             /*dd($model);*/
             if ($inputs['nam'] != 'all')
-                $model = KkGiaEtanol::where('madv',$inputs['madv'])
+                $model = KkGiaEtanol::where('maxa',$inputs['madv'])
                     ->whereYear('ngayhieuluc', $inputs['nam'])
                     ->get();
 
@@ -128,7 +129,7 @@ class KkGiaEtanolController extends Controller
 
             //lấy hồ sơ liền kề
             $hslk = KkGiaEtanol::where('trangthai', 'HT')
-                ->where('madv', $inputs['madv'])
+                ->where('maxa', $inputs['madv'])
                 /*->where('manghe', $inputs['manghe'])*/
                 ->orderby('ngayhieuluc','desc')->first();
             if($hslk != null){
@@ -175,7 +176,7 @@ class KkGiaEtanolController extends Controller
             }else{
                 $model->update($inputs);
             }
-            return redirect('giaetanol/danhsach?madv='.$inputs['madv']);
+            return redirect('giaetanol/danhsach?madv='.$inputs['maxa']);
 
         }else
             return view('errors.notlogin');
@@ -210,9 +211,9 @@ class KkGiaEtanolController extends Controller
             $m_nghe = DmNgheKd::where('manghe', 'ETANOL')->first();
             $m_dn = Company::where('madv', $model->madv)->first();
             $inputs['url'] = '/giaetanol';
-            return view('manage.giaetanol.kekhai.create')
+            return view('manage.giaetanol.kekhai.edit')
                 ->with('model', $model)
-                ->with('model_ct', $modelct)
+                ->with('modelct', $modelct)
                 ->with('m_nghe', $m_nghe)
                 ->with('inputs', $inputs)
                 ->with('m_dn', $m_dn)
@@ -261,7 +262,7 @@ class KkGiaEtanolController extends Controller
             $inputs = $request->all();
             $inputs['url'] = '/giaetanol';
             $m_donvi = getDoanhNghiep(session('admin')->level, session('admin')->madiaban);
-            $model = view_binhongia::wherein('madv', array_column($m_donvi->toarray(), 'madv'));
+            $model = view_binhongia::wherein('madv ', array_column($m_donvi->toarray(), 'madv'));
             //dd($inputs);
 
             if ($inputs['madv'] != 'all') {

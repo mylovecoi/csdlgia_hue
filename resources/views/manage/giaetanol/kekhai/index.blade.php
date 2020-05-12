@@ -193,6 +193,6 @@
     </div>
 
     @include('manage.include.form.modal_del_hs')
-    @include('manage.include.form.modal_approve_hsdn')
+    @include('manage.include.form.modal_approve_hskkg')
     @include('manage.include.form.modal_unapprove_dn')
 @stop

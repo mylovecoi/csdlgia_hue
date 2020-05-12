@@ -48,8 +48,8 @@
                     _token: CSRF_TOKEN,
                     tthhdv:  $('#tenhh').val(),
                     qccl:  $('#quycach').val(),
-                    dongialk: $('#gialk').val(),
-                    dongia: $('#giakk').val(),
+                    dongialk: $('#dongialk').val(),
+                    dongia: $('#dongia').val(),
                     dvt: $('#dvt').val(),
                     ghichu: $('#ghichu').val(),
                     madv: $('#madv').val(),
@@ -205,7 +205,7 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="hidden" name="madv" id="madv" value="{{$model->madv}}">
+                        <input type="hidden" name="maxa" id="maxa" value="{{$model->madv}}">
                         <input type="hidden" name="manghe" id="manghe" value="{{$model->manghe}}">
                         <input type="hidden" name="mahs" id="mahs" value="{{$model->mahs}}">
                         <!--/row-->
