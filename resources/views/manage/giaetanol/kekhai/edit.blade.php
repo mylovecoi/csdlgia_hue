@@ -232,8 +232,8 @@
                                     <tr>
                                         <th width="2%" style="text-align: center">STT</th>
                                         <th style="text-align: center">Tên etanol</th>
-                                        <th style="text-align: center">Giá tối thiểu</th>
-                                        <th style="text-align: center">Giá tối đa</th>
+                                        <th style="text-align: center">Giá liền kề</th>
+                                        <th style="text-align: center">Giá kê khai</th>
                                         <th style="text-align: center">Thời hạn <br> áp dụng</th>
                                         <th style="text-align: center">Ghi chú</th>
                                         <th width="15%" style="text-align: center">Thao tác</th>
@@ -243,9 +243,9 @@
                                     @foreach($modelct as $key=>$ct)
                                         <tr>
                                             <td style="text-align: center">{{$key+1}}</td>
-                                            <td class="active">{{$ct->tenhh}}</td>
-                                            <td style="text-align: right;font-weight: bold">{{number_format($ct->giatoithieu)}}</td>
-                                            <td style="text-align: right;font-weight: bold">{{number_format($ct->giatoida)}}</td>
+                                            <td class="active">{{$ct->tthhdv}}</td>
+                                            <td style="text-align: right;font-weight: bold">{{number_format($ct->dongialk)}}</td>
+                                            <td style="text-align: right;font-weight: bold">{{number_format($ct->dongia)}}</td>
                                             <td style="text-align: center">{{$ct->thapdung}} tháng</td>
                                             <td>{{$ct->ghichu}}</td>
                                             <td>
@@ -270,7 +270,7 @@
 
             </div>
             <div style="text-align: center">
-                <a href="{{url('giaetanol?&mamh='.$model->mamh.'&trangthai='.$model->trangthai)}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                <a href="{{url('giaetanol/danhsach')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                 <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
                 <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i> Hoàn thành</button>
             </div>

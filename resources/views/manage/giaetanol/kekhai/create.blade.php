@@ -46,8 +46,8 @@
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    tthhdv:  $('#tenhh').val(),
-                    qccl:  $('#quycach').val(),
+                    tthhdv:  $('#tthhdv').val(),
+                    qccl:  $('#qccl').val(),
                     dongialk: $('#dongialk').val(),
                     dongia: $('#dongia').val(),
                     dvt: $('#dvt').val(),

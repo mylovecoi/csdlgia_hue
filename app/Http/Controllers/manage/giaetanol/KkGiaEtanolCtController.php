@@ -26,7 +26,7 @@ class KkGiaEtanolCtController extends Controller
 
         $model = KkGiaEtanolCt::where('id',$inputs['id'])->first();
         unset($inputs['id']);
-        //dd($model);
+        //dd($inputs);
         if($model != null){
             $model->update($inputs);
         }else{
@@ -150,11 +150,11 @@ class KkGiaEtanolCtController extends Controller
                 foreach($model as $key=>$ttmh){
                     $result['message'] .= '<tr id="'.$ttmh->id.'">';
                     $result['message'] .= '<td style="text-align: center">'.($key +1).'</td>';
-                    $result['message'] .= '<td class="active">'.$ttmh->tenhh.'</td>';
-                    $result['message'] .= '<td class="active">'.$ttmh->quycach.'</td>';
+                    $result['message'] .= '<td class="active">'.$ttmh->tthhdv.'</td>';
+                    $result['message'] .= '<td class="active">'.$ttmh->qccl.'</td>';
                     $result['message'] .= '<td class="active">'.$ttmh->dvt.'</td>';
-                    $result['message'] .= '<td style="text-align: right;font-weight: bold;">'.dinhdangsothapphan($ttmh->gialk,5).'</td>';
-                    $result['message'] .= '<td style="text-align: right;font-weight: bold;">'.dinhdangsothapphan($ttmh->giakk,5).'</td>';
+                    $result['message'] .= '<td style="text-align: right;font-weight: bold;">'.dinhdangsothapphan($ttmh->dongialk,5).'</td>';
+                    $result['message'] .= '<td style="text-align: right;font-weight: bold;">'.dinhdangsothapphan($ttmh->dongia,5).'</td>';
                     $result['message'] .= '<td>'.$ttmh->ghichu.'</td>';
                     $result['message'] .= '<td>'.
                         '<button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editmhbog('.$ttmh->id.');"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</button>'.
@@ -199,10 +199,10 @@ class KkGiaEtanolCtController extends Controller
         foreach ($model as $key => $ttmh) {
             $result['message'] .= '<tr id="' . $ttmh->id . '">';
             $result['message'] .= '<td style="text-align: center">' . ($key + 1) . '</td>';
-            $result['message'] .= '<td class="active">' . $ttmh->tenhh . '</td>';
+            $result['message'] .= '<td class="active">' . $ttmh->tthhdv . '</td>';
             $result['message'] .= '<td class="active">' . $ttmh->dvt . '</td>';
-            $result['message'] .= '<td style="text-align: right;font-weight: bold;">' . dinhdangsothapphan($ttmh->gialk, 5) . '</td>';
-            $result['message'] .= '<td style="text-align: right;font-weight: bold;">' . dinhdangsothapphan($ttmh->giakk, 5) . '</td>';
+            $result['message'] .= '<td style="text-align: right;font-weight: bold;">' . dinhdangsothapphan($ttmh->dongialk, 5) . '</td>';
+            $result['message'] .= '<td style="text-align: right;font-weight: bold;">' . dinhdangsothapphan($ttmh->dongia, 5) . '</td>';
             $result['message'] .= '<td>' . $ttmh->ghichu . '</td>';
             $result['message'] .= '<td>' .
                 '<button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editmhbog(' . $ttmh->id . ');"><i class="fa fa-edit"></i>&nbsp;Mức giá mới</button>' .
