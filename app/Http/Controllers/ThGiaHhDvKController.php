@@ -301,7 +301,7 @@ class ThGiaHhDvKController extends Controller
                 $model = ThGiaHhDvK::where('matt', $inputs['matt'])
                     ->where('thang', $inputs['thang'])
                     ->where('nam', $inputs['nam'])
-                    ->count();
+                    ->first();
                 //dd($inputs['phanloaibc']);
                 if ($model != null) {
                     return redirect('/giahhdvk/tonghop/edit?mahs=' . $model->mahs . '&act=false');
