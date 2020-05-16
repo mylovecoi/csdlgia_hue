@@ -3287,6 +3287,7 @@ function chkPer($csdl = null, $group = null, $feature = null , $action = null, $
     if (session('admin')->level == 'DN') {
         $a_nghe = array_column(CompanyLvCc::where('madv', session('admin')->madv)->get()->toarray(), 'manghe');
         $a_nganh = array_column(view_dmnganhnghe::wherein('manghe', $a_nghe)->get()->toarray(), 'manganh');
+        //dd($group);
         //Doanh nghiệp không phân quyền
         if ($per != null) {
             return true;

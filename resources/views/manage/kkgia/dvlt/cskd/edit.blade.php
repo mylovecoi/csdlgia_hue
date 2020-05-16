@@ -26,7 +26,7 @@
 
     <h3 class="page-title">
         Thông tin cơ sở kinh doanh<small>&nbsp;chỉnh sửa</small>
-        <p><h5 style="color: blue">{{$modeldn->tendn}}&nbsp;- Mã số thuế: {{$modeldn->maxa}}</h5></p>
+        <p><h5 style="color: blue">{{$modeldn->tendn}}&nbsp;- Mã số thuế: {{$modeldn->madv}}</h5></p>
     </h3>
 
     <!-- END PAGE HEADER-->
@@ -101,18 +101,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">Đơn vị nhận hồ sơ</label>
-                                <select name="mahuyen" id="mahuyen" class="form-control">
-                                    @foreach($modeldv as $dv)
-                                        <option value="{{$dv->maxa}}" {{$dv->maxa == $model->mahuyen ? 'selected' : ''}}>{{$dv->tendv}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+
                     {!! Form::close() !!}
                     <!--/row-->
                 </div>

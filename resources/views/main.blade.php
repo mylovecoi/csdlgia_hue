@@ -300,12 +300,12 @@ License: You must have a valid license purchased only from themeforest(the above
                     </li>
                 @endif
 
-                @if(chkPer('csdlmucgiahhdv','kknygia1') && session('admin')->level == 'DN')
+                @if((chkPer('csdlmucgiahhdv','kknygia') && session('admin')->level == 'DN'))
                     <li class="tooltips" data-container="body" data-placement="right" data-html="true"
                         data-original-title="Giá kê khai của hàng hóa, dịch vụ thuộc danh mục Giá kê khai">
                         <a href="javascript:;">
                             <i class="icon-folder"></i>
-                            <span class="title">Mức giá kê khai - đăng ký</span>
+                            <span class="title">Mức giá kê khai, đăng ký</span>
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
@@ -313,14 +313,14 @@ License: You must have a valid license purchased only from themeforest(the above
                                     session('admin')->chucnang = NHAPLIEU && session('admin')->level == 'DN'
                                     session('admin')->level != 'DN' && session('admin')->chucnang = TONGHOP
                             -->
-                            <!-- 10/05/2020 tạm khóa
+                        <!-- 10/05/2020 tạm khóa
                             @if(session('admin')->level == 'DN')
-                                <li><a href="{{url('thongtindoanhnghiep')}}">Thông tin doanh nghiệp</a></li>
+                            <li><a href="{{url('thongtindoanhnghiep')}}">Thông tin doanh nghiệp</a></li>
                             @else
-                                @if(chkPer('csdlmucgiahhdv','kknygia', 'thongtinkknygia', 'hoso', 'index'))
-                                    <li><a href="{{url('xetduyettdttdn')}}"> Xét duyệt thay đổi thông tin doanh nghiệp</a></li>
+                            @if(chkPer('csdlmucgiahhdv','kknygia', 'thongtinkknygia', 'hoso', 'index'))
+                                <li><a href="{{url('xetduyettdttdn')}}"> Xét duyệt thay đổi thông tin doanh nghiệp</a></li>
                                 @endif
-                            @endif
+                        @endif
                                 -->
                             @if(canKkGiaGr('VLXD'))
                                 @if(canKkGiaCt('VLXD','VLXD'))
@@ -479,7 +479,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             @endif
 
 
-                            @if(chkPer('csdlmucgiahhdv','kknygia','etanol'))
+                            @if(chkPer('csdlmucgiahhdv','kknygia','etanol12344643643'))
                                 <li>
                                     <a href="javascript:;">
                                         <span class="title">Etanol nhiên liệu không biến tính, khí tự nhiên hóa lỏng(LNG); khí thiên nhiên nén (CNG)</span>
@@ -489,7 +489,12 @@ License: You must have a valid license purchased only from themeforest(the above
                                         @if(session('admin')->level == 'DN')
                                             <li><a href="{{url('kekhaigiaetanol')}}">Giá kê khai</a> </li>
                                         @endif
-
+                                        @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                                            <li><a href="{{url('/giaetanol/danhsach')}}">Thông tin hồ sơ</a></li>
+                                            <li><a href="{{url('/giaetanol/xetduyet')}}">Xét duyệt hồ sơ</a></li>
+                                            <li><a href="{{url('/giaetanol/timkiem')}}">Tìm kiếm hồ sơ</a></li>
+                                            <li><a href="{{url('/giaetanol/baocao')}}">Báo cáo tổng hợp</a></li>
+                                        @endif
                                         @if(session('admin')->level == 'X' || session('admin')->level == 'T' || session('admin')->level == 'H')
                                             <li><a href="{{url('thongtindnetanol')}}">Giá kê khai </a> </li>
                                             <li><a href="{{url('xetduyetgiaetanol')}}">Thông tin hồ sơ xét duyệt</a></li>
@@ -693,28 +698,19 @@ License: You must have a valid license purchased only from themeforest(the above
                                 {{--OK--}}
                             @endif
 
-                            @if(canKkGiaGr('DVLT'))
-                                @if(canKkGiaCt('DVLT','DVLT'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Dịch vụ lưu trú</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            @if(session('admin')->level == 'DN')
-                                                <li><a href="{{url('thongtincskd')}}">Danh sách CSKD</a> </li>
-                                                <li><a href="{{url('thongtincskdkkdvlt')}}">Giá kê khai</a> </li>
-                                            @endif
-                                            @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
-                                                <li><a href="{{url('thongtincskdkkdvlt')}}">Giá kê khai</a></li>
-                                                <li><a href="{{url('xetduyetkkgiadvlt')}}">Thông tin hồ sơ xét duyệt</a></li>
-                                                <li><a href="{{url('timkiemkkgiadvlt')}}">Tìm kiếm thông tin</a> </li>
-                                                <li><a href="{{url('baocaokekhaidvlt')}}">Báo cáo thống kê</a></li>
-                                            @endif
-                                        </ul>
-                                    </li>
-                                @endif
+                            @if(chkPer('csdlmucgiahhdv', 'kknygia', 'dvlt'))
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="title">Dịch vụ lưu trú</span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li><a href="{{url('/thongtincskd')}}">Danh sách CSKD</a> </li>
+                                        <li><a href="{{url('/kekhaigiadvlt')}}">Giá kê khai</a> </li>
+                                    </ul>
+                                </li>
                             @endif
+
                             @if(canKkGiaGr('DLBB'))
                                 @if(canKkGiaCt('DLBB','DLBB'))
                                     <li>
@@ -765,7 +761,8 @@ License: You must have a valid license purchased only from themeforest(the above
                     </li>
                 @endif
 
-                @if(chkPer('csdlthamdinhgia'))
+
+            @if(chkPer('csdlthamdinhgia'))
                     <li class="heading">
                         <h3 class="uppercase">CSDL thẩm định giá</h3>
                     </li>

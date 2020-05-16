@@ -14,7 +14,7 @@
 @section('content')
     <h3 class="page-title">
         Thông tin cơ sở kinh doanh<small> thêm mới</small>
-        <p><h5 style="color: blue">{{$modeldn->tendn}}&nbsp;- Mã số thuế: {{$modeldn->maxa}}</h5></p>
+        <p><h5 style="color: blue">{{$modeldn->tendn}}&nbsp;- Mã số thuế: {{$modeldn->madv}}</h5></p>
     </h3>
     <!-- END PAGE HEADER-->
     <hr>
@@ -29,6 +29,7 @@
                     <!-- BEGIN FORM-->
                     {!! Form::open(['url'=>'thongtincskd', 'id' => 'create_thongtincskddvlt', 'class'=>'horizontal-form','files'=>true,'enctype'=>'multipart/form-data']) !!}
                         <meta name="csrf-token" content="{{ csrf_token() }}" />
+                        <input type="hidden" name="madv" id="mahs" value="{{$modeldn->madv}}">
                         <div class="form-body">
                             <div class="row">
                                 <div class="col-md-6">
@@ -59,7 +60,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label">Số điện thoai<span class="require">*</span></label>
+                                        <label class="control-label">Số điện thoai</label>
                                         <input type="text" id="telkd" name="telkd" class="form-control">
                                     </div>
                                 </div>
@@ -75,7 +76,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label">Trang chủ<span class="require">*</span></label>
+                                        <label class="control-label">Trang chủ</label>
                                         <input type="text" id="link" name="link" class="form-control">
                                     </div>
                                 </div>
@@ -86,18 +87,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Đơn vị nhận hồ sơ</label>
-                                        <select name="mahuyen" id="mahuyen" class="form-control">
-                                            @foreach($modeldv as $dv)
-                                                <option value="{{$dv->maxa}}">{{$dv->tendv}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     <!-- END FORM-->
                 </div>

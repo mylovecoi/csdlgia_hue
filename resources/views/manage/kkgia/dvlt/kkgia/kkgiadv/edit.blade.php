@@ -43,83 +43,6 @@
         jQuery(document).ready(function() {
             TableManaged.init();
         });
-        function InputMask(){
-            //$(function(){
-            // Input Mask
-            if($.isFunction($.fn.inputmask))
-            {
-                $("[data-mask]").each(function(i, el)
-                {
-                    var $this = $(el),
-                            mask = $this.data('mask').toString(),
-                            opts = {
-                                numericInput: attrDefault($this, 'numeric', false),
-                                radixPoint: attrDefault($this, 'radixPoint', ''),
-                                rightAlignNumerics: attrDefault($this, 'numericAlign', 'left') == 'right'
-                            },
-                            placeholder = attrDefault($this, 'placeholder', ''),
-                            is_regex = attrDefault($this, 'isRegex', '');
-
-
-                    if(placeholder.length)
-                    {
-                        opts[placeholder] = placeholder;
-                    }
-
-                    switch(mask.toLowerCase())
-                    {
-                        case "phone":
-                            mask = "(999) 999-9999";
-                            break;
-
-                        case "currency":
-                        case "rcurrency":
-
-                            var sign = attrDefault($this, 'sign', '$');;
-
-                            mask = "999,999,999.99";
-
-                            if($this.data('mask').toLowerCase() == 'rcurrency')
-                            {
-                                mask += ' ' + sign;
-                            }
-                            else
-                            {
-                                mask = sign + ' ' + mask;
-                            }
-
-                            opts.numericInput = true;
-                            opts.rightAlignNumerics = false;
-                            opts.radixPoint = '.';
-                            break;
-
-                        case "email":
-                            mask = 'Regex';
-                            opts.regex = "[a-zA-Z0-9._%-]+@[a-zA-Z0-9-]+\\.[a-zA-Z]{2,4}";
-                            break;
-
-                        case "fdecimal":
-                            mask = 'decimal';
-                            $.extend(opts, {
-                                autoGroup		: true,
-                                groupSize		: 3,
-                                radixPoint		: attrDefault($this, 'rad', '.'),
-                                groupSeparator	: attrDefault($this, 'dec', ',')
-                            });
-                    }
-
-                    if(is_regex)
-                    {
-                        opts.regex = mask;
-                        mask = 'Regex';
-                    }
-
-                    $this.inputmask(mask, opts);
-                });
-            }
-            //});
-        }
-
         // </editor-fold>
     </script>
     <script>
@@ -250,12 +173,15 @@
 @section('content')
     <h3 class="page-title">
         Thông tin kê khai hồ sơ giá <small>&nbsp;dịch vụ lưu trú</small>
-        <p><h5 style="color: blue">{{$modelcskd->tencskd}} - {{$modeldn->tendn}}&nbsp;- Mã số thuế: {{$modeldn->maxa}}</h5></p>
+        <p><h5 style="color: blue">{{$modelcskd->tencskd}} - {{$modeldn->tendn}}&nbsp;- Mã số thuế: {{$modeldn->madv}}</h5></p>
     </h3>
 
     <!-- END PAGE HEADER-->
     <div class="row">
-        {!! Form::model($model, ['method' => 'PATCH', 'url'=>'kekhaigiadvlt/'. $model->id, 'class'=>'horizontal-form','id'=>'update_kekhaigiadvlt']) !!}
+        {!! Form::model($model, ['method' => 'post', 'url'=>'kekhaigiadvlt/store', 'class'=>'horizontal-form','id'=>'update_kekhaigiadvlt']) !!}
+        {!! Form::hidden('macskd')!!}
+        {!! Form::hidden('mahs')!!}
+        {!! Form::hidden('madv')!!}
         <div class="col-md-12">
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box blue">
@@ -265,17 +191,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Ngày kê khai<span class="require">*</span></label>
-                                <!--input type="date" name="ngaynhap" id="ngaynhap" class="form-control required" autofocus-->
-                                <label class="form-control required" >{{date('d/m/Y',  strtotime($model->ngaynhap))}}</label>
-                                {!!Form::hidden('ngaynhap',date('d/m/Y',  strtotime($model->ngaynhap)), array('id' => 'ngaynhap','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                                {!! Form::input('date', 'ngaynhap', null, array('id' => 'ngaynhap', 'class' => 'form-control','required'))!!}
                             </div>
                         </div>
                         <!--/span-->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Ngày thực hiện mức giá kê khai<span class="require">*</span></label>
-                                <!--input type="date" name="ngayhieuluc" id="ngayhieuluc" class="form-control required"-->
-                                {!!Form::text('ngayhieuluc',date('d/m/Y',  strtotime($model->ngayhieuluc)), array('id' => 'ngayhieuluc','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required','onchange'=>"checkngay()"))!!}
+                                {!! Form::input('date', 'ngayhieuluc', null, array('id' => 'ngayhieuluc', 'class' => 'form-control', 'required'))!!}
                             </div>
                         </div>
                         <!--/span-->
@@ -301,8 +224,9 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">Ngày nhập số công văn liền kề<span class="require">*</span></label>
-                                {!!Form::text('ngaycvlk',(isset($inputs['ngaycvlk']) ? date('d/m/Y',  strtotime($inputs['ngaycvlk'])) : ''), array('id' => 'ngaycvlk','data-inputmask'=>"'alias': 'date'",'class' => 'form-control'))!!}
+                                <label class="control-label">Ngày nhập số công văn liền kề</label>
+                                {!! Form::input('date', 'ngaycvlk', null, array('id' => 'ngaycvlk', 'class' => 'form-control'))!!}
+
                             </div>
                         </div>
                     </div>
@@ -337,8 +261,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-success btn-xs" onclick="clearForm()"><i class="fa fa-plus"></i>&nbsp;Kê khai bổ sung phòng</button>
-                                &nbsp;
+                                <button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-success btn-xs" onclick="clearForm()">
+                                    <i class="fa fa-plus"></i>&nbsp;Kê khai bổ sung phòng</button>                                &nbsp;
                             </div>
                         </div>
                     </div>
@@ -381,7 +305,7 @@
             </div>
             <!-- END EXAMPLE TABLE PORTLET-->
             <div style="text-align: center">
-                <a href="{{url('kekhaigiadvlt?&macskd='.$model->macskd)}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                <a href="{{url('kekhaigiadvlt?&madv='.$model->madv.'&macskd='.$model->macskd)}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                 <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
                 <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i> Cập nhật</button>
             </div>

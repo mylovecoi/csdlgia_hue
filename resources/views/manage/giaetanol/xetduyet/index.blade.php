@@ -93,7 +93,7 @@
                         @foreach($model as $key=>$tt)
                             <tr>
                                 <td style="text-align: center">{{$key + 1}}</td>
-                                <td style="text-align: left">{{$tt->nguoinop}}</td>
+                                <td style="text-align: left">{{$tt->tendv_ch}}</td>
                                 <td style="text-align: center">{{$a_diaban[$tt->madiaban] ?? ''}}</td>
                                 <td style="text-align: center">{{getDayVn($tt->ngaychuyen)}}</td>
                                 @include('manage.include.form.td_trangthai_dn')

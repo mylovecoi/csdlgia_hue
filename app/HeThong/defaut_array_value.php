@@ -189,6 +189,16 @@ function getDonViNhapLieu($level){
     }
 }
 
+function getDoanhNghiepNhapLieu($level, $lvcc){
+    if ($level == 'SSA') {
+        return App\Model\system\company\Company::wherein('madv', function ($qr) use ($lvcc) {
+            $qr->select('madv')->from('companylvcc')->where('manghe', $lvcc);
+        })->get();
+    } else {
+        return App\Model\system\company\Company::where('madv', session('admin')->madv)->get();
+    }
+}
+
 function getDoanhNghiep($level, $madiaban = null){
     if ($level == 'SSA') {
         return App\Model\system\company\Company::all();
