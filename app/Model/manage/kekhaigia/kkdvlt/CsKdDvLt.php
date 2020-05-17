@@ -10,7 +10,7 @@ class CsKdDvLt extends Model
     protected $fillable = [
         'id',
         'macskd',
-        'maxa',
+        'madv',
         'mahuyen',
         'tencskd',
         'loaihang',

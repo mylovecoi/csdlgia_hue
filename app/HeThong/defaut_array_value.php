@@ -380,6 +380,7 @@ function setCongBoDN($hoso, $a_hoanthanh)
 {
     //chưa set lại trạng thái cho đơn vị cấp dưới ( đơn vị tổng hợp chuyển nên)
     $hoso->ngaynhan_ad = $a_hoanthanh['ngaynhan'] ?? null;
+    $hoso->ngaychuyen_ad = $a_hoanthanh['ngaynhan'] ?? null;
     $hoso->trangthai_ad = $a_hoanthanh['trangthai'] ?? 'CHT';
     $hoso->madv_ad = $a_hoanthanh['madv'] ?? null;
     if($hoso->macqcq_h == $hoso->madv_ad){

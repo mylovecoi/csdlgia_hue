@@ -357,8 +357,7 @@ GO
 ALTER TABLE [dbo].[kkgiadvlt] ADD  DEFAULT ('CHUACONGBO') FOR [congbo]
 GO
 
-USE [db_giahue]
-GO
+
 EXEC sp_rename 'cskddvlt.maxa', 'madv', 'COLUMN' 
 
 

@@ -10,7 +10,7 @@ Route::get('kekhaigiadvlt/prints','manage\kekhaigia\kkdvlt\KkGiaDvLtController@s
 
 Route::get('kekhaigiadvlt/kiemtra','manage\kekhaigia\kkdvlt\KkGiaDvLtController@ktchuyendvlt');
 Route::post('kekhaigiadvlt/chuyen','manage\kekhaigia\kkdvlt\KkGiaDvLtController@chuyen');
-Route::get('/reports/showlydo','manage\kekhaigia\kkdvlt\KkGiaDvLtController@showlydo');
+Route::get('kekhaigiadvlt/get_sohs','manage\kekhaigia\kkdvlt\KkGiaDvLtController@showlydo');
 Route::post('kekhaigiadvlt/delete','manage\kekhaigia\kkdvlt\KkGiaDvLtController@delete');
 
 
@@ -28,6 +28,8 @@ Route::get('xetduyetkkgiadvlt','manage\kekhaigia\kkdvlt\KkGiaDvLtXdController@in
 Route::post('xetduyetkkgiadvlt/tralai','manage\kekhaigia\kkdvlt\KkGiaDvLtXdController@tralai');
 Route::get('xetduyetkkgiadvlt/ttnhanhs','manage\kekhaigia\kkdvlt\KkGiaDvLtXdController@ttnhanhs');
 Route::post('xetduyetkkgiadvlt/nhanhs','manage\kekhaigia\kkdvlt\KkGiaDvLtXdController@nhanhs');
+Route::post('xetduyetkkgiadvlt/chuyenxd','manage\kekhaigia\kkdvlt\KkGiaDvLtXdController@chuyenxd');
+Route::post('xetduyetkkgiadvlt/congbo','manage\kekhaigia\kkdvlt\KkGiaDvLtXdController@congbo');
 //Ajax xd
 Route::get('xetduyetkkgiadvlt/ttdnkkdvlt','manage\kekhaigia\kkdvlt\KkGiaDvLtXdController@ttdnkkdvlt');
 

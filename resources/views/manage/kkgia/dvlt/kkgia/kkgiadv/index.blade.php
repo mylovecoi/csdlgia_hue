@@ -66,24 +66,7 @@
                 });
             }
         }
-        function viewLyDo(id) {
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            //alert(id);
-            $.ajax({
-                url: '/reports/showlydo',
-                type: 'GET',
-                data: {
-                    _token: CSRF_TOKEN,
-                    id: id
-                },
-                dataType: 'JSON',
-                success: function (data) {
-                    if(data.status == 'success') {
-                        $('#showlydo').replaceWith(data.message);
-                    }
-                }
-            })
-        }
+
     </script>
 @stop
 
@@ -142,7 +125,7 @@
                         </div>
                     </div>
 
-                    <table class="table table-striped table-bordered table-hover" id="sample_3">
+                    <table class="table table-striped table-bordered table-hover" id="sample_4">
                             <thead>
                             <tr>
                                 <th style="text-align: center" width="2%">STT</th>
@@ -150,9 +133,9 @@
                                 <th style="text-align: center">Ngày thực hiện<br>mức giá kê khai</th>
                                 <th style="text-align: center">Số công văn</th>
                                 <th style="text-align: center">Số công văn<br> liền kề</th>
-                                <th style="text-align: center">Người chuyển</th>
+                                <th style="text-align: center">Cơ quan tiếp nhận</th>
                                 <th style="text-align: center">Trạng thái</th>
-                                <th style="text-align: center" width="25%">Thao tác</th>
+                                <th style="text-align: center" width="20%">Thao tác</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -163,8 +146,7 @@
                                     <td style="text-align: center">{{getDayVn($tt->ngayhieuluc)}}</td>
                                     <td style="text-align: center" class="active">{{$tt->socv}}</td>
                                     <td style="text-align: center">{{$tt->socvlk}}</td>
-                                    <td style="text-align: left">@if($tt->nguoinop != '')Họ và tên: {{$tt->nguoinop}}
-                                        <br>Số điện thoại liên hệ: {{$tt->dtll}}<br>Số Fax: {{$tt->fax}}@endif</td>
+                                    <td style="text-align: left">{{$a_donvi_th[$tt->macqcq]?? ''}}</td>
                                     @if($tt->trangthai == "CC")
                                         <td align="center"><span class="badge badge-warning">Chờ chuyển</span></td>
                                     @elseif($tt->trangthai == 'CD')
@@ -198,7 +180,7 @@
                                                 @endif
 
                                                 @if( $tt->trangthai == 'BTL')
-                                                    <button type="button" data-target="#lydo-modal" onclick="viewLyDo({{$tt->id}})" data-toggle="modal" class="btn btn-default btn-xs mbs">
+                                                    <button type="button" data-target="#tralai-modal-confirm" onclick="viewLyDo('{{$tt->mahs}}','{{$tt->madv}}')" data-toggle="modal" class="btn btn-default btn-xs mbs">
                                                         <i class="fa fa-search"></i>&nbsp;Lý do trả lại</button>
                                                 @endif
 

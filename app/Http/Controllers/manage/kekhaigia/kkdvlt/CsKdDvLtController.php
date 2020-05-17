@@ -50,8 +50,8 @@ class CsKdDvLtController extends Controller
     public function store(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $inputs['macskd'] = $inputs['madv'] . getdate()[0];
-
+            $inputs['macskd'] = getdate()[0];
+            //dd($inputs);
             if (isset($inputs['avatar'])) {
                 $avatar = $request->file('avatar');
                 $inputs['avatar'] = $inputs['macskd'] . '.' . $avatar->getClientOriginalExtension();

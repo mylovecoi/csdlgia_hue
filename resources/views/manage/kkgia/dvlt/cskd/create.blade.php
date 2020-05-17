@@ -29,7 +29,7 @@
                     <!-- BEGIN FORM-->
                     {!! Form::open(['url'=>'thongtincskd', 'id' => 'create_thongtincskddvlt', 'class'=>'horizontal-form','files'=>true,'enctype'=>'multipart/form-data']) !!}
                         <meta name="csrf-token" content="{{ csrf_token() }}" />
-                        <input type="hidden" name="madv" id="mahs" value="{{$modeldn->madv}}">
+                        <input type="hidden" name="madv" id="madv" value="{{$modeldn->madv}}">
                         <div class="form-body">
                             <div class="row">
                                 <div class="col-md-6">

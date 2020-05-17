@@ -66,7 +66,7 @@ class KkGiaDvLtController extends Controller
     public function create(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $inputs['mahs'] = $inputs['macskd'] . getdate()[0];
+            $inputs['mahs'] = $inputs['macskd'].'_'.getdate()[0];
             $modelcskd = CsKdDvLt::where('macskd', $inputs['macskd'])->first();
             $modeldn = Company::where('madv', $modelcskd->madv)->first();
             //DB::statement("DELETE FROM kkgiadvltct WHERE macskd='" . $modelcskd->macskd . "' and mahs not in (SELECT mahs FROM kkgiadvlt where madv='" . $modelcskd->madv . "')");
@@ -81,9 +81,10 @@ class KkGiaDvLtController extends Controller
             $modellk = KkGiaDvLt::where('macskd', $inputs['macskd'])
                 ->where('trangthai', 'DD')
                 ->orderby('ngayhieuluc', 'desc')->first();
-
+            //dd($inputs);
             if ($modellk != null) {
                 $modellkct = KkGiaDvLtCt::where('mahs', $modellk->mahs)->get();
+                //dd($modellkct);
                 $model->socvlk = $modellk->socv;
                 $model->ngaycvlk = $modellk->ngaynhap;
                 $a_dm = array();
@@ -93,12 +94,14 @@ class KkGiaDvLtController extends Controller
                         'tenhhdv' => $ctdf->tenhhdv,
                         'qccl' => $ctdf->qccl,
                         'dvt' => $ctdf->dvt,
-                        'mucgialk' => $ctdf->mucgia,
+                        'mucgialk' => $ctdf->mucgiakk,
+                        'mucgiakk' => $ctdf->mucgiakk,
                         'macskd' => $inputs['macskd'],
                     );
                 }
                 KkGiaDvLtCt::insert($a_dm);
             }
+
             $modelct = KkGiaDvLtCt::where('mahs', $inputs['mahs'])->get();
 
             return view('manage.kkgia.dvlt.kkgia.kkgiadv.edit')
@@ -207,9 +210,40 @@ class KkGiaDvLtController extends Controller
             $inputs = $request->all();
             //dd($inputs);
             $model = KkGiaDvLt::where('mahs', $inputs['mahs'])->first();
-            $inputs['trangthai'] = 'CD';
-            $inputs['ngaychuyen'] = Carbon::now()->toDateTimeString();
-            if ($model->update($inputs)) {
+            $a_lichsu = json_decode($model->lichsu, true);
+            $a_lichsu[getdate()[0]] = array(
+                'hanhdong' => 'CD',
+                'username' => session('admin')->username,
+                'mota' => 'Chuyển hồ sơ',
+                'thoigian' => date('Y-m-d H:i:s'),
+                'macqcq' => $inputs['macqcq'],
+                'madv' => $model->madv
+            );
+           //dd($inputs);
+            //$inputs['trangthai'] = 'CD';
+            //$inputs['ngaychuyen'] = Carbon::now()->toDateTimeString();
+            $model->lichsu = json_encode($a_lichsu);
+            $model->nguoichuyen = $inputs['nguoinop'];
+            $model->dtll = $inputs['dtll'];
+            $model->macqcq = $inputs['macqcq'];
+            $model->trangthai = 'CD';
+            $model->ngaychuyen = date('Y-m-d H:i:s');
+            $chk_dvcq = view_dsdiaban_donvi::where('madv', $inputs['macqcq'])->first();
+            if ($chk_dvcq->count() && $chk_dvcq->level == 'T') {
+                $model->madv_t = $inputs['macqcq'];
+                $model->ngaychuyen_t = date('Y-m-d');
+                $model->trangthai_t = 'CD';
+            } else if ($chk_dvcq->count() && $chk_dvcq->level == 'ADMIN') {
+                $model->madv_ad = $inputs['macqcq'];
+                $model->ngaychuyen_ad = date('Y-m-d');
+                $model->trangthai_ad = 'CD';
+            } else {
+                $model->madv_h = $inputs['macqcq'];
+                $model->ngaychuyen_h = date('Y-m-d');
+                $model->trangthai_h = 'CD';
+            }
+
+            if ($model->save()) {
                 $modeldn = Company::where('madv', $model->madv)->first();
                 $modeldv = dsdiaban::where('madiaban', $model->madiaban)->first();
                 //$modeldv = Town::where('madv',$model->mahuyen)->first();
@@ -231,31 +265,18 @@ class KkGiaDvLtController extends Controller
     }
 
     public function showlydo(Request $request){
-        $result = array(
-            'status' => 'fail',
-            'message' => 'error',
-        );
-        if(!Session::has('admin')) {
-            $result = array(
-                'status' => 'fail',
-                'message' => 'permission denied',
-            );
-            die(json_encode($result));
-        }
-        //dd($request);
         $inputs = $request->all();
-
-        if(isset($inputs['id'])){
-            $model = KkGiaDvLt::where('id',$inputs['id'])
-                ->first();
-
-            $result['message'] = '<div class="form-group" id="showlydo">';
-            $result['message'] = '<label style="font-weight: bold;color: blue">'.$model->lydo.'</lable>';
-            $result['message'] .= '</div>';
-            $result['status'] = 'success';
-
+        $model = KkGiaDvLt::where('mahs', $inputs['mahs'])->first();
+        if ($model->madv_h == $inputs['madv']) {
+            $model->lydo = $model->lydo_h;
         }
-        die(json_encode($result));
+        if ($model->madv_t == $inputs['madv']) {
+            $model->lydo = $model->lydo_t;
+        }
+        if ($model->madv_ad == $inputs['madv']) {
+            $model->lydo = $model->lydo_ad;
+        }
+        die($model);
     }
 
     public function delete(Request $request){

@@ -16,7 +16,7 @@ class ReportsKkDvLtController extends Controller
     public function index(){
         if (Session::has('admin')) {
             $model = Town::all();
-                $model_donvi = Company::where('level','DVLT')->select('tendn','maxa')->get();
+                $model_donvi = Company::where('level','DVLT')->select('tendn','madv')->get();
                 $model_cskd = CsKdDvLt::select('tencskd','macskd')->get();
 
             return view('manage.kkgia.dvlt.reports.bcth.index')
@@ -520,30 +520,30 @@ class ReportsKkDvLtController extends Controller
 
     public function dvltbc5(Request $request){
         if (Session::has('admin')) {
-            $input = $request->all();
-            $model = KkGiaDvLt::whereBetween('kkgiadvlt.ngaynhan',[$input['ngaytu'], $input['ngayden']])
+            $inputs = $request->all();
+
+            $model = KkGiaDvLt::whereBetween('kkgiadvlt.ngaynhan',[$inputs['ngaytu'], $inputs['ngayden']])
                 ->leftjoin('cskddvlt','cskddvlt.macskd','=','kkgiadvlt.macskd')
                 ->select('kkgiadvlt.*','cskddvlt.tencskd','cskddvlt.loaihang','cskddvlt.diachikd','cskddvlt.telkd')
                 ->get();
-
-            if(session('admin')->level == 'T'){
-                $inputs['dvcaptren'] = getGeneralConfigs()['tendvcqhienthi'];
-                $inputs['dv'] = getGeneralConfigs()['tendvhienthi'];
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }elseif(session('admin')->level == 'H'){
-                $modeldv = District::where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }else{
-                $modeldv = Town::where('maxa',session('admin')->maxa)
-                    ->where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }
+            //dd(session('admin'));
+//            if(session('admin')->level == 'T'){
+//                $inputs['dvcaptren'] = getGeneralConfigs()['tendvcqhienthi'];
+//                $inputs['dv'] = getGeneralConfigs()['tendvhienthi'];
+//                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
+//            }elseif(session('admin')->level == 'H'){
+//                $modeldv = District::where('mahuyen',session('admin')->mahuyen)->first();
+//                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
+//                $inputs['dv'] = $modeldv->tendvhienthi;
+//                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
+//            }else{
+//                $modeldv = Town::where('maxa',session('admin')->maxa)
+//                    ->where('mahuyen',session('admin')->mahuyen)->first();
+//                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
+//                $inputs['dv'] = $modeldv->tendvhienthi;
+//                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
+//            }
             return view('manage.kkgia.dvlt.reports.bcth.BC5')
-                ->with('input',$input)
                 ->with('inputs',$inputs)
                 ->with('model',$model)
                 ->with('pageTitle','Báo cáo thống kê các đơn vị kê khai giá trong khoảng thời gian');
@@ -770,22 +770,22 @@ class ReportsKkDvLtController extends Controller
                     $tt->kklc = 'Số CV:'.$modelgn['socv'].', ngày hiệu lực: '. getDayVn($modelgn['ngayhieuluc']);
                 }
             }
-            if(session('admin')->level == 'T'){
-                $inputs['dvcaptren'] = getGeneralConfigs()['tendvcqhienthi'];
-                $inputs['dv'] = getGeneralConfigs()['tendvhienthi'];
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }elseif(session('admin')->level == 'H'){
-                $modeldv = District::where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }else{
-                $modeldv = Town::where('maxa',session('admin')->maxa)
-                    ->where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }
+//            if(session('admin')->level == 'T'){
+//                $inputs['dvcaptren'] = getGeneralConfigs()['tendvcqhienthi'];
+//                $inputs['dv'] = getGeneralConfigs()['tendvhienthi'];
+//                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
+//            }elseif(session('admin')->level == 'H'){
+//                $modeldv = District::where('mahuyen',session('admin')->mahuyen)->first();
+//                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
+//                $inputs['dv'] = $modeldv->tendvhienthi;
+//                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
+//            }else{
+//                $modeldv = Town::where('maxa',session('admin')->maxa)
+//                    ->where('mahuyen',session('admin')->mahuyen)->first();
+//                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
+//                $inputs['dv'] = $modeldv->tendvhienthi;
+//                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
+//            }
 
             return view('manage.kkgia.dvlt.reports.bcth.BC6')
                 ->with('inputs',$inputs)

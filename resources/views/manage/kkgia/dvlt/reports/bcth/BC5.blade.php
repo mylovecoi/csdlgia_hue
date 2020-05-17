@@ -41,8 +41,8 @@
 <table width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:0 auto 20px; text-align: center;">
     <tr>
         <td width="40%" style="vertical-align: top;">
-            <span style="text-transform: uppercase">{{$inputs['dvcaptren']}}</span><br>
-            <span style="text-transform: uppercase;font-weight: bold">{{$inputs['dv']}}</span>
+            <span style="text-transform: uppercase">{{session('admin')->tendvcqhienthi}}</span><br>
+            <span style="text-transform: uppercase;font-weight: bold">{{session('admin')->tendvhienthi}}</span>
             <hr style="width: 10%;vertical-align: top;  margin-top: 2px">
 
         </td>
@@ -55,7 +55,7 @@
     </tr>
     <tr>
         <td>Số: ..............</td>
-        <td style="text-align: right"><i style="margin-right: 25%;">{{$inputs['diadanh']}}, ngày .... tháng .... năm ....</i></td>
+        <td style="text-align: right"><i style="margin-right: 25%;">{{session('admin')->diadanh}}, ngày .... tháng .... năm ....</i></td>
     </tr>
 </table>
 
@@ -67,21 +67,21 @@
     </tr>
     <tr>
         <td colspan="9" style="text-align: center; font-weight: bold;">
-            Từ ngày: {{getDayVn($input['ngaytu'])}} đến ngày {{getDayVn($input['ngayden'])}}
+            Từ ngày: {{getDayVn($inputs['ngaytu'])}} đến ngày {{getDayVn($inputs['ngayden'])}}
         </td>
     </tr>
     <tr>
         <td colspan="9" style="text-align: center; font-weight: bold;">
-            Loại hạng: {{$input['loaihang']=='all'?'Tất cả':$input['loaihang'].' sao'}}
+            Loại hạng: {{$inputs['loaihang']=='all'?'Tất cả':$inputs['loaihang'].' sao'}}
         </td>
     </tr>
     <tr>
         <td colspan="9" style="text-align: center; font-weight: bold;">
             Phân loại hồ sơ: <?php
-                if($input['thoihan']=='all'){
+                if($inputs['thoihan']=='all'){
                     echo 'Tất cả';
                 }else{
-                    echo $input['thoihan'];
+                    echo $inputs['thoihan'];
                 }
             ?>
         </td>

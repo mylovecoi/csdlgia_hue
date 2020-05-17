@@ -300,6 +300,7 @@ class KkMhBogXdController extends Controller
             );
             $model->lichsu = json_encode($a_lichsu);
             $model->lydo = $inputs['lydo'];
+            $model->trangthai = 'TL';
             $model->ngaynhan = null;
             setTraLaiDN($inputs['madv'], $model, ['macqcq' => null, 'trangthai' => 'TL', 'lydo' => $inputs['lydo']]);
             //dd($model);
