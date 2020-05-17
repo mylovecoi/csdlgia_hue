@@ -59,7 +59,7 @@
             <tr>
                 <td style="text-align: center">{{$key+1}}</td>
                 <td class="active">{{$tt->tendn}}
-                    <br><b>Mã số thuế:</b> {{$tt->maxa}}
+                    <br><b>Mã số thuế:</b> {{$tt->madv}}
                     <br><b>Mã hồ sơ:</b> {{$tt->mahs}}</td>
                 <td style="text-align: center" class="danger">{{$tt->socv}}</td>
                 <td style="text-align: center">{{getDayVn($tt->ngaynhap)}}</td>
