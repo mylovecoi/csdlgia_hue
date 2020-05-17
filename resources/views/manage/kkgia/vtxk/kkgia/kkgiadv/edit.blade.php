@@ -34,15 +34,13 @@
 
     <script>
         $(document).ready(function(){
+            TableManaged.init();
             $(":input").inputmask();
         });
     </script>
     <!--End date new-->
 
     <script>
-        jQuery(document).ready(function() {
-            TableManaged.init();
-        });
         function InputMask(){
             //$(function(){
             // Input Mask
@@ -119,8 +117,6 @@
             }
             //});
         }
-
-        // </editor-fold>
     </script>
     <script>
         function clearForm(){
@@ -147,7 +143,7 @@
                     giakk: $('#giakk').val(),
                     ghichu: $('#ghichu').val(),
                     mahs: $('#mahs').val(),
-                    maxa: $('#maxa').val(),
+                    madv: $('#madv').val(),
                 },
                 dataType: 'JSON',
                 success: function (data) {
@@ -193,7 +189,7 @@
                 data: {
                     _token: CSRF_TOKEN,
                     id: $('input[name="idedit"]').val(),
-                    tendvcu: $('#dvcuedit').val(),
+                    tendvcu: $('#tendvcuedit').val(),
                     qccl: $('#qccledit').val(),
                     dvt: $('#dvtedit').val(),
                     gialk: $('#gialkedit').val(),
@@ -246,89 +242,17 @@
 
         }
     </script>
-    <script>
-        function InputMask() {
-            //$(function(){
-            // Input Mask
-            if ($.isFunction($.fn.inputmask)) {
-                $("[data-mask]").each(function (i, el) {
-                    var $this = $(el),
-                            mask = $this.data('mask').toString(),
-                            opts = {
-                                numericInput: attrDefault($this, 'numeric', false),
-                                radixPoint: attrDefault($this, 'radixPoint', ''),
-                                rightAlignNumerics: attrDefault($this, 'numericAlign', 'left') == 'right'
-                            },
-                            placeholder = attrDefault($this, 'placeholder', ''),
-                            is_regex = attrDefault($this, 'isRegex', '');
-
-
-                    if (placeholder.length) {
-                        opts[placeholder] = placeholder;
-                    }
-
-                    switch (mask.toLowerCase()) {
-                        case "phone":
-                            mask = "(999) 999-9999";
-                            break;
-
-                        case "currency":
-                        case "rcurrency":
-
-                            var sign = attrDefault($this, 'sign', '$');
-                            ;
-
-                            mask = "999,999,999.99";
-
-                            if ($this.data('mask').toLowerCase() == 'rcurrency') {
-                                mask += ' ' + sign;
-                            }
-                            else {
-                                mask = sign + ' ' + mask;
-                            }
-
-                            opts.numericInput = true;
-                            opts.rightAlignNumerics = false;
-                            opts.radixPoint = '.';
-                            break;
-
-                        case "email":
-                            mask = 'Regex';
-                            opts.regex = "[a-zA-Z0-9._%-]+@[a-zA-Z0-9-]+\\.[a-zA-Z]{2,4}";
-                            break;
-
-                        case "fdecimal":
-                            mask = 'decimal';
-                            $.extend(opts, {
-                                autoGroup: true,
-                                groupSize: 3,
-                                radixPoint: attrDefault($this, 'rad', '.'),
-                                groupSeparator: attrDefault($this, 'dec', ',')
-                            });
-                    }
-
-                    if (is_regex) {
-                        opts.regex = mask;
-                        mask = 'Regex';
-                    }
-
-                    $this.inputmask(mask, opts);
-                });
-            }
-            //});
-        }
-    </script>
 @stop
 
 @section('content')
     <h3 class="page-title">
         Thông tin kê khai hồ sơ giá <small>&nbsp;vận tải xe khách chỉnh sửa</small>
-        <p><h5 style="color: blue">{{$modeldn->tendn}}&nbsp;- Mã số thuế: {{$modeldn->maxa}}</h5></p>
+        <p><h5 style="color: blue">{{$modeldn->tendn}}&nbsp;- Mã số thuế: {{$modeldn->madv}}</h5></p>
     </h3>
     <hr>
     <!-- END PAGE HEADER-->
     <div class="row">
-        {!! Form::model($model, ['method' => 'PATCH', 'url'=>'kekhaigiavantaixekhach/'. $model->id, 'class'=>'horizontal-form','id'=>'update_kkvtxk']) !!}
+        {!! Form::model($model, ['method' => 'post', 'url'=>'kekhaigiavantaixekhach/store', 'class'=>'horizontal-form','id'=>'update_kkvtxk']) !!}
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <div class="col-md-12">
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -339,15 +263,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Ngày kê khai<span class="require">*</span></label>
-                                {!!Form::text('ngaynhap',date('d/m/Y',  strtotime($model->ngaynhap)), array('id' => 'ngaynhap','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                                {!! Form::input('date', 'ngaynhap', null, array('id' => 'ngaynhap', 'class' => 'form-control','required'))!!}
                             </div>
                         </div>
                         <!--/span-->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Ngày thực hiện mức giá kê khai<span class="require">*</span></label>
-                                <!--input type="date" name="ngayhieuluc" id="ngayhieuluc" class="form-control required"-->
-                                {!!Form::text('ngayhieuluc',date('d/m/Y',  strtotime($model->ngayhieuluc)), array('id' => 'ngayhieuluc','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                                {!! Form::input('date', 'ngayhieuluc', null, array('id' => 'ngayhieuluc', 'class' => 'form-control', 'required'))!!}
                             </div>
                         </div>
                         <!--/span-->
@@ -396,7 +319,7 @@
                         </div>
                     </div>
                     <input type="hidden" name="mahs" id="mahs" value="{{$model->mahs}}">
-                    <input type="hidden" name="maxa" id="maxa" value="{{$model->maxa}}">
+                    <input type="hidden" name="madv" id="madv" value="{{$model->madv}}">
 
                     <!--/row-->
                     <h4 class="form-section" style="color: #0000ff">Thông tin chi tiết hồ sơ</h4>
@@ -411,15 +334,15 @@
                     </div>
                     <div class="row" id="dsts">
                         <div class="col-md-12">
-                            <table class="table table-striped table-bordered table-hover" id="sample_3">
+                            <table class="table table-striped table-bordered table-hover" id="sample_4">
                                 <thead>
                                 <tr>
                                     <th style="text-align: center" width="2%">STT</th>
                                     <th style="text-align: center">Tên dịch vụ cung ứng</th>
                                     <th style="text-align: center">Quy cách chất lượng</th>
                                     <th style="text-align: center">Đơn vị<br>tính</th>
-                                    <th style="text-align: center">Mức giá kê khai hiện hành</th>
-                                    <th style="text-align: center">Mức giá kê khai mới hoặc kê khai lại</th>
+                                    <th style="text-align: center">Mức giá<br>liền kề</th>
+                                    <th style="text-align: center">Mức giá<br>kê khai</th>
                                     <th style="text-align: center">Ghi chú</th>
                                     <th style="text-align: center" width="20%">Thao tác</th>
                                 </tr>
@@ -449,7 +372,7 @@
             </div>
             <!-- END EXAMPLE TABLE PORTLET-->
             <div style="text-align: center">
-                <a href="{{url('kekhaigiavantaixekhach?&masothue='.$model->maxa)}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                <a href="{{url('kekhaigiavantaixekhach?&madv='.$model->madv)}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                 <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
                 <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i> Hoàn thành</button>
             </div>

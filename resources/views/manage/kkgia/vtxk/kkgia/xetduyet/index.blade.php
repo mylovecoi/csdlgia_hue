@@ -19,107 +19,24 @@
         jQuery(document).ready(function() {
             TableManaged.init();
         });
-        function InputMask(){
-            //$(function(){
-            // Input Mask
-            if($.isFunction($.fn.inputmask))
-            {
-                $("[data-mask]").each(function(i, el)
-                {
-                    var $this = $(el),
-                            mask = $this.data('mask').toString(),
-                            opts = {
-                                numericInput: attrDefault($this, 'numeric', false),
-                                radixPoint: attrDefault($this, 'radixPoint', ''),
-                                rightAlignNumerics: attrDefault($this, 'numericAlign', 'left') == 'right'
-                            },
-                            placeholder = attrDefault($this, 'placeholder', ''),
-                            is_regex = attrDefault($this, 'isRegex', '');
 
-
-                    if(placeholder.length)
-                    {
-                        opts[placeholder] = placeholder;
-                    }
-
-                    switch(mask.toLowerCase())
-                    {
-                        case "phone":
-                            mask = "(999) 999-9999";
-                            break;
-
-                        case "currency":
-                        case "rcurrency":
-
-                            var sign = attrDefault($this, 'sign', '$');;
-
-                            mask = "999,999,999.99";
-
-                            if($this.data('mask').toLowerCase() == 'rcurrency')
-                            {
-                                mask += ' ' + sign;
-                            }
-                            else
-                            {
-                                mask = sign + ' ' + mask;
-                            }
-
-                            opts.numericInput = true;
-                            opts.rightAlignNumerics = false;
-                            opts.radixPoint = '.';
-                            break;
-
-                        case "email":
-                            mask = 'Regex';
-                            opts.regex = "[a-zA-Z0-9._%-]+@[a-zA-Z0-9-]+\\.[a-zA-Z]{2,4}";
-                            break;
-
-                        case "fdecimal":
-                            mask = 'decimal';
-                            $.extend(opts, {
-                                autoGroup		: true,
-                                groupSize		: 3,
-                                radixPoint		: attrDefault($this, 'rad', '.'),
-                                groupSeparator	: attrDefault($this, 'dec', ',')
-                            });
-                    }
-
-                    if(is_regex)
-                    {
-                        opts.regex = mask;
-                        mask = 'Regex';
-                    }
-
-                    $this.inputmask(mask, opts);
-                });
-            }
-            //});
-        }
         $(function(){
             $('#nam').change(function() {
                 var namhs = '&nam=' + $('#nam').val();
-                var trangthai = '&trangthai=' +  $('#trangthai').val();
-                var mahuyen = '&mahuyen=' + $('#mahuyen').val();
-                var url = '/xetduyetkekhaigiavtxk?'+namhs+trangthai+mahuyen;
+                var madv = '&madv=' + $('#madv').val();
+                var url = '/xetduyetkekhaigiavtxk?'+namhs+madv;
                 window.location.href = url;
             });
-            $('#trangthai').change(function() {
+
+            $('#madv').change(function() {
                 var namhs = '&nam=' + $('#nam').val();
-                var trangthai = '&trangthai=' +  $('#trangthai').val();
-                var mahuyen = '&mahuyen=' + $('#mahuyen').val();
-                var url = '/xetduyetkekhaigiavtxk?'+namhs+trangthai+mahuyen;
-                window.location.href = url;
-            });
-            $('#mahuyen').change(function() {
-                var namhs = '&nam=' + $('#nam').val();
-                var trangthai = '&trangthai=' +  $('#trangthai').val();
-                var mahuyen = '&mahuyen=' + $('#mahuyen').val();
-                var url = '/xetduyetkekhaigiavtxk?'+namhs+trangthai+mahuyen;
+                var madv = '&madv=' + $('#madv').val();
+                var url = '/xetduyetkekhaigiavtxk?'+namhs+madv;
                 window.location.href = url;
             });
 
         });
-        function ClickTraLai(id) {
+        function ClickTraLai(id,madv) {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             //alert(id);
             $.ajax({
@@ -134,6 +51,7 @@
                     if (data.status == 'success') {
                         $('#ttdnkkdvgs').replaceWith(data.message);
                         document.getElementById("idtralai").value=id;
+                        document.getElementById("madvtralai").value=madv;
                     }
                 }
             })
@@ -153,7 +71,7 @@
             }
 
         }
-        function confirmNhanHs(id){
+        function confirmNhanHs(mahs){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             //alert(id);
             $.ajax({
@@ -161,13 +79,13 @@
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: id
+                    mahs: mahs
                 },
                 dataType: 'JSON',
                 success: function (data) {
                     if (data.status == 'success') {
                         $('#ttnhanhs').replaceWith(data.message);
-                        InputMask();
+                        //InputMask();
                     }
                     else
                         toastr.error("Không thể chỉnh sửa thông tin nhận hồ sơ giá !", "Lỗi!");
@@ -272,31 +190,21 @@
                 </select>
             </div>
         </div>
+
         <div class="col-md-4">
-            <div class="form-group">
-                <label>Trạng thái hồ sơ</label>
-                <select name="trangthai" id="trangthai" class="form-control">
-                    <option value="CD" {{$inputs['trangthai'] == 'CD' ? 'selected' : ''}}>Hồ sơ chờ duyệt</option>
-                    <option value="BTL" {{$inputs['trangthai'] == 'BTL' ? 'selected' : ''}}>Hồ sơ bị trả lại</option>
-                    <option value="DD" {{$inputs['trangthai'] == 'DD' ? 'selected' : ''}}>Hồ sơ đã duyệt</option>
-                </select>
-            </div>
-        </div>
-        @if(session('admin')->level == 'T' || session('admin')->level == 'H')
-            <div class="col-md-5">
-                <div class="form-group">
-                    <label>Đơn vị quản lý</label>
-                    <select name="mahuyen" id="mahuyen" class="form-control">
-                        @foreach($modeldv as $dv)
-                            <option value="{{$dv->maxa}}" {{$dv->maxa == $inputs['mahuyen'] ? 'selected' : ''}}>{{$dv->tendv}}</option>
+            <label style="font-weight: bold">Đơn vị</label>
+            <select class="form-control select2me" id="madv">
+                @foreach($m_diaban as $diaban)
+                    <optgroup label="{{$diaban->tendiaban}}">
+                        <?php $donvi = $m_donvi->where('madiaban',$diaban->madiaban); ?>
+                        @foreach($donvi as $ct)
+                            <option {{$ct->madv == $inputs['madv'] ? "selected":""}} value="{{$ct->madv}}">{{$ct->tendv}}</option>
                         @endforeach
-                    </select>
-                </div>
-            </div>
-        @endif
-
+                    </optgroup>
+                @endforeach
+            </select>
+        </div>
     </div>
-
 
     <!-- END PAGE HEADER-->
     <div class="row">
@@ -322,9 +230,8 @@
                         @foreach($model as $key=>$tt)
                             <tr>
                                 <td style="text-align: center">{{$key+1}}</td>
-                                <td class="active">{{$tt->tendn}}
-                                    <br><b>Mã số thuế:</b> {{$tt->maxa}}
-                                    <br><b>Mã hồ sơ:</b> {{$tt->mahs}}</td>
+                                <td class="active">{{$tt->tendv_ch}}
+                                    <br><b>Mã số thuế:</b> {{$tt->madv}}
                                 <td style="text-align: center">{{getDayVn($tt->ngaynhap)}}</td>
                                 <td style="text-align: center">{{getDayVn($tt->ngayhieuluc)}}</td>
                                 <td style="text-align: center" class="danger">{{$tt->socv}}</td>
@@ -346,18 +253,34 @@
                                 @endif
                                 <td>
                                     <a href="{{url('kekhaigiavantaixekhach/prints?&mahs='.$tt->mahs)}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
-                                    @if(canApprove($tt->trangthai))
-                                        <button type="button" onclick="ClickTraLai({{$tt->id}})" class="btn btn-default btn-xs mbs" data-target="#tralai-modal" data-toggle="modal"><i class="fa fa-reply"></i>&nbsp;
-                                            Trả lại</button>
-                                        <button type="button" onclick="confirmNhanHs({{$tt->id}})" class="btn btn-default btn-xs mbs" data-target="#nhanhs-modal" data-toggle="modal"><i class="fa fa-share"></i>&nbsp;
-                                            Nhận hồ sơ</button>
-                                    @endif
-                                    @if(canShowLyDo($tt->trangthai))
-                                        <button type="button" data-target="#lydo-modal" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="viewLyDo({{$tt->id}})"><i class="fa fa-search"></i>&nbsp;Lý do trả lại</button>
-                                    @endif
-                                        <!--a href="{{url('ke_khai_dich_vu_luu_tru/'.$tt->mahs.'/history')}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Lịch sử</a-->
+                                    @if($tt->level == 'ADMIN')
+                                        @if($tt->trangthai == 'CB')
+                                            <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','{{$inputs['url'].'/congbo'}}', 'HCB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
+                                                <i class="fa fa-times"></i>&nbsp;Hủy công bố</button>
+                                        @else
+                                            <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','{{$inputs['url'].'/congbo'}}', 'CB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
+                                                <i class="fa fa-send"></i>&nbsp;Công bố</button>
 
+                                            <button type="button" onclick="ClickTraLai('{{$tt->id}}','{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#tralai-modal" data-toggle="modal">
+                                                <i class="fa fa-reply"></i>&nbsp;Trả lại</button>
+                                        @endif
+                                    @else
 
+                                        @if($tt->trangthai == 'CD')
+                                            <button type="button" onclick="confirmNhanHs('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#nhanhs-modal" data-toggle="modal"><i class="fa fa-share"></i>&nbsp;
+                                                Nhận hồ sơ</button>
+                                        @endif
+
+                                        @if(in_array($tt->trangthai, ['CD','DD','BTL']))
+                                            <button type="button" onclick="ClickTraLai('{{$tt->id}}','{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#tralai-modal" data-toggle="modal"><i class="fa fa-reply"></i>&nbsp;
+                                                Trả lại</button>
+                                        @endif
+
+                                        @if(in_array($tt->trangthai, ['DD','BTL']))
+                                            <button type="button" onclick="confirmChuyenXD('{{$tt->mahs}}','{{$inputs['url'].'/chuyenxd'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#chuyenxd-modal-confirm" data-toggle="modal">
+                                                <i class="fa fa-check"></i> Chuyển công bố</button>
+                                        @endif
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -390,6 +313,7 @@
                             <textarea id="lydo" class="form-control" name="lydo" cols="30" rows="8"></textarea>
                         </div>
                         <input type="hidden" name="idtralai" id="idtralai">
+                        <input type="hidden" name="madvtralai" id="madvtralai">
                     </div>
 
                     <div class="modal-footer">
@@ -496,5 +420,7 @@
         <!-- /.modal-dialog -->
     </div>
 
+    @include('manage.include.form.modal_congbo')
+    @include('manage.include.form.modal_approve_xd')
     @include('includes.script.create-header-scripts')
 @stop

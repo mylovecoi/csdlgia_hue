@@ -22,17 +22,12 @@
             </div>
             <div class="modal-body">
                 <div class="form-horizontal">
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            <label class="control-label"><b>Đơn vị</b></label>
-                            <select id="mahuyen" name="mahuyen" class="form-control">
-                                <option value="all">--Tất cả--</option>
-                                @foreach($m_donvi as $donvi)
-                                    <option value="{{$donvi->maxa}}">{{$donvi->tendv}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
+{{--                    <div class="form-group">--}}
+{{--                        <div class="col-md-12">--}}
+{{--                            <label class="control-label"><b>Đơn vị</b></label>--}}
+{{--                            {!! Form::select('madiaban',$a_diaban, null, ['id'=>'mahuyen','class'=>'form-control']) !!}--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                     <div class="form-group">
                         <div class="col-md-12">
                             <label class="control-label"><b>Phân loại</b></label>

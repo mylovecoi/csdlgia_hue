@@ -594,23 +594,14 @@ License: You must have a valid license purchased only from themeforest(the above
                                 @endif
                             @endif
 
-                            @if(canKkGiaCt('DVVTXK','VTXK'))
+                            @if(chkPer('csdlmucgiahhdv', 'kknygia', 'vtxk'))
                                 <li>
                                     <a href="javascript:;">
                                         <span class="title">Cước vận tải hành khách bằng ôtô tuyến cố định</span>
                                         <span class="arrow"></span>
                                     </a>
                                     <ul class="sub-menu">
-                                    @if(session('admin')->level == 'DN')
-                                        <!--li><a href="javascript:;">Danh mục dịch vụ</a> </li-->
-                                            <li><a href="{{url('kekhaigiavantaixekhach')}}">Giá kê khai</a></li>
-                                        @endif
-                                        @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
-                                            <li><a href="{{url('thongtindnvtxk')}}">Giá kê khai</a></li>
-                                            <li><a href="{{url('xetduyetkekhaigiavtxk')}}">Xét duyệt hồ sơ kê khai</a></li>
-                                            <li><a href="{{url('timkiemgiavantaixekhach')}}">Tìm kiếm hồ sơ kê khai</a></li>
-                                            <li><a href="{{url('baocaogiavantaixekhach')}}">Báo cáo thống kê</a></li>
-                                        @endif
+                                        <li><a href="{{url('kekhaigiavantaixekhach')}}">Giá kê khai</a></li>
                                     </ul>
                                 </li>
                             @endif

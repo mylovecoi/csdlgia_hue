@@ -62,6 +62,8 @@ CREATE TABLE [dbo].[giavtxk](
 	[ngaychuyen_ad] [datetime] NULL,
 	[lydo_ad] [nvarchar](max) NULL,
 	[trangthai_ad] [nvarchar](255) NULL,
+	[created_at] [datetime] NULL,
+    [updated_at] [datetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[id] ASC

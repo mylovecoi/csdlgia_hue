@@ -892,10 +892,10 @@
             @endif
 
 
-            @if(chkPer('csdlmucgiahhdv','kknygia','etanol12344643643'))
+            @if(canKkGiaGr('csdlmucgiahhdv','kknygia','etanol12344643643'))
                 <li>
                     <a href="javascript:;">
-                        <span class="title">Etanol nhiên liệu không biến tính, khí tự nhiên hóa lỏng(LNG); khí thiên nhiên nén (CNG)</span>
+                        <span class="title">Etanol nhiên liệu không biến tính, khí tự nhiên hóa lỏng(LNG); khí thiên nhiên nén (CNG) 123</span>
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
@@ -1007,23 +1007,21 @@
                 @endif
             @endif
 
-            @if(canKkGiaCt('DVVTXK','VTXK'))
+            @if(chkPer('csdlmucgiahhdv','kknygia', 'vtxk', 'hoso', 'index'))
                 <li>
                     <a href="javascript:;">
                         <span class="title">Cước vận tải hành khách bằng ôtô tuyến cố định</span>
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
-                    @if(session('admin')->level == 'DN')
-                        <!--li><a href="javascript:;">Danh mục dịch vụ</a> </li-->
+                        @if(session('admin')->level == 'SSA')
                             <li><a href="{{url('kekhaigiavantaixekhach')}}">Giá kê khai</a></li>
                         @endif
-                        @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
-                            <li><a href="{{url('thongtindnvtxk')}}">Giá kê khai</a></li>
-                            <li><a href="{{url('xetduyetkekhaigiavtxk')}}">Xét duyệt hồ sơ kê khai</a></li>
-                            <li><a href="{{url('timkiemgiavantaixekhach')}}">Tìm kiếm hồ sơ kê khai</a></li>
-                            <li><a href="{{url('baocaogiavantaixekhach')}}">Báo cáo thống kê</a></li>
-                        @endif
+
+{{--                        <li><a href="{{url('thongtindnvtxk')}}">Giá kê khai</a></li>--}}
+                        <li><a href="{{url('xetduyetkekhaigiavtxk')}}">Xét duyệt hồ sơ kê khai</a></li>
+                        <li><a href="{{url('timkiemgiavantaixekhach')}}">Tìm kiếm hồ sơ kê khai</a></li>
+                        <li><a href="{{url('baocaogiavantaixekhach')}}">Báo cáo thống kê</a></li>
                     </ul>
                 </li>
             @endif
@@ -1123,11 +1121,9 @@
                             <li><a href="{{url('kekhaigiadvlt')}}">Giá kê khai</a> </li>
                         @endif
 
-                        @if(chkPer('csdlmucgiahhdv','kknygia', 'dvlt', 'hoso', 'index'))
-                            <li><a href="{{url('xetduyetkkgiadvlt')}}">Thông tin hồ sơ xét duyệt</a></li>
-                            <li><a href="{{url('timkiemkkgiadvlt')}}">Tìm kiếm thông tin</a> </li>
-                            <li><a href="{{url('baocaokekhaidvlt')}}">Báo cáo thống kê</a></li>
-                        @endif
+                        <li><a href="{{url('xetduyetkkgiadvlt')}}">Thông tin hồ sơ xét duyệt</a></li>
+                        <li><a href="{{url('timkiemkkgiadvlt')}}">Tìm kiếm thông tin</a> </li>
+                        <li><a href="{{url('baocaokekhaidvlt')}}">Báo cáo thống kê</a></li>
                     </ul>
                 </li>
             @endif
@@ -1140,7 +1136,7 @@
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                            @if(session('admin')->level == 'DN')
+                            @if(session('admin')->level == 'SSA')
                                 <li><a href="{{url('kekhaigiadvdlbb')}}">Giá kê khai</a> </li>
                             @endif
                             @if(session('admin')->level == 'X' || session('admin')->level == 'T' || session('admin')->level == 'H')
@@ -1176,8 +1172,6 @@
                 @endif
                 {{--OK--}}
             @endif
-
-
         </ul>
     </li>
 @endif

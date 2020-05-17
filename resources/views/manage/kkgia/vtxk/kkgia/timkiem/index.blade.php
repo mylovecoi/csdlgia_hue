@@ -73,7 +73,7 @@
             <div class="portlet box">
                 <div class="portlet-body">
                     <div class="portlet-body">
-                    <table class="table table-striped table-bordered table-hover" id="sample_3">
+                    <table class="table table-striped table-bordered table-hover" id="sample_4">
                         <thead>
                         <tr>
                             <th style="text-align: center ; margin: auto" width="2%">STT</th>
@@ -92,13 +92,13 @@
                             <tr>
                                 <td style="text-align: center">{{$key+1}}</td>
                                 <td class="active"><b>Tên DN: </b> {{$tt->tendn}}
-                                    <br><b>Mã số thuế:</b> {{$tt->maxa}}</td>
+                                    <br><b>Mã số thuế:</b> {{$tt->madv}}</td>
                                 <td style="text-align: center">{{getDayVn($tt->ngayhieuluc)}}</td>
                                 <td style="text-align: left">{{$tt->loaixe}}</td>
-                                <td style="text-align: left">{{$tt->mota}}</td>
+                                <td style="text-align: left">{{$tt->tendvcu}}</td>
                                 <td style="text-align: left">{{$tt->qccl}}</td>
                                 <td style="text-align: left">{{$tt->dvt}}</td>
-                                <td style="text-align: right;font-weight: bold">{{number_format($tt->giathanh)}}</td>
+                                <td style="text-align: right;font-weight: bold">{{number_format($tt->giakk)}}</td>
 
                             </tr>
                         @endforeach

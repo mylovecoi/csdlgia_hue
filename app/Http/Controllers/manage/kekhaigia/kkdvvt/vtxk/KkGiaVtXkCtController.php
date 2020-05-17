@@ -49,8 +49,7 @@ class KkGiaVtXkCtController extends Controller
         if(isset($inputs['tendvcu'])){
             $modelkkgia = new GiaVtXkCt();
             $modelkkgia->create($inputs);
-            $model = GiaVtXkCt::where('mahs',$inputs['mahs'])
-                ->get();
+            $model = GiaVtXkCt::where('mahs',$inputs['mahs'])->get();
             $result['message'] = '<div class="row" id="dsts">';
             $result['message'] .= '<div class="col-md-12">';
             $result['message'] .= '<table class="table table-striped table-bordered table-hover" id="sample_3">';

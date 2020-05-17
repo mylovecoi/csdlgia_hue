@@ -69,6 +69,7 @@ class CreateGiavtxkTable extends Migration
             $table->dateTime('ngaychuyen_ad')->nullable();
             $table->text('lydo_ad')->nullable();
             $table->string('trangthai_ad')->nullable(20);
+            $table->timestamps();
         });
     }
 

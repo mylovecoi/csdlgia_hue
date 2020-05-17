@@ -6,6 +6,7 @@ use App\District;
 use App\Model\manage\kekhaigia\kkdvvt\vtxk\GiaVtXk;
 use App\Model\manage\kekhaigia\kkdvvt\vtxk\GiaVtXkCt;
 use App\Model\system\dmnganhnghekd\DmNgheKd;
+use App\Model\system\dsdiaban;
 use App\Town;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,9 +19,10 @@ class KkGiaVtXkBcController extends Controller
             $modeldmnghe = DmNgheKd::where('manganh','DVVT')
                 ->where('manghe','VTXK')
                 ->first();
-            $m_donvi = Town::where('mahuyen',$modeldmnghe->mahuyen)->get();
+            $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
+            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             return view('manage.kkgia.vtxk.reports.index')
-                ->with('m_donvi',$m_donvi)
+                ->with('a_diaban', array_column($m_diaban->wherein('level', ['H','T','X'])->toarray(), 'tendiaban', 'madiaban'))
                 ->with('pageTitle', 'Báo cáo tổng hợp kê khai cước vận tải hành khách bằng ôtô tuyến cố định');
         }else
             return view('errors.notlogin');
@@ -30,19 +32,19 @@ class KkGiaVtXkBcController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
 //            dd($inputs);
-            $model =  GiaVtXk::join('company','company.maxa','=','giavtxk.maxa')
+            $model =  GiaVtXk::join('company','company.madv','=','giavtxk.madv')
                 ->where('giavtxk.trangthai','DD')
                 ->select('giavtxk.*','company.tendn');
-            if($inputs['mahuyen'] != 'all') {
-                $model = $model->where('giavtxk.mahuyen', $inputs['mahuyen']);
-                $modeldvql = Town::where('maxa',$inputs['mahuyen'])
-                    ->get();
-            }else{
-                $modeldmnghe = DmNgheKd::where('manganh','DVVT')
-                    ->where('manghe','VTXK')
-                    ->first();
-                $modeldvql = Town::where('mahuyen',$modeldmnghe->mahuyen)->get();
-            }
+//            if($inputs['madiaban'] != 'all') {
+//                $model = $model->where('giavtxk.mahuyen', $inputs['mahuyen']);
+//                $modeldvql = Town::where('maxa',$inputs['mahuyen'])
+//                    ->get();
+//            }else{
+//                $modeldmnghe = DmNgheKd::where('manganh','DVVT')
+//                    ->where('manghe','VTXK')
+//                    ->first();
+//                $modeldvql = Town::where('mahuyen',$modeldmnghe->mahuyen)->get();
+//            }
             if($inputs['phanloai'] == 'ngaychuyen'){
                 if($inputs['time'] == 'ngay')
                     $model = $model->whereBetween('ngaychuyen',[getDateToDb($inputs['tungay']), getDateToDb($inputs['denngay'])]);
@@ -90,27 +92,10 @@ class KkGiaVtXkBcController extends Controller
             }
             $model = $model->get();
 //            dd($model);
-            $inputs['counths'] = count($model);
-            if(session('admin')->level == 'T'){
-                $inputs['dvcaptren'] = getGeneralConfigs()['tendvcqhienthi'];
-                $inputs['dv'] = getGeneralConfigs()['tendvhienthi'];
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }elseif(session('admin')->level == 'H'){
-                $modeldv = District::where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }else{
-                $modeldv = Town::where('maxa',session('admin')->maxa)
-                    ->where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }
+
             return view('manage.kkgia.vtxk.reports.bc1')
                 ->with('model',$model)
                 ->with('inputs',$inputs)
-                ->with('modeldvql',$modeldvql)
                 ->with('pageTitle', 'Báo cáo tổng hợp kê khai cước vận tải hành khách bằng ôtô tuyến cố định');
         }else
             return view('errors.notlogin');
@@ -120,19 +105,19 @@ class KkGiaVtXkBcController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
 //            dd($inputs);
-            $model =  GiaVtXk::join('company','company.maxa','=','giavtxk.maxa')
+            $model =  GiaVtXk::join('company','company.madv','=','giavtxk.madv')
                 ->where('giavtxk.trangthai','DD')
                 ->select('giavtxk.*','company.tendn');
-            if($inputs['mahuyen'] != 'all') {
-                $model = $model->where('giavtxk.mahuyen', $inputs['mahuyen']);
-                $modeldvql = Town::where('maxa',$inputs['mahuyen'])
-                    ->get();
-            }else{
-                $modeldmnghe = DmNgheKd::where('manganh','DVVT')
-                    ->where('manghe','VTXK')
-                    ->first();
-                $modeldvql = Town::where('mahuyen',$modeldmnghe->mahuyen)->get();
-            }
+//            if($inputs['mahuyen'] != 'all') {
+//                $model = $model->where('giavtxk.mahuyen', $inputs['mahuyen']);
+//                $modeldvql = Town::where('maxa',$inputs['mahuyen'])
+//                    ->get();
+//            }else{
+//                $modeldmnghe = DmNgheKd::where('manganh','DVVT')
+//                    ->where('manghe','VTXK')
+//                    ->first();
+//                $modeldvql = Town::where('mahuyen',$modeldmnghe->mahuyen)->get();
+//            }
             if($inputs['phanloai'] == 'ngaychuyen'){
                 if($inputs['time'] == 'ngay')
                     $model = $model->whereBetween('ngaychuyen',[getDateToDb($inputs['tungay']), getDateToDb($inputs['denngay'])]);
@@ -183,28 +168,11 @@ class KkGiaVtXkBcController extends Controller
             foreach($model as $ct){
                 $mahss = $mahss.$ct->mahs.',';
             }
-            $modelct = GiaVtXkCt::whereIn('mahs',explode(',',$mahss))
-                ->get();
-            if(session('admin')->level == 'T'){
-                $inputs['dvcaptren'] = getGeneralConfigs()['tendvcqhienthi'];
-                $inputs['dv'] = getGeneralConfigs()['tendvhienthi'];
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }elseif(session('admin')->level == 'H'){
-                $modeldv = District::where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }else{
-                $modeldv = Town::where('maxa',session('admin')->maxa)
-                    ->where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }
+            $modelct = GiaVtXkCt::whereIn('mahs',explode(',',$mahss))->get();
+
             return view('manage.kkgia.vtxk.reports.bc2')
                 ->with('model',$model)
                 ->with('inputs',$inputs)
-                ->with('modeldvql',$modeldvql)
                 ->with('modelct',$modelct)
                 ->with('pageTitle', 'Báo cáo tổng hợp kê khai cước vận tải hành khách bằng ôtô tuyến cố định');
         }else

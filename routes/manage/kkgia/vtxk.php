@@ -1,17 +1,21 @@
 <?php
-
-
-
 Route::get('thongtindnvtxk','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkController@ttdn');
-Route::resource('kekhaigiavantaixekhach','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkController');
+//Route::resource('kekhaigiavantaixekhach','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkController');
+Route::get('kekhaigiavantaixekhach','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkController@index');
+Route::get('kekhaigiavantaixekhach/create','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkController@create');
+Route::post('kekhaigiavantaixekhach/store','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkController@store');
+Route::get('kekhaigiavantaixekhach/edit','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkController@edit');
+Route::get('kekhaigiavantaixekhach/prints','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkController@show');
+Route::get('kekhaigiavantaixekhach/get_sohs','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkController@showlydo');
+
 Route::post('kekhaigiavantaixekhach/chuyen','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkController@chuyen');
 Route::get('/kkvtxk/showlydo','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkController@showlydo');
 Route::post('kekhaigiavantaixekhach/delete','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkController@delete');
-Route::get('kekhaigiavantaixekhach/prints','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkController@prints');
+//Route::get('kekhaigiavantaixekhach/prints','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkController@prints');
 
 
 //Ajax chuyen
-Route::get('/kkvtxk/kiemtra','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkController@kiemtra');
+Route::get('/kekhaigiavantaixekhach/kiemtra','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkController@kiemtra');
 //End Ajax chuyển
 
 Route::get('/giavtxkctdf/storett','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkCtDfController@store');
@@ -40,6 +44,8 @@ Route::get('xetduyetkekhaigiavtxk','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkXdCont
 Route::post('xetduyetkekhaigiavtxk/tralai','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkXdController@tralai');
 Route::get('xetduyetkekhaigiavtxk/ttnhanhs','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkXdController@ttnhanhs');
 Route::post('xetduyetkekhaigiavtxk/nhanhs','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkXdController@nhanhs');
+Route::post('xetduyetkekhaigiavtxk/chuyenxd','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkXdController@chuyenxd');
+Route::post('xetduyetkekhaigiavtxk/congbo','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkXdController@congbo');
 //End xét duyệt kk TACN
 Route::get('timkiemgiavantaixekhach','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkXdController@search');
 
