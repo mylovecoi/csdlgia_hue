@@ -8,9 +8,32 @@
             <span class="arrow"></span>
         </a>
         <ul class="sub-menu">
-            <li class="tooltips" data-container="body" data-placement="right" data-html="true"
-                data-original-title="Các quyết định, văn bản quản lý, điều hành về giá">
-                <a href="{{url('vanbanqlnnvegia')}}">Các quyết định, văn bản quản lý, điều hành về giá - phí, lệ phí</a>
+{{--            <li class="tooltips" data-container="body" data-placement="right" data-html="true"--}}
+{{--                data-original-title="Các quyết định, văn bản quản lý, điều hành về giá">--}}
+{{--                <a href="{{url('vanbanqlnnvegia')}}">Các quyết định, văn bản quản lý, điều hành về giá - phí, lệ phí</a>--}}
+{{--            </li>--}}
+
+            <li class="tooltips" data-container="body" data-placement="right" data-html="true">
+                <a href="{{url('vanbanqlnnvegia?phanloai=gia&loaivb=quyetdinh')}}">Các quyết định, văn bản quản lý, điều hành về giá</a>
+            </li>
+
+            <li class="tooltips" data-container="body" data-placement="right" data-html="true">
+                <a href="{{url('vanbanqlnnvegia?phanloai=gia&loaivb=vbhd')}}">Các văn bản hướng dẫn, tham gia, góp ý</a>
+            </li>
+
+            <li class="tooltips" data-container="body" data-placement="right" data-html="true">
+                <a href="{{url('vanbanqlnnvegia?phanloai=gia&loaivb=baocao')}}">Báo cáo tình hình giá cả thị trường</a>
+            </li>
+
+            <li class="tooltips" data-container="body" data-placement="right" data-html="true">
+                <a href="{{url('vanbanqlnnvegia?phanloai=gia&loaivb=tailieu')}}">Các báo cáo, tài liệu học tập kinh nghiệm</a>
+            </li>
+
+            <li class="tooltips" data-container="body" data-placement="right" data-html="true">
+                <a href="{{url('vanbanqlnnvegia?phanloai=gia&loaivb=khoahoc')}}">Kết quả, đề tài nghiên cứu khoa học</a>
+            </li>
+            <li class="tooltips" data-container="body" data-placement="right" data-html="true">
+                <a href="{{url('vanbanqlnnvegia?phanloai=gia&loaivb=vbkhac')}}">Các báo cáo, văn bản có liên quan khác</a>
             </li>
         </ul>
     </li>

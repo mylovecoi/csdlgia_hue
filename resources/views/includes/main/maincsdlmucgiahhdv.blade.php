@@ -79,7 +79,7 @@
                 <li class="tooltips" data-container="body" data-placement="right" data-html="true"
                     data-original-title="Giá rừng bao gồm rừng sản xuất, rừng phòng hộ và rừng đặc dụng thuộc sở hữu toàn dân do Nhà nước làm đại diện chủ sở hữu">
                     <a href="javascript:;">
-                        Giá thuê MT rừng
+                        Giá rừng
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
@@ -426,37 +426,6 @@
                         </ul>
                     </li>
                 @endif
-
-            @if(chkPer('csdlmucgiahhdv','dinhgia','giacldat'))
-                {{--Bảng giá đất--}}
-                <li>
-                    <a href="javascript:;">
-                        <span class="title">Giá đất theo địa bàn</span>
-                        <span class="arrow"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        @if(chkPer('csdlmucgiahhdv','dinhgia','giacldat','danhmuc','index'))
-                            <li>
-                                <a href="{{url('giacldat/danhmuc')}}">Thông tư giá đất địa bàn</a>
-                            </li>
-                        @endif
-                        @if(chkPer('csdlmucgiahhdv','dinhgia','giacldat','hoso','index'))
-                            <li>
-                                <a href="{{url('giacldat/danhsach')}}">
-                                    Giá đất theo địa bàn
-                                </a>
-                            </li>
-                        @endif
-                        @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
-                            <li>
-                                <a href="{{url('/giacldat/xetduyet')}}">
-                                    Xét duyệt hồ sơ
-                                </a>
-                            </li>
-                        @endif
-                    </ul>
-                </li>
-            @endif
 
             @if(canGeneral('giadatduan','index'))
                 @if(can('giadatduan','index'))
@@ -1230,16 +1199,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 @if(canGeneral('giathitruong','index'))
     @if(can('giathitruong','index'))
         <li class="tooltips" data-container="body" data-placement="right" data-html="true"
@@ -1330,6 +1289,47 @@
     @endif
 @endif
 
+@if(chkPer('csdlmucgiahhdv','taisan', 'taisancong'))
+    <li class="javascript:;">
+        <a href="javascript:;">
+            <i class="icon-folder"></i>
+            <span class="title">Giá tài sản công</span>
+            <span class="arrow"></span>
+        </a>
+        <ul class="sub-menu">
+            @if(chkPer('csdlmucgiahhdv','taisan', 'taisancong', 'danhmuc','index'))
+                <li>
+                    <a href="{{url('/taisancong/danhmuc?phanloai=taisancong')}}">Danh mục</a>
+                </li>
+            @endif
+
+            @if(chkPer('csdlmucgiahhdv','taisan', 'taisancong', 'hoso', 'index'))
+                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                    <li>
+                        <a href="{{url('/taisancong/danhsach')}}">
+                            Thông tin hồ sơ
+                        </a>
+                    </li>
+                @endif
+
+                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                    <li>
+                        <a href="{{url('/taisancong/xetduyet')}}">
+                            Xét duyệt hồ sơ
+                        </a>
+                    </li>
+                @endif
+
+                <li>
+                    <a href="{{url('/taisancong/timkiem')}}">
+                        Tìm kiếm hồ sơ
+                    </a>
+                </li>
+            @endif
+        </ul>
+    </li>
+@endif
+
 @if(chkPer('csdlmucgiahhdv','philephi', 'giaphilephi'))
     <li class="javascript:;">
         <a href="javascript:;">
@@ -1370,6 +1370,38 @@
     </li>
 @endif
 
+@if(chkPer('csdlmucgiahhdv','dinhgia','giacldat'))
+    {{--Bảng giá đất--}}
+    <li>
+        <a href="javascript:;">
+            <i class="icon-folder"></i>
+            <span class="title">Giá đất theo địa bàn</span>
+            <span class="arrow"></span>
+        </a>
+        <ul class="sub-menu">
+            @if(chkPer('csdlmucgiahhdv','dinhgia','giacldat','danhmuc','index'))
+                <li>
+                    <a href="{{url('giacldat/danhmuc')}}">Thông tư giá đất địa bàn</a>
+                </li>
+            @endif
+            @if(chkPer('csdlmucgiahhdv','dinhgia','giacldat','hoso','index'))
+                <li>
+                    <a href="{{url('giacldat/danhsach')}}">
+                        Giá đất theo địa bàn
+                    </a>
+                </li>
+            @endif
+            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                <li>
+                    <a href="{{url('/giacldat/xetduyet')}}">
+                        Xét duyệt hồ sơ
+                    </a>
+                </li>
+            @endif
+        </ul>
+    </li>
+@endif
+
 @if(canGeneral('thanhlytaisan','index'))
     @if(can('thanhlytaisan','index'))
     <li class="javascript:;">
@@ -1392,47 +1424,6 @@
         </ul>
     </li>
     @endif
-@endif
-
-@if(chkPer('csdlmucgiahhdv','taisan', 'taisancong'))
-    <li class="javascript:;">
-        <a href="javascript:;">
-            <i class="icon-folder"></i>
-            <span class="title">Giá tài sản công</span>
-            <span class="arrow"></span>
-        </a>
-        <ul class="sub-menu">
-            @if(chkPer('csdlmucgiahhdv','taisan', 'taisancong', 'danhmuc','index'))
-                <li>
-                    <a href="{{url('/taisancong/danhmuc?phanloai=taisancong')}}">Danh mục</a>
-                </li>
-            @endif
-
-            @if(chkPer('csdlmucgiahhdv','taisan', 'taisancong', 'hoso', 'index'))
-                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
-                    <li>
-                        <a href="{{url('/taisancong/danhsach')}}">
-                            Thông tin hồ sơ
-                        </a>
-                    </li>
-                @endif
-
-                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
-                    <li>
-                        <a href="{{url('/taisancong/xetduyet')}}">
-                            Xét duyệt hồ sơ
-                        </a>
-                    </li>
-                @endif
-
-                <li>
-                    <a href="{{url('/taisancong/timkiem')}}">
-                        Tìm kiếm hồ sơ
-                    </a>
-                </li>
-            @endif
-        </ul>
-    </li>
 @endif
 
 @if(chkPer('csdlmucgiahhdv','taisan', 'giabatdongsan'))
@@ -1544,6 +1535,8 @@
         </ul>
     </li>
 @endif
+
+
 
 @if(canGeneral('giagocvlxd','index'))
     @if(can('giagocvlxd','index'))
