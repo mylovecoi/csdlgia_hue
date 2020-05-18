@@ -587,7 +587,9 @@
             @if(chkPer('csdlmucgiahhdv','bog', 'bog', 'hoso','index'))
                 @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
                 <!-- chức năng nhập liệu cho đơn vị -->
-                    <li><a href="{{url('/binhongia/danhsach')}}">Thông tin hồ sơ</a></li>
+                    @if(session('admin')->level == 'SSA')
+                        <li><a href="{{url('/binhongia/danhsach')}}">Thông tin hồ sơ</a></li>
+                    @endif
                     <li><a href="{{url('/binhongia/xetduyet')}}">Xét duyệt hồ sơ</a></li>
                     <li><a href="{{url('/binhongia/timkiem')}}">Tìm kiếm hồ sơ</a></li>
                     <li><a href="{{url('/binhongia/baocao')}}">Báo cáo tổng hợp</a></li>
@@ -976,7 +978,7 @@
                 @endif
             @endif
 
-            @if(chkPer('csdlmucgiahhdv','kknygia', 'vtxk', 'hoso', 'index'))
+            @if(chkPer('csdlmucgiahhdv','kknygia', 'dvvtxk', 'hoso', 'index'))
                 <li>
                     <a href="javascript:;">
                         <span class="title">Cước vận tải hành khách bằng ôtô tuyến cố định</span>
