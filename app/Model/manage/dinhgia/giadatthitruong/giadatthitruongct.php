@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Model\manage\dinhgia\giadaugiadat;
+namespace App\Model\manage\dinhgia\giadatthitruong  ;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DauGiaDatCt extends Model
+class giadatthitruongct extends Model
 {
-    protected $table = 'daugiadatct';
+    protected $table = 'giadatthitruongct';
     protected $fillable = [
         'id',
         'mahs',
@@ -14,7 +14,7 @@ class DauGiaDatCt extends Model
         'khuvuc',
         'mota',
         'dientich',
-        'giakhoidiem',
-        'giadaugia',
+        'giaquydinh',
+        'giathitruong',
     ];
 }

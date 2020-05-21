@@ -17,14 +17,14 @@
 
 @section('content')
     <h3 class="page-title">
-        Tìm kiếm hồ sơ đấu giá đất
+        Tìm kiếm hồ sơ giá đất giao dịch thực tế trên thị trường
     </h3>
 
     <!-- END PAGE HEADER-->
     <div class="row center">
         <div class="col-md-12 center">
             <!-- BEGIN VALIDATION STATES-->
-            {!! Form::open(['url'=>'giadaugiadat/timkiem', 'method'=>'post' , 'id' => 'create_timkiem', 'class'=>'horizontal-form']) !!}
+            {!! Form::open(['url'=>'giadatthitruong/timkiem', 'method'=>'post' , 'id' => 'create_timkiem', 'class'=>'horizontal-form']) !!}
             {{--            <input type="hidden" name="madv" value="{{$inputs['madv']}}">--}}
             <div class="portlet box blue">
                 <div class="portlet-body form">
@@ -76,15 +76,15 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Giá khởi điểm - Từ</label>
-                                    {!!Form::text('giakhoidiem_tu', null, array('class' => 'form-control','data-mask'=>'fdecimal'))!!}
+                                    <label class="control-label">Giá quy định - Từ</label>
+                                    {!!Form::text('giaquydinh_tu', null, array('class' => 'form-control','data-mask'=>'fdecimal'))!!}
                                 </div>
                             </div>
                             <!--/span-->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Giá khởi điểm - Đến</label>
-                                    {!!Form::text('giakhoidiem_den', null, array('class' => 'form-control','data-mask'=>'fdecimal'))!!}
+                                    <label class="control-label">Giá quy định - Đến</label>
+                                    {!!Form::text('giaquydinh_den', null, array('class' => 'form-control','data-mask'=>'fdecimal'))!!}
                                 </div>
                             </div>
                             <!--/span-->
@@ -93,15 +93,15 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Giá đấu giá - Từ</label>
-                                    {!!Form::text('giadaugia_tu', null, array('class' => 'form-control','data-mask'=>'fdecimal'))!!}
+                                    <label class="control-label">Giá thị trường - Từ</label>
+                                    {!!Form::text('giathitruong_tu', null, array('class' => 'form-control','data-mask'=>'fdecimal'))!!}
                                 </div>
                             </div>
                             <!--/span-->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Giá đấu giá - Đến</label>
-                                    {!!Form::text('giadaugia_den', null, array('class' => 'form-control','data-mask'=>'fdecimal'))!!}
+                                    <label class="control-label">Giá thị trường - Đến</label>
+                                    {!!Form::text('giathitruong_den', null, array('class' => 'form-control','data-mask'=>'fdecimal'))!!}
                                 </div>
                             </div>
                             <!--/span-->

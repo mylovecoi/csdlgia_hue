@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDaugiadatctTable extends Migration
+class CreateGiadatthitruongctTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateDaugiadatctTable extends Migration
      */
     public function up()
     {
-        Schema::create('daugiadatct', function (Blueprint $table) {
+        Schema::create('giadatthitruongct', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('mahs')->nullable();
             $table->string('loaidat')->nullable();
             $table->string('khuvuc')->nullable();
             $table->string('mota')->nullable();
             $table->double('dientich')->default(0);
-            $table->double('giakhoidiem')->default(0);
-            $table->double('giadaugia')->default(0);
-            $table->string('mahs')->nullable();
+            $table->double('giaquydinh')->default(0);
+            $table->double('giathitruong')->default(0);
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ class CreateDaugiadatctTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('daugiadatct');
+        Schema::dropIfExists('giadatthitruongct');
     }
 }

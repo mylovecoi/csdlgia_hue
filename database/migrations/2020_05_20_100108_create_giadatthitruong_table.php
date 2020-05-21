@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDaugiadatTable extends Migration
+class CreateGiadatthitruongTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateDaugiadatTable extends Migration
      */
     public function up()
     {
-        Schema::create('daugiadat', function (Blueprint $table) {
+        Schema::create('giadatthitruong', function (Blueprint $table) {
             $table->increments('id');
             $table->string('madiaban')->nullable();
             $table->string('maxp')->nullable();
@@ -71,6 +71,6 @@ class CreateDaugiadatTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('daugiadat');
+        Schema::dropIfExists('giadatthitruong');
     }
 }

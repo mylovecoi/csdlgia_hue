@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\manage\giadaugiadat;
+namespace App\Http\Controllers\manage\giadatthitruong;
 
-use App\DiaBanHd;
-use App\District;
-use App\DmPhiLePhi;
-use App\Model\manage\dinhgia\giadaugiadat\DauGiaDat;
-use App\Model\manage\dinhgia\giadaugiadat\DauGiaDatCt;
+
+use App\Model\manage\dinhgia\giadatthitruong\giadatthitruong;
+use App\Model\manage\dinhgia\giadatthitruong\giadatthitruongct;
 use App\Model\system\dsdiaban;
 use App\Model\system\dsdonvi;
 use App\Model\system\dsxaphuong;
@@ -17,30 +15,30 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
-class DauGiaDatController extends Controller
+class giadatthitruongController extends Controller
 {
     public function index(Request $request)
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $inputs['url'] = '/giadaugiadat';
+            $inputs['url'] = '/giadatthitruong';
             //lấy địa bàn
             $a_diaban = getDiaBan_XaHuyen(session('admin')->level,session('admin')->madiaban);
             $m_donvi = getDonViNhapLieu(session('admin')->level);
-            $m_donvi_th = getDonViTongHop('giadaugiadat',\session('admin')->level, \session('admin')->madiaban);
+            $m_donvi_th = getDonViTongHop('giadatthitruong',\session('admin')->level, \session('admin')->madiaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? array_key_first($a_diaban);
             $inputs['madv'] = $m_donvi->first()->madv;
 
             $inputs['nam'] = $inputs['nam'] ?? 'all';
 
             //lấy thông tin đơn vị
-            $model = DauGiaDat::where('madiaban', $inputs['madiaban']);
+            $model = giadatthitruong::where('madiaban', $inputs['madiaban']);
             if ($inputs['nam'] != 'all')
                 $model = $model->whereyear('thoidiem', $inputs['nam']);
 
 
             //dd($inputs);
-            return view('manage.dinhgia.giadaugiadat.kekhai.index')
+            return view('manage.dinhgia.giadatthitruong.kekhai.index')
                 ->with('model', $model->get())
                 ->with('inputs', $inputs)
                 //->with('m_diaban', $m_diaban)
@@ -57,14 +55,14 @@ class DauGiaDatController extends Controller
     public function create(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $inputs['url'] = '/giadaugiadat';
-            $model = new DauGiaDat();
+            $inputs['url'] = '/giadatthitruong';
+            $model = new giadatthitruong();
             $model->madiaban = $inputs['madiaban'];
             $model->madv = $inputs['madv'];
             $model->mahs = getdate()[0];
             $a_diaban = getDiaBan_XaHuyen(session('admin')->level,session('admin')->madiaban);
             $a_xp = array_column(dsxaphuong::where('madiaban',$inputs['madiaban'])->get()->toarray(),'tenxp', 'maxp');
-            return view('manage.dinhgia.giadaugiadat.kekhai.edit')
+            return view('manage.dinhgia.giadatthitruong.kekhai.edit')
                 ->with('model', $model)
                 ->with('model_ct', nullValue())
                 ->with('a_xp', $a_xp)
@@ -78,15 +76,15 @@ class DauGiaDatController extends Controller
     public function store(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();
-            $model = DauGiaDat::where('mahs',$inputs['mahs'])->first();
+            $model = giadatthitruong::where('mahs',$inputs['mahs'])->first();
             if($model == null){
                 $inputs['trangthai'] = 'CHT';
-                DauGiaDat::create($inputs);
+                giadatthitruong::create($inputs);
             }else{
                 $model->update($inputs);
             }
 
-            return redirect('giadaugiadat/danhsach');
+            return redirect('giadatthitruong/danhsach');
         }else
             return view('errors.notlogin');
     }
@@ -94,12 +92,12 @@ class DauGiaDatController extends Controller
     public function edit(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();
-            $inputs['url'] = '/giadaugiadat';
-            $model = DauGiaDat::where('mahs',$inputs['mahs'])->first();
+            $inputs['url'] = '/giadatthitruong';
+            $model = giadatthitruong::where('mahs',$inputs['mahs'])->first();
             $a_diaban = getDiaBan_XaHuyen(session('admin')->level,session('admin')->madiaban);
             $a_xp = array_column(dsxaphuong::where('madiaban',$model->madiaban)->get()->toarray(),'tenxp', 'maxp');
-            $model_ct = DauGiaDatCt::where('mahs',$inputs['mahs'])->get();
-            return view('manage.dinhgia.giadaugiadat.kekhai.edit')
+            $model_ct = giadatthitruongct::where('mahs',$inputs['mahs'])->get();
+            return view('manage.dinhgia.giadatthitruong.kekhai.edit')
                 ->with('model',$model)
                 ->with('model_ct', $model_ct)
                 ->with('a_xp', $a_xp)
@@ -112,8 +110,8 @@ class DauGiaDatController extends Controller
 
     public function show($id){
         if(Session::has('admin')){
-            $model = DauGiaDat::findOrFail($id);
-            $modelct = DauGiaDatCt::where('mahs',$model->mahs)
+            $model = giadatthitruong::findOrFail($id);
+            $modelct = giadatthitruongct::where('mahs',$model->mahs)
                 ->get();
             $modeldb = DiaBanHd::where('level','H')
                 ->where('district',$model->mahuyen)
@@ -138,7 +136,7 @@ class DauGiaDatController extends Controller
                 $inputs['dv'] = $modeldv->tendvhienthi;
                 $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
             }
-            return view('manage.dinhgia.giadaugiadat.kekhai.show')
+            return view('manage.dinhgia.giadatthitruong.kekhai.show')
                 ->with('model',$model)
                 ->with('modelct',$modelct)
                 ->with('modeldb',$modeldb)
@@ -152,10 +150,10 @@ class DauGiaDatController extends Controller
     public function destroy(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();
-            $model = DauGiaDat::where('mahs',$inputs['mahs'])->first();
-            DauGiaDatCt::where('mahs',$inputs['mahs'])->delete();
+            $model = giadatthitruong::where('mahs',$inputs['mahs'])->first();
+            giadatthitruongct::where('mahs',$inputs['mahs'])->delete();
             $model->delete();
-            return redirect('giadaugiadat/danhsach');
+            return redirect('giadatthitruong/danhsach');
         }else
             return view('errors.notlogin');
     }
@@ -177,7 +175,7 @@ class DauGiaDatController extends Controller
 
 
 
-            return view('manage.dinhgia.giadaugiadat.timkiem.index')
+            return view('manage.dinhgia.giadatthitruong.timkiem.index')
                 ->with('inputs',$inputs)
                 ->with('model',$model)
                 ->with('pageTitle','Tìm kiếm thông tin đấu giá đất');
@@ -213,7 +211,7 @@ class DauGiaDatController extends Controller
                 $tt->tenxa = $tenxa->diaban;
                 $array = $array.$tt->mahs.',';
             }
-            $modelct = DauGiaDatCt::whereIn('mahs',explode(',',$array))
+            $modelct = giadatthitruongCt::whereIn('mahs',explode(',',$array))
                 ->get();
 
             if(session('admin')->level == 'T'){
@@ -232,7 +230,7 @@ class DauGiaDatController extends Controller
                 $inputs['dv'] = $modeldv->tendvhienthi;
                 $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
             }
-            return view('manage.dinhgia.giadaugiadat.reports.print')
+            return view('manage.dinhgia.giadatthitruong.reports.print')
                 ->with('model',$model)
                 ->with('modelct',$modelct)
                 ->with('inputs',$inputs)
@@ -249,7 +247,7 @@ class DauGiaDatController extends Controller
         // level == 'T' => set madv_t = $inputs['macqcq']; trangthai_t = 'CHT' (tương đương tạo mới hoso)
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = DauGiaDat::where('mahs', $inputs['mahs'])->first();
+            $model = giadatthitruong::where('mahs', $inputs['mahs'])->first();
             //dd($model);
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
@@ -280,7 +278,7 @@ class DauGiaDatController extends Controller
                 $model->trangthai_h = 'CHT';
             }
             $model->save();
-            return redirect('/giadaugiadat/danhsach?madiaban=' . $model->madiaban);
+            return redirect('/giadatthitruong/danhsach?madiaban=' . $model->madiaban);
         } else
             return view('errors.notlogin');
     }
@@ -291,13 +289,13 @@ class DauGiaDatController extends Controller
         //lấy thông tin đơn vị đễ lấy level
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $inputs['url'] = '/giadaugiadat';
+            $inputs['url'] = '/giadatthitruong';
             //lấy địa bàn
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
 
             $m_donvi = getDonViXetDuyet(session('admin')->level);
-            $m_donvi_th = getDonViTongHop('giadaugiadat',\session('admin')->level, \session('admin')->madiaban);
+            $m_donvi_th = getDonViTongHop('giadatthitruong',\session('admin')->level, \session('admin')->madiaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $inputs['nam'] = $inputs['nam'] ?? 'all';
@@ -310,7 +308,7 @@ class DauGiaDatController extends Controller
 
             switch ($inputs['level']){
                 case 'H':{
-                    $model = DauGiaDat::where('madv_h', $inputs['madv']);
+                    $model = giadatthitruong::where('madv_h', $inputs['madv']);
                     if ($inputs['nam'] != 'all')
                         $model = $model->whereYear('thoidiem_h', $inputs['nam']);
                     $model = $model->get();
@@ -327,7 +325,7 @@ class DauGiaDatController extends Controller
                     break;
                 }
                 case 'T':{
-                    $model = DauGiaDat::where('madv_t', $inputs['madv']);
+                    $model = giadatthitruong::where('madv_t', $inputs['madv']);
                     if ($inputs['nam'] != 'all')
                         $model = $model->whereYear('thoidiem_t', $inputs['nam']);
                     $model = $model->get();
@@ -344,7 +342,7 @@ class DauGiaDatController extends Controller
                     break;
                 }
                 case 'ADMIN':{
-                    $model = DauGiaDat::where('madv_ad', $inputs['madv']);
+                    $model = giadatthitruong::where('madv_ad', $inputs['madv']);
                     if ($inputs['nam'] != 'all')
                         $model = $model->whereYear('thoidiem_ad', $inputs['nam']);
                     $model = $model->get();
@@ -362,7 +360,7 @@ class DauGiaDatController extends Controller
                 }
             }
             //dd($model);
-            return view('manage.dinhgia.giadaugiadat.xetduyet.index')
+            return view('manage.dinhgia.giadatthitruong.xetduyet.index')
                 ->with('model', $model)
                 ->with('inputs', $inputs)
                 ->with('m_diaban', $m_diaban)
@@ -384,7 +382,7 @@ class DauGiaDatController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             //dd($inputs);
-            $model = DauGiaDat::where('mahs', $inputs['mahs'])->first();
+            $model = giadatthitruong::where('mahs', $inputs['mahs'])->first();
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => 'HT',
@@ -404,7 +402,7 @@ class DauGiaDatController extends Controller
 
             //dd($model);
             $model->save();
-            return redirect('giadaugiadat/xetduyet?madv=' . $inputs['madv']);
+            return redirect('giadatthitruong/xetduyet?madv=' . $inputs['madv']);
         } else
             return view('errors.notlogin');
     }
@@ -413,7 +411,7 @@ class DauGiaDatController extends Controller
         //Truyền vào mahs và macqcq
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = DauGiaDat::where('mahs', $inputs['mahs'])->first();
+            $model = giadatthitruong::where('mahs', $inputs['mahs'])->first();
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => 'HHT',
@@ -426,7 +424,7 @@ class DauGiaDatController extends Controller
             setTraLai($inputs['madv'], $model, ['macqcq' => null, 'trangthai' => 'HHT', 'lydo' => null]);
             //dd($model);
             $model->save();
-            return redirect('giadaugiadat/xetduyet?madv=' . $inputs['madv']);
+            return redirect('giadatthitruong/xetduyet?madv=' . $inputs['madv']);
         } else
             return view('errors.notlogin');
     }
@@ -435,7 +433,7 @@ class DauGiaDatController extends Controller
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = DauGiaDat::where('mahs', $inputs['mahs'])->first();
+            $model = giadatthitruong::where('mahs', $inputs['mahs'])->first();
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => $inputs['trangthai_ad'],
@@ -447,7 +445,7 @@ class DauGiaDatController extends Controller
             setCongBo($model, ['trangthai' => $inputs['trangthai_ad'],
                 'congbo' => $inputs['trangthai_ad'] == 'CB' ? 'DACONGBO' : 'CHUACONGBO']);
             $model->save();
-            return redirect('giadaugiadat/xetduyet?madv=' . $model->madv_ad);
+            return redirect('giadatthitruong/xetduyet?madv=' . $model->madv_ad);
         } else
             return view('errors.notlogin');
     }
@@ -461,13 +459,13 @@ class DauGiaDatController extends Controller
             $model = $this->getHoSo($inputs);
             $m_donvi = dsdonvi::where('madv', $inputs['madv'])->first();
             $m_diaban = dsdiaban::wherein('madiaban',array_column($model->toarray(),'madiaban'))->get();
-            $a_dm = array_column(DmPhiLePhi::all()->toArray(),'tennhom','manhom');
-            return view('manage.dinhgia.giadaugiadat.reports.baocao')
+            //$a_dm = array_column(DmPhiLePhi::all()->toArray(),'tennhom','manhom');
+            return view('manage.dinhgia.giadatthitruong.reports.baocao')
                 ->with('model',$model)
                 ->with('m_donvi',$m_donvi)
                 ->with('m_diaban',$m_diaban)
-                ->with('a_dm',$a_dm)
-                ->with('a_pl',getPhanLoaiSPDVCI())
+                //->with('a_dm',$a_dm)
+                //->with('a_pl',getPhanLoaiSPDVCI())
                 ->with('inputs',$inputs)
                 ->with('pageTitle','Thông tin hồ sơ');
         }else
@@ -517,11 +515,11 @@ class DauGiaDatController extends Controller
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
             //dd($m_diaban);
-            $a_dm = array_column(DmPhiLePhi::all()->toArray(),'tennhom','manhom');
-            return view('manage.dinhgia.giadaugiadat.timkiem.index')
+            //$a_dm = array_column(DmPhiLePhi::all()->toArray(),'tennhom','manhom');
+            return view('manage.dinhgia.giadatthitruong.timkiem.index')
                 ->with('m_diaban',$m_diaban)
                 ->with('m_donvi',$m_donvi)
-                ->with('a_dm',$a_dm)
+                //->with('a_dm',$a_dm)
                 ->with('pageTitle','Tìm kiếm thông tin hồ sơ');
         }else
             return view('errors.notlogin');
@@ -562,7 +560,7 @@ class DauGiaDatController extends Controller
             }
             //dd($model);
 
-            return view('manage.dinhgia.giadaugiadat.timkiem.result')
+            return view('manage.dinhgia.giadatthitruong.timkiem.result')
                 ->with('model',$model->get())
                 ->with('a_diaban',array_column($m_donvi->toarray(),'tendiaban','madiaban'))
                 ->with('a_donvi',array_column($m_donvi->toarray(),'tendv','madv'))

@@ -69,8 +69,8 @@
                         $.extend(opts, {
                             autoGroup		: true,
                             groupSize		: 3,
-                            radixPoint		: attrDefault($this, 'rad', '.'),
-                            groupSeparator	: attrDefault($this, 'dec', ',')
+                            radixPoint		: attrDefault($this, 'rad', ','),
+                            groupSeparator	: attrDefault($this, 'dec', '.')
                         });
                 }
 

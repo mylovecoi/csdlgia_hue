@@ -44,7 +44,7 @@
 @section('content')
 
     <h3 class="page-title">
-        Thông tin giá đấu giá đất
+        Thông tin giá đất giao dịch thực tế trên thị trường
     </h3>
     {{--<h3 class="page-title">
         <small> <b style="color: blue">{{$dvql->tendv}}</b><b style="color: blue"> - </b><b style="color: blue">{{$dv->tendv}}</b> - Người soạn thảo: <b style="color: blue">{{isset($model) ? $model->cvsoanthao : session('admin')->name}}</b> </small>
@@ -90,7 +90,7 @@
                                 <th style="text-align: center" width="2%">STT</th>
                                 <th style="text-align: center">Địa bàn</th>
                                 <th style="text-align: center">Thời điểm</th>
-                                <th style="text-align: center">Tên dự án</th>
+                                <th style="text-align: center">Mô tả</th>
                                 <th style="text-align: center"  width="5%">Trạng thái</th>
                                 <th style="text-align: center">Cơ quan tiếp nhận</th>
                                 <th style="text-align: center"> Thao tác</th>

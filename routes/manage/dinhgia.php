@@ -345,29 +345,74 @@ Route::group(['prefix'=>'giaphilephi'], function (){
     Route::post('timkiem','PhiLePhiController@ketquatk');
 });
 
-
 //Đầu giá đất
-Route::get('thongtindaugiadat/print','manage\giadaugiadat\DauGiaDatController@ketxuat');
-Route::resource('thongtindaugiadat','manage\giadaugiadat\DauGiaDatController');
-Route::post('thongtindaugiadat/delete','manage\giadaugiadat\DauGiaDatController@destroy');
-Route::post('thongtindaugiadat/hoanthanh','manage\giadaugiadat\DauGiaDatController@hoanthanh');
-Route::post('thongtindaugiadat/huyhoanthanh','manage\giadaugiadat\DauGiaDatController@huyhoanthanh');
-Route::post('thongtindaugiadat/congbo','manage\giadaugiadat\DauGiaDatController@congbo');
-Route::post('thongtindaugiadat/huycongbo','manage\giadaugiadat\DauGiaDatController@huycongbo');
+Route::group(['prefix'=>'giadaugiadat'], function (){
+    Route::get('danhsach','manage\giadaugiadat\DauGiaDatController@index');
+    Route::get('new','manage\giadaugiadat\DauGiaDatController@create');
+    Route::get('modify','manage\giadaugiadat\DauGiaDatController@edit');
+    Route::post('modify','manage\giadaugiadat\DauGiaDatController@store');
 
-Route::get('timkiemthongtindaugiadat','manage\giadaugiadat\DauGiaDatController@search');
+    Route::post('delete','manage\giadaugiadat\DauGiaDatController@destroy');
 
-//Route::get('thongtindaugiadatctdf/store','DauGiaDatCtDfController@store');
-//Route::get('thongtindaugiadatctdf/show','DauGiaDatCtDfController@show');
-//Route::get('thongtindaugiadatctdf/update','DauGiaDatCtDfController@update');
-//Route::get('thongtindaugiadatctdf/del','DauGiaDatCtDfController@destroy');
+    Route::get('get_khuvuc','manage\giadaugiadat\DauGiaDatCtController@getkhuvuc');
+    Route::get('store_ct','manage\giadaugiadat\DauGiaDatCtController@store');
+    Route::get('show_ct','manage\giadaugiadat\DauGiaDatCtController@show');
+    Route::get('del_ct','manage\giadaugiadat\DauGiaDatCtController@destroy');
 
-Route::get('thongtindaugiadatct','manage\giadaugiadat\DauGiaDatCtController@index');
-Route::post('thongtindaugiadatct/store','manage\giadaugiadat\DauGiaDatCtController@store');
-Route::get('thongtindaugiadatct/edit','manage\giadaugiadat\DauGiaDatCtController@edit');
-Route::post('thongtindaugiadatct/update','manage\giadaugiadat\DauGiaDatCtController@update');
-Route::post('thongtindaugiadatct/delete','manage\giadaugiadat\DauGiaDatCtController@destroy');
+    Route::post('chuyenhs','manage\giadaugiadat\DauGiaDatController@chuyenhs');
+    Route::get('prints','manage\giadaugiadat\DauGiaDatController@ketxuat');
 
+    Route::get('xetduyet','manage\giadaugiadat\DauGiaDatController@xetduyet');
+    Route::post('chuyenxd','manage\giadaugiadat\DauGiaDatController@chuyenxd');
+    Route::post('tralai','manage\giadaugiadat\DauGiaDatController@tralai');
+    Route::post('congbo','manage\giadaugiadat\DauGiaDatController@congbo');
+
+    Route::get('timkiem','manage\giadaugiadat\DauGiaDatController@timkiem');
+    Route::post('timkiem','manage\giadaugiadat\DauGiaDatController@ketquatk');
+
+    //
+
+//    Route::get('thongtindaugiadat/print','manage\giadaugiadat\DauGiaDatController@ketxuat');
+//    Route::resource('thongtindaugiadat','manage\giadaugiadat\DauGiaDatController');
+//    Route::post('thongtindaugiadat/delete','manage\giadaugiadat\DauGiaDatController@destroy');
+//    Route::post('thongtindaugiadat/hoanthanh','manage\giadaugiadat\DauGiaDatController@hoanthanh');
+//    Route::post('thongtindaugiadat/huyhoanthanh','manage\giadaugiadat\DauGiaDatController@huyhoanthanh');
+//    Route::post('thongtindaugiadat/congbo','manage\giadaugiadat\DauGiaDatController@congbo');
+//    Route::post('thongtindaugiadat/huycongbo','manage\giadaugiadat\DauGiaDatController@huycongbo');
+//
+//    Route::get('timkiemthongtindaugiadat','manage\giadaugiadat\DauGiaDatController@search');
+//
+//    Route::get('thongtindaugiadatct','manage\giadaugiadat\DauGiaDatCtController@index');
+//    Route::post('thongtindaugiadatct/store','manage\giadaugiadat\DauGiaDatCtController@store');
+//    Route::get('thongtindaugiadatct/edit','manage\giadaugiadat\DauGiaDatCtController@edit');
+//    Route::post('thongtindaugiadatct/update','manage\giadaugiadat\DauGiaDatCtController@update');
+//    Route::post('thongtindaugiadatct/delete','manage\giadaugiadat\DauGiaDatCtController@destroy');
+});
+
+//Giá đất giao dịch thực tế
+Route::group(['prefix'=>'giadatthitruong'], function (){
+    Route::get('danhsach','manage\giadatthitruong\giadatthitruongController@index');
+    Route::get('new','manage\giadatthitruong\giadatthitruongController@create');
+    Route::get('modify','manage\giadatthitruong\giadatthitruongController@edit');
+    Route::post('modify','manage\giadatthitruong\giadatthitruongController@store');
+    Route::post('delete','manage\giadatthitruong\giadatthitruongController@destroy');
+
+    Route::get('get_khuvuc','manage\giadatthitruong\giadatthitruongctController@getkhuvuc');
+    Route::get('store_ct','manage\giadatthitruong\giadatthitruongctController@store');
+    Route::get('show_ct','manage\giadatthitruong\giadatthitruongctController@show');
+    Route::get('del_ct','manage\giadatthitruong\giadatthitruongctController@destroy');
+
+    Route::post('chuyenhs','manage\giadatthitruong\giadatthitruongController@chuyenhs');
+    Route::get('prints','manage\giadatthitruong\giadatthitruongController@ketxuat');
+
+    Route::get('xetduyet','manage\giadatthitruong\giadatthitruongController@xetduyet');
+    Route::post('chuyenxd','manage\giadatthitruong\giadatthitruongController@chuyenxd');
+    Route::post('tralai','manage\giadatthitruong\giadatthitruongController@tralai');
+    Route::post('congbo','manage\giadatthitruong\giadatthitruongController@congbo');
+
+    Route::get('timkiem','manage\giadatthitruong\giadatthitruongController@timkiem');
+    Route::post('timkiem','manage\giadatthitruong\giadatthitruongController@ketquatk');
+});
 //Đấu giá đất và tài sản gắn liền đất
 Route::get('thongtindaugiadatts/print','manage\giadaugiadatts\DauGiaDatTsController@ketxuat');
 Route::resource('thongtindaugiadatts','manage\giadaugiadatts\DauGiaDatTsController');

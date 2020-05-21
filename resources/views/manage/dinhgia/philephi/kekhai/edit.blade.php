@@ -91,6 +91,7 @@
         function getid(id){
             document.getElementById("iddelete").value=id;
         }
+
         function delmhbog() {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
