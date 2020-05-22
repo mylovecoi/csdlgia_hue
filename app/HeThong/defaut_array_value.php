@@ -116,6 +116,15 @@ function getHienTrang_NhaXH(){
     );
 }
 
+function getPhanLoai_NhaXH(){
+    return array(
+        'NHAOXH'=>'Nhà ở xã hội',
+        'NHACV' => 'Nhà ở công vụ',
+        'NHANN' => 'Nhà ở thuộc sở hữu nhà nước',
+        'NHAK' => 'Nhà ở khác',
+    );
+}
+
 function getPhanLoaiSPDVCI(){
     return array(
         'SANPHAM'=>'Sản phẩm',

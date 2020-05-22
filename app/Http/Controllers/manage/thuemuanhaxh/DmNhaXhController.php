@@ -13,10 +13,12 @@ class DmNhaXhController extends Controller
         if(Session::has('admin')){
             $model = dmnhaxh::all();
             $a_hientrang = getHienTrang_NhaXH();
+            $a_phanloai = getPhanLoai_NhaXH();
             return view('manage.dinhgia.giathuemuanhaxh.danhmuc.index')
                 ->with('url','/thuemuanhaxahoi')
                 ->with('model',$model)
                 ->with('a_hientrang',$a_hientrang)
+                ->with('a_phanloai',$a_phanloai)
                 ->with('pageTitle','Danh mục nhà xã hội');
         }else
             return view('errors.notlogin');

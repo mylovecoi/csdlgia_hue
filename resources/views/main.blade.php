@@ -276,20 +276,20 @@ License: You must have a valid license purchased only from themeforest(the above
                 <!--Manager-->
                 @if(chkPer('csdlmucgiahhdv'))
                     <li class="heading">
-                        <h3 class="uppercase">CSDL về mức giá HH-DV</h3>
+                        <h3 class="uppercase">{{session('admin')['a_chucnang']['csdlmucgiahhdv'] ?? 'CSDL về mức giá HH-DV'}}</h3>
                     </li>
                     @include('includes.main.maincsdlmucgiahhdv')
                 @endif
                 <!-- Tách riêng các phân hệ doanh nghiệp do ko có phân quyền ==>chkPer('csdlmucgiahhdv') ko kiểm tra dc DN  -->
                 @if(chkPer('csdlmucgiahhdv','bog') && session('admin')->level == 'DN')
                     <li class="heading">
-                        <h3 class="uppercase">CSDL về mức giá HH-DV</h3>
+                        <h3 class="uppercase">{{session('admin')['a_chucnang']['csdlmucgiahhdv'] ?? 'CSDL về mức giá HH-DV'}}</h3>
                     </li>
                     <li class="tooltips" data-container="body" data-placement="right" data-html="true"
                         data-original-title="Tổ chức, cá nhân đăng ký theo yêu cầu của Sở Tài chính, Sở quản lý ngành">
                         <a href="javascript:;">
                             <i class="icon-folder"></i>
-                            <span class="title">Bình ổn giá</span>
+                            <span class="title">{{session('admin')['a_chucnang']['bog'] ?? 'Bình ổn giá'}}</span>
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
@@ -301,11 +301,10 @@ License: You must have a valid license purchased only from themeforest(the above
                 @endif
 
                 @if((chkPer('csdlmucgiahhdv','kknygia') && session('admin')->level == 'DN'))
-                    <li class="tooltips" data-container="body" data-placement="right" data-html="true"
-                        data-original-title="Giá kê khai của hàng hóa, dịch vụ thuộc danh mục Giá kê khai">
+                    <li class="tooltips" data-container="body" data-placement="right" data-html="true">
                         <a href="javascript:;">
                             <i class="icon-folder"></i>
-                            <span class="title">Mức giá kê khai, đăng ký</span>
+                            <span class="title">{{session('admin')['a_chucnang']['kknygia'] ?? 'Mức giá kê khai, đăng ký'}}</span>
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
@@ -779,21 +778,21 @@ License: You must have a valid license purchased only from themeforest(the above
 
             @if(chkPer('csdlthamdinhgia'))
                     <li class="heading">
-                        <h3 class="uppercase">CSDL thẩm định giá</h3>
+                        <h3 class="uppercase">{{session('admin')['a_chucnang']['csdlthamdinhgia'] ?? 'CSDL thẩm định giá'}}</h3>
                     </li>
                     @include('includes.main.mainthamdinhgia')
                 @endif
 
                 @if(chkPer('csdlvbqlnn'))
                     <li class="heading">
-                        <h3 class="uppercase">Văn bản QLNN về giá - phí, lệ phí</h3>
+                        <h3 class="uppercase">{{session('admin')['a_chucnang']['csdlvbqlnn'] ?? 'Văn bản QLNN về giá - phí, lệ phí'}}</h3>
                     </li>
                     @include('includes.main.mainvbqlnn')
                 @endif
 
                 @if(chkPer('csdlttpvctqlnn'))
                     <li class="heading">
-                        <h3 class="uppercase">TT phục vụ CT QLNN về giá</h3>
+                        <h3 class="uppercase">{{session('admin')['a_chucnang']['csdlttpvctqlnn'] ?? 'TT phục vụ CT QLNN về giá'}}</h3>
                     </li>
                     @include('includes.main.mainttpvctqlnn')
                 @endif
@@ -804,7 +803,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 -->
                 @if((chkPer('hethong') && session('admin')->chucnang == 'QUANTRI') || session('admin')->level == 'SSA')
                     <li class="heading">
-                        <h3 class="uppercase">Hệ thống</h3>
+                        <h3 class="uppercase">{{session('admin')['a_chucnang']['hethong'] ?? 'Hệ thống'}}</h3>
                     </li>
                     <li>
                         <a href="javascript:;">
@@ -821,15 +820,15 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </a>
                                 <ul class="sub-menu">
                                     @if(chkPer('hethong', 'hethong_pq', 'nhomtaikhoan'))
-                                        <li><a href="{{url('/nhomtaikhoan/danhsach')}}">Danh sách nhóm tài khoản</a></li>
+                                        <li><a href="{{url('/nhomtaikhoan/danhsach')}}">{{session('admin')['a_chucnang']['nhomtaikhoan'] ?? 'Danh sách nhóm tài khoản'}}</a></li>
                                     @endif
 
                                     @if(chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan'))
-                                        <li><a href="{{url('/taikhoan/danhsach')}}">Danh sách tài khoản</a></li>
+                                        <li><a href="{{url('/taikhoan/danhsach')}}">{{session('admin')['a_chucnang']['danhsachtaikhoan'] ?? 'Danh sách tài khoản'}}</a></li>
                                     @endif
 
-                                    @if(chkPer('hethong', 'hethong_pq', 'dangky', 'index'))
-                                        <li><a href="{{url('dangky/danhsach')}}">Tài khoản đăng ký</a></li>
+                                    @if(chkPer('hethong', 'hethong_pq', 'dangky'))
+                                        <li><a href="{{url('dangky/danhsach')}}">{{session('admin')['a_chucnang']['dangky'] ?? 'Tài khoản đăng ký'}}</a></li>
                                         <li><a href="{{url('userscompany')}}">Tài khoản doanh nghiệp</a></li>
                                     @endif
                                 </ul>
@@ -843,27 +842,27 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </a>
                                 <ul class="sub-menu">
                                     @if(chkPer('hethong', 'hethong_pq', 'danhsachdiaban'))
-                                        <li><a href="{{url('/diaban/danhsach')}}">Danh sách địa bàn</a></li>
+                                        <li><a href="{{url('/diaban/danhsach')}}">{{session('admin')['a_chucnang']['danhsachdiaban'] ?? 'Danh sách địa bàn'}}</a></li>
                                     @endif
 
                                     @if(chkPer('hethong', 'hethong_pq', 'danhsachxaphuong'))
-                                        <li><a href="{{url('/xaphuong/danhsach')}}">Danh sách xã, phường, thị trấn</a></li>
+                                        <li><a href="{{url('/xaphuong/danhsach')}}">{{session('admin')['a_chucnang']['danhsachxaphuong'] ?? 'Danh sách xã, phường, thị trấn'}}</a></li>
                                     @endif
 
-                                    @if(chkPer('hethong', 'hethong_pq', 'danhsachdonvi', 'index'))
-                                        <li><a href="{{url('/donvi/danhsach')}}">Danh sách đơn vị</a></li>
+                                    @if(chkPer('hethong', 'hethong_pq', 'danhsachdonvi'))
+                                        <li><a href="{{url('/donvi/danhsach')}}">{{session('admin')['a_chucnang']['danhsachdonvi'] ?? 'Danh sách đơn vị'}}</a></li>
                                     @endif
 
                                         @if(chkPer('hethong', 'hethong_pq', 'chucnang'))
-                                            <li><a href="{{url('/chucnang/danhsach')}}">Danh mục chức năng hệ thống</a> </li>
+                                            <li><a href="{{url('/chucnang/danhsach')}}">{{session('admin')['a_chucnang']['chucnang'] ?? 'Danh mục chức năng hệ thống'}}</a> </li>
                                         @endif
                                     <!-- chức năng này không có => chỉ có quyền SSA mới lên -->
                                         @if(chkPer('hethong', 'hethong_pq', 'vanphong'))
-                                            <li><a href="{{url('/vanphonghotro/danhsach')}}">Văn phòng hỗ trợ</a> </li>
+                                            <li><a href="{{url('/vanphonghotro/danhsach')}}">{{session('admin')['a_chucnang']['vanphong'] ?? 'Văn phòng hỗ trợ'}}</a> </li>
                                         @endif
 
                                         @if(chkPer('hethong', 'hethong_pq', 'thongtin'))
-                                            <li><a href="{{url('/general')}}">Cấu hình hệ thống</a></li>
+                                            <li><a href="{{url('/general')}}">{{session('admin')['a_chucnang']['thongtin'] ?? 'Cấu hình hệ thống'}}</a></li>
                                         @endif
                                 </ul>
                             </li>

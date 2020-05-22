@@ -10,6 +10,7 @@ use App\Model\system\dsdonvi;
 use App\Model\system\dsxaphuong;
 use App\Model\system\view_dsdiaban_donvi;
 use App\Model\view\view_giadatdaugia;
+use App\Model\view\view_giadatthitruong;
 use App\Town;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -479,28 +480,28 @@ class giadatthitruongController extends Controller
         switch ($inputs['level']) {
             case 'H':
             {
-                $model = view_giadatdaugia::where('madv_h', $inputs['madv']);
+                $model = view_giadatthitruong::where('madv_h', $inputs['madv']);
                 if ($inputs['nam'] != 'all')
                     $model = $model->whereYear('thoidiem_h', $inputs['nam']);
                 break;
             }
             case 'T':
             {
-                $model = view_giadatdaugia::where('madv_t', $inputs['madv']);
+                $model = view_giadatthitruong::where('madv_t', $inputs['madv']);
                 if ($inputs['nam'] != 'all')
                     $model = $model->whereYear('thoidiem_t', $inputs['nam']);
                 break;
             }
             case 'ADMIN':
             {
-                $model = view_giadatdaugia::where('madv_ad', $inputs['madv']);
+                $model = view_giadatthitruong::where('madv_ad', $inputs['madv']);
                 if ($inputs['nam'] != 'all')
                     $model = $model->whereYear('thoidiem_ad', $inputs['nam']);
                 break;
             }
             default:
             {//mặc định lấy đơn vị nhâp liệu
-                $model = view_giadatdaugia::where('madv', $inputs['madv']);
+                $model = view_giadatthitruong::where('madv', $inputs['madv']);
                 if ($inputs['nam'] != 'all')
                     $model = $model->whereYear('thoidiem', $inputs['nam']);
                 break;
@@ -531,7 +532,7 @@ class giadatthitruongController extends Controller
             //Lấy hết hồ sơ trên địa bàn rồi bắt đầu tìm kiểm
             $inputs = $request->all();
             $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
-            $model = view_giadatdaugia::wherein('madv',array_column($m_donvi->toarray(),'madv'));
+            $model = view_giadatthitruong::wherein('madv',array_column($m_donvi->toarray(),'madv'));
             //dd($inputs);
 
             if($inputs['madv'] != 'all'){
@@ -549,14 +550,14 @@ class giadatthitruongController extends Controller
                 $model = $model->where('thoidiem','<=',$inputs['thoidiem_den']);
             }
 
-            $model = $model->where('giakhoidiem','>=',chkDbl($inputs['giakhoidiem_tu']));
-            if(chkDbl($inputs['giakhoidiem_den']) > 0){
-                $model = $model->where('giakhoidiem','<=',chkDbl($inputs['giakhoidiem_den']));
+            $model = $model->where('giaquydinh','>=',chkDbl($inputs['giaquydinh_tu']));
+            if(chkDbl($inputs['giaquydinh_den']) > 0){
+                $model = $model->where('giaquydinh','<=',chkDbl($inputs['giaquydinh_den']));
             }
 
-            $model = $model->where('giadaugia','>=',chkDbl($inputs['giadaugia_tu']));
-            if(chkDbl($inputs['giadaugia_den']) > 0){
-                $model = $model->where('giakhoidiem','<=',chkDbl($inputs['giadaugia_den']));
+            $model = $model->where('giathitruong','>=',chkDbl($inputs['giathitruong_tu']));
+            if(chkDbl($inputs['giathitruong_den']) > 0){
+                $model = $model->where('giathitruong','<=',chkDbl($inputs['giathitruong_den']));
             }
             //dd($model);
 

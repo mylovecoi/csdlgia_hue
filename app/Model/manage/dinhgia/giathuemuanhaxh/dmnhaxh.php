@@ -10,6 +10,7 @@ class dmnhaxh extends Model
     protected $fillable = [
         'id',
         'maso',
+        'phanloai',
         'tennha',
         'diachi',
         'donviql',

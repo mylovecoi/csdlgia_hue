@@ -12,6 +12,7 @@ use App\DonViDvVt;
 use App\DonViDvVtReg;
 use App\GeneralConfigs;
 use App\Model\system\company\Company;
+use App\Model\system\danhmucchucnang;
 use App\Model\system\dsdiaban;
 use App\Model\system\dsdonvi;
 use App\Register;
@@ -83,6 +84,8 @@ class UsersController extends Controller
             //Doanh nghiệp giữ nguyên level; Đơn vị HC lấy level theo địa bàn
             $ttuser->level = $ttuser->level == 'DN' ? $ttuser->level : $m_diaban->level;
         }
+        //Lấy thông tin giao diện
+        $ttuser->a_chucnang = array_column(danhmucchucnang::all()->toArray(),'menu','maso');
         //Lấy setting gán luôn vào phiên đăng nhập
         $m_gen = GeneralConfigs::first();
         $ttuser->setting = json_decode($m_gen->setting, true);
@@ -94,6 +97,7 @@ class UsersController extends Controller
         $ttuser->ipf5 = $m_gen->ipf5;
         //dd($ttuser);
         Session::put('admin', $ttuser);
+        //dd(session('admin'));
         return redirect('')
             ->with('pageTitle', 'Tổng quan');
     }

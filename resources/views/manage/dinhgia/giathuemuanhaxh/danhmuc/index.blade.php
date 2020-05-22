@@ -41,6 +41,7 @@
                     form.find("[name='thoigian']").val(data.thoigian);
                     form.find("[name='maso']").val(data.maso);
                     form.find("[name='tennha']").val(data.tennha);
+                    form.find("[name='phanloai']").val(data.phanloai).trigger('change');
                     form.find("[name='hientrang']").val(data.hientrang).trigger('change');
                     form.find("[name='diachi']").val(data.diachi);
                     form.find("[name='donviql']").val(data.donviql);
@@ -84,6 +85,7 @@
                             <thead>
                                 <tr>
                                     <th style="text-align: center" width="2%">STT</th>
+                                    <th style="text-align: center">Phân loại</th>
                                     <th style="text-align: center">Tên nhà</th>
                                     <th style="text-align: center">Địa chỉ</th>
                                     <th style="text-align: center">Thời điểm</br>hoàn thành</th>
@@ -95,6 +97,7 @@
                             @foreach($model as $key=>$tt)
                                 <tr class="odd gradeX">
                                     <td style="text-align: center">{{$key + 1}}</td>
+                                    <td>{{$a_phanloai[$tt->phanloai] ?? ''}}</td>
                                     <td class="active">{{$tt->tennha}}</td>
                                     <td>{{$tt->diachi}}</td>
                                     <td>{{getDayVn($tt->thoigian)}}</td>
@@ -167,6 +170,15 @@
                             <div class="form-group">
                                 <label class="control-label">Hiện trạng</label>
                                 {!!Form::select('hientrang', $a_hientrang, 'CHUASD', array('id' => 'hientrang','class' => 'form-control'))!!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Phân loại</label>
+                                {!!Form::select('phanloai', $a_phanloai, null, array('id' => 'phanloai','class' => 'form-control'))!!}
                             </div>
                         </div>
                     </div>

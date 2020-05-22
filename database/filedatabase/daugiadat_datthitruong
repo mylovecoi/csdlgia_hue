@@ -197,7 +197,7 @@ SELECT        dbo.giadatthitruong.madiaban, dbo.giadatthitruong.maxp, dbo.giadat
                          dbo.giadatthitruong.lydo_ad, dbo.giadatthitruong.thongtin_ad, dbo.giadatthitruong.trangthai_ad, dbo.giadatthitruongct.khuvuc, dbo.giadatthitruongct.mota, dbo.giadatthitruongct.dientich, dbo.giadatthitruongct.giaquydinh,
                          dbo.giadatthitruongct.giathitruong, dbo.giadatthitruongct.loaidat
 FROM            dbo.giadatthitruong INNER JOIN
-                         dbo.giadatthitruongct ON dbo.giadatthitruong.maxp = dbo.giadatthitruongct.mahs
+                         dbo.giadatthitruongct ON dbo.giadatthitruong.mahs = dbo.giadatthitruongct.mahs
 GO
 
 

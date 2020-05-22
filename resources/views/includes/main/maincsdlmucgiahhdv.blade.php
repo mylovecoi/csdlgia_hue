@@ -4,14 +4,14 @@
         data-original-title="Giá hàng hóa, dịch vụ do UBND định giá">
         <a href="javascript:;">
             <i class="icon-folder"></i>
-            <span class="title">Định giá</span>
+            <span class="title">{{session('admin')['a_chucnang']['dinhgia'] ?? 'Định giá'}}</span>
             <span class="arrow"></span>
         </a>
         <ul class="sub-menu">
             @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadatpl'))
                 <li>
                     <a href="javascript:;">
-                        <span class="title">Giá đất phân loại</span>
+                        <span class="title">{{session('admin')['a_chucnang']['giadatpl'] ?? 'Giá đất phân loại'}}</span>
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
@@ -45,7 +45,7 @@
             @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuedatnuoc'))
                 <li>
                     <a href="javascript:;">
-                        Giá thuê đất, nước<span class="arrow"></span>
+                        {{session('admin')['a_chucnang']['giathuedatnuoc'] ?? 'Giá thuê đất, nước'}}<span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuedatnuoc', 'hoso','index'))
@@ -79,7 +79,7 @@
                 <li class="tooltips" data-container="body" data-placement="right" data-html="true"
                     data-original-title="Giá rừng bao gồm rừng sản xuất, rừng phòng hộ và rừng đặc dụng thuộc sở hữu toàn dân do Nhà nước làm đại diện chủ sở hữu">
                     <a href="javascript:;">
-                        Giá rừng
+                        {{session('admin')['a_chucnang']['giarung'] ?? 'Giá rừng'}}
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
@@ -118,7 +118,7 @@
             @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuemuanhaxh'))
                 <li class="tooltips" data-container="body" data-placement="right" data-html="true">
                     <a href="javascript:;">
-                        Giá thuê mua nhà xã hội
+                        {{session('admin')['a_chucnang']['giathuemuanhaxh'] ?? 'Giá thuê mua nhà xã hội'}}
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
@@ -157,7 +157,7 @@
             @if(chkPer('csdlmucgiahhdv','dinhgia', 'gianuocsh'))
                 <li>
                     <a href="javascript:;">
-                        Giá nước sạch sinh hoạt
+                        {{session('admin')['a_chucnang']['gianuocsh'] ?? 'Giá nước sạch sinh hoạt'}}
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
@@ -202,7 +202,7 @@
                 <li class="tooltips" data-container="body" data-placement="right" data-html="true"
                     data-original-title="Giá cho thuê tài sản Nhà nước là công trình kết cấu hạ tầng đầu tư từ nguồn ngân sách địa phương">
                     <a href="javascript:;">
-                        Giá thuê tài sản công<span class="arrow"></span>
+                        {{session('admin')['a_chucnang']['giathuetscong'] ?? 'Giá thuê tài sản công'}}<span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetscong', 'danhmuc','index'))
@@ -240,7 +240,7 @@
             @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvci'))
                 <li>
                     <a href="javascript:;">
-                        Giá sản phẩm, dịch vụ công ích,... đặt hàng<span class="arrow"></span>
+                        {{session('admin')['a_chucnang']['giaspdvci'] ?? 'Giá sản phẩm, dịch vụ công ích,... đặt hàng'}}<span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvci', 'danhmuc','index'))
@@ -278,7 +278,7 @@
             @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvgddt'))
                 <li>
                     <a href="javascript:;">
-                        Giá dịch vụ đào tạo<span class="arrow"></span>
+                        {{session('admin')['a_chucnang']['giadvgddt'] ?? 'Giá dịch vụ đào tạo'}}<span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvgddt', 'danhmuc','index'))
@@ -316,7 +316,7 @@
             @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvkcb'))
                 <li>
                     <a href="javascript:;">
-                        Giá dịch vụ khám chữa bệnh<span class="arrow"></span>
+                        {{session('admin')['a_chucnang']['giadvkcb'] ?? 'Giá dịch vụ khám chữa bệnh'}}<span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvkcb', 'danhmuc','index'))
@@ -354,7 +354,7 @@
             @if(chkPer('csdlmucgiahhdv','dinhgia', 'trogiatrocuoc'))
                 <li>
                     <a href="javascript:;">
-                        Mức trợ giá, trợ cước<span class="arrow"></span>
+                        {{session('admin')['a_chucnang']['trogiatrocuoc'] ?? 'Mức trợ giá, trợ cước'}}<span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'trogiatrocuoc', 'danhmuc','index'))
@@ -392,7 +392,7 @@
             @if(chkPer('csdlmucgiahhdv','dinhgia', 'giahhdvcn'))
                 <li>
                     <a href="javascript:;">
-                        Giá hàng hóa, dịch vụ khác theo quy định của pháp luật chuyên ngành<span class="arrow"></span>
+                        {{session('admin')['a_chucnang']['giahhdvcn'] ?? 'Giá hàng hóa, dịch vụ khác theo quy định của pháp luật chuyên ngành'}}<span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giahhdvcn', 'danhmuc','index'))
@@ -431,7 +431,7 @@
                 @if(can('giadatduan','index'))
                     <li>
                         <a href="javascript:;">
-                            <span class="title">Giá đất cụ thể dự án</span>
+                            <span class="title">{{session('admin')['a_chucnang']['giadatduan'] ?? 'Giá đất cụ thể dự án'}}</span>
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
@@ -459,7 +459,7 @@
                 @if(can('daugiadatts','index'))
                     <li>
                         <a href="javascript:;">
-                            Giá đấu giá đất và tài sản gắn liền đất <span class="arrow"></span>
+                            {{session('admin')['a_chucnang']['daugiadatts'] ?? 'Giá đấu giá đất và tài sản gắn liền đất'}}<span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
                             @if(can('kkdaugiadatts','index'))
@@ -481,7 +481,7 @@
                 @if(can('giathuetn','index'))
                     <li>
                         <a href="javascript:;">
-                            <span class="title">Giá thuế tài nguyên</span>
+                            <span class="title">{{session('admin')['a_chucnang']['giathuetn'] ?? 'Giá thuế tài nguyên'}}</span>
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
@@ -510,7 +510,7 @@
                     <li class="tooltips" data-container="body" data-placement="right" data-html="true">
                         @if(can('kkgiathuenhacongvu','index'))
                             <a href="{{url('giathuenhacongvu')}}">
-                                Giá thuê nhà công vụ
+                                {{session('admin')['a_chucnang']['giathuenhacongvu'] ?? 'Giá thuê nhà công vụ'}}
                             </a>
                         @endif
                     </li>
@@ -522,7 +522,7 @@
                     <li>
                         @if(can('kkbannhataidinhcu','index'))
                             <a href="{{url('bannhataidinhcu')}}">
-                                Giá bán nhà tái định cư
+                                {{session('admin')['a_chucnang']['bannhataidinhcu'] ?? 'Giá bán nhà tái định cư'}}
                             </a>
                         @endif
                     </li>
@@ -537,7 +537,7 @@
         data-original-title="Tổ chức, cá nhận Giá đăng ký theo yêu cầu của Sở Tài chính, sở quản lý ngành">
         <a href="javascript:;">
             <i class="icon-folder"></i>
-            <span class="title">Bình ổn giá</span>
+            <span class="title">{{session('admin')['a_chucnang']['bog'] ?? 'Bình ổn giá'}}</span>
             <span class="arrow"></span>
         </a>
         <ul class="sub-menu">
@@ -667,7 +667,7 @@
         data-original-title="Giá kê khai của hàng hóa, dịch vụ thuộc danh mục Giá kê khai">
         <a href="javascript:;">
             <i class="icon-folder"></i>
-            <span class="title">Mức giá kê khai, đăng ký</span>
+            <span class="title">{{session('admin')['a_chucnang']['kknygia'] ?? 'Mức giá kê khai, đăng ký'}}</span>
             <span class="arrow"></span>
         </a>
         <ul class="sub-menu">
@@ -1124,7 +1124,7 @@
         data-original-title="Giá thị trường hàng hóa dịch vụ khác do UBND tỉnh, thành phố trực thuộc trung ương và các Bộ quản lý ngành, lĩnh vực tự quy định thuộc nội dung CSDL giá của mình">
         <a href="javascript:;">
             <i class="icon-folder"></i>
-            <span class="title">Hàng hóa, dịch vụ khác</span>
+            <span class="title">{{session('admin')['a_chucnang']['giahhdvk'] ?? 'Hàng hóa, dịch vụ khác'}}</span>
             <span class="arrow"></span>
         </a>
         <ul class="sub-menu">
@@ -1179,7 +1179,7 @@
             data-original-title="Giá thị trường hàng hóa dịch vụ khác do UBND tỉnh, thành phố trực thuộc trung ương và các Bộ quản lý ngành, lĩnh vực tự quy định thuộc nội dung CSDL giá của mình">
             <a href="javascript:;">
                 <i class="icon-folder"></i>
-                <span class="title">Giá thị trường </span>
+                <span class="title">{{session('admin')['a_chucnang']['giathitruong'] ?? 'Giá thị trường'}} </span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
@@ -1214,7 +1214,7 @@
             data-original-title="Giá tính lệ phí trước bạ do UBND tỉnh, thành phố trực thuộc trung ương ban hành">
             <a href="javascript:;">
                 <i class="icon-folder"></i>
-                <span class="title">Giá lệ phí trước bạ </span>
+                <span class="title">{{session('admin')['a_chucnang']['gialephitruocba'] ?? 'Giá lệ phí trước bạ'}}</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
@@ -1244,7 +1244,7 @@
             data-original-title="Giá tính lệ phí trước bạ do UBND tỉnh, thành phố trực thuộc trung ương ban hành">
             <a href="javascript:;">
                 <i class="icon-folder"></i>
-                <span class="title">Giá lệ phí trước bạ đối với nhà </span>
+                <span class="title">{{session('admin')['a_chucnang']['gialephitruocbanha'] ?? 'Giá lệ phí trước bạ đối với nhà'}}</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
@@ -1267,7 +1267,7 @@
     <li class="javascript:;">
         <a href="javascript:;">
             <i class="icon-folder"></i>
-            <span class="title">Giá tài sản công</span>
+            <span class="title">{{session('admin')['a_chucnang']['taisancong'] ?? 'Giá tài sản công'}}</span>
             <span class="arrow"></span>
         </a>
         <ul class="sub-menu">
@@ -1308,7 +1308,7 @@
     <li class="javascript:;">
         <a href="javascript:;">
             <i class="icon-folder"></i>
-            <span class="title">Phí, lệ phí</span>
+            <span class="title">{{session('admin')['a_chucnang']['giaphilephi'] ?? 'Phí, lệ phí'}}</span>
             <span class="arrow"></span>
         </a>
         <ul class="sub-menu">
@@ -1349,7 +1349,7 @@
     <li>
         <a href="javascript:;">
             <i class="icon-folder"></i>
-            <span class="title">Giá đất theo địa bàn</span>
+            <span class="title">{{session('admin')['a_chucnang']['giacldat'] ?? 'Giá đất theo địa bàn'}}</span>
             <span class="arrow"></span>
         </a>
         <ul class="sub-menu">
@@ -1380,7 +1380,7 @@
     <li>
         <a href="javascript:;">
             <i class="icon-folder"></i>
-            <span class="title">Giá đấu giá đất</span>
+            <span class="title">{{session('admin')['a_chucnang']['giadaugiadat'] ?? 'Giá đấu giá đất'}}</span>
             <span class="arrow"></span>
         </a>
         <ul class="sub-menu">
@@ -1411,7 +1411,7 @@
     <li>
         <a href="javascript:;">
             <i class="icon-folder"></i>
-            <span class="title">Giá đất giao dịch thực tế</span>
+            <span class="title">{{session('admin')['a_chucnang']['giadatthitruong'] ?? 'Giá đất giao dịch thực tế'}}</span>
             <span class="arrow"></span>
         </a>
         <ul class="sub-menu">
@@ -1442,7 +1442,7 @@
     <li class="javascript:;">
         <a href="javascript:;">
             <i class="icon-folder"></i>
-            <span class="title">Giao dịch bất động sản</span>
+            <span class="title">{{session('admin')['a_chucnang']['giabatdongsan'] ?? 'Giao dịch bất động sản'}}</span>
             <span class="arrow"></span>
         </a>
         <ul class="sub-menu">
@@ -1478,7 +1478,7 @@
     <li class="javascript:;">
         <a href="javascript:;">
             <i class="icon-folder"></i>
-            <span class="title">Giá đấu thầu bán TS</span>
+            <span class="title">{{session('admin')['a_chucnang']['thanhlytaisan'] ?? 'Giá đấu thầu bán TS'}}</span>
             <span class="arrow"></span>
         </a>
         <ul class="sub-menu">
@@ -1501,7 +1501,7 @@
     <li class="javascript:;">
         <a href="javascript:;">
             <i class="icon-folder"></i>
-            <span class="title">Giá trúng thầu của HH-DV được mua sắm theo QĐ của PL về đấu thầu</span>
+            <span class="title">{{session('admin')['a_chucnang']['muataisan'] ?? 'Giá trúng thầu của HH-DV được mua sắm theo QĐ của PL về đấu thầu'}}</span>
             <span class="arrow"></span>
         </a>
         <ul class="sub-menu">
@@ -1536,7 +1536,7 @@
     <li class="javascript:;">
         <a href="javascript:;">
             <i class="icon-folder"></i>
-            <span class="title">Hàng hóa chuyển từ phí sang giá</span>
+            <span class="title">{{session('admin')['a_chucnang']['phichuyengia'] ?? 'Hàng hóa chuyển từ phí sang giá'}}</span>
             <span class="arrow"></span>
         </a>
         <ul class="sub-menu">
@@ -1579,7 +1579,7 @@
         <li class="javascript:;">
             <a href="javascript:;">
                 <i class="icon-folder"></i>
-                <span class="title">Giá gốc vật liệu xây dựng</span>
+                <span class="title">{{session('admin')['a_chucnang']['giagocvlxd'] ?? 'Giá gốc vật liệu xây dựng'}}</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">

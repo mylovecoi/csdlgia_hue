@@ -16,6 +16,7 @@ class CreateDmgiathuemuanhaxhTable extends Migration
         Schema::create('dmnhaxh', function (Blueprint $table) {
             $table->increments('id');
             $table->string('maso')->unique();
+            $table->string('phanloai')->nullable();
             $table->string('tennha')->nullable();
             $table->string('diachi')->nullable();
             $table->string('donviql')->nullable();

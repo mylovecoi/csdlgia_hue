@@ -71,6 +71,11 @@ class KkGiaVtXkController extends Controller
             $inputs = $request->all();
             $inputs['url'] = '/kekhaigiavantaixekhach';
             $m_donvi = getDoanhNghiepNhapLieu(session('admin')->level, 'VTXK');
+            if(count($m_donvi) == 0){
+                return view('errors.noperm')
+                    ->with('url','')
+                    ->with('message','Hệ thống chưa có doanh nghiệp kê khai giá dịch vụ vận tải xe khách.');
+            }
             $m_diaban = dsdiaban::wherein('madiaban', array_column($m_donvi->toarray(),'madiaban'))->get();
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $modeldn = $m_donvi->where('madv', $inputs['madv'])->first();

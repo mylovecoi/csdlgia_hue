@@ -33,7 +33,6 @@
     <table cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;" id="data">
         <tr>
             <th width="2%" style="text-align: center">STT</th>
-            <th style="text-align: center">Số QĐ</th>
             <th style="text-align: center">Số quyết định</br>phương án đấu</br>giá</th>
             <th style="text-align: center">Số quyết định</br>đấu giá</th>
             <th style="text-align: center">Số quyết định</br>phê duyệt giá</br>khởi điểm</th>
@@ -46,7 +45,6 @@
         @foreach($model as $key=>$ct)
             <tr>
                 <td style="text-align: center">{{$i++}}</td>
-                <td>{{$ct->soqd}}</td>
                 <td>{{$ct->soqdpagia}}</td>
                 <td>{{$ct->soqddaugia}}</td>
                 <td>{{$ct->soqdgiakhoidiem}}</td>
