@@ -19,5 +19,8 @@ class KkGiaEtanolCt extends Model
         'ghichu',
         'trangthai',
         'thuevat',
+
+        'madv',
+        'plhs',
     ];
 }

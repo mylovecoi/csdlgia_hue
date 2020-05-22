@@ -975,42 +975,36 @@
                 </li>
             @endif
 
-            @if(canKkGiaCt('DVVTXB','DVVTXB'))
+            @if(chkPer('csdlmucgiahhdv','kknygia', 'dvvtxb', 'hoso', 'index'))
                 <li>
                     <a href="javascript:;">
                         <span class="title">Cước vận tải hành khách bằng xe buýt theo tuyến cố định</span>
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
-                        @if(session('admin')->level == 'DN')
+                        @if(session('admin')->level == 'SSA')
                             <li><a href="{{url('kekhaivantaixebuyt')}}">Giá kê khai</a></li>
                         @endif
-                        @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
-                            <li><a href="{{url('thongtindnvtxb')}}">Giá kê khai</a></li>
-                            <li><a href="{{url('xetduyetkekhaigiavtxb')}}">Xét duyệt hồ sơ kê khai</a></li>
-                            <li><a href="{{url('timkiemgiavantaixebuyt')}}">Tìm kiếm hồ sơ kê khai</a></li>
-                            <li><a href="{{url('baocaogiavantaixebuyt')}}">Báo cáo thống kê</a></li>
-                        @endif
+                        <li><a href="{{url('xetduyetkekhaigiavtxb')}}">Xét duyệt hồ sơ kê khai</a></li>
+                        <li><a href="{{url('timkiemgiavantaixebuyt')}}">Tìm kiếm hồ sơ kê khai</a></li>
+                        <li><a href="{{url('baocaogiavantaixebuyt')}}">Báo cáo thống kê</a></li>
                     </ul>
                 </li>
             @endif
 
-            @if(canKkGiaCt('DVVTXTX','VT'))
+            @if(chkPer('csdlmucgiahhdv','kknygia', 'dvvtxtx', 'hoso', 'index'))
                 <li>
                     <a href="javascript:;">
                         <span class="title">Cước vận tải hành khách bằng xe taxi</span>
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
-                        @if(session('admin')->level == 'DN')
+                        @if(session('admin')->level == 'SSA')
                             <li><a href="{{url('kekhaigiavantaixetaxi')}}">Giá kê khai</a></li>
                         @endif
-                        @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
-                            <li><a href="{{url('thongtindnvtxtx')}}">Giá kê khai</a></li>
-                            <li><a href="{{url('xetduyetkekhaigiavtxtx')}}">Xét duyệt hồ sơ kê khai</a></li>
-                            <li><a href="{{url('timkiemgiavantaixetaxi')}}">Tìm kiếm hồ sơ kê khai</a></li>
-                            <li><a href="{{url('baocaogiavantaixetaxi')}}">Báo cáo thống kê</a></li>
-                        @endif
+                        <li><a href="{{url('xetduyetkekhaigiavtxtx')}}">Xét duyệt hồ sơ kê khai</a></li>
+                        <li><a href="{{url('timkiemgiavantaixetaxi')}}">Tìm kiếm hồ sơ kê khai</a></li>
+                        <li><a href="{{url('baocaogiavantaixetaxi')}}">Báo cáo thống kê</a></li>
                     </ul>
                 </li>
             @endif

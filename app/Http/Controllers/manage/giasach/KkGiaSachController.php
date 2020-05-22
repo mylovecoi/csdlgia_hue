@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers\manage\giasach;
 
-use App\District;
-use App\Town;
 use App\Model\manage\kekhaigia\kkgiasach\KkGiaSach;
 use App\Model\manage\kekhaigia\kkgiasach\KkGiaSachCt;
 use App\Model\system\company\Company;
 use App\Model\system\company\CompanyLvCc;
 use App\Model\system\dmnganhnghekd\DmNgheKd;
-use App\Model\system\view_dsdiaban_donvi;
 use App\Model\system\dsdiaban;
+use App\Model\system\view_dsdiaban_donvi;
 use App\Model\view\view_dmnganhnghe;
+use App\District;
+use App\Town;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class KkGiaSachController extends Controller
@@ -73,28 +74,26 @@ class KkGiaSachController extends Controller
             $inputs = $request->all();
             $inputs['url'] = '/giasach';
             $m_donvi = getDoanhNghiep(session('admin')->level, session('admin')->madiaban);
-            /*dd($m_donvi);*/
             $m_diaban = dsdiaban::wherein('madiaban', a_unique(array_column($m_donvi->toArray(),'madiaban')))->get();
             $m_donvi_th = getDonViTongHop_dn('giasach',session('admin')->level, session('admin')->madiaban);
-            /*dd($m_donvi_th);*/
 
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_donvi->first()->madiaban;
             $inputs['nam'] = $inputs['nam'] ?? 'all';
             $m_sach = view_dmnganhnghe::where('manghe', 'SACH')->get();
-            /*dd($m_etanol);*/
-            $m_lvkd = CompanyLvCc::/*where('madv', $inputs['madv'])
-                ->*/wherein('manghe',array_column($m_sach->toarray(),'manghe'))->get();
-//            dd($m_lvkd);
+
+            $m_lvkd = CompanyLvCc::where('madv', $inputs['madv'])
+                ->wherein('manghe',array_column($m_sach->toarray(),'manghe'))->get();
             //lấy danh mục nghề theo đơn vị đăng ký
             $m_sach = $m_sach->wherein('manghe',array_column($m_lvkd->toarray(),'manghe'));
-
-            $model = KkGiaSach::all();
+            $model = KkGiaSach::where('madv',$inputs['madv'])->get();
             if ($inputs['nam'] != 'all')
-                $model = $model->whereYear('ngayhieuluc', $inputs['nam']);
+                $model = KkGiaSach::where('madv',$inputs['madv'])
+                    ->whereYear('ngayhieuluc', $inputs['nam'])
+                    ->get();
 
             return view('manage.giasach.kekhai.index')
-                ->with('model', $model/*->get()->sortby('ngayhieuluc')*/)
+                ->with('model', $model->sortby('ngayhieuluc'))
                 ->with('inputs', $inputs)
                 ->with('m_diaban', $m_diaban)
                 ->with('m_sach', $m_sach)
@@ -114,21 +113,48 @@ class KkGiaSachController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $model = new KkGiaSach();
-            $model->mahs = '123456789' . '_' . getdate()[0];
-            /*$model->manghe = $inputs['manghe'];*/
-            $m_nghe = DmNgheKd::where('manghe', 'SACH')->first();
-            /*$m_dn = Company::where('madv', '123456789')->first();*/
+            $model->madv = $inputs['madv'];
+            $model->mahs = $inputs['madv'] . '_' . getdate()[0];
+            $model->manghe = $inputs['manghe'];
+            $m_nghe = DmNgheKd::where('manghe', $inputs['manghe'])->first();
+            $m_dn = Company::where('madv', $inputs['madv'])->first();
 
-            //$model_ct = KkMhBogCt::where('mahs', $model->mahs)->get();
+            //xóa các chi tiết ko có hồ sơ (dữ liệu thừa do khi tạo mới thì tự thêm vào trong chi tiết mà ko cần lưu hồ sơ)
+            DB::statement("DELETE FROM kkgiasachct WHERE mahs not in (SELECT mahs FROM kkgiasach where madv='" . $inputs['madv'] . "')");
+
+            //lấy hồ sơ liền kề
+            $hslk = KkGiaSach::where('trangthai', 'HT')
+                ->where('madv', $inputs['madv'])
+                ->orderby('ngayhieuluc','desc')->first();
+
+            if($hslk != null){
+                $model->socvlk = $hslk->socv;
+                $model->ngaycvlk = $hslk->ngaynhap;
+                $m_ct = KkGiaSachCt::where('mahs', $hslk->mahs)->get();
+                $a_ct = array();
+                foreach ($m_ct as $ct) {
+                    $a_ct[] = ['tthhdv' => $ct->tthhdv,
+                        'qccl' => $ct->qccl,
+                        'dvt' => $ct->dvt,
+                        'dongialk' => $ct->dongialk,
+                        'dongia' => $ct->dongia,
+                        'ghichu' => $ct->ghichu,
+                        'madv' => $inputs['madv'],
+                        'mahs' => $inputs['mahs'],
+                        'trangthai' => 'CXD',
+                    ];
+                }
+                KkGiaSachCt::insert($a_ct);
+            }
+
             $inputs['url'] = '/giasach';
             return view('manage.giasach.kekhai.create')
                 ->with('model', $model)
                 ->with('model_ct', nullValue())
                 ->with('m_nghe', $m_nghe)
                 ->with('inputs', $inputs)
-                /*->with('m_dn', $m_dn)*/
+                ->with('m_dn', $m_dn)
                 ->with('pageTitle', 'Giá kê khai sách');
-
         }
     }
 
@@ -137,14 +163,13 @@ class KkGiaSachController extends Controller
             $inputs = $request->all();
             $model = KkGiaSach::where('mahs',$inputs['mahs'])->first();
             if($model == null){
-                $m_nghe = DmNgheKd::where('manghe', $inputs['manghe'])->first();
-                $inputs['phanloai'] = $m_nghe->phanloai;
+                $inputs['phanloai'] = 'DK';
                 $inputs['trangthai'] = 'CC';
+                $inputs['congbo'] = 'CHUACONGBO';
                 KkGiaSach::create($inputs);
             }else{
                 $model->update($inputs);
             }
-
             return redirect('giasach/danhsach?madv='.$inputs['madv']);
 
         }else
@@ -177,7 +202,7 @@ class KkGiaSachController extends Controller
             $inputs = $request->all();
             $model = KkGiaSach::where('mahs',$inputs['mahs'])->first();
             $modelct = KkGiaSachCt::where('mahs',$model->mahs)->get();
-            $m_nghe = DmNgheKd::where('manghe', $model->manghe)->first();
+            $m_nghe = DmNgheKd::where('manghe', 'SACH')->first();
             $m_dn = Company::where('madv', $model->madv)->first();
             $inputs['url'] = '/giasach';
             return view('manage.giasach.kekhai.create')
@@ -211,14 +236,13 @@ class KkGiaSachController extends Controller
             $m_diaban = dsdiaban::wherein('madiaban', a_unique(array_column($m_donvi->toArray(),'madiaban')))->get();
             $m_dm = view_dmnganhnghe::where('manghe', 'SACH')->get();
 
-            //dd($m_bog);
             return view('manage.giasach.timkiem.index')
                 ->with('inputs', $inputs)
                 ->with('m_diaban', $m_diaban)
                 ->with('a_dm', array_column($m_dm->toarray(),'tennghe','manghe'))
                 ->with('m_donvi', $m_donvi)
                 ->with('a_phanloai',  array('DK'=>'Đăng ký giá','KK'=>'Kê khai giá'))
-                ->with('pageTitle', 'Tìm kiếm hồ sơ giá kê khai giá sách');
+                ->with('pageTitle', 'Tìm kiếm hồ sơ giá sách');
 
         }else
             return view('errors.notlogin');
@@ -230,42 +254,32 @@ class KkGiaSachController extends Controller
             //Lấy hết hồ sơ trên địa bàn rồi bắt đầu tìm kiểm
             $inputs = $request->all();
             $inputs['url'] = '/giasach';
-            $m_donvi = getDoanhNghiep(session('admin')->level, session('admin')->madiaban);
-            $model = view_binhongia::wherein('madv', array_column($m_donvi->toarray(), 'madv'));
-            //dd($inputs);
+            $model = KkGiaSachCt::join('kkgiasach','kkgiasach.mahs', '=', 'kkgiasachct.mahs')
+                ->join('company', 'company.madv', '=', 'kkgiasach.madv')
+                ->select('kkgiasachct.*','kkgiasach.ngayhieuluc','company.tendn');
 
-            if ($inputs['madv'] != 'all') {
-                $model = $model->where('madv', $inputs['madv']);
-            }
-            if ($inputs['manghe'] != 'all') {
-                $model = $model->where('manghe', $inputs['manghe']);
+            if ($inputs['tthhdv'] != '') {
+                $model = $model->where('tthhdv','LIKE', "%{$inputs['tthhdv']}%");
             }
 
-            if ($inputs['tenhh'] != '') {
-                //$model = $model->where('tenhh', 'like', $inputs['tenhh'].'%');
-                $model = $model->where('tenhh', 'like', getTimkiemLike($inputs['tenhh'], 1));
-                //$model = $model->where('tenhh',$inputs['tenhh']);
-            }
-            //dd($model);
             if (getDayVn($inputs['ngayapdung_tu']) != '') {
-                $model = $model->where('ngayhieuluc', '>=', $inputs['ngayapdung_tu']);
+                $model = $model->where('kkgiasach.ngayhieuluc', '>=', $inputs['ngayapdung_tu']);
             }
 
             if (getDayVn($inputs['ngayapdung_den']) != '') {
-                $model = $model->where('ngayhieuluc', '<=', $inputs['ngayapdungden']);
+                $model = $model->where('kkgiasach.ngayhieuluc', '<=', $inputs['ngayapdung_den']);
             }
 
-            $model = $model->where('giakk', '>=', chkDbl($inputs['giakk_tu']));
-            if (chkDbl($inputs['giakk_den']) > 0) {
-                $model = $model->where('giakk', '<=', chkDbl($inputs['giakk_den']));
+            $model = $model->where('kkgiasachct.dongia', '>=', chkDbl($inputs['dongia_tu']));
+            if (chkDbl($inputs['dongia_den']) > 0) {
+                $model = $model->where('kkgiasachct.dongia', '<=', chkDbl($inputs['dongia_den']));
             }
+            $model = $model->get();
 
             $a_dm = array_column(view_dmnganhnghe::where('manghe', 'SACH')->get()->toArray(), 'tennghe', 'manghe');
             return view('manage.giasach.timkiem.result')
-                ->with('model', $model->get())
+                ->with('model', $model)
                 ->with('inputs', $inputs)
-                ->with('a_diaban', array_column($m_donvi->toarray(), 'tendiaban', 'madiaban'))
-                ->with('a_donvi', array_column($m_donvi->toarray(), 'tendv', 'madv'))
                 ->with('a_dm', $a_dm)
                 ->with('pageTitle', 'Tìm kiếm thông tin giá sách');
         } else

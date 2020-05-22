@@ -55,23 +55,24 @@
             @foreach($model as $key=>$tt)
                 <tr>
                     <td style="text-align: center">{{$key+1}}</td>
-                    <td class="active" colspan="5">{{$a_com[$tt->madv] ?? ''}}
-                        -<b>Mã số thuế:</b> {{$tt->maxa}}
-                        -<b>Mã hồ sơ:</b> {{$tt->mahs}}
-                        . Số công văn :{{$tt->socv}} -
-                        Ngày hiệu lực: {{getDayVn($tt->ngayhieuluc)}}
-                        - Ngày chuyển: {{getDateTime($tt->ngaychuyen)}}
-                        <br>Số hồ sơ nhận: {{$tt->sohsnhan}} - Ngày nhận: {{getDayVn($tt->ngaynhan)}}</td>
+                    <td class="active" colspan="5"><b> {{$a_com[$tt->madv] ?? ''}} </b><br>
+                        -<b>Mã số thuế:</b> {{$tt->maxa}}<br>
+                        -<b>Mã hồ sơ:</b> {{$tt->mahs}}<br>
+                        -<b>Số công văn:</b>{{$tt->socv}}<br>
+                        -<b>Ngày hiệu lực:</b> {{getDayVn($tt->ngayhieuluc)}}<br>
+                        -<b>Ngày chuyển:</b> {{getDateTime($tt->ngaychuyen)}}<br>
+                        -<b>Số hồ sơ nhận:</b> {{$tt->sohsnhan}} - Ngày nhận: {{getDayVn($tt->ngaynhan)}}
+                    </td>
                 </tr>
                 <?php $modelct = $modelct->where('mahs',$tt->mahs)?>
                 @foreach($modelct as $key2=>$tt)
                     <tr>
                         <td style="text-align: right">{{($key2 +1)}}</td>
-                        <td class="active">{{$tt->tenhh}}</td>
-                        <td style="text-align: left">{{$tt->quycach}}</td>
+                        <td class="active" style="font-style: italic">{{$tt->tthhdv}}</td>
+                        <td style="text-align: left;font-style: italic">{{$tt->qccl}}</td>
                         <td style="text-align: center">{{$tt->dvt}}</td>
-                        <td style="text-align: right">{{number_format($tt->gialk)}}</td>
-                        <td style="text-align: right">{{number_format($tt->giakk)}}</td>
+                        <td style="text-align: right">{{number_format($tt->dongialk)}}</td>
+                        <td style="text-align: right">{{number_format($tt->dongia)}}</td>
                     </tr>
                 @endforeach
             @endforeach

@@ -102,7 +102,7 @@
                                     <a href="{{url($inputs['url'].'/xemhoso?mahs='.$tt->mahs.'&act=false')}}" class="btn btn-default btn-xs mbs" target="_blank">
                                         <i class="fa fa-eye"></i>&nbsp;Chi tiết</a>
 
-                                    @if(chkPer('csdlmucgiahhdv','bog', 'bog', 'hoso', 'approve'))
+                                    {{--@if(chkPer('csdlmucgiahhdv','bog', 'bog', 'hoso', 'approve'))--}}
                                         @if($tt->level == 'ADMIN')
                                             @if($tt->trangthai == 'CB')
                                                 <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','{{$inputs['url'].'/congbo'}}', 'HCB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
@@ -135,7 +135,7 @@
                                                     <i class="fa fa-search"></i>&nbsp;Lý do trả lại</button>
                                             @endif
                                         @endif
-                                    @endif
+                                    {{--@endif--}}
                                 </td>
                             </tr>
                         @endforeach

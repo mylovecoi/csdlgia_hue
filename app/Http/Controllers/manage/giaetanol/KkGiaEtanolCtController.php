@@ -157,7 +157,7 @@ class KkGiaEtanolCtController extends Controller
                     $result['message'] .= '<td style="text-align: right;font-weight: bold;">'.dinhdangsothapphan($ttmh->dongia,5).'</td>';
                     $result['message'] .= '<td>'.$ttmh->ghichu.'</td>';
                     $result['message'] .= '<td>'.
-                        '<button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editmhbog('.$ttmh->id.');"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</button>'.
+                        '<button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editetanol('.$ttmh->id.');"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</button>'.
                         '<button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid('.$ttmh->id.');" ><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>'
 
                         .'</td>';
@@ -205,7 +205,7 @@ class KkGiaEtanolCtController extends Controller
             $result['message'] .= '<td style="text-align: right;font-weight: bold;">' . dinhdangsothapphan($ttmh->dongia, 5) . '</td>';
             $result['message'] .= '<td>' . $ttmh->ghichu . '</td>';
             $result['message'] .= '<td>' .
-                '<button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editmhbog(' . $ttmh->id . ');"><i class="fa fa-edit"></i>&nbsp;Mức giá mới</button>' .
+                '<button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editetanol(' . $ttmh->id . ');"><i class="fa fa-edit"></i>&nbsp;Mức giá mới</button>' .
                 '<button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid(' . $ttmh->id . ');" ><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>'
 
                 . '</td>';

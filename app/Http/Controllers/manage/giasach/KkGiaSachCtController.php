@@ -5,6 +5,7 @@ namespace App\Http\Controllers\manage\giasach;
 use App\Model\manage\kekhaigia\kkgiasach\KkGiaSachCt;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class KkGiaSachCtController extends Controller
 {
@@ -19,8 +20,8 @@ class KkGiaSachCtController extends Controller
         }
         $inputs = $request->all();
         //dd($inputs);
-        $inputs['gialk'] = getDoubleToDb($inputs['gialk']);
-        $inputs['giakk'] = getDoubleToDb($inputs['giakk']);
+        $inputs['dongialk'] = getDoubleToDb($inputs['dongialk']);
+        $inputs['dongia'] = getDoubleToDb($inputs['dongia']);
         //$inputs['trangthai'] = 'CXD';
 
         $model = KkGiaSachCt::where('id',$inputs['id'])->first();
@@ -48,7 +49,7 @@ class KkGiaSachCtController extends Controller
 
         $inputs = $request->all();
         $id = $inputs['id'];
-        $model = KkGiaEtanolCt::findOrFail($id);
+        $model = KkGiaSachCt::findOrFail($id);
         die($model);
     }
 
@@ -149,14 +150,14 @@ class KkGiaSachCtController extends Controller
                 foreach($model as $key=>$ttmh){
                     $result['message'] .= '<tr id="'.$ttmh->id.'">';
                     $result['message'] .= '<td style="text-align: center">'.($key +1).'</td>';
-                    $result['message'] .= '<td class="active">'.$ttmh->tenhh.'</td>';
-                    $result['message'] .= '<td class="active">'.$ttmh->quycach.'</td>';
+                    $result['message'] .= '<td class="active">'.$ttmh->tthhdv.'</td>';
+                    $result['message'] .= '<td class="active">'.$ttmh->qccl.'</td>';
                     $result['message'] .= '<td class="active">'.$ttmh->dvt.'</td>';
-                    $result['message'] .= '<td style="text-align: right;font-weight: bold;">'.dinhdangsothapphan($ttmh->gialk,5).'</td>';
-                    $result['message'] .= '<td style="text-align: right;font-weight: bold;">'.dinhdangsothapphan($ttmh->giakk,5).'</td>';
+                    $result['message'] .= '<td style="text-align: right;font-weight: bold;">'.dinhdangsothapphan($ttmh->dongialk,5).'</td>';
+                    $result['message'] .= '<td style="text-align: right;font-weight: bold;">'.dinhdangsothapphan($ttmh->dongia,5).'</td>';
                     $result['message'] .= '<td>'.$ttmh->ghichu.'</td>';
                     $result['message'] .= '<td>'.
-                        '<button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editmhbog('.$ttmh->id.');"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</button>'.
+                        '<button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editsach('.$ttmh->id.');"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</button>'.
                         '<button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid('.$ttmh->id.');" ><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>'
 
                         .'</td>';
@@ -198,13 +199,13 @@ class KkGiaSachCtController extends Controller
         foreach ($model as $key => $ttmh) {
             $result['message'] .= '<tr id="' . $ttmh->id . '">';
             $result['message'] .= '<td style="text-align: center">' . ($key + 1) . '</td>';
-            $result['message'] .= '<td class="active">' . $ttmh->tenhh . '</td>';
+            $result['message'] .= '<td class="active">' . $ttmh->tthhdv . '</td>';
             $result['message'] .= '<td class="active">' . $ttmh->dvt . '</td>';
-            $result['message'] .= '<td style="text-align: right;font-weight: bold;">' . dinhdangsothapphan($ttmh->gialk, 5) . '</td>';
-            $result['message'] .= '<td style="text-align: right;font-weight: bold;">' . dinhdangsothapphan($ttmh->giakk, 5) . '</td>';
+            $result['message'] .= '<td style="text-align: right;font-weight: bold;">' . dinhdangsothapphan($ttmh->dongialk, 5) . '</td>';
+            $result['message'] .= '<td style="text-align: right;font-weight: bold;">' . dinhdangsothapphan($ttmh->dongia, 5) . '</td>';
             $result['message'] .= '<td>' . $ttmh->ghichu . '</td>';
             $result['message'] .= '<td>' .
-                '<button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editmhbog(' . $ttmh->id . ');"><i class="fa fa-edit"></i>&nbsp;Mức giá mới</button>' .
+                '<button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editsach(' . $ttmh->id . ');"><i class="fa fa-edit"></i>&nbsp;Mức giá mới</button>' .
                 '<button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid(' . $ttmh->id . ');" ><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>'
 
                 . '</td>';

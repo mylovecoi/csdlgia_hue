@@ -11,13 +11,16 @@ class KkGiaThanCt extends Model
         'id',
         'mahs',
         'maxa',
-        'tenhhdv',
+        'tthhdv',
         'qccl',
         'dvt',
-        'gialk',
-        'gia',
+        'dongialk',
+        'dongia',
         'ghichu',
         'thuevat',
         'trangthai',
+
+        'madv',
+        'plhs',
     ];
 }

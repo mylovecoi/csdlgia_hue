@@ -128,8 +128,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label">Ngành nghề kê khai</label>
-                            <select class="form-control select2me" name="manghe" id="manghe">
-                                <option value="all">-- Tất cả ngành nghề --</option>
+                            <select class="form-control select2me" name="manghe" id="manghe" disabled>
                                 @foreach($a_dm as $key=>$val)
                                     <option value="{{$key}}">{{$val}}</option>
                                 @endforeach
@@ -171,7 +170,6 @@
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
                 <button type="submit" data-dismiss="modal" class="btn btn-success" onclick="ClickBC1()">Hoàn thành</button>
-                <!--button type="submit" data-dismiss="modal" class="btn btn-primary" onclick="ClickBCExcel('/reports/thuetn/bcgiathuetnexcel')">Xuất Excel</button-->
             </div>
             {!! Form::close() !!}
         </div>

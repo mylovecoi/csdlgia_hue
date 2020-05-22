@@ -123,7 +123,6 @@ class KkGiaVtXkXdController extends Controller
             return view('errors.notlogin');
     }
 
-
     public function ttdnkkvtxk(Request $request){
         $result = array(
             'status' => 'fail',

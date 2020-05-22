@@ -9,13 +9,61 @@ class KkGiaVtXbCt extends Model
     protected $table = 'kkgiavtxbct';
     protected $fillable = [
         'id',
+
         'mahs',
-        'tthhdv',
+        'maxa',
+        'madv',
+        'tendvcu',
         'qccl',
         'dvt',
-        'dongialk',
-        'dongia',
+        'gialk',
+        'giakk',
         'ghichu',
-        'thuevat',
+        'trangthai',
+
+        'dvcu',
+
+        'sltgdvt',
+        'sltgtt',
+        'sltggc',
+
+        'chiphinldvt',
+        'chiphinltt',
+        'chiphinlgc',
+
+        'chiphincdvt',
+        'chiphinctt',
+        'chiphincgc',
+
+        'chiphikhdvt',
+        'chiphikhtt',
+        /*'chiphikhdv',*/
+        'chiphikhgc',
+
+        'chiphisxkddtdvt',
+        'chiphisxkddttt',
+        'chiphisxkddtgc',
+
+        'chiphisxcdvt',
+        'chiphisxctt',
+        'chiphisxcgc',
+
+        'chiphitcdvt',
+        'chiphitctt',
+        'chiphitcgc',
+
+        'chiphibhdvt',
+        'chiphibhtt',
+        'chiphibhgc',
+
+        'chiphiqldvt',
+        'chiphiqltt',
+        'chiphiqlgc',
+
+        'chiphidvkdvt',
+        'chiphidvktt',
+        'chiphidvkgc',
+
+        'giaitrinhctcp',
     ];
 }

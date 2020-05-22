@@ -54,8 +54,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Ngành nghề kê khai</label>
-                                    <select class="form-control select2me" name="manghe" id="manghe">
-                                        <option value="all">-- Tất cả ngành nghề --</option>
+                                    <select class="form-control select2me" name="manghe" id="manghe" disabled>
+                                        {{--<option value="all">-- Tất cả ngành nghề --</option>--}}
                                         @foreach($a_dm as $key=>$val)
                                             <option value="{{$key}}">{{$val}}</option>
                                         @endforeach
@@ -68,7 +68,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="control-label">Tên sản phẩm dịch vụ</label>
-                                    {!!Form::text('tenhh', null, array('id' => 'tenhh','class' => 'form-control'))!!}
+                                    {!!Form::text('tthhdv', null, array('id' => 'tthhdv','class' => 'form-control'))!!}
                                 </div>
                             </div>
                         </div>
@@ -94,14 +94,14 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Đơn giá từ</label>
-                                    {!!Form::text('giakk_tu', null, array('id' => 'giakk_tu','class' => 'form-control','data-mask'=>'fdecimal'))!!}
+                                    {!!Form::text('dongia_tu', null, array('id' => 'dongia_tu','class' => 'form-control','data-mask'=>'fdecimal'))!!}
                                 </div>
                             </div>
                             <!--/span-->
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Đơn giá đến</label>
-                                    {!!Form::text('giakk_den', null, array('id' => 'giakk_den','class' => 'form-control','data-mask'=>'fdecimal'))!!}
+                                    {!!Form::text('dongia_den', null, array('id' => 'dongia_den','class' => 'form-control','data-mask'=>'fdecimal'))!!}
                                 </div>
                             </div>
                             <!--/span-->

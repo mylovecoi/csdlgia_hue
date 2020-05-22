@@ -19,5 +19,8 @@ class KkGiaSachCt extends Model
         'ghichu',
         'thuevat',
         'trangthai',
+
+        'madv',
+        'plhs',
     ];
 }

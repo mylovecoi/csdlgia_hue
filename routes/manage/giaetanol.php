@@ -1,5 +1,5 @@
 <?php
-Route::group(['prefix'=>'giaetanol'],function (){
+/*Route::group(['prefix'=>'giaetanol'],function (){
     Route::get('mathang','manage\giaetanol\GiaEtanolController@index');
     Route::post('mathang/update','manage\giaetanol\GiaEtanolController@update');
 
@@ -30,4 +30,4 @@ Route::group(['prefix'=>'giaetanol'],function (){
     Route::get('del_ct','manage\giaetanol\KkGiaEtanolCtController@destroy');
 
 
-});
+});*/

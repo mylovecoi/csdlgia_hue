@@ -32,7 +32,6 @@
                                 <li>
                                     <button data-target="#pl1-thoai-confirm" onclick="setUrl('{{$inputs['url'].'/bc2'}}')" data-toggle="modal" style="border-width: 0px" class="btn btn-default btn-xs mbs">Báo cáo chi tiết giá đăng ký, kê khai theo thời điểm</button>
                                 </li>
-                                {{--<li><a data-target="#pl2-thoai-confirm" data-toggle="modal" data-href="">Báo cáo chi tiết giá kê khai giá vật liệu xây dựng theo thời điểm</a> </li>--}}
                             </ol>
                         </div>
                     </div>
@@ -40,5 +39,5 @@
             </div>
         </div>
     </div>
-    @include('manage.giayin.baocao.modal-thoai')
+    @include('manage.giagiay.baocao.modal-thoai')
 @stop

@@ -184,7 +184,7 @@ License: You must have a valid license purchased only from themeforest(the above
             <!-- DOC: Remove data-hover="dropdown" and data-close-others="true" attributes below to disable the dropdown opening on mouse hover -->
             <div class="hor-menu ">
                 <ul class="nav navbar-nav">
-                    @if(chkCongBo('csdlmucgiahhdv'))
+                    {{--@if(chkCongBo('csdlmucgiahhdv'))--}}
                         <li class="menu-dropdown classic-menu-dropdown ">
                         <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">&nbsp;CSDL về mức giá HH-DV<i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu pull-left">
@@ -250,15 +250,15 @@ License: You must have a valid license purchased only from themeforest(the above
                             @endif
                         </ul>
                     </li>
-                    @endif
+                    {{--@endif--}}
 
-                    @if(chkCongBo('csdlthamdinhgia'))
+                    {{--@if(chkCongBo('csdlthamdinhgia'))--}}
                         <li class="menu-dropdown classic-menu-dropdown">
                             <a data-hover="megamenu-dropdown" data-close-others="true" href="{{url('cbthamdinhgia')}}">&nbsp;CSDL Thẩm định giá</a>
                         </li>
-                    @endif
+                    {{--@endif--}}
 
-                    @if(chkCongBo('csdlvbqlnn1233523'))
+                    {{--@if(chkCongBo('csdlvbqlnn1233523'))--}}
                         <li class="menu-dropdown classic-menu-dropdown">
                         <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">&nbsp;Văn bản QLNN về giá, BCTH <i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu pull-left">
@@ -274,9 +274,9 @@ License: You must have a valid license purchased only from themeforest(the above
                             @endif
                         </ul>
                     </li>
-                    @endif
+                    {{--@endif--}}
 
-                    @if(chkCongBo('csdlttpvctqlnn21412421'))
+                    {{--@if(chkCongBo('csdlttpvctqlnn21412421'))--}}
                         <li class="menu-dropdown classic-menu-dropdown ">
                         <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">&nbsp;Thông tin QLNN về giá <i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu pull-left">
@@ -288,7 +288,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             @endforeach
                         </ul>
                     </li>
-                    @endif
+                    {{--@endif--}}
 
                     <li class="menu-dropdown classic-menu-dropdown ">
                         <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">&nbsp;Hỗ trợ<i class="fa fa-angle-down"></i></a>

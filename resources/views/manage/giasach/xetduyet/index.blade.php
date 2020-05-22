@@ -48,8 +48,6 @@
                     <div class="caption">
                     </div>
                     <div class="actions">
-                        {{--                        <a href="{{url($inputs['url'].'/prints?madv='.$inputs['madv'].'&nam='. $inputs['nam'])}}" class="btn btn-default btn-sm" target="_blank">--}}
-                        {{--                            <i class="fa fa-print"></i> In danh sách</a>--}}
                     </div>
                 </div>
 
@@ -102,40 +100,40 @@
                                     <a href="{{url($inputs['url'].'/xemhoso?mahs='.$tt->mahs.'&act=false')}}" class="btn btn-default btn-xs mbs" target="_blank">
                                         <i class="fa fa-eye"></i>&nbsp;Chi tiết</a>
 
-                                    @if(chkPer('csdlmucgiahhdv','bog', 'bog', 'hoso', 'approve'))
-                                        @if($tt->level == 'ADMIN')
-                                            @if($tt->trangthai == 'CB')
-                                                <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','{{$inputs['url'].'/congbo'}}', 'HCB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
-                                                    <i class="fa fa-times"></i>&nbsp;Hủy công bố</button>
-                                            @else
-                                                <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','{{$inputs['url'].'/congbo'}}', 'CB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
-                                                    <i class="fa fa-send"></i>&nbsp;Công bố</button>
-
-                                                <button type="button" onclick="confirmTraLai('{{$tt->mahs}}','{{$inputs['url'].'/tralai'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#tralai-modal-confirm" data-toggle="modal">
-                                                    <i class="fa fa-times"></i> Trả lại</button>
-                                            @endif
+                                    {{--@if(chkPer('csdlmucgiahhdv','bog', 'bog', 'hoso', 'approve'))--}}
+                                    @if($tt->level == 'ADMIN')
+                                        @if($tt->trangthai == 'CB')
+                                            <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','{{$inputs['url'].'/congbo'}}', 'HCB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
+                                                <i class="fa fa-times"></i>&nbsp;Hủy công bố</button>
                                         @else
-                                            @if($tt->trangthai=='CD')
-                                                <button type="button" onclick="confirmDuyetHS('{{$tt->mahs}}','{{$inputs['url'].'/duyeths'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#duyeths-modal-confirm" data-toggle="modal">
-                                                    <i class="fa fa-check"></i> Duyệt hồ sơ</button>
-                                            @endif
+                                            <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','{{$inputs['url'].'/congbo'}}', 'CB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
+                                                <i class="fa fa-send"></i>&nbsp;Công bố</button>
 
-                                            @if(in_array($tt->trangthai, ['DD','TL']))
-                                                <button type="button" onclick="confirmChuyenXD('{{$tt->mahs}}','{{$inputs['url'].'/chuyenxd'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#chuyenxd-modal-confirm" data-toggle="modal">
-                                                    <i class="fa fa-check"></i> Chuyển công bố</button>
-                                            @endif
+                                            <button type="button" onclick="confirmTraLai('{{$tt->mahs}}','{{$inputs['url'].'/tralai'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#tralai-modal-confirm" data-toggle="modal">
+                                                <i class="fa fa-times"></i> Trả lại</button>
+                                        @endif
+                                    @else
+                                        @if($tt->trangthai=='CD')
+                                            <button type="button" onclick="confirmDuyetHS('{{$tt->mahs}}','{{$inputs['url'].'/duyeths'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#duyeths-modal-confirm" data-toggle="modal">
+                                                <i class="fa fa-check"></i> Duyệt hồ sơ</button>
+                                        @endif
 
-                                            @if(in_array($tt->trangthai, ['CD','DD','TL']))
-                                                <button type="button" onclick="confirmTraLai('{{$tt->mahs}}','{{$inputs['url'].'/tralai'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#tralai-modal-confirm" data-toggle="modal">
-                                                    <i class="fa fa-times"></i> Trả lại</button>
-                                            @endif
+                                        @if(in_array($tt->trangthai, ['DD','TL']))
+                                            <button type="button" onclick="confirmChuyenXD('{{$tt->mahs}}','{{$inputs['url'].'/chuyenxd'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#chuyenxd-modal-confirm" data-toggle="modal">
+                                                <i class="fa fa-check"></i> Chuyển công bố</button>
+                                        @endif
 
-                                            @if($tt->trangthai=='TL')
-                                                <button type="button" onclick="viewLyDo('{{$tt->mahs}}','{{$tt->madv}}')" data-target="#tralai-modal-confirm" data-toggle="modal" class="btn btn-default btn-xs mbs">
-                                                    <i class="fa fa-search"></i>&nbsp;Lý do trả lại</button>
-                                            @endif
+                                        @if(in_array($tt->trangthai, ['CD','DD','TL']))
+                                            <button type="button" onclick="confirmTraLai('{{$tt->mahs}}','{{$inputs['url'].'/tralai'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#tralai-modal-confirm" data-toggle="modal">
+                                                <i class="fa fa-times"></i> Trả lại</button>
+                                        @endif
+
+                                        @if($tt->trangthai=='TL')
+                                            <button type="button" onclick="viewLyDo('{{$tt->mahs}}','{{$tt->madv}}')" data-target="#tralai-modal-confirm" data-toggle="modal" class="btn btn-default btn-xs mbs">
+                                                <i class="fa fa-search"></i>&nbsp;Lý do trả lại</button>
                                         @endif
                                     @endif
+                                    {{--@endif--}}
                                 </td>
                             </tr>
                         @endforeach

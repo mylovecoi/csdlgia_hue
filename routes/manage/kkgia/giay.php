@@ -1,9 +1,9 @@
 <?php
 Route::get('thongtindngiay','manage\kekhaigia\kkgiay\KkGiaGiayController@ttdn');
 Route::resource('kekhaigiagiay','manage\kekhaigia\kkgiay\KkGiaGiayController');
-Route::get('giagiay/kiemtra','manage\kekhaigia\kkgiay\KkGiaGiayController@kiemtra');
+Route::get('kekhaigiagiay/kiemtra','manage\kekhaigia\kkgiay\KkGiaGiayController@kiemtra');
 Route::post('kekhaigiagiay/chuyen','manage\kekhaigia\kkgiay\KkGiaGiayController@chuyen');
-Route::get('/giagiay/showlydo','manage\kekhaigia\kkgiay\KkGiaGiayController@showlydo');
+Route::get('/kekhaigiagiay/showlydo','manage\kekhaigia\kkgiay\KkGiaGiayController@showlydo');
 Route::post('kekhaigiagiay/delete','manage\kekhaigia\kkgiay\KkGiaGiayController@delete');
 Route::get('kekhaigiagiay/prints','manage\kekhaigia\kkgiay\KkGiaGiayController@prints');
 

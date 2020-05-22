@@ -35,7 +35,7 @@
             $('#id').val(-100);
         }
 
-        function createmhbog(){
+        function createetanol(){
             if($('#tthhdv').val() == ''){
                 toastr.error('Tên hàng hóa không được bỏ trống','Lỗi.');
                 return false;
@@ -72,7 +72,7 @@
             })
         }
 
-        function editmhbog(id) {
+        function editetanol(id) {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             //alert(id);
             $.ajax({
@@ -84,11 +84,11 @@
                 },
                 dataType: 'JSON',
                 success: function (data) {
-                    $('#tthhdv').val(data.tenhh);
-                    $('#qccl').val(data.quycach);
+                    $('#tthhdv').val(data.tthhdv);
+                    $('#qccl').val(data.qccl);
                     $('#dvt').val(data.dvt);
-                    $('#dongialk').val(data.gialk);
-                    $('#dongia').val(data.giakk);
+                    $('#dongialk').val(data.dongialk);
+                    $('#dongia').val(data.dongia);
                     $('#ghichu').val(data.ghichu);
                     $('#id').val(data.id);
                 }
@@ -99,7 +99,7 @@
             document.getElementById("iddelete").value=id;
         }
 
-        function delmhbog() {
+        function deletanol() {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 url: '{{$inputs['url']}}' +'/del_ct',
@@ -205,7 +205,7 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="hidden" name="maxa" id="maxa" value="{{$model->madv}}">
+                        <input type="hidden" name="madv" id="madv" value="{{$model->madv}}">
                         <input type="hidden" name="manghe" id="manghe" value="{{$model->manghe}}">
                         <input type="hidden" name="mahs" id="mahs" value="{{$model->mahs}}">
                         <!--/row-->
@@ -243,11 +243,8 @@
                                             <td style="text-align: right">{{dinhdangsothapphan($tt->dongia,2)}}</td>
                                             <td>{{$tt->ghichu}}</td>
                                             <td>
-                                                <button type="button" onclick="editmhbog({{$tt->id}});" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs">
+                                                <button type="button" onclick="editetanol({{$tt->id}});" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs">
                                                     <i class="fa fa-edit"></i>&nbsp;Mức giá mới</button>
-                                                {{--<button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editmhbog({{$tt->id}});"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</button>--}}
-                                                {{--<button type="button" data-target="#modal-nhapkhau" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editnhapkhau({{$tt->id}});"><i class="fa fa-edit"></i>&nbsp;Thuyết minh với MH nhập khẩu</button>--}}
-                                                {{--<button type="button" data-target="#modal-sanxuat" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editsanxuat({{$tt->id}});"><i class="fa fa-edit"></i>&nbsp;Thuyết minh với MH sản xuất</button>--}}
                                                 <button type="button" onclick="getid({{$tt->id}});"  data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs">
                                                     <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
                                             </td>
@@ -341,7 +338,7 @@
                 <input type="hidden" id="id" name="id">
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-default">Thoát</button>
-                    <button type="button" class="btn btn-primary" onclick="createmhbog()">Hoàn thành</button>
+                    <button type="button" class="btn btn-primary" onclick="createetanol()">Hoàn thành</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -361,7 +358,7 @@
                 <input type="hidden" id="iddelete" name="iddelete">
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-default">Thoát</button>
-                    <button type="button" class="btn btn-primary" onclick="delmhbog()">Đồng ý</button>
+                    <button type="button" class="btn btn-primary" onclick="deletanol()">Đồng ý</button>
                 </div>
             </div>
             <!-- /.modal-content -->

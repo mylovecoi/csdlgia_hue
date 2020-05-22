@@ -641,6 +641,31 @@ function getPermissionDefault($level) {
                             'congbo'=>1,
                             'xdttdn'=>1,
                         ),
+
+                    'vtxb'=>array(
+                        'index'=>1,
+                    ),
+                        'dmvtxb'=>array(
+                            'index'=>1,
+                            'create'=>1,
+                            'edit'=>1,
+                            'delete'=>1,
+                            'approve'=>1,
+                        ),
+                        'kkvtxb'=>array(
+                            'index'=>1,
+                            'create'=>1,
+                            'edit'=>1,
+                            'delete'=>1,
+                            'approve'=>1,
+                        ),
+                        'thvtxb'=>array(
+                            'baocao'=>1,
+                            'timkiem'=>1,
+                            'congbo'=>1,
+                            'xdttdn'=>1,
+                        ),
+
                     'vtxtx'=>array(
                         'index'=>1,
                     ),
@@ -1480,6 +1505,29 @@ function getPermissionDefault($level) {
             'congbo'=>1,
             'xdttdn'=>1,
         ),
+        'vtxb'=>array(
+            'index'=>1,
+        ),
+        'dmvtxb'=>array(
+            'index'=>1,
+            'create'=>1,
+            'edit'=>1,
+            'delete'=>1,
+            'approve'=>1,
+        ),
+        'kkvtxb'=>array(
+            'index'=>1,
+            'create'=>1,
+            'edit'=>1,
+            'delete'=>1,
+            'approve'=>1,
+        ),
+        'thvtxb'=>array(
+            'baocao'=>1,
+            'timkiem'=>1,
+            'congbo'=>1,
+            'xdttdn'=>1,
+        ),
         'vtxtx'=>array(
             'index'=>1,
         ),
@@ -2229,6 +2277,29 @@ function getPermissionDefault($level) {
             'approve'=>1,
         ),
         'thvtxk'=>array(
+            'baocao'=>1,
+            'timkiem'=>1,
+            'congbo'=>1,
+            'xdttdn'=>1,
+        ),
+        'vtxb'=>array(
+            'index'=>1,
+        ),
+        'dmvtxb'=>array(
+            'index'=>1,
+            'create'=>1,
+            'edit'=>1,
+            'delete'=>1,
+            'approve'=>1,
+        ),
+        'kkvtxb'=>array(
+            'index'=>1,
+            'create'=>1,
+            'edit'=>1,
+            'delete'=>1,
+            'approve'=>1,
+        ),
+        'thvtxb'=>array(
             'baocao'=>1,
             'timkiem'=>1,
             'congbo'=>1,

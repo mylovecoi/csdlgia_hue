@@ -11,7 +11,7 @@ class GiaVtXkCt extends Model
         'id',
 
         'mahs',
-        'maxa',
+        'madv',
         'tendvcu',
         'qccl',
         'dvt',

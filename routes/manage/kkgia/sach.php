@@ -1,9 +1,9 @@
 <?php
 Route::get('thongtindnsach','manage\kekhaigia\kkgiasach\KkGiaSachController@ttdn');
 Route::resource('kekhaigiasach','manage\kekhaigia\kkgiasach\KkGiaSachController');
-Route::get('giasach/kiemtra','manage\kekhaigia\kkgiasach\KkGiaSachController@kiemtra');
+Route::get('kekhaigiasach/kiemtra','manage\kekhaigia\kkgiasach\KkGiaSachController@kiemtra');
 Route::post('kekhaigiasach/chuyen','manage\kekhaigia\kkgiasach\KkGiaSachController@chuyen');
-Route::get('/giasach/showlydo','manage\kekhaigia\kkgiasach\KkGiaSachController@showlydo');
+Route::get('/kekhaigiasach/showlydo','manage\kekhaigia\kkgiasach\KkGiaSachController@showlydo');
 Route::post('kekhaigiasach/delete','manage\kekhaigia\kkgiasach\KkGiaSachController@delete');
 Route::get('kekhaigiasach/prints','manage\kekhaigia\kkgiasach\KkGiaSachController@prints');
 

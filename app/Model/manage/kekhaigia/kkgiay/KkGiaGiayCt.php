@@ -17,5 +17,10 @@ class KkGiaGiayCt extends Model
         'dongia',
         'ghichu',
         'thuevat',
+
+        'madv',
+        'plhs',
+        'maxa',
+        'trangthai',
     ];
 }

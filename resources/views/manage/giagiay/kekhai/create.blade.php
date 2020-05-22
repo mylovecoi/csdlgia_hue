@@ -26,17 +26,17 @@
         });
 
         function clearForm(){
-            $('#tenhh').val('');
-            $('#quycach').val('');
-            $('#gialk').val('');
-            $('#giakk').val('');
+            $('#tthhdv').val('');
+            $('#qccl').val('');
+            $('#dongialk').val('');
+            $('#dongia').val('');
             $('#dvt').val('');
             $('#ghichu').val('');
             $('#id').val(-100);
         }
 
-        function createmhbog(){
-            if($('#tenhh').val() == ''){
+        function creategiay(){
+            if($('#tthhdv').val() == ''){
                 toastr.error('Tên hàng hóa không được bỏ trống','Lỗi.');
                 return false;
             }
@@ -46,10 +46,10 @@
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    tenhh:  $('#tenhh').val(),
-                    quycach:  $('#quycach').val(),
-                    gialk: $('#gialk').val(),
-                    giakk: $('#giakk').val(),
+                    tthhdv:  $('#tthhdv').val(),
+                    qccl:  $('#qccl').val(),
+                    dongialk: $('#dongialk').val(),
+                    dongia: $('#dongia').val(),
                     dvt: $('#dvt').val(),
                     ghichu: $('#ghichu').val(),
                     madv: $('#madv').val(),
@@ -72,7 +72,7 @@
             })
         }
 
-        function editmhbog(id) {
+        function editgiay(id) {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             //alert(id);
             $.ajax({
@@ -84,11 +84,11 @@
                 },
                 dataType: 'JSON',
                 success: function (data) {
-                    $('#tenhh').val(data.tenhh);
-                    $('#quycach').val(data.quycach);
+                    $('#tthhdv').val(data.tthhdv);
+                    $('#qccl').val(data.qccl);
                     $('#dvt').val(data.dvt);
-                    $('#gialk').val(data.gialk);
-                    $('#giakk').val(data.giakk);
+                    $('#dongialk').val(data.dongialk);
+                    $('#dongia').val(data.dongia);
                     $('#ghichu').val(data.ghichu);
                     $('#id').val(data.id);
                 }
@@ -99,7 +99,7 @@
             document.getElementById("iddelete").value=id;
         }
 
-        function delmhbog() {
+        function delgiay() {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 url: '{{$inputs['url']}}' +'/del_ct',
@@ -130,7 +130,7 @@
 @section('content')
     <h3 class="page-title">
         {{$m_nghe->tennghe}} <small> thêm mới</small>
-        {{--<p><h5 style="color: blue">{{$m_dn->tendn}}&nbsp;- Mã số thuế: {{$m_dn->madv}}</h5></p>--}}
+        <p><h5 style="color: blue">{{$m_dn->tendn}}&nbsp;- Mã số thuế: {{$m_dn->madv}}</h5></p>
     </h3>
     <!-- END PAGE HEADER-->
 
@@ -143,7 +143,7 @@
                 </div-->
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
-                    {!! Form::model($model, ['url'=>'giayin\create', 'files'=>true, 'id' => 'create_kkdkg', 'class'=>'horizontal-form']) !!}
+                    {!! Form::model($model, ['url'=>'giagiay\create', 'files'=>true, 'id' => 'create_kkdkg', 'class'=>'horizontal-form']) !!}
                     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
                     <div class="form-body">
@@ -237,17 +237,14 @@
                                     @foreach($model_ct as $key=>$tt)
                                         <tr>
                                             <td style="text-align: center">{{$key+1}}</td>
-                                            <td class="active">{{$tt->tenhh}}</td>
+                                            <td class="active">{{$tt->tthhdv}}</td>
                                             <td style="text-align: center">{{$tt->dvt}}</td>
-                                            <td style="text-align: right">{{dinhdangsothapphan($tt->gialk,2)}}</td>
-                                            <td style="text-align: right">{{dinhdangsothapphan($tt->giakk,2)}}</td>
+                                            <td style="text-align: right">{{dinhdangsothapphan($tt->dongialk,2)}}</td>
+                                            <td style="text-align: right">{{dinhdangsothapphan($tt->dongia,2)}}</td>
                                             <td>{{$tt->ghichu}}</td>
                                             <td>
-                                                <button type="button" onclick="editmhbog({{$tt->id}});" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs">
+                                                <button type="button" onclick="editgiay({{$tt->id}});" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs">
                                                     <i class="fa fa-edit"></i>&nbsp;Mức giá mới</button>
-                                                {{--<button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editmhbog({{$tt->id}});"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</button>--}}
-                                                {{--<button type="button" data-target="#modal-nhapkhau" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editnhapkhau({{$tt->id}});"><i class="fa fa-edit"></i>&nbsp;Thuyết minh với MH nhập khẩu</button>--}}
-                                                {{--<button type="button" data-target="#modal-sanxuat" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editsanxuat({{$tt->id}});"><i class="fa fa-edit"></i>&nbsp;Thuyết minh với MH sản xuất</button>--}}
                                                 <button type="button" onclick="getid({{$tt->id}});"  data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs">
                                                     <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
                                             </td>
@@ -297,7 +294,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group"><label class="control-label">Tên mặt hàng<span class="require">*</span></label>
-                                <div><input type="text" name="tenhh" id="tenhh" class="form-control" required ></div>
+                                <div><input type="text" name="tthhdv" id="tthhdv" class="form-control" required ></div>
                             </div>
                         </div>
                     </div>
@@ -305,7 +302,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group"><label class="control-label">Quy cách, chất lượng</label>
-                                <div><input type="text" name="quycach" id="quycach" class="form-control" ></div>
+                                <div><input type="text" name="qccl" id="qccl" class="form-control" ></div>
                             </div>
                         </div>
                     </div>
@@ -319,13 +316,13 @@
 
                         <div class="col-md-4">
                             <div class="form-group"><label class="control-label">Giá liền kề</label>
-                                <div><input type="text" id="gialk" name="gialk" class="form-control text-right" data-mask="fdecimal"></div>
+                                <div><input type="text" id="dongialk" name="dongialk" class="form-control text-right" data-mask="fdecimal"></div>
                             </div>
                         </div>
 
                         <div class="col-md-4">
                             <div class="form-group"><label class="control-label">Giá kê khai</label>
-                                <div><input type="text" id="giakk" name="giakk" class="form-control text-right" data-mask="fdecimal"></div>
+                                <div><input type="text" id="dongia" name="dongia" class="form-control text-right" data-mask="fdecimal"></div>
                             </div>
                         </div>
                     </div>
@@ -341,7 +338,7 @@
                 <input type="hidden" id="id" name="id">
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-default">Thoát</button>
-                    <button type="button" class="btn btn-primary" onclick="createmhbog()">Hoàn thành</button>
+                    <button type="button" class="btn btn-primary" onclick="creategiay()">Hoàn thành</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -361,7 +358,7 @@
                 <input type="hidden" id="iddelete" name="iddelete">
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-default">Thoát</button>
-                    <button type="button" class="btn btn-primary" onclick="delmhbog()">Đồng ý</button>
+                    <button type="button" class="btn btn-primary" onclick="delgiay()">Đồng ý</button>
                 </div>
             </div>
             <!-- /.modal-content -->

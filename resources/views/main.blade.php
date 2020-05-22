@@ -606,7 +606,31 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </li>
                             @endif
 
-                            @if(canKkGiaCt('DVVTXB','DVVTXB'))
+                            @if(chkPer('csdlmucgiahhdv', 'kknygia', 'vtxb'))
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="title">Cước vận tải hành khách bằng xe bus tuyến cố định</span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li><a href="{{url('kekhaivantaixebuyt')}}">Giá kê khai</a></li>
+                                    </ul>
+                                </li>
+                            @endif
+
+                            @if(chkPer('csdlmucgiahhdv', 'kknygia', 'vtxtx'))
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="title">Cước vận tải hành khách bằng xe taxi tuyến cố định</span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li><a href="{{url('kekhaigiavantaixetaxi')}}">Giá kê khai</a></li>
+                                    </ul>
+                                </li>
+                            @endif
+
+                            {{--@if(canKkGiaCt('DVVTXB','DVVTXB'))
                                 <li>
                                     <a href="javascript:;">
                                         <span class="title">Cước vận tải hành khách bằng xe buýt theo tuyến cố định</span>
@@ -644,7 +668,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         @endif
                                     </ul>
                                 </li>
-                            @endif
+                            @endif--}}
 
                             @if(canKkGiaCt('DVVTHK','VC'))
                                 <li>

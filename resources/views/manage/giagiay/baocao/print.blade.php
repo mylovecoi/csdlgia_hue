@@ -94,7 +94,7 @@
         </tr>
     </table>
     <p style="text-align: center; font-weight: bold; font-size: 16px;">BẢNG KÊ KHAI MỨC GIÁ</p>
-    <p style="text-align: center;; font-style: italic">(Kèm theo công văn số {{$modelkk->socv}}  ngày {{ date("d",strtotime($modelkk->ngaynhap))}} tháng {{ date("m",strtotime($modelkk->ngaynhap))}} năm {{ date("Y",strtotime($modelkk->ngaynhap))}} của {{$modeldn->tendn}})</p>
+    <p style="text-align: center;; font-style: italic">(Kèm theo công văn số {{$modelkk->socv}}  ngày {{ date("d",strtotime($modelkk->ngaynhap))}} tháng {{ date("m",strtotime($modelkk->ngaynhap))}} năm {{ date("Y",strtotime($modelkk->ngaynhap))}}{{-- của {{$modeldn->tendn}}--}})</p>
     <p>1. Mức giá kê khai bán trong nước hoặc xuất khẩu (bán buôn, bán lẻ):  Các mức giá tại cửa kho/ nhà máy, tại các địa bàn, khu vực khác (nếu có)</p>
     <table cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;">
         <tr>
@@ -111,13 +111,13 @@
         @foreach($modelkkct as $key=>$tt)
             <tr>
                 <td style="text-align: center">{{$key+1}}</td>
-                <td>{{$tt->tenhh}}</td>
-                <td>{{$tt->quycach}}</td>
+                <td>{{$tt->tthhdv}}</td>
+                <td>{{$tt->qccl}}</td>
                 <td style="text-align: center">{{$tt->dvt}}</td>
-                <td style="text-align: right">{{dinhdangsothapphan($tt->gialk,2)}}</td>
-                <td style="text-align: right">{{dinhdangsothapphan($tt->giakk,2)}}</td>
-                <td style="text-align: center">{{$tt->gialk == 0 ? '' : $tt->giakk-$tt->gialk}}</td>
-                <td style="text-align: center">{{$tt->gialk == 0 ? '' : dinhdangsothapphan(($tt->giakk - $tt->gialk)/$tt->gialk*100,2).'%'}}</td>
+                <td style="text-align: right">{{dinhdangsothapphan($tt->dongialk,2)}}</td>
+                <td style="text-align: right">{{dinhdangsothapphan($tt->dongia,2)}}</td>
+                <td style="text-align: center">{{$tt->gialk == 0 ? '' : $tt->dongia-$tt->dongia}}</td>
+                <td style="text-align: center">{{$tt->gialk == 0 ? '' : dinhdangsothapphan(($tt->dongia - $tt->dongialk)/$tt->dongialk*100,2).'%'}}</td>
 
                 <td>{{$tt->ghichu}}</td>
             </tr>

@@ -128,8 +128,8 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label">Ngành nghề kê khai</label>
-                            <select class="form-control select2me" name="manghe" id="manghe">
-                                <option value="all">-- Tất cả ngành nghề --</option>
+                            <select class="form-control select2me" name="manghe" id="manghe" disabled>
+                                {{--<option value="all">-- Tất cả ngành nghề --</option>--}}
                                 @foreach($a_dm as $key=>$val)
                                     <option value="{{$key}}">{{$val}}</option>
                                 @endforeach

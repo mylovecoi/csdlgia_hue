@@ -43,7 +43,6 @@
             <th style="text-align: center" width="8%">Ngày<br> kê khai</th>
             <th style="text-align: center" width="8%">Ngày thực hiện<br>mức giá</th>
             <th style="text-align: center" width="8%">Ngày chuyển hồ sơ</th>
-
             <th style="text-align: center" width="15%">Xét duyệt</th>
         </tr>
         </thead>

@@ -1,9 +1,9 @@
 <?php
 Route::get('thongtindnetanol','manage\kekhaigia\kkgiaetanol\KkGiaEtanolController@ttdn');
 Route::resource('kekhaigiaetanol','manage\kekhaigia\kkgiaetanol\KkGiaEtanolController');
-Route::get('giaetanol/kiemtra','manage\kekhaigia\kkgiaetanol\KkGiaEtanolController@kiemtra');
+Route::get('kekhaigiaetanol/kiemtra','manage\kekhaigia\kkgiaetanol\KkGiaEtanolController@kiemtra');
 Route::post('kekhaigiaetanol/chuyen','manage\kekhaigia\kkgiaetanol\KkGiaEtanolController@chuyen');
-Route::get('/giaetanol/showlydo','manage\kekhaigia\kkgiaetanol\KkGiaEtanolController@showlydo');
+Route::get('/kekhaigiaetanol/showlydo','manage\kekhaigia\kkgiaetanol\KkGiaEtanolController@showlydo');
 Route::post('kekhaigiaetanol/delete','manage\kekhaigia\kkgiaetanol\KkGiaEtanolController@delete');
 Route::get('kekhaigiaetanol/prints','manage\kekhaigia\kkgiaetanol\KkGiaEtanolController@prints');
 

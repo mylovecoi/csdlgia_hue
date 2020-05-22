@@ -6,18 +6,17 @@ use App\Model\manage\kekhaigia\kkgiathan\KkGiaThan;
 use App\Model\system\company\Company;
 use App\Model\system\dmnganhnghekd\DmNgheKd;
 use App\Model\system\dsdiaban;
+use App\Model\system\view_dsdiaban_donvi;
+use App\Jobs\SendMail;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
 class KkGiaThanXdController extends Controller
 {
-    //chuyển hô sơ cho Form nhập liệu: chỉ cần chuyển trạng thái và set trạng thái cho đơn vị tiếp nhận
     public function chuyenhs(Request $request)
     {
-        //Lấy thông tin đơn vị tiếp nhận để kiểm tra level
-        // level == 'H' => set madv_h = $inputs['macqcq']; trangthai_h = 'CHT' (tương đương tạo mới hoso)
-        // level == 'T' => set madv_t = $inputs['macqcq']; trangthai_t = 'CHT' (tương đương tạo mới hoso)
         if (Session::has('admin')) {
             $inputs = $request->all();
             $model = KkGiaThan::where('mahs', $inputs['mahs'])->first();
@@ -35,8 +34,7 @@ class KkGiaThanXdController extends Controller
             $model->macqcq = $inputs['macqcq'];
             $model->trangthai = 'CD';
             $model->ngaychuyen = date('Y-m-d H:i:s');
-            //kiểm tra đơn vị tiếp nhận
-            /*$chk_dvcq = view_dsdiaban_donvi::where('madv', $inputs['macqcq'])->first();
+            $chk_dvcq = view_dsdiaban_donvi::where('madv', $inputs['macqcq'])->first();
             if ($chk_dvcq->count() && $chk_dvcq->level == 'T') {
                 $model->madv_t = $inputs['macqcq'];
                 $model->ngaychuyen_t = date('Y-m-d');
@@ -49,7 +47,7 @@ class KkGiaThanXdController extends Controller
                 $model->madv_h = $inputs['macqcq'];
                 $model->ngaychuyen_h = date('Y-m-d');
                 $model->trangthai_h = 'CD';
-            }*/
+            }
 
             if($model->save()){
                 $modeldn = Company::where('madv', $model->madv)->first();
@@ -85,7 +83,7 @@ class KkGiaThanXdController extends Controller
         $m_hs = KkGiaThan::where('mahs',$inputs['mahs'])->first();
         $m_com = Company::where('madv',$m_hs->madv)->first();
 
-        if($m_com->kiemtra && KiemTraNgayApDung($m_hs->ngayapdung,'bog')){
+        if($m_com->kiemtra && KiemTraNgayApDung($m_hs->ngayapdung,'kknygia')){
             $result = array(
                 'status' => 'success',
                 'message' => 'Ngày áp dụng hợp lệ.',
@@ -102,8 +100,6 @@ class KkGiaThanXdController extends Controller
     //<editor-fold des="Chức năng xét duyệt">
     public function xetduyet(Request $request)
     {
-        //đơn vị xét duyệt xong hồ sơ thì chỉ chuyển cho đơn vị công bố (ko như các đơn vị sử dụng)
-        //
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['url'] = '/giathan';
@@ -118,25 +114,67 @@ class KkGiaThanXdController extends Controller
             $inputs['nam'] = $inputs['nam'] ?? 'all';
             //lấy mã dv để set level
             $inputs['level'] = $m_donvi->where('madv', $inputs['madv'])->first()->level ?? 'H';
-            //dd($inputs);
             //gán lại thông tin về trường madv, thoidiem để truyền sang form index
             //xét macqcq để tìm đơn vị chuyển đến
             $a_ttdv = array_column(Company::all()->toArray(),'tendn', 'madv');
             $a_donvi_th = array_column($m_donvi->toarray(),'tendv','madv');
-
-
-            $model = KkGiaThan::where('congbo','CONGBO')
-                ->orwhere('congbo','CHUACONGBO');
-            if ($inputs['nam'] != 'all')
-                $model = $model->whereYear('ngaychuyen', $inputs['nam']);
-            $model = $model->get();
-            $m_com = Company::wherein('madv', array_column($model->toarray(),'madv'))->get();
-            $a_com = array_column($m_com->toarray(),'madiaban','madv');
-            foreach ($model as $ct){
-                $ct->mahs = $a_com[$ct->madv] ?? null;
+            switch ($inputs['level']){
+                case 'H':{
+                    $model = KkGiaThan::where('madv_h', $inputs['madv']);
+                    if ($inputs['nam'] != 'all')
+                        $model = $model->whereYear('ngaychuyen_h', $inputs['nam']);
+                    $model = $model->get();
+                    $m_com = Company::wherein('madv', array_column($model->toarray(),'madv'))->get();
+                    $a_com = array_column($m_com->toarray(),'madiaban','madv');
+                    foreach ($model as $ct){
+                        $ct->madiaban = $a_com[$ct->madv] ?? null;
+                        $ct->tendv_ch = $a_ttdv[$ct->madv] ?? '';
+                        $ct->madv = $ct->madv_h;
+                        $ct->ngaychuyen = $ct->ngaychuyen_h;
+                        $ct->trangthai = $ct->trangthai_h;
+                        $ct->level = $inputs['level'];
+                    }
+                    break;
+                }
+                case 'T':{
+                    $model = KkGiaThan::where('madv_t', $inputs['madv']);
+                    if ($inputs['nam'] != 'all')
+                        $model = $model->whereYear('ngaychuyen_t', $inputs['nam']);
+                    $model = $model->get();
+                    $m_com = Company::wherein('madv', array_column($model->toarray(),'madv'))->get();
+                    $a_com = array_column($m_com->toarray(),'madiaban','madv');
+                    foreach ($model as $ct){
+                        $ct->madiaban = $a_com[$ct->madv] ?? null;
+                        $ct->tendv_ch = $a_ttdv[$ct->madv] ?? '';
+                        $ct->madv = $ct->madv_t;
+                        $ct->macqcq = $ct->macqcq_t;
+                        $ct->tencqcq = $a_donvi_th[$ct->macqcq] ?? '';
+                        $ct->ngaychuyen = $ct->ngaychuyen_t;
+                        $ct->trangthai = $ct->trangthai_t;
+                        $ct->level = $inputs['level'];
+                    }
+                    break;
+                }
+                case 'ADMIN':{
+                    $model = KkGiaThan::where('madv_ad', $inputs['madv']);
+                    if ($inputs['nam'] != 'all')
+                        $model = $model->whereYear('ngaychuyen_ad', $inputs['nam']);
+                    $model = $model->get();
+                    $m_com = Company::wherein('madv', array_column($model->toarray(),'madv'))->get();
+                    $a_com = array_column($m_com->toarray(),'madiaban','madv');
+                    foreach ($model as $ct){
+                        $ct->madiaban = $a_com[$ct->madv] ?? null;
+                        $ct->tendv_ch = $a_ttdv[$ct->madv] ?? '';
+                        $ct->madv = $ct->madv_ad;
+                        $ct->tencqcq = $a_donvi_th[$ct->macqcq] ?? '';
+                        $ct->ngaychuyen = $ct->ngaychuyen_ad;
+                        $ct->trangthai = $ct->trangthai_ad;
+                        $ct->level = $inputs['level'];
+                    }
+                    break;
+                }
             }
 
-            //dd($model);
             return view('manage.giathan.xetduyet.index')
                 ->with('model', $model)
                 ->with('inputs', $inputs)
@@ -247,7 +285,6 @@ class KkGiaThanXdController extends Controller
             $model->lydo = $inputs['lydo'];
             $model->ngaynhan = null;
             setTraLaiDN($inputs['madv'], $model, ['macqcq' => null, 'trangthai' => 'TL', 'lydo' => $inputs['lydo']]);
-            //dd($model);
             $model->save();
             return redirect('giathan/xetduyet?madv=' . $inputs['madv']);
         } else
@@ -288,7 +325,7 @@ class KkGiaThanXdController extends Controller
 
         $inputs = $request->all();
         $model = KkGiaThan::where('mahs', $inputs['mahs'])->first();
-        /*if ($model->madv_h == $inputs['madv']) {
+        if ($model->madv_h == $inputs['madv']) {
             $model->lydo = $model->lydo_h;
         }
         if ($model->madv_t == $inputs['madv']) {
@@ -296,7 +333,7 @@ class KkGiaThanXdController extends Controller
         }
         if ($model->madv_ad == $inputs['madv']) {
             $model->lydo = $model->lydo_ad;
-        }*/
+        }
         die($model);
     }
 

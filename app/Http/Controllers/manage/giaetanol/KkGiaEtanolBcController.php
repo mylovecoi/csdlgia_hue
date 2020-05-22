@@ -2,32 +2,27 @@
 
 namespace App\Http\Controllers\manage\giaetanol;
 
-use App\Model\manage\kekhaidkg\kehaimhbog\KkMhBog;
-use App\Model\manage\kekhaidkg\kehaimhbog\KkMhBogCt;
 use App\Model\manage\kekhaigia\kkgiaetanol\KkGiaEtanol;
 use App\Model\manage\kekhaigia\kkgiaetanol\KkGiaEtanolCt;
-use App\Model\system\dmnganhnghekd\DmNgheKd;
 use App\Model\system\company\Company;
 use App\Model\view\view_dmnganhnghe;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
-use App\District;
-use App\Town;
-use App\Model\view\view_binhongia;
 
 class KkGiaEtanolBcController extends Controller
 {
     public function index(){
         if (Session::has('admin')) {
             $inputs['url'] = '/giaetanol';
-            $m_giaetanol = view_dmnganhnghe::where('manghe', 'ETANOL')->get();
+            $m_etanol = view_dmnganhnghe::where('manghe', 'ETANOL')->get();
             $m_donvi = getDonViTongHop_dn('giaetanol',session('admin')->level, session('admin')->madiaban);
+            //$m_donvi = Town::where('mahuyen',$modeldmnghe->mahuyen)->get();
 
             return view('manage.giaetanol.baocao.index')
                 ->with('inputs',$inputs)
                 ->with('m_donvi',$m_donvi)
-                ->with('a_dm',array_column($m_giaetanol->toarray(),'tennghe','manghe'))
+                ->with('a_dm',array_column($m_etanol->toarray(),'tennghe','manghe'))
                 ->with('pageTitle', 'Báo cáo tổng hợp kê khai giá etanol');
         }else
             return view('errors.notlogin');
@@ -39,15 +34,15 @@ class KkGiaEtanolBcController extends Controller
             $m_donviql = getDonViTongHop_dn('giaetanol',session('admin')->level, session('admin')->madiaban);
             //lấy theo đơn vị tổng hợp nếu lấy all thì chỉ lấy trong $m_donvi
             $m_nghe = view_dmnganhnghe::where('manghe', 'ETANOL')->get();
-            $model =  KkGiaEtanol::where('trangthai','DD')/*->wherein('macqcq',array_column($m_donviql->toarray(),'madv'))*/;
+            $model =  KkGiaEtanol::where('trangthai','DD')->wherein('macqcq',array_column($m_donviql->toarray(),'madv'));
             //dd($model->get());
-            /*if($inputs['madv'] != 'all') {
-                $model = $model->where('macqcq', $inputs['macqcq']);
-            }*/
-
-            if($inputs['manghe'] != 'all') {
-                $model = $model->where('manghe', $inputs['manghe']);
+            if($inputs['madv'] != 'all') {
+                $model = $model->where('madv', $inputs['madv']);
             }
+
+            /*if($inputs['manghe'] != 'all') {
+                $model = $model->where('manghe', $inputs['manghe']);
+            }*/
 
             if($inputs['phanloai'] == 'ngaychuyen'){
                 $model = $model->whereBetween('ngaychuyen',[getDateToDb($inputs['tungay']), getDateToDb($inputs['denngay'])]);
@@ -58,7 +53,7 @@ class KkGiaEtanolBcController extends Controller
             $model = $model->get();
             //dd($model);
             $inputs['counths'] = count($model);
-            /*$m_donviql = $m_donviql->wherein('madv',array_column($model->toarray(),'macqcq'));*/
+            $m_donviql = $m_donviql->wherein('madv',array_column($model->toarray(),'macqcq'));
             $m_com = Company::wherein('madv',array_column($model->toarray(),'madv'))->get();
 
             return view('manage.giaetanol.baocao.bc1')
@@ -67,6 +62,7 @@ class KkGiaEtanolBcController extends Controller
                 ->with('a_nghe',array_column($m_nghe->toarray(),'tennghe','manghe'))
                 ->with('a_com',array_column($m_com->toarray(),'tendn','madv'))
                 ->with('modeldvql',$m_donviql)
+                //->with('modeldmnghe',$modeldmnghe)
                 ->with('pageTitle', 'Báo cáo tổng hợp kê khai, đăng ký giá etanol');
         }else
             return view('errors.notlogin');
@@ -78,15 +74,15 @@ class KkGiaEtanolBcController extends Controller
             $m_donviql = getDonViTongHop_dn('giaetanol',session('admin')->level, session('admin')->madiaban);
             //lấy theo đơn vị tổng hợp nếu lấy all thì chỉ lấy trong $m_donvi
             $m_nghe = view_dmnganhnghe::where('manghe', 'ETANOL')->get();
-            $model =  KkGiaEtanol::where('trangthai','DD')/*->wherein('macqcq',array_column($m_donviql->toarray(),'madv'))*/;
+            $model =  KkGiaEtanol::where('trangthai','DD')->wherein('macqcq',array_column($m_donviql->toarray(),'madv'));
             //dd($model->get());
-            /*if($inputs['madv'] != 'all') {
-                $model = $model->where('macqcq', $inputs['macqcq']);
-            }*/
-
-            if($inputs['manghe'] != 'all') {
-                $model = $model->where('manghe', $inputs['manghe']);
+            if($inputs['madv'] != 'all') {
+                $model = $model->where('madv', $inputs['madv']);
             }
+
+            /*if($inputs['manghe'] != 'all') {
+                $model = $model->where('manghe', $inputs['manghe']);
+            }*/
 
             if($inputs['phanloai'] == 'ngaychuyen'){
                 $model = $model->whereBetween('ngaychuyen',[getDateToDb($inputs['tungay']), getDateToDb($inputs['denngay'])]);
@@ -97,7 +93,7 @@ class KkGiaEtanolBcController extends Controller
             $model = $model->get();
             //dd($model);
             $inputs['counths'] = count($model);
-            /*$m_donviql = $m_donviql->wherein('madv',array_column($model->toarray(),'macqcq'));*/
+            $m_donviql = $m_donviql->wherein('madv',array_column($model->toarray(),'macqcq'));
             $m_com = Company::wherein('madv',array_column($model->toarray(),'madv'))->get();
             $modelct = KkGiaEtanolCt::whereIn('mahs',array_column($model->toarray(),'mahs'))->get();
 

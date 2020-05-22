@@ -35,15 +35,6 @@
         Thông tin  mặt hàng<small>&nbsp;than</small>
     </h3>
     <!-- END PAGE HEADER-->
-    {{--<div class="row">
-        <div class="col-md-12">
-            <div class="note note-success">
-                <p>-Hàng hóa, dịch vụ thực hiện bình ổn giá: Quy định chi tiết tại Khoản 1 Điều 3- Nghị định số 177/2013/NĐ-CP ngày 14/11/2013</p>
-                </p>
-            </div>
-        </div>
-    </div>--}}
-
     <div class="row"  >
         <div class="col-md-12" >
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -71,10 +62,8 @@
                                     <td class="active">{{$tt->tennghe}}</td>
                                     <td class="text-center">{{$a_phanloai[$tt->phanloai] ?? ''}}</td>
                                     <td>
-                                        {{--@if(chkPer('csdlmucgiahhdv','bog', 'bog', 'danhmuc','modify'))--}}
                                         <button type="button" onclick="ClickEdit('{{$tt->manghe}}','{{$tt->phanloai}}')" class="btn btn-default btn-xs mbs" data-target="#modal-edit" data-toggle="modal">
                                             <i class="fa fa-edit"></i>&nbsp;Sửa</button>
-                                        {{--@endif--}}
                                     </td>
                                 </tr>
                             @endforeach

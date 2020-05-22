@@ -56,12 +56,7 @@
                 <div class="portlet-title">
                     <div class="caption"></div>
                     <div class="actions">
-                        {{--@if(chkPer('csdlmucgiahhdv','bog', 'bog', 'hoso', 'modify'))--}}
-
-                            <button data-target="#create-modal" data-toggle="modal" class="btn btn-default btn-sm">
-                                <i class="fa fa-plus"></i> Thêm mới </button>
-                        {{--@endif--}}
-
+                        <a href="{{url('giasach/create?madv='.$inputs['madv'].'&manghe='.'SACH')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
                     </div>
                 </div>
                 <div class="portlet-body form-horizontal">
@@ -85,7 +80,6 @@
                                     @endforeach
                                 </select>
                             </div>
-
                         </div>
                     </div>
 
@@ -93,17 +87,11 @@
                     <table class="table table-striped table-bordered table-hover" id="sample_4">
                         <thead>
                         <tr>
-                            <!--th class="table-checkbox">
-                                <input type="checkbox" class="group-checkable" data-set="#sample_3 .checkboxes"/>
-                            </th-->
                             <th width="2%" style="text-align: center">STT</th>
-                            <th style="text-align: center">Ngành nghề</br>kinh doanh</th>
-                            <th style="text-align: center">Mã hồ sơ</th>
                             <th style="text-align: center">Số</br>quyết định</th>
                             <th style="text-align: center">Thời điểm</br>áp dụng</th>
                             <th style="text-align: center">Hình thức</br>kê khai</th>
                             <th style="text-align: center">Ghi chú</th>
-
                             <th style="text-align: center">Trạng thái</th>
                             <th style="text-align: center">Cơ quan tiếp nhận</th>
                             <th width="20%" style="text-align: center">Thao tác</th>
@@ -113,19 +101,15 @@
                         @foreach($model as $key=>$tt)
                             <tr>
                                 <td style="text-align: center">{{$key + 1}}</td>
-                                <td>{{$a_nghe[$tt->manghe] ?? ''}}</td>
-                                <td>{{$tt->mahs}}</td>
                                 <td class="success">{{$tt->socv}}</td>
                                 <td class="text-center" style="font-weight: bold">{{getDayVn($tt->ngayhieuluc)}}</td>
                                 <td style="text-align: center; font-weight: bold">{{$a_phanloai[$tt->phanloai] ?? ''}}</td>
                                 <td>{{$tt->ghichu}}</td>
-
                                 @include('manage.include.form.td_trangthai_dn')
                                 <td style="text-align: left">{{$a_donvi_th[$tt->macqcq]?? ''}}</td>
                                 <td>
                                     <a href="{{url('giasach/xemhoso?mahs='.$tt->mahs)}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
-
-                                    @if(in_array($tt->trangthai,['CC','TL']) /*&& chkPer('csdlmucgiahhdv','bog', 'bog', 'hoso', 'modify')*/)
+                                    @if(in_array($tt->trangthai,['CC','TL']))
                                         <a href="{{url('giasach/modify?mahs='.$tt->mahs)}}" class="btn btn-default btn-xs mbs">
                                             <i class="fa fa-edit"></i> Chỉnh sửa </a>
 
@@ -150,56 +134,6 @@
         </div>
     </div>
     <div class="clearfix"></div>
-
-    <!--Model-edit-->
-    <div class="modal fade" id="create-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Thông tin giá sách</h4>
-                </div>
-
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table table-striped table-bordered table-hover" id="sample_3">
-                                <thead>
-                                <tr>
-                                    <!--th class="table-checkbox">
-                                        <input type="checkbox" class="group-checkable" data-set="#sample_3 .checkboxes"/>
-                                    </th-->
-                                    <th width="2%" style="text-align: center">STT</th>
-                                    <th style="text-align: center">Ngành nghề kinh doanh</th>
-                                    <th style="text-align: center">Hình thức</br>kê khai</th>
-                                    <th width="20%" style="text-align: center">Thao tác</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($m_sach as $key=>$tt)
-                                    <tr>
-                                        <td style="text-align: center">{{$key + 1}}</td>
-                                        <td class="success">{{$tt->tennghe}}</td>
-                                        <td style="text-align: center; font-weight: bold">{{$a_phanloai[$tt->phanloai] ?? ''}}</td>
-                                        <td>
-                                            <a href="{{url('giasach/create')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-plus"></i>&nbsp;Kê khai</a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
-                </div>
-
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
 
     @include('manage.include.form.modal_del_hs')
     @include('manage.include.form.modal_approve_hsdn')

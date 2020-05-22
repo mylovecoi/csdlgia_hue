@@ -13,7 +13,7 @@
 
 
     <h3 class="page-title">
-       Báo cáo tổng hợp<small> kê khai Cước vận tải hành khách bằng xe buýt theo tuyến cố định</small>
+        Báo cáo tổng hợp<small> kê khai cước vận tải hành khách bằng xe buýt tuyến cố định</small>
     </h3>
     <!-- END PAGE HEADER-->
 
@@ -26,8 +26,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <ol>
-                                <li><a data-target="#pl1-thoai-confirm" data-toggle="modal" data-href="">Báo cáo tổng hợp giá kê khai Cước vận tải hành khách bằng xe buýt theo tuyến cố định thời điểm</a> </li>
-                                {{--<li><a data-target="#pl2-thoai-confirm" data-toggle="modal" data-href="">Báo cáo chi tiết giá kê khai giá vật liệu xây dựng theo thời điểm</a> </li>--}}
+                                <li><a data-target="#pl1-thoai-confirm" data-toggle="modal" data-href="">Báo cáo tổng hợp giá kê khai cước vận tải hành khách bằng xe buýt tuyến cố định thời điểm</a> </li>
                             </ol>
                         </div>
                     </div>

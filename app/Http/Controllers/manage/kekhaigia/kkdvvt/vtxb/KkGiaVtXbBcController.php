@@ -5,7 +5,7 @@ namespace App\Http\Controllers\manage\kekhaigia\kkdvvt\vtxb;
 use App\Model\manage\kekhaigia\kkdvvt\vtxb\KkGiaVtXb;
 use App\Model\manage\kekhaigia\kkdvvt\vtxb\KkGiaVtXbCt;
 use App\Model\system\dmnganhnghekd\DmNgheKd;
-use App\Town;
+use App\Model\system\dsdiaban;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -17,10 +17,11 @@ class KkGiaVtXbBcController extends Controller
             $modeldmnghe = DmNgheKd::where('manganh','DVVT')
                 ->where('manghe','VTXB')
                 ->first();
-            $m_donvi = Town::where('mahuyen',$modeldmnghe->mahuyen)->get();
+            $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
+            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             return view('manage.kkgia.vtxb.reports.index')
-                ->with('m_donvi',$m_donvi)
-                ->with('pageTitle', 'Báo cáo tổng hợp kê khai Cước vận tải hành khách bằng xe buýt theo tuyến cố định');
+                ->with('a_diaban', array_column($m_diaban->wherein('level', ['H','T','X'])->toarray(), 'tendiaban', 'madiaban'))
+                ->with('pageTitle', 'Báo cáo tổng hợp kê khai cước vận tải hành khách bằng xe buýt tuyến cố định');
         }else
             return view('errors.notlogin');
     }
@@ -28,20 +29,9 @@ class KkGiaVtXbBcController extends Controller
     public function bc1(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-//            dd($inputs);
-            $model =  KkGiaVtXb::join('company','company.maxa','=','kkgiavtxb.maxa')
+            $model =  KkGiaVtXb::join('company','company.madv','=','kkgiavtxb.madv')
                 ->where('kkgiavtxb.trangthai','DD')
                 ->select('kkgiavtxb.*','company.tendn');
-            if($inputs['mahuyen'] != 'all') {
-                $model = $model->where('kkgiavtxb.mahuyen', $inputs['mahuyen']);
-                $modeldvql = Town::where('maxa',$inputs['mahuyen'])
-                    ->get();
-            }else{
-                $modeldmnghe = DmNgheKd::where('manganh','DVVT')
-                    ->where('manghe','VTXB')
-                    ->first();
-                $modeldvql = Town::where('mahuyen',$modeldmnghe->mahuyen)->get();
-            }
             if($inputs['phanloai'] == 'ngaychuyen'){
                 if($inputs['time'] == 'ngay')
                     $model = $model->whereBetween('ngaychuyen',[getDateToDb($inputs['tungay']), getDateToDb($inputs['denngay'])]);
@@ -88,13 +78,11 @@ class KkGiaVtXbBcController extends Controller
                 }
             }
             $model = $model->get();
-//            dd($model);
-            $inputs['counths'] = count($model);
+
             return view('manage.kkgia.vtxb.reports.bc1')
                 ->with('model',$model)
                 ->with('inputs',$inputs)
-                ->with('modeldvql',$modeldvql)
-                ->with('pageTitle', 'Báo cáo tổng hợp kê khai Cước vận tải hành khách bằng xe buýt theo tuyến cố định');
+                ->with('pageTitle', 'Báo cáo tổng hợp kê khai cước vận tải hành khách bằng xe buýt tuyến cố định');
         }else
             return view('errors.notlogin');
     }
@@ -102,20 +90,9 @@ class KkGiaVtXbBcController extends Controller
     public function bc2(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-//            dd($inputs);
-            $model =   KkGiaVtXb::join('company','company.maxa','=','kkgiavtxb.maxa')
+            $model =  KkGiaVtXb::join('company','company.madv','=','kkgiavtxb.madv')
                 ->where('kkgiavtxb.trangthai','DD')
                 ->select('kkgiavtxb.*','company.tendn');
-            if($inputs['mahuyen'] != 'all') {
-                $model = $model->where('kkgiavtxb.mahuyen', $inputs['mahuyen']);
-                $modeldvql = Town::where('maxa',$inputs['mahuyen'])
-                    ->get();
-            }else{
-                $modeldmnghe = DmNgheKd::where('manganh','DVVT')
-                    ->where('manghe','VTXB')
-                    ->first();
-                $modeldvql = Town::where('mahuyen',$modeldmnghe->mahuyen)->get();
-            }
             if($inputs['phanloai'] == 'ngaychuyen'){
                 if($inputs['time'] == 'ngay')
                     $model = $model->whereBetween('ngaychuyen',[getDateToDb($inputs['tungay']), getDateToDb($inputs['denngay'])]);
@@ -162,18 +139,18 @@ class KkGiaVtXbBcController extends Controller
                 }
             }
             $model = $model->get();
+            /*dd($model);*/
             $mahss = '';
             foreach($model as $ct){
                 $mahss = $mahss.$ct->mahs.',';
             }
-            $modelct = KkGiaVtXbCt::whereIn('mahs',explode(',',$mahss))
-                ->get();
+            $modelct = KkGiaVtXbCt::whereIn('mahs',explode(',',$mahss))->get();
+
             return view('manage.kkgia.vtxb.reports.bc2')
                 ->with('model',$model)
                 ->with('inputs',$inputs)
-                ->with('modeldvql',$modeldvql)
                 ->with('modelct',$modelct)
-                ->with('pageTitle', 'Báo cáo tổng hợp kê khai Cước vận tải hành khách bằng xe buýt theo tuyến cố định');
+                ->with('pageTitle', 'Báo cáo tổng hợp kê khai cước vận tải hành khách bằng xe buýt tuyến cố định');
         }else
             return view('errors.notlogin');
     }

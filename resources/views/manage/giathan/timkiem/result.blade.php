@@ -51,12 +51,12 @@
                                 <tr>
                                     <td style="text-align: center">{{$key+1}}</td>
                                     <td class="active"><b>Tên DN: </b> {{$tt->tendn}}
-                                        <br><b>Mã số thuế:</b> {{$tt->maxa}}</td>
+                                        <br><b>Mã số thuế:</b> {{$tt->madv}}</td>
                                     <td style="text-align: center">{{getDayVn($tt->ngayhieuluc)}}</td>
-                                    <td style="text-align: left">{{$tt->tenhh}}</td>
-                                    <td style="text-align: left">{{$tt->quycach}}</td>
+                                    <td style="text-align: left">{{$tt->tthhdv}}</td>
+                                    <td style="text-align: left">{{$tt->qccl}}</td>
                                     <td style="text-align: left">{{$tt->dvt}}</td>
-                                    <td style="text-align: right;font-weight: bold">{{number_format($tt->giakk)}}</td>
+                                    <td style="text-align: right;font-weight: bold">{{number_format($tt->dongia)}}</td>
                                 </tr>
                             @endforeach
                             </tbody>

@@ -61,7 +61,8 @@
 
     function confirmChuyen(mahs,url) {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        //alert(id);
+        /*alert(mahs);
+        alert(url);*/
         $.ajax({
             url: '{{$inputs['url']}}' +'/kiemtra',
             type: 'GET',
