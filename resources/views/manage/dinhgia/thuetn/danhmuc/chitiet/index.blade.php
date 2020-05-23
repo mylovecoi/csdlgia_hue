@@ -24,7 +24,7 @@
 @section('content')
 
     <h3 class="page-title">
-        Danh mục mặt hàng chi tiết<small>&nbsp;thuế tài nguyên</small>
+        Danh mục chi tiết thuế tài nguyên
     </h3>
     <p style="color: #0000ff">{{$nhom->tennhom}}</p>
     <!-- END PAGE HEADER-->
@@ -34,16 +34,19 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <div class="actions">
-                        @if(can('dmgiathuetn','create'))
-                        <button type="button" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
-                        <button type="button" class="btn btn-default btn-xs mbs" data-target="#modal-importexcel" data-toggle="modal"><i class="fa fa-file-excel-o"></i>&nbsp;Nhận dữ liệu</button>
+                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetn', 'danhmuc', 'modify'))
+                            <button type="button" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
+                                <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
+                            <button type="button" class="btn btn-default btn-xs mbs" data-target="#modal-importexcel" data-toggle="modal">
+                                <i class="fa fa-file-excel-o"></i>&nbsp;Nhận dữ liệu</button>
                         @endif
-                        <a href="{{url('nhomthuetn')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                        <a href="{{url('/giathuetn/danhmuc')}}" class="btn btn-default btn-xs mbs">
+                            <i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                     </div>
                 </div>
                 <div class="portlet-body">
                     <div class="portlet-body">
-                    <table class="table table-striped table-bordered table-hover" id="sample_3">
+                    <table class="table table-striped table-bordered table-hover" id="sample_4">
                         <thead>
                         <tr>
                             <th style="text-align: center" width="2%">STT</th>
@@ -79,11 +82,11 @@
                                 @endif
                             </td>
                             <td>
-                                @if(can('dmgiathuetn','edit'))
-                                <button type="button" onclick="ClickEdit('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#modal-edit" data-toggle="modal"><i class="fa fa-edit"></i>&nbsp;Sửa</button>
-                                @endif
-                                @if(can('dmgiathuetn','delete'))
-                                    <button type="button" onclick="getId('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#modal-delete" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
+                                @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetn', 'danhmuc', 'modify'))
+                                    <button type="button" onclick="ClickEdit('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
+                                        <i class="fa fa-edit"></i>&nbsp;Sửa</button>
+                                    <button type="button" onclick="getId('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#modal-delete" data-toggle="modal">
+                                        <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
                                 @endif
                             </td>
                         </tr>

@@ -48,12 +48,11 @@ class ThueTaiNguyenCtController extends Controller
             $inputs['gia'] = getDoubleToDb($inputs['gia']);
             $modelupdate->update($inputs);
 
-            $model = ThueTaiNguyenCt::where('mahs',$inputs['mahs'])
-                ->get();
+            $model = ThueTaiNguyenCt::where('mahs',$inputs['mahs'])->get();
 
             $result['message'] = '<div class="row" id="dsts">';
             $result['message'] .= '<div class="col-md-12">';
-            $result['message'] .= '<table class="table table-striped table-bordered table-hover" id="sample_3">';
+            $result['message'] .= '<table class="table table-striped table-bordered table-hover" id="sample_4">';
             $result['message'] .= '<thead>';
             $result['message'] .= '<tr>';
             $result['message'] .= '<th width="2%" style="text-align: center">STT</th>';

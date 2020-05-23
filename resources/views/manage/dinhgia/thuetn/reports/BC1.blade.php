@@ -8,26 +8,26 @@
 @stop
 
 @section('content')
-<table width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:0 auto 20px; text-align: center;">
-    <tr>
-        <td width="40%" style="vertical-align: top;">
-            <span style="text-transform: uppercase">{{$inputs['dvcaptren']}}</span><br>
-            <span style="text-transform: uppercase;font-weight: bold">{{$inputs['dv']}}</span>
-            <hr style="width: 10%;vertical-align: top;  margin-top: 2px">
+    <table width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:0 auto 20px; text-align: center;">
+        <tr>
+            <td width="40%" style="vertical-align: top;">
+                <span style="text-transform: uppercase">{{session('admin')->tendvcqhienthi}}</span><br>
+                <span style="text-transform: uppercase;font-weight: bold">{{session('admin')->tendvhienthi}}</span>
+                <hr style="width: 10%;vertical-align: top;  margin-top: 2px">
 
-        </td>
-        <td style="vertical-align: top;">
-            <b>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM<br>
-                Độc lập - Tự do - Hạnh phúc</b>
-            <hr style="width: 15%;vertical-align: top; margin-top: 2px">
+            </td>
+            <td style="vertical-align: top;">
+                <b>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM<br>
+                    Độc lập - Tự do - Hạnh phúc</b>
+                <hr style="width: 15%;vertical-align: top; margin-top: 2px">
 
-        </td>
-    </tr>
-    <tr>
-        <td>Số: ..............</td>
-        <td style="text-align: right"><i style="margin-right: 25%;">{{$inputs['diadanh']}}, ngày .... tháng .... năm ....</i></td>
-    </tr>
-</table>
+            </td>
+        </tr>
+        <tr>
+            <td>Số: ..............</td>
+            <td style="text-align: right"><i style="margin-right: 25%;">{{session('admin')->diadanh}}, ngày .... tháng .... năm ....</i></td>
+        </tr>
+    </table>
 
 <p style="font-weight: bold;text-transform: uppercase;text-align: center">BÁO CÁO {{$m_nhomthuetn->tennhom}}</p>
 <table cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;" id="data">

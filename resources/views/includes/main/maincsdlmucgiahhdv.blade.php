@@ -477,32 +477,45 @@
                 @endif
             @endif
 
-            @if(canGeneral('giathuetn','index'))
-                @if(can('giathuetn','index'))
-                    <li>
-                        <a href="javascript:;">
-                            <span class="title">{{session('admin')['a_chucnang']['giathuetn'] ?? 'Giá thuế tài nguyên'}}</span>
-                            <span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            @if(can('dmgiathuetn','index'))
+            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetn'))
+                <li>
+                    <a href="javascript:;">
+                        <span class="title">{{session('admin')['a_chucnang']['giathuetn'] ?? 'Giá thuế tài nguyên'}}</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetn', 'danhmuc','index'))
+                            <li>
+                                <a href="{{url('/giathuetn/danhmuc')}}">Danh mục</a>
+                            </li>
+                        @endif
+                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetn', 'hoso','index'))
+                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
                                 <li>
-                                    <a href="{{url('nhomthuetn')}}">DM thuế tài nguyên </a>
+                                    <a href="{{url('/giathuetn/danhsach')}}">
+                                        Thông tin hồ sơ
+                                    </a>
                                 </li>
                             @endif
-                            @if(can('kkgiathuetn','index'))
+
+                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
                                 <li>
-                                    <a href="{{url('thuetainguyen')}}">Thông tin thuế TN</a>
+                                    <a href="{{url('/giathuetn/xetduyet')}}">
+                                        Xét duyệt hồ sơ
+                                    </a>
                                 </li>
                             @endif
-                            @if(can('thgiathuetn','baocao'))
-                                <li>
-                                    <a href="{{url('baocaothuetainguyen')}}">Báo cáo tổng hợp</a>
-                                </li>
-                            @endif
-                        </ul>
-                    </li>
-                @endif
+
+                            <li>
+                                <a href="{{url('/giathuetn/timkiem')}}">Tìm kiếm hồ sơ</a>
+                            </li>
+
+                            <li>
+                                <a href="{{url('/giathuetn/baocao')}}">Báo cáo tổng hợp</a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
             @endif
 
             @if(canGeneral('giathuenhacongvu','index'))

@@ -55,7 +55,7 @@ class NhomHhDvKController extends Controller
         if(Session::has('admin')){
             $inputs=$request->all();
             NhomHhDvK::where('matt',$inputs['matt'])->first()->delete();
-            DmHhDvK::where('matt',$inputs['matt'])->get()->delete();
+            DmHhDvK::where('matt',$inputs['matt'])->delete();
             return redirect('giahhdvk/danhmuc');
         }else
             return view('errors.notlogin');

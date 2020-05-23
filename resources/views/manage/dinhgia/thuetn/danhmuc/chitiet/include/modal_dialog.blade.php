@@ -8,6 +8,7 @@
         btn.disabled = true;
         btn.innerText = 'Loading...'
     }
+
     function ClickCreate(){
         var valid=true;
         var message='';
@@ -29,6 +30,7 @@
             toastr.error(message,'Lỗi!.');
         }
     }
+
     function ClickUpdate(){
         var valid=true;
         var message='';
@@ -50,10 +52,11 @@
             toastr.error(message, 'Lỗi!.');
         }
     }
+
     function ClickEdit(id){
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
-            url: 'dmthuetn/show',
+            url: '{{$inputs['url']}}' + '/show_dm',
             type: 'GET',
             data: {
                 _token: CSRF_TOKEN,
@@ -61,16 +64,16 @@
             },
             dataType: 'JSON',
             success: function (data) {
-                $('#edit_ten').val(data.ten);
-                $('#edit_dvt').val(data.dvt);
-                $('#edit_cap1').val(data.cap1);
-                $('#edit_cap2').val(data.cap2);
-                $('#edit_cap3').val(data.cap3);
-                $('#edit_cap4').val(data.cap4);
-                $('#edit_cap5').val(data.cap5);
-                $('#edit_level').val(data.level);
-                $('#edit_theodoi').val(data.theodoi);
-                $('#edit_id').val(data.id);
+                $('#ten').val(data.ten);
+                $('#dvt').val(data.dvt);
+                $('#cap1').val(data.cap1);
+                $('#cap2').val(data.cap2);
+                $('#cap3').val(data.cap3);
+                $('#cap4').val(data.cap4);
+                $('#cap5').val(data.cap5);
+                $('#level').val(data.level);
+                $('#theodoi').val(data.theodoi);
+                $('#id').val(data.id);
             }
         });
     }
@@ -161,7 +164,7 @@
 <div class="modal fade" id="modal-create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            {!! Form::open(['url'=>'dmthuetn','id' => 'frm_create'])!!}
+            {!! Form::open(['url'=>$inputs['url'].'/dm','id' => 'frm_create'])!!}
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Thêm mới mặt hàng thuế tài nguyên?</h4>
@@ -233,6 +236,7 @@
                 </div>
             </div>
             <input type="hidden" name="manhom" id="manhom" value="{{$inputs['manhom']}}">
+            <input type="hidden" name="id" id="id">
             <div class="modal-footer">
                 <button type="submit" class="btn blue" onclick="ClickCreate()" id="submitcreate">Đồng ý</button>
                 <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
@@ -243,108 +247,11 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-<!--Model-edit-->
-<div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Chỉnh sửa nhóm loại rừng?</h4>
-            </div>
-            {!! Form::open(['url'=>'dmthuetn/update','id' => 'frm_update'])!!}
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">Level<span class="require">*</span></label>
-                            <select id="edit_level" name="edit_level" class="form-control">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">Cấp I<span class="require">*</span></label>
-                            <input type="text" name="edit_cap1" id="edit_cap1" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">Cấp II<span class="require">*</span></label>
-                            <input type="text" name="edit_cap2" id="edit_cap2" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">Cấp III<span class="require">*</span></label>
-                            <input type="text" name="edit_cap3" id="edit_cap3" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">Cấp IV<span class="require">*</span></label>
-                            <input type="text" name="edit_cap4" id="edit_cap4" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">Cấp V<span class="require">*</span></label>
-                            <input type="text" name="edit_cap5" id="edit_cap5" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">Đơn vị tính<span class="require">*</span></label>
-                            <input type="dvt" name="edit_dvt" id="edit_dvt" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="control-label">Tên nhóm, loại tài nguyên<span class="require">*</span></label>
-                            <input type="text" name="edit_ten" id="edit_ten" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="control-label">Theo dõi<span class="require">*</span></label>
-                            <select id="edit_theodoi" name="edit_theodoi" class="form-control">
-                                <option value="TD">Theo dõi</option>
-                                <option value="KTD">Không theo dõi</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <input type="hidden" name="edit_id" id="edit_id">
-            <div class="modal-footer">
-                <button type="submit" class="btn blue" onclick="ClickUpdate()" id="submitupdate">Đồng ý</button>
-                <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
-            </div>
-            {!! Form::close() !!}
 
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
 <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            {!! Form::open(['url'=>'dmthuetn/delete','id' => 'frm_delete'])!!}
+            {!! Form::open(['url'=>$inputs['url'].'/delete_dm','id' => 'frm_delete'])!!}
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Đồng ý xóa?</h4>
@@ -368,7 +275,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Nhận dữ liệu từ file excel</h4>
             </div>
-            {!! Form::open(['url'=>'/dmthuetn/importexcel', 'method'=>'post' , 'files'=>true, 'id' => 'frm_importexcel','enctype'=>'multipart/form-data']) !!}
+            {!! Form::open(['url'=>$inputs['url'].'/importexcel', 'method'=>'post' , 'files'=>true, 'id' => 'frm_importexcel','enctype'=>'multipart/form-data']) !!}
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">

@@ -15,10 +15,9 @@ class DmThueTnController extends Controller
     public function index(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-
-            $model = DmThueTn::where('manhom',$inputs['manhom'])
-                ->get();
+            $model = DmThueTn::where('manhom',$inputs['manhom'])->get();
             $nhom = NhomThueTn::where('manhom',$inputs['manhom'])->first();
+            $inputs['url'] = '/giathuetn';
             return view('manage.dinhgia.thuetn.danhmuc.chitiet.index')
                 ->with('model',$model)
                 ->with('nhom',$nhom)
@@ -33,10 +32,14 @@ class DmThueTnController extends Controller
     public function store(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $inputs['theodoi'] = 'TD';
-            $model = new DmThueTn();
-            $model->create($inputs);
-            return redirect('dmthuetn?&manhom='.$inputs['manhom']);
+            $model = DmThueTn::where('id',$inputs['id'])->first();
+            if($model == null){
+                $inputs['theodoi'] = 'TD';
+                DmThueTn::create($inputs);
+            }else
+                $model->update($inputs);
+
+            return redirect('giathuetn/danhmuc/detail?manhom='.$inputs['manhom']);
         }else
             return view('errors.notlogin');
     }
@@ -76,7 +79,7 @@ class DmThueTnController extends Controller
             $inputs['theodoi'] = $inputs['edit_theodoi'];
             $model = DmThueTn::findOrFail($id);
             $model->update($inputs);
-            return redirect('dmthuetn?&manhom='.$model->manhom);
+            return redirect('giathuetn/danhmuc/detail?manhom='.$model->manhom);
         }else
             return view('errors.notlogin');
     }
@@ -88,7 +91,7 @@ class DmThueTnController extends Controller
             $model = DmThueTn::findOrFail($id);
             $manhom = $model->manhom;
             $model->delete();
-            return redirect('dmthuetn?&manhom='.$manhom);
+            return redirect('giathuetn/danhmuc/detail?manhom='.$manhom);
         }else
             return view('errors.notlogin');
     }
@@ -122,7 +125,7 @@ class DmThueTnController extends Controller
                 $modelctnew->save();
             }
             File::Delete($path);
-            return redirect('dmthuetn?&manhom='.$inputs['imex_manhom']);
+            return redirect('giathuetn/danhmuc/detail?manhom='.$inputs['imex_manhom']);
         }else
             return view('errors.notlogin');
     }

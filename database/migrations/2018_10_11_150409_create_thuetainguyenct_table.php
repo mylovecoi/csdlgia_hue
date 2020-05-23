@@ -24,7 +24,7 @@ class CreateThuetainguyenctTable extends Migration
             $table->string('cap5')->nullable();
             $table->text('ten')->nullable();
             $table->string('dvt')->nullable();
-            $table->string('gia')->nullable();
+            $table->double('gia')->default(0);
             $table->string('trangthai')->nullable();
             $table->timestamps();
         });

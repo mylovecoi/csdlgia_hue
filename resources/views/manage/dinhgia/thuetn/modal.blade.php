@@ -3,7 +3,7 @@
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         //alert(id);
         $.ajax({
-            url: '/thuetainguyenct/edit',
+            url: '{{$inputs['url']}}' + '/edit_ct',
             type: 'GET',
             data: {
                 _token: CSRF_TOKEN,
@@ -28,7 +28,7 @@
         //alert('vcl');
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
-            url: '/thuetainguyenct/update',
+            url: '{{$inputs['url']}}' + '/update_ct',
             type: 'GET',
             data: {
                 _token: CSRF_TOKEN,

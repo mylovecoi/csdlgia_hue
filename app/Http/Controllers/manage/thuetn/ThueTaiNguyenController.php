@@ -7,6 +7,9 @@ use App\Model\manage\dinhgia\thuetn\DmThueTn;
 use App\Model\manage\dinhgia\thuetn\NhomThueTn;
 use App\Model\manage\dinhgia\thuetn\ThueTaiNguyen;
 use App\Model\manage\dinhgia\thuetn\ThueTaiNguyenCt;
+use App\Model\system\dsdiaban;
+use App\Model\system\view_dsdiaban_donvi;
+use App\Model\view\view_giathuetn;
 use App\Town;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,6 +20,40 @@ use Illuminate\Support\Facades\File;
 class ThueTaiNguyenController extends Controller
 {
     public function index(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['url'] = '/giathuetn';
+            //lấy địa bàn
+            //$a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
+            $a_diaban = getDiaBan_NhapLieu(session('admin')->level, session('admin')->madiaban);
+
+            $m_donvi_th = getDonViTongHop('giathuetn',\session('admin')->level, \session('admin')->madiaban);
+            $inputs['madiaban'] = $inputs['madiaban'] ?? array_key_first($a_diaban);
+            //$inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
+            $inputs['nam'] = $inputs['nam'] ?? 'all';
+
+            $m_donvi = view_dsdiaban_donvi::where('madiaban', $inputs['madiaban'])->where('chucnang', 'NHAPLIEU')->get();
+            $a_nhom = array_column(NhomThueTn::where('theodoi', 'TD')->get()->toarray(), 'tennhom','manhom');
+            //lấy thông tin đơn vị
+            $model = ThueTaiNguyen::where('madiaban', $inputs['madiaban']);
+            if ($inputs['nam'] != 'all')
+                $model = $model->whereYear('thoidiem', $inputs['nam']);
+            //dd($model->get());
+            return view('manage.dinhgia.thuetn.kekhai.index')
+                ->with('model', $model->get())
+                ->with('inputs', $inputs)
+                //->with('m_diaban', $m_diaban)
+                ->with('a_nhom', $a_nhom)
+                ->with('a_diaban', $a_diaban)
+                ->with('a_dv', array_column($m_donvi->toarray(),'tendv','madv'))
+                ->with('m_donvi_th', $m_donvi_th)
+                ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
+                ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
+                ->with('pageTitle','Thông tin giá thuế tài nguyên');
+        } else
+            return view('errors.notlogin');
+
+
         if(Session::has('admin')){
             $inputs = $request->all();
             $inputs['manhom'] = isset($inputs['manhom']) ? $inputs['manhom'] : 'all';
@@ -26,7 +63,7 @@ class ThueTaiNguyenController extends Controller
             if($inputs['manhom'] != 'all')
                 $model = $model->where('thuetainguyen.manhom',$inputs['manhom']);
             $model = $model->get();
-            return view('manage.dinhgia.thuetn.index')
+            return view('manage.dinhgia.thuetn.kekhai.index')
                 ->with('model',$model)
                 ->with('modeldm',$modeldm)
                 ->with('inputs',$inputs)
@@ -35,89 +72,96 @@ class ThueTaiNguyenController extends Controller
         }else
             return view('errors.notlogin');
     }
-    public function create(Request $request){
-        if(Session::has('admin')){
-            $inputs = $request->all();
-            $modelnhom = NhomThueTn::where('manhom',$inputs['add_manhom'])
-                ->first();
-            $check = ThueTaiNguyen::where('manhom',$inputs['add_manhom'])
-                ->where('nam',$inputs['add_nam'])
-                ->count();
-            if($check > 0) {
-                return view('manage.dinhgia.thuetn.errors.nodata')
-                    ->with('nam', $inputs['add_nam'])
-                    ->with('nhomtn', $modelnhom->tennhom);
-            }else{
-                $del = ThueTaiNguyenCt::where('trangthai','CXD')->delete();
 
-                $inputs['mahs'] = getdate()[0];
-                $modeldm = DmThueTn::where('manhom',$inputs['add_manhom'])
-                    ->where('theodoi','TD')
-                    ->get();
-                foreach($modeldm as $dm){
-                    $modelctadd = new ThueTaiNguyenCt();
-                    $modelctadd->cap1 = $dm->cap1;
-                    $modelctadd->cap2 = $dm->cap2;
-                    $modelctadd->cap3 = $dm->cap3;
-                    $modelctadd->cap4 = $dm->cap4;
-                    $modelctadd->cap5 = $dm->cap5;
-                    $modelctadd->ten = $dm->ten;
-                    $modelctadd->dvt = $dm->dvt;
-                    $modelctadd->level = $dm->level;
-                    $modelctadd->mahs = $inputs['mahs'];
-                    $modelctadd->trangthai = 'CXD';
-                    $modelctadd->save();
-                }
-                $modelct = ThueTaiNguyenCt::where('mahs',$inputs['mahs'])
-                    ->get();
-                return view('manage.dinhgia.thuetn.create')
-                    ->with('modelct',$modelct)
-                    ->with('modelnhom',$modelnhom)
-                    ->with('inputs',$inputs)
-                    ->with('pageTitle','Bảng giá tính thuế tài nguyên thêm mới');
+    public function create(Request $request)
+    {
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['url'] = '/giathuetn';
+            $modelnhom = NhomThueTn::where('manhom', $inputs['manhom'])->first();
+            $check = ThueTaiNguyen::where('manhom', $inputs['manhom'])
+                ->whereyear('thoidiem', $inputs['nam'])
+                ->where('madiaban', $inputs['madiaban'])
+                ->first();
+            if ($check != null) {
+                return view('manage.dinhgia.thuetn.errors.nodata')
+                    ->with('nam', $inputs['nam'])
+                    ->with('nhomtn', $modelnhom->tennhom);
             }
-        }else
+
+            $inputs['mahs'] = getdate()[0];
+
+            $modeldm = DmThueTn::where('manhom', $inputs['manhom'])
+                ->where('theodoi', 'TD')
+                ->get();
+            $model = new ThueTaiNguyen();
+            $model->mahs = $inputs['mahs'];
+            $model->madv = $inputs['madv'];
+            $model->manhom = $inputs['manhom'];
+            $model->madiaban = $inputs['madiaban'];
+            $model->trangthai  = 'CHT';
+
+            foreach ($modeldm as $dm) {
+                $modelctadd = new ThueTaiNguyenCt();
+                $modelctadd->cap1 = $dm->cap1;
+                $modelctadd->cap2 = $dm->cap2;
+                $modelctadd->cap3 = $dm->cap3;
+                $modelctadd->cap4 = $dm->cap4;
+                $modelctadd->cap5 = $dm->cap5;
+                $modelctadd->ten = $dm->ten;
+                $modelctadd->dvt = $dm->dvt;
+                $modelctadd->level = $dm->level;
+                $modelctadd->mahs = $inputs['mahs'];
+                //$modelctadd->trangthai = 'CXD';
+                $modelctadd->save();
+            }
+            $modelct = ThueTaiNguyenCt::where('mahs', $inputs['mahs'])->get();
+            $a_diaban = array_column(dsdiaban::where('madiaban', $inputs['madiaban'])->get()->toarray(), 'tendiaban', 'madiaban');
+            return view('manage.dinhgia.thuetn.kekhai.edit')
+                ->with('model', $model)
+                ->with('modelct', $modelct)
+                ->with('modelnhom', $modelnhom)
+                ->with('a_diaban', $a_diaban)
+                ->with('inputs', $inputs)
+                ->with('pageTitle', 'Bảng giá tính thuế tài nguyên');
+
+        } else
             return view('errors.notlogin');
     }
 
     public function store(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();
-            $inputs['ngayqd'] = getDateToDb($inputs['ngayqd']);
-            $inputs['trangthai'] = 'CHT';
-            $model = new ThueTaiNguyen();
-            if($model->create($inputs))
-                $modelct = ThueTaiNguyenCt::where('mahs',$inputs['mahs'])
-                    ->update(['trangthai' => 'XD']);
-            return redirect('thuetainguyen?&manhom='.$inputs['manhom']);
-
+            //dd($inputs);
+            $inputs['thoidiem'] = getDateToDb($inputs['thoidiem']);
+            $inputs['thoidiemlk'] = getDateToDb($inputs['thoidiemlk']);
+            $model = ThueTaiNguyen::where('mahs',$inputs['mahs'])->first();
+            if($model == null){
+                $inputs['trangthai'] = 'CHT';
+                ThueTaiNguyen::create($inputs);
+            }else{
+                $model->update($inputs);
+            }
+            return redirect('giathuetn/danhsach?madiaban='.$inputs['madiaban']);
         }else
             return view('errors.notlogin');
     }
 
-    public function edit($id){
+    public function edit(Request $request){
         if(Session::has('admin')){
-            $model = ThueTaiNguyen::findOrFail($id);
-            $modelct = ThueTaiNguyenCt::where('mahs',$model->mahs)
-                ->get();
-            $modelnhom = NhomThueTn::where('manhom',$model->manhom)
-                ->first();
-            return view('manage.dinhgia.thuetn.edit')
+            $inputs = $request->all();
+            $inputs['url'] = '/giathuetn';
+            $model = ThueTaiNguyen::where('mahs',$inputs['mahs'])->first();
+            $modelct = ThueTaiNguyenCt::where('mahs',$model->mahs)->get();
+            $modelnhom = NhomThueTn::where('manhom',$model->manhom)->first();
+            $a_diaban = array_column(dsdiaban::where('madiaban', $model->madiaban)->get()->toarray(), 'tendiaban', 'madiaban');
+            return view('manage.dinhgia.thuetn.kekhai.edit')
                 ->with('modelct',$modelct)
                 ->with('modelnhom',$modelnhom)
                 ->with('model',$model)
-                ->with('pageTitle','Bảng giá tính thuế tài nguyên chỉnh sửa');
-        }else
-            return view('errors.notlogin');
-    }
-
-    public function update($id,Request $request){
-        if(Session::has('admin')){
-            $inputs = $request->all();
-            $inputs['ngayqd'] = getDateToDb($inputs['ngayqd']);
-            $model = ThueTaiNguyen::findOrFail($id);
-            $model->update($inputs);
-            return redirect('thuetainguyen?&manhom='.$inputs['manhom']);
+                ->with('a_diaban', $a_diaban)
+                ->with('inputs', $inputs)
+                ->with('pageTitle','Bảng giá tính thuế tài nguyên');
         }else
             return view('errors.notlogin');
     }
@@ -125,87 +169,23 @@ class ThueTaiNguyenController extends Controller
     public function delete(Request $request){
         if(Session::has('admin')){
             $inputs=$request->all();
-            $model = ThueTaiNguyen::where('id',$inputs['iddelete'])
-                ->first();
+            $model = ThueTaiNguyen::where('mahs',$inputs['mahs'])->first();
             $modelct = ThueTaiNguyenCt::where('mahs',$model->mahs)->delete();
             $model = $model->delete();
-
-            return redirect('thuetainguyen');
+            return redirect('giathuetn/danhsach');
         }else
             return view('errors.notlogin');
     }
 
-    public function congbo(Request $request){
+    public function show(Request $request){
         if(Session::has('admin')){
             $inputs=$request->all();
-            $id = $inputs['idcongbo'];
-            $model = ThueTaiNguyen::findOrFail($id);
-            $model->trangthai = 'CB';
-            $model->save();
-            return redirect('thuetainguyen?&manhom='.$model->manhom);
-        }else
-            return view('errors.notlogin');
-    }
-
-    public function huycongbo(Request $request){
-        if(Session::has('admin')){
-            $inputs=$request->all();
-            $id = $inputs['idhuycongbo'];
-            $model = ThueTaiNguyen::findOrFail($id);
-            $model->trangthai = 'HT';
-            $model->save();
-            return redirect('thuetainguyen?&manhom='.$model->manhom);
-        }else
-            return view('errors.notlogin');
-    }
-
-    public function hoanthanh(Request $request){
-        if(Session::has('admin')){
-            $inputs=$request->all();
-            $id = $inputs['idhoanthanh'];
-            $model = ThueTaiNguyen::findOrFail($id);
-            $model->trangthai = 'HT';
-            $model->save();
-            return redirect('thuetainguyen?&manhom='.$model->manhom);
-        }else
-            return view('errors.notlogin');
-    }
-
-    public function huyhoanthanh(Request $request){
-        if(Session::has('admin')){
-            $inputs=$request->all();
-            $id = $inputs['idhuyhoanthanh'];
-            $model = ThueTaiNguyen::findOrFail($id);
-            $model->trangthai = 'CHT';
-            $model->save();
-            return redirect('thuetainguyen?&manhom='.$model->manhom);
-        }else
-            return view('errors.notlogin');
-    }
-
-    public function show($id){
-        if(Session::has('admin')){
-            $model = ThueTaiNguyen::findOrFail($id);
+            $model = ThueTaiNguyen::where('mahs',$inputs['mahs'])->first();
             $modelct = ThueTaiNguyenCt::where('mahs',$model->mahs)
                 ->get();
             $modelnhom = NhomThueTn::where('manhom',$model->manhom)
                 ->first();
-            if(session('admin')->level == 'T'){
-                $inputs['dvcaptren'] = getGeneralConfigs()['tendvcqhienthi'];
-                $inputs['dv'] = getGeneralConfigs()['tendvhienthi'];
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }elseif(session('admin')->level == 'H'){
-                $modeldv = District::where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }else{
-                $modeldv = Town::where('maxa',session('admin')->maxa)
-                    ->where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }
+
             return view('manage.dinhgia.thuetn.reports.prints')
                 ->with('modelct',$modelct)
                 ->with('modelnhom',$modelnhom)
@@ -312,4 +292,340 @@ class ThueTaiNguyenController extends Controller
             return view('errors.notlogin');
     }
 
+    public function chuyenhs(Request $request)
+    {
+        //Lấy thông tin đơn vị tiếp nhận để kiểm tra level
+        // level == 'H' => set madv_h = $inputs['macqcq']; trangthai_h = 'CHT' (tương đương tạo mới hoso)
+        // level == 'T' => set madv_t = $inputs['macqcq']; trangthai_t = 'CHT' (tương đương tạo mới hoso)
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $model = ThueTaiNguyen::where('mahs', $inputs['mahs'])->first();
+            $a_lichsu = json_decode($model->lichsu, true);
+            $a_lichsu[getdate()[0]] = array(
+                'hanhdong' => 'HT',
+                'username' => session('admin')->username,
+                'mota' => 'Chuyển hồ sơ',
+                'thoigian' => date('Y-m-d H:i:s'),
+                'macqcq' => $inputs['macqcq'],
+                'madv' => $model->madv
+            );
+
+            $model->lichsu = json_encode($a_lichsu);
+            $model->macqcq = $inputs['macqcq'];
+            $model->trangthai = 'HT';
+            //kiểm tra đơn vị tiếp nhận
+            $chk_dvcq = view_dsdiaban_donvi::where('madv', $inputs['macqcq'])->first();
+            if ($chk_dvcq->count() && $chk_dvcq->level == 'T') {
+                $model->madv_t = $inputs['macqcq'];
+                $model->thoidiem_t = date('Y-m-d');
+                $model->trangthai_t = 'CHT';
+            } else if ($chk_dvcq->count() && $chk_dvcq->level == 'ADMIN') {
+                $model->madv_ad = $inputs['macqcq'];
+                $model->thoidiem_ad = date('Y-m-d');
+                $model->trangthai_ad = 'CHT';
+            } else {
+                $model->madv_h = $inputs['macqcq'];
+                $model->thoidiem_h = date('Y-m-d');
+                $model->trangthai_h = 'CHT';
+            }
+            $model->save();
+            return redirect('giathuetn/danhsach?madiaban=' . $model->madiaban);
+        } else
+            return view('errors.notlogin');
+    }
+
+    //<editor-fold des="Chức năng xét duyệt">
+    public function xetduyet(Request $request)
+    {
+        //lấy thông tin đơn vị đễ lấy level
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['url'] = '/giathuetn';
+            //lấy địa bàn
+            $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
+            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
+
+            $m_donvi = getDonViXetDuyet(session('admin')->level);
+            $m_donvi_th = getDonViTongHop('giathuetn',\session('admin')->level, \session('admin')->madiaban);
+            $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
+            $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
+            $inputs['nam'] = $inputs['nam'] ?? 'all';
+            $inputs['level'] = $m_donvi_th->where('madv', $inputs['madv'])->first()->level ?? 'H';
+            //dd($inputs);
+            //gán lại thông tin về trường madv, thoidiem để truyền sang form index
+            //xét macqcq để tìm đơn vị chuyển đến
+            $a_ttdv = array_column(view_dsdiaban_donvi::wherein('madiaban', array_keys($a_diaban))->get()->toarray(),
+                'tendv', 'madv');
+
+            switch ($inputs['level']){
+                case 'H':{
+                    $model = ThueTaiNguyen::where('madv_h', $inputs['madv']);
+                    if ($inputs['nam'] != 'all')
+                        $model = $model->whereYear('thoidiem_h', $inputs['nam']);
+                    $model = $model->get();
+                    foreach ($model as $ct){
+                        $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
+                        $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
+                        $ct->madv = $ct->madv_h;
+                        $ct->macqcq = $ct->macqcq_h;
+                        $ct->tencqcq = $a_ttdv[$ct->macqcq] ?? '';
+                        $ct->thoidiem = $ct->thoidiem_h;
+                        $ct->trangthai = $ct->trangthai_h;
+                        $ct->level = $inputs['level'];
+                    }
+                    break;
+                }
+                case 'T':{
+                    $model = ThueTaiNguyen::where('madv_t', $inputs['madv']);
+                    if ($inputs['nam'] != 'all')
+                        $model = $model->whereYear('thoidiem_t', $inputs['nam']);
+                    $model = $model->get();
+                    foreach ($model as $ct){
+                        $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
+                        $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
+                        $ct->madv = $ct->madv_t;
+                        $ct->macqcq = $ct->macqcq_t;
+                        $ct->tencqcq = $a_ttdv[$ct->macqcq] ?? '';
+                        $ct->thoidiem = $ct->thoidiem_t;
+                        $ct->trangthai = $ct->trangthai_t;
+                        $ct->level = $inputs['level'];
+                    }
+                    break;
+                }
+                case 'ADMIN':{
+                    $model = ThueTaiNguyen::where('madv_ad', $inputs['madv']);
+                    if ($inputs['nam'] != 'all')
+                        $model = $model->whereYear('thoidiem_ad', $inputs['nam']);
+                    $model = $model->get();
+                    foreach ($model as $ct){
+                        $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
+                        $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
+                        $ct->madv = $ct->madv_ad;
+                        $ct->macqcq = $ct->macqcq_ad;
+                        $ct->tencqcq = $a_ttdv[$ct->macqcq] ?? '';
+                        $ct->thoidiem = $ct->thoidiem_ad;
+                        $ct->trangthai = $ct->trangthai_ad;
+                        $ct->level = $inputs['level'];
+                    }
+                    break;
+                }
+            }
+            //dd($model);
+            $a_tt = array_column(NhomThueTn::all()->toArray(),'tennhom', 'manhom');
+            return view('manage.dinhgia.thuetn.xetduyet.index')
+                ->with('model', $model)
+                ->with('inputs', $inputs)
+                ->with('m_diaban', $m_diaban)
+                ->with('a_tt', $a_tt)
+                ->with('a_diaban', array_column($m_diaban->where('level', 'H')->toarray(), 'tendiaban', 'madiaban'))
+                ->with('m_donvi', $m_donvi)
+                ->with('m_donvi_th', $m_donvi_th->where('madv','<>',$inputs['madv']))
+                ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
+                ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
+                ->with('pageTitle', 'Thông tin hồ sơ');
+        } else
+            return view('errors.notlogin');
+    }
+
+    public function chuyenxd(Request $request)
+    {
+        //Lấy thông tin đơn vị tiếp nhận để kiểm tra level
+        // level == 'H' => set madv_h = $inputs['macqcq']; trangthai_h = 'CHT' (tương đương tạo mới hoso)
+        // level == 'T' => set madv_t = $inputs['macqcq']; trangthai_t = 'CHT' (tương đương tạo mới hoso)
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            //dd($inputs);
+            $model = ThueTaiNguyen::where('mahs', $inputs['mahs'])->first();
+            $a_lichsu = json_decode($model->lichsu, true);
+            $a_lichsu[getdate()[0]] = array(
+                'hanhdong' => 'HT',
+                'username' => session('admin')->username,
+                'mota' => 'Chuyển hồ sơ',
+                'thoigian' => date('Y-m-d H:i:s'),
+                'macqcq' => $inputs['macqcq'],
+                'madv' => $inputs['madv'],
+            );
+
+            $model->lichsu = json_encode($a_lichsu);
+            //kiểm tra thông tin đơn vị
+            setHoanThanhDV($inputs['madv'], $model, ['macqcq' => $inputs['macqcq'], 'trangthai' => 'HT']);
+            //kiểm tra đơn vị tiếp nhận
+            $chk_dvcq = view_dsdiaban_donvi::where('madv', $inputs['macqcq'])->first();
+            setHoanThanhCQ($chk_dvcq->level, $model, ['madv' => $inputs['macqcq'], 'trangthai' => 'CHT', 'thoidiem' => date('Y-m-d')]);
+
+            //dd($model);
+            $model->save();
+            return redirect('giathuetn/xetduyet?madv=' . $inputs['madv']);
+        } else
+            return view('errors.notlogin');
+    }
+
+    public function tralai(Request $request){
+        //Truyền vào mahs và macqcq
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $model = ThueTaiNguyen::where('mahs', $inputs['mahs'])->first();
+            $a_lichsu = json_decode($model->lichsu, true);
+            $a_lichsu[getdate()[0]] = array(
+                'hanhdong' => 'HHT',
+                'username' => session('admin')->username,
+                'mota' => 'Trả lại hồ sơ',
+                'thoigian' => date('Y-m-d H:i:s'),
+                'madv' => $inputs['madv'],
+            );
+            $model->lichsu = json_encode($a_lichsu);
+            setTraLai($inputs['madv'], $model, ['macqcq' => null, 'trangthai' => 'HHT', 'lydo' => null]);
+            //dd($model);
+            $model->save();
+            return redirect('giathuetn/xetduyet?madv=' . $inputs['madv']);
+        } else
+            return view('errors.notlogin');
+    }
+
+    public function congbo(Request $request)
+    {
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $model = ThueTaiNguyen::where('mahs', $inputs['mahs'])->first();
+            $a_lichsu = json_decode($model->lichsu, true);
+            $a_lichsu[getdate()[0]] = array(
+                'hanhdong' => $inputs['trangthai_ad'],
+                'username' => session('admin')->username,
+                'mota' => $inputs['trangthai_ad'] == 'CB' ? 'Công bố hồ sơ' : 'Hủy công bố hồ sơ',
+                'thoigian' => date('Y-m-d H:i:s'),
+            );
+            $model->lichsu = json_encode($a_lichsu);
+            setCongBo($model, ['trangthai' => $inputs['trangthai_ad'],
+                'congbo' => $inputs['trangthai_ad'] == 'CB' ? 'DACONGBO' : 'CHUACONGBO']);
+            $model->save();
+            return redirect('giathuetn/xetduyet?madv=' . $model->madv_ad);
+        } else
+            return view('errors.notlogin');
+    }
+    //</editor-fold>
+
+    public function timkiem(){
+        if(Session::has('admin')){
+            $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
+            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
+            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
+            //dd($m_diaban);
+            $a_dm = array_column(NhomThueTn::all()->toArray(),'tennhom','manhom');
+            $inputs['url'] = '/giathuetn';
+            return view('manage.dinhgia.thuetn.timkiem.index')
+                ->with('m_diaban',$m_diaban)
+                ->with('m_donvi',$m_donvi)
+                ->with('a_dm',$a_dm)
+                ->with('inputs',$inputs)
+                ->with('pageTitle','Tìm kiếm thông tin hồ sơ');
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function ketquatk(Request $request){
+        if(Session::has('admin')){
+            //Chỉ tìm kiếm hồ sơ do đơn vị nhập (các hồ sơ chuyển đơn vị cấp trên ko tính)
+            //Lấy hết hồ sơ trên địa bàn rồi bắt đầu tìm kiểm
+            $inputs = $request->all();
+            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
+            $model = view_giathuetn::wherein('madv',array_column($m_donvi->toarray(),'madv'));
+            //dd($model);
+
+            if($inputs['madv'] != 'all'){
+                $model = $model->where('madv',$inputs['madv']);
+            }
+            if($inputs['manhom'] != 'all') {
+                $model = $model->where('manhom', getTimkiemLike($inputs['manhom']));
+            }
+
+            if(getDayVn($inputs['thoidiem_tu']) != ''){
+                $model = $model->where('thoidiem','>=',$inputs['thoidiem_tu']);
+            }
+
+            if(getDayVn($inputs['thoidiem_den']) != ''){
+                $model = $model->where('thoidiem','<=',$inputs['thoidiem_den']);
+            }
+
+            $model = $model->where('gia','>=',chkDbl($inputs['giatri_tu']));
+            if(chkDbl($inputs['giatri_den']) > 0){
+                $model = $model->where('gia','<=',chkDbl($inputs['giatri_den']));
+            }
+            //dd($model);
+            $a_dm = array_column(NhomThueTn::all()->toArray(),'tennhom','manhom');
+            $inputs['url'] = '/giathuetn';
+            return view('manage.dinhgia.thuetn.timkiem.result')
+                ->with('model',$model->get())
+                ->with('a_dm',$a_dm)
+                ->with('inputs',$inputs)
+                ->with('a_diaban',array_column($m_donvi->toarray(),'tendiaban','madiaban'))
+                ->with('a_donvi',array_column($m_donvi->toarray(),'tendv','madv'))
+                ->with('pageTitle','Tìm kiếm thông tin hồ sơ');
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function search(Request $request){
+        if(Session::has('admin')){
+            $inputs = $request->all();
+            $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
+            $inputs['thang'] = isset($inputs['thang']) ? $inputs['thang'] : date('m');
+            $inputs['tenhhdv'] = isset($inputs['tenhhdv']) ? $inputs['tenhhdv'] : '';
+            $inputs['district'] =  isset($inputs['district']) ? $inputs['district'] : '';
+            $inputs['matt'] =  isset($inputs['matt']) ? $inputs['matt'] : '';
+            $inputs['paginate'] = isset($inputs['paginate']) ? $inputs['paginate'] : 5;
+
+            $modeldb = DiaBanHd::where('level','H')->get();
+            $modelnhomtn = NhomHhDvK::where('theodoi','TD')->get();
+            $model = GiaHhDvKCt::join('giahhdvk','giahhdvk.mahs','=','giahhdvkct.mahs')
+                ->join('nhomhhdvk','nhomhhdvk.matt','=','giahhdvk.matt')
+                ->join('diabanhd','diabanhd.district','=','giahhdvk.district')
+                ->select('giahhdvkct.*','giahhdvk.soqd','giahhdvk.ngayapdung','diabanhd.diaban',
+                    'nhomhhdvk.tentt', 'giahhdvk.thang','giahhdvk.nam')
+                ->whereIn('giahhdvk.trangthai',['HT','CB']);
+            if($inputs['thang'] != 'all')
+                $model = $model->where('giahhdvk.thang',$inputs['thang']);
+            if($inputs['nam'] != 'all')
+                $model = $model->where('giahhdvk.nam',$inputs['nam']);
+            if($inputs['district'] != '')
+                $model = $model->where('giahhdvk.district','=',$inputs['district']);
+            if($inputs['matt'] != '')
+                $model = $model->where('giahhdvk.matt','=',$inputs['matt']);
+            if($inputs['tenhhdv'] != '')
+                $model = $model->where('giahhdvkct.tenhhdv','like','%'.$inputs['tenhhdv'].'%');
+
+            $model = $model->paginate($inputs['paginate']);
+
+            return view('manage.dinhgia.giahhdvk.timkiem.index')
+                ->with('inputs',$inputs)
+                ->with('model',$model)
+                ->with('modeldb',$modeldb)
+                ->with('modelnhomtn',$modelnhomtn)
+                ->with('pageTitle','Tìm kiếm thông tin giá hàng hóa dịch vụ khác');
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function hoanthanh(Request $request){
+        if(Session::has('admin')){
+            $inputs = $request->all();
+            $id = $inputs['idhoanthanh'];
+            $model = GiaHhDvK::findOrFail($id);
+            $model->trangthai = 'HT';
+            $model->save();
+            return redirect('giahhdvkhac?&district='.$model->district.'&thang='.$model->thang.'&nam='.$model->nam);
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function huyhoanthanh(Request $request){
+        if(Session::has('admin')){
+            $inputs = $request->all();
+            $id = $inputs['idhuyhoanthanh'];
+            $model = GiaHhDvK::findOrFail($id);
+            $model->trangthai = 'CHT';
+            $model->save();
+            return redirect('giahhdvkhac?&district='.$model->district.'&thang='.$model->thang.'&nam='.$model->nam);
+        }else
+            return view('errors.notlogin');
+    }
 }

@@ -16,7 +16,7 @@ class CreateGiavtxkctTable extends Migration
         Schema::create('giavtxkct', function (Blueprint $table) {
             $table->increments('id');
             $table->string('mahs')->nullable();
-            $table->string('maxa')->nullable();
+            $table->string('madv')->nullable();
             $table->string('tendvcu')->nullable();
             $table->string('qccl')->nullable();
             $table->string('dvt')->nullable();

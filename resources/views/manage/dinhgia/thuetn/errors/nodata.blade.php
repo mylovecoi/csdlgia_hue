@@ -18,7 +18,7 @@
 </head>
 <body id="error-page" class="animated bounceInLeft">
 <div id="error-page-content"><h1>Lỗi!</h1><h4>Dữ liệu {{$nhomtn}} năm {{$nam}} đã tồn tại!</h4></div>
-<p><a href='{{ url('/thuetainguyen') }}'>Bấm vào đây</a> để quay lại.</p>
+<p><a href='{{ url('/giathuetn/danhsach') }}'>Bấm vào đây</a> để quay lại.</p>
 <script src="{{ url('js/jquery-1.9.1.js') }}"></script>
 <script src="{{ url('js/jquery-migrate-1.2.1.min.js') }}"></script>
 <script src="{{ url('js/jquery-ui.js') }}"></script>

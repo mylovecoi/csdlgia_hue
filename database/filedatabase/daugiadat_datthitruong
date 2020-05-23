@@ -200,9 +200,11 @@ FROM            dbo.giadatthitruong INNER JOIN
                          dbo.giadatthitruongct ON dbo.giadatthitruong.mahs = dbo.giadatthitruongct.mahs
 GO
 
-
-
-
+ALTER TABLE thuetainguyenct
+ALTER COLUMN gia [float];
+GO
+ALTER TABLE [dbo].[thuetainguyenct] ADD  DEFAULT ('0') FOR [gia]
+GO
 
 
 

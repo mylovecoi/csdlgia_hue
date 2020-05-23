@@ -34,10 +34,10 @@ class ReportsThueTnController extends Controller
                 ->first();
             $model = DmThueTn::where('manhom',$inputs['manhom'])
                 ->get();
-            $modellk = ThueTaiNguyen::where('nam',$inputs['namlk'])
+            $modellk = ThueTaiNguyen::whereyear('thoidiem',$inputs['namlk'])
                 ->where('manhom',$inputs['manhom'])
                 ->first();
-            $modelbc =  ThueTaiNguyen::where('nam',$inputs['nambc'])
+            $modelbc =  ThueTaiNguyen::whereyear('thoidiem',$inputs['nambc'])
                 ->where('manhom',$inputs['manhom'])
                 ->first();
             foreach($model as $tn){
@@ -124,22 +124,7 @@ class ReportsThueTnController extends Controller
             }
 
 
-            if(session('admin')->level == 'T'){
-                $inputs['dvcaptren'] = getGeneralConfigs()['tendvcqhienthi'];
-                $inputs['dv'] = getGeneralConfigs()['tendvhienthi'];
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }elseif(session('admin')->level == 'H'){
-                $modeldv = District::where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }else{
-                $modeldv = Town::where('maxa',session('admin')->maxa)
-                    ->where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }
+
             return view('manage.dinhgia.thuetn.reports.Bc1')
                 ->with('model',$model)
                 ->with('m_nhomthuetn',$m_nhomthuetn)
