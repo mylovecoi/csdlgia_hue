@@ -72,7 +72,7 @@ class GiaGocVlXdController extends Controller
             $inputs = $request->all();
             $inputs['ngaybc'] = getDateToDb($inputs['ngaybc']);
             $inputs['trangthai'] = 'CHT';
-            $inputs['ttthaotac'] = session('admin')->name.'('.session('admin')->username.') thêm mới';
+            //$inputs['ttthaotac'] = session('admin')->name.'('.session('admin')->username.') thêm mới';
             $model = new GiaGocVlXd();
             if($model->create($inputs)){
                 $modelct = GiaGocVlXdCt::where('mahs',$inputs['mahs'])
@@ -167,7 +167,7 @@ class GiaGocVlXdController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['ngaybc'] = getDateToDb($inputs['ngaybc']);
-            $inputs['ttthaotac'] = session('admin')->name.'('.session('admin')->username.') chỉnh sửa';
+            //$inputs['ttthaotac'] = session('admin')->name.'('.session('admin')->username.') chỉnh sửa';
             $model = GiaGocVlXd::findOrFail($id);
             if($model->update($inputs))
                 $modelct = GiaGocVlXdCt::where('mahs',$inputs['mahs'])

@@ -1,0 +1,126 @@
+USE csdlgia_hue
+GO
+
+/****** Object:  Table [dbo].[thgiagocvlxd]    Script Date: 5/24/2020 8:37:09 AM ******/
+DROP TABLE [dbo].[thgiagocvlxd]
+GO
+
+/****** Object:  Table [dbo].[thgiagocvlxd]    Script Date: 5/24/2020 8:37:09 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[thgiagocvlxd](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[madiaban] [nvarchar](255) NULL,
+	[maxp] [nvarchar](255) NULL,
+	[mahs] [nvarchar](255) NOT NULL,
+	[quy] [nvarchar](255) NULL,
+	[nam] [nvarchar](255) NULL,
+	[sobc] [nvarchar](255) NULL,
+	[dvbc] [nvarchar](255) NULL,
+	[dvcq] [nvarchar](255) NULL,
+	[noidung] [nvarchar](255) NULL,
+	[diadanh] [nvarchar](255) NULL,
+	[ipf1] [nvarchar](255) NULL,
+	[ipf2] [nvarchar](255) NULL,
+	[ipf3] [nvarchar](255) NULL,
+	[ipf4] [nvarchar](255) NULL,
+	[ipf5] [nvarchar](255) NULL,
+	[congbo] [nvarchar](255) NULL,
+	[lichsu] [nvarchar](max) NULL,
+	[tinhtrang] [nvarchar](255) NULL,
+	[thoidiem] [date] NULL,
+	[macqcq] [nvarchar](255) NULL,
+	[madv] [nvarchar](255) NULL,
+	[lydo] [nvarchar](255) NULL,
+	[thongtin] [nvarchar](255) NULL,
+	[trangthai] [nvarchar](255) NULL,
+	[thoidiem_h] [date] NULL,
+	[macqcq_h] [nvarchar](255) NULL,
+	[madv_h] [nvarchar](255) NULL,
+	[lydo_h] [nvarchar](255) NULL,
+	[thongtin_h] [nvarchar](255) NULL,
+	[trangthai_h] [nvarchar](255) NULL,
+	[thoidiem_t] [date] NULL,
+	[macqcq_t] [nvarchar](255) NULL,
+	[madv_t] [nvarchar](255) NULL,
+	[lydo_t] [nvarchar](255) NULL,
+	[thongtin_t] [nvarchar](255) NULL,
+	[trangthai_t] [nvarchar](255) NULL,
+	[thoidiem_ad] [date] NULL,
+	[macqcq_ad] [nvarchar](255) NULL,
+	[madv_ad] [nvarchar](255) NULL,
+	[lydo_ad] [nvarchar](255) NULL,
+	[thongtin_ad] [nvarchar](255) NULL,
+	[trangthai_ad] [nvarchar](255) NULL,
+	[created_at] [datetime] NULL,
+	[updated_at] [datetime] NULL,
+PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+DROP TABLE [dbo].[giagocvlxd]
+GO
+
+/****** Object:  Table [dbo].[giagocvlxd]    Script Date: 5/24/2020 8:36:49 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[giagocvlxd](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[madiaban] [nvarchar](255) NULL,
+	[maxp] [nvarchar](255) NULL,
+	[mahs] [nvarchar](255) NOT NULL,
+	[soqd] [nvarchar](255) NULL,
+	[congbo] [nvarchar](255) NULL,
+	[noidung] [nvarchar](255) NULL,
+	[quy] [nvarchar](255) NULL,
+	[nam] [nvarchar](255) NULL,
+	[ipf1] [nvarchar](255) NULL,
+	[ipf2] [nvarchar](255) NULL,
+	[ipf3] [nvarchar](255) NULL,
+	[ipf4] [nvarchar](255) NULL,
+	[ipf5] [nvarchar](255) NULL,
+	[lichsu] [nvarchar](max) NULL,
+	[tinhtrang] [nvarchar](255) NULL,
+	[thoidiem] [date] NULL,
+	[macqcq] [nvarchar](255) NULL,
+	[madv] [nvarchar](255) NULL,
+	[lydo] [nvarchar](255) NULL,
+	[thongtin] [nvarchar](255) NULL,
+	[trangthai] [nvarchar](255) NULL,
+	[thoidiem_h] [date] NULL,
+	[macqcq_h] [nvarchar](255) NULL,
+	[madv_h] [nvarchar](255) NULL,
+	[lydo_h] [nvarchar](255) NULL,
+	[thongtin_h] [nvarchar](255) NULL,
+	[trangthai_h] [nvarchar](255) NULL,
+	[thoidiem_t] [date] NULL,
+	[macqcq_t] [nvarchar](255) NULL,
+	[madv_t] [nvarchar](255) NULL,
+	[lydo_t] [nvarchar](255) NULL,
+	[thongtin_t] [nvarchar](255) NULL,
+	[trangthai_t] [nvarchar](255) NULL,
+	[thoidiem_ad] [date] NULL,
+	[macqcq_ad] [nvarchar](255) NULL,
+	[madv_ad] [nvarchar](255) NULL,
+	[lydo_ad] [nvarchar](255) NULL,
+	[thongtin_ad] [nvarchar](255) NULL,
+	[trangthai_ad] [nvarchar](255) NULL,
+	[created_at] [datetime] NULL,
+	[updated_at] [datetime] NULL,
+PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO

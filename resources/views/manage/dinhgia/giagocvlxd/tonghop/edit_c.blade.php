@@ -247,93 +247,85 @@
     </h3>
     <!-- END PAGE HEADER-->
     <div class="row">
-        {!! Form::model($model, ['method' => 'post', 'url'=>'/giagocvlxd/modify/', 'class'=>'horizontal-form','id'=>'update_giagocvlxd', 'files'=>true]) !!}
-        {!!Form::hidden('mahs',null, array('id' => 'mahs','class' => 'form-control'))!!}
+        {!! Form::model($model, ['method' => 'PATCH', 'url'=>'tonghopgiagocvlxd/'. $model->id, 'class'=>'horizontal-form','id'=>'update_giagocvlxd']) !!}
         <div class="col-md-12">
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box blue">
                 <div class="portlet-body">
                     <h4 class="form-section" style="color: #0000ff">Thông tin hồ sơ</h4>
                     <div class="row">
-                        <div class="form-group">
-                            <div class="col-md-4">
-                                <label>Quí hồ sơ</label>
-                                {!! Form::select('quy', ['1'=>'Quí 1','2'=>'Quí 2','3'=>'Quí 3','4'=>'Quí 4',], null, array('id' => 'quy', 'class' => 'form-control'))!!}
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Địa bàn: <span class="require">*</span></label>
+                                <!--input type="date" name="ngaynhap" id="ngaynhap" class="form-control required" autofocus-->
+                                <label class="form-control required" >{{$model->tendiaban}}</label>
                             </div>
-
-                            <div class="col-md-4">
-                                <label >Năm hồ sơ</label>
-                                {!! Form::select('nam', getNam(), null, array('id' => 'nam', 'class' => 'form-control'))!!}
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Thời điểm báo cáo<span class="require">*</span></label>
+                                <label class="form-control required" >Quý {{$model->quy}}/ Năm {{$model->nam}}</label>
                             </div>
-
-                            <div class="col-md-4">
+                        </div>
+                        <input name="quy" id="quy" type="hidden" value="{{$model->quy}}">
+                        <input name="nam" id="nam" type="hidden" value="{{$model->nam}}">
+                        <!--/span-->
+                    </div>
+                    <!--/row-->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 <label class="control-label">Số báo cáo</label>
                                 {!!Form::text('sobc',null, array('id' => 'sobc','class' => 'form-control required','autofocus'))!!}
                             </div>
                         </div>
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">Nội dung</label>
-                                {!!Form::text('noidung',null, array('id' => 'noidung','class' => 'form-control required'))!!}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">File đính kèm</label>
-                                @if($model->ipf1 != '')
-                                    <a href="{{url('/data/giagdbatdongsan/'.$model->ipf1)}}" target="_blank">{{$model->ipf1}}</a>
-                                @endif
-                                <input name="ipf1" id="ipf1" type="file">
+                                <label class="control-label">Ngày báo cáo<span class="require">*</span></label>
+                                {!!Form::text('ngaybc',date('d/m/Y',  strtotime($model->ngaybc)), array('id' => 'ngaybc','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
                             </div>
                         </div>
                     </div>
+                    <h4 class="form-section" style="color: #0000ff">Thông tin chi tiết hồ sơ</h4>
 
-{{--                    <h4 class="form-section" style="color: #0000ff">Thông tin chi tiết hồ sơ</h4>--}}
-
-{{--                    <div class="row" id="dsts">--}}
-{{--                        <div class="col-md-12">--}}
-{{--                            <table class="table table-striped table-bordered table-hover" id="sample_3">--}}
-{{--                                <thead>--}}
-{{--                                <tr>--}}
-{{--                                    <th style="text-align: center" width="2%">STT</th>--}}
-{{--                                    <th style="text-align: center">Địa bàn</th>--}}
-{{--                                    <th style="text-align: center">Tên vật liệu</th>--}}
-{{--                                    <th style="text-align: center">Quy cách chất lượng</th>--}}
-{{--                                    <th style="text-align: center">ĐVT</th>--}}
-{{--                                    <th style="text-align: center">Giá vật liệu <br>gốc (đ)</th>--}}
-{{--                                    <th style="text-align: center">Tiêu chuẩn, Quy<br> chuẩn áp dụng</th>--}}
-{{--                                    <th style="text-align: center">Ghi chú</th>--}}
-{{--                                </tr>--}}
-{{--                                </thead>--}}
-{{--                                <tbody>--}}
-{{--                                @foreach($modelct as $key=>$tt)--}}
-{{--                                    <tr>--}}
-{{--                                        <td style="text-align: center">{{($key +1)}}</td>--}}
-{{--                                        <td>{{$tt->diaban}}</td>--}}
-{{--                                        <td class="active">{{$tt->tenhhdv}}</td>--}}
-{{--                                        <td style="text-align: left">{{$tt->qccl}}</td>--}}
-{{--                                        <td style="text-align: center">{{$tt->dvt}}</td>--}}
-{{--                                        <td style="text-align: right;font-weight: bold">{{number_format($tt->giagoc)}}</td>--}}
-{{--                                        <td style="text-align: left">{{$tt->qcad}}</td>--}}
-{{--                                        <td style="text-align: left">{{$tt->ghichu}}</td>--}}
-{{--                                    </tr>--}}
-{{--                                @endforeach--}}
-{{--                                </tbody>--}}
-{{--                            </table>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+                    <div class="row" id="dsts">
+                        <div class="col-md-12">
+                            <table class="table table-striped table-bordered table-hover" id="sample_3">
+                                <thead>
+                                <tr>
+                                    <th style="text-align: center" width="2%">STT</th>
+                                    <th style="text-align: center">Địa bàn</th>
+                                    <th style="text-align: center">Tên vật liệu</th>
+                                    <th style="text-align: center">Quy cách chất lượng</th>
+                                    <th style="text-align: center">ĐVT</th>
+                                    <th style="text-align: center">Giá vật liệu <br>gốc (đ)</th>
+                                    <th style="text-align: center">Tiêu chuẩn, Quy<br> chuẩn áp dụng</th>
+                                    <th style="text-align: center">Ghi chú</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($modelct as $key=>$tt)
+                                    <tr>
+                                        <td style="text-align: center">{{($key +1)}}</td>
+                                        <td>{{$tt->diaban}}</td>
+                                        <td class="active">{{$tt->tenhhdv}}</td>
+                                        <td style="text-align: left">{{$tt->qccl}}</td>
+                                        <td style="text-align: center">{{$tt->dvt}}</td>
+                                        <td style="text-align: right;font-weight: bold">{{number_format($tt->giagoc)}}</td>
+                                        <td style="text-align: left">{{$tt->qcad}}</td>
+                                        <td style="text-align: left">{{$tt->ghichu}}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- END EXAMPLE TABLE PORTLET-->
             <div style="text-align: center">
-                <a href="{{url('giagocvlxd/tonghop')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                <a href="{{url('tonghopgiagocvlxd?quy='.$model->quy.'&nam='.$model->nam)}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                 <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
                 <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i> Cập nhật</button>
             </div>

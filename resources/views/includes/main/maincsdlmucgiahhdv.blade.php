@@ -1587,31 +1587,26 @@
 
 
 
-@if(canGeneral('giagocvlxd','index'))
-    @if(can('giagocvlxd','index'))
-        <li class="javascript:;">
+@if(chkPer('csdlmucgiahhdv','taisan', 'giagocvlxd'))
+        <li>
             <a href="javascript:;">
                 <i class="icon-folder"></i>
                 <span class="title">{{session('admin')['a_chucnang']['giagocvlxd'] ?? 'Giá gốc vật liệu xây dựng'}}</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
-                @if(can('kkgiagocvlxd','index'))
+                @if(chkPer('csdlmucgiahhdv','taisan', 'giagocvlxd','hoso','index'))
+                    <!-- tạm thời chưa kích hoạt do chưa tách quyền và chưa xây dựng
+                    để đơn vị nhập liệu vào, chức năng tổng hợp sẽ tổng hợp thành hồ so toàn Tỉnh
                     <li>
-                        <a href="{{url('thongtingiagocvlxd')}}">Thông tin hồ sơ</a>
+                        <a href="{{url('/giagocvlxd/danhsach')}}">Thông tin hồ sơ</a>
+                    </li>
+                    -->
+                    <li>
+                        <a href="{{url('/giagocvlxd/tonghop')}}">Tổng hợp hồ sơ</a>
                     </li>
                 @endif
-                @if(can('thgiagocvlxd','index'))
-                    <li>
-                        <a href="{{url('tonghopgiagocvlxd')}}">Tổng hợp hồ sơ</a>
-                    </li>
-                @endif
-                {{--@if(can('thgiagocvlxd','timkiem'))--}}
-                    {{--<li>--}}
-                        {{--<a href="{{url('timkiemttgiagocvlxd')}}">Tìm kiếm thông tin</a>--}}
-                    {{--</li>--}}
-                {{--@endif--}}
             </ul>
         </li>
-    @endif
+
 @endif

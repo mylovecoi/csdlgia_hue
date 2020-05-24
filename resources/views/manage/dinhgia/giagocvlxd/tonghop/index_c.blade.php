@@ -19,17 +19,19 @@
     <script>
         jQuery(document).ready(function() {
             TableManaged.init();
+            $('#diabanbc').select2();
         });
         $(function(){
             $('#nam').change(function() {
                 var namhs = '&nam=' + $('#nam').val();
-                var url = '/thongtingiagocvlxd?'+namhs;
+                var quy = '&quy=' + $('#quy').val();
+                var url = '/tonghopgiagocvlxd?'+ quy + namhs;
                 window.location.href = url;
             });
-            $('#district').change(function() {
+            $('#quy').change(function() {
                 var namhs = '&nam=' + $('#nam').val();
-                var district = '&district=' + $('#district').val();
-                var url = '/thongtingiagocvlxd?'+namhs  + district;
+                var quy = '&quy=' + $('#quy').val();
+                var url = '/tonghopgiagocvlxd?'+ quy + namhs;
                 window.location.href = url;
             });
 
@@ -47,130 +49,25 @@
             document.getElementById("idcongbo").value=id;
         }
         function ClickCreate(){
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            $.ajax({
-                url: 'kkgiagocvlxd/checkhs',
-                type: 'GET',
-                data: {
-                    _token: CSRF_TOKEN,
-                    district: $('#diaban').val(),
-                    nam: $('#namhs').val(),
-                    quy: $('#quy').val()
-                },
-                dataType: 'JSON',
-                success: function (data) {
-                    if(data.status == 'success') {
-                        $("#frm_create").unbind('submit').submit();
-                    }else{
-                        $("#frm_create").submit(function (e) {
-                            e.preventDefault();
-                        });
-                        toastr.error('Hồ sơ đã được tạo bạn cần kiểm tra lại','Lỗi!.');
-                    }
-                }
-            })
-        }
-        function ClickIpCreate(){
-            var str = '';
-            var ok = true;
-
-            if (!$('#tenhhdv').val()) {
-                str += '  - Tên vật liệu \n';
-                $('#tenhhdv').parent().addClass('has-error');
-                ok = false;
-            }
-
-            if (!$('#qccl').val()) {
-                str += '  - Quy cách chất lượng \n';
-                $('#qccl').parent().addClass('has-error');
-                ok = false;
-            }
-
-            if (!$('#dvt').val()) {
-                str += '  - Đơn vị tính \n';
-                $('#dvt').parent().addClass('has-error');
-                ok = false;
-            }
-
-            if (!$('#giagoc').val()) {
-                str += '  - Giá gốc \n';
-                $('#giagoc').parent().addClass('has-error');
-                ok = false;
-            }
-
-            if (!$('#qcad').val()) {
-                str += '  - Tiêu chuẩn, quy cách \n';
-                $('#qcad').parent().addClass('has-error');
-                ok = false;
-            }
-
-            if (!$('#ghichu').val()) {
-                str += '  - Ghi chú \n';
-                $('#ghichu').parent().addClass('has-error');
-                ok = false;
-            }
-
-            if (!$('#tudong').val()) {
-                str += '  - Dòng bắt đầu nhận dữ liệu \n';
-                $('#tudong').parent().addClass('has-error');
-                ok = false;
-            }
-
-            if (!$('#dendong').val()) {
-                str += '  - Dòng đến nhận dữ liệu \n';
-                $('#sodong').parent().addClass('has-error');
-                ok = false;
-            }
-
-            if (!$('#fexcel').val()) {
-                str += '  - File Excel \n';
-                $('#fexcel').parent().addClass('has-error');
-                ok = false;
-            }
-
-            if (ok == false) {
+            if (!$('#diabanbc').val()) {
                 //alert('Các trường: \n' + str + 'Không được để trống');
-                toastr.error('Thông tin: \n' + str + 'Không được để trống','Lỗi!.');
-                $("form").submit(function (e) {
+                toastr.error('Thông tin địa bàn báo cáo không được để trống','Lỗi!.');
+                $("frm_create").submit(function (e) {
                     e.preventDefault();
                 });
             }
             else {
-                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-                $.ajax({
-                    url: 'kkgiagocvlxd/checkhs',
-                    type: 'GET',
-                    data: {
-                        _token: CSRF_TOKEN,
-                        district: $('#districtip').val(),
-                        nam: $('#namip').val(),
-                        quy: $('#quyip').val()
-                    },
-                    dataType: 'JSON',
-                    success: function (data) {
-                        if(data.status == 'success') {
-                            var btn = document.getElementById('submitformip');
-                            btn.disabled = true;
-                            btn.innerText = 'Loading...'
-                            $("#frm_ipcreate").unbind('submit').submit();
-                        }else{
-                            $("#frm_ipcreate").submit(function (e) {
-                                e.preventDefault();
-                            });
-                            toastr.error('Hồ sơ đã được tạo bạn cần kiểm tra lại','Lỗi!.');
-                        }
-                    }
-                })
+                $("#frm_create").unbind('submit').submit();
             }
-
         }
+
     </script>
 @stop
 
 @section('content')
 
     <h3 class="page-title">
-        Thông tin hồ sơ <small>&nbsp;giá gốc vật liệu xây dựng</small>
+        Tổng hợp <small>&nbsp;giá gốc vật liệu xây dựng</small>
     </h3>
 
     <!-- END PAGE HEADER-->
@@ -182,12 +79,8 @@
                     <div class="caption">
                     </div>
                     <div class="actions">
-                        @if(can('kkgiagocvlxd','create'))
-                            <button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-sm">
-                                <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
-                            &nbsp;
-                            <button type="button" data-target="#modal-ipcreate" data-toggle="modal" class="btn btn-default btn-sm">
-                                <i class="fa fa-file-excel-o"></i>&nbsp;Nhận dữ liệu</button>
+                        @if(can('thgiagocvlxd','create'))
+                            <button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-sm"><i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
                             &nbsp;
                         @endif
                     </div>
@@ -195,6 +88,17 @@
                 </div>
                 <div class="portlet-body">
                     <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Quý hồ sơ</label>
+                                <select name="quy" id="quy" class="form-control">
+                                        <option value="1" {{ $inputs['quy']== 1 ? 'selected' : ''}}>Quý 1</option>
+                                        <option value="2" {{ $inputs['quy']== 2 ? 'selected' : ''}}>Quý 2</option>
+                                        <option value="3" {{ $inputs['quy']== 3 ? 'selected' : ''}}>Quý 3</option>
+                                        <option value="4" {{ $inputs['quy']== 4 ? 'selected' : ''}}>Quý 4</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>Năm hồ sơ</label>
@@ -207,29 +111,15 @@
                                 </select>
                             </div>
                         </div>
-                        @if(session('admin')->level == 'T' || session('admin')->level == 'H')
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Địa bàn quản lý</label>
-                                <select name="district" id="district" class="form-control">
-                                    @foreach($modeldb as $db)
-                                        <option value="{{$db->district}}" {{$db->district == $inputs['district'] ? 'selected' : ''}}>{{$db->diaban}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        @else
-                            <input type="hidden" id="district" name="district" value="{{$inputs['district']}}">
-                        @endif
                     </div>
                     <table class="table table-striped table-bordered table-hover" id="sample_3">
                         <thead>
                         <tr>
                             <th width="2%" style="text-align: center">STT</th>
-                            <th style="text-align: center">Địa bàn</th>
                             <th style="text-align: center">Quý - Năm</th>
                             <th style="text-align: center">Ngày báo cáo</th>
-                            <th style="text-align: center">Số quyết định</th>
+                            <th style="text-align: center">Số báo cáo</th>
+                            <th style="text-align: center">Địa bàn</th>
                             <th style="text-align: center">Trạng thái</th>
                             <th style="text-align: center" width="33%">Thao tác</th>
                         </tr>
@@ -238,10 +128,10 @@
                         @foreach($model as $key=>$tt)
                             <tr>
                                 <td style="text-align: center">{{$key + 1}}</td>
-                                <td style="text-align: center">{{$tt->diaban}}</td>
                                 <td style="text-align: center">Quý {{$tt->quy}}/ Năm {{$tt->nam}}</td>
                                 <td style="text-align: center">{{getDayVn($tt->ngaybc)}}</td>
-                                <td style="text-align: center">{{$tt->soqd}}</td>
+                                <td style="text-align: center">{{$tt->sobc}}</td>
+                                <td style="text-align: center">{{$tt->tendiaban}}</td>
                                 <td style="text-align: center">
                                     @if($tt->trangthai == 'HT')
                                         <span class="badge badge-warning">Hoàn thành</span>
@@ -255,16 +145,16 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{url('thongtingiagocvlxd/'.$tt->id)}}" class="btn btn-default btn-xs mbs" target="_blank"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
+                                    <a href="{{url('tonghopgiagocvlxd/'.$tt->id)}}" class="btn btn-default btn-xs mbs" target="_blank"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
                                     @if($tt->trangthai == 'CHT' || $tt->trangthai == 'HHT')
-                                        @if(can('kkgiagocvlxd','edit'))
-                                        <a href="{{url('thongtingiagocvlxd/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
+                                        @if(can('thgiagocvlxd','edit'))
+                                        <a href="{{url('tonghopgiagocvlxd/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
                                         @endif
-                                        @if(can('kkgiagocvlxd','approve'))
+                                        @if(can('thgiagocvlxd','approve'))
                                         <button type="button" onclick="confirmHoanthanh('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#hoanthanh-modal-confirm" data-toggle="modal"><i class="fa fa-check"></i>&nbsp;Hoàn thành</button>
                                         @endif
                                         @if($tt->trangthai == 'CHT')
-                                            @if(can('kkgiagocvlxd','delete'))
+                                            @if(can('thgiagocvlxd','delete'))
                                                 <button type="button" onclick="confirmDelete('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
                                                 Xóa</button>
                                             @endif
@@ -308,29 +198,37 @@
     <div class="modal fade" id="modal-create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url'=>'thongtingiagocvlxd/create','id' => 'frm_create'])!!}
+                {!! Form::open(['url'=>'tonghopgiagocvlxd/create','id' => 'frm_create'])!!}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Thêm mới hồ sơ giá gốc vật liệu xây dựng?</h4>
+                    <h4 class="modal-title">Tổng hợp giá gốc vật liệu xây dựng?</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label><b>Địa bàn báo cáo:</b> {{$diaban->diaban}}</label>
-                    </div>
                     <div class="form-group">
                         <label><b>Năm báo cáo:</b> {{$inputs['nam']}}</label>
                     </div>
                     <div class="form-group">
                         <label><b>Quý báo cáo</b></label>
-                        <select class="form-control" id="quy" name="quy">
+                        <select class="form-control" id="quybc" name="quybc">
                             <option value="1"{{SelectedQuy(1)}}>Quý 1</option>
                             <option value="2" {{SelectedQuy(2)}}>Quý 2</option>
                             <option value="3" {{SelectedQuy(3)}}>Quý 3</option>
                             <option value="4" {{SelectedQuy(4)}}>Quý 4</option>
                         </select>
                     </div>
-                    <input type="hidden" name="diaban" id="diaban" value="{{$inputs['district']}}">
-                    <input type="hidden" name="namhs" id="namhs" value="{{$inputs['nam']}}">
+                    <div class="form-group">
+                        <label><b>Địa bàn báo cáo</b></label>
+                        <select class="form-control" id="diabanbc" name="diabanbc[]" multiple="multiple">
+                            @foreach($m_diaban as $diaban)
+                                <option value="{{$diaban->district}}">{{$diaban->diaban}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><b>Số báo cáo</b></label>
+                        <input class="form-control" id="sobc" name="sobc">
+                    </div>
+                    <input type="hidden" name="nambc" id="nambc" value="{{$inputs['nam']}}">
                 </div>
                 {!! Form::close() !!}
                 <div class="modal-footer">
@@ -348,18 +246,13 @@
     <div class="modal fade bs-modal-lg" id="modal-ipcreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                {!! Form::open(['url'=>'thongtingiagocvlxd/importex','id' => 'frm_ipcreate','files'=>true,'enctype'=>'multipart/form-data'])!!}
+                {!! Form::open(['url'=>'thongtingiagocvlxd/importex','id' => 'frm_ipcreate'])!!}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Nhận dữ liệu hồ sơ giá gốc vật liệu xây dựng?</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label><b>Địa bàn báo cáo:</b> {{$diaban->diaban}}</label>
-                            </div>
-                        </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label><b>Năm báo cáo:</b> {{$inputs['nam']}}</label>
@@ -435,13 +328,12 @@
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" name="districtip" id="districtip" value="{{$inputs['district']}}">
                     <input type="hidden" name="namip" id="namip" value="{{$inputs['nam']}}">
                 </div>
                 {!! Form::close() !!}
                 <div class="modal-footer">
                     <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
-                    <button type="submit" class="btn blue" id="submitformip" onclick="ClickIpCreate()">Đồng ý</button>
+                    <button type="submit" class="btn blue" onclick="ClickIpCreate()">Đồng ý</button>
 
                 </div>
 
@@ -453,7 +345,7 @@
 
     <!--Modal Delete-->
     <div id="delete-modal-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
-        {!! Form::open(['url'=>'thongtingiagocvlxd/delete','id' => 'frm_delete'])!!}
+        {!! Form::open(['url'=>'tonghopgiagocvlxd/delete','id' => 'frm_delete'])!!}
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header modal-header-primary">
@@ -478,7 +370,7 @@
     </script>
     <!--Modal Hoàn thành-->
     <div id="hoanthanh-modal-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
-        {!! Form::open(['url'=>'thongtingiagocvlxd/hoanthanh','id' => 'frm_hoanthanh'])!!}
+        {!! Form::open(['url'=>'tonghopgiagocvlxd/hoanthanh','id' => 'frm_hoanthanh'])!!}
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header modal-header-primary">
@@ -502,7 +394,7 @@
     </div>
     <!--Modal Hủy Hoàn thành-->
     <div id="huyhoanthanh-modal-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
-        {!! Form::open(['url'=>'thongtingiagocvlxd/huyhoanthanh','id' => 'frm_huyhoanthanh'])!!}
+        {!! Form::open(['url'=>'tonghopgiagocvlxd/huyhoanthanh','id' => 'frm_huyhoanthanh'])!!}
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header modal-header-primary">
@@ -526,7 +418,7 @@
     </div>
     <!--Modal Hủy Hoàn thành-->
     <div id="congbo-modal-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
-        {!! Form::open(['url'=>'thongtingiagocvlxd/congbo','id' => 'frm_congbo'])!!}
+        {!! Form::open(['url'=>'tonghopgiagocvlxd/congbo','id' => 'frm_congbo'])!!}
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header modal-header-primary">
@@ -549,6 +441,9 @@
         {!! Form::close() !!}
     </div>
     <script>
+        function submitCreate(){
+            $('#frm_create').submit();
+        }
         function clickhoanthanh(){
             $('#frm_hoanthanh').submit();
         }
