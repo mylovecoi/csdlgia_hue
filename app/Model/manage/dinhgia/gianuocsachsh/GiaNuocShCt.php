@@ -11,13 +11,24 @@ class GiaNuocShCt extends Model
         'id',
         'madoituong',
         'doituongsd',
-        'giachuathue',
+
         'thuevat',
         'giacothue',
         'phibvmttyle',
         'phibvmt',
         'thanhtien',
         'mahs',
-        'trangthai'
+        'trangthai',
+
+        'giachuathue',
+        'namchuathue',
+        'giachuathue1',
+        'namchuathue1',
+        'giachuathue2',
+        'namchuathue2',
+        'giachuathue3',
+        'namchuathue3',
+        'giachuathue4',
+        'namchuathue4',
     ];
 }

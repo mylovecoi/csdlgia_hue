@@ -22,6 +22,8 @@
         });
 
         function edittt(id){
+
+
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 url: '{{$inputs['url']}}' + '/edit_ct',
@@ -34,15 +36,27 @@
                 success: function (data) {
                     $('#doituongsd').val(data.doituongsd);
                     $('#giachuathue').val(data.giachuathue);
+                    $('#giachuathue1').val(data.giachuathue1);
+                    $('#giachuathue2').val(data.giachuathue2);
+                    $('#giachuathue3').val(data.giachuathue3);
+                    $('#giachuathue4').val(data.giachuathue4);
                     $('#id').val(data.id);
                 },
                 error: function (message) {
                     toastr.error(message, 'Lỗi!');
                 }
             });
+
+            if($('#tunam').val()=='' || $('#dennam').val()==''){
+                toastr.error('Năm lộ trình không được bỏ trống.', 'Lỗi!');
+            }
         }
 
         function ClickUpdate(){
+            if($('#tunam').val()=='' || $('#dennam').val()==''){
+                toastr.error('Năm lộ trình không được bỏ trống.', 'Lỗi!');
+                return
+            }
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 url: '{{$inputs['url']}}' + '/update_ct',
@@ -51,7 +65,13 @@
                     _token: CSRF_TOKEN,
                     id: $('#id').val(),
                     giachuathue: $('#giachuathue').val(),
+                    giachuathue1: $('#giachuathue1').val(),
+                    giachuathue2: $('#giachuathue2').val(),
+                    giachuathue3: $('#giachuathue3').val(),
+                    giachuathue4: $('#giachuathue4').val(),
                     mahs: $('#mahs').val(),
+                    tunam: $('#tunam').val(),
+                    dennam: $('#dennam').val(),
                 },
                 dataType: 'JSON',
                 success: function (data) {
@@ -76,7 +96,7 @@
         Giá nước sinh hoạt<small> chỉnh sửa</small>
     </h3>
     <div class="row">
-        {!! Form::model($model,['url'=>$inputs['url']. '/modify', 'method'=>'post'  , 'files'=>true, 'id' => 'update_gnsh','class'=>'form-horizontal','enctype'=>'multipart/form-data']) !!}
+        {!! Form::model($model,['url'=>$inputs['url']. '/modify', 'method'=>'post'  , 'files'=>true, 'id' => 'update_gnsh','class'=>'form-horizontal','enctype'=>'multipart/form-data', 'files'=>true]) !!}
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <input type="hidden" value="{{$model->mahs}}" name="mahs" id="mahs" class="form-control">
         <div class="col-md-12">
@@ -98,25 +118,53 @@
                                 {!!Form::select('madiaban', $a_diaban, null, array('id' => 'madiaban','class' => 'form-control'))!!}
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-4" >
+                                <label class="control-label">Lộ trình từ năm<span class="require">*</span></label>
+                                {!!Form::text('tunam', null, array('id' => 'tunam','class' => 'form-control required'))!!}
+                            </div>
+                            <div class="col-md-4" >
+                                <label class="control-label">Lộ trình đến năm<span class="require">*</span></label>
+                                {!!Form::text('dennam', null, array('id' => 'dennam','class' => 'form-control required'))!!}
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="col-md-12">
                                 <label class="control-label">Nội dung<span class="require">*</span></label>
                                 {!! Form::textarea('mota', null, ['id' => 'mota', 'rows' => 2, 'class' => 'form-control']) !!}
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label">File đính kèm</label>
+                                @if($model->ipf1 != '')
+                                    <a href="{{url('/data/gianuocsachsinhhoat/'.$model->ipf1)}}" target="_blank">{{$model->ipf1}}</a>
+                                @endif
+                                <input name="ipf1" id="ipf1" type="file">
+                            </div>
+                        </div>
+
                         <hr>
                         <b style="color: blue">Giá nước sinh hoạt</b>
 
                         <!-- END PAGE HEADER-->
                         <div class="row" id="dsts">
                             <div class="col-md-12">
-                                <table class="table table-striped table-bordered table-hover" id="sample_3">
+                                <table class="table table-striped table-bordered table-hover" id="sample_4">
                                     <thead>
                                         <tr>
-                                            <th style="text-align: center" width="2%">STT</th>
-                                            <th style="text-align: center">Mục đích sử dụng</th>
-                                            <th style="text-align: center">Đơn giá</th>
-                                            <th style="text-align: center" width="20%">Thao tác</th>
+                                            <th rowspan="2" style="text-align: center" width="2%">STT</th>
+                                            <th rowspan="2" style="text-align: center">Mục đích sử dụng</th>
+                                            <th colspan="{{$model->dennam - $model->tunam > 0 ? ($model->dennam - $model->tunam) + 1 : 1}}" style="text-align: center">Đơn giá</th>
+                                            <th rowspan="2" style="text-align: center" width="10%">Thao tác</th>
+                                        </tr>
+                                        <tr>
+                                            @for($i=0; $i< ($model->dennam - $model->tunam > 0 ? ($model->dennam - $model->tunam) + 1 : 1); $i++)
+                                                <th width="7%" style="text-align: center">{{$model->tunam + $i}}</th>
+                                            @endfor
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -124,7 +172,11 @@
                                             <tr class="odd gradeX">
                                                 <td style="text-align: center">{{$key + 1}}</td>
                                                 <td class="active">{{$tt->doituongsd}}</td>
-                                                <td class="active">{{number_format($tt->giachuathue)}}</td>
+                                                @for($i=0; $i< ($model->dennam - $model->tunam > 0 ? ($model->dennam - $model->tunam) + 1 : 1); $i++)
+                                                    <?php $col= $i > 0 ?'giachuathue'.$i : 'giachuathue'; ?>
+                                                    <td class="active">{{number_format($tt->$col)}}</td>
+                                                @endfor
+
                                                 <td>
                                                     @if(in_array($model->trangthai, ['CHT', 'HHT']))
                                                         <button type="button" onclick="edittt('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#edit-modal" data-toggle="modal">
@@ -172,13 +224,47 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12">
+
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Đơn giá<span class="require">*</span></label>
-                                    {!!Form::text('giachuathue',null, array('id' => 'giachuathue','data-mask'=>'fdecimal','class' => 'form-control required','style'=>'text-align: right;font-weight: bold'))!!}
+                                    <label class="control-label">Đơn giá 1</label>
+                                    {!!Form::text('giachuathue',null, array('id' => 'giachuathue','data-mask'=>'fdecimal','class' => 'form-control','style'=>'text-align: right;font-weight: bold'))!!}
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Đơn giá 2</label>
+                                    {!!Form::text('giachuathue1',null, array('id' => 'giachuathue1','data-mask'=>'fdecimal','class' => 'form-control','style'=>'text-align: right;font-weight: bold'))!!}
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Đơn giá 3</label>
+                                    {!!Form::text('giachuathue2',null, array('id' => 'giachuathue2','data-mask'=>'fdecimal','class' => 'form-control','style'=>'text-align: right;font-weight: bold'))!!}
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Đơn giá 4</label>
+                                    {!!Form::text('giachuathue3',null, array('id' => 'giachuathue3','data-mask'=>'fdecimal','class' => 'form-control','style'=>'text-align: right;font-weight: bold'))!!}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Đơn giá 5</label>
+                                    {!!Form::text('giachuathue4',null, array('id' => 'giachuathue4','data-mask'=>'fdecimal','class' => 'form-control','style'=>'text-align: right;font-weight: bold'))!!}
+                                </div>
+                            </div>
+                        </div>
+
                         <input type="hidden" name="id" id="id">
                     </div>
                     <div class="modal-footer">
@@ -199,6 +285,10 @@
             var str = '',strb1='';
             var ok = true;
 
+            if($('#tunam').val()=='' || $('#dennam').val()==''){
+                strb1 += '  - Năm lộ trình <br>';
+                ok = false;
+            }
 
             if($('#soqd').val()==''){
                 strb1 += '  - Số quyết định <br>';

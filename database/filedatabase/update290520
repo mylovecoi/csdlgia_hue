@@ -1,0 +1,25 @@
+use csdlgia_hue
+go
+
+/****** Object:  Table [dbo].[gianuocsh]  ******/
+ALTER TABLE gianuocshct
+DROP COLUMN giachuathue;
+go
+
+ALTER TABLE gianuocsh
+ADD [ipf1] [nvarchar](255) NULL,[ipf2] [nvarchar](255) NULL,[ipf3] [nvarchar](255) NULL,
+	[ipf4] [nvarchar](255) NULL,[ipf5] [nvarchar](255) NULL,[tunam] [nvarchar](255) NULL,[dennam] [nvarchar](255) NULL;
+	go
+
+ALTER TABLE gianuocshct
+ADD
+	[namchuathue] [nvarchar](255) NULL,
+	[giachuathue] [float] NULL,
+	[namchuathue1] [nvarchar](255) NULL,
+	[giachuathue1] [float] NULL,
+	[namchuathue2] [nvarchar](255) NULL,
+	[giachuathue2] [float] NULL,
+	[namchuathue3] [nvarchar](255) NULL,
+	[giachuathue3] [float] NULL,
+	[namchuathue4] [nvarchar](255) NULL,
+	[giachuathue4] [float] NULL;

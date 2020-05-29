@@ -129,6 +129,12 @@ class GiaNuocShController extends Controller
             $inputs = $request->all();
             $model = GiaNuocSh::where('mahs', $inputs['mahs'])->first();
             $inputs['thoidiem'] = getDateToDb($inputs['ngayapdung']);
+            if(isset($inputs['ipf1'])){
+                $ipf1 = $request->file('ipf1');
+                $name = $inputs['mahs'] .'&1.'.$ipf1->getClientOriginalName();
+                $ipf1->move(public_path() . '/data/gianuocsachsinhhoat/', $name);
+                $inputs['ipf1']= $name;
+            }
             $model->update($inputs);
             return redirect('gianuocsachsinhhoat/danhsach?madv='.$model->madv);
         }else
@@ -234,7 +240,30 @@ class GiaNuocShController extends Controller
             return view('errors.notlogin');
     }
 
-    public function show($id){
+    public function show(Request $request)
+    {
+        $result = array(
+            'status' => 'fail',
+            'message' => 'error',
+        );
+
+        $inputs = $request->all();
+        $model = GiaNuocSh::where('mahs',$inputs['mahs'])->first();
+
+        $result['message'] ='<div class="modal-body" id = "dinh_kem" >';
+        if (isset($model->ipf1)) {
+            $result['message'] .= '<div class="row" ><div class="col-md-6" ><div class="form-group" >';
+            $result['message'] .= '<label class="control-label" > File đính kèm 1 </label >';
+            $result['message'] .= '<p ><a target = "_blank" href = "' . url('/data/giagdbatdongsan/' . $model->ipf1) . '">' . $model->ipf1 . '</a ></p >';
+            $result['message'] .= '</div ></div ></div >';
+        }
+
+        $result['status'] = 'success';
+
+        die(json_encode($result));
+    }
+
+    public function show_cu($id){
         if(Session::has('admin')) {
             $model = GiaNuocSh::findOrFail($id);
             $modelct = GiaNuocShCt::where('mahs',$model->mahs)

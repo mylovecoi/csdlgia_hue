@@ -17,7 +17,7 @@ class CreateGianuocshctTable extends Migration
             $table->increments('id');
             $table->string('madoituong')->nullable();
             $table->string('doituongsd')->nullable();
-            $table->string('giachuathue')->nullable();
+
             $table->string('thuevat')->nullable();
             $table->string('giacothue')->nullable();
             $table->string('phibvmttyle')->nullable();
@@ -25,6 +25,18 @@ class CreateGianuocshctTable extends Migration
             $table->string('thanhtien')->nullable();
             $table->string('mahs')->nullable();
             $table->string('trangthai')->nullable();
+
+            $table->double('giachuathue')->nullable();
+            $table->string('namchuathue')->nullable();
+            $table->double('giachuathue1')->nullable();
+            $table->string('namchuathue1')->nullable();
+            $table->double('giachuathue2')->nullable();
+            $table->string('namchuathue2')->nullable();
+            $table->double('giachuathue3')->nullable();
+            $table->string('namchuathue3')->nullable();
+            $table->double('giachuathue4')->nullable();
+            $table->string('namchuathue4')->nullable();
+
             $table->timestamps();
         });
     }

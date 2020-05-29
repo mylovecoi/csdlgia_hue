@@ -517,6 +517,7 @@ Route::group(['prefix'=>'gianuocsachsinhhoat'], function (){
     Route::get('new','manage\gianuocsachsh\GiaNuocShController@create');
     Route::get('modify','manage\gianuocsachsh\GiaNuocShController@edit');
     Route::post('modify','manage\gianuocsachsh\GiaNuocShController@update');
+    Route::get('dinhkem','manage\gianuocsachsh\GiaNuocShController@show');
 
     Route::post('delete','manage\gianuocsachsh\GiaNuocShController@destroy');
     Route::post('chuyenhs','manage\gianuocsachsh\GiaNuocShController@chuyenhs');
