@@ -60,6 +60,7 @@
     <h3 class="page-title">
         Danh mục dịch vụ khám chữa bệnh
     </h3>
+    <p style="color: #0000ff">{{$nhom->tennhom}}</p>
     <!-- END PAGE HEADER-->
     <div class="row">
         <div class="col-md-12">
@@ -70,26 +71,32 @@
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvkcb', 'danhmuc','modify'))
                             <button type="button" onclick="new_hs()" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
                                 <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
+                            <button type="button" class="btn btn-default btn-xs mbs" data-target="#modal-importexcel" data-toggle="modal">
+                                <i class="fa fa-file-excel-o"></i>&nbsp;Nhận dữ liệu</button>
                         @endif
                     </div>
                 </div>
                 <hr>
                 <div class="portlet-body form-horizontal">
 
-                    <table class="table table-striped table-bordered table-hover" id="sample_3">
+                    <table class="table table-striped table-bordered table-hover" id="sample_4">
                         <thead>
                         <tr>
                             <th width="2%" style="text-align: center">STT</th>
-                            <th style="text-align: center">Tên sản phẩm</th>
-                            <th width="20%" style="text-align: center">ĐVT</th>
-                            <th width="15%" style="text-align: center">Thao tác</th>
+                            <th style="text-align: center">Mã số</th>
+                            <th style="text-align: center">Tên dịch vụ</th>
+                            <th style="text-align: center">Phân loại</th>
+                            <th width="10%" style="text-align: center">ĐVT</th>
+                            <th width="10%" style="text-align: center">Thao tác</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($model as $key=>$tt)
                             <tr class="odd gradeX">
                                 <td style="text-align: center">{{$key + 1}}</td>
+                                <td class="success">{{$tt->madichvu}}</td>
                                 <td class="success">{{$tt->tenspdv}}</td>
+                                <td class="success">{{$tt->phanloai}}</td>
                                 <td>{{$tt->dvt}}</td>
                                 <td>
                                     @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvkcb', 'danhmuc','modify'))
@@ -115,13 +122,23 @@
     <div class="modal fade" id="modal-create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url'=>$inputs['url'].'/danhmuc', 'method'=>'post','id' => 'frm_create'])!!}
+                {!! Form::open(['url'=>$inputs['url'].'/dm', 'method'=>'post','id' => 'frm_create'])!!}
                 <input type="hidden" name="maspdv" />
+                <input type="hidden" name="manhom" value="{{$inputs['manhom']}}" />
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Thông tin sản phẩm, dịch vụ</h4>
                 </div>
                 <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Mã dịch vụ</label>
+                                <input name="madichvu" id="madichvu" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -164,6 +181,76 @@
                     <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
                 </div>
                 {!! Form::close() !!}
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="modal-importexcel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Nhận dữ liệu từ file excel</h4>
+                </div>
+                {!! Form::open(['url'=>$inputs['url'].'/importexcel', 'method'=>'post' , 'files'=>true, 'id' => 'frm_importexcel','enctype'=>'multipart/form-data','files'=>true]) !!}
+                <input type="hidden" name="manhom" value="{{$inputs['manhom']}}" />
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Mã dịch vụ<span class="require">*</span></label>
+                                <input type="text" name="imex_madichvu" id="imex_madichvu" class="form-control" value="B">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Tên dịch vụ<span class="require">*</span></label>
+                                <input type="text" name="imex_tenspdv" id="imex_tenspdv" class="form-control" value="C">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Đơn vị tính<span class="require">*</span></label>
+                                <input type="text" name="imex_dvt" id="imex_dvt" class="form-control" value="D">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Phân loại<span class="require">*</span></label>
+                                <input type="text" name="imex_phanloai" id="imex_phanloai" class="form-control" value="E">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Từ dòng<span class="require">*</span></label>
+                                {!!Form::text('tudong', '5', array('id' => 'tudong','class' => 'form-control required','data-mask'=>'fdecimal'))!!}
+                            </div>
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Đến dòng</label>
+                                {!!Form::text('dendong', '111', array('id' => 'dendong','class' => 'form-control','data-mask'=>'fdecimal'))!!}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Theo dõi<span class="require">*</span></label>
+                                <input id="fexcel" name="fexcel" type="file"  accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn blue" onclick="ClickImportExcel()" id="submitimex">Đồng ý</button>
+                    <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
+                </div>
+                {!! Form::close() !!}
+
             </div>
             <!-- /.modal-content -->
         </div>

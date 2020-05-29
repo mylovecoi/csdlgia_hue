@@ -6,6 +6,7 @@ use App\DiaBanHd;
 use App\District;
 use App\DmGiaRung;
 
+use App\DvKcbCt;
 use App\Model\manage\dinhgia\giadvkcb\DvKcb;
 use App\Model\manage\dinhgia\giadvkcb\dvkcbdm;
 use App\Model\manage\dinhgia\GiaRung;
@@ -15,6 +16,7 @@ use App\Model\system\dsdiaban;
 use App\Model\system\dsdonvi;
 use App\Model\system\view_dsdiaban_donvi;
 use App\Model\view\view_giadvkcb;
+use App\NhomDvKcb;
 use App\Town;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -49,7 +51,7 @@ class DvKcbController extends Controller
             $model = DvKcb::where('madv', $inputs['madv']);
             if ($inputs['nam'] != 'all')
                 $model = $model->whereYear('thoidiem', $inputs['nam']);
-            $a_dm = array_column(dvkcbdm::all()->toArray(),'tenspdv','maspdv');
+            $a_dm = array_column(NhomDvKcb::all()->toArray(),'tennhom','manhom');
 
             //dd($inputs);
             return view('manage.dinhgia.giadvkcb.kekhai.index')
@@ -67,6 +69,51 @@ class DvKcbController extends Controller
             return view('errors.notlogin');
     }
 
+    public function create(Request $request)
+    {
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['url'] = '/giadvkcb';
+            $m_dv = dsdonvi::where('madv', $inputs['madv'])->first();
+            $modelnhom = NhomDvKcb::where('manhom', $inputs['manhom'])->first();
+            $inputs['mahs'] = getdate()[0];
+            $modeldm = dvkcbdm::where('manhom', $inputs['manhom'])->where('hientrang', 'TD')->get();
+            $model = new DvKcb();
+            $model->mahs = $inputs['mahs'];
+            $model->madv = $inputs['madv'];
+            $model->madiaban = $m_dv->madiaban;
+            $model->manhom = $inputs['manhom'];
+            $model->trangthai  = 'CHT';
+
+            $a_dm = [];
+            foreach ($modeldm as $dm) {
+                $a_dm[]= [
+                    'mahs' => $inputs['mahs'],
+                    'phanloai' => $dm->phanloai,
+                    'madichvu' => $dm->madichvu,
+                    'tenspdv' => $dm->tenspdv,
+                    'dvt' => $dm->dvt,
+                    'giadv'=> 0,
+                ];
+            }
+            foreach (array_chunk($a_dm , 100) as $dm){
+                DvKcbCt::insert($dm);
+            }
+            $modelct = DvKcbCt::where('mahs', $inputs['mahs'])->get();
+            $a_tt = array_column(NhomDvKcb::where('manhom', $inputs['manhom'])->get()->toarray(), 'tennhom', 'manhom');
+            $a_diaban = array_column(dsdiaban::where('madiaban', $m_dv->madiaban)->get()->toarray(), 'tendiaban', 'madiaban');
+            return view('manage.dinhgia.giadvkcb.kekhai.edit')
+                ->with('model', $model)
+                ->with('modelct', $modelct)
+                ->with('modelnhom', $modelnhom)
+                ->with('a_diaban', $a_diaban)
+                ->with('a_tt', $a_tt)
+                ->with('inputs', $inputs)
+                ->with('pageTitle', 'Hồ sơ giá dịch vụ khám chữa bệnh');
+        } else
+            return view('errors.notlogin');
+    }
+
     public function destroy(Request $request){
         if(Session::has('admin')){
             $inputs=$request->all();
@@ -78,31 +125,35 @@ class DvKcbController extends Controller
     }
 
     public function edit(Request $request){
-        if (!Session::has('admin')) {
-            $result = array(
-                'status' => 'fail',
-                'message' => 'permission denied',
-            );
-            die(json_encode($result));
-        }
-
-        $inputs = $request->all();
-        $model = DvKcb::where('mahs', $inputs['mahs'])->first();
-        die($model);
+        if(Session::has('admin')){
+            $inputs = $request->all();
+            $inputs['url'] = '/giadvkcb';
+            $model = DvKcb::where('mahs', $inputs['mahs'])->first();
+            $modelct = DvKcbCt::where('mahs', $inputs['mahs'])->get();
+            $a_tt = array_column(NhomDvKcb::where('manhom', $model->manhom)->get()->toarray(), 'tennhom', 'manhom');
+            $a_diaban = array_column(dsdiaban::where('madiaban', $model->madiaban)->get()->toarray(), 'tendiaban', 'madiaban');
+            return view('manage.dinhgia.giadvkcb.kekhai.edit')
+                ->with('model', $model)
+                ->with('modelct', $modelct)
+                //->with('modelnhom', $modelnhom)
+                ->with('a_diaban', $a_diaban)
+                ->with('a_tt', $a_tt)
+                ->with('inputs', $inputs)
+                ->with('pageTitle', 'Hồ sơ giá dịch vụ khám chữa bệnh');
+        }else
+            return view('errors.notlogin');
     }
 
     public function store(Request $request)
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
-
             $inputs['thoidiem'] = getDateToDb($inputs['thoidiem']);
-            $inputs['dongia'] = getDoubleToDb($inputs['dongia']);
-
+            //$inputs['dongia'] = getDoubleToDb($inputs['dongia']);
             $chk = DvKcb::where('mahs', $inputs['mahs'])->first();
-            //dd($chk);
+            //dd($inputs);
             if ($chk == null) {
-                $inputs['mahs'] = getdate()[0];
+                //$inputs['mahs'] = getdate()[0];
                 $inputs['trangthai'] = 'CHT';
                 DvKcb::create($inputs);
             } else {
@@ -283,7 +334,7 @@ class DvKcbController extends Controller
                 }
             }
             //dd($model);
-            $a_dm = array_column(dvkcbdm::all()->toArray(),'tenspdv','maspdv');
+            $a_dm = array_column(NhomDvKcb::all()->toArray(),'tennhom','manhom');
             return view('manage.dinhgia.giadvkcb.xetduyet.index')
                 ->with('model', $model)
                 ->with('inputs', $inputs)
@@ -407,9 +458,7 @@ class DvKcbController extends Controller
             if($inputs['maspdv'] != 'all'){
                 $model = $model->where('maspdv',$inputs['maspdv']);
             }
-            if($inputs['tenbv'] != ''){
-                $model = $model->where('tenbv','like',getTimkiemLike($inputs['maspdv'],1));
-            }
+
 
             if(getDayVn($inputs['thoidiem_tu']) != ''){
                 $model = $model->where('thoidiem','>=',$inputs['thoidiem_tu']);
@@ -419,9 +468,9 @@ class DvKcbController extends Controller
                 $model = $model->where('thoidiem','<=',$inputs['thoidiem_den']);
             }
 
-            $model = $model->where('dongia','>=',chkDbl($inputs['giatri_tu']));
+            $model = $model->where('giadv','>=',chkDbl($inputs['giatri_tu']));
             if(chkDbl($inputs['giatri_den']) > 0){
-                $model = $model->where('giatri','<=',chkDbl($inputs['giatri_den']));
+                $model = $model->where('giadv','<=',chkDbl($inputs['giatri_den']));
             }
 
             $a_dm = array_column(dvkcbdm::all()->toArray(),'tenspdv','maspdv');
@@ -438,14 +487,13 @@ class DvKcbController extends Controller
     function ketxuat(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $inputs = $request->all();
             $inputs['nam'] = $inputs['nam'] ?? 'all';
             //lấy thông tin đơn vị
             $model = $this->getHoSo($inputs);
             $m_donvi = dsdonvi::where('madv', $inputs['madv'])->first();
             $a_diaban = array_column(view_dsdiaban_donvi::wherein('madiaban',array_column($model->toArray(),'madiaban'))
                 ->get()->toArray(),'tendiaban','madiaban');
-            $a_dm = array_column(dvkcbdm::all()->toArray(),'tenspdv','maspdv');
+            $a_dm = array_column(NhomDvKcb::all()->toArray(),'tennhom','manhom');
             return view('manage.dinhgia.giadvkcb.reports.BcGiaDvKcb')
                 ->with('model',$model)
                 ->with('m_donvi',$m_donvi)
@@ -465,28 +513,28 @@ class DvKcbController extends Controller
         switch ($inputs['level']) {
             case 'H':
             {
-                $model = view_giadvkcb::where('madv_h', $inputs['madv']);
+                $model = DvKcb::where('madv_h', $inputs['madv']);
                 if ($inputs['nam'] != 'all')
                     $model = $model->whereYear('thoidiem_h', $inputs['nam']);
                 break;
             }
             case 'T':
             {
-                $model = view_giadvkcb::where('madv_t', $inputs['madv']);
+                $model = DvKcb::where('madv_t', $inputs['madv']);
                 if ($inputs['nam'] != 'all')
                     $model = $model->whereYear('thoidiem_t', $inputs['nam']);
                 break;
             }
             case 'ADMIN':
             {
-                $model = view_giadvkcb::where('madv_ad', $inputs['madv']);
+                $model = DvKcb::where('madv_ad', $inputs['madv']);
                 if ($inputs['nam'] != 'all')
                     $model = $model->whereYear('thoidiem_ad', $inputs['nam']);
                 break;
             }
             default:
             {//mặc định lấy đơn vị nhâp liệu
-                $model = view_giadvkcb::where('madv', $inputs['madv']);
+                $model = DvKcb::where('madv', $inputs['madv']);
                 if ($inputs['nam'] != 'all')
                     $model = $model->whereYear('thoidiem', $inputs['nam']);
                 break;

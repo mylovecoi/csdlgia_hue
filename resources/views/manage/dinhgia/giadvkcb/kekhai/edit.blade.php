@@ -30,7 +30,7 @@
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             //alert(id);
             $.ajax({
-                url: '/dichvukcbct/edit',
+                url: '{{$inputs['url']}}' + '/edit_ct',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -38,12 +38,10 @@
                 },
                 dataType: 'JSON',
                 success: function (data) {
-                    if(data.status == 'success') {
-                        $('#tttsedit').replaceWith(data.message);
-                        InputMask();
-                    }
-                    else
-                        toastr.error("Không thể chỉnh sửa thông tin dịch vụ!", "Lỗi!");
+                    $('#tenspdv').val(data.tenspdv);
+                    $('#giadv').val(data.giadv);
+                    $('#id').val(data.id);
+                    InputMask();
                 }
             })
         }
@@ -52,14 +50,13 @@
             //alert('vcl');
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: '/dichvukcbct/update',
+                url: '{{$inputs['url']}}' + '/update_ct',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: $('input[name="idedit"]').val(),
-                    giadv: $('input[name="edit_giadv"]').val(),
+                    id: $('input[name="id"]').val(),
+                    giadv: $('input[name="giadv"]').val(),
                     mahs: $('input[name="mahs"]').val(),
-
                 },
                 dataType: 'JSON',
                 success: function (data) {
@@ -70,7 +67,6 @@
                             TableManaged.init();
                         });
                         $('#modal-edit').modal("hide");
-
 
                     }else
                         toastr.error("Bạn cần kiểm tra lại thông tin vừa nhập!", "Lỗi!");
@@ -90,7 +86,7 @@
     <div class="row center">
         <div class="col-md-12 center">
             <!-- BEGIN VALIDATION STATES-->
-            {!! Form::model($model, ['method' => 'PATCH', 'url'=>'dichvukcb/'. $model->id, 'class'=>'horizontal-form','id'=>'update_dichvukcb']) !!}
+            {!! Form::model($model, ['method' => 'post', 'url'=>$inputs['url'].'/modify', 'class'=>'horizontal-form','id'=>'update_dichvukcb']) !!}
             <div class="portlet box blue">
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
@@ -99,17 +95,18 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Nhóm dịch vụ:</label>
-                                    <label class="control-label" style="color: blue;font-weight: bold">{{$tennhom}}</label>
+                                    <label class="control-label">Theo thông tư quyết định</label>
+                                    {!!Form::select('manhom', $a_tt, null, array('id' => 'manhom','class' => 'form-control select2me'))!!}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Đơn vị:</label>
-                                    <label class="control-label" style="color: blue;font-weight: bold">{{$dv}}</label>
+                                    <label class="control-label">Đia bàn:</label>
+                                    {!!Form::select('madiaban', $a_diaban, null, array('id' => 'madiaban','class' => 'form-control'))!!}
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -117,52 +114,50 @@
                                     {!!Form::text('soqd',null, array('id' => 'soqd','class' => 'form-control required','autofocus'))!!}
                                 </div>
                             </div>
-                            <!--/span-->
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Ngày áp dụng<span class="require">*</span></label>
-                                    {!!Form::text('ngayapdung',date('d/m/Y',  strtotime($model->ngayapdung)), array('id' => 'ngayapdung','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                                    {!! Form::input('date', 'thoidiem', null, array('id' => 'thoidiem', 'class' => 'form-control', 'required'))!!}
                                 </div>
                             </div>
-                            <!--/span-->
                         </div>
 
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="control-label">Ghi chú</label>
-                                    {!!Form::text('ghichu',null, array('id' => 'ghichu','class' => 'form-control'))!!}
+                                    <label class="control-label">Mô tả</label>
+                                    {!!Form::textarea('mota',null, array('id' => 'mota','class' => 'form-control', 'rows'=>2))!!}
                                 </div>
                             </div>
                         </div>
                         <input type="hidden" name="mahs" id="mahs" value="{{$model->mahs}}">
+                        <input type="hidden" name="madv" id="madv" value="{{$model->madv}}">
 
                         <div class="row" id="dsts">
                             <div class="col-md-12">
-                                <table class="table table-striped table-bordered table-hover" id="sample_3">
+                                <table class="table table-striped table-bordered table-hover" id="sample_4">
                                     <thead>
                                     <tr>
                                         <th width="2%" style="text-align: center">STT</th>
-                                        <th style="text-align: center">Cấp độ</th>
                                         <th style="text-align: center">Mã dịch vụ</th>
                                         <th style="text-align: center">Tên dịch vụ</th>
                                         <th style="text-align: center">Đơn vị tính</th>
-                                        <th style="text-align: center" width="10%">Giá dịch vụ</th>
-                                        <th style="text-align: center" width="15%">Thao tác</th>
+                                        <th style="text-align: center" width="10%">Đơn giá</th>
+                                        <th style="text-align: center" width="10%">Thao tác</th>
                                     </tr>
                                     </thead>
                                     <tbody id="ttts">
                                     @foreach($modelct as $key=>$tt)
                                         <tr>
                                             <td style="text-align: center">{{$key+1}}</td>
-                                            <td style="text-align: center">{{$tt->capdo}}</td>
-                                            <td style="text-align: center">{{$tt->madv}}</td>
-                                            <td class="active" style="font-weight: bold">{{$tt->tendichvu}}</td>
+                                            <td style="text-align: center">{{$tt->madichvu}}</td>
+                                            <td class="active" style="font-weight: bold">{{$tt->tenspdv}}</td>
                                             <td style="text-align: center">{{$tt->dvt}}</td>
-                                            <td style="text-align: right;font-weight: bold">{{$tt->dvt!= '' ? number_format($tt->giadv) : ''}}</td>
+                                            <td style="text-align: right;font-weight: bold">{{number_format($tt->giadv)}}</td>
                                             <td>
-                                                @if($tt->dvt != '')
-                                                    <button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem({{$tt->id}})"><i class="fa fa-edit"></i>&nbsp;Kê khai</button>
+                                                @if(in_array($model->trangthai, ['CHT', 'HHT']))
+                                                    <button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem({{$tt->id}})">
+                                                        <i class="fa fa-edit"></i>&nbsp;Kê khai</button>
                                                 @endif
                                             </td>
                                         </tr>
@@ -179,7 +174,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12" style="text-align: center">
-                    <a href="{{url('dichvukcb?&maxa='.$model->maxa.'&trangthai='.$model->trangthai)}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                    <a href="{{url($inputs['url'].'/danhsach?&madv='.$model->madv)}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                     <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
                     <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i> Hoàn thành</button>
                 </div>
@@ -205,7 +200,42 @@
         }
     </script>
 
+    <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Kê khai giá dịch vụ khám chữa bệnh</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Tên sản phẩm, dịch vụ</label>
+                                {!!Form::text('tenspdv',null, array('id' => 'tenspdv','class' => 'form-control'))!!}
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Đơn giá</label>
+                                <input type="text" name="giadv" id="giadv" class="form-control" data-mask="fdecimal" style="text-align: right; font-weight: bold">
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="id" name="id">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default">Thoát</button>
+                    <button type="button" class="btn btn-primary" onclick="updatets()">Cập nhật</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 
     <!--Modal Edit-->
     <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-hidden="true">

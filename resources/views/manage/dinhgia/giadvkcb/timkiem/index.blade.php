@@ -62,15 +62,6 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="control-label">Tên bệnh viện</label>
-                                    {!!Form::text('tenbv', null, array('id' => 'tenbv','class' => 'form-control'))!!}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Thời gian nhập từ</label>

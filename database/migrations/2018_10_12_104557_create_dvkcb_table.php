@@ -18,6 +18,7 @@ class CreateDvkcbTable extends Migration
             $table->string('mahs')->unique();
             $table->string('madiaban')->nullable();
             $table->string('maxp')->nullable();
+            $table->string('manhom')->nullable();
             $table->string('maspdv')->nullable();
             $table->string('soqd')->nullable();
             $table->string('tenbv')->nullable();
@@ -29,6 +30,11 @@ class CreateDvkcbTable extends Migration
             $table->text('ghichu')->nullable();
             $table->text('lichsu')->nullable(); //Thao tác lịch sử hồ sơ theo dạng JSON
             $table->string('tinhtrang')->nullable();//Vị trị hiện tại của Hô sơ: Khởi tạo; Gửi Huyện; Gửi Tỉnh
+            $table->string('ipf1')->nullable();
+            $table->string('ipf2')->nullable();
+            $table->string('ipf3')->nullable();
+            $table->string('ipf4')->nullable();
+            $table->string('ipf5')->nullable();
             //Thông tin hồ sơ khi khởi tạo (level lấy theo thông tin đơn vị)
             $table->date('thoidiem')->nullable();
             $table->string('macqcq')->nullable(20);

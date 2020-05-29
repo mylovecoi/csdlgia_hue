@@ -9,15 +9,10 @@ class DvKcbCt extends Model
     protected $table = 'dvkcbct';
     protected $fillable = [
         'id',
-        'maxa',
-        'mahuyen',
-        'district',
         'mahs',
-        'madv',
-        'manhom',
-        'magoc',
-        'capdo',
-        'tendichvu',
+        'phanloai',
+        'madichvu',
+        'tenspdv',
         'dvt',
         'gc',
         'sapxep',

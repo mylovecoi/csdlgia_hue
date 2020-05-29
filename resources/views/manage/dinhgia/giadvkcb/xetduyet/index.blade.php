@@ -102,15 +102,14 @@
                             </div>
                         </div>
                     </div>
-                    <table id="sample_3" class="table table-striped table-bordered table-hover">
+                    <table id="sample_4" class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th width="2%" style="text-align: center">STT</th>
                                 <th style="text-align: center">Cơ quan chuyển hồ sơ</th>
                                 <th style="text-align: center">Địa bàn</th>
-                                <th style="text-align: center">Tên bệnh viện</th>
-                                <th style="text-align: center">Tên dịch vụ</th>
-                                <th style="text-align: center">Đơn giá</th>
+                                <th style="text-align: center">Thông tư, quyết định</th>
+                                <th style="text-align: center">Nội dung</th>
                                 <th style="text-align: center">Trạng thái</th>
                                 <th style="text-align: center">Cơ quan tiếp nhận hồ sơ</th>
                                 <th style="text-align: center" width="20%">Thao tác</th>
@@ -123,14 +122,13 @@
                                     <td style="text-align: center">{{$key + 1}}</td>
                                     <td style="text-align: left">{{$tt->tendv_ch}}</td>
                                     <td style="text-align: center">{{$a_diaban[$tt->madiaban] ?? ''}}</td>
-                                    <td style="text-align: center">{{$tt->tenbv}}</td>
-                                    <td style="text-align: left">{{$a_dm[$tt->maspdv] ?? ''}}</td>
-                                    <td class="text-right">{{dinhdangso($tt->dongia)}}</td>
+                                    <td style="text-align: left">{{$a_dm[$tt->manhom] ?? ''}}</td>
+                                    <td style="text-align: center">{{$tt->mota}}</td>
                                     @include('manage.include.form.td_trangthai')
                                     <td style="text-align: left">{{$tt->tencqcq}}</td>
                                     <td>
-                                        <button type="button" onclick="edittt('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#modal-modify" data-toggle="modal" style="margin: 2px">
-                                            <i class="fa fa-eye"></i>&nbsp;Chi tiết</button>
+                                        <a href="{{url($inputs['url'].'/modify?mahs='.$tt->mahs.'&act=false')}}" class="btn btn-default btn-xs mbs" target="_blank">
+                                            <i class="fa fa-eye"></i>&nbsp;Chi tiết</a>
                                         <!--
                                         Xem xét bổ sung madv_ad, trangthai_ad,
                                         Tùy level mà chức năng nút chuyển lại khác nhau

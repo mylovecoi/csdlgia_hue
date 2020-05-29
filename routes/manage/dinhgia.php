@@ -195,13 +195,24 @@ Route::group(['prefix'=>'giathuetn'], function (){
 
 //DV Khám chữa bệnh
 Route::group(['prefix'=>'giadvkcb'], function (){
-    Route::get('danhmuc','manage\giadvkcb\dvkcbdmController@index');
-    Route::post('danhmuc','manage\giadvkcb\dvkcbdmController@store');
-    Route::get('show_dm','manage\giadvkcb\dvkcbdmController@edit');
+    Route::get('danhmuc','manage\giadvkcb\nhomdmkcbController@index');
+    Route::post('nhomdm','manage\giadvkcb\nhomdmkcbController@store');
+    Route::get('show_nhomdm','manage\giadvkcb\nhomdmkcbController@show_nhomdm');
+    Route::post('delete_nhomdm','manage\giadvkcb\nhomdmkcbController@destroy');
+
+    Route::get('danhmuc/detail','manage\giadvkcb\dvkcbdmController@index');
+    Route::post('dm','manage\giadvkcb\dvkcbdmController@store');
     Route::post('delete_dm','manage\giadvkcb\dvkcbdmController@destroy');
+    Route::get('show_dm','manage\giadvkcb\dvkcbdmController@show');
+    Route::post('importexcel','manage\giadvkcb\dvkcbdmController@importexcel');
+
+    Route::get('edit_ct','manage\giadvkcb\dvkcbctController@edit');
+    Route::get('update_ct','manage\giadvkcb\dvkcbctController@update');
+
 
     Route::get('danhsach','manage\giadvkcb\DvKcbController@index');
-    Route::get('get_hs','manage\giadvkcb\DvKcbController@edit');
+    Route::get('new','manage\giadvkcb\DvKcbController@create');
+    Route::get('modify','manage\giadvkcb\DvKcbController@edit');
     Route::post('modify','manage\giadvkcb\DvKcbController@store');
     Route::post('delete','manage\giadvkcb\DvKcbController@destroy');
 

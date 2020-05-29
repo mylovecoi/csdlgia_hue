@@ -10,7 +10,9 @@ class dvkcbct extends Model
     protected $fillable = [
         'id',
         'mahs',
-        'maspdv',
+        'phanloai',
+        'madichvu',
+        'tenspdv',
         'dvt',
         'giadv',
         'ghichu',

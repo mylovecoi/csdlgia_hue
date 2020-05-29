@@ -17,6 +17,8 @@ class CreateDmdvkcbTable extends Migration
             $table->increments('id');
             $table->string('maspdv')->unique();
             $table->string('tenspdv')->nullable();
+            $table->string('manhom')->nullable();
+            $table->string('madichvu')->nullable();
             $table->string('dvt')->nullable();
             $table->string('mota')->nullable();
             $table->string('phanloai')->nullable();

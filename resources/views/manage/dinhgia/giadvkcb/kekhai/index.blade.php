@@ -87,7 +87,7 @@
                 <div class="portlet-title">
                     <div class="actions">
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvkcb', 'hoso', 'modify'))
-                            <button type="button" onclick="new_hs('{{$inputs['madv']}}')" class="btn btn-default btn-xs mbs" data-target="#modal-modify" data-toggle="modal">
+                            <button type="button" onclick="new_hs('{{$inputs['madv']}}')" class="btn btn-default btn-xs mbs" data-target="#create-modal-confirm" data-toggle="modal">
                                 <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
 {{--                            <a href="{{url($inputs['url'].'/nhandulieutuexcel?madv='.$inputs['madv'])}}" class="btn btn-default btn-sm">--}}
 {{--                                <i class="fa fa-file-excel-o"></i> Nhận dữ liệu</a>--}}
@@ -122,15 +122,14 @@
                         </div>
                     </div>
 
-                    <table class="table table-striped table-bordered table-hover" id="sample_3">
+                    <table class="table table-striped table-bordered table-hover" id="sample_4">
                         <thead>
                             <tr>
                                 <th width="2%" style="text-align: center">STT</th>
                                 <th style="text-align: center">Số QĐ</th>
                                 <th style="text-align: center">Thời điểm</th>
-                                <th style="text-align: center">Tên bệnh viện</th>
-                                <th style="text-align: center">Tên dịch vụ</th>
-                                <th style="text-align: center">Đơn giá</th>
+                                <th style="text-align: center">Thông tư, quyết định</th>
+                                <th style="text-align: center">Mô tả</th>
                                 <th style="text-align: center">Trạng thái</th>
                                 <th style="text-align: center">Cơ quan tiếp nhận</th>
                                 <th style="text-align: center" width="20%">Thao tác</th>
@@ -142,20 +141,19 @@
                                     <td style="text-align: center">{{$key + 1}}</td>
                                     <td>{{$tt->soqd}}</td>
                                     <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
-                                    <td>{{$tt->tenbv}}</td>
-                                    <td class="success" style="font-weight: bold">{{$a_dm[$tt->maspdv] ?? ''}}</td>
-                                    <td>{{dinhdangso($tt->dongia)}}</td>
+                                    <td>{{$a_dm[$tt->manhom] ?? ''}}</td>
+                                    <td class="success" style="font-weight: bold">{{$tt->mota}}</td>
                                     @include('manage.include.form.td_trangthai')
                                     <td style="text-align: left">{{$a_donvi_th[$tt->macqcq]?? ''}}</td>
                                     <td>
                                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvkcb', 'hoso', 'modify') && in_array($tt->trangthai,['CHT', 'HHT']))
-                                            <button type="button" onclick="edittt('{{$tt->mahs}}',true)" class="btn btn-default btn-xs mbs" data-target="#modal-modify" data-toggle="modal" style="margin: 2px">
-                                                <i class="fa fa-edit"></i>&nbsp;Chi tiết</button>
+                                            <a href="{{url($inputs['url'].'/modify?mahs='.$tt->mahs.'&act=true')}}" class="btn btn-default btn-xs mbs">
+                                                <i class="fa fa-edit"></i>&nbsp;Sửa</a>
                                             <button type="button" onclick="confirmDelete('{{$tt->mahs}}','{{$inputs['url'].'/delete'}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
                                                 <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
                                         @else
-                                            <button type="button" onclick="edittt('{{$tt->mahs}}',false)" class="btn btn-default btn-xs mbs" data-target="#modal-modify" data-toggle="modal" style="margin: 2px">
-                                                <i class="fa fa-edit"></i>&nbsp;Chi tiết</button>
+                                            <a href="{{url($inputs['url'].'/modify?mahs='.$tt->mahs.'&act=false')}}" class="btn btn-default btn-xs mbs">
+                                                <i class="fa fa-edit"></i>&nbsp;Sửa</a>
                                         @endif
 
                                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvkcb', 'hoso', 'approve')&& in_array($tt->trangthai,['CHT', 'HHT']))
@@ -175,75 +173,37 @@
     </div>
 
     <!--Modal edit-->
-    <div id="modal-modify" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
-        {!! Form::open(['url'=>$inputs['url'].'/modify', 'method'=>'post', 'id' => 'frm_modify', 'class'=>'horizontal-form']) !!}
+    <div id="create-modal-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade bs-modal-lg">
+        {!! Form::open(['url'=>$inputs['url'].'/new','id' => 'frm_create','method'=>'get'])!!}
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header modal-header-primary">
                     <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-                    <h4 id="modal-header-primary-label" class="modal-title">Thông tin hồ sơ</h4>
+                    <h4 id="modal-header-primary-label" class="modal-title">Thêm mới hồ sơ dịch vụ khám chữa bệnh</h4>
                 </div>
-                <div class="modal-body" id="edit_node">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">Thời điểm<span class="require">*</span></label>
-                                {!! Form::input('date', 'thoidiem', null, array('id' => 'thoidiem', 'class' => 'form-control', 'required'))!!}
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">Số quyết định</label>
-                                <input name="soqd" id="soqd" class="form-control">
+
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label>Thông tư, quyết định</label>
+                                {!!Form::select('manhom', $a_dm, null, array('id' => 'manhom','class' => 'form-control select2me'))!!}
                             </div>
                         </div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">Địa bàn</label>
-                                {!!Form::select('madiaban', $a_diaban, null, array('id' => 'madiaban','class' => 'form-control'))!!}
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">Tên dịch vụ khám chữa bệnh</label>
-                                {!!Form::select('maspdv', $a_dm, null, array('id' => 'maspdv', 'class' => 'form-control'))!!}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">Tên bệnh viện<span class="require">*</span></label>
-                                <input name="tenbv" id="tenbv" class="form-control" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">Đơn giá<span class="require">*</span></label>
-                                <input type="text" name="dongia" id="dongia" class="form-control text-right" data-mask="fdecimal" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <input type="hidden" name="mahs">
-                    <input type="hidden" name="madv">
+                    <input type="hidden" id="madv" name="madv" value="{{$inputs['madv']}}">
+                    <input type="hidden" id="act" name="act" value="true">
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
-                    <button type="submit" id="btnsubmit" name="submit" value="submit" class="btn btn-primary" onclick="ClickUpdate()">Đồng ý</button>
+                    <button type="submit" class="btn btn-primary">Đồng ý</button>
                 </div>
-                {!! Form::close() !!}
             </div>
         </div>
+        {!! Form::close() !!}
     </div>
+
 
     <script>
         function ClickUpdate(){
