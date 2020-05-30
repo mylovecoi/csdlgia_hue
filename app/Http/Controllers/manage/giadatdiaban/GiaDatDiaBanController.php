@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\manage\giadatdiaban;
 
-use App\DiaBanHd;
-use App\DmGiaRung;
-use App\GiaDatDiaBan;
+
 use App\GiaDatDiaBanDm;
+use App\Model\manage\dinhgia\giadatdiaban\GiaDatDiaBan;
+use App\Model\manage\dinhgia\giadatdiaban\GiaDatDiaBanCt;
 use App\Model\manage\dinhgia\giadatdiaban\TtGiaDatDiaBan;
-use App\Model\manage\dinhgia\GiaRung;
-use App\Model\system\dmdvt;
 use App\Model\system\dsdiaban;
 use App\Model\system\dsxaphuong;
 use App\Model\system\view_dsdiaban_donvi;
@@ -20,78 +18,160 @@ use Illuminate\Support\Facades\File;
 
 class GiaDatDiaBanController extends Controller
 {
-    public function index(Request $request)
-    {
+    public function index(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['url'] = '/giacldat';
             //lấy địa bàn
-            //$a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $a_diaban = getDiaBan_XaHuyen(session('admin')->level,session('admin')->madiaban);
+            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             $m_donvi = getDonViNhapLieu(session('admin')->level);
-            //$m_donvi_th = getDonViTongHop('giacldat',\session('admin')->level, \session('admin')->madiaban);
             $m_donvi_th = getDonViTongHop('giacldat',\session('admin')->level, \session('admin')->madiaban);
-            $inputs['madiaban'] = $inputs['madiaban'] ?? array_key_first($a_diaban);
-            $inputs['madv'] = $m_donvi->first()->madv;
-
+            $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
+            $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $inputs['nam'] = $inputs['nam'] ?? 'all';
-            $inputs['maxp'] = $inputs['maxp'] ?? 'all';
-            $inputs['maloaidat'] = $inputs['maloaidat'] ?? 'all';
-            $a_loaidat = array_column(GiaDatDiaBanDm::all()->toArray(),'loaidat','maloaidat');
-            $a_xp = array_column(dsxaphuong::where('madiaban',$inputs['madiaban'])->get()->toarray(),'tenxp', 'maxp');
-            $a_qd = array_column(TtGiaDatDiaBan::all()->toarray(),'mota', 'soqd');
+
             //lấy thông tin đơn vị
             $model = GiaDatDiaBan::where('madiaban', $inputs['madiaban']);
             if ($inputs['nam'] != 'all')
-                $model = $model->where('nam', $inputs['nam']);
-            if ($inputs['maxp'] != 'all')
-                $model = $model->where('maxp', $inputs['maxp']);
-            if ($inputs['maloaidat'] != 'all')
-                $model = $model->where('maloaidat', $inputs['maloaidat']);
+                $model = $model->whereYear('thoidiem', $inputs['nam']);
+            $a_dm = array_column(TtGiaDatDiaBan::all()->toarray(),'mota', 'soqd');
+
             //dd($inputs);
             return view('manage.dinhgia.giadatdiaban.kekhai.index')
                 ->with('model', $model->get())
                 ->with('inputs', $inputs)
-                //->with('m_diaban', $m_diaban)
-                ->with('a_diaban', $a_diaban)
-                ->with('a_loaidat', $a_loaidat)
-                ->with('a_xp', $a_xp)
-                ->with('a_qd', $a_qd)
+                ->with('m_diaban', $m_diaban)
+                ->with('a_diaban', array_column($m_diaban->wherein('level', ['H','T','X'])->toarray(), 'tendiaban', 'madiaban'))
+                ->with('a_dm', $a_dm)
                 ->with('m_donvi', $m_donvi)
                 ->with('m_donvi_th', $m_donvi_th)
                 ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
                 ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
+                ->with('pageTitle', 'Thông tin hồ sơ');
+        } else
+            return view('errors.notlogin');
+    }
+
+    public function create(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['url'] = '/giacldat';
+            $model = GiaDatDiaBan::where('soqd', $inputs['soqd'])->where('madiaban', $inputs['madiaban'])->first();
+            if($model == null){
+                $m_qd = TtGiaDatDiaBan::where('soqd', $inputs['soqd'])->first();
+                $model = new GiaDatDiaBan();
+                $model->mahs = getdate()[0];
+                $model->soqd = $inputs['soqd'];
+                $model->thoidiem = $m_qd->ngayqd_apdung;
+                $model->madv = $inputs['madv'];
+                $model->trangthai = 'CHT';
+                $model->madiaban = $inputs['madiaban'];
+                $model->save();
+                $modelct = nullValue();
+            }else{
+                $modelct = GiaDatDiaBanCt::where('mahs',$model->mahs)->get();
+            }
+
+            $a_diaban = getDiaBan_XaHuyen(session('admin')->level,session('admin')->madiaban);
+            $a_loaidat = array_column(GiaDatDiaBanDm::all()->toArray(),'loaidat','maloaidat');
+            $a_xp = array_column(dsxaphuong::where('madiaban',$model->madiaban)->get()->toarray(),'tenxp', 'maxp');
+            $a_qd = array_column(TtGiaDatDiaBan::where('soqd', $model->soqd)->get()->toarray(),'mota', 'soqd');
+            return view('manage.dinhgia.giadatdiaban.kekhai.edit')
+                ->with('model', $model)
+                ->with('modelct', $modelct)
+                ->with('inputs', $inputs)
+                ->with('a_diaban', $a_diaban)
+                ->with('a_loaidat', $a_loaidat)
+                ->with('a_xp', $a_xp)
+                ->with('a_qd', $a_qd)
                 ->with('pageTitle', 'Thông tin hồ sơ giá đất');
         } else
             return view('errors.notlogin');
     }
 
-    public function nhandulieutuexcel(){
+    public function edit(Request $request){
         if (Session::has('admin')) {
-            $a_diaban = getDiaBan_XaHuyen(session('admin')->level,session('admin')->madiaban);
-            $m_donvi = getDonViNhapLieu(session('admin')->level);
-            $a_loaidat = array_column(GiaDatDiaBanDm::all()->toArray(),'loaidat','maloaidat');
-            $a_xp = array_column(dsxaphuong::where('madiaban',array_key_first($a_diaban))->get()->toarray(),'tenxp', 'maxp');
-            $a_qd = array_column(TtGiaDatDiaBan::all()->toarray(),'mota', 'soqd');
+            $inputs = $request->all();
+            $inputs['url'] = '/giacldat';
+            $model = GiaDatDiaBan::where('mahs',$inputs['mahs'])->first();
+            $modelct = GiaDatDiaBanCt::where('mahs',$model->mahs)->get();
 
-            return view('manage.dinhgia.giadatdiaban.importexcel')
+            //dd($model);
+            $a_diaban = getDiaBan_XaHuyen(session('admin')->level,session('admin')->madiaban);
+            $a_loaidat = array_column(GiaDatDiaBanDm::all()->toArray(),'loaidat','maloaidat');
+            $a_xp = array_column(dsxaphuong::where('madiaban',$model->madiaban)->get()->toarray(),'tenxp', 'maxp');
+            $a_qd = array_column(TtGiaDatDiaBan::where('soqd', $model->soqd)->get()->toarray(),'mota', 'soqd');
+            return view('manage.dinhgia.giadatdiaban.kekhai.edit')
+                ->with('model', $model)
+                ->with('modelct', $modelct)
+                ->with('inputs', $inputs)
                 ->with('a_diaban', $a_diaban)
-                ->with('m_donvi', $m_donvi)
                 ->with('a_loaidat', $a_loaidat)
                 ->with('a_xp', $a_xp)
                 ->with('a_qd', $a_qd)
-                ->with('pageTitle','Nhận dữ liệu giá đất trên địa bàn file Excel');
+                ->with('pageTitle', 'Thông tin hồ sơ giá đất');
+        } else
+            return view('errors.notlogin');
+    }
+
+    public function store_ct(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['giavt1'] = getDoubleToDb($inputs['giavt1']);
+            $inputs['giavt2'] = getDoubleToDb($inputs['giavt2']);
+            $inputs['giavt3'] = getDoubleToDb($inputs['giavt3']);
+            $inputs['giavt4'] = getDoubleToDb($inputs['giavt4']);
+            $inputs['hesok'] = getDoubleToDb($inputs['hesok']);
+            $model = GiaDatDiaBanCt::where('id', $inputs['id'])->first();
+            if($model == null){
+                unset($inputs['id']);
+                GiaDatDiaBanCt::create($inputs);
+            }else{
+                $model->update($inputs);
+            }
+            return redirect('/giacldat/modify?mahs='.$inputs['mahs'].'&act=true');
 
         } else
             return view('errors.notlogin');
     }
 
+    public function destroy_ct(Request $request){
+        if(Session::has('admin')){
+            $inputs=$request->all();
+            $model = GiaDatDiaBanCt::where('id',$inputs['id'])->first();
+            $model->delete();
+            return redirect('/giacldat/modify?mahs='.$model->mahs.'&act=true');
+        }else
+            return view('errors.notlogin');
+    }
+
+//    public function nhandulieutuexcel(){
+//        if (Session::has('admin')) {
+//            $a_diaban = getDiaBan_XaHuyen(session('admin')->level,session('admin')->madiaban);
+//            $m_donvi = getDonViNhapLieu(session('admin')->level);
+//            $a_loaidat = array_column(GiaDatDiaBanDm::all()->toArray(),'loaidat','maloaidat');
+//            $a_xp = array_column(dsxaphuong::where('madiaban',array_key_first($a_diaban))->get()->toarray(),'tenxp', 'maxp');
+//            $a_qd = array_column(TtGiaDatDiaBan::all()->toarray(),'mota', 'soqd');
+//
+//            return view('manage.dinhgia.giadatdiaban.importexcel')
+//                ->with('a_diaban', $a_diaban)
+//                ->with('m_donvi', $m_donvi)
+//                ->with('a_loaidat', $a_loaidat)
+//                ->with('a_xp', $a_xp)
+//                ->with('a_qd', $a_qd)
+//                ->with('pageTitle','Nhận dữ liệu giá đất trên địa bàn file Excel');
+//
+//        } else
+//            return view('errors.notlogin');
+//    }
+
     public function importexcel(Request $request)
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $maso = getdate()[0];
-            $filename = $inputs['madiaban'] . '_' . $maso;
+            $filename = $inputs['madiaban'] . '_' . getdate()[0];
+            //dd($inputs);
             $request->file('fexcel')->move(public_path() . '/data/uploads/excels/', $filename . '.xls');
             $path = public_path() . '/data/uploads/excels/' . $filename . '.xls';
             $data = [];
@@ -102,32 +182,33 @@ class GiaDatDiaBanController extends Controller
                 $data = $sheet->toArray(null, true, true, true);// giữ lại tiêu đề A=>'val';
             });
             $a_data = array();
+            $inputs['dendong'] = $inputs['dendong'] > count($data) ? count($data) : $inputs['dendong'];
             for ($i = $inputs['tudong']; $i <= $inputs['dendong']; $i++) {
+                if($data[$i][$inputs['khuvuc']] == ''){
+                    continue;
+                }
                 $a_data[] = array(
-                    'maso' => $maso++,
-                    'nam' => $inputs['nam'],
+                    'mahs' => $inputs['mahs'],
                     'madiaban' => $inputs['madiaban'],
                     'maxp' => $inputs['maxp'],
                     'maloaidat' => $inputs['maloaidat'],
                     'khuvuc' => $data[$i][$inputs['khuvuc']],
-                    //'mota = $data[$i][$inputs['mota']],
-                    //'mdsd = $data[$i][$inputs['mdsd']],
+                    'diemdau' => $data[$i][$inputs['diemdau']],
+                    'diemcuoi' => $data[$i][$inputs['diemcuoi']],
                     'giavt1' => (isset($data[$i][$inputs['giavt1']]) && $data[$i][$inputs['giavt1']] != '' ? chkDbl($data[$i][$inputs['giavt1']]) : 0),
                     'giavt2' => (isset($data[$i][$inputs['giavt2']]) && $data[$i][$inputs['giavt2']] != '' ? chkDbl($data[$i][$inputs['giavt2']]) : 0),
                     'giavt3' => (isset($data[$i][$inputs['giavt3']]) && $data[$i][$inputs['giavt3']] != '' ? chkDbl($data[$i][$inputs['giavt3']]) : 0),
                     'giavt4' => (isset($data[$i][$inputs['giavt4']]) && $data[$i][$inputs['giavt4']] != '' ? chkDbl($data[$i][$inputs['giavt4']]) : 0),
-                    'giavt5' => (isset($data[$i][$inputs['giavt5']]) && $data[$i][$inputs['giavt5']] != '' ? chkDbl($data[$i][$inputs['giavt5']]) : 0),
+                    //'giavt5' => (isset($data[$i][$inputs['giavt5']]) && $data[$i][$inputs['giavt5']] != '' ? chkDbl($data[$i][$inputs['giavt5']]) : 0),
                     'hesok' => (isset($data[$i][$inputs['hesok']]) && $data[$i][$inputs['hesok']] != '' ? chkDbl($data[$i][$inputs['hesok']]) : 1),
-                    'soqd' => $inputs['soqd'],
-                    'trangthai' => 'CHT',
                 );
             }
             foreach (array_chunk($a_data, 100) as $data) {
-                GiaDatDiaBan::insert($data);
+                GiaDatDiaBanCt::insert($data);
             }
 
             File::Delete($path);
-            return redirect('giacldat/danhsach?&nam=' . $inputs['nam'] . '&madiaban=' . $inputs['madiaban']);
+            return redirect('/giacldat/modify?mahs='.$inputs['mahs'].'&act=true');
         } else
             return view('errors.notlogin');
     }
@@ -150,15 +231,16 @@ class GiaDatDiaBanController extends Controller
     public function destroy(Request $request){
         if(Session::has('admin')){
             $inputs=$request->all();
-            $model = GiaDatDiaBan::where('maso',$inputs['mahs'])->first();
+            $model = GiaDatDiaBan::where('mahs',$inputs['mahs'])->first();
+            GiaDatDiaBanCt::where('mahs',$inputs['mahs'])->delete();
             $model->delete();
 
-            return redirect('giacldat/danhsach?&nam='.$model->nam.'&madiaban='.$model->madiaban);
+            return redirect('giacldat/danhsach?madiaban='.$model->madiaban);
         }else
             return view('errors.notlogin');
     }
 
-    public function edit(Request $request){
+    public function get_hs(Request $request){
         if (!Session::has('admin')) {
             $result = array(
                 'status' => 'fail',
@@ -168,29 +250,17 @@ class GiaDatDiaBanController extends Controller
         }
 
         $inputs = $request->all();
-        $model = GiaDatDiaBan::where('maso',$inputs['maso'])->first();
+        $model = GiaDatDiaBanCt::where('id',$inputs['id'])->first();
         die($model);
     }
 
     public function store(Request $request){
         if(Session::has('admin')){
             $inputs=$request->all();
-            $inputs['giavt1'] = getDoubleToDb($inputs['giavt1']);
-            $inputs['giavt2'] = getDoubleToDb($inputs['giavt2']);
-            $inputs['giavt3'] = getDoubleToDb($inputs['giavt3']);
-            $inputs['giavt4'] = getDoubleToDb($inputs['giavt4']);
-            $inputs['hesok'] = getDoubleToDb($inputs['hesok']);
             //dd($inputs);
-            $model = GiaDatDiaBan::where('maso',$inputs['maso'])->first();
-            if($model == null){
-                $inputs['trangthai'] = 'CHT';
-                $inputs['maso'] = getdate()[0];
-                GiaDatDiaBan::create($inputs);
-            }else{
-                $model->update($inputs);
-            }
-
-            return redirect('/giacldat/danhsach?&nam='.$inputs['nam'].'&madiaban='.$inputs['madiaban']);
+            $model = GiaDatDiaBan::where('mahs',$inputs['mahs'])->first();
+            $model->update($inputs);
+            return redirect('/giacldat/danhsach?madiaban='.$inputs['madiaban']);
         }else
             return view('errors.notlogin');
     }
@@ -203,7 +273,7 @@ class GiaDatDiaBanController extends Controller
         // level == 'T' => set madv_t = $inputs['macqcq']; trangthai_t = 'CHT' (tương đương tạo mới hoso)
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = GiaDatDiaBan::where('maso', $inputs['mahs'])->first();
+            $model = GiaDatDiaBan::where('mahs', $inputs['mahs'])->first();
             //dd($model);
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
@@ -231,7 +301,7 @@ class GiaDatDiaBanController extends Controller
                 $model->trangthai_h = 'CHT';
             }
             $model->save();
-            return redirect('/giacldat/danhsach?&nam='.$model->nam.'&madiaban='.$model->madiaban);
+            return redirect('/giacldat/danhsach?madiaban='.$model->madiaban);
         } else
             return view('errors.notlogin');
     }
@@ -299,8 +369,8 @@ class GiaDatDiaBanController extends Controller
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $inputs['nam'] = $inputs['nam'] ?? 'all';
-            $inputs['maxp'] = $inputs['maxp'] ?? 'all';
-            $inputs['maloaidat'] = $inputs['maloaidat'] ?? 'all';
+//            $inputs['maxp'] = $inputs['maxp'] ?? 'all';
+//            $inputs['maloaidat'] = $inputs['maloaidat'] ?? 'all';
             $inputs['level'] = $m_donvi_th->where('madv', $inputs['madv'])->first()->level ?? 'H';
 
             $a_loaidat = array_column(GiaDatDiaBanDm::all()->toArray(),'loaidat','maloaidat');
@@ -317,11 +387,7 @@ class GiaDatDiaBanController extends Controller
                 case 'H':{
                     $model = GiaDatDiaBan::where('madv_h', $inputs['madv'])->where('madiaban',$inputs['madiaban']);
                     if ($inputs['nam'] != 'all')
-                        $model = $model->where('nam', $inputs['nam']);
-                    if ($inputs['maxp'] != 'all')
-                        $model = $model->where('maxp', $inputs['maxp']);
-                    if ($inputs['maloaidat'] != 'all')
-                        $model = $model->where('maloaidat', $inputs['maloaidat']);
+                        $model = $model->whereYear('thoidiem', $inputs['nam']);
                     $model = $model->get();
                     foreach ($model as $ct){
                         $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
@@ -337,11 +403,7 @@ class GiaDatDiaBanController extends Controller
                 case 'T':{
                     $model = GiaDatDiaBan::where('madv_t', $inputs['madv'])->where('madiaban',$inputs['madiaban']);
                     if ($inputs['nam'] != 'all')
-                        $model = $model->where('nam', $inputs['nam']);
-                    if ($inputs['maxp'] != 'all')
-                        $model = $model->where('maxp', $inputs['maxp']);
-                    if ($inputs['maloaidat'] != 'all')
-                        $model = $model->where('maloaidat', $inputs['maloaidat']);
+                        $model = $model->whereYear('thoidiem', $inputs['nam']);
                     $model = $model->get();
                     foreach ($model as $ct){
                         $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
@@ -357,11 +419,7 @@ class GiaDatDiaBanController extends Controller
                 case 'ADMIN':{
                     $model = GiaDatDiaBan::where('madv_ad', $inputs['madv'])->where('madiaban',$inputs['madiaban']);
                     if ($inputs['nam'] != 'all')
-                        $model = $model->where('nam', $inputs['nam']);
-                    if ($inputs['maxp'] != 'all')
-                        $model = $model->where('maxp', $inputs['maxp']);
-                    if ($inputs['maloaidat'] != 'all')
-                        $model = $model->where('maloaidat', $inputs['maloaidat']);
+                        $model = $model->whereYear('thoidiem', $inputs['nam']);
                     $model = $model->get();
                     foreach ($model as $ct){
                         $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
@@ -402,7 +460,7 @@ class GiaDatDiaBanController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             //dd($inputs);
-            $model = GiaDatDiaBan::where('maso', $inputs['mahs'])->first();
+            $model = GiaDatDiaBan::where('mahs', $inputs['mahs'])->first();
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => 'HT',
@@ -422,7 +480,7 @@ class GiaDatDiaBanController extends Controller
 
             //dd($model);
             $model->save();
-            return redirect('giacldat/xetduyet?madv=' . $inputs['madv'] .'&madiaban='.$model->madiaban.'&nam='.$model->nam);
+            return redirect('giacldat/xetduyet?madv=' . $inputs['madv'] .'&madiaban='.$model->madiaban);
         } else
             return view('errors.notlogin');
     }
@@ -472,7 +530,7 @@ class GiaDatDiaBanController extends Controller
         //Truyền vào mahs và macqcq
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = GiaDatDiaBan::where('maso', $inputs['mahs'])->first();
+            $model = GiaDatDiaBan::where('mahs', $inputs['mahs'])->first();
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => 'HHT',
@@ -494,7 +552,7 @@ class GiaDatDiaBanController extends Controller
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = GiaDatDiaBan::where('maso', $inputs['mahs'])->first();
+            $model = GiaDatDiaBan::where('mahs', $inputs['mahs'])->first();
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => $inputs['trangthai_ad'],
@@ -506,7 +564,7 @@ class GiaDatDiaBanController extends Controller
             setCongBo($model, ['trangthai' => $inputs['trangthai_ad'],
                 'congbo' => $inputs['trangthai_ad'] == 'CB' ? 'DACONGBO' : 'CHUACONGBO']);
             $model->save();
-            return redirect('giacldat/xetduyet?madv=' . $model->madv_ad .'&madiaban='.$model->madiaban.'&nam='.$model->nam);
+            return redirect('giacldat/xetduyet?madv=' . $model->madv_ad .'&madiaban='.$model->madiaban);
         } else
             return view('errors.notlogin');
     }

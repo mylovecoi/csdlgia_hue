@@ -27,26 +27,33 @@ Route::group(['prefix'=>'giacldat'],function (){
     Route::post('delete_dm','manage\giadatdiaban\TtGiaDatDiaBanController@destroy');
     Route::get('show_dm','manage\giadatdiaban\TtGiaDatDiaBanController@show');
 
-    Route::get('danhsach','GiaDatDiaBanController@index');
-    Route::post('modify','GiaDatDiaBanController@store');
-    Route::get('get_hs','GiaDatDiaBanController@edit');
-    Route::post('delete','GiaDatDiaBanController@destroy');
+    Route::get('danhsach','manage\giadatdiaban\GiaDatDiaBanController@index');
+    Route::post('new','manage\giadatdiaban\GiaDatDiaBanController@create');
+    Route::get('modify','manage\giadatdiaban\GiaDatDiaBanController@edit');
+    Route::post('modify','manage\giadatdiaban\GiaDatDiaBanController@store');
 
-    Route::post('chuyenhs','GiaDatDiaBanController@chuyenhs');
-    Route::post('chuyenhs_mul','GiaDatDiaBanController@chuyenhs_mul');
+    Route::post('delete','manage\giadatdiaban\GiaDatDiaBanController@destroy');
+
+    Route::post('store_ct','manage\giadatdiaban\GiaDatDiaBanController@store_ct');
+    Route::get('edit_ct','manage\giadatdiaban\GiaDatDiaBanController@get_hs');
+    Route::post('del_ct','manage\giadatdiaban\GiaDatDiaBanController@destroy_ct');
+    Route::post('importexcel','manage\giadatdiaban\GiaDatDiaBanController@importexcel');
+
+    Route::post('chuyenhs','manage\giadatdiaban\GiaDatDiaBanController@chuyenhs');
+    Route::post('chuyenhs_mul','manage\giadatdiaban\GiaDatDiaBanController@chuyenhs_mul');
     Route::get('print','manage\giadatphanloai\GiaDatPhanLoaiController@ketxuat');
 
-    Route::get('xetduyet','GiaDatDiaBanController@xetduyet');
-    Route::post('chuyenxd','GiaDatDiaBanController@chuyenxd');
-    Route::post('chuyenxd_mul','GiaDatDiaBanController@chuyenxd_mul');
-    Route::post('tralai','GiaDatDiaBanController@tralai');
-    Route::post('tralai_mul','GiaDatDiaBanController@tralai_mul');
-    Route::post('congbo','GiaDatDiaBanController@congbo');
-    Route::post('congbo_mul','GiaDatDiaBanController@congbo_mul');
-    Route::get('prints','GiaDatDiaBanController@bcgiadatdiaban');
+    Route::get('xetduyet','manage\giadatdiaban\GiaDatDiaBanController@xetduyet');
+    Route::post('chuyenxd','manage\giadatdiaban\GiaDatDiaBanController@chuyenxd');
+    Route::post('chuyenxd_mul','manage\giadatdiaban\GiaDatDiaBanController@chuyenxd_mul');
+    Route::post('tralai','manage\giadatdiaban\GiaDatDiaBanController@tralai');
+    Route::post('tralai_mul','manage\giadatdiaban\GiaDatDiaBanController@tralai_mul');
+    Route::post('congbo','manage\giadatdiaban\GiaDatDiaBanController@congbo');
+    Route::post('congbo_mul','manage\giadatdiaban\GiaDatDiaBanController@congbo_mul');
+    Route::get('prints','manage\giadatdiaban\GiaDatDiaBanController@bcgiadatdiaban');
 
-    Route::get('nhandulieutuexcel','GiaDatDiaBanController@nhandulieutuexcel');
-    Route::post('import_excel','GiaDatDiaBanController@importexcel');
+    Route::get('nhandulieutuexcel','manage\giadatdiaban\GiaDatDiaBanController@nhandulieutuexcel');
+
 });
 
 //giá đất theo phân loại

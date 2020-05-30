@@ -24,7 +24,8 @@
 
             function changeUrl() {
                 var current_path_url = '{{$inputs['url']}}' + '/xetduyet?';
-                var url = current_path_url + 'madv=' + $('#madv').val() + '&nam=' + $('#nam').val() + '&madiaban=' + $('#madiaban').val();
+                var url = current_path_url + 'madv=' + $('#madv').val() + '&nam=' + $('#nam').val() + '&madiaban=' + $('#madiaban').val()
+                    + '&maxp=' + $('#maxp').val() + '&maloaidat=' + $('#maloaidat').val();
                 window.location.href = url;
             }
 
@@ -34,7 +35,12 @@
             $('#madiaban').change(function () {
                 changeUrl();
             });
-
+            $('#maxp').change(function () {
+                changeUrl();
+            });
+            $('#maloaidat').change(function () {
+                changeUrl();
+            });
             $('#madv').change(function () {
                 changeUrl();
             });
@@ -66,7 +72,7 @@
                                     <i class="fa fa-check"></i>&nbsp;Hoàn thành</button>
                             @endif
                         @endif
-                        <a href="{{url($inputs['url'].'/prints?&nam='.$inputs['nam'].'&madiaban='.$inputs['madiaban'].'&madv='.$inputs['madv'])}}" class="btn btn-default btn-sm" target="_blank">
+                        <a href="{{url($inputs['url'].'/prints?&nam='.$inputs['nam'].'&madiaban='.$inputs['madiaban'].'&maxp='.$inputs['maxp'].'&maloaidat='.$inputs['maloaidat'].'&madv='.$inputs['madv'])}}" class="btn btn-default btn-sm" target="_blank">
                             <i class="fa fa-print"></i> In</a>
                     </div>
                 </div>
@@ -82,6 +88,19 @@
                             <div class="col-md-4">
                                 <label style="font-weight: bold">Địa bàn</label>
                                 {!!Form::select('madiaban', $a_diaban, $inputs['madiaban'], array('id' => 'madiaban','class' => 'form-control'))!!}
+                            </div>
+
+                            <div class="col-md-4">
+                                <label style="font-weight: bold">Xã phường</label>
+                                {!!Form::select('maxp', a_merge(['all'=>'--Tất cả--'], $a_xp), $inputs['maxp'], array('id' => 'maxp','class' => 'form-control select2me'))!!}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label class="control-label" style="font-weight: bold">Loại đất</label>
+                                {!!Form::select('maloaidat', array_merge(['all'=>'--Tất cả--'], $a_loaidat), $inputs['maloaidat'], array('id' => 'maloaidat','class' => 'form-control select2me'))!!}
                             </div>
 
                             <div class="col-md-6">
@@ -205,6 +224,95 @@
                                         </optgroup>
                                     @endforeach
                                 </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label class="control-label">Năm</label>
+                                {!! Form::select('nam', getNam(true), date('Y'), array('class' => 'form-control'))!!}
+                            </div>
+
+                            <div class="col-md-9">
+                                <label class="control-label">Loại đất</label>
+                                {!!Form::select('maloaidat', a_merge(['all'=>'--Tất cả--'], $a_loaidat), $inputs['maloaidat'], array('class' => 'form-control select2me'))!!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label class="control-label">Địa bàn</label>
+                                {!!Form::select('madiaban', [$inputs['madiaban']=> $a_diaban[$inputs['madiaban']] ?? ''], null, array('class' => 'form-control'))!!}
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="control-label">Xã, phường</label>
+                                {!!Form::select('maxp', a_merge(['all'=>'--Tất cả--'], $a_xp), $inputs['maxp'], array('class' => 'form-control'))!!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
+                    <button type="submit" class="btn btn-primary" >Đồng ý</button>
+                </div>
+            </div>
+        </div>
+        {!! Form::close() !!}
+    </div>
+
+    <!-- Công bố nhiều hồ sơ -->
+    <div id="congbo-modal-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+        {!! Form::open(['url'=>$inputs['url'].'/congbo_mul','id' => 'frm_checkmulti'])!!}
+        <input type="hidden" name="madv" value="{{$inputs['madv']}}" />
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <button type="button" data-dismiss="modal" aria-hidden="true"
+                            class="close">&times;</button>
+                    <h4 id="modal-header-primary-label" class="modal-title">Đồng ý công bố dữ liệu?</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Trạng thái<span class="require">*</span></label>
+                                <select class="form-control" name="trangthai" id="trangthai">
+                                    <option value="CB">Công bố</option>
+                                    <option value="HT">Hủy công bố</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label class="control-label">Năm</label>
+                                {!! Form::select('nam', getNam(true), date('Y'), array('class' => 'form-control'))!!}
+                            </div>
+
+                            <div class="col-md-9">
+                                <label class="control-label">Loại đất</label>
+                                {!!Form::select('maloaidat', a_merge(['all'=>'--Tất cả--'], $a_loaidat), $inputs['maloaidat'], array('class' => 'form-control select2me'))!!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label class="control-label">Địa bàn</label>
+                                {!!Form::select('madiaban', [$inputs['madiaban']=> $a_diaban[$inputs['madiaban']] ?? ''], null, array('class' => 'form-control'))!!}
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="control-label">Xã, phường</label>
+                                {!!Form::select('maxp', a_merge(['all'=>'--Tất cả--'], $a_xp), $inputs['maxp'], array('class' => 'form-control'))!!}
                             </div>
                         </div>
                     </div>
