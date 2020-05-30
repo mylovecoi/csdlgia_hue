@@ -49,5 +49,9 @@ class DmNgheKd extends Model
 ('KKNYGIA', 'VTXB', N'Cước vận tải hành khách bằng xe buýt theo tuyến cố định', 'SGTVT', 'TD','KK'),
 ('KKNYGIA', 'VTXTX', N'Cước vận tải hành khách bằng xe taxi', 'SGTVT', 'TD','KK'),
 ('KKNYGIA', 'VCHK', N'Cước vận chuyển hành khách: xe buýt, xe điện, bè mảng', 'SGTVT', 'TD','KK');
-
+('KKNYGIA', 'CAHUE', N'Giá dịch vụ xem ca Huế trên sông Hương', 'SGTVT', 'TD','KK'),
+('KKNYGIA', 'HOCPHILX', N'Mức thu học phí đào tạo lái xe cơ giới đường bộ', 'SGTVT', 'TD','KK'),
+('KKNYGIA', 'CATSAN', N'Vật liệu xây dựng: cát, sạn', 'SGTVT', 'TD','KK'),
+('KKNYGIA', 'DATSANLAP', N'Vật liệu xây dựng: đất san lấp', 'SGTVT', 'TD','KK'),
+('KKNYGIA', 'DAXAYDUNG', N'Vật liệu xây dựng: đá xây dựng', 'SGTVT', 'TD','KK');
  * */

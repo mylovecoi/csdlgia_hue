@@ -2526,6 +2526,7 @@ function getGiaoDien()
             'index' => '0', 'congbo' => '0',
             'giacldat' => array('index' => '0', 'congbo' => '0'),
             'giadatduan' => array('index' => '0', 'congbo' => '0'),
+            'khunggiadat' => array('index' => '0', 'congbo' => '0'),
             'giadatpl' => array('index' => '0', 'congbo' => '0'),
             'giadaugiadat' => array('index' => '0', 'congbo' => '0'),
             'giadatthitruong' => array('index' => '0', 'congbo' => '0'),
@@ -2595,6 +2596,11 @@ function getGiaoDien()
             'dvlt' => array('index' => '0', 'congbo' => '0'),
             'dlbb' => array('index' => '0', 'congbo' => '0'),
             'tqkdl' => array('index' => '0', 'congbo' => '0'),
+            'cahue' => array('index' => '0', 'congbo' => '0'),
+            'hocphilx' => array('index' => '0', 'congbo' => '0'),
+            'catsan' => array('index' => '0', 'congbo' => '0'),
+            'datsanlap' => array('index' => '0', 'congbo' => '0'),
+            'daxaydung' => array('index' => '0', 'congbo' => '0'),
 
         ),
     );
@@ -2694,6 +2700,12 @@ function getPhanQuyen()
         'index' => '0',
         'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
     );
+
+    $gui['khunggiadat'] = array(
+        'index' => '0',
+        'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+    );
+
     $gui['giadatpl'] = array(
         'index' => '0',
         'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
@@ -2909,6 +2921,7 @@ function getPhanQuyen()
         'index' => '0',
         'hoso' => array('index' => '0', 'approve' => '0',),
     );
+
     $gui['dlbb'] = array(
         'index' => '0',
         'hoso' => array('index' => '0', 'approve' => '0',),
@@ -2917,6 +2930,29 @@ function getPhanQuyen()
         'index' => '0',
         'hoso' => array('index' => '0', 'approve' => '0',),
     );
+
+    $gui['cahue'] = array(
+        'index' => '0',
+        'hoso' => array('index' => '0', 'approve' => '0',),
+    );
+
+    $gui['hocphilx'] = array(
+        'index' => '0',
+        'hoso' => array('index' => '0', 'approve' => '0',),
+    );
+    $gui['catsan'] = array(
+        'index' => '0',
+        'hoso' => array('index' => '0', 'approve' => '0',),
+    );
+    $gui['datsanlap'] = array(
+        'index' => '0',
+        'hoso' => array('index' => '0', 'approve' => '0',),
+    );
+    $gui['daxaydung'] = array(
+        'index' => '0',
+        'hoso' => array('index' => '0', 'approve' => '0',),
+    );
+
     $gui['dmhhthamdinhgia'] = array(
         'index' => '0',
         'danhmuc' => array('index' => '0', 'modify' => '0',),
