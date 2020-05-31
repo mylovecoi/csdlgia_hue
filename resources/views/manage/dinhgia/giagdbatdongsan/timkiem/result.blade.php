@@ -50,7 +50,7 @@
                                     <td style="text-align: center">{{$key + 1}}</td>
                                     <td>{{$a_donvi[$tt->madv] ?? ''}}</td>
                                     <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
-                                    <td>{{$tt->mota}}</td>
+                                    <td>{{$tt->tieude}}</td>
                                     <td>{{$tt->dvbanhanh}}</td>
                                 </tr>
                             @endforeach

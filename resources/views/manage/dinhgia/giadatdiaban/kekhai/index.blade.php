@@ -52,7 +52,7 @@
                             {{--                                <i class="fa fa-file-excel-o"></i> Nhận dữ liệu</a>--}}
                         @endif
 
-                        <a href="{{url($inputs['url'].'/prints?&nam='.$inputs['nam'].'&madv='.$inputs['madv'])}}" class="btn btn-default btn-sm" target="_blank">
+                        <a href="{{url($inputs['url'].'/prints?&nam='.$inputs['nam'].'&madiaban='.$inputs['madiaban'])}}" class="btn btn-default btn-sm" target="_blank">
                             <i class="fa fa-print"></i> In</a>
                     </div>
                 </div>
@@ -163,7 +163,7 @@
                             </div>
                         </div>
                     </div>
-
+                    <input type="hidden" name="act" value="true">
                 </div>
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>

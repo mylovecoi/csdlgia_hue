@@ -54,20 +54,27 @@
     </thead>
     <tbody>
     @if($model->count() != 0)
-        @foreach($model as $key => $tt)
+        @foreach($a_qd as $k => $v)
+            <?php $modelct = $model->where('soqd',$k); ?>
             <tr>
-                <td style="text-align: center">{{$key+1}}</td>
-                <td><b>{{$tt->nam}}</b></td>
-                <td><b>{{$a_diaban[$tt->madiaban] ?? ''}}</b></td>
-                <td><b>{{$a_xp[$tt->maxp] ?? ''}}</b></td>
-                <td style="text-align: left"><b>{{$a_loaidat[$tt->maloaidat] ?? ''}}</b></td>
-                <td style="text-align: left;" class="active"><b>{{$tt->khuvuc}}</b></td>
-                <td style="text-align: center">{{$tt->hesok}}</td>
-                <td style="text-align: center">{{dinhdangsothapphan($tt->giavt1,2)}}</td>
-                <td style="text-align: center">{{dinhdangsothapphan($tt->giavt2,2)}}</td>
-                <td style="text-align: center">{{dinhdangsothapphan($tt->giavt3,2)}}</td>
+                <td colspan="10" style="text-align: left;"><b>{{$v}}</b></td>
             </tr>
+            @foreach($modelct as $key => $tt)
+                <tr>
+                    <td style="text-align: center">{{$key+1}}</td>
+                    <td><b>{{$tt->nam}}</b></td>
+                    <td><b>{{$a_diaban[$tt->madiaban] ?? ''}}</b></td>
+                    <td><b>{{$a_xp[$tt->maxp] ?? ''}}</b></td>
+                    <td style="text-align: left"><b>{{$a_loaidat[$tt->maloaidat] ?? ''}}</b></td>
+                    <td style="text-align: left;" class="active"><b>{{$tt->khuvuc}}</b></td>
+                    <td style="text-align: center">{{$tt->hesok}}</td>
+                    <td style="text-align: center">{{dinhdangsothapphan($tt->giavt1,2)}}</td>
+                    <td style="text-align: center">{{dinhdangsothapphan($tt->giavt2,2)}}</td>
+                    <td style="text-align: center">{{dinhdangsothapphan($tt->giavt3,2)}}</td>
+                </tr>
+            @endforeach
         @endforeach
+
     @else
         <tr>
             <td style="text-align: center" colspan="15">Không tìm thấy thông tin. Bạn cần kiểm tra lại điều kiện tìm kiếm!!!</td>

@@ -117,13 +117,83 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 
-CREATE VIEW [dbo].[view_giadatdaugia]
+CREATE VIEW [dbo].[view_giadatdiaban]
 AS
-SELECT        dbo.giadatdiaban.mahs, dbo.giadatdiaban.madiaban, dbo.giadatdiaban.maxp, dbo.giadatdiaban.soqd, dbo.giadatdiaban.nam, dbo.giadatdiaban.noidung, dbo.giadatdiaban.congbo, dbo.giadatdiaban.lichsu,
+SELECT        dbo.giadatdiaban.mahs, dbo.giadatdiaban.madiaban, dbo.giadatdiabanct.maxp, dbo.giadatdiaban.soqd, dbo.giadatdiaban.nam, dbo.giadatdiaban.noidung, dbo.giadatdiaban.congbo, dbo.giadatdiaban.lichsu,
                          dbo.giadatdiaban.macqcq, dbo.giadatdiaban.trangthai, dbo.giadatdiaban.madv, dbo.giadatdiaban.macqcq_h, dbo.giadatdiaban.madv_h, dbo.giadatdiaban.trangthai_h, dbo.giadatdiaban.macqcq_t, dbo.giadatdiaban.madv_t,
                          dbo.giadatdiaban.trangthai_t, dbo.giadatdiaban.macqcq_ad, dbo.giadatdiaban.madv_ad, dbo.giadatdiaban.trangthai_ad, dbo.giadatdiabanct.maloaidat, dbo.giadatdiabanct.khuvuc, dbo.giadatdiabanct.diemdau,
                          dbo.giadatdiabanct.diemcuoi, dbo.giadatdiabanct.loaiduong, dbo.giadatdiabanct.mota, dbo.giadatdiabanct.mdsd, dbo.giadatdiabanct.giavt1, dbo.giadatdiabanct.giavt2, dbo.giadatdiabanct.giavt3, dbo.giadatdiabanct.giavt4,
                          dbo.giadatdiabanct.giavt5, dbo.giadatdiabanct.hesok, dbo.giadatdiabanct.sapxep, dbo.giadatdiaban.thoidiem, dbo.giadatdiaban.thoidiem_h, dbo.giadatdiaban.thoidiem_t, dbo.giadatdiaban.thoidiem_ad
 FROM            dbo.giadatdiaban INNER JOIN
                          dbo.giadatdiabanct ON dbo.giadatdiaban.mahs = dbo.giadatdiabanct.mahs
+GO
+
+ALTER TABLE giathuedatnuocct
+ADD
+	[diemdau] [nvarchar](255) NULL,
+	[diemcuoi] [nvarchar](255) NULL;
+
+	GO
+
+CREATE OR ALTER VIEW [dbo].[view_giathuedatnuoc]
+AS
+SELECT        dbo.giathuedatnuoc.mahs, dbo.giathuedatnuoc.madiaban, dbo.giathuedatnuoc.maxp, dbo.giathuedatnuoc.soqd, dbo.giathuedatnuoc.thoidiem, dbo.giathuedatnuoc.macqcq, dbo.giathuedatnuoc.madv, dbo.giathuedatnuoc.lydo,
+                         dbo.giathuedatnuoc.thongtin, dbo.giathuedatnuoc.trangthai, dbo.giathuedatnuoc.thoidiem_h, dbo.giathuedatnuoc.macqcq_h, dbo.giathuedatnuoc.madv_h, dbo.giathuedatnuoc.lydo_h, dbo.giathuedatnuoc.thongtin_h,
+                         dbo.giathuedatnuoc.trangthai_h, dbo.giathuedatnuoc.thoidiem_t, dbo.giathuedatnuoc.macqcq_t, dbo.giathuedatnuoc.madv_t, dbo.giathuedatnuoc.lydo_t, dbo.giathuedatnuoc.thongtin_t, dbo.giathuedatnuoc.trangthai_t,
+                         dbo.giathuedatnuoc.thoidiem_ad, dbo.giathuedatnuoc.macqcq_ad, dbo.giathuedatnuoc.madv_ad, dbo.giathuedatnuoc.lydo_ad, dbo.giathuedatnuoc.thongtin_ad, dbo.giathuedatnuoc.trangthai_ad, dbo.giathuedatnuocct.vitri,
+                         dbo.giathuedatnuocct.mota, dbo.giathuedatnuocct.dientich, dbo.giathuedatnuocct.dongia, dbo.giathuedatnuoc.ghichu, dbo.giathuedatnuoc.lichsu, dbo.giathuedatnuoc.congbo, dbo.giathuedatnuocct.diemdau,
+                         dbo.giathuedatnuocct.diemcuoi
+FROM            dbo.giathuedatnuoc INNER JOIN
+                         dbo.giathuedatnuocct ON dbo.giathuedatnuoc.mahs = dbo.giathuedatnuocct.mahs
+GO
+
+CREATE TABLE [dbo].[khunggiadat](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[madiaban] [nvarchar](255) NULL,
+	[maxp] [nvarchar](255) NULL,
+	[mahs] [nvarchar](255) NOT NULL,
+	[kyhieuvb] [nvarchar](255) NULL,
+	[dvbanhanh] [nvarchar](255) NULL,
+	[ngayapdung] [date] NULL,
+	[tieude] [nvarchar](max) NULL,
+	[ghichu] [nvarchar](max) NULL,
+	[ipf1] [nvarchar](255) NULL,
+	[ipf2] [nvarchar](255) NULL,
+	[ipf3] [nvarchar](255) NULL,
+	[ipf4] [nvarchar](255) NULL,
+	[ipf5] [nvarchar](255) NULL,
+	[congbo] [nvarchar](255) NULL,
+	[lichsu] [nvarchar](max) NULL,
+	[tinhtrang] [nvarchar](255) NULL,
+	[thoidiem] [date] NULL,
+	[macqcq] [nvarchar](255) NULL,
+	[madv] [nvarchar](255) NULL,
+	[lydo] [nvarchar](255) NULL,
+	[thongtin] [nvarchar](255) NULL,
+	[trangthai] [nvarchar](255) NULL,
+	[thoidiem_h] [date] NULL,
+	[macqcq_h] [nvarchar](255) NULL,
+	[madv_h] [nvarchar](255) NULL,
+	[lydo_h] [nvarchar](255) NULL,
+	[thongtin_h] [nvarchar](255) NULL,
+	[trangthai_h] [nvarchar](255) NULL,
+	[thoidiem_t] [date] NULL,
+	[macqcq_t] [nvarchar](255) NULL,
+	[madv_t] [nvarchar](255) NULL,
+	[lydo_t] [nvarchar](255) NULL,
+	[thongtin_t] [nvarchar](255) NULL,
+	[trangthai_t] [nvarchar](255) NULL,
+	[thoidiem_ad] [date] NULL,
+	[macqcq_ad] [nvarchar](255) NULL,
+	[madv_ad] [nvarchar](255) NULL,
+	[lydo_ad] [nvarchar](255) NULL,
+	[thongtin_ad] [nvarchar](255) NULL,
+	[trangthai_ad] [nvarchar](255) NULL,
+	[created_at] [datetime] NULL,
+	[updated_at] [datetime] NULL,
+PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO

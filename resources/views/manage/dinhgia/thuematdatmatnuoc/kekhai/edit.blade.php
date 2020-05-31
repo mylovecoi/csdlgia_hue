@@ -39,6 +39,8 @@
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
+                    diemdau: $('input[name="diemdau"]').val(),
+                    diemcuoi: $('input[name="diemcuoi"]').val(),
                     vitri: $('input[name="vitri"]').val(),
                     mota: $('input[name="mota"]').val(),
                     dientich: $('input[name="dientich"]').val(),
@@ -92,6 +94,8 @@
                     _token: CSRF_TOKEN,
                     id: $('input[name="idedit"]').val(),
                     vitri: $('input[name="vitriedit"]').val(),
+                    diemcuoi: $('input[name="diemcuoiedit"]').val(),
+                    diemdau: $('input[name="diemdauedit"]').val(),
                     mota: $('input[name="motaedit"]').val(),
                     dientich: $('input[name="dientichedit"]').val(),
                     dongia: $('input[name="dongiaedit"]').val(),
@@ -204,6 +208,8 @@
                                         <tr>
                                             <th width="2%" style="text-align: center">STT</th>
                                             <th style="text-align: center">Vị trí</th>
+                                            <th style="text-align: center">Địa giới từ</th>
+                                            <th style="text-align: center">Địa giới đến</th>
                                             <th style="text-align: center">Mô tả</th>
                                             <th style="text-align: center" width="10%">Diện tích</th>
                                             <th style="text-align: center" width="10%">Đơn giá</th>
@@ -215,6 +221,8 @@
                                             <tr id={{$tt->id}}>
                                                 <td style="text-align: center">{{($key +1)}}</td>
                                                 <td class="active">{{$tt->vitri}}</td>
+                                                <td>{{$tt->diemdau}}</td>
+                                                <td>{{$tt->diemcuoi}}</td>
                                                 <td>{{$tt->mota}}</td>
                                                 <td style="text-align: center;font-weight: bold" >{{number_format($tt->dientich)}}</td>
                                                 <td style="text-align: right;font-weight: bold">{{number_format($tt->dongia)}}</td>
@@ -291,6 +299,20 @@
                             <div class="form-group">
                                 <label class="control-label">Vị trí<span class="require">*</span></label>
                                 <input type="text" id="vitri" name="vitri" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Địa giới từ</label>
+                                <input type="text" id="diemdau" name="diemdau" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Địa giới đến</label>
+                                <input type="text" id="diemcuoi" name="diemcuoi" class="form-control">
                             </div>
                         </div>
                     </div>

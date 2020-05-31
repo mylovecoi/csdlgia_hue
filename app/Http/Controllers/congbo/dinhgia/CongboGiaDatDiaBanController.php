@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\congbo\dinhgia;
 
-use App\DiaBanHd;
-use App\GiaDatDiaBan;
 use App\GiaDatDiaBanDm;
 use App\Model\manage\dinhgia\giadatdiaban\TtGiaDatDiaBan;
 use App\Model\system\dsxaphuong;
+use App\Model\view\view_giadatdiaban;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -36,16 +35,17 @@ class CongboGiaDatDiaBanController extends Controller
         $a_xp = array_column(dsxaphuong::where('madiaban',$inputs['madiaban'])->get()->toarray(),'tenxp', 'maxp');
         $a_qd = array_column(TtGiaDatDiaBan::all()->toarray(),'mota', 'soqd');
         //lấy thông tin đơn vị
-        $model = GiaDatDiaBan::where('madiaban', $inputs['madiaban'])->where('congbo', 'DACONGBO');
+        $model = view_giadatdiaban::where('madiaban', $inputs['madiaban'])->where('congbo', 'DACONGBO');
         if ($inputs['nam'] != 'all')
-            $model = $model->where('nam', $inputs['nam']);
+            $model = $model->whereyear('thoidiem', $inputs['nam']);
         if ($inputs['maxp'] != 'all')
             $model = $model->where('maxp', $inputs['maxp']);
         if ($inputs['maloaidat'] != 'all')
             $model = $model->where('maloaidat', $inputs['maloaidat']);
         //dd($inputs);
+
         return view('congbo.DinhGia.GiaDatDiaBan.index')
-            ->with('model', $model->get())
+            ->with('model', $model->orderby('thoidiem','desc')->get())
             ->with('inputs', $inputs)
             //->with('m_diaban', $m_diaban)
             ->with('a_diaban', $a_diaban)

@@ -57,15 +57,15 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <div class="actions">
-                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giacldat', 'hoso', 'approve'))
-                            @if($inputs['level'] == 'ADMIN')
-                                <button type="button" class="btn btn-default btn-xs mbs" data-target="#congbo-modal-confirm" data-toggle="modal">
-                                    <i class="fa fa-send"></i>&nbsp;Công bố</button>
-                            @else
-                                <button type="button" class="btn btn-default btn-xs mbs" data-target="#check-modal-confirm" data-toggle="modal">
-                                    <i class="fa fa-check"></i>&nbsp;Hoàn thành</button>
-                            @endif
-                        @endif
+{{--                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giacldat', 'hoso', 'approve'))--}}
+{{--                            @if($inputs['level'] == 'ADMIN')--}}
+{{--                                <button type="button" class="btn btn-default btn-xs mbs" data-target="#congbo-modal-confirm" data-toggle="modal">--}}
+{{--                                    <i class="fa fa-send"></i>&nbsp;Công bố</button>--}}
+{{--                            @else--}}
+{{--                                <button type="button" class="btn btn-default btn-xs mbs" data-target="#check-modal-confirm" data-toggle="modal">--}}
+{{--                                    <i class="fa fa-check"></i>&nbsp;Hoàn thành</button>--}}
+{{--                            @endif--}}
+{{--                        @endif--}}
                         <a href="{{url($inputs['url'].'/prints?&nam='.$inputs['nam'].'&madiaban='.$inputs['madiaban'].'&madv='.$inputs['madv'])}}" class="btn btn-default btn-sm" target="_blank">
                             <i class="fa fa-print"></i> In</a>
                     </div>
@@ -103,55 +103,43 @@
                     <table id="sample_4" class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th rowspan="2" style="text-align: center" width="2%">STT</th>
-                                <th rowspan="2" style="text-align: center">Năm</th>
-                                <th rowspan="2" style="text-align: center">Địa bàn</th>
-                                <th rowspan="2" style="text-align: center">Xã phường</th>
-                                <th rowspan="2" style="text-align: center">Khu vực</br>Tên đường phố</th>
-                                <th rowspan="2" style="text-align: center" >Địa giới</th>
-                                <th colspan="3" style="text-align: center" >Giá đất</th>
-                                <th rowspan="2" style="text-align: center"  width="5%"> Trạng thái</th>
-                                <th rowspan="2" style="text-align: center"> Thao tác</th>
-                            </tr>
-                            <tr>
-                                <th style="text-align: center">VT1</th>
-                                <th style="text-align: center">VT2</th>
-                                <th style="text-align: center">VT3</th>
+                                <th tyle="text-align: center" width="2%">STT</th>
+                                <th style="text-align: center">Địa bàn</th>
+                                <th style="text-align: center">Thời điểm</th>
+                                <th style="text-align: center">Thông tư, quyết định</th>
+                                <th style="text-align: center"  width="5%"> Trạng thái</th>
+                                <th style="text-align: center"> Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($model as $key => $tt)
                                 <tr>
                                     <td style="text-align: center">{{$key+1}}</td>
-                                    <td><b>{{$tt->nam}}</b></td>
+
                                     <td><b>{{$a_diaban[$tt->madiaban] ?? ''}}</b></td>
-                                    <td style="text-align: left;"><b>{{$a_xp[$tt->maxp] ?? ''}}</b></td>
-                                    <td style="text-align: left" class="active">{{$tt->khuvuc}}</td>
-                                    <td style="text-align: left">{{'Từ: '.$tt->diemdau .'. Đến: '.$tt->diemdau}}</td>
-                                    <td style="text-align: center">{{dinhdangsothapphan($tt->giavt1,2)}}</td>
-                                    <td style="text-align: center">{{dinhdangsothapphan($tt->giavt2,2)}}</td>
-                                    <td style="text-align: center">{{dinhdangsothapphan($tt->giavt3,2)}}</td>
+                                    <td><b>{{getDayVn($tt->thoidiem)}}</b></td>
+                                    <td style="text-align: left" class="active">{{$a_qd[$tt->soqd] ?? $tt->soqd}}</td>
 
                                     @include('manage.include.form.td_trangthai')
                                     <td>
                                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giacldat', 'hoso', 'approve'))
                                             @if($tt->level == 'ADMIN')
                                                 @if($tt->trangthai == 'CB')
-                                                    <button type="button" onclick="confirmCongbo('{{$tt->maso}}','{{$inputs['url'].'/congbo'}}', 'HCB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
+                                                    <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','{{$inputs['url'].'/congbo'}}', 'HCB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
                                                         <i class="fa fa-times"></i>&nbsp;Hủy công bố</button>
                                                 @else
-                                                    <button type="button" onclick="confirmCongbo('{{$tt->maso}}','{{$inputs['url'].'/congbo'}}', 'CB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
+                                                    <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','{{$inputs['url'].'/congbo'}}', 'CB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
                                                         <i class="fa fa-send"></i>&nbsp;Công bố</button>
 
-                                                    <button type="button" onclick="confirmTraLai('{{$tt->maso}}','{{$inputs['url'].'/tralai'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#tralai-modal-confirm" data-toggle="modal">
+                                                    <button type="button" onclick="confirmTraLai('{{$tt->mahs}}','{{$inputs['url'].'/tralai'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#tralai-modal-confirm" data-toggle="modal">
                                                         <i class="fa fa-times"></i> Trả lại</button>
                                                 @endif
                                             @else
                                                 @if(in_array($tt->trangthai, ['HHT', 'CHT']))
-                                                    <button type="button" onclick="confirmChuyenXD('{{$tt->maso}}','{{$inputs['url'].'/chuyenxd'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#chuyenxd-modal-confirm" data-toggle="modal">
+                                                    <button type="button" onclick="confirmChuyenXD('{{$tt->mahs}}','{{$inputs['url'].'/chuyenxd'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#chuyenxd-modal-confirm" data-toggle="modal">
                                                         <i class="fa fa-check"></i> Hoàn thành</button>
 
-                                                    <button type="button" onclick="confirmTraLai('{{$tt->maso}}','{{$inputs['url'].'/tralai'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#tralai-modal-confirm" data-toggle="modal">
+                                                    <button type="button" onclick="confirmTraLai('{{$tt->mahs}}','{{$inputs['url'].'/tralai'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#tralai-modal-confirm" data-toggle="modal">
                                                         <i class="fa fa-times"></i> Trả lại</button>
                                                 @endif
                                             @endif

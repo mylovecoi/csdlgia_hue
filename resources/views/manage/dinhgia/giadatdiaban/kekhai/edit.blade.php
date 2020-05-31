@@ -79,6 +79,8 @@
                                             <i class="fa fa-plus"></i>&nbsp;Thêm vị trí</button>
                                         &nbsp;<button type="button" class="btn btn-success btn-xs mbs" data-target="#modal-importexcel" data-toggle="modal">
                                             <i class="fa fa-file-excel-o"></i>&nbsp;Nhận dữ liệu</button>
+                                        <button type="button" class="btn btn-danger btn-xs mbs" data-target="#delete-mul-modal" data-toggle="modal">
+                                            <i class="fa fa-file-excel-o"></i>&nbsp;Xóa chi tiết</button>
                                     </div>
                                 </div>
                             </div>

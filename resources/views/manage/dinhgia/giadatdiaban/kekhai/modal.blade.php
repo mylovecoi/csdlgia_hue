@@ -243,6 +243,29 @@
     <!-- /.modal-dialog -->
 </div>
 
+<div id="delete-mul-modal" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+    {!! Form::open(['url'=>$inputs['url'].'/del_mulct','id' => 'frm_delete_mul'])!!}
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-primary">
+                <button type="button" data-dismiss="modal" aria-hidden="true"
+                        class="close">&times;</button>
+                <h4 id="modal-header-primary-label" class="modal-title">Đồng ý xoá?</h4>
+                <input type="hidden" name="mahs" value="{{$model->mahs}}">
+
+            </div>
+            <div class="modal-body">
+                <p style="color: #0000FF">Bạn có chắc chắn muốn xóa tất cả chi tiết giá đất theo công bố.</p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
+                <button type="submit" data-dismiss="modal" class="btn btn-primary" onclick="clickdeletemul()">Đồng ý</button>
+            </div>
+        </div>
+    </div>
+    {!! Form::close() !!}
+</div>
 
 <script>
     function clearForm() {
@@ -287,5 +310,9 @@
 
     function clickdelete(){
         $('#frm_delete').submit();
+    }
+
+    function clickdeletemul(){
+        $('#frm_delete_mul').submit();
     }
 </script>

@@ -82,6 +82,7 @@
                             <th rowspan="2" style="text-align: center" width="2%">STT</th>
                             <th rowspan="2" style="text-align: center">Năm</th>
                             <th rowspan="2" style="text-align: center">Địa bàn</th>
+                            <th rowspan="2" style="text-align: center">Loại đất</th>
                             <th rowspan="2" style="text-align: center">Xã phường</th>
                             <th rowspan="2" style="text-align: center">Khu vực</br>Tên đường phố</th>
                             <th rowspan="2" style="text-align: center" >Địa giới</th>
@@ -97,11 +98,12 @@
                         @foreach($model as $key => $tt)
                             <tr>
                                 <td style="text-align: center">{{$key+1}}</td>
-                                <td><b>{{$tt->nam}}</b></td>
+                                <td><b>{{getDayVn($tt->thoidiem)}}</b></td>
                                 <td><b>{{$a_diaban[$tt->madiaban] ?? ''}}</b></td>
+                                <td style="text-align: left;"><b>{{$a_loaidat[$tt->maloaidat] ?? ''}}</b></td>
                                 <td style="text-align: left;"><b>{{$a_xp[$tt->maxp] ?? ''}}</b></td>
                                 <td style="text-align: left" class="active">{{$tt->khuvuc}}</td>
-                                <td style="text-align: left">{{'Từ: '.$tt->diemdau .'. Đến: '.$tt->diemdau}}</td>
+                                <td style="text-align: left">{{'Từ: '.$tt->diemdau .'. Đến: '.$tt->diemcuoi}}</td>
                                 <td style="text-align: center">{{dinhdangsothapphan($tt->giavt1,2)}}</td>
                                 <td style="text-align: center">{{dinhdangsothapphan($tt->giavt2,2)}}</td>
                                 <td style="text-align: center">{{dinhdangsothapphan($tt->giavt3,2)}}</td>

@@ -16,6 +16,8 @@ class CreateGiathuedatnuocctTable extends Migration
         Schema::create('giathuedatnuocct', function (Blueprint $table) {
             $table->increments('id');
             $table->string('mahs')->nullable();
+            $table->string('diemdau')->nullable();
+            $table->string('diemcuoi')->nullable();
             $table->string('vitri')->nullable();
             $table->string('mota')->nullable();
             $table->string('dientich')->nullable();

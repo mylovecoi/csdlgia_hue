@@ -36,7 +36,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Hồ sơ giá giao dịch bất động sản
+        Hồ sơ khung giá đất
     </h3>
 
     <!-- END PAGE HEADER-->

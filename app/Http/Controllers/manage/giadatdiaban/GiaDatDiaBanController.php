@@ -10,6 +10,7 @@ use App\Model\manage\dinhgia\giadatdiaban\TtGiaDatDiaBan;
 use App\Model\system\dsdiaban;
 use App\Model\system\dsxaphuong;
 use App\Model\system\view_dsdiaban_donvi;
+use App\Model\view\view_giadatdiaban;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -142,6 +143,15 @@ class GiaDatDiaBanController extends Controller
             $model = GiaDatDiaBanCt::where('id',$inputs['id'])->first();
             $model->delete();
             return redirect('/giacldat/modify?mahs='.$model->mahs.'&act=true');
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function destroy_mulct(Request $request){
+        if(Session::has('admin')){
+            $inputs=$request->all();
+            GiaDatDiaBanCt::where('mahs',$inputs['mahs'])->delete();
+            return redirect('/giacldat/modify?mahs='.$inputs['mahs'].'&act=true');
         }else
             return view('errors.notlogin');
     }
@@ -603,13 +613,10 @@ class GiaDatDiaBanController extends Controller
     function bcgiadatdiaban(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = GiaDatDiaBan::where('madiaban',$inputs['madiaban']);
+            $model = view_giadatdiaban::where('madiaban',$inputs['madiaban']);
             if ($inputs['nam'] != 'all')
-                $model = $model->where('nam', $inputs['nam']);
-            if ($inputs['maxp'] != 'all')
-                $model = $model->where('maxp', $inputs['maxp']);
-            if ($inputs['maloaidat'] != 'all')
-                $model = $model->where('maloaidat', $inputs['maloaidat']);
+                $model = $model->whereyear('thoidiem', $inputs['nam']);
+
             if(isset($inputs['madv'])){
                 $m_donvi = view_dsdiaban_donvi::where('madv',$inputs['madv'])->first();
                 $inputs['level'] = $m_donvi->level;
@@ -636,10 +643,10 @@ class GiaDatDiaBanController extends Controller
 
             }
             $model = $model->get();
-
+            $qd = a_unique(array_column($model->toarray(),'soqd'));
             $a_loaidat = array_column(GiaDatDiaBanDm::all()->toArray(),'loaidat','maloaidat');
             $a_xp = array_column(dsxaphuong::where('madiaban',$inputs['madiaban'])->get()->toarray(),'tenxp', 'maxp');
-            $a_qd = array_column(TtGiaDatDiaBan::all()->toarray(),'mota', 'soqd');
+            $a_qd = array_column(TtGiaDatDiaBan::wherein('soqd',$qd)->get()->toarray(),'mota', 'soqd');
 
             return view('manage.dinhgia.giadatdiaban.reports.BcGiaDatDiaBan')
                 ->with('model',$model)

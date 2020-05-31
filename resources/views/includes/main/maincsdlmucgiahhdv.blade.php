@@ -1357,6 +1357,41 @@
     </li>
 @endif
 
+@if(chkPer('csdlmucgiahhdv','dinhgia', 'khunggiadat'))
+    <li class="javascript:;">
+        <a href="javascript:;">
+            <i class="icon-folder"></i>
+            <span class="title">{{session('admin')['a_chucnang']['khunggiadat'] ?? 'Khung giá đất'}}</span>
+            <span class="arrow"></span>
+        </a>
+        <ul class="sub-menu">
+            @if(chkPer('csdlmucgiahhdv','dinhgia', 'khunggiadat', 'hoso', 'index'))
+                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                    <li>
+                        <a href="{{url('/khunggiadat/danhsach')}}">
+                            Thông tin hồ sơ
+                        </a>
+                    </li>
+                @endif
+
+                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                    <li>
+                        <a href="{{url('/khunggiadat/xetduyet')}}">
+                            Xét duyệt hồ sơ
+                        </a>
+                    </li>
+                @endif
+
+                <li>
+                    <a href="{{url('/khunggiadat/timkiem')}}">
+                        Tìm kiếm hồ sơ
+                    </a>
+                </li>
+            @endif
+        </ul>
+    </li>
+@endif
+
 @if(chkPer('csdlmucgiahhdv','dinhgia','giacldat'))
     {{--Bảng giá đất--}}
     <li>

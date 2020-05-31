@@ -10,6 +10,8 @@ class GiaThueDatNuocCt extends Model
     protected $fillable = [
         'id',
         'mahs',
+        'diemdau',
+        'diemcuoi',
         'vitri',
         'mota',
         'dientich',

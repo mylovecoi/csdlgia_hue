@@ -32,17 +32,15 @@
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box">
                 <div class="portlet-body form-horizontal">
-                    <table id="sample_3" class="table table-striped table-bordered table-hover">
+                    <table id="sample_4" class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th width="2%" style="text-align: center">STT</th>
                                 <th style="text-align: center">Đơn vị nhập</th>
                                 <th style="text-align: center">Thời điểm</th>
-                                <th style="text-align: center">Vị trí</th>
-                                <th style="text-align: center">Địa giới từ</th>
-                                <th style="text-align: center">Địa giới đến</th>
-                                <th style="text-align: center">Diện tích</th>
-                                <th style="text-align: center">Giá trị</th>
+                                <th style="text-align: center">Thông tin hồ sơ</th>
+                                <th style="text-align: center">Đơn vị ban hành</th>
+
                             </tr>
                         </thead>
 
@@ -52,11 +50,8 @@
                                     <td style="text-align: center">{{$key + 1}}</td>
                                     <td>{{$a_donvi[$tt->madv] ?? ''}}</td>
                                     <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
-                                    <td>{{$tt->vitri}}</td>
-                                    <td>{{$tt->diemdau}}</td>
-                                    <td>{{$tt->diemcuoi}}</td>
-                                    <td style="text-align: center">{{dinhdangso($tt->dientich)}}</td>
-                                    <td style="text-align: right">{{dinhdangso($tt->dongia)}}</td>
+                                    <td>{{$tt->tieude}}</td>
+                                    <td>{{$tt->dvbanhanh}}</td>
                                 </tr>
                             @endforeach
 
@@ -64,7 +59,7 @@
                     </table>
                     <div class="row">
                         <div class="col-md-12" style="text-align: center">
-                            <a href="{{url('giathuematdatmatnuoc/timkiem')}}" class="btn btn-danger">
+                            <a href="{{url('khunggiadat/timkiem')}}" class="btn btn-danger">
                                 <i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                         </div>
                     </div>

@@ -18,6 +18,27 @@ Route::get('reportsgiacldat','GiaCacLoaiDatController@show');
 
 Route::get('timkiemthongtingiacacloaidat','GiaCacLoaiDatController@search');
 
+//
+//Khung giá đất
+Route::group(['prefix'=>'khunggiadat'],function (){
+    Route::get('danhsach','manage\khunggiadat\khunggiadatController@index');
+    Route::get('new','manage\khunggiadat\khunggiadatController@create');
+
+    Route::get('modify','manage\khunggiadat\khunggiadatController@edit');
+    Route::post('modify','manage\khunggiadat\khunggiadatController@store');
+    Route::post('delete','manage\khunggiadat\khunggiadatController@destroy');
+    Route::get('dinhkem','manage\khunggiadat\khunggiadatController@show');
+
+    Route::post('chuyenhs','manage\khunggiadat\khunggiadatController@chuyenhs');
+
+    Route::get('xetduyet','manage\khunggiadat\khunggiadatController@xetduyet');
+    Route::post('chuyenxd','manage\khunggiadat\khunggiadatController@chuyenxd');
+    Route::post('tralai','manage\khunggiadat\khunggiadatController@tralai');
+    Route::post('congbo','manage\khunggiadat\khunggiadatController@congbo');
+
+    Route::get('timkiem','manage\khunggiadat\khunggiadatController@timkiem');
+    Route::post('timkiem','manage\khunggiadat\khunggiadatController@ketquatk');
+});
 
 //Giá đất địa bàn (bảng giá đất)
 Route::group(['prefix'=>'giacldat'],function (){
@@ -37,6 +58,7 @@ Route::group(['prefix'=>'giacldat'],function (){
     Route::post('store_ct','manage\giadatdiaban\GiaDatDiaBanController@store_ct');
     Route::get('edit_ct','manage\giadatdiaban\GiaDatDiaBanController@get_hs');
     Route::post('del_ct','manage\giadatdiaban\GiaDatDiaBanController@destroy_ct');
+    Route::post('del_mulct','manage\giadatdiaban\GiaDatDiaBanController@destroy_mulct');
     Route::post('importexcel','manage\giadatdiaban\GiaDatDiaBanController@importexcel');
 
     Route::post('chuyenhs','manage\giadatdiaban\GiaDatDiaBanController@chuyenhs');
