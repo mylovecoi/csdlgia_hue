@@ -78,7 +78,7 @@
 @section('content')
 
     <h3 class="page-title">
-        Giá cho thuê, thuê mua nhà xã hội
+        Giá bán, cho thuê, thuê mua nhà ở
     </h3>
     {{--<h3 class="page-title">
         <small> <b style="color: blue">{{$dvql->tendv}}</b><b style="color: blue"> - </b><b style="color: blue">{{$dv->tendv}}</b> - Người soạn thảo: <b style="color: blue">{{isset($model) ? $model->cvsoanthao : session('admin')->name}}</b> </small>

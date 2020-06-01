@@ -17,6 +17,7 @@ class GiaThueMuaNhaXh extends Model
         'phanloai',
         'dvt',
         'dongia',
+        'dongiathue',
         'tungay',
         'denngay',
         'soqd',

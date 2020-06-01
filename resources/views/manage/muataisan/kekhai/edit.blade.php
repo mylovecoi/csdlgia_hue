@@ -70,7 +70,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="control-label">Số quyết định<span class="require">*</span></label>
+                                        <label class="control-label">Số QĐ kết quả lựa chọn nhà thầu<span class="require">*</span></label>
                                         {!!Form::text('soqd',null, array('id' => 'soqd','class' => 'form-control required'))!!}
                                     </div>
                                 </div>
@@ -86,8 +86,8 @@
 
                                 <div class="col-md-9">
                                     <div class="form-group">
-                                        <label class="control-label">Thông tin quyết định<span class="require">*</span></label>
-                                        {!!Form::text('thongtinqd',null, array('id' => 'thongtinqd','class' => 'form-control required'))!!}
+                                        <label class="control-label">Thông tin quyết định</label>
+                                        {!!Form::text('thongtinqd',null, array('id' => 'thongtinqd','class' => 'form-control'))!!}
                                     </div>
                                 </div>
                             </div>
@@ -95,8 +95,8 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label">Tên nhà thầu<span class="require">*</span></label>
-                                        {!!Form::text('tennhathau',null, array('id' => 'tennhathau','class' => 'form-control', ' required'))!!}
+                                        <label class="control-label">Tên nhà thầu</label>
+                                        {!!Form::text('tennhathau',null, array('id' => 'tennhathau','class' => 'form-control'))!!}
                                     </div>
                                 </div>
                             </div>

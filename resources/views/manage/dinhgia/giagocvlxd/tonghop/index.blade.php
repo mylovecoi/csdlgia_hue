@@ -19,14 +19,14 @@
 
             function changeUrl() {
                 var current_path_url = '{{$inputs['url']}}' + '/tonghop?';
-                var url = current_path_url + 'nam=' + $('#nam').val() + '&quy=' + $('#quy').val();
+                var url = current_path_url + 'nam=' + $('#nam').val() + '&thang=' + $('#thang').val();
                 window.location.href = url;
             }
 
             $('#nam').change(function() {
                 changeUrl();
             });
-            $('#quy').change(function () {
+            $('#thang').change(function () {
                 changeUrl();
             });
         });
@@ -63,17 +63,11 @@
                     <div class="row">
                         <div class="form-group">
                             <div class="col-md-2">
-                                <label>Quí hồ sơ</label>
-                                <select name="quy" id="quy" class="form-control">
-                                    <option value="1" {{ $inputs['quy']== 1 ? 'selected' : ''}}>Quí 1</option>
-                                    <option value="2" {{ $inputs['quy']== 2 ? 'selected' : ''}}>Quí 2</option>
-                                    <option value="3" {{ $inputs['quy']== 3 ? 'selected' : ''}}>Quí 3</option>
-                                    <option value="4" {{ $inputs['quy']== 4 ? 'selected' : ''}}>Quí 4</option>
-                                </select>
+                                <label>Tháng hồ sơ</label>
+                                {!! Form::select('thang', getThang(), $inputs['thang'], array('id' => 'thang', 'class' => 'form-control'))!!}
                             </div>
 
                             <div class="col-md-2">
-
                                 <label>Năm hồ sơ</label>
                                 <select name="nam" id="nam" class="form-control">
                                     @if ($nam_start = intval(date('Y')) - 5 ) @endif

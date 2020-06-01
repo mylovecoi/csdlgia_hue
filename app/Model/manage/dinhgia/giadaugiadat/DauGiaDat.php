@@ -19,6 +19,7 @@ class DauGiaDat extends Model
         'soqddaugia',
         'soqdgiakhoidiem',
         'soqdkqdaugia',
+        'phanloai',
         'ipf1',
         'ipf2',
         'ipf3',

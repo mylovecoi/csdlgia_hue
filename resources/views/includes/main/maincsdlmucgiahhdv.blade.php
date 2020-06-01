@@ -124,7 +124,7 @@
                     <ul class="sub-menu">
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuemuanhaxh', 'danhmuc','index'))
                             <li>
-                                <a href="{{url('/thuemuanhaxahoi/danhmuc')}}">Danh mục nhà xã hội</a>
+                                <a href="{{url('/thuemuanhaxahoi/danhmuc')}}">Danh mục</a>
                             </li>
                         @endif
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuemuanhaxh', 'hoso','index'))
@@ -1284,11 +1284,11 @@
             <span class="arrow"></span>
         </a>
         <ul class="sub-menu">
-            @if(chkPer('csdlmucgiahhdv','taisan', 'taisancong', 'danhmuc','index'))
-                <li>
-                    <a href="{{url('/taisancong/danhmuc?phanloai=taisancong')}}">Danh mục</a>
-                </li>
-            @endif
+{{--            @if(chkPer('csdlmucgiahhdv','taisan', 'taisancong', 'danhmuc','index'))--}}
+{{--                <li>--}}
+{{--                    <a href="{{url('/taisancong/danhmuc?phanloai=taisancong')}}">Danh mục</a>--}}
+{{--                </li>--}}
+{{--            @endif--}}
 
             @if(chkPer('csdlmucgiahhdv','taisan', 'taisancong', 'hoso', 'index'))
                 @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')

@@ -257,8 +257,8 @@
                     <div class="row">
                         <div class="form-group">
                             <div class="col-md-4">
-                                <label>Quí hồ sơ</label>
-                                {!! Form::select('quy', ['1'=>'Quí 1','2'=>'Quí 2','3'=>'Quí 3','4'=>'Quí 4',], null, array('id' => 'quy', 'class' => 'form-control'))!!}
+                                <label>Tháng hồ sơ</label>
+                                {!! Form::select('thang', getThang(), null, array('id' => 'quy', 'class' => 'form-control'))!!}
                             </div>
 
                             <div class="col-md-4">

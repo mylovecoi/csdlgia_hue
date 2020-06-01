@@ -195,8 +195,8 @@ class GiaHhDvKController extends Controller
     public function show(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();
-            $model = view_giahhdvk::where('mahs',$inputs['mahs'])->first();
-            $modelct = GiaHhDvKCt::where('mahs',$model->mahs)->get();
+            $model = GiaHhDvK::where('mahs',$inputs['mahs'])->first();
+            $modelct = view_giahhdvk::where('mahs',$model->mahs)->get();
 
             $a_diaban = array_column(dsdiaban::where('madiaban', $model->madiaban)->get()->toarray(), 'tendiaban', 'madiaban');
             $a_tt = array_column(NhomHhDvK::where('matt', $model->matt)->get()->toarray(), 'tentt', 'matt');

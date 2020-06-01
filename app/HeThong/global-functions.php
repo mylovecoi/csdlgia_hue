@@ -3033,11 +3033,9 @@ function getDayVn($date) {
     return $newday;
 }
 
-//0: bắt đầu
-//1: chứa
-function getTimkiemLike($str, $kieu = 0)
-{
-    //kiểm tra hàm .env để lấy database
+//$kieu = 0: bắt đầu
+//$kieu = 1: chứa
+function getTimkiemLike($str, $kieu = 0){
     $tt = env('DB_CONNECTION') == 'sqlsrv' ? '%' : '*';
     return $kieu == 0 ? $str . $tt : $tt . $str . $tt;
 }

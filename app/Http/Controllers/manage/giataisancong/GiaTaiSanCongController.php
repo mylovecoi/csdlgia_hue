@@ -72,7 +72,10 @@ class GiaTaiSanCongController extends Controller
         if(Session::has('admin')){
             $inputs = $request->all();
             //dd($inputs);
-            $inputs['giathue'] = getMoneyToDb($inputs['giathue']);
+            $inputs['giathue'] = getDoubleToDb($inputs['giathue']);
+            $inputs['giaban'] = getDoubleToDb($inputs['giaban']);
+            $inputs['giaconlai'] = getDoubleToDb($inputs['giaconlai']);
+            $inputs['giapheduyet'] = getDoubleToDb($inputs['giapheduyet']);
             $inputs['thoidiem'] = getDateToDb($inputs['thoidiem']);
             $model = GiaTaiSanCong::where('mahs',$inputs['mahs'])->first();
             if($model == null){
@@ -388,10 +391,10 @@ class GiaTaiSanCongController extends Controller
             $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
             //dd($m_diaban);
             $a_ts = array_column(GiaTaiSanCongDm::all()->toArray(),'tentaisan','mataisan');
-            return view('manage.dinhgia.taisancong.timkiem.index')
+            return view('manage.dinhgia.giataisancong.timkiem.index')
                 ->with('m_diaban',$m_diaban)
                 ->with('m_donvi',$m_donvi)
-                ->with('a_dm',$a_ts)
+                ->with('a_ts',$a_ts)
                 ->with('pageTitle','Tìm kiếm thông tin hồ sơ');
         }else
             return view('errors.notlogin');
@@ -403,14 +406,14 @@ class GiaTaiSanCongController extends Controller
             //Lấy hết hồ sơ trên địa bàn rồi bắt đầu tìm kiểm
             $inputs = $request->all();
             $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
-            $model = GiaTaiSanCong::wherein('madv',array_column($m_donvi->toarray(),'madv'))->get();
+            $model = GiaTaiSanCong::wherein('madv',array_column($m_donvi->toarray(),'madv'));
             //dd($inputs);
 
             if($inputs['madv'] != 'all'){
                 $model = $model->where('madv',$inputs['madv']);
             }
-            if($inputs['maspdv'] != 'all') {
-                $model = $model->where('mataisan', $inputs['mataisan']);
+            if($inputs['tentaisan'] != '') {
+                $model = $model->where('tentaisan', 'like' ,getTimkiemLike($inputs['tentaisan']));
             }
 
             if(getDayVn($inputs['thoidiem_tu']) != ''){
@@ -427,11 +430,11 @@ class GiaTaiSanCongController extends Controller
             }
             //dd($model);
             $a_ts = array_column(GiaTaiSanCongDm::all()->toArray(),'tentaisan','mataisan');
-            return view('manage.dinhgia.giaspdvci.timkiem.result')
-                ->with('model',$model)
+            return view('manage.dinhgia.giataisancong.timkiem.result')
+                ->with('model',$model->get())
                 ->with('a_diaban',array_column($m_donvi->toarray(),'tendiaban','madiaban'))
                 ->with('a_donvi',array_column($m_donvi->toarray(),'tendv','madv'))
-                ->with('a_dm',$a_ts)
+                ->with('a_ts',$a_ts)
                 ->with('pageTitle','Tìm kiếm thông tin hồ sơ');
         }else
             return view('errors.notlogin');
