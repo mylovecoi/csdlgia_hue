@@ -75,4 +75,7 @@ include('kkgia/dvdlbb.php');
 
 //Vé tham quan tại khu du lịch
 include('kkgia/vetqkdl.php');
+
+//Dịch vụ ca huế trên sông hương
+include('kkgia/dvch.php');
 ?>

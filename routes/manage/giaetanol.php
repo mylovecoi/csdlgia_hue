@@ -29,5 +29,4 @@
     Route::get('show_ct','manage\giaetanol\KkGiaEtanolCtController@show');
     Route::get('del_ct','manage\giaetanol\KkGiaEtanolCtController@destroy');
 
-
 });*/

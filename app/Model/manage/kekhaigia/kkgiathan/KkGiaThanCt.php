@@ -14,13 +14,15 @@ class KkGiaThanCt extends Model
         'tthhdv',
         'qccl',
         'dvt',
-        'dongialk',
-        'dongia',
         'ghichu',
         'thuevat',
         'trangthai',
 
         'madv',
         'plhs',
+
+        'tendvcu',
+        'gialk',
+        'giakk',
     ];
 }

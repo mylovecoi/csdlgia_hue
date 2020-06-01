@@ -13,8 +13,6 @@ class KkGiaGiayCt extends Model
         'tthhdv',
         'qccl',
         'dvt',
-        'dongialk',
-        'dongia',
         'ghichu',
         'thuevat',
 
@@ -22,5 +20,9 @@ class KkGiaGiayCt extends Model
         'plhs',
         'maxa',
         'trangthai',
+
+        'tendvcu',
+        'gialk',
+        'giakk',
     ];
 }

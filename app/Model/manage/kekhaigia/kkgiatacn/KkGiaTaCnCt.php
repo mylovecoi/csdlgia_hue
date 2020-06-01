@@ -9,16 +9,21 @@ class KkGiaTaCnCt extends Model
     protected $table = 'kkgiatacnct';
     protected $fillable = [
         'id',
-        'maxa',
-        'mahuyen',
         'mahs',
-        'tenhh',
+        'maxa',
+        'tthhdv',
         'qccl',
         'dvt',
-        'dongialk',
-        'dongia',
         'ghichu',
+        'thuevat',
         'trangthai',
+
+        'madv',
+        'plhs',
+
+        'tendvcu',
+        'gialk',
+        'giakk',
 
 //        'cpnvlttlk',
 //        'cpncttlk',

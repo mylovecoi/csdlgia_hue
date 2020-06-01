@@ -3452,6 +3452,7 @@ function getDoubleToDb ($value){
         $kq = 0;
     }else {
         $kq = str_replace(',', '', $value);
+        $kq = str_replace('.', '', $kq);
     }
     return $kq;
 }

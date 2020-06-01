@@ -123,57 +123,31 @@
         // </editor-fold>
     </script>
     <script>
-        function checkngay(){
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            $.ajax({
-                url: '/ajax/checkngay',
-                type: 'GET',
-                data: {
-                    _token: CSRF_TOKEN,
-                    ngaynhap: $('input[name="ngaynhap"]').val(),
-                    ngayhieuluc: $('input[name="ngayhieuluc"]').val(),
-                    plhs: $('select[name="plhs"]').val()
-
-                },
-                dataType: 'JSON',
-                success: function (data) {
-                    if (data.status == 'success') {
-                        toastr.success("Ngày hiệu lực có thể sử dụng được", "Thành công!");
-                    }else {
-                        toastr.error("Bạn cần kiểm tra lại ngày có hiệu lực!", "Lỗi!");
-                        $('input[name="ngayhieuluc"]').val('');
-                    }
-                }
-            })
-
-        }
-        function clearngay(){
-            $('input[name="ngaynhap"]').val('');
-            $('input[name="ngayhieuluc"]').val('');
-        }
         function clearForm(){
-            $('#tthhdv').val('');
+            $('#tendvcu').val('');
+            $('#mota').val('');
             $('#qccl').val('');
             $('#dvt').val('');
-            $('#dongialk').val('');
-            $('#dongia').val('');
+            $('#gialk').val(0);
+            $('#giakk').val(0);
             $('#ghichu').val('');
 
         }
         function createttp(){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: '/giagiayctdf/storett',
+                url: '/giagiayct/storett',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    tthhdv: $('#tthhdv').val(),
+                    tendvcu: $('#tendvcu').val(),
                     qccl: $('#qccl').val(),
                     dvt: $('#dvt').val(),
-                    dongialk: $('#dongialk').val(),
-                    dongia: $('#dongia').val(),
+                    gialk: $('#gialk').val(),
+                    giakk: $('#giakk').val(),
                     ghichu: $('#ghichu').val(),
-                    maxa: $('input[name="maxa"]').val()
+                    mahs: $('#mahs').val(),
+                    maxa: $('#maxa').val(),
                 },
                 dataType: 'JSON',
                 success: function (data) {
@@ -193,7 +167,7 @@
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             //alert(id);
             $.ajax({
-                url: '/giagiayctdf/edittt',
+                url: '/giagiayct/edittt',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -214,18 +188,18 @@
         function updatets() {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: '/giagiayctdf/updatett',
+                url: '/giagiayct/updatett',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
                     id: $('input[name="idedit"]').val(),
-                    tthhdv: $('#tthhdvedit').val(),
+                    tendvcu: $('#dvcuedit').val(),
                     qccl: $('#qccledit').val(),
                     dvt: $('#dvtedit').val(),
+                    gialk: $('#gialkedit').val(),
+                    giakk: $('#giakkedit').val(),
                     ghichu: $('#ghichuedit').val(),
-                    dongia: $('#dongiaedit').val(),
-                    dongialk: $('#dongialkedit').val(),
-                    maxa: $('input[name="maxa"]').val()
+                    mahs: $('input[name="mahs"]').val()
                 },
                 dataType: 'JSON',
                 success: function (data) {
@@ -248,12 +222,12 @@
         function deleteRow() {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: '/giagiayctdf/deletett',
+                url: '/giagiayct/deletett',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
                     id: $('input[name="iddelete"]').val(),
-                    maxa: $('input[name="maxa"]').val()
+                    mahs: $('input[name="mahs"]').val()
                 },
                 dataType: 'JSON',
                 success: function (data) {
@@ -270,34 +244,6 @@
                 }
             })
 
-        }
-        function checkngaykk(){
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            $.ajax({
-                url: '/ajax/checkngaykk',
-                type: 'GET',
-                data: {
-                    _token: CSRF_TOKEN,
-                    ngaynhap: $('input[name="ngaynhap"]').val()
-
-                },
-                dataType: 'JSON',
-                success: function (data) {
-                    if (data.status == 'success') {
-                        toastr.success("Ngày kê khai có thể sử dụng được", "Thành công!");
-                    }else {
-                        toastr.error("Bạn cần kiểm tra lại ngày có kê khai, ngày kê khai không được nhỏ hơn ngày hiện tại! ", "Lỗi!");
-                        var today = new Date();
-                        var dd = today.getDate();
-                        var mm = today.getMonth()+1;//January is 0!
-                        var yyyy = today.getFullYear();
-                        if(dd<10){dd='0'+dd}
-                        if(mm<10){mm='0'+mm}
-                        $('#ngaynhap').val(dd+'/'+mm+'/'+yyyy);
-                        $('input[name="ngayhieuluc"]').val('');
-                    }
-                }
-            })
         }
     </script>
     <script>
@@ -376,13 +322,14 @@
 
 @section('content')
     <h3 class="page-title">
-        Thông tin kê khai hồ sơ giá <small>&nbsp;giấy in, viết (dạng cuộn), giấy in báo sản xuất trong nước thêm mới</small>
+        Thông tin kê khai hồ sơ giá <small>&nbsp;giấy thêm mới</small>
         <p><h5 style="color: blue">{{$modeldn->tendn}}&nbsp;- Mã số thuế: {{$modeldn->maxa}}</h5></p>
     </h3>
     <hr>
     <!-- END PAGE HEADER-->
     <div class="row">
-        {!! Form::open(['url'=>'kekhaigiagiay', 'id' => 'create_kkvtxk', 'class'=>'horizontal-form']) !!}
+        {!! Form::open(['url'=>'kekhaigiagiay', 'id' => 'create_kkgiagiay', 'class'=>'horizontal-form']) !!}
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
         <div class="col-md-12">
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box blue">
@@ -392,7 +339,6 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Ngày kê khai<span class="require">*</span></label>
-                                <!--input type="date" name="ngaynhap" id="ngaynhap" class="form-control required" autofocus-->
                                 {!!Form::text('ngaynhap',null, array('id' => 'ngaynhap','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
                             </div>
                         </div>
@@ -418,13 +364,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Số công văn liền kề</label>
-                                {!!Form::text('socvlk',(isset($modelcb) ? $modelcb->socv : ''), array('id' => 'socvlk','class' => 'form-control'))!!}
+                                {!!Form::text('socvlk',(isset($inputs['socvlk']) ? $inputs['socvlk'] : ''), array('id' => 'socvlk','class' => 'form-control'))!!}
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Ngày nhập số công văn liền kề<span class="require">*</span></label>
-                                {!!Form::text('ngaycvlk',(isset($modelcb) ? date('d/m/Y',  strtotime($modelcb->ngaynhap)) : ''), array('id' => 'ngaycvlk','data-inputmask'=>"'alias': 'date'",'class' => 'form-control'))!!}
+                                {!!Form::text('ngaycvlk',(isset($inputs['ngaycvlk']) ? date('d/m/Y',  strtotime($inputs['ngaycvlk'])) : ''), array('id' => 'ngaycvlk','data-inputmask'=>"'alias': 'date'",'class' => 'form-control'))!!}
                             </div>
                         </div>
                     </div>
@@ -433,7 +379,7 @@
                             <div class="form-group"><label for="selGender" class="control-label">Các yếu tố chi phí cấu thành giá (đối với kê khai lần đầu); phân tích nguyên nhân, nêu rõ biến động của các yếu tố hình thành giá tác động làm tăng hoặc giảm giá (đối với kê khai lại).</label>
                                 <div>
                                         <textarea id="ytcauthanhgia" class="form-control" name="ytcauthanhgia" cols="30" rows="5"
-                                        ></textarea>
+                                                ></textarea>
                                 </div>
                             </div>
                         </div>
@@ -443,12 +389,13 @@
                             <div class="form-group"><label for="selGender" class="control-label">Các trường hợp ưu đãi, giảm giá; điều kiện áp dụng giá (nếu có).</label>
                                 <div>
                                         <textarea id="thydggadgia" class="form-control" name="thydggadgia" cols="30" rows="5"
-                                        ></textarea>
+                                                ></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <input type="hidden" name="maxa" id="maxa" value="{{$inputs['masothue']}}">
+                    <input type="hidden" name="mahs" id="mahs" value="{{$inputs['mahs']}}">
                     <input type="hidden" name="mahuyen" id="mahuyen" value="{{$modeldn->mahuyen}}">
 
                     <!--/row-->
@@ -468,11 +415,11 @@
                                 <thead>
                                 <tr>
                                     <th style="text-align: center" width="2%">STT</th>
-                                    <th style="text-align: center">Tên Hàng hóa, dịch vụ</th>
+                                    <th style="text-align: center">Tên dịch vụ cung ứng</th>
                                     <th style="text-align: center">Quy cách chất lượng</th>
                                     <th style="text-align: center">Đơn vị<br>tính</th>
-                                    <th style="text-align: center">Mức giá <br>liền kề</th>
-                                    <th style="text-align: center">Mức giá <br>kê khai</th>
+                                    <th style="text-align: center">Mức giá kê khai hiện hành</th>
+                                    <th style="text-align: center">Mức giá kê khai mới hoặc kê khai lại</th>
                                     <th style="text-align: center">Ghi chú</th>
                                     <th style="text-align: center" width="20%">Thao tác</th>
                                 </tr>
@@ -481,14 +428,15 @@
                                 @foreach($modelct as $key=>$tt)
                                     <tr>
                                         <td style="text-align: center">{{($key +1)}}</td>
-                                        <td class="active">{{$tt->tthhdv}}</td>
+                                        <td class="active">{{$tt->tendvcu}}</td>
                                         <td style="text-align: left">{{$tt->qccl}}</td>
                                         <td style="text-align: center">{{$tt->dvt}}</td>
-                                        <td style="text-align: right">{{number_format($tt->dongialk)}}</td>
-                                        <td style="text-align: right">{{number_format($tt->dongia)}}</td>
+                                        <td style="text-align: right">{{number_format($tt->gialk)}}</td>
+                                        <td style="text-align: right">{{number_format($tt->giakk)}}</td>
                                         <td style="text-align: left">{{$tt->ghichu}}</td>
                                         <td>
                                             <button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editTtPh({{$tt->id}});"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa thông tin</button>
+                                            {{--<button type="button" data-target="#modal-pag" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editPag({{$tt->id}});"><i class="fa fa-edit"></i>&nbsp;Phương án giá</button>--}}
                                             <button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid({{$tt->id}});" ><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
                                         </td>
                                     </tr>
@@ -519,7 +467,7 @@
     <script type="text/javascript">
         function validateForm(){
 
-            var validator = $("#create_kkvtxk").validate({
+            var validator = $("#create_kkgiagiay").validate({
                 rules: {
                     ten :"required"
                 },
@@ -529,6 +477,7 @@
             });
         }
     </script>
+
     <!--Model them moi ttp-->
     <div class="modal fade bs-modal-lg" id="modal-create" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -541,12 +490,11 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="form-control-label"><b>Tên Hàng hóa, dịch vụ</b></label>
-                                {!!Form::textarea('tthhdv', null, array('id' => 'tthhdv','class' => 'form-control','rows'=>'3'))!!}
+                                <label class="form-control-label"><b>Tên dịch vụ cung ứng</b><span class="require">*</span></label>
+                                {!!Form::text('tendvcu', null, array('id' => 'tendvcu','class' => 'form-control','required'=>'required'))!!}
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -565,16 +513,19 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group"><label for="selGender" class="control-label"><b>Giá liền kề</b><span class="require">*</span></label>
-                                <div><input type="text" name="dongialk" id="dongialk" class="form-control" data-mask="fdecimal" style="text-align: right;font-weight: bold"></div>
+                            <div class="form-group">
+                                <label class="form-control-label"><b>Giá kê khai hiện hành</b><span class="require">*</span></label>
+                                <input type="text" name="gialk" id="gialk" class="form-control" data-mask="fdecimal" style="text-align: right;font-weight: bold">
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group"><label for="selGender" class="control-label"><b>Giá kê khai</b><span class="require">*</span></label>
-                                <div><input type="text" name="dongia" id="dongia" class="form-control" data-mask="fdecimal" style="text-align: right;font-weight: bold"></div>
+                            <div class="form-group">
+                                <label class="form-control-label"><b>Giá kê khai mới</b><span class="require">*</span></label>
+                                <input type="text" name="giakk" id="giakk" class="form-control" data-mask="fdecimal" style="text-align: right;font-weight: bold">
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -630,6 +581,7 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+    {{--@include('manage.kkgia.vtxb.kkgia.kkgiadv.modal_pag')--}}
 
     @include('includes.script.create-header-scripts')
 

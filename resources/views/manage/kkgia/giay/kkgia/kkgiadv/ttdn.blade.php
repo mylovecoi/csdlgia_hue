@@ -26,7 +26,6 @@
                 var url = '/thongtindngiay?'+ maxa;
                 window.location.href = url;
             });
-
         });
     </script>
 @stop
@@ -34,7 +33,7 @@
 @section('content')
 
     <h3 class="page-title">
-        Thông tin doanh nghiệp kê khai<small>&nbsp;giá giấy in, viết (dạng cuộn), giấy in báo sản xuất trong nước</small>
+        Thông tin doanh nghiệp kê khai<small>&nbsp;giá giấy</small>
         <p><h5 style="color: blue">Sở ban ngành quản lý {{$ttql->tendv}}</h5></p>
     </h3>
     <hr>
@@ -59,41 +58,41 @@
                                 </div>
                             </div>
                         @endif
-                    </div>
-
-                    <table class="table table-striped table-bordered table-hover" id="sample_3">
-                        <thead>
-                        <tr>
-                            <th style="text-align: center" width="2%">STT</th>
-                            <th style="text-align: center">Đơn vị quản lý</th>
-                            <th style="text-align: center">Tên doanh nghiệp</th>
-                            <th style="text-align: center">Địa chỉ</th>
-                            <th style="text-align: center" width="25%">Thao tác</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($model as $key=>$tt)
+                        <table class="table table-striped table-bordered table-hover" id="sample_3">
+                            <thead>
                             <tr>
-                                <td style="text-align: center">{{$key+1}}</td>
-                                <td style="font-weight: bold">{{$tt->tendv}}</td>
-                                <td class="active">{{$tt->tendn}}</td>
-                                <td>{{$tt->diachi}}</td>
-                                <td>
-                                    <a href="{{url('kekhaigiagiay?&masothue='.$tt->maxa)}}" class="btn btn-default btn-xs mbs"><i class="fa fa-plus"></i>&nbsp;Kê khai giá </a>
-                                </td>
+                                <th style="text-align: center" width="2%">STT</th>
+                                <th style="text-align: center">Đơn vị quản lý</th>
+                                <th style="text-align: center">Tên doanh nghiệp</th>
+                                <th style="text-align: center">Mã số thuế</th>
+                                <th style="text-align: center">Địa chỉ</th>
+                                <th style="text-align: center" width="25%">Thao tác</th>
                             </tr>
-                        @endforeach
+                            </thead>
+                            <tbody>
+                            @foreach($model as $key=>$tt)
+                                <tr>
+                                    <td style="text-align: center">{{$key+1}}</td>
+                                    <td style="font-weight: bold">{{$tt->tendv}}</td>
+                                    <td class="active">{{$tt->tendn}}</td>
+                                    <td>{{$tt->maxa}}</td>
+                                    <td>{{$tt->diachi}}</td>
+                                    <td>
+                                        <a href="{{url('kekhaigiagiay/?&masothue='.$tt->maxa)}}" class="btn btn-default btn-xs mbs"><i class="fa fa-plus"></i>&nbsp;Kê khai giá </a>
+                                    </td>
+                                </tr>
+                            @endforeach
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
             </div>
-            <!-- END EXAMPLE TABLE PORTLET-->
         </div>
-    </div>
 
-    <!-- BEGIN DASHBOARD STATS -->
+        <!-- BEGIN DASHBOARD STATS -->
 
-    <!-- END DASHBOARD STATS -->
-    <div class="clearfix"></div>
+        <!-- END DASHBOARD STATS -->
+        <div class="clearfix"></div>
 @stop

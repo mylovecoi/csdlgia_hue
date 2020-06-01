@@ -19,7 +19,7 @@ class KkGiaEtanol extends Model
         'ngaycvlk',
         'ytcauthanhgia',
         'thydggadgia',
-        'nguoinop',
+        'ttnguoinop',
         'dtll',
         'email',
         'fax',

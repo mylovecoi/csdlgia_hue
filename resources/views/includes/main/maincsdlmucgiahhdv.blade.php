@@ -880,6 +880,103 @@
                 </li>
             @endif
 
+            @if(chkPer('csdlmucgiahhdv','kknygia', 'xmtxd', 'hoso', 'index'))
+                <li>
+                    <a href="javascript:;">
+                        <span class="title">Xi măng, thép xây dựng</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        @if(session('admin')->level == 'SSA')
+                            <li><a href="{{url('kekhaigiaxmtxd')}}">Giá kê khai</a> </li>
+                        @endif
+                        <li><a href="{{url('xetduyetgiaxmtxd')}}">Thông tin hồ sơ xét duyệt</a></li>
+                        <li><a href="{{url('timkiemgiaxmtxd')}}">Tìm kiếm thông tin</a> </li>
+                        <li><a href="{{url('baocaokkgiaxmtxd')}}">Báo cáo thống kê</a></li>
+                    </ul>
+                </li>
+            @endif
+            @if(chkPer('csdlmucgiahhdv','kknygia', 'than', 'hoso', 'index'))
+                <li>
+                    <a href="javascript:;">
+                        <span class="title">Than</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        @if(session('admin')->level == 'SSA')
+                            <li><a href="{{url('kekhaigiathan')}}">Giá kê khai than</a> </li>
+                        @endif
+                        <li><a href="{{url('xetduyetgiathan')}}">Thông tin hồ sơ xét duyệt</a></li>
+                        <li><a href="{{url('timkiemgiathan')}}">Tìm kiếm thông tin</a> </li>
+                        <li><a href="{{url('baocaokkgiathan')}}">Báo cáo thống kê</a></li>
+                    </ul>
+                </li>
+            @endif
+            @if(chkPer('csdlmucgiahhdv','kknygia', 'tacn', 'hoso', 'index'))
+                <li>
+                    <a href="javascript:;">
+                        <span class="title">Thức ăn chăn nuôi</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        @if(session('admin')->level == 'SSA')
+                            <li><a href="{{url('kekhaigiatacn')}}">Giá kê khai</a> </li>
+                        @endif
+                        <li><a href="{{url('xetduyetgiatacn')}}">Thông tin hồ sơ xét duyệt</a></li>
+                        <li><a href="{{url('timkiemgiatacn')}}">Tìm kiếm thông tin</a> </li>
+                        <li><a href="{{url('baocaokkgiatacn')}}">Báo cáo thống kê</a></li>
+                    </ul>
+                </li>
+            @endif
+            @if(chkPer('csdlmucgiahhdv','kknygia', 'giay', 'hoso', 'index'))
+                <li>
+                    <a href="javascript:;">
+                        <span class="title">Giấy in, viết (dạng cuộn), giấy in báo sản xuất trong nước</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        @if(session('admin')->level == 'SSA')
+                            <li><a href="{{url('kekhaigiagiay')}}">Giá kê khai</a> </li>
+                        @endif
+                        <li><a href="{{url('xetduyetgiagiay')}}">Thông tin hồ sơ xét duyệt</a></li>
+                        <li><a href="{{url('timkiemgiagiay')}}">Tìm kiếm thông tin</a> </li>
+                        <li><a href="{{url('baocaokkgiagiay')}}">Báo cáo thống kê</a></li>
+                    </ul>
+                </li>
+            @endif
+            @if(chkPer('csdlmucgiahhdv','kknygia', 'sach', 'hoso', 'index'))
+                <li>
+                    <a href="javascript:;">
+                        <span class="title">Sách giáo khoa</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        @if(session('admin')->level == 'SSA')
+                            <li><a href="{{url('kekhaigiasach')}}">Giá kê khai</a> </li>
+                        @endif
+                        <li><a href="{{url('xetduyetgiasach')}}">Thông tin hồ sơ xét duyệt</a></li>
+                        <li><a href="{{url('timkiemgiasach')}}">Tìm kiếm thông tin</a> </li>
+                        <li><a href="{{url('baocaokkgiasach')}}">Báo cáo thống kê</a></li>
+                    </ul>
+                </li>
+            @endif
+            @if(chkPer('csdlmucgiahhdv','kknygia', 'etanol', 'hoso', 'index'))
+                <li>
+                    <a href="javascript:;">
+                        <span class="title">Etanol nhiên liệu không biến tính, khí tự nhiên hóa lỏng(LNG); khí thiên nhiên nén (CNG) 123</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        @if(session('admin')->level == 'SSA')
+                            <li><a href="{{url('kekhaigiaetanol')}}">Giá kê khai</a> </li>
+                        @endif
+                        <li><a href="{{url('xetduyetgiaetanol')}}">Thông tin hồ sơ xét duyệt</a></li>
+                        <li><a href="{{url('timkiemgiaetanol')}}">Tìm kiếm thông tin</a> </li>
+                        <li><a href="{{url('baocaokkgiaetanol')}}">Báo cáo thống kê</a></li>
+                    </ul>
+                </li>
+            @endif
+
             @if(canKkGiaGr('DVCB'))
                 @if(canKkGiaCt('DVCB','DVCB'))
                     <li>
@@ -1080,6 +1177,22 @@
                         <li><a href="{{url('xetduyetkkgiadvlt')}}">Thông tin hồ sơ xét duyệt</a></li>
                         <li><a href="{{url('timkiemkkgiadvlt')}}">Tìm kiếm thông tin</a> </li>
                         <li><a href="{{url('baocaokekhaidvlt')}}">Báo cáo thống kê</a></li>
+                    </ul>
+                </li>
+            @endif
+            @if(chkPer('csdlmucgiahhdv','kknygia', 'cahue', 'hoso', 'index'))
+                <li>
+                    <a href="javascript:;">
+                        <span class="title">Giá dịch vụ xem ca Huế trên sông Hương</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        @if(session('admin')->level=='SSA')
+                            <li><a href="{{url('kekhaigiadvcahue')}}">Giá kê khai</a> </li>
+                        @endif
+                        <li><a href="{{url('xetduyetkkgiadvcahue')}}">Thông tin hồ sơ xét duyệt</a></li>
+                        <li><a href="{{url('timkiemkkgiadvcahue')}}">Tìm kiếm thông tin</a> </li>
+                        <li><a href="{{url('baocaokekhaidvcahue')}}">Báo cáo thống kê</a></li>
                     </ul>
                 </li>
             @endif
