@@ -18,13 +18,14 @@ class CreateKkgiatacnctTable extends Migration
             $table->string('maxa')->nullable();
             $table->string('mahuyen')->nullable();
             $table->string('mahs')->nullable();
-            $table->string('tenhh')->nullable();
-            $table->text('qccl')->nullable();
+            $table->text('tendvcu')->nullable();
+            $table->string('qccl')->nullable();
             $table->string('dvt')->nullable();
-            $table->string('dongialk')->nullable();
-            $table->string('dongia')->nullable();
+            $table->string('gialk')->nullable();
+            $table->string('giakk')->nullable();
             $table->text('ghichu')->nullable();
             $table->string('trangthai')->nullable();
+            $table->string('thuevat')->nullable();
 
 //            $table->string('cpnvlttlk')->nullable();
 //            $table->string('cpncttlk')->nullable();

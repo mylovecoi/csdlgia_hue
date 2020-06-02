@@ -17,11 +17,11 @@ class CreateKkgiathanctTable extends Migration
             $table->increments('id');
             $table->string('mahs')->nullable();
             $table->string('maxa')->nullable();
-            $table->string('tenhhdv')->nullable();
+            $table->text('tendvcu')->nullable();
             $table->string('qccl')->nullable();
             $table->string('dvt')->nullable();
             $table->string('gialk')->nullable();
-            $table->string('gia')->nullable();
+            $table->string('giakk')->nullable();
             $table->string('ghichu')->nullable();
             $table->string('thuevat')->nullable();
             $table->string('trangthai')->nullable();
