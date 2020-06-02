@@ -78,4 +78,7 @@ include('kkgia/vetqkdl.php');
 
 //Dịch vụ ca huế trên sông hương
 include('kkgia/dvch.php');
+
+//Học phí lái xe
+include('kkgia/hplx.php');
 ?>

@@ -625,6 +625,17 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </ul>
                                 </li>
                             @endif
+                            {{--@if(chkPer('csdlmucgiahhdv','kknygia', 'hocphilx'))
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="title">Mức thu học phí đào tạo lái xe cơ giới đường bộ</span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li><a href="{{url('kekhaigiahplx')}}">Giá kê khai</a> </li>
+                                    </ul>
+                                </li>
+                            @endif--}}
 
                             @if(canKkGiaGr('DLBB'))
                                 @if(canKkGiaCt('DLBB','DLBB'))

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Model\manage\kekhaigia\kkdvch;
+namespace App\Model\manage\kekhaigia\kkhplx;
 
 use Illuminate\Database\Eloquent\Model;
 
-class KkGiaDvChCt extends Model
+class KkGiaHpLxCt extends Model
 {
-    protected $table = 'kkgiadvchct';
+    protected $table = 'kkgiahplxct';
     protected $fillable = [
         'id',
         'mahs',
@@ -19,6 +19,6 @@ class KkGiaDvChCt extends Model
         'giakk',
         'ghichu',
         'trangthai',
-        'thuevat',
+        'dvcu',
     ];
 }

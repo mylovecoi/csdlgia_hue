@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\manage\kekhaigia\kkdvch;
+namespace App\Http\Controllers\manage\kekhaigia\kkhplx;
 
 use App\District;
 use App\Jobs\SendMail;
-use App\Model\manage\kekhaigia\kkdvch\KkGiaDvCh;
-use App\Model\manage\kekhaigia\kkdvch\KkGiaDvChCt;
+use App\Model\manage\kekhaigia\kkhplx\KkGiaHpLx;
+use App\Model\manage\kekhaigia\kkhplx\KkGiaHpLxCt;
 use App\Model\system\company\Company;
 use App\Model\system\dmnganhnghekd\DmNgheKd;
 use App\Model\system\dsdiaban;
@@ -18,31 +18,31 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
-class KkGiaDvChController extends Controller
+class KkGiaHpLxController extends Controller
 {
     public function index(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $inputs['url'] = '/kekhaigiadvcahue';
-            $m_donvi = getDoanhNghiepNhapLieu(session('admin')->level, 'CAHUE');
+            $inputs['url'] = '/kekhaigiahplx';
+            $m_donvi = getDoanhNghiepNhapLieu(session('admin')->level, 'HOCPHILX');
             if(count($m_donvi) == 0){
                 return view('errors.noperm')
                     ->with('url','')
-                    ->with('message','Hệ thống chưa có doanh nghiệp kê khai giá dịch vụ ca huế.');
+                    ->with('message','Hệ thống chưa có doanh nghiệp kê khai giá học phí lái xe.');
             }
             $m_diaban = dsdiaban::wherein('madiaban', array_column($m_donvi->toarray(),'madiaban'))->get();
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $modeldn = $m_donvi->where('madv', $inputs['madv'])->first();
 
             $inputs['nam'] = $inputs['nam'] ?? date('Y');
-            $model = KkGiaDvCh::where('madv', $inputs['madv'])
+            $model = KkGiaHpLx::where('madv', $inputs['madv'])
                 ->whereYear('ngaynhap', $inputs['nam'])
                 ->orderBy('id', 'desc')
                 ->get();
 
             $m_donvi_th = getDonViTongHop_dn('cahue',session('admin')->level, session('admin')->madiaban);
 
-            return view('manage.kkgia.dvch.kkgia.kkgiadv.index')
+            return view('manage.kkgia.hplx.kkgia.kkgiadv.index')
                 ->with('model', $model)
                 ->with('modeldn', $modeldn)
                 ->with('inputs', $inputs)
@@ -51,7 +51,7 @@ class KkGiaDvChController extends Controller
                 ->with('a_diaban', array_column($m_diaban->toarray(),'tendiaban', 'madiaban'))
                 ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
                 ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
-                ->with('pageTitle', 'Danh sách hồ sơ kê khai giá dịch vụ ca huế');
+                ->with('pageTitle', 'Danh sách hồ sơ kê khai giá học phí lái xe');
         } else
             return view('errors.notlogin');
     }
@@ -62,7 +62,7 @@ class KkGiaDvChController extends Controller
             $inputs = $request->all();
             $inputs['mahs'] = $inputs['madv'] . '_' . getdate()[0];
             $modeldn = Company::where('madv', $inputs['madv'])->first();
-            $model = new KkGiaDvCh();
+            $model = new KkGiaHpLx();
             $model->madv = $inputs['madv'];
             $model->mahs = $inputs['mahs'];
             $model->trangthai = 'CC';
@@ -70,12 +70,12 @@ class KkGiaDvChController extends Controller
 
             /*DB::statement("DELETE FROM kkgiavtxbct WHERE mahs not in (SELECT mahs FROM kkgiavtxb where madv='" . $inputs['madv'] . "')");*/
 
-            $modellk = KkGiaDvCh::where('madv', $inputs['madv'])
+            $modellk = KkGiaHpLx::where('madv', $inputs['madv'])
                 ->where('trangthai', 'DD')
                 ->orderby('ngayhieuluc', 'desc')->first();
 
             if ($modellk != null) {
-                $modellkct = KkGiaDvChCt::where('mahs', $modellk->mahs)->get();
+                $modellkct = KkGiaHpLxCt::where('mahs', $modellk->mahs)->get();
                 $model->socvlk = $modellk->socv;
                 $model->ngaycvlk = $modellk->ngaynhap;
                 $a_dm = array();
@@ -90,18 +90,18 @@ class KkGiaDvChController extends Controller
                         'giakk' => $ctdf->giakk,
                     );
                 }
-                KkGiaDvChCt::insert($a_dm);
+                KkGiaHpLxCt::insert($a_dm);
             }
 
-            $modelct = KkGiaDvChCt::where('mahs', $inputs['mahs'])->get();
+            $modelct = KkGiaHpLxCt::where('mahs', $inputs['mahs'])->get();
 //            dd($model);
 
-            return view('manage.kkgia.dvch.kkgia.kkgiadv.edit')
+            return view('manage.kkgia.hplx.kkgia.kkgiadv.edit')
                 ->with('model', $model)
                 ->with('modeldn', $modeldn)
                 ->with('modelct', $modelct)
                 ->with('inputs', $inputs)
-                ->with('pageTitle', 'Kê khai giá dịch vụ ca huế thêm mới');
+                ->with('pageTitle', 'Kê khai giá học phí lái xe thêm mới');
 
         } else
             return view('errors.notlogin');
@@ -113,14 +113,14 @@ class KkGiaDvChController extends Controller
             $inputs['ngaynhap'] = getDateToDb($inputs['ngaynhap']);
             $inputs['ngayhieuluc'] = getDateToDb($inputs['ngayhieuluc']);
             $inputs['ngaycvlk'] = getDateToDb($inputs['ngaycvlk']);
-            $model = KkGiaDvCh::where('mahs', $inputs['mahs'])->first();
+            $model = KkGiaHpLx::where('mahs', $inputs['mahs'])->first();
             if ($model == null) {
                 $inputs['trangthai'] = 'CC';
-                KkGiaDvCh::create($inputs);
+                KkGiaHpLx::create($inputs);
             } else {
                 $model->update($inputs);
             }
-            return redirect('kekhaigiadvcahue?&madv='.$inputs['madv']);
+            return redirect('kekhaigiahplx?&madv='.$inputs['madv']);
 
         }else
             return view('errors.notlogin');
@@ -130,17 +130,17 @@ class KkGiaDvChController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $mahs = $inputs['mahs'];
-            $modelkk = KkGiaDvCh::where('mahs',$mahs)->first();
+            $modelkk = KkGiaHpLx::where('mahs',$mahs)->first();
             $modeldn = Company::where('madv',$modelkk->madv)->first();
-            $modelkkct = KkGiaDvChCt::where('mahs',$modelkk->mahs)->get();
+            $modelkkct = KkGiaHpLxCt::where('mahs',$modelkk->mahs)->get();
 //            dd($modelkkct);
             $modelcqcq = view_dsdiaban_donvi::where('madv', $modelkk->macqcq)->first();
-            return view('manage.kkgia.dvch.reports.print')
+            return view('manage.kkgia.hplx.reports.print')
                 ->with('modelkk',$modelkk)
                 ->with('modeldn',$modeldn)
                 ->with('modelkkct',$modelkkct)
                 ->with('modelcqcq',$modelcqcq)
-                ->with('pageTitle','Kê khai giá dịch vụ ca huế');
+                ->with('pageTitle','Kê khai giá học phí lái xe');
 
         }else
             return view('errors.notlogin');
@@ -149,14 +149,14 @@ class KkGiaDvChController extends Controller
     public function edit(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = KkGiaDvCh::where('mahs',$inputs['mahs'])->first();
+            $model = KkGiaHpLx::where('mahs',$inputs['mahs'])->first();
             $modeldn = Company::where('madv', $model->madv)->first();
-            $modelct = KkGiaDvChCt::where('mahs', $model->mahs)->get();
-            return view('manage.kkgia.dvch.kkgia.kkgiadv.edit')
+            $modelct = KkGiaHpLxCt::where('mahs', $model->mahs)->get();
+            return view('manage.kkgia.hplx.kkgia.kkgiadv.edit')
                 ->with('model', $model)
                 ->with('modeldn', $modeldn)
                 ->with('modelct', $modelct)
-                ->with('pageTitle', 'Kê khai giá dịch vụ ca huế chỉnh sửa');
+                ->with('pageTitle', 'Kê khai giá học phí lái xe chỉnh sửa');
         } else
             return view('errors.notlogin');
     }
@@ -165,7 +165,7 @@ class KkGiaDvChController extends Controller
         if (Session::has('admin')) {
             if (session('admin')->level == 'DN' || session('admin')->level == 'T' || session('admin')->level == 'H'  || session('admin')->level == 'X') {
                 $inputs = $request->all();
-                $model = KkGiaDvCh::findOrFail($id);
+                $model = KkGiaHpLx::findOrFail($id);
                 if (session('admin')->level == 'T' || session('admin')->level == 'H' || session('admin')->level == 'X' || $model->madv == session('admin')->madv) {
                     $inputs['ngaynhap'] = getDateToDb($inputs['ngaynhap']);
                     $inputs['ngayhieuluc'] = getDateToDb($inputs['ngayhieuluc']);
@@ -174,10 +174,10 @@ class KkGiaDvChController extends Controller
                     else
                         unset($inputs['ngaycvlk']);
                     if($model->update($inputs)){
-                        $modelct = KkGiaDvChCt::where('mahs',$inputs['mahs'])
+                        $modelct = KkGiaHpLxCt::where('mahs',$inputs['mahs'])
                             ->update(['trangthai' => 'XD']);
                     }
-                    return redirect('kekhaigiadvcahue?&madv=' . $model->madv);
+                    return redirect('kekhaigiahplx?&madv=' . $model->madv);
                 } else
                     return view('errors.perm');
             }else
@@ -190,13 +190,13 @@ class KkGiaDvChController extends Controller
         if (Session::has('admin')) {
             if (session('admin')->level == 'DN' || session('admin')->level == 'T' || session('admin')->level == 'H' || session('admin')->level == 'X') {
                 $inputs = $request->all();
-                $model = KkGiaDvCh::where('id',$inputs['iddelete'])
+                $model = KkGiaHpLx::where('id',$inputs['iddelete'])
                     ->first();
                 if($model->delete()){
-                    $modelct = KkGiaDvChCt::where('mahs',$model->mahs)
+                    $modelct = KkGiaHpLxCt::where('mahs',$model->mahs)
                         ->delete();
                 }
-                return redirect('kekhaigiadvcahue?&madv='.$model->madv);
+                return redirect('kekhaigiahplx?&madv='.$model->madv);
             }else{
                 return view('errors.perm');
             }
@@ -220,8 +220,8 @@ class KkGiaDvChController extends Controller
         //dd($request);
         $inputs = $request->all();
         $inputs = $request->all();
-        $m_hs = KkGiaDvCh::where('mahs',$inputs['mahs'])->first();
-        if(KiemTraNgayApDung($m_hs->ngayhieuluc,'cahue')){
+        $m_hs = KkGiaHpLx::where('mahs',$inputs['mahs'])->first();
+        if(KiemTraNgayApDung($m_hs->ngayhieuluc,'hocphilx')){
             $result = array(
                 'status' => 'success',
                 'message' => 'Ngày áp dụng hợp lệ.',
@@ -235,7 +235,7 @@ class KkGiaDvChController extends Controller
     public function chuyen(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = KkGiaDvCh::where('mahs', $inputs['mahs'])->first();
+            $model = KkGiaHpLx::where('mahs', $inputs['mahs'])->first();
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => 'CD',
@@ -278,7 +278,7 @@ class KkGiaDvChController extends Controller
                 $run = new SendMail($modeldn,$contentdn,$modeldv,$contentht);
                 $run->handle();
             }
-            return redirect('kekhaigiadvcahue?madv=' . $model->madv);
+            return redirect('kekhaigiahplx?madv=' . $model->madv);
 
 
         } else
@@ -287,7 +287,7 @@ class KkGiaDvChController extends Controller
 
     public function showlydo(Request $request){
         $inputs = $request->all();
-        $model = KkGiaDvCh::where('mahs', $inputs['mahs'])->first();
+        $model = KkGiaHpLx::where('mahs', $inputs['mahs'])->first();
         if ($model->madv_h == $inputs['madv']) {
             $model->lydo = $model->lydo_h;
         }

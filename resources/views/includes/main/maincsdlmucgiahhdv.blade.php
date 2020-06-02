@@ -1196,6 +1196,22 @@
                     </ul>
                 </li>
             @endif
+            {{--@if(chkPer('csdlmucgiahhdv','kknygia', 'hocphilx', 'hoso', 'index'))
+                <li>
+                    <a href="javascript:;">
+                        <span class="title">Mức thu học phí đào tạo lái xe cơ giới đường bộ</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        @if(session('admin')->level=='SSA')
+                            <li><a href="{{url('kekhaigiahplx')}}">Giá kê khai</a> </li>
+                        @endif
+                        <li><a href="{{url('xetduyetkkgiahplx')}}">Thông tin hồ sơ xét duyệt</a></li>
+                        <li><a href="{{url('timkiemkkgiahplx')}}">Tìm kiếm thông tin</a> </li>
+                        <li><a href="{{url('baocaokekhaihplx')}}">Báo cáo thống kê</a></li>
+                    </ul>
+                </li>
+            @endif--}}
 
             @if(canKkGiaGr('DLBB'))
                 @if(canKkGiaCt('DLBB','DLBB'))
