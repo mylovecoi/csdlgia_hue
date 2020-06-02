@@ -4,16 +4,13 @@ namespace App\Model\manage\dinhgia\phichuyengia;
 
 use Illuminate\Database\Eloquent\Model;
 
-class dmphichuyengia extends Model
+class nhomphichuyengia extends Model
 {
-    protected $table = 'dmphichuyengia';
+    protected $table = 'nhomphichuyengia';
     protected $fillable = [
         'id',
         'manhom',
-        'maso',
-        'tenphi',
-        'tengia',
-        'dvt',
-        'ghichu',
+        'tennhom',
+        'theodoi',
     ];
 }

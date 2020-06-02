@@ -191,7 +191,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Tên hàng hóa yêu cầu thẩm định<span class="require">*</span></label>
+                                    <label class="control-label">Tên nhóm hàng hóa yêu cầu thẩm định<span class="require">*</span></label>
                                     {!!Form::text('tttstd',null, array('id' => 'tttstd','class' => 'form-control', 'required'))!!}
                                 </div>
                             </div>

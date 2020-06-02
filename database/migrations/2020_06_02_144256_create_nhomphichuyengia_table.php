@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDmphichuyengiaTable extends Migration
+class CreateNhomphichuyengiaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateDmphichuyengiaTable extends Migration
      */
     public function up()
     {
-        Schema::create('dmphichuyengia', function (Blueprint $table) {
+        Schema::create('nhomphichuyengia', function (Blueprint $table) {
             $table->increments('id');
             $table->string('manhom')->nullable();
-            $table->string('maso')->unique();
-            $table->string('tenphi')->nullable();
-            $table->string('tengia')->nullable();
-            $table->string('dvt')->nullable();
-            $table->string('ghichu')->nullable();
+            $table->string('tennhom')->nullable();
+            $table->string('theodoi')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ class CreateDmphichuyengiaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dmphichuyengia');
+        Schema::dropIfExists('nhomphichuyengia');
     }
 }

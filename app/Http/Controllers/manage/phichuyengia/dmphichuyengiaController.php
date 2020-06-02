@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\manage\phichuyengia;
 
 use App\Model\manage\dinhgia\phichuyengia\dmphichuyengia;
+use App\Model\manage\dinhgia\phichuyengia\nhomphichuyengia;
 use App\Model\system\dmdvt;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -10,14 +11,17 @@ use Illuminate\Support\Facades\Session;
 
 class dmphichuyengiaController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         if (Session::has('admin')) {
+            $inputs = $request->all();
             $model = dmphichuyengia::all();
             $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
             $inputs['url'] = '/phichuyengia';
+            $nhom = nhomphichuyengia::where('manhom',$inputs['manhom'])->first();
             return view('manage.phichuyengia.danhmuc.index')
                 ->with('inputs', $inputs)
                 ->with('model', $model)
+                ->with('nhom', $nhom)
                 ->with('a_dvt', $a_dvt)
                 ->with('pageTitle', 'Thông tin hồ sơ danh mục hàng hóa chuyển từ phí sang giá');
         } else
@@ -38,7 +42,7 @@ class dmphichuyengiaController extends Controller
             } else {
                 $check->update($inputs);
             }
-            return redirect('/phichuyengia/danhmuc');
+            return redirect('/phichuyengia/danhmuc/detail?manhom='.$inputs['manhom']);
         }else
             return view('errors.notlogin');
     }
@@ -61,7 +65,7 @@ class dmphichuyengiaController extends Controller
         if(Session::has('admin')){
             $inputs = $request->all();
             dmphichuyengia::where('maso',$inputs['maso'])->delete();
-            return redirect('/phichuyengia/danhmuc');
+            return redirect('/phichuyengia/danhmuc/detail?manhom='.$inputs['manhom']);
         }else
             return view('errors.notlogin');
     }
