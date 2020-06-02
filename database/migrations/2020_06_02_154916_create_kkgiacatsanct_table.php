@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateKkgiaetanolctTable extends Migration
+class CreateKkgiacatsanctTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateKkgiaetanolctTable extends Migration
      */
     public function up()
     {
-        Schema::create('kkgiaetanolct', function (Blueprint $table) {
+        Schema::create('kkgiacatsanct', function (Blueprint $table) {
             $table->increments('id');
             $table->string('mahs')->nullable();
             $table->string('maxa')->nullable();
+            $table->string('madv')->nullable();
             $table->text('tendvcu')->nullable();
             $table->string('qccl')->nullable();
             $table->string('dvt')->nullable();
@@ -36,6 +37,6 @@ class CreateKkgiaetanolctTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kkgiaetanolct');
+        Schema::dropIfExists('kkgiacatsanct');
     }
 }

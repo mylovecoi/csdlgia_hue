@@ -21,8 +21,8 @@ class CreateKkgiahplxctTable extends Migration
             $table->text('tendvcu')->nullable();
             $table->string('qccl')->nullable();
             $table->string('dvt')->nullable();
-            $table->string('gialk')->nullable();
-            $table->string('giakk')->nullable();
+            $table->double('gialk')->nullable();
+            $table->double('giakk')->nullable();
             $table->string('ghichu')->nullable();
             $table->string('trangthai')->nullable();
             $table->string('thuevat')->nullable();

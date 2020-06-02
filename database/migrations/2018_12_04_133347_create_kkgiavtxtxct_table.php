@@ -22,10 +22,10 @@ class CreateKkgiavtxtxctTable extends Migration
             $table->text('tendvcu')->nullable();
             $table->text('mota')->nullable();
             $table->string('qccl')->nullable();
-            $table->string('gialk')->nullable();
+            $table->double('gialk')->nullable();
             $table->string('sllk')->nullable();
             $table->string('dvtlk')->nullable();
-            $table->string('giakk')->nullable();
+            $table->double('giakk')->nullable();
             $table->string('sl')->nullable();
             $table->string('dvt')->nullable();
             $table->string('ghichu')->nullable();

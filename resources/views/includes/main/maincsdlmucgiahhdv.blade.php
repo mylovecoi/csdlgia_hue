@@ -1212,7 +1212,7 @@
                     </ul>
                 </li>
             @endif
-            {{--@if(chkPer('csdlmucgiahhdv','kknygia', 'catsan', 'hoso', 'index'))
+            @if(chkPer('csdlmucgiahhdv','kknygia', 'catsan', 'hoso', 'index'))
                 <li>
                     <a href="javascript:;">
                         <span class="title">Vật liệu xây dựng: cát, sạn</span>
@@ -1227,7 +1227,7 @@
                         <li><a href="{{url('baocaokekhaicatsan')}}">Báo cáo thống kê</a></li>
                     </ul>
                 </li>
-            @endif--}}
+            @endif
 
             @if(canKkGiaGr('DLBB'))
                 @if(canKkGiaCt('DLBB','DLBB'))

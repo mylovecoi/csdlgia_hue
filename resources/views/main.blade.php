@@ -636,7 +636,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </ul>
                                 </li>
                             @endif
-                            {{--@if(chkPer('csdlmucgiahhdv','kknygia', 'catsan'))
+                            @if(chkPer('csdlmucgiahhdv','kknygia', 'catsan'))
                                 <li>
                                     <a href="javascript:;">
                                         <span class="title">Vật liệu xây dựng: cát, sạn</span>
@@ -646,7 +646,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <li><a href="{{url('kekhaigiacatsan')}}">Giá kê khai</a> </li>
                                     </ul>
                                 </li>
-                            @endif--}}
+                            @endif
 
                             @if(canKkGiaGr('DLBB'))
                                 @if(canKkGiaCt('DLBB','DLBB'))
