@@ -14,7 +14,18 @@ class CreateKkgiahplxctTable extends Migration
     public function up()
     {
         Schema::create('kkgiahplxct', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->string('mahs')->nullable();
+            $table->string('maxa')->nullable();
+            $table->string('madv')->nullable();
+            $table->text('tendvcu')->nullable();
+            $table->string('qccl')->nullable();
+            $table->string('dvt')->nullable();
+            $table->string('gialk')->nullable();
+            $table->string('giakk')->nullable();
+            $table->string('ghichu')->nullable();
+            $table->string('trangthai')->nullable();
+            $table->string('thuevat')->nullable();
             $table->timestamps();
         });
     }

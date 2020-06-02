@@ -15,7 +15,7 @@ Route::get('/kkhplx/showlydo','manage\kekhaigia\kkhplx\KkGiaHpLxController@showl
 Route::get('/giahplxct/storett','manage\kekhaigia\kkhplx\KkGiaHpLxCtController@store');
 Route::get('/giahplxct/edittt','manage\kekhaigia\kkhplx\KkGiaHpLxCtController@edit');
 Route::get('/giahplxct/updatett','manage\kekhaigia\kkhplx\KkGiaHpLxCtController@update');
-Route::get('/giahplxct/deletett','manage\kekhaigia\kkhplx\KkGiaHpLxCtController@destroy');
+Route::get('/giahplxct/deletett','manage\kekhaigia\kkhplx\KkGiaHpLxCtController@delete');
 
 Route::get('xetduyetkkgiahplx','manage\kekhaigia\kkhplx\KkGiaHpLxXdController@index');
 Route::post('xetduyetkkgiahplx/tralai','manage\kekhaigia\kkhplx\KkGiaHpLxXdController@tralai');

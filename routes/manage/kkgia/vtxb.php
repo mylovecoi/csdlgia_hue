@@ -29,7 +29,7 @@ Route::get('/giavtxbctdf/upkkgialk','manage\kekhaigia\kkdvvt\vtxb\KkGiaVtXbCtDfC
 Route::get('/giavtxbct/storett','manage\kekhaigia\kkdvvt\vtxb\KkGiaVtXbCtController@store');
 Route::get('/giavtxbct/edittt','manage\kekhaigia\kkdvvt\vtxb\KkGiaVtXbCtController@edit');
 Route::get('/giavtxbct/updatett','manage\kekhaigia\kkdvvt\vtxb\KkGiaVtXbCtController@update');
-Route::get('/giavtxbct/deletett','manage\kekhaigia\kkdvvt\vtxb\KkGiaVtXbCtController@destroy');
+Route::get('/giavtxbct/deletett','manage\kekhaigia\kkdvvt\vtxb\KkGiaVtXbCtController@delete');
 Route::get('/giavtxbct/kkgiahh','manage\kekhaigia\kkdvvt\vtxb\KkGiaVtXbCtController@kkgia');
 Route::get('/giavtxbct/upkkgia','manage\kekhaigia\kkdvvt\vtxb\KkGiaVtXbCtController@upkkgia');
 

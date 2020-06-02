@@ -1196,7 +1196,7 @@
                     </ul>
                 </li>
             @endif
-            {{--@if(chkPer('csdlmucgiahhdv','kknygia', 'hocphilx', 'hoso', 'index'))
+            @if(chkPer('csdlmucgiahhdv','kknygia', 'hocphilx', 'hoso', 'index'))
                 <li>
                     <a href="javascript:;">
                         <span class="title">Mức thu học phí đào tạo lái xe cơ giới đường bộ</span>
@@ -1209,6 +1209,22 @@
                         <li><a href="{{url('xetduyetkkgiahplx')}}">Thông tin hồ sơ xét duyệt</a></li>
                         <li><a href="{{url('timkiemkkgiahplx')}}">Tìm kiếm thông tin</a> </li>
                         <li><a href="{{url('baocaokekhaihplx')}}">Báo cáo thống kê</a></li>
+                    </ul>
+                </li>
+            @endif
+            {{--@if(chkPer('csdlmucgiahhdv','kknygia', 'catsan', 'hoso', 'index'))
+                <li>
+                    <a href="javascript:;">
+                        <span class="title">Vật liệu xây dựng: cát, sạn</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        @if(session('admin')->level=='SSA')
+                            <li><a href="{{url('kekhaigiacatsan')}}">Giá kê khai</a> </li>
+                        @endif
+                        <li><a href="{{url('xetduyetkkgiacatsan')}}">Thông tin hồ sơ xét duyệt</a></li>
+                        <li><a href="{{url('timkiemkkgiacatsan')}}">Tìm kiếm thông tin</a> </li>
+                        <li><a href="{{url('baocaokekhaicatsan')}}">Báo cáo thống kê</a></li>
                     </ul>
                 </li>
             @endif--}}

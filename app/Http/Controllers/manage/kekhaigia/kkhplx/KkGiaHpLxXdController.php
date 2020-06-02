@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\manage\kekhaigia\kkhplx;
 
 use App\Jobs\SendMail;
+use App\Model\manage\kekhaigia\kkhplx\KkGiaHpLx;
+use App\Model\manage\kekhaigia\kkhplx\KkGiaHpLxCt;
 use App\Model\system\company\Company;
 use App\Model\system\dmnganhnghekd\DmNgheKd;
 use App\Model\system\dsdiaban;
@@ -18,7 +20,7 @@ class KkGiaHpLxXdController extends Controller
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $inputs['url'] = '/xetduyetkkgiadvcahue';
+            $inputs['url'] = '/xetduyetkkgiahplx';
             //lấy địa bàn
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
@@ -37,7 +39,7 @@ class KkGiaHpLxXdController extends Controller
             $a_donvi_th = array_column($m_donvi->toarray(),'tendv','madv');
             switch ($inputs['level']){
                 case 'H':{
-                    $model = KkGiaDvCh::where('madv_h', $inputs['madv']);
+                    $model = KkGiaHpLx::where('madv_h', $inputs['madv']);
                     if ($inputs['nam'] != 'all')
                         $model = $model->whereYear('ngaychuyen_h', $inputs['nam']);
                     $model = $model->get();
@@ -54,7 +56,7 @@ class KkGiaHpLxXdController extends Controller
                     break;
                 }
                 case 'T':{
-                    $model = KkGiaDvCh::where('madv_t', $inputs['madv']);
+                    $model = KkGiaHpLx::where('madv_t', $inputs['madv']);
                     if ($inputs['nam'] != 'all')
                         $model = $model->whereYear('ngaychuyen_t', $inputs['nam']);
                     $model = $model->get();
@@ -73,7 +75,7 @@ class KkGiaHpLxXdController extends Controller
                     break;
                 }
                 case 'ADMIN':{
-                    $model = KkGiaDvCh::where('madv_ad', $inputs['madv']);
+                    $model = KkGiaHpLx::where('madv_ad', $inputs['madv']);
                     if ($inputs['nam'] != 'all')
                         $model = $model->whereYear('ngaychuyen_ad', $inputs['nam']);
                     $model = $model->get();
@@ -93,7 +95,7 @@ class KkGiaHpLxXdController extends Controller
             }
 
             /*dd($model);*/
-            return view('manage.kkgia.dvch.kkgia.xetduyet.index')
+            return view('manage.kkgia.hplx.kkgia.xetduyet.index')
                 ->with('model', $model)
                 ->with('inputs', $inputs)
                 ->with('m_diaban', $m_diaban)
@@ -102,12 +104,12 @@ class KkGiaHpLxXdController extends Controller
                 ->with('m_donvi_th', $m_donvi_th->where('madv','<>',$inputs['madv']))
                 ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
                 ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
-                ->with('pageTitle', 'Xét duyệt hồ sơ kê khai giá dịch vụ ca huế');
+                ->with('pageTitle', 'Xét duyệt hồ sơ kê khai giá học phí lái xe');
         } else
             return view('errors.notlogin');
     }
 
-    public function ttdnkkdvch(Request $request){
+    public function ttdnkkhplx(Request $request){
         $result = array(
             'status' => 'fail',
             'message' => 'error',
@@ -123,7 +125,7 @@ class KkGiaHpLxXdController extends Controller
 
         if(isset($inputs['id'])){
 
-            $modelhs = KkGiaDvCh::where('id',$inputs['id'])->first();
+            $modelhs = KkGiaHpLx::where('id',$inputs['id'])->first();
             $modeldn = Company::where('madv',$modelhs->madv)->first();
 
             $result['message'] = '<div class="form-group" id="ttdnkkdvgs"> ';
@@ -141,7 +143,7 @@ class KkGiaHpLxXdController extends Controller
             $inputs = $request->all();
             /*dd($inputs);*/
             $inputs['macqcq'] = 'BTL';
-            $model = KkGiaDvCh::where('id', $inputs['idtralai'])->first();
+            $model = KkGiaHpLx::where('id', $inputs['idtralai'])->first();
             $a_lichsu = json_decode($model->lichsu, true);;
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => 'BTL',
@@ -164,7 +166,7 @@ class KkGiaHpLxXdController extends Controller
                 $run = new SendMail($modeldn,$contentdn,$modeldv,$contentht);
                 $run->handle();
             }
-            return redirect('xetduyetkkgiadvcahue?madv=' . $inputs['madvtralai']);
+            return redirect('xetduyetkkgiahplx?madv=' . $inputs['madvtralai']);
 
         } else
             return view('errors.notlogin');
@@ -184,7 +186,7 @@ class KkGiaHpLxXdController extends Controller
             die(json_encode($result));
         }
         $inputs = $request->all();
-        $modelhs = KkGiaDvCh::where('mahs', $inputs['mahs'])->first();
+        $modelhs = KkGiaHpLx::where('mahs', $inputs['mahs'])->first();
         $modeldn = Company::where('madv', $modelhs->madv)->first();
 
         $ngay = Carbon::now()->toDateString();
@@ -211,10 +213,10 @@ class KkGiaHpLxXdController extends Controller
     }
 
     public function getsohsnhan($macqcq){
-        $idmax = KkGiaDvCh::where('trangthai', 'DD')
+        $idmax = KkGiaHpLx::where('trangthai', 'DD')
             ->max('id');
         if (isset($idmax)) {
-            $model = KkGiaDvCh::where('id',$idmax)->first();
+            $model = KkGiaHpLx::where('id',$idmax)->first();
             $stt = $model->sohsnhan + 1;
         } else
             $stt = 1;
@@ -225,7 +227,7 @@ class KkGiaHpLxXdController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $id = $inputs['idnhanhs'];
-            $model = KkGiaDvCh::findOrFail($id);
+            $model = KkGiaHpLx::findOrFail($id);
             $inputs['madv'] = $model->macqcq;
 
             $a_lichsu = json_decode($model->lichsu, true);
@@ -258,7 +260,7 @@ class KkGiaHpLxXdController extends Controller
                 $run->handle();
                 //dispatch($run);
             }
-            return redirect('xetduyetkkgiadvcahue?madv='.$model->macqcq);
+            return redirect('xetduyetkkgiahplx?madv='.$model->macqcq);
         }else
             return view('errors.notlogin');
     }
@@ -270,7 +272,7 @@ class KkGiaHpLxXdController extends Controller
         // level == 'T' => set madv_t = $inputs['macqcq']; trangthai_t = 'CHT' (tương đương tạo mới hoso)
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = KkGiaDvCh::where('mahs', $inputs['mahs'])->first();
+            $model = KkGiaHpLx::where('mahs', $inputs['mahs'])->first();
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => 'HT',
@@ -291,7 +293,7 @@ class KkGiaHpLxXdController extends Controller
 
             //dd($model);
             $model->save();
-            return redirect('xetduyetkkgiadvcahue?&madv='.$model->macqcq);
+            return redirect('xetduyetkkgiahplx?&madv='.$model->macqcq);
         } else
             return view('errors.notlogin');
     }
@@ -300,7 +302,7 @@ class KkGiaHpLxXdController extends Controller
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = KkGiaDvCh::where('mahs', $inputs['mahs'])->first();
+            $model = KkGiaHpLx::where('mahs', $inputs['mahs'])->first();
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => $inputs['trangthai_ad'],
@@ -313,7 +315,7 @@ class KkGiaHpLxXdController extends Controller
                 'congbo' => $inputs['trangthai_ad'] == 'CB' ? 'DACONGBO' : 'CHUACONGBO',
                 'ngaynhan' => date('Y-m-d H:i:s'),'madv'=>$model->madv_ad]);
             $model->save();
-            return redirect('xetduyetkkgiadvcahue?madv=' . $model->madv_ad);
+            return redirect('xetduyetkkgiahplx?madv=' . $model->madv_ad);
         } else
             return view('errors.notlogin');
     }
@@ -323,20 +325,20 @@ class KkGiaHpLxXdController extends Controller
             $inputs = $request->all();
             $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
             $inputs['mota'] = isset($inputs['mota']) ? $inputs['mota'] : '';
-            $model = KkGiaDvChCt::join('kkgiadvch','kkgiadvch.mahs','=','kkgiadvchct.mahs')
-                ->join('company','company.madv','=','kkgiadvch.madv')
-                ->select('kkgiadvchct.*','company.tendn','kkgiadvch.ngayhieuluc')
-                ->where('kkgiadvch.trangthai','DD');
+            $model = KkGiaHpLxCt::join('kkgiahplx','kkgiahplx.mahs','=','kkgiahplxct.mahs')
+                ->join('company','company.madv','=','kkgiahplx.madv')
+                ->select('kkgiahplxct.*','company.tendn','kkgiahplx.ngayhieuluc')
+                ->where('kkgiahplx.trangthai','DD');
             if($inputs['mota'] != '')
-                $model = $model->where('kkgiadvchct.tendvcu','like','%'.$inputs['mota'].'%');
+                $model = $model->where('kkgiahplxct.tendvcu','like','%'.$inputs['mota'].'%');
             if($inputs['nam'] != 'all')
-                $model = $model->whereYear('kkgiadvch.ngayhieuluc',$inputs['nam']);
+                $model = $model->whereYear('kkgiahplx.ngayhieuluc',$inputs['nam']);
             $model = $model->get();
             /*dd($model);*/
-            return view('manage.kkgia.dvch.kkgia.timkiem.index')
+            return view('manage.kkgia.hplx.kkgia.timkiem.index')
                 ->with('model',$model)
                 ->with('inputs',$inputs)
-                ->with('pageTitle','Tìm kiếm thông tin kê khai giá dịch vụ ca huế');
+                ->with('pageTitle','Tìm kiếm thông tin kê khai giá học phí lái xe');
         }else
             return view('errors.notlogin');
     }

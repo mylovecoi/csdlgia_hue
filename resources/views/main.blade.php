@@ -625,7 +625,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </ul>
                                 </li>
                             @endif
-                            {{--@if(chkPer('csdlmucgiahhdv','kknygia', 'hocphilx'))
+                            @if(chkPer('csdlmucgiahhdv','kknygia', 'hocphilx'))
                                 <li>
                                     <a href="javascript:;">
                                         <span class="title">Mức thu học phí đào tạo lái xe cơ giới đường bộ</span>
@@ -633,6 +633,17 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </a>
                                     <ul class="sub-menu">
                                         <li><a href="{{url('kekhaigiahplx')}}">Giá kê khai</a> </li>
+                                    </ul>
+                                </li>
+                            @endif
+                            {{--@if(chkPer('csdlmucgiahhdv','kknygia', 'catsan'))
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="title">Vật liệu xây dựng: cát, sạn</span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li><a href="{{url('kekhaigiacatsan')}}">Giá kê khai</a> </li>
                                     </ul>
                                 </li>
                             @endif--}}

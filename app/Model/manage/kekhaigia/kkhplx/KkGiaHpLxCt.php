@@ -19,6 +19,6 @@ class KkGiaHpLxCt extends Model
         'giakk',
         'ghichu',
         'trangthai',
-        'dvcu',
+        'thuevat',
     ];
 }
