@@ -31,6 +31,11 @@ class CreateGiadvgddtTable extends Migration
             $table->string('lydo')->nullable();
             $table->string('thongtin')->nullable();
             $table->string('trangthai')->nullable(20);
+            $table->string('ipf1')->nullable();
+            $table->string('ipf2')->nullable();
+            $table->string('ipf3')->nullable();
+            $table->string('ipf4')->nullable();
+            $table->string('ipf5')->nullable();
 //Thông tin Hô sơ khi gửi đơn vị cấp trên (Cấp H, T tùy theo level đơn vị khởi tạo)
             $table->date('thoidiem_h')->nullable();
             $table->string('macqcq_h')->nullable(20);

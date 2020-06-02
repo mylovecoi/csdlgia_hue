@@ -12,6 +12,8 @@ class GiaDvGdDtCt extends Model
         'mahs',
         'maspdv',
         'mota',
-        'giadv',
+        'giadvthanhthi',
+        'giadvnongthon',
+        'giadvmiennui',
     ];
 }

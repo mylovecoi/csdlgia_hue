@@ -21,11 +21,26 @@
                     </div>
                 </div>
 
+{{--                <div class="row">--}}
+{{--                    <div class="col-md-12">--}}
+{{--                        <div class="form-group">--}}
+{{--                            <label class="control-label">Khu vực (Tên đường, tên phố)<span class="require">*</span></label>--}}
+{{--                            {!!Form::textarea('khuvuc',null, array('class' => 'form-control', 'rows'=>'2', 'required'))!!}--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label class="control-label">Khu vực (Tên đường, tên phố)<span class="require">*</span></label>
-                            {!!Form::textarea('khuvuc',null, array('class' => 'form-control', 'rows'=>'2', 'required'))!!}
+                            <div class="col-md-11" style="padding-left: 0px;">
+                                <label class="form-control-label">Khu vực (Tên đường, tên phố)</label>
+                                {!!Form::select('khuvuc', $a_khuvuc, null, array('id' => 'khuvuc','class' => 'form-control select2me', 'required'))!!}
+                            </div>
+                            <div class="col-md-1" style="padding-left: 0px;">
+                                <label class="control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                <button type="button" class="btn btn-default" data-target="#modal-vitri" data-toggle="modal">
+                                    <i class="fa fa-plus"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -267,7 +282,36 @@
     {!! Form::close() !!}
 </div>
 
+<div id="modal-vitri" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-primary">
+                <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="form-control-label">Khu vực (Tên đường, tên phố)</label>
+                        {!!Form::text('vt_add', null, array('id' => 'vt_add','class' => 'form-control','required'=>'required'))!!}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
+                <button class="btn btn-primary" onclick="add_vt()">Đồng ý</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
+    function add_vt(){
+        $('#modal-vitri').modal('hide');
+        var gt = $('#vt_add').val();
+        $('#khuvuc').append(new Option(gt, gt, true, true));
+        $('#khuvuc').val(gt).trigger('change');
+    }
+
     function clearForm() {
         var form = $('#frm_modify');
         form.find("[name='id']").val(-1);

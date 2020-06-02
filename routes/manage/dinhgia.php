@@ -593,6 +593,7 @@ Route::group(['prefix'=>'giadvgddt'],function (){
     Route::post('modify','manage\giadvgddt\GiaDvGdDtController@update');
     Route::post('delete','manage\giadvgddt\GiaDvGdDtController@destroy');
     Route::get('delete','manage\giadvgddt\GiaDvGdDtController@destroy');
+    Route::get('dinhkem','manage\giadvgddt\GiaDvGdDtController@show');
 
     Route::get('store_ct','manage\giadvgddt\GiaDvGdDtCtController@store');
     Route::get('get_ct','manage\giadvgddt\GiaDvGdDtCtController@show');

@@ -86,7 +86,7 @@
                             <tr>
                                 <th width="2%" style="text-align: center">STT</th>
                                 <th style="text-align: center">Cơ quan chuyển hồ sơ</th>
-                                <th style="text-align: center">Địa bàn</th>
+{{--                                <th style="text-align: center">Địa bàn</th>--}}
                                 <th style="text-align: center">Năm học</th>
                                 <th style="text-align: center">Nội dung</th>
                                 <th style="text-align: center">Trạng thái</th>
@@ -100,7 +100,7 @@
                                 <tr>
                                     <td style="text-align: center">{{$key + 1}}</td>
                                     <td style="text-align: left">{{$tt->tendv_ch}}</td>
-                                    <td style="text-align: center">{{$a_diaban[$tt->madiaban] ?? ''}}</td>
+{{--                                    <td style="text-align: center">{{$a_diaban[$tt->madiaban] ?? ''}}</td>--}}
                                     <td style="text-align: center">{{$tt->nam}}</td>
                                     <td style="text-align: left">{{$tt->mota}}</td>
                                     @include('manage.include.form.td_trangthai')
@@ -117,7 +117,7 @@
                                         H->Hoàn thành (có đơn
 
                                         -->
-                                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetscong', 'hoso', 'approve'))
+                                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvgddt', 'hoso', 'approve'))
                                             @if($tt->level == 'ADMIN')
                                                 @if($tt->trangthai == 'CB')
                                                     <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','{{$inputs['url'].'/congbo'}}', 'HCB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
@@ -139,6 +139,8 @@
                                                 @endif
                                             @endif
                                         @endif
+                                        <button type="button" onclick="get_attack('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
+                                            <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -153,6 +155,7 @@
         <!-- END DASHBOARD STATS -->
         </div>
     </div>
+    @include('manage.include.form.modal_attackfile')
     @include('manage.include.form.modal_congbo')
     @include('manage.include.form.modal_approve_xd')
     @include('manage.include.form.modal_unapprove_xd')

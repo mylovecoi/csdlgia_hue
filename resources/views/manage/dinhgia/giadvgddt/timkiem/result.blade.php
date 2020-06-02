@@ -40,7 +40,10 @@
                                 <th style="text-align: center">Thời điểm</th>
                                 <th style="text-align: center">Tên sản phẩm, dịch vụ</th>
                                 <th style="text-align: center">Thông tin hồ sơ</th>
-                                <th style="text-align: center">Đơn giá</th>
+                                <th style="text-align: center" width="15%">Mức thu<br>khu vực<br>thành thị</th>
+                                <th style="text-align: center" width="15%">Mức thu<br>khu vực<br>nông thôn</th>
+                                <th style="text-align: center" width="15%">Mức thu<br>khu vực<br>miền núi</th>
+
                             </tr>
                         </thead>
 
@@ -52,7 +55,10 @@
                                     <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
                                     <td>{{$a_dm[$tt->maspdv] ?? ''}}</td>
                                     <td>{{$tt->mota}}</td>
-                                    <td style="text-align: center">{{dinhdangso($tt->giadv)}}</td>
+                                    <td style="text-align: right;font-weight: bold">{{dinhdangso($tt->giadvthanhthi)}}</td>
+                                    <td style="text-align: right;font-weight: bold">{{dinhdangso($tt->giadvnongthon)}}</td>
+                                    <td style="text-align: right;font-weight: bold">{{dinhdangso($tt->giadvmiennui)}}</td>
+
                                 </tr>
                             @endforeach
 

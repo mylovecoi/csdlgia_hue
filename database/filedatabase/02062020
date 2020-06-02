@@ -1,15 +1,15 @@
-<?php
+use csdlgia_hue
+GO
 
-namespace App\Model\view;
+ALTER TABLE giadvgddtct
+ADD
+[giadvthanhthi] [float] NULL,
+[giadvnongthon] [float] NULL,
+[giadvmiennui] [float] NULL;
+GO
 
-use Illuminate\Database\Eloquent\Model;
-
-class view_giadvgddt extends Model
-{
-    protected $table = 'view_giadvgddt';
-    protected $fillable = [];
-}
-/*
+CREATE OR ALTER VIEW [dbo].[view_giadvgddt]
+AS
 SELECT        dbo.giadvgddt.madiaban, dbo.giadvgddt.maxp, dbo.giadvgddt.mahs, dbo.giadvgddt.soqd, dbo.giadvgddt.nam, dbo.giadvgddt.mota, dbo.giadvgddt.congbo, dbo.giadvgddt.lichsu, dbo.giadvgddt.ghichu, dbo.giadvgddt.thoidiem,
                          dbo.giadvgddt.macqcq, dbo.giadvgddt.madv, dbo.giadvgddt.lydo, dbo.giadvgddt.thongtin, dbo.giadvgddt.trangthai, dbo.giadvgddt.thoidiem_h, dbo.giadvgddt.macqcq_h, dbo.giadvgddt.madv_h, dbo.giadvgddt.lydo_h,
                          dbo.giadvgddt.thongtin_h, dbo.giadvgddt.trangthai_h, dbo.giadvgddt.thoidiem_t, dbo.giadvgddt.macqcq_t, dbo.giadvgddt.madv_t, dbo.giadvgddt.lydo_t, dbo.giadvgddt.thongtin_t, dbo.giadvgddt.trangthai_t,
@@ -18,4 +18,13 @@ SELECT        dbo.giadvgddt.madiaban, dbo.giadvgddt.maxp, dbo.giadvgddt.mahs, db
 FROM            dbo.giadvgddt INNER JOIN
                          dbo.giadvgddtct ON dbo.giadvgddt.mahs = dbo.giadvgddtct.mahs INNER JOIN
                          dbo.dmgiadvgddt ON dbo.giadvgddtct.maspdv = dbo.dmgiadvgddt.maspdv
- */
+GO
+
+ALTER TABLE giadvgddt
+ADD
+    [ipf1] [nvarchar](255) NULL,
+    [ipf2] [nvarchar](255) NULL,
+    [ipf3] [nvarchar](255) NULL,
+    [ipf4] [nvarchar](255) NULL,
+    [ipf5] [nvarchar](255) NULL;
+GO

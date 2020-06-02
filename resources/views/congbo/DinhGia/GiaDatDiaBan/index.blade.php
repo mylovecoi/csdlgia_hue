@@ -51,24 +51,20 @@
                     <div class="row">
                         <div class="form-group">
                             <div class="col-md-2">
-                                <label style="font-weight: bold">Năm</label>
-                                {!! Form::select('nam', getNam(true), $inputs['nam'], array('id' => 'nam', 'class' => 'form-control'))!!}
+                                <label class="control-label" style="font-weight: bold">Năm</label>
+                                {!! Form::select('nam', getNam(true), $inputs['nam'], array('id' => 'nam', 'class' => 'form-control select2me'))!!}
                             </div>
 
-                            <div class="col-md-4">
-                                <label style="font-weight: bold">Địa bàn</label>
-                                {!!Form::select('madiaban', $a_diaban, $inputs['madiaban'], array('id' => 'madiaban','class' => 'form-control'))!!}
+                            <div class="col-md-2">
+                                <label class="control-label" style="font-weight: bold">Địa bàn</label>
+                                {!!Form::select('madiaban', $a_diaban, $inputs['madiaban'], array('id' => 'madiaban','class' => 'form-control select2me'))!!}
                             </div>
 
-                            <div class="col-md-4">
-                                <label style="font-weight: bold">Xã phường</label>
+                            <div class="col-md-2">
+                                <label class="control-label" style="font-weight: bold">Xã phường</label>
                                 {!!Form::select('maxp', a_merge(['all'=>'--Tất cả--'], $a_xp), $inputs['maxp'], array('id' => 'maxp','class' => 'form-control select2me'))!!}
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="form-group">
                             <div class="col-md-6">
                                 <label class="control-label" style="font-weight: bold">Loại đất</label>
                                 {!!Form::select('maloaidat', array_merge(['all'=>'--Tất cả--'], $a_loaidat), $inputs['maloaidat'], array('id' => 'maloaidat','class' => 'form-control select2me'))!!}
@@ -80,18 +76,18 @@
                         <thead>
                         <tr>
                             <th rowspan="2" style="text-align: center" width="2%">STT</th>
-                            <th rowspan="2" style="text-align: center">Năm</th>
-                            <th rowspan="2" style="text-align: center">Địa bàn</th>
+                            <th rowspan="2" style="text-align: center">Thời điểm</th>
                             <th rowspan="2" style="text-align: center">Loại đất</th>
                             <th rowspan="2" style="text-align: center">Xã phường</th>
                             <th rowspan="2" style="text-align: center">Khu vực</br>Tên đường phố</th>
                             <th rowspan="2" style="text-align: center" >Địa giới</th>
-                            <th colspan="3" style="text-align: center" >Giá đất</th>
+                            <th colspan="4" style="text-align: center" >Giá đất</th>
                         </tr>
                         <tr>
                             <th style="text-align: center">VT1</th>
                             <th style="text-align: center">VT2</th>
                             <th style="text-align: center">VT3</th>
+                            <th style="text-align: center">VT4</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -99,7 +95,6 @@
                             <tr>
                                 <td style="text-align: center">{{$key+1}}</td>
                                 <td><b>{{getDayVn($tt->thoidiem)}}</b></td>
-                                <td><b>{{$a_diaban[$tt->madiaban] ?? ''}}</b></td>
                                 <td style="text-align: left;"><b>{{$a_loaidat[$tt->maloaidat] ?? ''}}</b></td>
                                 <td style="text-align: left;"><b>{{$a_xp[$tt->maxp] ?? ''}}</b></td>
                                 <td style="text-align: left" class="active">{{$tt->khuvuc}}</td>
@@ -107,6 +102,7 @@
                                 <td style="text-align: center">{{dinhdangsothapphan($tt->giavt1,2)}}</td>
                                 <td style="text-align: center">{{dinhdangsothapphan($tt->giavt2,2)}}</td>
                                 <td style="text-align: center">{{dinhdangsothapphan($tt->giavt3,2)}}</td>
+                                <td style="text-align: center">{{dinhdangsothapphan($tt->giavt4,2)}}</td>
 
 
                             </tr>

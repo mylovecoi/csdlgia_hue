@@ -78,12 +78,14 @@ class GiaDatDiaBanController extends Controller
             $a_loaidat = array_column(GiaDatDiaBanDm::all()->toArray(),'loaidat','maloaidat');
             $a_xp = array_column(dsxaphuong::where('madiaban',$model->madiaban)->get()->toarray(),'tenxp', 'maxp');
             $a_qd = array_column(TtGiaDatDiaBan::where('soqd', $model->soqd)->get()->toarray(),'mota', 'soqd');
+            $a_khuvuc = array_column($modelct->toarray(),'khuvuc', 'khuvuc');
             return view('manage.dinhgia.giadatdiaban.kekhai.edit')
                 ->with('model', $model)
                 ->with('modelct', $modelct)
                 ->with('inputs', $inputs)
                 ->with('a_diaban', $a_diaban)
                 ->with('a_loaidat', $a_loaidat)
+                ->with('a_khuvuc', $a_khuvuc)
                 ->with('a_xp', $a_xp)
                 ->with('a_qd', $a_qd)
                 ->with('pageTitle', 'Thông tin hồ sơ giá đất');
@@ -103,12 +105,14 @@ class GiaDatDiaBanController extends Controller
             $a_loaidat = array_column(GiaDatDiaBanDm::all()->toArray(),'loaidat','maloaidat');
             $a_xp = array_column(dsxaphuong::where('madiaban',$model->madiaban)->get()->toarray(),'tenxp', 'maxp');
             $a_qd = array_column(TtGiaDatDiaBan::where('soqd', $model->soqd)->get()->toarray(),'mota', 'soqd');
+            $a_khuvuc = array_column($modelct->toarray(),'khuvuc', 'khuvuc');
             return view('manage.dinhgia.giadatdiaban.kekhai.edit')
                 ->with('model', $model)
                 ->with('modelct', $modelct)
                 ->with('inputs', $inputs)
                 ->with('a_diaban', $a_diaban)
                 ->with('a_loaidat', $a_loaidat)
+                ->with('a_khuvuc', $a_khuvuc)
                 ->with('a_xp', $a_xp)
                 ->with('a_qd', $a_qd)
                 ->with('pageTitle', 'Thông tin hồ sơ giá đất');
@@ -373,10 +377,10 @@ class GiaDatDiaBanController extends Controller
             //lấy địa bàn
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-
+            //dd($m_diaban);
             $m_donvi = getDonViXetDuyet(session('admin')->level);
             $m_donvi_th = getDonViTongHop('giacldat',\session('admin')->level, \session('admin')->madiaban);
-            $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
+            $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->where('level','H')->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $inputs['nam'] = $inputs['nam'] ?? 'all';
 //            $inputs['maxp'] = $inputs['maxp'] ?? 'all';
@@ -647,7 +651,8 @@ class GiaDatDiaBanController extends Controller
             $a_loaidat = array_column(GiaDatDiaBanDm::all()->toArray(),'loaidat','maloaidat');
             $a_xp = array_column(dsxaphuong::where('madiaban',$inputs['madiaban'])->get()->toarray(),'tenxp', 'maxp');
             $a_qd = array_column(TtGiaDatDiaBan::wherein('soqd',$qd)->get()->toarray(),'mota', 'soqd');
-
+            $a_khuvuc = a_unique(array_column($model->toarray(),'khuvuc'));
+            //dd($a_khuvuc);
             return view('manage.dinhgia.giadatdiaban.reports.BcGiaDatDiaBan')
                 ->with('model',$model)
                 ->with('m_donvi',$m_donvi)
@@ -656,6 +661,7 @@ class GiaDatDiaBanController extends Controller
                 ->with('a_diaban', getDiaBan_XaHuyen(session('admin')->level,session('admin')->madiaban))
                 ->with('a_xp',$a_xp)
                 ->with('a_qd',$a_qd)
+                ->with('a_khuvuc',$a_khuvuc)
                 ->with('pageTitle','Báo cáo giá đất theo địa bàn');
 
         } else

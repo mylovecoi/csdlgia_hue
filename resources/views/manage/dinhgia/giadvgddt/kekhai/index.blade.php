@@ -90,11 +90,11 @@
                         </div>
                     </div>
 
-                    <table id="sample_3" class="table table-striped table-bordered table-hover">
+                    <table id="sample_4" class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th style="text-align: center" width="2%">STT</th>
-                                <th style="text-align: center">Địa bàn</th>
+{{--                                <th style="text-align: center">Địa bàn</th>--}}
                                 <th style="text-align: center" >Số QĐ</th>
                                 <th style="text-align: center">Năm học</th>
                                 <th style="text-align: center">Mô tả</th>
@@ -107,7 +107,7 @@
                             @foreach($model as $key => $tt)
                                 <tr>
                                     <td style="text-align: center">{{$key+1}}</td>
-                                    <td>{{$a_diaban[$tt->madiaban] ?? ''}}</td>
+{{--                                    <td>{{$a_diaban[$tt->madiaban] ?? ''}}</td>--}}
                                     <td>{{$tt->soqd}}</td>
                                     <td style="text-align: center">{{$tt->nam}}</td>
                                     <td style="text-align: left" class="active">{{$tt->mota}}</td>
@@ -127,6 +127,8 @@
                                             <button type="button" onclick="confirmChuyen('{{$tt->mahs}}','{{$inputs['url'].'/chuyenhs'}}')" class="btn btn-default btn-xs mbs" data-target="#chuyen-modal-confirm" data-toggle="modal">
                                                 <i class="fa fa-check"></i> Hoàn thành</button>
                                         @endif
+                                        <button type="button" onclick="get_attack('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
+                                            <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -136,6 +138,7 @@
                 <!-- END EXAMPLE TABLE PORTLET-->
             </div>
         </div>
+        @include('manage.include.form.modal_attackfile')
         @include('manage.include.form.modal_approve_hs')
         @include('manage.include.form.modal_del_hs')
     </div>
