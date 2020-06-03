@@ -1244,6 +1244,7 @@
                     </ul>
                 </li>
             @endif
+            {{--@php--}}
 
             @if(canKkGiaGr('DLBB'))
                 @if(canKkGiaCt('DLBB','DLBB'))
