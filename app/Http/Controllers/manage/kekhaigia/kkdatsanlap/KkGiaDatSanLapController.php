@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\manage\kekhaigia\kkcatsan;
+namespace App\Http\Controllers\manage\kekhaigia\kkdatsanlap;
 
 use App\District;
 use App\Jobs\SendMail;
-use App\Model\manage\kekhaigia\kkcatsan\KkGiaCatSan;
-use App\Model\manage\kekhaigia\kkcatsan\KkGiaCatSanCt;
+use App\Model\manage\kekhaigia\kkdatsanlap\KkGiaDatSanLap;
+use App\Model\manage\kekhaigia\kkdatsanlap\KkGiaDatSanLapCt;
 use App\Model\system\company\Company;
 use App\Model\system\dmnganhnghekd\DmNgheKd;
 use App\Model\system\dsdiaban;
@@ -18,31 +18,31 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
-class KkGiaCatSanController extends Controller
+class KkGiaDatSanLapController extends Controller
 {
     public function index(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $inputs['url'] = '/kekhaigiacatsan';
-            $m_donvi = getDoanhNghiepNhapLieu(session('admin')->level, 'CATSAN');
+            $inputs['url'] = '/kekhaigiadatsanlap';
+            $m_donvi = getDoanhNghiepNhapLieu(session('admin')->level, 'DATSANLAP');
             if(count($m_donvi) == 0){
                 return view('errors.noperm')
                     ->with('url','')
-                    ->with('message','Hệ thống chưa có doanh nghiệp kê khai giá cát sạn.');
+                    ->with('message','Hệ thống chưa có doanh nghiệp kê khai giá đất san lấp.');
             }
             $m_diaban = dsdiaban::wherein('madiaban', array_column($m_donvi->toarray(),'madiaban'))->get();
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $modeldn = $m_donvi->where('madv', $inputs['madv'])->first();
 
             $inputs['nam'] = $inputs['nam'] ?? date('Y');
-            $model = KkGiaCatSan::where('madv', $inputs['madv'])
+            $model = KkGiaDatSanLap::where('madv', $inputs['madv'])
                 ->whereYear('ngaynhap', $inputs['nam'])
                 ->orderBy('id', 'desc')
                 ->get();
 
-            $m_donvi_th = getDonViTongHop_dn('catsan',session('admin')->level, session('admin')->madiaban);
+            $m_donvi_th = getDonViTongHop_dn('datsanlap',session('admin')->level, session('admin')->madiaban);
 
-            return view('manage.kkgia.catsan.kkgia.kkgiadv.index')
+            return view('manage.kkgia.datsanlap.kkgia.kkgiadv.index')
                 ->with('model', $model)
                 ->with('modeldn', $modeldn)
                 ->with('inputs', $inputs)
@@ -51,7 +51,7 @@ class KkGiaCatSanController extends Controller
                 ->with('a_diaban', array_column($m_diaban->toarray(),'tendiaban', 'madiaban'))
                 ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
                 ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
-                ->with('pageTitle', 'Danh sách hồ sơ kê khai giá cát sạn');
+                ->with('pageTitle', 'Danh sách hồ sơ kê khai giá đất san lấp');
         } else
             return view('errors.notlogin');
     }
@@ -62,7 +62,7 @@ class KkGiaCatSanController extends Controller
             $inputs = $request->all();
             $inputs['mahs'] = $inputs['madv'] . '_' . getdate()[0];
             $modeldn = Company::where('madv', $inputs['madv'])->first();
-            $model = new KkGiaCatSan();
+            $model = new KkGiaDatSanLap();
             $model->madv = $inputs['madv'];
             $model->mahs = $inputs['mahs'];
             $model->trangthai = 'CC';
@@ -70,12 +70,12 @@ class KkGiaCatSanController extends Controller
 
             /*DB::statement("DELETE FROM kkgiavtxbct WHERE mahs not in (SELECT mahs FROM kkgiavtxb where madv='" . $inputs['madv'] . "')");*/
 
-            $modellk = KkGiaCatSan::where('madv', $inputs['madv'])
+            $modellk = KkGiaDatSanLap::where('madv', $inputs['madv'])
                 ->where('trangthai', 'DD')
                 ->orderby('ngayhieuluc', 'desc')->first();
 
             if ($modellk != null) {
-                $modellkct = KkGiaCatSanCt::where('mahs', $modellk->mahs)->get();
+                $modellkct = KkGiaDatSanLapCt::where('mahs', $modellk->mahs)->get();
                 $model->socvlk = $modellk->socv;
                 $model->ngaycvlk = $modellk->ngaynhap;
                 $a_dm = array();
@@ -90,18 +90,18 @@ class KkGiaCatSanController extends Controller
                         'giakk' => $ctdf->giakk,
                     );
                 }
-                KkGiaCatSanCt::insert($a_dm);
+                KkGiaDatSanLapCt::insert($a_dm);
             }
 
-            $modelct = KkGiaCatSanCt::where('mahs', $inputs['mahs'])->get();
+            $modelct = KkGiaDatSanLapCt::where('mahs', $inputs['mahs'])->get();
 //            dd($model);
 
-            return view('manage.kkgia.catsan.kkgia.kkgiadv.edit')
+            return view('manage.kkgia.datsanlap.kkgia.kkgiadv.edit')
                 ->with('model', $model)
                 ->with('modeldn', $modeldn)
                 ->with('modelct', $modelct)
                 ->with('inputs', $inputs)
-                ->with('pageTitle', 'Kê khai giá cát sạn thêm mới');
+                ->with('pageTitle', 'Kê khai giá đất san lấp thêm mới');
 
         } else
             return view('errors.notlogin');
@@ -113,14 +113,14 @@ class KkGiaCatSanController extends Controller
             $inputs['ngaynhap'] = getDateToDb($inputs['ngaynhap']);
             $inputs['ngayhieuluc'] = getDateToDb($inputs['ngayhieuluc']);
             $inputs['ngaycvlk'] = getDateToDb($inputs['ngaycvlk']);
-            $model = KkGiaCatSan::where('mahs', $inputs['mahs'])->first();
+            $model = KkGiaDatSanLap::where('mahs', $inputs['mahs'])->first();
             if ($model == null) {
                 $inputs['trangthai'] = 'CC';
-                KkGiaCatSan::create($inputs);
+                KkGiaDatSanLap::create($inputs);
             } else {
                 $model->update($inputs);
             }
-            return redirect('kekhaigiacatsan?&madv='.$inputs['madv']);
+            return redirect('kekhaigiadatsanlap?&madv='.$inputs['madv']);
 
         }else
             return view('errors.notlogin');
@@ -130,17 +130,17 @@ class KkGiaCatSanController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $mahs = $inputs['mahs'];
-            $modelkk = KkGiaCatSan::where('mahs',$mahs)->first();
+            $modelkk = KkGiaDatSanLap::where('mahs',$mahs)->first();
             $modeldn = Company::where('madv',$modelkk->madv)->first();
-            $modelkkct = KkGiaCatSanCt::where('mahs',$modelkk->mahs)->get();
+            $modelkkct = KkGiaDatSanLapCt::where('mahs',$modelkk->mahs)->get();
 //            dd($modelkkct);
             $modelcqcq = view_dsdiaban_donvi::where('madv', $modelkk->macqcq)->first();
-            return view('manage.kkgia.catsan.reports.print')
+            return view('manage.kkgia.datsanlap.reports.print')
                 ->with('modelkk',$modelkk)
                 ->with('modeldn',$modeldn)
                 ->with('modelkkct',$modelkkct)
                 ->with('modelcqcq',$modelcqcq)
-                ->with('pageTitle','Kê khai giá cát sạn');
+                ->with('pageTitle','Kê khai giá đất san lấp');
 
         }else
             return view('errors.notlogin');
@@ -149,14 +149,14 @@ class KkGiaCatSanController extends Controller
     public function edit(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = KkGiaCatSan::where('mahs',$inputs['mahs'])->first();
+            $model = KkGiaDatSanLap::where('mahs',$inputs['mahs'])->first();
             $modeldn = Company::where('madv', $model->madv)->first();
-            $modelct = KkGiaCatSanCt::where('mahs', $model->mahs)->get();
-            return view('manage.kkgia.catsan.kkgia.kkgiadv.edit')
+            $modelct = KkGiaDatSanLapCt::where('mahs', $model->mahs)->get();
+            return view('manage.kkgia.datsanlap.kkgia.kkgiadv.edit')
                 ->with('model', $model)
                 ->with('modeldn', $modeldn)
                 ->with('modelct', $modelct)
-                ->with('pageTitle', 'Kê khai giá cát sạn chỉnh sửa');
+                ->with('pageTitle', 'Kê khai giá đất san lấp chỉnh sửa');
         } else
             return view('errors.notlogin');
     }
@@ -165,7 +165,7 @@ class KkGiaCatSanController extends Controller
         if (Session::has('admin')) {
             if (session('admin')->level == 'DN' || session('admin')->level == 'T' || session('admin')->level == 'H'  || session('admin')->level == 'X') {
                 $inputs = $request->all();
-                $model = KkGiaCatSan::findOrFail($id);
+                $model = KkGiaDatSanLap::findOrFail($id);
                 if (session('admin')->level == 'T' || session('admin')->level == 'H' || session('admin')->level == 'X' || $model->madv == session('admin')->madv) {
                     $inputs['ngaynhap'] = getDateToDb($inputs['ngaynhap']);
                     $inputs['ngayhieuluc'] = getDateToDb($inputs['ngayhieuluc']);
@@ -174,10 +174,10 @@ class KkGiaCatSanController extends Controller
                     else
                         unset($inputs['ngaycvlk']);
                     if($model->update($inputs)){
-                        $modelct = KkGiaCatSanCt::where('mahs',$inputs['mahs'])
+                        $modelct = KkGiaDatSanLapCt::where('mahs',$inputs['mahs'])
                             ->update(['trangthai' => 'XD']);
                     }
-                    return redirect('kekhaigiacatsan?&madv=' . $model->madv);
+                    return redirect('kekhaigiadatsanlap?&madv=' . $model->madv);
                 } else
                     return view('errors.perm');
             }else
@@ -190,13 +190,13 @@ class KkGiaCatSanController extends Controller
         if (Session::has('admin')) {
             if (session('admin')->level == 'DN' || session('admin')->level == 'T' || session('admin')->level == 'H' || session('admin')->level == 'X') {
                 $inputs = $request->all();
-                $model = KkGiaCatSan::where('id',$inputs['iddelete'])
+                $model = KkGiaDatSanLap::where('id',$inputs['iddelete'])
                     ->first();
                 if($model->delete()){
-                    $modelct = KkGiaCatSanCt::where('mahs',$model->mahs)
+                    $modelct = KkGiaDatSanLapCt::where('mahs',$model->mahs)
                         ->delete();
                 }
-                return redirect('kekhaigiacatsan?&madv='.$model->madv);
+                return redirect('kekhaigiadatsanlap?&madv='.$model->madv);
             }else{
                 return view('errors.perm');
             }
@@ -220,8 +220,8 @@ class KkGiaCatSanController extends Controller
         //dd($request);
         $inputs = $request->all();
         $inputs = $request->all();
-        $m_hs = KkGiaCatSan::where('mahs',$inputs['mahs'])->first();
-        if(KiemTraNgayApDung($m_hs->ngayhieuluc,'catsan')){
+        $m_hs = KkGiaDatSanLap::where('mahs',$inputs['mahs'])->first();
+        if(KiemTraNgayApDung($m_hs->ngayhieuluc,'datsanlap')){
             $result = array(
                 'status' => 'success',
                 'message' => 'Ngày áp dụng hợp lệ.',
@@ -235,7 +235,7 @@ class KkGiaCatSanController extends Controller
     public function chuyen(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = KkGiaCatSan::where('mahs', $inputs['mahs'])->first();
+            $model = KkGiaDatSanLap::where('mahs', $inputs['mahs'])->first();
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => 'CD',
@@ -278,7 +278,7 @@ class KkGiaCatSanController extends Controller
                 $run = new SendMail($modeldn,$contentdn,$modeldv,$contentht);
                 $run->handle();
             }
-            return redirect('kekhaigiacatsan?madv=' . $model->madv);
+            return redirect('kekhaigiadatsanlap?madv=' . $model->madv);
 
 
         } else
@@ -287,7 +287,7 @@ class KkGiaCatSanController extends Controller
 
     public function showlydo(Request $request){
         $inputs = $request->all();
-        $model = KkGiaCatSan::where('mahs', $inputs['mahs'])->first();
+        $model = KkGiaDatSanLap::where('mahs', $inputs['mahs'])->first();
         if ($model->madv_h == $inputs['madv']) {
             $model->lydo = $model->lydo_h;
         }

@@ -24,14 +24,14 @@
             $('#nam').change(function() {
                 var namhs = '&nam=' + $('#nam').val();
                 var madv = '&madv=' + $('#madv').val();
-                var url = '/xetduyetkkgiadvcahue?'+namhs+madv;
+                var url = '/xetduyetkkgiadatsanlap?'+namhs+madv;
                 window.location.href = url;
             });
 
             $('#madv').change(function() {
                 var namhs = '&nam=' + $('#nam').val();
                 var madv = '&madv=' + $('#madv').val();
-                var url = '/xetduyetkkgiadvcahue?'+namhs+madv;
+                var url = '/xetduyetkkgiadatsanlap?'+namhs+madv;
                 window.location.href = url;
             });
 
@@ -41,7 +41,7 @@
 //            alert(id);
 //            alert(madv);
             $.ajax({
-                url: '/ttdnkkdvch',
+                url: '/ttdnkkdatsanlap',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -76,7 +76,7 @@
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             //alert(id);
             $.ajax({
-                url: '/xetduyetkkgiadvcahue/ttnhanhs',
+                url: '/xetduyetkkgiadatsanlap/ttnhanhs',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -105,7 +105,7 @@
             //alert(mahs);
 
             $.ajax({
-                url: '/xetduyetkkgiadvcahue/nhanhsedit',
+                url: '/xetduyetkkgiadatsanlap/nhanhsedit',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -132,7 +132,7 @@
             //alert(mahs);
 
             $.ajax({
-                url: '/xetduyetkkgiadvcahue/tthuyduyet',
+                url: '/xetduyetkkgiadatsanlap/tthuyduyet',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -154,7 +154,7 @@
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             //alert(id);
             $.ajax({
-                url: '/kkdvch/showlydo',
+                url: '/kkdatsanlap/showlydo',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -175,7 +175,7 @@
 @section('content')
 
     <h3 class="page-title">
-        Thông tin xét duyệt kê khai giá<small>&nbsp;dịch vụ ca huế</small>
+        Thông tin xét duyệt kê khai giá<small>&nbsp;đát san lấp</small>
     </h3>
     <hr>
     <div class="row">
@@ -253,7 +253,7 @@
                                         </td>
                                     @endif
                                     <td>
-                                        <a href="{{url('kekhaigiadvcahue/prints?&mahs='.$tt->mahs)}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
+                                        <a href="{{url('kekhaigiadatsanlap/prints?&mahs='.$tt->mahs)}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
                                         @if($tt->level == 'ADMIN')
                                             @if($tt->trangthai == 'CB')
                                                 <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','{{$inputs['url'].'/congbo'}}', 'HCB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
@@ -301,7 +301,7 @@
         <div class="modal fade" id="tralai-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    {!! Form::open(['url'=>'xetduyetkkgiadvcahue/tralai','id' => 'frm_tralai'])!!}
+                    {!! Form::open(['url'=>'xetduyetkkgiadatsanlap/tralai','id' => 'frm_tralai'])!!}
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                         <h4 class="modal-title">Đồng ý trả lại hồ sơ?</h4>
@@ -333,7 +333,7 @@
         <div class="modal fade" id="nhanhs-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    {!! Form::open(['url'=>'xetduyetkkgiadvcahue/nhanhs','id' => 'frm_nhanhs'])!!}
+                    {!! Form::open(['url'=>'xetduyetkkgiadatsanlap/nhanhs','id' => 'frm_nhanhs'])!!}
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                         <h4 class="modal-title">Đồng ý nhận hồ sơ?</h4>
@@ -355,7 +355,7 @@
         <div class="modal fade" id="nhanhsedit-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    {!! Form::open(['url'=>'xetduyetkkgiadvcahue/nhanhsedit','id' => 'frm_nhanhsedit'])!!}
+                    {!! Form::open(['url'=>'xetduyetkkgiadatsanlap/nhanhsedit','id' => 'frm_nhanhsedit'])!!}
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                         <h4 class="modal-title">Chỉnh sửa thông tin nhận hồ sơ?</h4>
@@ -377,7 +377,7 @@
         <div class="modal fade" id="huyduyet-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    {!! Form::open(['url'=>'xetduyetkkgiadvcahue/huyduyet','id' => 'frm_huyduyet'])!!}
+                    {!! Form::open(['url'=>'xetduyetkkgiadatsanlap/huyduyet','id' => 'frm_huyduyet'])!!}
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                         <h4 class="modal-title">Đồng ý huỷ duyệt hồ sơ?</h4>

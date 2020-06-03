@@ -40,7 +40,7 @@ class KkGiaHpLxController extends Controller
                 ->orderBy('id', 'desc')
                 ->get();
 
-            $m_donvi_th = getDonViTongHop_dn('cahue',session('admin')->level, session('admin')->madiaban);
+            $m_donvi_th = getDonViTongHop_dn('hocphilx',session('admin')->level, session('admin')->madiaban);
 
             return view('manage.kkgia.hplx.kkgia.kkgiadv.index')
                 ->with('model', $model)

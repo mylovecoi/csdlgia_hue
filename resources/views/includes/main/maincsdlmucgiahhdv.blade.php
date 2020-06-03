@@ -1228,6 +1228,22 @@
                     </ul>
                 </li>
             @endif
+            @if(chkPer('csdlmucgiahhdv','kknygia', 'datsanlap', 'hoso', 'index'))
+                <li>
+                    <a href="javascript:;">
+                        <span class="title">Vật liệu xây dựng: đất san lấp</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        @if(session('admin')->level=='SSA')
+                            <li><a href="{{url('kekhaigiadatsanlap')}}">Giá kê khai</a> </li>
+                        @endif
+                        <li><a href="{{url('xetduyetkkgiadatsanlap')}}">Thông tin hồ sơ xét duyệt</a></li>
+                        <li><a href="{{url('timkiemkkgiadatsanlap')}}">Tìm kiếm thông tin</a> </li>
+                        <li><a href="{{url('baocaokekhaidatsanlap')}}">Báo cáo thống kê</a></li>
+                    </ul>
+                </li>
+            @endif
 
             @if(canKkGiaGr('DLBB'))
                 @if(canKkGiaCt('DLBB','DLBB'))

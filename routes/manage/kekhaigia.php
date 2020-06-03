@@ -84,4 +84,7 @@ include('kkgia/hplx.php');
 
 //Vật liệu xây dựng: cát,sạn
 include('kkgia/catsan.php');
+
+//Vật liệu xây dựng: đất san lấp
+include('kkgia/datsanlap.php');
 ?>

@@ -175,7 +175,7 @@
 @section('content')
 
     <h3 class="page-title">
-        Thông tin xét duyệt kê khai giá<small>&nbsp;học phí lái xe</small>
+        Thông tin xét duyệt kê khai giá<small>&nbsp;cát sạn</small>
     </h3>
     <hr>
     <div class="row">
@@ -253,7 +253,7 @@
                                         </td>
                                     @endif
                                     <td>
-                                        <a href="{{url('xetduyetkkgiacatsan/prints?&mahs='.$tt->mahs)}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
+                                        <a href="{{url('kekhaigiacatsan/prints?&mahs='.$tt->mahs)}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
                                         @if($tt->level == 'ADMIN')
                                             @if($tt->trangthai == 'CB')
                                                 <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','{{$inputs['url'].'/congbo'}}', 'HCB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">

@@ -647,6 +647,17 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </ul>
                                 </li>
                             @endif
+                            @if(chkPer('csdlmucgiahhdv','kknygia', 'datsanlap'))
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="title">Vật liệu xây dựng: đất san lấp</span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li><a href="{{url('kekhaigiadatsanlap')}}">Giá kê khai</a> </li>
+                                    </ul>
+                                </li>
+                            @endif
 
                             @if(canKkGiaGr('DLBB'))
                                 @if(canKkGiaCt('DLBB','DLBB'))
