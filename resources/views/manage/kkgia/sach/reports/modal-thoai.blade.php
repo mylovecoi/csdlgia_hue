@@ -24,17 +24,6 @@
                 <div class="form-horizontal">
                     <div class="form-group">
                         <div class="col-md-12">
-                            <label class="control-label"><b>Đơn vị</b></label>
-                            <select id="mahuyen" name="mahuyen" class="form-control">
-                                <option value="all">--Tất cả--</option>
-                                @foreach($m_donvi as $donvi)
-                                    <option value="{{$donvi->maxa}}">{{$donvi->tendv}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-12">
                             <label class="control-label"><b>Phân loại</b></label>
                             <select id="phanloai" name="phanloai" class="form-control">
                                 <option value="ngaychuyen">Ngày chuyển hồ sơ</option>
@@ -49,7 +38,6 @@
                 <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
                 <button type="submit" data-dismiss="modal" class="btn btn-success" onclick="ClickBC1('/baocaokkgiasach/bc1')">BC Tổng hợp</button>
                 <button type="submit" data-dismiss="modal" class="btn btn-success" onclick="ClickBC2('/baocaokkgiasach/bc2')">BC chi tiét</button>
-                <!--button type="submit" data-dismiss="modal" class="btn btn-primary" onclick="ClickBCExcel('/reports/thuetn/bcgiathuetnexcel')">Xuất Excel</button-->
             </div>
             {!! Form::close() !!}
         </div>

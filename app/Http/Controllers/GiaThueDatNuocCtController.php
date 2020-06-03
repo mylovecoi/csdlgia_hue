@@ -38,6 +38,8 @@ class GiaThueDatNuocCtController extends Controller
             $result['message'] .= '<tr>';
             $result['message'] .= '<th width="2%" style="text-align: center">STT</th>';
             $result['message'] .= '<th style="text-align: center">Vị trí</th>';
+            $result['message'] .= '<th style="text-align: center">Địa giới từ</th>';
+            $result['message'] .= '<th style="text-align: center">Địa giới đến</th>';
             $result['message'] .= '<th style="text-align: center">Mô tả</th>';
             $result['message'] .= '<th style="text-align: center" width="10%">Diện tích</th>';
             $result['message'] .= '<th style="text-align: center" width="10%">Đơn giá</th>';
@@ -50,6 +52,8 @@ class GiaThueDatNuocCtController extends Controller
                     $result['message'] .= '<tr id="'.$tents->id.'">';
                     $result['message'] .= '<td style="text-align: center">'.($key +1).'</td>';
                     $result['message'] .= '<td class="active">'.$tents->vitri.'</td>';
+                    $result['message'] .= '<td>'.$tents->diemdau.'</td>';
+                    $result['message'] .= '<td>'.$tents->diemcuoi.'</td>';
                     $result['message'] .= '<td>'.$tents->mota.'</td>';
                     $result['message'] .= '<td style="text-align: center;font-weight: bold">'.number_format($tents->dientich).'</td>';
                     $result['message'] .= '<td style="text-align: right;font-weight: bold">'.number_format($tents->dongia).'</td>';
@@ -98,6 +102,20 @@ class GiaThueDatNuocCtController extends Controller
             $result['message'] .= '<div class="col-md-12">';
             $result['message'] .= '<div class="form-group"><label for="selGender" class="control-label">Vị trí<span class="require">*</span></label>';
             $result['message'] .= '<div><input type="text" name="vitriedit" id="vitriedit" class="form-control" value="'.$model->vitri.'"></div>';
+            $result['message'] .= '</div>';
+            $result['message'] .= '</div>';
+            $result['message'] .= '</div>';
+
+            $result['message'] .= '<div class="row">';
+            $result['message'] .= '<div class="col-md-6">';
+            $result['message'] .= '<div class="form-group"><label for="selGender" class="control-label">Địa giới từ</label>';
+            $result['message'] .= '<div><input type="text" name="diemdauedit" id="diemdauedit" class="form-control" value="'.$model->diemdau.'"></div>';
+            $result['message'] .= '</div>';
+            $result['message'] .= '</div>';
+
+            $result['message'] .= '<div class="col-md-6">';
+            $result['message'] .= '<div class="form-group"><label for="selGender" class="control-label">Địa giới đến</label>';
+            $result['message'] .= '<div><input type="text" name="diemcuoiedit" id="diemcuoiedit" class="form-control" value="'.$model->diemcuoi.'"></div>';
             $result['message'] .= '</div>';
             $result['message'] .= '</div>';
             $result['message'] .= '</div>';
@@ -159,11 +177,13 @@ class GiaThueDatNuocCtController extends Controller
                 ->get();
             $result['message'] = '<div class="row" id="dsts">';
             $result['message'] .= '<div class="col-md-12">';
-            $result['message'] .= '<table class="table table-striped table-bordered table-hover" id="sample_3">';
+            $result['message'] .= '<table class="table table-striped table-bordered table-hover" id="sample_4">';
             $result['message'] .= '<thead>';
             $result['message'] .= '<tr>';
             $result['message'] .= '<th width="2%" style="text-align: center">STT</th>';
             $result['message'] .= '<th style="text-align: center">Vị trí</th>';
+            $result['message'] .= '<th style="text-align: center">Địa giới từ</th>';
+            $result['message'] .= '<th style="text-align: center">Địa giới đến</th>';
             $result['message'] .= '<th style="text-align: center">Mô tả</th>';
             $result['message'] .= '<th style="text-align: center" width="10%">Diện tích</th>';
             $result['message'] .= '<th style="text-align: center" width="10%">Đơn giá</th>';
@@ -176,6 +196,8 @@ class GiaThueDatNuocCtController extends Controller
                     $result['message'] .= '<tr id="'.$tents->id.'">';
                     $result['message'] .= '<td style="text-align: center">'.($key +1).'</td>';
                     $result['message'] .= '<td class="active">'.$tents->vitri.'</td>';
+                    $result['message'] .= '<td>'.$tents->diemdau.'</td>';
+                    $result['message'] .= '<td>'.$tents->diemcuoi.'</td>';
                     $result['message'] .= '<td>'.$tents->mota.'</td>';
                     $result['message'] .= '<td style="text-align: center;font-weight: bold">'.number_format($tents->dientich).'</td>';
                     $result['message'] .= '<td style="text-align: right;font-weight: bold">'.number_format($tents->dongia).'</td>';
@@ -224,6 +246,8 @@ class GiaThueDatNuocCtController extends Controller
             $result['message'] .= '<tr>';
             $result['message'] .= '<th width="2%" style="text-align: center">STT</th>';
             $result['message'] .= '<th style="text-align: center">Vị trí</th>';
+            $result['message'] .= '<th style="text-align: center">Địa giới từ</th>';
+            $result['message'] .= '<th style="text-align: center">Địa giới đến</th>';
             $result['message'] .= '<th style="text-align: center">Mô tả</th>';
             $result['message'] .= '<th style="text-align: center" width="10%">Diện tích</th>';
             $result['message'] .= '<th style="text-align: center" width="10%">Đơn giá</th>';
@@ -236,6 +260,8 @@ class GiaThueDatNuocCtController extends Controller
                     $result['message'] .= '<tr id="'.$tents->id.'">';
                     $result['message'] .= '<td style="text-align: center">'.($key +1).'</td>';
                     $result['message'] .= '<td class="active">'.$tents->vitri.'</td>';
+                    $result['message'] .= '<td>'.$tents->diemdau.'</td>';
+                    $result['message'] .= '<td>'.$tents->diemcuoi.'</td>';
                     $result['message'] .= '<td>'.$tents->mota.'</td>';
                     $result['message'] .= '<td style="text-align: center;font-weight: bold">'.number_format($tents->dientich).'</td>';
                     $result['message'] .= '<td style="text-align: right;font-weight: bold">'.number_format($tents->dongia).'</td>';

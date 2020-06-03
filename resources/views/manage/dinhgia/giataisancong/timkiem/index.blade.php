@@ -17,14 +17,14 @@
 
 @section('content')
     <h3 class="page-title">
-        Tìm kiếm<small> thông tin hồ sơ thuê tài sản công</small>
+        Tìm kiếm<small> thông tin hồ sơ tài sản công</small>
     </h3>
 
     <!-- END PAGE HEADER-->
     <div class="row center">
         <div class="col-md-12 center">
             <!-- BEGIN VALIDATION STATES-->
-            {!! Form::open(['url'=>'giathuetscong/timkiem', 'method'=>'post' , 'id' => 'create_timkiem', 'class'=>'horizontal-form']) !!}
+            {!! Form::open(['url'=>'taisancong/timkiem', 'method'=>'post' , 'id' => 'create_timkiem', 'class'=>'horizontal-form']) !!}
             {{--            <input type="hidden" name="madv" value="{{$inputs['madv']}}">--}}
             <div class="portlet box blue">
                 <div class="portlet-body form">
@@ -51,12 +51,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Tên tài sản</label>
-                                    <select class="form-control select2me" name="mataisan" id="mataisan">
-                                        <option value="all">-- Tất cả các tài sản --</option>
-                                        @foreach($a_ts as $key=>$val)
-                                            <option value="{{$key}}">{{$val}}</option>
-                                        @endforeach
-                                    </select>
+                                    {!! Form::text('tentaisan', null, array('id' => 'tentaisan', 'class' => 'form-control'))!!}
                                 </div>
                             </div>
                         </div>
@@ -81,14 +76,14 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Đơn giá từ</label>
+                                    <label class="control-label">Nguyên giá từ</label>
                                     {!!Form::text('giatri_tu', null, array('id' => 'giatri_tu','class' => 'form-control','data-mask'=>'fdecimal'))!!}
                                 </div>
                             </div>
                             <!--/span-->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Đơn giá đến</label>
+                                    <label class="control-label">Nguyên giá đến</label>
                                     {!!Form::text('giatri_den', null, array('id' => 'giatri_den','class' => 'form-control','data-mask'=>'fdecimal'))!!}
                                 </div>
                             </div>

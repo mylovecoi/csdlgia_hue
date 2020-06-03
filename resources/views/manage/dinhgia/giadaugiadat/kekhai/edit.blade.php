@@ -187,14 +187,14 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="control-label">Số quyết định phương án đấu giá<span class="require">*</span></label>
-                                    {!!Form::text('soqdpagia',null, array('id' => 'soqdpagia','class' => 'form-control required','autofocus'))!!}
+                                    <label class="control-label">Số quyết định phương án đấu giá</label>
+                                    {!!Form::text('soqdpagia',null, array('id' => 'soqdpagia','class' => 'form-control','autofocus'))!!}
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="control-label">Số quyết định đấu giá<span class="require">*</span></label>
-                                    {!!Form::text('soqddaugia',null, array('id' => 'soqddaugia','class' => 'form-control required','autofocus'))!!}
+                                    <label class="control-label">Số quyết định đấu giá</label>
+                                    {!!Form::text('soqddaugia',null, array('id' => 'soqddaugia','class' => 'form-control','autofocus'))!!}
                                 </div>
                             </div>
                             <!--/span-->
@@ -203,14 +203,20 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="control-label">Số quyết định phê duyệt giá khởi điểm<span class="require">*</span></label>
-                                    {!!Form::text('soqdgiakhoidiem',null, array('id' => 'soqdgiakhoidiem','class' => 'form-control required','autofocus'))!!}
+                                    <label class="control-label">Số quyết định phê duyệt giá khởi điểm</label>
+                                    {!!Form::text('soqdgiakhoidiem',null, array('id' => 'soqdgiakhoidiem','class' => 'form-control'))!!}
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="control-label">Số quyết định công nhận kết quả trúng đấu giá<span class="require">*</span></label>
-                                    {!!Form::text('soqdkqdaugia',null, array('id' => 'soqdkqdaugia','class' => 'form-control required','autofocus'))!!}
+                                    <label class="control-label">Số quyết định công nhận kết quả trúng đấu giá</label>
+                                    {!!Form::text('soqdkqdaugia',null, array('id' => 'soqdkqdaugia','class' => 'form-control'))!!}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Phân loại</label>
+                                    {!!Form::select('phanloai',['Theo dự án'=> 'Theo dự án','Theo lô'=>'Theo lô'],null, array('id' => 'phanloai','class' => 'form-control'))!!}
                                 </div>
                             </div>
                             <!--/span-->

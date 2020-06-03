@@ -18,6 +18,7 @@ class CreateThgiagocvlxdTable extends Migration
             $table->string('madiaban')->nullable();
             $table->string('maxp')->nullable();
             $table->string('mahs')->unique();
+            $table->string('thang')->nullable();
             $table->string('quy')->nullable();
             $table->string('nam')->nullable();
             $table->string('sobc')->nullable();

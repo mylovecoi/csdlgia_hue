@@ -27,13 +27,13 @@ class ThGiaGocVlXdController extends Controller
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
 
             $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
-            $inputs['quy'] = isset($inputs['quy']) ? $inputs['quy'] : Thang2Quy(date('m'));
+            $inputs['thang'] = isset($inputs['thang']) ? $inputs['thang'] : date('m');
             //dd($inputs);
             //lấy thông tin đơn vị
             //$model = ThGiaGocVlXd::where('madv', $inputs['madv']);
             $model = ThGiaGocVlXd::all();
             $model = $model->where('nam',strval($inputs['nam']));
-            $model = $model->where('quy',strval($inputs['quy']));
+            $model = $model->where('thang',strval($inputs['thang']));
             //dd($model);
             return view('manage.dinhgia.giagocvlxd.tonghop.index')
                 ->with('model', $model)
@@ -61,6 +61,7 @@ class ThGiaGocVlXdController extends Controller
             //$inputs['ttthaotac'] = session('admin')->name.'('.session('admin')->username.') thêm mới';
             $model->quy = date('Y');
             $model->nam = Thang2Quy(date('m'));
+            $model->thang = date('m');
             //$inputs['diabanbc'] = implode(',',$inputs['diabanbc']);
             $model->trangthai = 'CHT';
             return view('manage.dinhgia.giagocvlxd.tonghop.edit')

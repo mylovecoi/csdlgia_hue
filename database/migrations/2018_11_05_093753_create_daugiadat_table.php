@@ -25,6 +25,8 @@ class CreateDaugiadatTable extends Migration
             $table->string('soqddaugia')->nullable();
             $table->string('soqdgiakhoidiem')->nullable();
             $table->string('soqdkqdaugia')->nullable();
+            $table->string('soqdkqdaugia')->nullable();
+            $table->string('phanloai')->nullable();
             $table->string('ipf1')->nullable();
             $table->string('ipf2')->nullable();
             $table->string('ipf3')->nullable();

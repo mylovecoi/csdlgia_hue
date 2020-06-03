@@ -20,7 +20,9 @@ class GiaDvGdDtCtController extends Controller
         }
 
         $inputs = $request->all();
-        $inputs['giadv'] = getMoneyToDb($inputs['giadv']);
+        $inputs['giadvthanhthi'] = getDoubleToDb($inputs['giadvthanhthi']);
+        $inputs['giadvnongthon'] = getDoubleToDb($inputs['giadvnongthon']);
+        $inputs['giadvmiennui'] = getDoubleToDb($inputs['giadvmiennui']);
 
         $m_chk = GiaDvGdDtCt::where('maspdv',$inputs['maspdv'])->where('mahs',$inputs['mahs'])->first();
         if($m_chk == null){
@@ -73,13 +75,15 @@ class GiaDvGdDtCtController extends Controller
 
         $result['message'] = '<div class="row" id="dsts">';
         $result['message'] .= '<div class="col-md-12">';
-        $result['message'] .= '<table class="table table-striped table-bordered table-hover" id="sample_3">';
+        $result['message'] .= '<table class="table table-striped table-bordered table-hover" id="sample_4">';
         $result['message'] .= '<thead>';
         $result['message'] .= '<tr>';
         $result['message'] .= '<th width="5%" style="text-align: center">STT</th>';
         $result['message'] .= '<th style="text-align: center">Mô tả</th>';
-        $result['message'] .= '<th style="text-align: center" width="15%">Mức giá</th>';
-        $result['message'] .= '<th style="text-align: center" width="20%">Thao tác</th>';
+        $result['message'] .= '<th style="text-align: center" width="15%">Mức thu<br>khu vực<br>thành thị</th>';
+        $result['message'] .= '<th style="text-align: center" width="15%">Mức thu<br>khu vực<br>nông thôn</th>';
+        $result['message'] .= '<th style="text-align: center" width="15%">Mức thu<br>khu vực<br>miền núi</th>';
+        $result['message'] .= '<th style="text-align: center" width="10%">Thao tác</th>';
         $result['message'] .= '</tr>';
         $result['message'] .= '</thead>';
         $result['message'] .= '<tbody id="ttts">';
@@ -89,7 +93,9 @@ class GiaDvGdDtCtController extends Controller
                 $result['message'] .= '<tr id="' . $tents->id . '">';
                 $result['message'] .= '<td style="text-align: center">' . ($key + 1) . '</td>';
                 $result['message'] .= '<td class="active" style="font-weight: bold">' . $a_dm[$tents->maspdv] . '</td>';
-                $result['message'] .= '<td style="text-align: right;font-weight: bold">' . number_format($tents->giadv) . '</td>';
+                $result['message'] .= '<td style="text-align: right;font-weight: bold">' . dinhdangso($tents->giadvthanhthi) . '</td>';
+                $result['message'] .= '<td style="text-align: right;font-weight: bold">' . dinhdangso($tents->giadvnongthon) . '</td>';
+                $result['message'] .= '<td style="text-align: right;font-weight: bold">' . dinhdangso($tents->giadvmiennui) . '</td>';
                 $result['message'] .= '<td>' .
                     '<button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem(' . $tents->id . ');"><i class="fa fa-edit"></i>&nbsp;Sửa</button>' .
                     '<button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid(' . $tents->id . ')" ><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>'

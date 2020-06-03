@@ -18,7 +18,9 @@ class CreateGiadvgddtctTable extends Migration
             $table->string('mahs')->nullable();
             $table->string('maspdv')->nullable();
             $table->text('mota')->nullable();
-            $table->string('giadv')->nullable();
+            $table->string('giadvthanhthi')->nullable();
+            $table->string('giadvnongthon')->nullable();
+            $table->string('giadvmiennui')->nullable();
             $table->timestamps();
         });
     }

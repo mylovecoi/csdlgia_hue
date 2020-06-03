@@ -39,6 +39,8 @@
                                 <th style="text-align: center">Đơn vị nhập</th>
                                 <th style="text-align: center">Thời điểm</th>
                                 <th style="text-align: center">Vị trí</th>
+                                <th style="text-align: center">Địa giới từ</th>
+                                <th style="text-align: center">Địa giới đến</th>
                                 <th style="text-align: center">Diện tích</th>
                                 <th style="text-align: center">Giá trị</th>
                             </tr>
@@ -51,6 +53,8 @@
                                     <td>{{$a_donvi[$tt->madv] ?? ''}}</td>
                                     <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
                                     <td>{{$tt->vitri}}</td>
+                                    <td>{{$tt->diemdau}}</td>
+                                    <td>{{$tt->diemcuoi}}</td>
                                     <td style="text-align: center">{{dinhdangso($tt->dientich)}}</td>
                                     <td style="text-align: right">{{dinhdangso($tt->dongia)}}</td>
                                 </tr>

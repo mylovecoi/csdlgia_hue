@@ -24,8 +24,7 @@
 
             function changeUrl() {
                 var current_path_url = '{{$inputs['url']}}' + '/xetduyet?';
-                var url = current_path_url + 'madv=' + $('#madv').val() + '&nam=' + $('#nam').val() + '&madiaban=' + $('#madiaban').val()
-                    + '&maxp=' + $('#maxp').val() + '&maloaidat=' + $('#maloaidat').val();
+                var url = current_path_url + 'madv=' + $('#madv').val() + '&nam=' + $('#nam').val() + '&madiaban=' + $('#madiaban').val();
                 window.location.href = url;
             }
 
@@ -35,12 +34,7 @@
             $('#madiaban').change(function () {
                 changeUrl();
             });
-            $('#maxp').change(function () {
-                changeUrl();
-            });
-            $('#maloaidat').change(function () {
-                changeUrl();
-            });
+
             $('#madv').change(function () {
                 changeUrl();
             });
@@ -63,16 +57,16 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <div class="actions">
-                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giacldat', 'hoso', 'approve'))
-                            @if($inputs['level'] == 'ADMIN')
-                                <button type="button" class="btn btn-default btn-xs mbs" data-target="#congbo-modal-confirm" data-toggle="modal">
-                                    <i class="fa fa-send"></i>&nbsp;Công bố</button>
-                            @else
-                                <button type="button" class="btn btn-default btn-xs mbs" data-target="#check-modal-confirm" data-toggle="modal">
-                                    <i class="fa fa-check"></i>&nbsp;Hoàn thành</button>
-                            @endif
-                        @endif
-                        <a href="{{url($inputs['url'].'/prints?&nam='.$inputs['nam'].'&madiaban='.$inputs['madiaban'].'&maxp='.$inputs['maxp'].'&maloaidat='.$inputs['maloaidat'].'&madv='.$inputs['madv'])}}" class="btn btn-default btn-sm" target="_blank">
+{{--                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giacldat', 'hoso', 'approve'))--}}
+{{--                            @if($inputs['level'] == 'ADMIN')--}}
+{{--                                <button type="button" class="btn btn-default btn-xs mbs" data-target="#congbo-modal-confirm" data-toggle="modal">--}}
+{{--                                    <i class="fa fa-send"></i>&nbsp;Công bố</button>--}}
+{{--                            @else--}}
+{{--                                <button type="button" class="btn btn-default btn-xs mbs" data-target="#check-modal-confirm" data-toggle="modal">--}}
+{{--                                    <i class="fa fa-check"></i>&nbsp;Hoàn thành</button>--}}
+{{--                            @endif--}}
+{{--                        @endif--}}
+                        <a href="{{url($inputs['url'].'/prints?&nam='.$inputs['nam'].'&madiaban='.$inputs['madiaban'].'&madv='.$inputs['madv'])}}" class="btn btn-default btn-sm" target="_blank">
                             <i class="fa fa-print"></i> In</a>
                     </div>
                 </div>
@@ -88,19 +82,6 @@
                             <div class="col-md-4">
                                 <label style="font-weight: bold">Địa bàn</label>
                                 {!!Form::select('madiaban', $a_diaban, $inputs['madiaban'], array('id' => 'madiaban','class' => 'form-control'))!!}
-                            </div>
-
-                            <div class="col-md-4">
-                                <label style="font-weight: bold">Xã phường</label>
-                                {!!Form::select('maxp', a_merge(['all'=>'--Tất cả--'], $a_xp), $inputs['maxp'], array('id' => 'maxp','class' => 'form-control select2me'))!!}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                <label class="control-label" style="font-weight: bold">Loại đất</label>
-                                {!!Form::select('maloaidat', array_merge(['all'=>'--Tất cả--'], $a_loaidat), $inputs['maloaidat'], array('id' => 'maloaidat','class' => 'form-control select2me'))!!}
                             </div>
 
                             <div class="col-md-6">
@@ -122,55 +103,43 @@
                     <table id="sample_4" class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th rowspan="2" style="text-align: center" width="2%">STT</th>
-                                <th rowspan="2" style="text-align: center">Năm</th>
-                                <th rowspan="2" style="text-align: center">Địa bàn</th>
-                                <th rowspan="2" style="text-align: center">Xã phường</th>
-                                <th rowspan="2" style="text-align: center">Khu vực</br>Tên đường phố</th>
-                                <th rowspan="2" style="text-align: center" >Địa giới</th>
-                                <th colspan="3" style="text-align: center" >Giá đất</th>
-                                <th rowspan="2" style="text-align: center"  width="5%"> Trạng thái</th>
-                                <th rowspan="2" style="text-align: center"> Thao tác</th>
-                            </tr>
-                            <tr>
-                                <th style="text-align: center">VT1</th>
-                                <th style="text-align: center">VT2</th>
-                                <th style="text-align: center">VT3</th>
+                                <th tyle="text-align: center" width="2%">STT</th>
+                                <th style="text-align: center">Địa bàn</th>
+                                <th style="text-align: center">Thời điểm</th>
+                                <th style="text-align: center">Thông tư, quyết định</th>
+                                <th style="text-align: center"  width="5%"> Trạng thái</th>
+                                <th style="text-align: center"> Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($model as $key => $tt)
                                 <tr>
                                     <td style="text-align: center">{{$key+1}}</td>
-                                    <td><b>{{$tt->nam}}</b></td>
+
                                     <td><b>{{$a_diaban[$tt->madiaban] ?? ''}}</b></td>
-                                    <td style="text-align: left;"><b>{{$a_xp[$tt->maxp] ?? ''}}</b></td>
-                                    <td style="text-align: left" class="active">{{$tt->khuvuc}}</td>
-                                    <td style="text-align: left">{{'Từ: '.$tt->diemdau .'. Đến: '.$tt->diemdau}}</td>
-                                    <td style="text-align: center">{{dinhdangsothapphan($tt->giavt1,2)}}</td>
-                                    <td style="text-align: center">{{dinhdangsothapphan($tt->giavt2,2)}}</td>
-                                    <td style="text-align: center">{{dinhdangsothapphan($tt->giavt3,2)}}</td>
+                                    <td><b>{{getDayVn($tt->thoidiem)}}</b></td>
+                                    <td style="text-align: left" class="active">{{$a_qd[$tt->soqd] ?? $tt->soqd}}</td>
 
                                     @include('manage.include.form.td_trangthai')
                                     <td>
                                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giacldat', 'hoso', 'approve'))
                                             @if($tt->level == 'ADMIN')
                                                 @if($tt->trangthai == 'CB')
-                                                    <button type="button" onclick="confirmCongbo('{{$tt->maso}}','{{$inputs['url'].'/congbo'}}', 'HCB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
+                                                    <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','{{$inputs['url'].'/congbo'}}', 'HCB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
                                                         <i class="fa fa-times"></i>&nbsp;Hủy công bố</button>
                                                 @else
-                                                    <button type="button" onclick="confirmCongbo('{{$tt->maso}}','{{$inputs['url'].'/congbo'}}', 'CB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
+                                                    <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','{{$inputs['url'].'/congbo'}}', 'CB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
                                                         <i class="fa fa-send"></i>&nbsp;Công bố</button>
 
-                                                    <button type="button" onclick="confirmTraLai('{{$tt->maso}}','{{$inputs['url'].'/tralai'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#tralai-modal-confirm" data-toggle="modal">
+                                                    <button type="button" onclick="confirmTraLai('{{$tt->mahs}}','{{$inputs['url'].'/tralai'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#tralai-modal-confirm" data-toggle="modal">
                                                         <i class="fa fa-times"></i> Trả lại</button>
                                                 @endif
                                             @else
                                                 @if(in_array($tt->trangthai, ['HHT', 'CHT']))
-                                                    <button type="button" onclick="confirmChuyenXD('{{$tt->maso}}','{{$inputs['url'].'/chuyenxd'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#chuyenxd-modal-confirm" data-toggle="modal">
+                                                    <button type="button" onclick="confirmChuyenXD('{{$tt->mahs}}','{{$inputs['url'].'/chuyenxd'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#chuyenxd-modal-confirm" data-toggle="modal">
                                                         <i class="fa fa-check"></i> Hoàn thành</button>
 
-                                                    <button type="button" onclick="confirmTraLai('{{$tt->maso}}','{{$inputs['url'].'/tralai'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#tralai-modal-confirm" data-toggle="modal">
+                                                    <button type="button" onclick="confirmTraLai('{{$tt->mahs}}','{{$inputs['url'].'/tralai'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#tralai-modal-confirm" data-toggle="modal">
                                                         <i class="fa fa-times"></i> Trả lại</button>
                                                 @endif
                                             @endif
@@ -224,95 +193,6 @@
                                         </optgroup>
                                     @endforeach
                                 </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group">
-                            <div class="col-md-3">
-                                <label class="control-label">Năm</label>
-                                {!! Form::select('nam', getNam(true), date('Y'), array('class' => 'form-control'))!!}
-                            </div>
-
-                            <div class="col-md-9">
-                                <label class="control-label">Loại đất</label>
-                                {!!Form::select('maloaidat', a_merge(['all'=>'--Tất cả--'], $a_loaidat), $inputs['maloaidat'], array('class' => 'form-control select2me'))!!}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                <label class="control-label">Địa bàn</label>
-                                {!!Form::select('madiaban', [$inputs['madiaban']=> $a_diaban[$inputs['madiaban']] ?? ''], null, array('class' => 'form-control'))!!}
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="control-label">Xã, phường</label>
-                                {!!Form::select('maxp', a_merge(['all'=>'--Tất cả--'], $a_xp), $inputs['maxp'], array('class' => 'form-control'))!!}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
-                    <button type="submit" class="btn btn-primary" >Đồng ý</button>
-                </div>
-            </div>
-        </div>
-        {!! Form::close() !!}
-    </div>
-
-    <!-- Công bố nhiều hồ sơ -->
-    <div id="congbo-modal-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
-        {!! Form::open(['url'=>$inputs['url'].'/congbo_mul','id' => 'frm_checkmulti'])!!}
-        <input type="hidden" name="madv" value="{{$inputs['madv']}}" />
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header modal-header-primary">
-                    <button type="button" data-dismiss="modal" aria-hidden="true"
-                            class="close">&times;</button>
-                    <h4 id="modal-header-primary-label" class="modal-title">Đồng ý công bố dữ liệu?</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">Trạng thái<span class="require">*</span></label>
-                                <select class="form-control" name="trangthai" id="trangthai">
-                                    <option value="CB">Công bố</option>
-                                    <option value="HT">Hủy công bố</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group">
-                            <div class="col-md-3">
-                                <label class="control-label">Năm</label>
-                                {!! Form::select('nam', getNam(true), date('Y'), array('class' => 'form-control'))!!}
-                            </div>
-
-                            <div class="col-md-9">
-                                <label class="control-label">Loại đất</label>
-                                {!!Form::select('maloaidat', a_merge(['all'=>'--Tất cả--'], $a_loaidat), $inputs['maloaidat'], array('class' => 'form-control select2me'))!!}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                <label class="control-label">Địa bàn</label>
-                                {!!Form::select('madiaban', [$inputs['madiaban']=> $a_diaban[$inputs['madiaban']] ?? ''], null, array('class' => 'form-control'))!!}
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="control-label">Xã, phường</label>
-                                {!!Form::select('maxp', a_merge(['all'=>'--Tất cả--'], $a_xp), $inputs['maxp'], array('class' => 'form-control'))!!}
                             </div>
                         </div>
                     </div>

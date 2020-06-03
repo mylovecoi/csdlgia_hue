@@ -42,7 +42,7 @@ class GiaDvGdDtController extends Controller
                 ->with('model', $model->get())
                 ->with('inputs', $inputs)
                 ->with('m_diaban', $m_diaban)
-                ->with('a_diaban', array_column($m_diaban->where('level', 'H')->toarray(), 'tendiaban', 'madiaban'))
+                ->with('a_diaban', array_column($m_diaban->wherein('level', ['H','T'])->toarray(), 'tendiaban', 'madiaban'))
                 ->with('a_dm', $a_dm)
                 ->with('m_donvi', $m_donvi)
                 ->with('m_donvi_th', $m_donvi_th)
@@ -121,6 +121,12 @@ class GiaDvGdDtController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $model = GiaDvGdDt::where('mahs', $inputs['mahs'])->first();
+            if(isset($inputs['ipf1'])){
+                $ipf1 = $request->file('ipf1');
+                $name = $inputs['mahs'] .'&1.'.$ipf1->getClientOriginalName();
+                $ipf1->move(public_path() . '/data/giadvgddt/', $name);
+                $inputs['ipf1']= $name;
+            }
             $model->update($inputs);
             return redirect('giadvgddt/danhsach?&nam=' . $model->nam . '&madv=' . $model->madv);
         } else
@@ -278,6 +284,29 @@ class GiaDvGdDtController extends Controller
             return redirect('giadvgddt/danhsach?madv=' . $model->madv);
         } else
             return view('errors.notlogin');
+    }
+
+    public function show(Request $request)
+    {
+        $result = array(
+            'status' => 'fail',
+            'message' => 'error',
+        );
+
+        $inputs = $request->all();
+        $model = GiaDvGdDt::where('mahs',$inputs['mahs'])->first();
+
+        $result['message'] ='<div class="modal-body" id = "dinh_kem" >';
+        if (isset($model->ipf1)) {
+            $result['message'] .= '<div class="row" ><div class="col-md-6" ><div class="form-group" >';
+            $result['message'] .= '<label class="control-label" > File đính kèm 1 </label >';
+            $result['message'] .= '<p ><a target = "_blank" href = "' . url('/data/giadvgddt/' . $model->ipf1) . '">' . $model->ipf1 . '</a ></p >';
+            $result['message'] .= '</div ></div ></div >';
+        }
+
+        $result['status'] = 'success';
+
+        die(json_encode($result));
     }
 
     //<editor-fold des="Chức năng xét duyệt">

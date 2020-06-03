@@ -18,6 +18,27 @@ Route::get('reportsgiacldat','GiaCacLoaiDatController@show');
 
 Route::get('timkiemthongtingiacacloaidat','GiaCacLoaiDatController@search');
 
+//
+//Khung giá đất
+Route::group(['prefix'=>'khunggiadat'],function (){
+    Route::get('danhsach','manage\khunggiadat\khunggiadatController@index');
+    Route::get('new','manage\khunggiadat\khunggiadatController@create');
+
+    Route::get('modify','manage\khunggiadat\khunggiadatController@edit');
+    Route::post('modify','manage\khunggiadat\khunggiadatController@store');
+    Route::post('delete','manage\khunggiadat\khunggiadatController@destroy');
+    Route::get('dinhkem','manage\khunggiadat\khunggiadatController@show');
+
+    Route::post('chuyenhs','manage\khunggiadat\khunggiadatController@chuyenhs');
+
+    Route::get('xetduyet','manage\khunggiadat\khunggiadatController@xetduyet');
+    Route::post('chuyenxd','manage\khunggiadat\khunggiadatController@chuyenxd');
+    Route::post('tralai','manage\khunggiadat\khunggiadatController@tralai');
+    Route::post('congbo','manage\khunggiadat\khunggiadatController@congbo');
+
+    Route::get('timkiem','manage\khunggiadat\khunggiadatController@timkiem');
+    Route::post('timkiem','manage\khunggiadat\khunggiadatController@ketquatk');
+});
 
 //Giá đất địa bàn (bảng giá đất)
 Route::group(['prefix'=>'giacldat'],function (){
@@ -27,26 +48,34 @@ Route::group(['prefix'=>'giacldat'],function (){
     Route::post('delete_dm','manage\giadatdiaban\TtGiaDatDiaBanController@destroy');
     Route::get('show_dm','manage\giadatdiaban\TtGiaDatDiaBanController@show');
 
-    Route::get('danhsach','GiaDatDiaBanController@index');
-    Route::post('modify','GiaDatDiaBanController@store');
-    Route::get('get_hs','GiaDatDiaBanController@edit');
-    Route::post('delete','GiaDatDiaBanController@destroy');
+    Route::get('danhsach','manage\giadatdiaban\GiaDatDiaBanController@index');
+    Route::post('new','manage\giadatdiaban\GiaDatDiaBanController@create');
+    Route::get('modify','manage\giadatdiaban\GiaDatDiaBanController@edit');
+    Route::post('modify','manage\giadatdiaban\GiaDatDiaBanController@store');
 
-    Route::post('chuyenhs','GiaDatDiaBanController@chuyenhs');
-    Route::post('chuyenhs_mul','GiaDatDiaBanController@chuyenhs_mul');
+    Route::post('delete','manage\giadatdiaban\GiaDatDiaBanController@destroy');
+
+    Route::post('store_ct','manage\giadatdiaban\GiaDatDiaBanController@store_ct');
+    Route::get('edit_ct','manage\giadatdiaban\GiaDatDiaBanController@get_hs');
+    Route::post('del_ct','manage\giadatdiaban\GiaDatDiaBanController@destroy_ct');
+    Route::post('del_mulct','manage\giadatdiaban\GiaDatDiaBanController@destroy_mulct');
+    Route::post('importexcel','manage\giadatdiaban\GiaDatDiaBanController@importexcel');
+
+    Route::post('chuyenhs','manage\giadatdiaban\GiaDatDiaBanController@chuyenhs');
+    Route::post('chuyenhs_mul','manage\giadatdiaban\GiaDatDiaBanController@chuyenhs_mul');
     Route::get('print','manage\giadatphanloai\GiaDatPhanLoaiController@ketxuat');
 
-    Route::get('xetduyet','GiaDatDiaBanController@xetduyet');
-    Route::post('chuyenxd','GiaDatDiaBanController@chuyenxd');
-    Route::post('chuyenxd_mul','GiaDatDiaBanController@chuyenxd_mul');
-    Route::post('tralai','GiaDatDiaBanController@tralai');
-    Route::post('tralai_mul','GiaDatDiaBanController@tralai_mul');
-    Route::post('congbo','GiaDatDiaBanController@congbo');
-    Route::post('congbo_mul','GiaDatDiaBanController@congbo_mul');
-    Route::get('prints','GiaDatDiaBanController@bcgiadatdiaban');
+    Route::get('xetduyet','manage\giadatdiaban\GiaDatDiaBanController@xetduyet');
+    Route::post('chuyenxd','manage\giadatdiaban\GiaDatDiaBanController@chuyenxd');
+    Route::post('chuyenxd_mul','manage\giadatdiaban\GiaDatDiaBanController@chuyenxd_mul');
+    Route::post('tralai','manage\giadatdiaban\GiaDatDiaBanController@tralai');
+    Route::post('tralai_mul','manage\giadatdiaban\GiaDatDiaBanController@tralai_mul');
+    Route::post('congbo','manage\giadatdiaban\GiaDatDiaBanController@congbo');
+    Route::post('congbo_mul','manage\giadatdiaban\GiaDatDiaBanController@congbo_mul');
+    Route::get('prints','manage\giadatdiaban\GiaDatDiaBanController@bcgiadatdiaban');
 
-    Route::get('nhandulieutuexcel','GiaDatDiaBanController@nhandulieutuexcel');
-    Route::post('import_excel','GiaDatDiaBanController@importexcel');
+    Route::get('nhandulieutuexcel','manage\giadatdiaban\GiaDatDiaBanController@nhandulieutuexcel');
+
 });
 
 //giá đất theo phân loại
@@ -195,13 +224,24 @@ Route::group(['prefix'=>'giathuetn'], function (){
 
 //DV Khám chữa bệnh
 Route::group(['prefix'=>'giadvkcb'], function (){
-    Route::get('danhmuc','manage\giadvkcb\dvkcbdmController@index');
-    Route::post('danhmuc','manage\giadvkcb\dvkcbdmController@store');
-    Route::get('show_dm','manage\giadvkcb\dvkcbdmController@edit');
+    Route::get('danhmuc','manage\giadvkcb\nhomdmkcbController@index');
+    Route::post('nhomdm','manage\giadvkcb\nhomdmkcbController@store');
+    Route::get('show_nhomdm','manage\giadvkcb\nhomdmkcbController@show_nhomdm');
+    Route::post('delete_nhomdm','manage\giadvkcb\nhomdmkcbController@destroy');
+
+    Route::get('danhmuc/detail','manage\giadvkcb\dvkcbdmController@index');
+    Route::post('dm','manage\giadvkcb\dvkcbdmController@store');
     Route::post('delete_dm','manage\giadvkcb\dvkcbdmController@destroy');
+    Route::get('show_dm','manage\giadvkcb\dvkcbdmController@show');
+    Route::post('importexcel','manage\giadvkcb\dvkcbdmController@importexcel');
+
+    Route::get('edit_ct','manage\giadvkcb\dvkcbctController@edit');
+    Route::get('update_ct','manage\giadvkcb\dvkcbctController@update');
+
 
     Route::get('danhsach','manage\giadvkcb\DvKcbController@index');
-    Route::get('get_hs','manage\giadvkcb\DvKcbController@edit');
+    Route::get('new','manage\giadvkcb\DvKcbController@create');
+    Route::get('modify','manage\giadvkcb\DvKcbController@edit');
     Route::post('modify','manage\giadvkcb\DvKcbController@store');
     Route::post('delete','manage\giadvkcb\DvKcbController@destroy');
 
@@ -553,6 +593,7 @@ Route::group(['prefix'=>'giadvgddt'],function (){
     Route::post('modify','manage\giadvgddt\GiaDvGdDtController@update');
     Route::post('delete','manage\giadvgddt\GiaDvGdDtController@destroy');
     Route::get('delete','manage\giadvgddt\GiaDvGdDtController@destroy');
+    Route::get('dinhkem','manage\giadvgddt\GiaDvGdDtController@show');
 
     Route::get('store_ct','manage\giadvgddt\GiaDvGdDtCtController@store');
     Route::get('get_ct','manage\giadvgddt\GiaDvGdDtCtController@show');

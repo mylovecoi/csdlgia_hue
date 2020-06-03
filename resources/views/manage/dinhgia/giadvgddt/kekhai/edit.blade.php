@@ -38,7 +38,9 @@
                 data: {
                     _token: CSRF_TOKEN,
                     maspdv: $('#maspdv').val(),
-                    giadv: $('#giadv').val(),
+                    giadvthanhthi: $('#giadvthanhthi').val(),
+                    giadvnongthon: $('#giadvnongthon').val(),
+                    giadvmiennui: $('#giadvmiennui').val(),
                     mahs:$('#mahs').val(),
                 },
                 dataType: 'JSON',
@@ -70,7 +72,9 @@
                 success: function (data) {
                     var form = $('#frm_modify');
                     form.find("[name='maspdv']").val(data.maspdv).trigger('change');
-                    form.find("[name='giadv']").val(data.giadv);
+                    form.find("[name='giadvthanhthi']").val(data.giadvthanhthi);
+                    form.find("[name='giadvnongthon']").val(data.giadvnongthon);
+                    form.find("[name='giadvmiennui']").val(data.giadvmiennui);
                 },
             })
         }
@@ -116,17 +120,17 @@
     <div class="row center">
         <div class="col-md-12 center">
             <!-- BEGIN VALIDATION STATES-->
-            {!! Form::model($model, ['method' => 'post', 'url'=>$inputs['url'].'/modify', 'class'=>'horizontal-form','id'=>'update_thongtinthuetaisancong']) !!}
+            {!! Form::model($model, ['method' => 'post', 'url'=>$inputs['url'].'/modify', 'class'=>'horizontal-form','id'=>'update_thongtinthuetaisancong','files'=>true]) !!}
             <div class="portlet box blue">
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
                     <input type="hidden" name="mahs" id="mahs" value="{{$model->mahs}}">
                     <div class="form-body">
                         <div class="row">
-                            <div class="col-md-4">
-                                <label class="control-label">Địa bàn</label>
-                                {!!Form::select('madiaban', $a_diaban, null, array('id' => 'madiaban','class' => 'form-control'))!!}
-                            </div>
+{{--                            <div class="col-md-4">--}}
+{{--                                <label class="control-label">Địa bàn</label>--}}
+{{--                                {!!Form::select('madiaban', $a_diaban, null, array('id' => 'madiaban','class' => 'form-control'))!!}--}}
+{{--                            </div>--}}
 
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -157,6 +161,18 @@
                         </div>
 
                         <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">File đính kèm</label>
+                                    @if($model->ipf1 != '')
+                                        <a href="{{url('/data/giadvgddt/'.$model->ipf1)}}" target="_blank">{{$model->ipf1}}</a>
+                                    @endif
+                                    <input name="ipf1" id="ipf1" type="file">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-success btn-xs" onclick="clearForm()">
@@ -166,13 +182,15 @@
                         </div>
                         <div class="row" id="dsts">
                             <div class="col-md-12">
-                                <table class="table table-striped table-bordered table-hover" id="sample_3">
+                                <table class="table table-striped table-bordered table-hover" id="sample_4">
                                     <thead>
                                         <tr>
                                             <th width="5%" style="text-align: center">STT</th>
                                             <th style="text-align: center">Tên sản phẩm, dịch vụ</th>
-                                            <th style="text-align: center" width="15%">Đơn giá</th>
-                                            <th style="text-align: center" width="20%">Thao tác</th>
+                                            <th style="text-align: center" width="15%">Mức thu<br>khu vực<br>thành thị</th>
+                                            <th style="text-align: center" width="15%">Mức thu<br>khu vực<br>nông thôn</th>
+                                            <th style="text-align: center" width="15%">Mức thu<br>khu vực<br>miền núi</th>
+                                            <th style="text-align: center" width="10%">Thao tác</th>
                                         </tr>
                                     </thead>
                                     <tbody id="ttts">
@@ -180,7 +198,9 @@
                                         <tr id={{$tt->id}}>
                                             <td style="text-align: center">{{($key +1)}}</td>
                                             <td class="active" style="font-weight: bold">{{$a_dm[$tt->maspdv]}}</td>
-                                            <td style="text-align: right;font-weight: bold">{{number_format($tt->giadv)}}</td>
+                                            <td style="text-align: right;font-weight: bold">{{dinhdangso($tt->giadvthanhthi)}}</td>
+                                            <td style="text-align: right;font-weight: bold">{{dinhdangso($tt->giadvnongthon)}}</td>
+                                            <td style="text-align: right;font-weight: bold">{{dinhdangso($tt->giadvmiennui)}}</td>
                                             <td>
                                                 @if(in_array($model->trangthai, ['CHT', 'HHT']))
                                                     <button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem({{$tt->id}})">
@@ -258,8 +278,26 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="control-label">Đơn giá</label>
-                                <input type="text" id="giadv" name="giadv" data-mask="fdecimal" class="form-control" style="font-weight: bold;text-align: right">
+                                <label class="control-label">Khu vực thành thị</label>
+                                <input type="text" id="giadvthanhthi" name="giadvthanhthi" data-mask="fdecimal" class="form-control" style="font-weight: bold;text-align: right">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Khu vực nông thôn</label>
+                                <input type="text" id="giadvnongthon" name="giadvnongthon" data-mask="fdecimal" class="form-control" style="font-weight: bold;text-align: right">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Khu vực miền núi</label>
+                                <input type="text" id="giadvmiennui" name="giadvmiennui" data-mask="fdecimal" class="form-control" style="font-weight: bold;text-align: right">
                             </div>
                         </div>
                     </div>

@@ -38,8 +38,8 @@
                                 <th width="2%" style="text-align: center">STT</th>
                                 <th style="text-align: center">Đơn vị nhập</th>
                                 <th style="text-align: center">Thời điểm</th>
-                                <th style="text-align: center">Tên bệnh viện</th>
                                 <th style="text-align: center">Tên dịch vụ</th>
+                                <th style="text-align: center">Phân loại</th>
                                 <th style="text-align: center">Đơn giá</th>
                             </tr>
                         </thead>
@@ -50,9 +50,9 @@
                                     <td style="text-align: center">{{$key + 1}}</td>
                                     <td>{{$a_donvi[$tt->madv] ?? ''}}</td>
                                     <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
-                                    <td>{{$tt->tenbv}}</td>
-                                    <td>{{$a_dm[$tt->maspdv] ?? ''}}</td>
-                                    <td style="text-align: center">{{dinhdangso($tt->dongia)}}</td>
+                                    <td>{{$tt->tenspdv}}</td>
+                                    <td>{{$tt->phanloai}}</td>
+                                    <td style="text-align: center">{{dinhdangso($tt->giadv)}}</td>
                                 </tr>
                             @endforeach
 

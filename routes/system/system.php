@@ -50,6 +50,12 @@ Route::group(['prefix'=>'taikhoan'],function(){
     Route::get('get_perm', 'system\dstaikhoanController@get_perm');
 });
 
+Route::group(['prefix'=>'dmloaidat'], function(){
+    Route::get('', 'system\GiaDatDiaBanDmController@index');
+    Route::post('modify', 'system\GiaDatDiaBanDmController@store');
+    Route::post('delete','system\GiaDatDiaBanDmController@destroy');
+});
+
 Route::resource('district','DistrictController');
 Route::resource('town','TownController');
 

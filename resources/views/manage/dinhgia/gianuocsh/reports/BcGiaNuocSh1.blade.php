@@ -34,8 +34,8 @@
     <tr>
         <th style="text-align: center" width="2%">STT</th>
         <th style="text-align: center">Mực đích sử dụng</th>
-        <th style="text-align: center">Đơn giá theo quyết định số {{$ttlk->soqd}} - Ngày {{getDayVn($ttlk->ngayapdung)}}<br>{{$ttlk->mota}}</th>
-        <th style="text-align: center">Đơn giá theo quyết định số {{$ttbc->soqd}} - Ngày {{getDayVn($ttbc->ngayapdung)}}<br>{{$ttbc->mota}}</th>
+        <th style="text-align: center">Đơn giá theo quyết định số {{$ttlk->soqd}} - Ngày {{getDayVn($ttlk->thoidiem)}}<br>{{$ttlk->mota}}</th>
+        <th style="text-align: center">Đơn giá theo quyết định số {{$ttbc->soqd}} - Ngày {{getDayVn($ttbc->thoidiem)}}<br>{{$ttbc->mota}}</th>
     </tr>
     </thead>
     <tbody>

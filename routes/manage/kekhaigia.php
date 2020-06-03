@@ -75,4 +75,19 @@ include('kkgia/dvdlbb.php');
 
 //Vé tham quan tại khu du lịch
 include('kkgia/vetqkdl.php');
+
+//Dịch vụ ca huế trên sông hương
+include('kkgia/dvch.php');
+
+//Học phí lái xe
+include('kkgia/hplx.php');
+
+//Vật liệu xây dựng: cát,sạn
+include('kkgia/catsan.php');
+
+//Vật liệu xây dựng: đất san lấp
+include('kkgia/datsanlap.php');
+
+//Vật liệu xây dựng: đá xây dựng
+include('kkgia/daxaydung.php');
 ?>

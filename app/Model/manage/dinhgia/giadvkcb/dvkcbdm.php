@@ -9,6 +9,8 @@ class dvkcbdm extends Model
     protected $table = 'dmdvkcb';
     protected $fillable = [
         'id',
+        'manhom',
+        'madichvu',
         'maspdv',
         'tenspdv',
         'mota',

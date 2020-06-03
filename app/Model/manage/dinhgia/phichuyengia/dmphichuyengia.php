@@ -9,6 +9,7 @@ class dmphichuyengia extends Model
     protected $table = 'dmphichuyengia';
     protected $fillable = [
         'id',
+        'manhom',
         'maso',
         'tenphi',
         'tengia',

@@ -12,6 +12,7 @@ class DvKcb extends Model
         'mahs',
         'madiaban',
         'maxp',
+        'manhom',
         'maspdv',
         'soqd',
         'tenbv',
@@ -23,6 +24,11 @@ class DvKcb extends Model
         'ghichu',
         'lichsu', //Thao tác lịch sử hồ sơ theo dạng JSON
         'tinhtrang',//Vị trị hiện tại của Hô sơ: Khởi tạo; Gửi Huyện; Gửi Tỉnh
+        'ipf1',
+        'ipf2',
+        'ipf3',
+        'ipf4',
+        'ipf5',
         //Thông tin hồ sơ khi khởi tạo (level lấy theo thông tin đơn vị)
         'thoidiem',
         'macqcq',

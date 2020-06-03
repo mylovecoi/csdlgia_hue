@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\manage\kekhaigia\kkgiathan;
 
-use App\District;
 use App\Model\manage\kekhaigia\kkgiathan\KkGiaThan;
 use App\Model\manage\kekhaigia\kkgiathan\KkGiaThanCt;
 use App\Model\system\dmnganhnghekd\DmNgheKd;
-use App\Town;
+use App\Model\system\dsdiaban;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -18,9 +17,10 @@ class KkGiaThanBcController extends Controller
             $modeldmnghe = DmNgheKd::where('manganh','THAN')
                 ->where('manghe','THAN')
                 ->first();
-            $m_donvi = Town::where('mahuyen',$modeldmnghe->mahuyen)->get();
+            $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
+            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             return view('manage.kkgia.than.reports.index')
-                ->with('m_donvi',$m_donvi)
+                ->with('a_diaban', array_column($m_diaban->wherein('level', ['H','T','X'])->toarray(), 'tendiaban', 'madiaban'))
                 ->with('pageTitle', 'Báo cáo tổng hợp kê khai giá than');
         }else
             return view('errors.notlogin');
@@ -29,20 +29,9 @@ class KkGiaThanBcController extends Controller
     public function bc1(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-//            dd($inputs);
-            $model =  KkGiaThan::join('company','company.maxa','=','kkgiathan.maxa')
+            $model =  KkGiaThan::join('company','company.madv','=','kkgiathan.madv')
                 ->where('kkgiathan.trangthai','DD')
                 ->select('kkgiathan.*','company.tendn');
-            if($inputs['mahuyen'] != 'all') {
-                $model = $model->where('kkgiathan.mahuyen', $inputs['mahuyen']);
-                $modeldvql = Town::where('maxa',$inputs['mahuyen'])
-                    ->get();
-            }else{
-                $modeldmnghe = DmNgheKd::where('manganh','THAN')
-                    ->where('manghe','THAN')
-                    ->first();
-                $modeldvql = Town::where('mahuyen',$modeldmnghe->mahuyen)->get();
-            }
             if($inputs['phanloai'] == 'ngaychuyen'){
                 if($inputs['time'] == 'ngay')
                     $model = $model->whereBetween('ngaychuyen',[getDateToDb($inputs['tungay']), getDateToDb($inputs['denngay'])]);
@@ -89,30 +78,10 @@ class KkGiaThanBcController extends Controller
                 }
             }
             $model = $model->get();
-//            dd($model);
-            $inputs['counths'] = count($model);
-
-            if(session('admin')->level == 'T'){
-                $inputs['dvcaptren'] = getGeneralConfigs()['tendvcqhienthi'];
-                $inputs['dv'] = getGeneralConfigs()['tendvhienthi'];
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }elseif(session('admin')->level == 'H'){
-                $modeldv = District::where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }else{
-                $modeldv = Town::where('maxa',session('admin')->maxa)
-                    ->where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }
 
             return view('manage.kkgia.than.reports.bc1')
                 ->with('model',$model)
                 ->with('inputs',$inputs)
-                ->with('modeldvql',$modeldvql)
                 ->with('pageTitle', 'Báo cáo tổng hợp kê khai giá than');
         }else
             return view('errors.notlogin');
@@ -121,20 +90,9 @@ class KkGiaThanBcController extends Controller
     public function bc2(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-//            dd($inputs);
-            $model = KKGiaThan::join('company','company.maxa','=','kkgiathan.maxa')
+            $model =  KkGiaThan::join('company','company.madv','=','kkgiathan.madv')
                 ->where('kkgiathan.trangthai','DD')
                 ->select('kkgiathan.*','company.tendn');
-            if($inputs['mahuyen'] != 'all') {
-                $model = $model->where('kkgiathan.mahuyen', $inputs['mahuyen']);
-                $modeldvql = Town::where('maxa',$inputs['mahuyen'])
-                    ->get();
-            }else{
-                $modeldmnghe = DmNgheKd::where('manganh','THAN')
-                    ->where('manghe','THAN')
-                    ->first();
-                $modeldvql = Town::where('mahuyen',$modeldmnghe->mahuyen)->get();
-            }
             if($inputs['phanloai'] == 'ngaychuyen'){
                 if($inputs['time'] == 'ngay')
                     $model = $model->whereBetween('ngaychuyen',[getDateToDb($inputs['tungay']), getDateToDb($inputs['denngay'])]);
@@ -181,34 +139,16 @@ class KkGiaThanBcController extends Controller
                 }
             }
             $model = $model->get();
+            /*dd($model);*/
             $mahss = '';
             foreach($model as $ct){
                 $mahss = $mahss.$ct->mahs.',';
             }
-            $modelct = KkGiaThanCt::whereIn('mahs',explode(',',$mahss))
-                ->get();
-
-            if(session('admin')->level == 'T'){
-                $inputs['dvcaptren'] = getGeneralConfigs()['tendvcqhienthi'];
-                $inputs['dv'] = getGeneralConfigs()['tendvhienthi'];
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }elseif(session('admin')->level == 'H'){
-                $modeldv = District::where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }else{
-                $modeldv = Town::where('maxa',session('admin')->maxa)
-                    ->where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }
+            $modelct = KkGiaThanCt::whereIn('mahs',explode(',',$mahss))->get();
 
             return view('manage.kkgia.than.reports.bc2')
                 ->with('model',$model)
                 ->with('inputs',$inputs)
-                ->with('modeldvql',$modeldvql)
                 ->with('modelct',$modelct)
                 ->with('pageTitle', 'Báo cáo tổng hợp kê khai giá than');
         }else

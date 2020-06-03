@@ -14,13 +14,15 @@ class KkGiaEtanolCt extends Model
         'tthhdv',
         'qccl',
         'dvt',
-        'dongialk',
-        'dongia',
         'ghichu',
         'trangthai',
         'thuevat',
 
         'madv',
         'plhs',
+
+        'tendvcu',
+        'gialk',
+        'giakk',
     ];
 }

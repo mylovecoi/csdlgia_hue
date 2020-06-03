@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\manage\kekhaigia\kkgiaetanol;
 
-use App\District;
 use App\Model\manage\kekhaigia\kkgiaetanol\KkGiaEtanol;
 use App\Model\manage\kekhaigia\kkgiaetanol\KkGiaEtanolCt;
 use App\Model\system\dmnganhnghekd\DmNgheKd;
-use App\Town;
+use App\Model\system\dsdiaban;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -18,10 +17,11 @@ class KkGiaEtanolBcController extends Controller
             $modeldmnghe = DmNgheKd::where('manganh','ETANOL')
                 ->where('manghe','ETANOL')
                 ->first();
-            $m_donvi = Town::where('mahuyen',$modeldmnghe->mahuyen)->get();
+            $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
+            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             return view('manage.kkgia.etanol.reports.index')
-                ->with('m_donvi',$m_donvi)
-                ->with('pageTitle', 'Báo cáo tổng hợp kê khai giá Etanol');
+                ->with('a_diaban', array_column($m_diaban->wherein('level', ['H','T','X'])->toarray(), 'tendiaban', 'madiaban'))
+                ->with('pageTitle', 'Báo cáo tổng hợp kê khai giá etanol');
         }else
             return view('errors.notlogin');
     }
@@ -29,20 +29,9 @@ class KkGiaEtanolBcController extends Controller
     public function bc1(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-//            dd($inputs);
-            $model =  KkGiaEtanol::join('company','company.maxa','=','kkgiaetanol.maxa')
+            $model =  KkGiaEtanol::join('company','company.madv','=','kkgiaetanol.madv')
                 ->where('kkgiaetanol.trangthai','DD')
                 ->select('kkgiaetanol.*','company.tendn');
-            if($inputs['mahuyen'] != 'all') {
-                $model = $model->where('kkgiaetanol.mahuyen', $inputs['mahuyen']);
-                $modeldvql = Town::where('maxa',$inputs['mahuyen'])
-                    ->get();
-            }else{
-                $modeldmnghe = DmNgheKd::where('manganh','ETANOL')
-                    ->where('manghe','ETANOL')
-                    ->first();
-                $modeldvql = Town::where('mahuyen',$modeldmnghe->mahuyen)->get();
-            }
             if($inputs['phanloai'] == 'ngaychuyen'){
                 if($inputs['time'] == 'ngay')
                     $model = $model->whereBetween('ngaychuyen',[getDateToDb($inputs['tungay']), getDateToDb($inputs['denngay'])]);
@@ -89,29 +78,10 @@ class KkGiaEtanolBcController extends Controller
                 }
             }
             $model = $model->get();
-//            dd($model);
-            $inputs['counths'] = count($model);
 
-            if(session('admin')->level == 'T'){
-                $inputs['dvcaptren'] = getGeneralConfigs()['tendvcqhienthi'];
-                $inputs['dv'] = getGeneralConfigs()['tendvhienthi'];
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }elseif(session('admin')->level == 'H'){
-                $modeldv = District::where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }else{
-                $modeldv = Town::where('maxa',session('admin')->maxa)
-                    ->where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }
             return view('manage.kkgia.etanol.reports.bc1')
                 ->with('model',$model)
                 ->with('inputs',$inputs)
-                ->with('modeldvql',$modeldvql)
                 ->with('pageTitle', 'Báo cáo tổng hợp kê khai giá etanol');
         }else
             return view('errors.notlogin');
@@ -120,20 +90,9 @@ class KkGiaEtanolBcController extends Controller
     public function bc2(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-//            dd($inputs);
-            $model =  KkGiaEtanol::join('company','company.maxa','=','kkgiaetanol.maxa')
+            $model =  KkGiaEtanol::join('company','company.madv','=','kkgiaetanol.madv')
                 ->where('kkgiaetanol.trangthai','DD')
                 ->select('kkgiaetanol.*','company.tendn');
-            if($inputs['mahuyen'] != 'all') {
-                $model = $model->where('kkgiaetanol.mahuyen', $inputs['mahuyen']);
-                $modeldvql = Town::where('maxa',$inputs['mahuyen'])
-                    ->get();
-            }else{
-                $modeldmnghe = DmNgheKd::where('manganh','ETANOL')
-                    ->where('manghe','ETANOL')
-                    ->first();
-                $modeldvql = Town::where('mahuyen',$modeldmnghe->mahuyen)->get();
-            }
             if($inputs['phanloai'] == 'ngaychuyen'){
                 if($inputs['time'] == 'ngay')
                     $model = $model->whereBetween('ngaychuyen',[getDateToDb($inputs['tungay']), getDateToDb($inputs['denngay'])]);
@@ -180,34 +139,16 @@ class KkGiaEtanolBcController extends Controller
                 }
             }
             $model = $model->get();
+            /*dd($model);*/
             $mahss = '';
             foreach($model as $ct){
                 $mahss = $mahss.$ct->mahs.',';
             }
-            $modelct = KkGiaEtanolCt::whereIn('mahs',explode(',',$mahss))
-                ->get();
-
-            if(session('admin')->level == 'T'){
-                $inputs['dvcaptren'] = getGeneralConfigs()['tendvcqhienthi'];
-                $inputs['dv'] = getGeneralConfigs()['tendvhienthi'];
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }elseif(session('admin')->level == 'H'){
-                $modeldv = District::where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }else{
-                $modeldv = Town::where('maxa',session('admin')->maxa)
-                    ->where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }
+            $modelct = KkGiaEtanolCt::whereIn('mahs',explode(',',$mahss))->get();
 
             return view('manage.kkgia.etanol.reports.bc2')
                 ->with('model',$model)
                 ->with('inputs',$inputs)
-                ->with('modeldvql',$modeldvql)
                 ->with('modelct',$modelct)
                 ->with('pageTitle', 'Báo cáo tổng hợp kê khai giá etanol');
         }else

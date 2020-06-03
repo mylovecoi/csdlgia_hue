@@ -37,37 +37,66 @@
 <table cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;" id="data">
     <thead>
     <tr>
-        <th style="text-align: center" width="2%" rowspan="2">STT</th>
-        <th style="text-align: center" width="2%" rowspan="2">Năm</th>
-        <th style="text-align: center" rowspan="2" width="10%">Địa bàn</th>
-        <th style="text-align: center" rowspan="2" width="10%">Xã phường, thị trấn</th>
-        <th style="text-align: center" rowspan="2" width="10%">Loại đất</th>
-        <th style="text-align: center" rowspan="2">Khu vực</th>
-        <th style="text-align: center" rowspan="2" width="2%">Hệ số K</th>
-        <th style="text-align: center" colspan="3">Giá đất</th>
+        <th style="text-align: center" width="5%" rowspan="2">STT</th>
+        <th style="text-align: center" rowspan="2" width="25%">Điểm đầu</th>
+        <th style="text-align: center" rowspan="2">Điểm cuối</th>
+        <th style="text-align: center" rowspan="2" width="8%">Loại đường</th>
+        <th style="text-align: center" colspan="4">Giá đất</th>
     </tr>
     <tr>
-        <th style="text-align: center">VT1</th>
-        <th style="text-align: center">VT2</th>
-        <th style="text-align: center">VT3</th>
+        <th style="text-align: center" width="7%">VT1</th>
+        <th style="text-align: center" width="7%">VT2</th>
+        <th style="text-align: center" width="7%">VT3</th>
+        <th style="text-align: center" width="7%">VT4</th>
     </tr>
     </thead>
     <tbody>
     @if($model->count() != 0)
-        @foreach($model as $key => $tt)
+        @foreach($a_qd as $k => $v)
+            <?php $m_qd = $model->where('soqd',$k); ?>
             <tr>
-                <td style="text-align: center">{{$key+1}}</td>
-                <td><b>{{$tt->nam}}</b></td>
-                <td><b>{{$a_diaban[$tt->madiaban] ?? ''}}</b></td>
-                <td><b>{{$a_xp[$tt->maxp] ?? ''}}</b></td>
-                <td style="text-align: left"><b>{{$a_loaidat[$tt->maloaidat] ?? ''}}</b></td>
-                <td style="text-align: left;" class="active"><b>{{$tt->khuvuc}}</b></td>
-                <td style="text-align: center">{{$tt->hesok}}</td>
-                <td style="text-align: center">{{dinhdangsothapphan($tt->giavt1,2)}}</td>
-                <td style="text-align: center">{{dinhdangsothapphan($tt->giavt2,2)}}</td>
-                <td style="text-align: center">{{dinhdangsothapphan($tt->giavt3,2)}}</td>
+                <td colspan="10" style="text-align: left;"><b>{{$v}}</b></td>
             </tr>
+            @foreach($a_diaban as $k_db => $v_db)
+                <?php $m_db = $m_qd->where('madiaban',$k_db); ?>
+                @if(count($m_db) > 0)
+                    <tr>
+                        <td colspan="9" style="text-align: left;"><b>{{$v_db}}</b></td>
+                    </tr>
+                    @foreach($a_xp as $k_xp => $v_xp)
+                        <?php $m_xp = $m_db->where('maxp',$k_xp); ?>
+                        @if(count($m_xp) > 0)
+                            <tr>
+                                <td colspan="10" style="text-align: left;font-style: italic; font-weight: bold;">{{$v_xp}}</td>
+                            </tr>
+
+                            @foreach($a_khuvuc as $kv)
+                                <?php $m_kv = $m_xp->where('khuvuc',$kv); $i = 1; ?>
+
+                                @if(count($m_kv) > 0)
+                                    <tr>
+                                        <td colspan="10" style="text-align: left;">{{$kv}}</td>
+                                    </tr>
+                                    @foreach($m_kv as $key => $tt)
+                                        <tr>
+                                            <td style="text-align: center">{{$i++}}</td>
+                                            <td style="text-align: left;" class="active">{{$tt->diemdau}}</td>
+                                            <td style="text-align: left;" class="active">{{$tt->diemcuoi}}</td>
+                                            <td style="text-align: center">{{$tt->loaiduong}}</td>
+                                            <td style="text-align: center">{{dinhdangsothapphan($tt->giavt1,2)}}</td>
+                                            <td style="text-align: center">{{dinhdangsothapphan($tt->giavt2,2)}}</td>
+                                            <td style="text-align: center">{{dinhdangsothapphan($tt->giavt3,2)}}</td>
+                                            <td style="text-align: center">{{dinhdangsothapphan($tt->giavt4,2)}}</td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            @endforeach
+                        @endif
+                    @endforeach
+                @endif
+            @endforeach
         @endforeach
+
     @else
         <tr>
             <td style="text-align: center" colspan="15">Không tìm thấy thông tin. Bạn cần kiểm tra lại điều kiện tìm kiếm!!!</td>

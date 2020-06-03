@@ -19,14 +19,62 @@ class CreateKkgiavtxtxctTable extends Migration
             $table->string('maxa')->nullable();
             $table->string('madichvu')->nullable();
             $table->string('loaixe')->nullable();
+            $table->text('tendvcu')->nullable();
             $table->text('mota')->nullable();
             $table->string('qccl')->nullable();
-            $table->string('dongialk')->nullable();
+            $table->double('gialk')->nullable();
             $table->string('sllk')->nullable();
             $table->string('dvtlk')->nullable();
-            $table->string('dongia')->nullable();
+            $table->double('giakk')->nullable();
             $table->string('sl')->nullable();
             $table->string('dvt')->nullable();
+            $table->string('ghichu')->nullable();
+            $table->string('thuevat')->nullable();
+            $table->string('trangthai')->nullable();
+
+            $table->string('dvcu')->nullable();
+
+            $table->string('sltgdvt')->nullable();
+            $table->string('sltgtt')->nullable();
+            $table->string('sltggc')->nullable();
+
+            $table->string('chiphinldvt')->nullable();
+            $table->string('chiphinltt')->nullable();
+            $table->string('chiphinlgc')->nullable();
+
+            $table->string('chiphincdvt')->nullable();
+            $table->string('chiphinctt')->nullable();
+            $table->string('chiphincgc')->nullable();
+
+            $table->string('chiphikhdvt')->nullable();
+            $table->string('chiphikhtt')->nullable();
+            $table->string('chiphikhdv')->nullable();
+
+            $table->string('chiphisxkddtdvt')->nullable();
+            $table->string('chiphisxkddttt')->nullable();
+            $table->string('chiphisxkddtgc')->nullable();
+
+            $table->string('chiphisxcdvt')->nullable();
+            $table->string('chiphisxctt')->nullable();
+            $table->string('chiphisxcgc')->nullable();
+
+            $table->string('chiphitcdvt')->nullable();
+            $table->string('chiphitctt')->nullable();
+            $table->string('chiphitcgc')->nullable();
+
+            $table->string('chiphibhdvt')->nullable();
+            $table->string('chiphibhtt')->nullable();
+            $table->string('chiphibhgc')->nullable();
+
+            $table->string('chiphiqldvt')->nullable();
+            $table->string('chiphiqltt')->nullable();
+            $table->string('chiphiqlgc')->nullable();
+
+            $table->string('chiphidvkdvt')->nullable();
+            $table->string('chiphidvktt')->nullable();
+            $table->string('chiphidvkgc')->nullable();
+
+            $table->text('giaitrinhctcp')->nullable();
             $table->timestamps();
         });
     }

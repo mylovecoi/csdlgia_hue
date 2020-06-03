@@ -60,6 +60,7 @@
     <h3 class="page-title">
         Danh mục hàng hóa chuyển từ phí sang giá
     </h3>
+    <p style="color: #0000ff">{{$nhom->tennhom}}</p>
     <!-- END PAGE HEADER-->
     <div class="row">
         <div class="col-md-12">
@@ -117,8 +118,9 @@
     <div class="modal fade" id="modal-create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url'=>$inputs['url'].'/danhmuc', 'method'=>'post','id' => 'frm_create'])!!}
+                {!! Form::open(['url'=>$inputs['url'].'/dm', 'method'=>'post','id' => 'frm_create'])!!}
                 <input type="hidden" name="maso" />
+                <input type="hidden" name="manhom" value="{{$inputs['manhom']}}" />
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Thông tin sản phẩm, dịch vụ</h4>

@@ -22,7 +22,7 @@
         <td style="text-align: right"><i style="margin-right: 25%;">{{$m_donvi->diadanh}}, ngày .... tháng .... năm ....</i></td>
     </tr>
 </table>
-<p style="text-align: center;font-weight: bold;font-size: 20px; text-transform: uppercase;">GIÁ DỊCH VỤ KHÁM CHỮA BỆNH </p>
+<p style="text-align: center;font-weight: bold;font-size: 20px; text-transform: uppercase;">DANH SÁCH HỒ SƠ GIÁ DỊCH VỤ KHÁM CHỮA BỆNH </p>
 
 <table cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;" id="data">
     <thead>
@@ -30,10 +30,11 @@
             <th style="text-align: center" width="2%">STT</th>
             <th style="text-align: center" width="5%">Thời điểm</th>
             <th style="text-align: center">Địa bàn</th>
-            <th style="text-align: center">Bệnh viện</th>
-            <th style="text-align: center">Tên dịch vụ</th>
-            <th style="text-align: center" >Đơn vị tính</th>
-            <th style="text-align: center" >Đơn giá</th>
+            <th style="text-align: center">Thông tư, quyết định</th>
+            <th style="text-align: center">Số quyết định</th>
+            <th style="text-align: center">Thời điểm áp dụng</th>
+            <th style="text-align: center">Nội dung</th>
+            <th style="text-align: center">Ghi chú</th>
         </tr>
     </thead>
     <tbody>
@@ -42,10 +43,11 @@
                 <td style="text-align: center">{{$key+1}}</td>
                 <td><b>{{getDayVn($tt->thoidiem)}}</b></td>
                 <td><b>{{$a_diaban[$tt->madiaban] ?? ''}}</b></td>
-                <td style="text-align: left;"><b>{{$tt->tenbv}}</b></td>
-                <td style="text-align: left">{{$a_dm[$tt->maspdv] ?? ''}}</td>
-                <td style="text-align: center">{{$tt->dvt}}</td>
-                <td style="text-align: center">{{dinhdangsothapphan($tt->dongia,2)}}</td>
+                <td style="text-align: left">{{$a_dm[$tt->manhom] ?? ''}}</td>
+                <td style="text-align: left;">{{$tt->soqd}}</td>
+                <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
+                <td style="text-align: left;">{{$tt->mota}}</td>
+                <td></td>
             </tr>
         @endforeach
     </tbody>

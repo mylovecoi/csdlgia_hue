@@ -12,6 +12,7 @@ class ThGiaGocVlXd extends Model
         'madiaban',
         'maxp',
         'mahs',
+        'thang',
         'quy',
         'nam',
         'sobc',

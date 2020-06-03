@@ -15,6 +15,7 @@ class CreateDmphichuyengiaTable extends Migration
     {
         Schema::create('dmphichuyengia', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('manhom')->nullable();
             $table->string('maso')->unique();
             $table->string('tenphi')->nullable();
             $table->string('tengia')->nullable();

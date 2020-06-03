@@ -63,7 +63,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Danh mục nhà xã hội
+        Danh mục nhà ở xã hội, nhà ở công vụ
     </h3>
     <!-- END PAGE HEADER-->
     <div class="row">

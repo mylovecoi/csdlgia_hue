@@ -15,7 +15,7 @@ SELECT        dbo.daugiadat.madiaban, dbo.daugiadat.maxp, dbo.daugiadat.mahs, db
                          dbo.daugiadat.lydo, dbo.daugiadat.thongtin, dbo.daugiadat.trangthai, dbo.daugiadat.thoidiem_h, dbo.daugiadat.macqcq_h, dbo.daugiadat.madv_h, dbo.daugiadat.lydo_h, dbo.daugiadat.thongtin_h, dbo.daugiadat.trangthai_h,
                          dbo.daugiadat.thoidiem_t, dbo.daugiadat.macqcq_t, dbo.daugiadat.madv_t, dbo.daugiadat.lydo_t, dbo.daugiadat.thongtin_t, dbo.daugiadat.trangthai_t, dbo.daugiadat.thoidiem_ad, dbo.daugiadat.madv_ad,
                          dbo.daugiadat.lydo_ad, dbo.daugiadat.thongtin_ad, dbo.daugiadat.trangthai_ad, dbo.daugiadatct.loaidat, dbo.daugiadatct.khuvuc, dbo.daugiadatct.mota, dbo.daugiadatct.dientich, dbo.daugiadatct.giakhoidiem,
-                         dbo.daugiadatct.giadaugia, dbo.daugiadat.macqcq_ad
+                         dbo.daugiadatct.giadaugia, dbo.daugiadat.macqcq_ad, dbo.daugiadat.phanloai
 FROM            dbo.daugiadat INNER JOIN
                          dbo.daugiadatct ON dbo.daugiadat.mahs = dbo.daugiadatct.mahs
  */

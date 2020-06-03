@@ -65,7 +65,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Thông tin Hồ sơ giá cho thuê, thuê mua nhà xã hội
+        Thông tin hồ sơ giá bán, cho thuê, thuê mua nhà ở
     </h3>
 
     <!-- END PAGE HEADER-->
