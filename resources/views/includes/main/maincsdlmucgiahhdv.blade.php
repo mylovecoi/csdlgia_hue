@@ -1244,7 +1244,22 @@
                     </ul>
                 </li>
             @endif
-            {{--@php--}}
+            @if(chkPer('csdlmucgiahhdv','kknygia', 'daxaydung', 'hoso', 'index'))
+                <li>
+                    <a href="javascript:;">
+                        <span class="title">Vật liệu xây dựng: đá xây dựng</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        @if(session('admin')->level=='SSA')
+                            <li><a href="{{url('kekhaigiadaxaydung')}}">Giá kê khai</a> </li>
+                        @endif
+                        <li><a href="{{url('xetduyetkkgiadaxaydung')}}">Thông tin hồ sơ xét duyệt</a></li>
+                        <li><a href="{{url('timkiemkkgiadaxaydung')}}">Tìm kiếm thông tin</a> </li>
+                        <li><a href="{{url('baocaokekhaidaxaydung')}}">Báo cáo thống kê</a></li>
+                    </ul>
+                </li>
+            @endif
 
             @if(canKkGiaGr('DLBB'))
                 @if(canKkGiaCt('DLBB','DLBB'))

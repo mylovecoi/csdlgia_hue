@@ -219,7 +219,6 @@ class KkGiaDvChController extends Controller
         }
         //dd($request);
         $inputs = $request->all();
-        $inputs = $request->all();
         $m_hs = KkGiaDvCh::where('mahs',$inputs['mahs'])->first();
         if(KiemTraNgayApDung($m_hs->ngayhieuluc,'cahue')){
             $result = array(

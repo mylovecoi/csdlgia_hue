@@ -219,7 +219,6 @@ class KkGiaCatSanController extends Controller
         }
         //dd($request);
         $inputs = $request->all();
-        $inputs = $request->all();
         $m_hs = KkGiaCatSan::where('mahs',$inputs['mahs'])->first();
         if(KiemTraNgayApDung($m_hs->ngayhieuluc,'catsan')){
             $result = array(
