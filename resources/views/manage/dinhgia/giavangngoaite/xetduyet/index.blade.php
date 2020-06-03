@@ -36,7 +36,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Hồ sơ giá đất đấu giá
+        Thông tin hồ sơ giá hàng hóa, dịch vụ
     </h3>
 
     <!-- END PAGE HEADER-->
@@ -48,8 +48,8 @@
                     <div class="caption">
                     </div>
                     <div class="actions">
-                        <a href="{{url($inputs['url'].'/prints?madv='.$inputs['madv'].'&nam='. $inputs['nam'])}}" class="btn btn-default btn-sm" target="_blank">
-                            <i class="fa fa-print"></i> In danh sách</a>
+{{--                        <a href="{{url($inputs['url'].'/print?madv='.$inputs['madv'].'&nam='. $inputs['nam'])}}" class="btn btn-default btn-sm" target="_blank">--}}
+{{--                            <i class="fa fa-print"></i> In danh sách</a>--}}
                     </div>
                 </div>
 
@@ -81,9 +81,7 @@
                             <tr>
                                 <th width="2%" style="text-align: center">STT</th>
                                 <th style="text-align: center">Cơ quan chuyển hồ sơ</th>
-                                <th style="text-align: center">Địa bàn</th>
                                 <th style="text-align: center">Thời điểm <br>xác định</th>
-                                <th style="text-align: center">Tên dự án</th>
                                 <th style="text-align: center">Trạng thái</th>
                                 <th style="text-align: center">Cơ quan tiếp nhận hồ sơ</th>
                                 <th style="text-align: center" width="20%">Thao tác</th>
@@ -91,28 +89,19 @@
                         </thead>
 
                         <tbody>
+                        <?php $i=1; ?>
                             @foreach($model as $key=>$tt)
                                 <tr>
-                                    <td style="text-align: center">{{$key + 1}}</td>
-                                    <td style="text-align: left">{{$tt->tendv_ch}}</td>
-                                    <td style="text-align: center">{{$a_diaban[$tt->madiaban] ?? ''}}</td>
+                                    <td style="text-align: center">{{$i++}}</td>
+                                    <td style="text-align: left" class="active">{{$tt->tendv_ch}}</td>
                                     <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
-                                    <td style="text-align: left">{{$tt->tenduan}}</td>
                                     @include('manage.include.form.td_trangthai')
                                     <td style="text-align: left">{{$tt->tencqcq}}</td>
                                     <td>
                                         <a href="{{url($inputs['url'].'/modify?mahs='.$tt->mahs.'&act=false')}}" class="btn btn-default btn-xs mbs" target="_blank">
                                             <i class="fa fa-eye"></i>&nbsp;Chi tiết</a>
-                                        <!--
-                                        Xem xét bổ sung madv_ad, trangthai_ad,
-                                        Tùy level mà chức năng nút chuyển lại khác nhau
-                                        Đơn vị tiếp nhận có tổng hợp Toàn tỉnh
-                                        ADMIN-> Công bố
-                                        T->
-                                        H->Hoàn thành (có đơn
 
-                                        -->
-                                        @if(chkPer('csdlmucgiahhdv','philephi', 'giaphilephi','hoso','approve'))
+                                        @if(chkPer('csdlmucgiahhdv','hhdv', 'giavangngoaite', 'hoso', 'approve'))
                                             @if($tt->level == 'ADMIN')
                                                 @if($tt->trangthai == 'CB')
                                                     <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','{{$inputs['url'].'/congbo'}}', 'HCB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
@@ -134,8 +123,6 @@
                                                 @endif
                                             @endif
                                         @endif
-                                        <button type="button" onclick="get_attack('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
-                                            <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -150,7 +137,6 @@
         <!-- END DASHBOARD STATS -->
         </div>
     </div>
-    @include('manage.include.form.modal_attackfile')
     @include('manage.include.form.modal_congbo')
     @include('manage.include.form.modal_approve_xd')
     @include('manage.include.form.modal_unapprove_xd')

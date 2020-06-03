@@ -145,7 +145,7 @@
     <div class="row center">
         <div class="col-md-12 center">
             <!-- BEGIN VALIDATION STATES-->
-            {!! Form::model($model, ['method' => 'post', 'url'=>'giadaugiadat/modify', 'class'=>'horizontal-form','id'=>'update_thongtindaugiadat']) !!}
+            {!! Form::model($model, ['method' => 'post', 'url'=>'giadaugiadat/modify', 'class'=>'horizontal-form','id'=>'update_thongtindaugiadat','files'=>true]) !!}
             {!!Form::hidden('madv',null,['id'=>'madv'])!!}
             {!!Form::hidden('mahs',null,['id'=>'mahs'])!!}
             {!!Form::hidden('madiaban',null,['id'=>'madiaban'])!!}
@@ -220,6 +220,16 @@
                                 </div>
                             </div>
                             <!--/span-->
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label">File đính kèm</label>
+                                @if($model->ipf1 != '')
+                                    <a href="{{url('/data/giadaugiadat/'.$model->ipf1)}}" target="_blank">{{$model->ipf1}}</a>
+                                @endif
+                                <input name="ipf1" id="ipf1" type="file">
+                            </div>
                         </div>
 
                         <div class="row">

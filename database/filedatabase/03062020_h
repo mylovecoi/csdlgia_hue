@@ -1,0 +1,482 @@
+use csdlgia_hue
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER TABLE dmhhdvk
+ADD
+[manhom] [nvarchar](255) NULL;
+GO
+
+
+CREATE TABLE [dbo].[giavangngoaitedm](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[mahhdv] [nvarchar](255) NULL,
+	[tenhhdv] [nvarchar](255) NULL,
+	[dacdiemkt] [nvarchar](255) NULL,
+	[xuatxu] [nvarchar](255) NULL,
+	[dvt] [nvarchar](255) NULL,
+	[theodoi] [nvarchar](255) NULL,
+	[created_at] [datetime] NULL,
+	[updated_at] [datetime] NULL,
+PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[giavangngoaitect](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[mahs] [nvarchar](255) NULL,
+	[mahhdv] [nvarchar](255) NULL,
+	[tenhhdv] [nvarchar](255) NULL,
+	[dacdiemkt] [nvarchar](255) NULL,
+	[xuatxu] [nvarchar](255) NULL,
+	[dvt] [nvarchar](255) NULL,
+	[gialk] [nvarchar](255) NULL,
+	[gia] [nvarchar](255) NULL,
+	[loaigia] [nvarchar](255) NULL,
+	[nguontt] [nvarchar](255) NULL,
+	[ghichu] [nvarchar](max) NULL,
+	[created_at] [datetime] NULL,
+	[updated_at] [datetime] NULL,
+PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[giavangngoaite](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[mahs] [nvarchar](255) NOT NULL,
+	[madiaban] [nvarchar](255) NULL,
+	[maxp] [nvarchar](255) NULL,
+	[soqd] [nvarchar](255) NULL,
+	[thoidiemlk] [date] NULL,
+	[soqdlk] [nvarchar](255) NULL,
+	[phanloai] [nvarchar](255) NULL,
+	[congbo] [nvarchar](255) NOT NULL,
+	[lichsu] [nvarchar](max) NULL,
+	[tinhtrang] [nvarchar](255) NULL,
+	[ghichu] [nvarchar](max) NULL,
+	[thoidiem] [date] NULL,
+	[macqcq] [nvarchar](255) NULL,
+	[madv] [nvarchar](255) NULL,
+	[lydo] [nvarchar](255) NULL,
+	[thongtin] [nvarchar](255) NULL,
+	[trangthai] [nvarchar](255) NULL,
+	[thoidiem_h] [date] NULL,
+	[macqcq_h] [nvarchar](255) NULL,
+	[madv_h] [nvarchar](255) NULL,
+	[lydo_h] [nvarchar](255) NULL,
+	[thongtin_h] [nvarchar](255) NULL,
+	[trangthai_h] [nvarchar](255) NULL,
+	[thoidiem_t] [date] NULL,
+	[macqcq_t] [nvarchar](255) NULL,
+	[madv_t] [nvarchar](255) NULL,
+	[lydo_t] [nvarchar](255) NULL,
+	[thongtin_t] [nvarchar](255) NULL,
+	[trangthai_t] [nvarchar](255) NULL,
+	[thoidiem_ad] [date] NULL,
+	[macqcq_ad] [nvarchar](255) NULL,
+	[madv_ad] [nvarchar](255) NULL,
+	[lydo_ad] [nvarchar](255) NULL,
+	[thongtin_ad] [nvarchar](255) NULL,
+	[trangthai_ad] [nvarchar](255) NULL,
+	[created_at] [datetime] NULL,
+	[updated_at] [datetime] NULL,
+PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+
+GO
+=======
+GO
+
+ALTER TABLE [dbo].[giavangngoaite] ADD  DEFAULT ('CHUACONGBO') FOR [congbo]
+GO
+
+CREATE TABLE [dbo].[giacuocvanchuyenct](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[mahs] [nvarchar](255) NULL,
+	[tencuoc] [nvarchar](255) NULL,
+	[tukm] [float] NOT NULL,
+	[denkm] [float] NOT NULL,
+	[bachh] [nvarchar](255) NULL,
+	[phanloai] [nvarchar](255) NULL,
+	[giavc1] [float] NOT NULL,
+	[giavc2] [float] NOT NULL,
+	[giavc3] [float] NOT NULL,
+	[giavc4] [float] NOT NULL,
+	[giavc5] [float] NOT NULL,
+	[gc] [nvarchar](max) NULL,
+	[created_at] [datetime] NULL,
+	[updated_at] [datetime] NULL,
+PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[giacuocvanchuyenct] ADD  DEFAULT ('0') FOR [tukm]
+GO
+
+ALTER TABLE [dbo].[giacuocvanchuyenct] ADD  DEFAULT ('0') FOR [denkm]
+GO
+
+ALTER TABLE [dbo].[giacuocvanchuyenct] ADD  DEFAULT ('0') FOR [giavc1]
+GO
+
+ALTER TABLE [dbo].[giacuocvanchuyenct] ADD  DEFAULT ('0') FOR [giavc2]
+GO
+
+ALTER TABLE [dbo].[giacuocvanchuyenct] ADD  DEFAULT ('0') FOR [giavc3]
+GO
+
+ALTER TABLE [dbo].[giacuocvanchuyenct] ADD  DEFAULT ('0') FOR [giavc4]
+GO
+
+ALTER TABLE [dbo].[giacuocvanchuyenct] ADD  DEFAULT ('0') FOR [giavc5]
+GO
+
+CREATE TABLE [dbo].[giacuocvanchuyen](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[mahs] [nvarchar](255) NOT NULL,
+	[madiaban] [nvarchar](255) NULL,
+	[maxp] [nvarchar](255) NULL,
+	[soqd] [nvarchar](255) NULL,
+	[ttqd] [nvarchar](max) NULL,
+	[congbo] [nvarchar](255) NOT NULL,
+	[thaotac] [nvarchar](255) NULL,
+	[ghichu] [nvarchar](max) NULL,
+	[lichsu] [nvarchar](max) NULL,
+	[tinhtrang] [nvarchar](255) NULL,
+	[phanloai] [nvarchar](255) NULL,
+	[ipf1] [nvarchar](255) NULL,
+	[ipf2] [nvarchar](255) NULL,
+	[ipf3] [nvarchar](255) NULL,
+	[ipf4] [nvarchar](255) NULL,
+	[ipf5] [nvarchar](255) NULL,
+	[thoidiem] [date] NULL,
+	[macqcq] [nvarchar](255) NULL,
+	[madv] [nvarchar](255) NULL,
+	[lydo] [nvarchar](255) NULL,
+	[thongtin] [nvarchar](255) NULL,
+	[trangthai] [nvarchar](255) NULL,
+	[thoidiem_h] [date] NULL,
+	[macqcq_h] [nvarchar](255) NULL,
+	[madv_h] [nvarchar](255) NULL,
+	[lydo_h] [nvarchar](255) NULL,
+	[thongtin_h] [nvarchar](255) NULL,
+	[trangthai_h] [nvarchar](255) NULL,
+	[thoidiem_t] [date] NULL,
+	[macqcq_t] [nvarchar](255) NULL,
+	[madv_t] [nvarchar](255) NULL,
+	[lydo_t] [nvarchar](255) NULL,
+	[thongtin_t] [nvarchar](255) NULL,
+	[trangthai_t] [nvarchar](255) NULL,
+	[thoidiem_ad] [date] NULL,
+	[macqcq_ad] [nvarchar](255) NULL,
+	[madv_ad] [nvarchar](255) NULL,
+	[lydo_ad] [nvarchar](255) NULL,
+	[thongtin_ad] [nvarchar](255) NULL,
+	[trangthai_ad] [nvarchar](255) NULL,
+	[created_at] [datetime] NULL,
+	[updated_at] [datetime] NULL,
+PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[giacuocvanchuyen] ADD  DEFAULT ('CHUACONGBO') FOR [congbo]
+GO
+
+CREATE OR ALTER VIEW [dbo].[view_giacuocvanchuyen]
+AS
+SELECT        dbo.giacuocvanchuyen.mahs, dbo.giacuocvanchuyen.madiaban, dbo.giacuocvanchuyen.maxp, dbo.giacuocvanchuyen.soqd, dbo.giacuocvanchuyen.ttqd, dbo.giacuocvanchuyen.congbo, dbo.giacuocvanchuyen.thaotac,
+                         dbo.giacuocvanchuyen.ghichu, dbo.giacuocvanchuyen.lichsu, dbo.giacuocvanchuyen.tinhtrang, dbo.giacuocvanchuyen.phanloai, dbo.giacuocvanchuyen.ipf1, dbo.giacuocvanchuyen.ipf2, dbo.giacuocvanchuyen.ipf3,
+                         dbo.giacuocvanchuyen.ipf4, dbo.giacuocvanchuyen.ipf5, dbo.giacuocvanchuyen.thoidiem, dbo.giacuocvanchuyen.macqcq, dbo.giacuocvanchuyen.madv, dbo.giacuocvanchuyen.lydo, dbo.giacuocvanchuyen.thongtin,
+                         dbo.giacuocvanchuyen.trangthai, dbo.giacuocvanchuyen.thoidiem_h, dbo.giacuocvanchuyen.macqcq_h, dbo.giacuocvanchuyen.madv_h, dbo.giacuocvanchuyen.lydo_h, dbo.giacuocvanchuyen.thongtin_h,
+                         dbo.giacuocvanchuyen.trangthai_h, dbo.giacuocvanchuyen.thoidiem_t, dbo.giacuocvanchuyen.macqcq_t, dbo.giacuocvanchuyen.madv_t, dbo.giacuocvanchuyen.lydo_t, dbo.giacuocvanchuyen.thongtin_t,
+                         dbo.giacuocvanchuyen.trangthai_t, dbo.giacuocvanchuyen.thoidiem_ad, dbo.giacuocvanchuyen.macqcq_ad, dbo.giacuocvanchuyen.madv_ad, dbo.giacuocvanchuyen.lydo_ad, dbo.giacuocvanchuyen.thongtin_ad,
+                         dbo.giacuocvanchuyen.trangthai_ad, dbo.giacuocvanchuyenct.tencuoc, dbo.giacuocvanchuyenct.tukm, dbo.giacuocvanchuyenct.denkm, dbo.giacuocvanchuyenct.bachh, dbo.giacuocvanchuyenct.phanloai AS phanloaict,
+                         dbo.giacuocvanchuyenct.giavc1, dbo.giacuocvanchuyenct.giavc2, dbo.giacuocvanchuyenct.giavc3, dbo.giacuocvanchuyenct.giavc4, dbo.giacuocvanchuyenct.giavc5, dbo.giacuocvanchuyenct.gc
+FROM            dbo.giacuocvanchuyen INNER JOIN
+                         dbo.giacuocvanchuyenct ON dbo.giacuocvanchuyen.mahs = dbo.giacuocvanchuyenct.mahs
+GO
+
+CREATE OR ALTER VIEW [dbo].[view_giavangngoaite]
+AS
+SELECT        dbo.giavangngoaite.mahs, dbo.giavangngoaite.madiaban, dbo.giavangngoaite.maxp, dbo.giavangngoaite.soqd, dbo.giavangngoaite.thoidiemlk, dbo.giavangngoaite.soqdlk, dbo.giavangngoaite.phanloai,
+                         dbo.giavangngoaite.congbo, dbo.giavangngoaite.lichsu, dbo.giavangngoaite.tinhtrang, dbo.giavangngoaite.ghichu, dbo.giavangngoaite.thoidiem, dbo.giavangngoaite.macqcq, dbo.giavangngoaite.madv, dbo.giavangngoaite.lydo,
+                          dbo.giavangngoaite.thongtin, dbo.giavangngoaite.trangthai, dbo.giavangngoaite.thoidiem_h, dbo.giavangngoaite.macqcq_h, dbo.giavangngoaite.madv_h, dbo.giavangngoaite.lydo_h, dbo.giavangngoaite.thongtin_h,
+                         dbo.giavangngoaite.trangthai_h, dbo.giavangngoaite.thoidiem_t, dbo.giavangngoaite.macqcq_t, dbo.giavangngoaite.madv_t, dbo.giavangngoaite.lydo_t, dbo.giavangngoaite.thongtin_t, dbo.giavangngoaite.trangthai_t,
+                         dbo.giavangngoaite.thoidiem_ad, dbo.giavangngoaite.macqcq_ad, dbo.giavangngoaite.madv_ad, dbo.giavangngoaite.lydo_ad, dbo.giavangngoaite.thongtin_ad, dbo.giavangngoaite.trangthai_ad, dbo.giavangngoaitect.mahhdv,
+                         dbo.giavangngoaitect.tenhhdv, dbo.giavangngoaitect.dacdiemkt, dbo.giavangngoaitect.xuatxu, dbo.giavangngoaitect.dvt, dbo.giavangngoaitect.gialk, dbo.giavangngoaitect.gia, dbo.giavangngoaitect.loaigia,
+                         dbo.giavangngoaitect.nguontt
+FROM            dbo.giavangngoaite INNER JOIN
+                         dbo.giavangngoaitect ON dbo.giavangngoaite.mahs = dbo.giavangngoaitect.mahs
+GO
+
+ALTER TABLE giathuemuanhaxh
+ADD
+[dongiathue] [float] NOT NULL;
+GO
+
+CREATE TABLE [dbo].[kkgiadatsanlap](
+  	[id] [int] IDENTITY(1,1) NOT NULL,
+  	[mahs] [nvarchar](255) NOT NULL,
+  	[madiaban] [nvarchar](255) NULL,
+  	[ngaynhap] [date] NULL,
+  	[ngayhieuluc] [date] NULL,
+  	[socv] [nvarchar](255) NULL,
+  	[socvlk] [nvarchar](255) NULL,
+  	[ngaycvlk] [nvarchar](255) NULL,
+  	[ytcauthanhgia] [nvarchar](max) NULL,
+  	[thydggadgia] [nvarchar](max) NULL,
+  	[ttnguoinop] [nvarchar](max) NULL,
+  	[plhs] [nvarchar](255) NULL,
+  	[thoihan] [nvarchar](255) NULL,
+  	[dvt] [nvarchar](255) NULL,
+  	[congbo] [nvarchar](255) NULL,
+  	[lichsu] [nvarchar](max) NULL,
+  	[ghichu] [nvarchar](max) NULL,
+  	[macqcq] [nvarchar](255) NULL,
+  	[madv] [nvarchar](255) NULL,
+  	[ngaynhan] [date] NULL,
+  	[sohsnhan] [nvarchar](255) NULL,
+  	[nguoichuyen] [nvarchar](100) NULL,
+  	[ngaychuyen] [datetime] NULL,
+  	[lydo] [nvarchar](max) NULL,
+  	[trangthai] [nvarchar](255) NULL,
+  	[macqcq_h] [nvarchar](255) NULL,
+  	[madv_h] [nvarchar](255) NULL,
+  	[ngaynhan_h] [date] NULL,
+  	[sohsnhan_h] [nvarchar](255) NULL,
+  	[nguoichuyen_h] [nvarchar](100) NULL,
+  	[ngaychuyen_h] [datetime] NULL,
+  	[lydo_h] [nvarchar](max) NULL,
+  	[trangthai_h] [nvarchar](255) NULL,
+  	[macqcq_t] [nvarchar](255) NULL,
+  	[madv_t] [nvarchar](255) NULL,
+  	[ngaynhan_t] [date] NULL,
+  	[sohsnhan_t] [nvarchar](255) NULL,
+  	[nguoichuyen_t] [nvarchar](100) NULL,
+  	[ngaychuyen_t] [datetime] NULL,
+  	[lydo_t] [nvarchar](max) NULL,
+  	[trangthai_t] [nvarchar](255) NULL,
+  	[macqcq_ad] [nvarchar](255) NULL,
+  	[madv_ad] [nvarchar](255) NULL,
+  	[ngaynhan_ad] [date] NULL,
+  	[sohsnhan_ad] [nvarchar](255) NULL,
+  	[nguoichuyen_ad] [nvarchar](100) NULL,
+  	[ngaychuyen_ad] [datetime] NULL,
+  	[lydo_ad] [nvarchar](max) NULL,
+  	[trangthai_ad] [nvarchar](255) NULL,
+  	[created_at] [datetime] NULL,
+  	[updated_at] [datetime] NULL,
+  PRIMARY KEY CLUSTERED
+  (
+  	[id] ASC
+  )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+  ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+  GO
+
+
+  CREATE TABLE [dbo].[kkgiadatsanlapct](
+  	[id] [int] IDENTITY(1,1) NOT NULL,
+  	[mahs] [nvarchar](255) NULL,
+  	[madv] [nvarchar](255) NULL,
+  	[tendvcu] [nvarchar](max) NULL,
+  	[qccl] [nvarchar](255) NULL,
+  	[dvt] [nvarchar](255) NULL,
+  	[gialk] [float] NULL,
+  	[giakk] [float] NULL,
+  	[ghichu] [nvarchar](255) NULL,
+  	[thuevat] [nvarchar](255) NULL,
+  	[trangthai] [nvarchar](255) NULL,
+  	[created_at] [datetime] NULL,
+  	[updated_at] [datetime] NULL,
+  PRIMARY KEY CLUSTERED
+  (
+  	[id] ASC
+  )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+  ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+  GO
+
+
+
+CREATE TABLE [dbo].[kkgiadaxaydung](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[mahs] [nvarchar](255) NOT NULL,
+	[madiaban] [nvarchar](255) NULL,
+	[ngaynhap] [date] NULL,
+	[ngayhieuluc] [date] NULL,
+	[socv] [nvarchar](255) NULL,
+	[socvlk] [nvarchar](255) NULL,
+	[ngaycvlk] [nvarchar](255) NULL,
+	[ytcauthanhgia] [nvarchar](max) NULL,
+	[thydggadgia] [nvarchar](max) NULL,
+	[ttnguoinop] [nvarchar](max) NULL,
+	[plhs] [nvarchar](255) NULL,
+	[thoihan] [nvarchar](255) NULL,
+	[dvt] [nvarchar](255) NULL,
+	[congbo] [nvarchar](255) NULL,
+	[lichsu] [nvarchar](max) NULL,
+	[ghichu] [nvarchar](max) NULL,
+	[macqcq] [nvarchar](255) NULL,
+	[madv] [nvarchar](255) NULL,
+	[ngaynhan] [date] NULL,
+	[sohsnhan] [nvarchar](255) NULL,
+	[nguoichuyen] [nvarchar](100) NULL,
+	[ngaychuyen] [datetime] NULL,
+	[lydo] [nvarchar](max) NULL,
+	[trangthai] [nvarchar](255) NULL,
+	[macqcq_h] [nvarchar](255) NULL,
+	[madv_h] [nvarchar](255) NULL,
+	[ngaynhan_h] [date] NULL,
+	[sohsnhan_h] [nvarchar](255) NULL,
+	[nguoichuyen_h] [nvarchar](100) NULL,
+	[ngaychuyen_h] [datetime] NULL,
+	[lydo_h] [nvarchar](max) NULL,
+	[trangthai_h] [nvarchar](255) NULL,
+	[macqcq_t] [nvarchar](255) NULL,
+	[madv_t] [nvarchar](255) NULL,
+	[ngaynhan_t] [date] NULL,
+	[sohsnhan_t] [nvarchar](255) NULL,
+	[nguoichuyen_t] [nvarchar](100) NULL,
+	[ngaychuyen_t] [datetime] NULL,
+	[lydo_t] [nvarchar](max) NULL,
+	[trangthai_t] [nvarchar](255) NULL,
+	[macqcq_ad] [nvarchar](255) NULL,
+	[madv_ad] [nvarchar](255) NULL,
+	[ngaynhan_ad] [date] NULL,
+	[sohsnhan_ad] [nvarchar](255) NULL,
+	[nguoichuyen_ad] [nvarchar](100) NULL,
+	[ngaychuyen_ad] [datetime] NULL,
+	[lydo_ad] [nvarchar](max) NULL,
+	[trangthai_ad] [nvarchar](255) NULL,
+	[created_at] [datetime] NULL,
+	[updated_at] [datetime] NULL,
+PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+
+CREATE TABLE [dbo].[kkgiadaxaydungct](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[mahs] [nvarchar](255) NULL,
+	[madv] [nvarchar](255) NULL,
+	[tendvcu] [nvarchar](max) NULL,
+	[qccl] [nvarchar](255) NULL,
+	[dvt] [nvarchar](255) NULL,
+	[gialk] [float] NULL,
+	[giakk] [float] NULL,
+	[ghichu] [nvarchar](255) NULL,
+	[thuevat] [nvarchar](255) NULL,
+	[trangthai] [nvarchar](255) NULL,
+	[created_at] [datetime] NULL,
+	[updated_at] [datetime] NULL,
+PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[kkgiacatsanct](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[mahs] [nvarchar](255) NULL,
+	[maxa] [nvarchar](255) NULL,
+	[madv] [nvarchar](255) NULL,
+	[tendvcu] [nvarchar](max) NULL,
+	[qccl] [nvarchar](255) NULL,
+	[dvt] [nvarchar](255) NULL,
+	[gialk] [float] NULL,
+	[giakk] [float] NULL,
+	[ghichu] [nvarchar](255) NULL,
+	[trangthai] [nvarchar](255) NULL,
+	[thuevat] [nvarchar](255) NULL,
+	[created_at] [datetime] NULL,
+	[updated_at] [datetime] NULL,
+PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[kkgiacatsan](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[mahs] [nvarchar](255) NOT NULL,
+	[madiaban] [nvarchar](255) NULL,
+	[ngaynhap] [date] NULL,
+	[ngayhieuluc] [date] NULL,
+	[socv] [nvarchar](255) NULL,
+	[socvlk] [nvarchar](255) NULL,
+	[ngaycvlk] [nvarchar](255) NULL,
+	[ytcauthanhgia] [nvarchar](max) NULL,
+	[thydggadgia] [nvarchar](max) NULL,
+	[ttnguoinop] [nvarchar](max) NULL,
+	[plhs] [nvarchar](255) NULL,
+	[thoihan] [nvarchar](255) NULL,
+	[dvt] [nvarchar](255) NULL,
+	[congbo] [nvarchar](255) NULL,
+	[lichsu] [nvarchar](max) NULL,
+	[ghichu] [nvarchar](max) NULL,
+	[macqcq] [nvarchar](255) NULL,
+	[madv] [nvarchar](255) NULL,
+	[ngaynhan] [date] NULL,
+	[sohsnhan] [nvarchar](255) NULL,
+	[nguoichuyen] [nvarchar](100) NULL,
+	[ngaychuyen] [datetime] NULL,
+	[lydo] [nvarchar](max) NULL,
+	[trangthai] [nvarchar](255) NULL,
+	[macqcq_h] [nvarchar](255) NULL,
+	[madv_h] [nvarchar](255) NULL,
+	[ngaynhan_h] [date] NULL,
+	[sohsnhan_h] [nvarchar](255) NULL,
+	[nguoichuyen_h] [nvarchar](100) NULL,
+	[ngaychuyen_h] [datetime] NULL,
+	[lydo_h] [nvarchar](max) NULL,
+	[trangthai_h] [nvarchar](255) NULL,
+	[macqcq_t] [nvarchar](255) NULL,
+	[madv_t] [nvarchar](255) NULL,
+	[ngaynhan_t] [date] NULL,
+	[sohsnhan_t] [nvarchar](255) NULL,
+	[nguoichuyen_t] [nvarchar](100) NULL,
+	[ngaychuyen_t] [datetime] NULL,
+	[lydo_t] [nvarchar](max) NULL,
+	[trangthai_t] [nvarchar](255) NULL,
+	[macqcq_ad] [nvarchar](255) NULL,
+	[madv_ad] [nvarchar](255) NULL,
+	[ngaynhan_ad] [date] NULL,
+	[sohsnhan_ad] [nvarchar](255) NULL,
+	[nguoichuyen_ad] [nvarchar](100) NULL,
+	[ngaychuyen_ad] [datetime] NULL,
+	[lydo_ad] [nvarchar](max) NULL,
+	[trangthai_ad] [nvarchar](255) NULL,
+	[created_at] [datetime] NULL,
+	[updated_at] [datetime] NULL,
+PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+

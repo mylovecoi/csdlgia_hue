@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDmhhdvkTable extends Migration
+class CreateGiavangngoaitedmTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateDmhhdvkTable extends Migration
      */
     public function up()
     {
-        Schema::create('dmhhdvk', function (Blueprint $table) {
+        Schema::create('giavangngoaitedm', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('matt')->nullable();
-            $table->string('manhom')->nullable();
             $table->string('mahhdv')->nullable();
             $table->string('tenhhdv')->nullable();
             $table->string('dacdiemkt')->nullable();
@@ -34,6 +32,6 @@ class CreateDmhhdvkTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dmhhdvk');
+        Schema::dropIfExists('giavangngoaitedm');
     }
 }

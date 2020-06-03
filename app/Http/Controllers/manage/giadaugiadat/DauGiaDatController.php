@@ -79,6 +79,12 @@ class DauGiaDatController extends Controller
         if(Session::has('admin')){
             $inputs = $request->all();
             $model = DauGiaDat::where('mahs',$inputs['mahs'])->first();
+            if(isset($inputs['ipf1'])){
+                $ipf1 = $request->file('ipf1');
+                $name = $inputs['mahs'] .'&1.'.$ipf1->getClientOriginalName();
+                $ipf1->move(public_path() . '/data/giadaugiadat/', $name);
+                $inputs['ipf1']= $name;
+            }
             if($model == null){
                 $inputs['trangthai'] = 'CHT';
                 DauGiaDat::create($inputs);
@@ -110,43 +116,27 @@ class DauGiaDatController extends Controller
             return view('errors.notlogin');
     }
 
-    public function show($id){
-        if(Session::has('admin')){
-            $model = DauGiaDat::findOrFail($id);
-            $modelct = DauGiaDatCt::where('mahs',$model->mahs)
-                ->get();
-            $modeldb = DiaBanHd::where('level','H')
-                ->where('district',$model->mahuyen)
-                ->first();
-            $modelxa = DiaBanHd::where('level','X')
-                ->where('town',$model->maxa)
-                ->first();
+    public function show(Request $request)
+    {
+        $result = array(
+            'status' => 'fail',
+            'message' => 'error',
+        );
 
-            if(session('admin')->level == 'T'){
-                $inputs['dvcaptren'] = getGeneralConfigs()['tendvcqhienthi'];
-                $inputs['dv'] = getGeneralConfigs()['tendvhienthi'];
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }elseif(session('admin')->level == 'H'){
-                $modeldv = District::where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }else{
-                $modeldv = Town::where('maxa',session('admin')->maxa)
-                    ->where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }
-            return view('manage.dinhgia.giadaugiadat.kekhai.show')
-                ->with('model',$model)
-                ->with('modelct',$modelct)
-                ->with('modeldb',$modeldb)
-                ->with('modelxa',$modelxa)
-                ->with('inputs',$inputs)
-                ->with('pageTitle','Hồ sơ đấu giá đất');
-        }else
-            return view('errors.notlogin');
+        $inputs = $request->all();
+        $model = DauGiaDat::where('mahs',$inputs['mahs'])->first();
+
+        $result['message'] ='<div class="modal-body" id = "dinh_kem" >';
+        if (isset($model->ipf1)) {
+            $result['message'] .= '<div class="row" ><div class="col-md-6" ><div class="form-group" >';
+            $result['message'] .= '<label class="control-label" > File đính kèm 1 </label >';
+            $result['message'] .= '<p ><a target = "_blank" href = "' . url('/data/giadaugiadat/' . $model->ipf1) . '">' . $model->ipf1 . '</a ></p >';
+            $result['message'] .= '</div ></div ></div >';
+        }
+
+        $result['status'] = 'success';
+
+        die(json_encode($result));
     }
 
     public function destroy(Request $request){

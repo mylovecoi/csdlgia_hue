@@ -120,6 +120,8 @@
                                         <button type="button" onclick="confirmChuyen('{{$tt->mahs}}','{{$inputs['url'].'/chuyenhs'}}')" class="btn btn-default btn-xs mbs" data-target="#chuyen-modal-confirm" data-toggle="modal">
                                             <i class="fa fa-check"></i> Hoàn thành</button>
                                     @endif
+                                    <button type="button" onclick="get_attack('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
+                                        <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
                                 </td>
                             </tr>
                         @endforeach
@@ -132,6 +134,7 @@
     </div>
     <!-- BEGIN DASHBOARD STATS -->
     <!-- END DASHBOARD STATS -->
+    @include('manage.include.form.modal_attackfile')
     @include('manage.include.form.modal_approve_hs')
     @include('manage.include.form.modal_del_hs')
     @include('includes.script.inputmask-ajax-scripts')

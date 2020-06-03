@@ -201,15 +201,25 @@ class KkMhBogController extends Controller
             return view('errors.notlogin');
     }
 
+    //kiểm tra phân loại hồ so để DKG=>56; KKG=>233
     public function show(Request $request){
         if (Session::has('admin')) {
             $input = $request->all();
             $mahs = $input['mahs'];
             $modelkk = KkMhBog::where('mahs',$mahs)->first();
+            //dd($modelkk);
             //chưa gán lại số hồ sơ; thòi gian theo macqcq
             $modeldn = Company::where('madv',$modelkk->madv)->first();
             $modelkkct = KkMhBogCt::where('mahs',$modelkk->mahs)->get();
             $modelcqcq = view_dsdiaban_donvi::where('madv', $modelkk->macqcq)->first();
+            if($modelkk->phanloai == 'DK'){
+                return view('manage.bog.baocao.print56')
+                    ->with('modelkk',$modelkk)
+                    ->with('modeldn',$modeldn)
+                    ->with('modelkkct',$modelkkct)
+                    ->with('modelcqcq',$modelcqcq)
+                    ->with('pageTitle','Giá kê khai mặt hàng bình ổn giá');
+            }
             return view('manage.bog.baocao.print')
                 ->with('modelkk',$modelkk)
                 ->with('modeldn',$modeldn)

@@ -575,7 +575,7 @@
                 </li>
             @endif
 
-            @if(chkPer('csdlmucgiahhdv','bog', 'bog', 'hoso','index'))
+            @if(chkPer('csdlmucgiahhdv','bog', 'bog', 'hoso', 'index'))
                 @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
                 <!-- chức năng nhập liệu cho đơn vị -->
                     @if(session('admin')->level == 'SSA')
@@ -1361,7 +1361,56 @@
     </li>
 @endif
 
+@if(chkPer('csdlmucgiahhdv','hhdv', 'giavangngoaite'))
+    <li class="tooltips" data-container="body" data-placement="right" data-html="true" >
+        <a href="javascript:;">
+            <i class="icon-folder"></i>
+            <span class="title">{{session('admin')['a_chucnang']['giavangngoaite'] ?? 'Giá vàng, ngoại tệ'}}</span>
+            <span class="arrow"></span>
+        </a>
+        <ul class="sub-menu">
+            @if(chkPer('csdlmucgiahhdv','hhdv', 'giavangngoaite', 'danhmuc','index'))
+                <li>
+                    <a href="{{url('/giavangngoaite/danhmuc')}}">Danh mục</a>
+                </li>
+            @endif
 
+            @if(chkPer('csdlmucgiahhdv','hhdv', 'giavangngoaite', 'hoso','index'))
+                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                    <li>
+                        <a href="{{url('/giavangngoaite/danhsach')}}">
+                            Thông tin hồ sơ
+                        </a>
+                    </li>
+                @endif
+
+                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                    <li>
+                        <a href="{{url('/giavangngoaite/xetduyet')}}">
+                            Xét duyệt hồ sơ
+                        </a>
+                    </li>
+
+{{--                    @if(chkPer('csdlmucgiahhdv','hhdv', 'giavangngoaite', 'khac','tonghop'))--}}
+{{--                        <li>--}}
+{{--                            <a href="{{url('/giavangngoaite/tonghop')}}">Tổng hợp giá</a>--}}
+{{--                        </li>--}}
+{{--                    @endif--}}
+                @endif
+
+{{--                <li>--}}
+{{--                    <a href="{{url('/giavangngoaite/timkiem')}}">--}}
+{{--                        Tìm kiếm hồ sơ--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+            @endif
+
+            <li>
+                <a href="{{url('/giavangngoaite/baocao')}}">Báo cáo tổng hợp</a>
+            </li>
+        </ul>
+    </li>
+@endif
 
 @if(canGeneral('giathitruong','index'))
     @if(can('giathitruong','index'))

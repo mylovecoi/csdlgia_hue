@@ -183,6 +183,9 @@ License: You must have a valid license purchased only from themeforest(the above
             <!-- DOC: Apply "hor-menu-light" class after the "hor-menu" class below to have a horizontal menu with white background -->
             <!-- DOC: Remove data-hover="dropdown" and data-close-others="true" attributes below to disable the dropdown opening on mouse hover -->
             <div class="hor-menu ">
+                <?php
+                    $a_cn = array_column(\App\Model\system\danhmucchucnang::all()->toArray(),'menu','maso');
+                ?>
                 <ul class="nav navbar-nav">
                     {{--@if(chkCongBo('csdlmucgiahhdv'))--}}
                         <li class="menu-dropdown classic-menu-dropdown ">
@@ -193,23 +196,23 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <i class="icon-folder"></i>
                                     &nbsp;Định giá</a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{{url('cbgiadatdiaban')}}">Giá đất theo địa bàn</a></li>
-                                    <li><a href="{{url('cbgiadaugiadat')}}">Giá đấu giá đất</a></li>
-                                    <li><a href="{{url('cbgiathuetainguyen')}}">&nbsp;Giá thuế tài nguyên</a></li>
-                                    <li><a href="{{url('cbgiathuedatnuoc')}}">Giá thuê mặt đất-nước</a></li>
-                                    <li><a href="{{url('cbgiarung')}}">Giá rừng</a></li>
-                                    <li><a href="{{url('cbthuemuanhaxh')}}">Giá thuê mua nhà XH</a></li>
-                                    <li><a href="{{url('cbgiathuenhacongvu')}}">Giá thuê nhà công vụ</a></li>
-                                    <li><a href="{{url('cbgianuocsachsinhhoat')}}">Giá nước sạch sinh hoạt</a></li>
+                                    <li><a href="{{url('cbgiadatdiaban')}}">{{$a_cn['giacldat'] ?? 'Giá đất theo địa bàn'}} </a></li>
+                                    <li><a href="{{url('cbgiadaugiadat')}}">{{$a_cn['giadaugiadat'] ?? 'Giá đấu giá đất'}}</a></li>
+                                    <li><a href="{{url('cbgiathuetainguyen')}}">&nbsp;{{$a_cn['giathuetn'] ?? 'Giá thuế tài nguyên'}}</a></li>
+                                    <li><a href="{{url('cbgiathuedatnuoc')}}">{{$a_cn['giathuedatnuoc'] ?? 'Giá thuê mặt đất-nước'}}</a></li>
+                                    <li><a href="{{url('cbgiarung')}}">{{$a_cn['giarung'] ?? 'Giá rừng'}}</a></li>
+                                    <li><a href="{{url('cbthuemuanhaxh')}}">{{$a_cn['giathuemuanhaxh'] ?? 'Giá thuê mua nhà XH'}}</a></li>
+                                    <li><a href="{{url('cbgiathuenhacongvu')}}">{{$a_cn['giathuenhacongvu'] ?? 'Giá thuê nhà công vụ'}}</a></li>
+                                    <li><a href="{{url('cbgianuocsachsinhhoat')}}">{{$a_cn['gianuocsh'] ?? 'Giá nước sạch sinh hoạt'}}</a></li>
 {{--                                    <li><a href="{{url('cbgiathuetaisan')}}">Giá thuê tài sản công</a></li>--}}
-                                    <li><a href="{{url('cbgiadvgiaoducdaotao')}}">Giá dịch vụ GD-ĐT</a></li>
-                                    <li><a href="{{url('cbdichvukcb')}}">Giá dịch vụ KCB</a></li>
+                                    <li><a href="{{url('cbgiadvgiaoducdaotao')}}">{{$a_cn['giadvgddt'] ?? 'Giá dịch vụ GD-ĐT'}}</a></li>
+                                    <li><a href="{{url('cbdichvukcb')}}">{{$a_cn['giadvkcb'] ?? 'Giá dịch vụ KCB'}}</a></li>
 {{--                                    <li><a href="{{url('coming')}}">Mức trợ giá, trợ cước</a></li>--}}
                                 </ul>
                             </li>
 {{--                            <li><a href="{{url('coming')}}"><i class="icon-folder"></i>&nbsp;Giá HH-DV khác</a></li>--}}
-                            <li><a href="{{url('cbgialephitruocba')}}"><i class="icon-folder"></i>&nbsp;Giá lệ phí trước bạ</a></li>
-                            <li><a href="{{url('cbphilephi')}}"><i class="icon-folder"></i>&nbsp;Phí, lệ phí</a></li>
+                            <li><a href="{{url('cbgialephitruocba')}}"><i class="icon-folder"></i>&nbsp;{{$a_cn['gialephitruocba'] ?? 'Giá lệ phí trước bạ'}}</a></li>
+                            <li><a href="{{url('cbphilephi')}}"><i class="icon-folder"></i>&nbsp;{{$a_cn['giaphilephi'] ?? 'Phí, lệ phí'}}</a></li>
 
                             @if(canGeneral('kkgia','congbo'))
                                 <li class=" dropdown-submenu">

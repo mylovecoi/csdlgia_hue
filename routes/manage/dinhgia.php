@@ -365,6 +365,35 @@ Route::group(['prefix'=>'giahhdvk'], function (){
     Route::post('import_excel','GiaHhDvKController@import_excel');
 });
 
+//Giá vàng, ngoại tệ (theo dõi theo ngày)
+Route::group(['prefix'=>'giavangngoaite'], function (){
+    //danh mục
+    Route::get('danhmuc','manage\giavangngoaite\giavangngoaitedmController@index');
+    Route::post('danhmuc','manage\giavangngoaite\giavangngoaitedmController@store');
+    Route::post('delete_dm','manage\giavangngoaite\giavangngoaitedmController@destroy');
+    Route::get('show_dm','manage\giavangngoaite\giavangngoaitedmController@edit');
+    //chi tiết hồ sơ
+    Route::get('edit_ct','manage\giavangngoaite\giavangngoaitectController@edit');
+    Route::post('update_ct','manage\giavangngoaite\giavangngoaitectController@update');
+    //hồ sơ
+    Route::get('danhsach','manage\giavangngoaite\giavangngoaiteController@index');
+    Route::get('new','manage\giavangngoaite\giavangngoaiteController@create');
+    Route::post('store','manage\giavangngoaite\giavangngoaiteController@store');
+    Route::post('delete','manage\giavangngoaite\giavangngoaiteController@destroy');
+    Route::get('modify','manage\giavangngoaite\giavangngoaiteController@edit');
+    Route::get('chitiet','manage\giavangngoaite\giavangngoaiteController@show');
+    Route::post('chuyenhs','manage\giavangngoaite\giavangngoaiteController@chuyenhs');
+    //xét duyệt
+    Route::get('xetduyet','manage\giavangngoaite\giavangngoaiteController@xetduyet');
+    Route::post('chuyenxd','manage\giavangngoaite\giavangngoaiteController@chuyenxd');
+    Route::post('tralai','manage\giavangngoaite\giavangngoaiteController@tralai');
+    Route::post('congbo','manage\giavangngoaite\giavangngoaiteController@congbo');
+
+    Route::get('baocao','manage\giavangngoaite\giavangngoaitebcController@index');
+    Route::post('bc1','manage\giavangngoaite\giavangngoaitebcController@bc1');
+    Route::post('bc2','manage\giavangngoaite\giavangngoaitebcController@bc2');
+});
+
 //Phí Lệ phí
 Route::group(['prefix'=>'giaphilephi'], function (){
     Route::get('danhmuc','DmPhiLePhiController@index');
@@ -411,6 +440,7 @@ Route::group(['prefix'=>'giadaugiadat'], function (){
 
     Route::post('chuyenhs','manage\giadaugiadat\DauGiaDatController@chuyenhs');
     Route::get('prints','manage\giadaugiadat\DauGiaDatController@ketxuat');
+    Route::get('dinhkem','manage\giadaugiadat\DauGiaDatController@show');
 
     Route::get('xetduyet','manage\giadaugiadat\DauGiaDatController@xetduyet');
     Route::post('chuyenxd','manage\giadaugiadat\DauGiaDatController@chuyenxd');

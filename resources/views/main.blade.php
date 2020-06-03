@@ -161,7 +161,6 @@ License: You must have a valid license purchased only from themeforest(the above
             <div class="page-logo">
                 <a href="{{url('')}}">
                     <img src="{{url('images/logolife.png')}}" alt="logo" class="logo-default">
-
                 </a>
                 <div class="menu-toggler sidebar-toggler hide">
                     <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
@@ -187,7 +186,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <a href="{{url('/giahanghoadichvu')}}" class="dropdown-toggle" target="_blank">
                         <i class="fa fa-cloud"></i>
 					<span class="badge badge-danger">
-					View</span>
+					Trang công bố</span>
                     </a>
                     <ul>
                     </ul>
@@ -196,7 +195,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                         <i class="fa fa-folder-open-o"></i>
 					<span class="badge badge-default">
-					Help</span>
+					Trợ giúp</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-default">
                         <li>

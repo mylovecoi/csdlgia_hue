@@ -26,9 +26,13 @@
 </table>
 <p style="text-align: center; font-weight: bold; font-size: 16px;"><i><u>Kính gửi</u></i>: {{$modelcqcq->tendvhienthi ?? ''}}</p>
 <br><br>
-<p>Thực hiện Thông tư số 56/2014/TT-BTC ngày 28/4/2014 của Bộ Tài chính hướng dẫn thực hiện Nghị định 177/2013/NĐ-CP ngày 14 tháng 11 năm 2013 của Chính phủ quy định chi tiết và hướng dẫn thi hành một số điều của Luật Giá và Thông tư số 233/2016/TT-BTC ngày 11/11/2016 của Bộ Tài chính sửa đổi, bổ sung một số điều của Thông tư số 56/2014/TT-BTC </p>
+<p>Thực hiện Thông tư số 56/2014/TT-BTC ngày 28/4/2014 của Bộ Tài chính.</p>
 
-<p><b>{{$modeldn->tendn}}</b> gửi Bảng kê khai mức giá hàng hoá, dịch vụ (đính kèm).</p>
+<p><b>{{$modeldn->tendn}}</b> gửi Bảng kê khai mức giá hàng hoá, dịch vụ gồm các văn bản và nội dung sau.</p>
+
+<p>1. Bảng đăng ký mức giá bán cụ thể.</p>
+
+<p>2. Giải trình lý do điều chỉnh giá (trong đó có giải thích việc tính mức giá cụ thể áp dụng theo các hướng dẫn, quy định về phương pháp tính giá do cơ quan có thẩm quyền ban hành)</p>
 
 <p>Mức giá kê khai này thực hiện từ ngày {{getDayVn($modelkk->ngayhieuluc)}}</p>
 
@@ -59,7 +63,7 @@
     </tr>
 </table>
 <p>- Họ và tên người nộp biểu mẫu : {{$modelkk->nguoinop}}</p>
-<p>- Địa chỉ đơn vị thực hiện kê khai: {{$modeldn->diachi}}</p>
+{{--<p>- Địa chỉ đơn vị thực hiện kê khai: {{$modeldn->diachi}}</p>--}}
 <p>- Số điện thoại liên lạc : {{$modelkk->dtll}}</p>
 <p>- Email : {{$modelkk->email}}</p>
 <p>- Số Fax : {{$modelkk->fax}}</p>
@@ -93,7 +97,7 @@
         </td>
     </tr>
 </table>
-<p style="text-align: center; font-weight: bold; font-size: 16px;">BẢNG KÊ KHAI MỨC GIÁ</p>
+<p style="text-align: center; font-weight: bold; font-size: 16px;">BẢNG ĐĂNG KÝ MỨC GIÁ BÁN CỤ THỂ</p>
 <p style="text-align: center;; font-style: italic">(Kèm theo công văn số {{$modelkk->socv}}  ngày {{ date("d",strtotime($modelkk->thoidiem))}} tháng {{ date("m",strtotime($modelkk->thoidiem))}} năm {{ date("Y",strtotime($modelkk->thoidiem))}} của {{$modeldn->tendn}})</p>
 <p>1. Mức giá kê khai bán trong nước hoặc xuất khẩu (bán buôn, bán lẻ):  Các mức giá tại cửa kho/ nhà máy, tại các địa bàn, khu vực khác (nếu có)</p>
 <table cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;">

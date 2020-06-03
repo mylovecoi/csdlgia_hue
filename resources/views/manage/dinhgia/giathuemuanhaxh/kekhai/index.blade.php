@@ -63,6 +63,7 @@
                     form.find("[name='dvt']").val(data.dvt).trigger('change');
                     form.find("[name='dientich']").val(data.dientich);
                     form.find("[name='dongia']").val(data.dongia);
+                    form.find("[name='dongiathue']").val(data.dongiathue);
                     form.find("[name='soqd']").val(data.soqd);
                     form.find("[name='mahs']").val(data.mahs);
                     form.find("[name='madv']").val(data.madv);
@@ -126,7 +127,7 @@
                         </div>
                     </div>
 
-                    <table id="sample_3" class="table table-striped table-bordered table-hover">
+                    <table id="sample_4" class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th style="text-align: center" width="2%">STT</th>
@@ -134,7 +135,8 @@
                                 <th style="text-align: center" >Quyết định</th>
                                 <th style="text-align: center">Địa bàn</th>
                                 <th style="text-align: center">Tên nhà</th>
-                                <th style="text-align: center" >Đơn giá</th>
+                                <th style="text-align: center" >Giá bán</th>
+                                <th style="text-align: center" >Giá thuê</th>
                                 <th style="text-align: center">Cơ quan tiếp nhận</th>
                                 <th style="text-align: center"  width="5%"> Trạng thái</th>
                                 <th style="text-align: center"> Thao tác</th>
@@ -149,6 +151,7 @@
                                     <td><b>{{$a_diaban[$tt->madiaban] ?? ''}}</b></td>
                                     <td style="text-align: left;"><b>{{$a_nhaxh[$tt->maso] ?? ''}}</b></td>
                                     <td style="text-align: center">{{dinhdangso($tt->dongia)}}</td>
+                                    <td style="text-align: center">{{dinhdangso($tt->dongiathue)}}</td>
                                     <td style="text-align: left">{{$a_donvi_th[$tt->macqcq]?? ''}}</td>
                                     @include('manage.include.form.td_trangthai')
                                     <td>
@@ -248,15 +251,24 @@
                                 @include('manage.include.form.input_dvt')
                             </div>
                         </div>
+                    </div>
 
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">Đơn giá<span class="require">*</span></label>
+                                <label class="control-label">Đơn giá bán<span class="require">*</span></label>
                                 <input type="text" name="dongia" id="dongia" class="form-control text-right" data-mask="fdecimal" required>
                             </div>
                         </div>
-                    </div>
 
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Đơn giá thuê<span class="require">*</span></label>
+                                <input type="text" name="dongiathue" id="dongiathue" class="form-control text-right" data-mask="fdecimal" required>
+                            </div>
+                        </div>
+                    </div>
                     <input type="hidden" name="mahs">
                     <input type="hidden" name="madv">
                 </div>

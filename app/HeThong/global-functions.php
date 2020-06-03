@@ -2545,6 +2545,7 @@ function getGiaoDien()
             'trogiatrocuoc' => array('index' => '0', 'congbo' => '0'),
             'giaspdvci' => array('index' => '0', 'congbo' => '0'),
             'giahhdvcn' => array('index' => '0', 'congbo' => '0'),
+            'giacuocvanchuyen' => array('index' => '0', 'congbo' => '0'),
         ),
         'bog' => array(
             'index' => '0', 'congbo' => '0',
@@ -2558,6 +2559,7 @@ function getGiaoDien()
             'index' => '0', 'congbo' => '0',
             'giahhdvk' => array('index' => '0', 'congbo' => '0'),
             'giathitruong' => array('index' => '0', 'congbo' => '0'),
+            'giavangngoaite' => array('index' => '0', 'congbo' => '0'),
         ),
         'philephi' => array(
             'index' => '0', 'congbo' => '0',
@@ -2792,6 +2794,12 @@ function getPhanQuyen()
         'danhmuc' => array('index' => '0', 'modify' => '0',),
         'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
     );
+    $gui['giacuocvanchuyen'] = array(
+        'index' => '0',
+        'danhmuc' => array('index' => '0', 'modify' => '0',),
+        'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+    );
+
     $gui['bog'] = array(
         'index' => '0',
         'khac' => array('company' => '0'),
@@ -2809,6 +2817,13 @@ function getPhanQuyen()
         'danhmuc' => array('index' => '0', 'modify' => '0',),
         'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
     );
+    $gui['giavangngoaite'] = array(
+        'index' => '0',
+        'danhmuc' => array('index' => '0', 'modify' => '0',),
+        'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+        'khac' => array('baocao' => '0',),
+    );
+
     $gui['gialephitruocba'] = array(
         'index' => '0',
         'danhmuc' => array('index' => '0', 'modify' => '0',),
@@ -3066,7 +3081,34 @@ function chkPer($csdl = null, $group = null, $feature = null , $action = null, $
 {
     //@if(chkPer('csdlmucgiahhdv','bog', 'bog', 'danhmuc','index')
     if (session('admin')->level == 'SSA') {
-        return true;
+
+        $gui = session('admin')->setting;
+        if ($per != null) {
+            if (isset($gui[$csdl][$group][$feature]['index']) && $gui[$csdl][$group][$feature]['index'] == '1')
+                return true;
+            else
+                return false;
+        }
+
+        if ($feature != null) {
+            if (isset($gui[$csdl][$group][$feature]['index']) && $gui[$csdl][$group][$feature]['index'] == '1')
+                return true;
+            else
+                return false;
+        }
+
+        if ($group != null) {
+            if (isset($gui[$csdl][$group]['index']) && $gui[$csdl][$group]['index'] == '1')
+                return true;
+            else
+                return false;
+        }
+
+        if (isset($gui[$csdl]['index']) && $gui[$csdl]['index'] == '1')
+            return true;
+        else
+            return false;
+
     }
 
     //dd(session('admin'));
