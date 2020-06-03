@@ -796,7 +796,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     </li>
                     @include('includes.main.mainttpvctqlnn')
                 @endif
-
+                    @include('includes.main.mainAPI')
                 <!--
                     1. Tài khoản SSA
                     2. Tài khoản quản trị hệ thống chucnang=QUANTRI
@@ -891,7 +891,8 @@ License: You must have a valid license purchased only from themeforest(the above
 
                         </ul>
                     </li>
-                    @endif
+                        @endif
+
             </ul>
 
             <!-- END SIDEBAR MENU -->
