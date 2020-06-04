@@ -66,7 +66,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Thông tin Hồ sơ cho thuê môi trường rừng
+        Thông tin Hồ sơ giá rừng
     </h3>
 
     <!-- END PAGE HEADER-->
