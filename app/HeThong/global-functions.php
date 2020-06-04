@@ -2646,6 +2646,7 @@ function getGiaoDien()
             'dangky' => array('index' => '0','congbo' => '0',),
             'chucnang' => array('index' => '0','congbo' => '0',),
             'thongtin' => array('index' => '0','congbo' => '0',),
+            'api' => array('index' => '0','congbo' => '0',),
         ),
     );
     return $gui;
@@ -3035,6 +3036,10 @@ function getPhanQuyen()
         'danhmuc' => array('index' => '0', 'modify' => '0'),);
 
     $gui['thongtin'] = array(
+        'index' => '0',
+        'danhmuc' => array('index' => '0', 'modify' => '0'),);
+
+    $gui['api'] = array(
         'index' => '0',
         'danhmuc' => array('index' => '0', 'modify' => '0'),);
     return $gui;
