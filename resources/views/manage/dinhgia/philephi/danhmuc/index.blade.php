@@ -56,7 +56,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Danh mục nhóm phí, lệ phí
+        Danh mục nhóm lệ phí trước bạ
     </h3>
     <!-- END PAGE HEADER-->
     <div class="row">

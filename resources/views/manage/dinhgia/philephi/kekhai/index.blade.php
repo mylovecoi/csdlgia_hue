@@ -35,7 +35,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Thông tin hồ sơ  phí lệ phí
+        Thông tin hồ sơ giá tính lệ phí trước bạ
     </h3>
 
     <!-- END PAGE HEADER-->
