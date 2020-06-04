@@ -197,7 +197,7 @@
                                     @foreach($modelct as $key=>$tt)
                                         <tr id={{$tt->id}}>
                                             <td style="text-align: center">{{($key +1)}}</td>
-                                            <td class="active" style="font-weight: bold">{{$a_dm[$tt->maspdv]}}</td>
+                                            <td class="active" style="font-weight: bold">{{$a_dm[$tt->maspdv] ?? ''}}</td>
                                             <td style="text-align: right;font-weight: bold">{{dinhdangso($tt->giadvthanhthi)}}</td>
                                             <td style="text-align: right;font-weight: bold">{{dinhdangso($tt->giadvnongthon)}}</td>
                                             <td style="text-align: right;font-weight: bold">{{dinhdangso($tt->giadvmiennui)}}</td>
