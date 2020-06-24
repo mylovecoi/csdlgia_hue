@@ -478,45 +478,77 @@
             @endif
 
             @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetn'))
-                <li>
-                    <a href="javascript:;">
-                        <span class="title">{{session('admin')['a_chucnang']['giathuetn'] ?? 'Giá thuế tài nguyên'}}</span>
-                        <span class="arrow"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetn', 'danhmuc','index'))
-                            <li>
-                                <a href="{{url('/giathuetn/danhmuc')}}">Danh mục</a>
-                            </li>
-                        @endif
-                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetn', 'hoso','index'))
-                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                    <li>
+                        <a href="javascript:;">
+                            <span class="title">{{session('admin')['a_chucnang']['giathuetn'] ?? 'Giá thuế tài nguyên'}}</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetn', 'danhmuc','index'))
                                 <li>
-                                    <a href="{{url('/giathuetn/danhsach')}}">
-                                        Thông tin hồ sơ
-                                    </a>
+                                    <a href="{{url('/giathuetn/danhmuc')}}">Danh mục</a>
                                 </li>
                             @endif
+                            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetn', 'hoso','index'))
+                                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                                    <li>
+                                        <a href="{{url('/giathuetn/danhsach')}}">
+                                            Thông tin hồ sơ
+                                        </a>
+                                    </li>
+                                @endif
 
-                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                                    <li>
+                                        <a href="{{url('/giathuetn/xetduyet')}}">
+                                            Xét duyệt hồ sơ
+                                        </a>
+                                    </li>
+                                @endif
+
                                 <li>
-                                    <a href="{{url('/giathuetn/xetduyet')}}">
-                                        Xét duyệt hồ sơ
-                                    </a>
+                                    <a href="{{url('/giathuetn/timkiem')}}">Tìm kiếm hồ sơ</a>
+                                </li>
+
+                                <li>
+                                    <a href="{{url('/giathuetn/baocao')}}">Báo cáo tổng hợp</a>
                                 </li>
                             @endif
+                        </ul>
+                    </li>
+                @endif
 
-                            <li>
-                                <a href="{{url('/giathuetn/timkiem')}}">Tìm kiếm hồ sơ</a>
-                            </li>
+            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giacuocvanchuyen'))
+                    <li>
+                        <a href="javascript:;">
+                            <span class="title">{{session('admin')['a_chucnang']['giacuocvanchuyen'] ?? 'Giá cước vận chuyển'}}</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giacuocvanchuyen', 'hoso','index'))
+                                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                                    <li>
+                                        <a href="{{url('/giacuocvanchuyen/danhsach')}}">
+                                            Thông tin hồ sơ
+                                        </a>
+                                    </li>
+                                @endif
 
-                            <li>
-                                <a href="{{url('/giathuetn/baocao')}}">Báo cáo tổng hợp</a>
-                            </li>
-                        @endif
-                    </ul>
-                </li>
-            @endif
+                                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                                    <li>
+                                        <a href="{{url('/giacuocvanchuyen/xetduyet')}}">
+                                            Xét duyệt hồ sơ
+                                        </a>
+                                    </li>
+                                @endif
+
+                                <li>
+                                    <a href="{{url('/giacuocvanchuyen/timkiem')}}">Tìm kiếm hồ sơ</a>
+                                </li>
+                            @endif
+                        </ul>
+                    </li>
+                @endif
 
             @if(canGeneral('giathuenhacongvu','index'))
                 @if(can('giathuenhacongvu','index'))

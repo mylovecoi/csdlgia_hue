@@ -9,6 +9,7 @@ use App\Model\system\company\Company;
 use App\Model\system\dmnganhnghekd\DmNgheKd;
 use App\Model\system\dsdiaban;
 use App\Model\system\view_dsdiaban_donvi;
+use App\Model\view\view_dmnganhnghe;
 use App\Town;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -191,6 +192,7 @@ class KkMhBogXdController extends Controller
                     break;
                 }
             }
+            $m_bog = view_dmnganhnghe::where('manganh', 'BOG')->get();
             //dd($model);
             return view('manage.bog.xetduyet.index')
                 ->with('model', $model)
@@ -198,6 +200,8 @@ class KkMhBogXdController extends Controller
                 ->with('m_diaban', $m_diaban)
                 ->with('a_diaban', array_column($m_diaban->wherein('level', ['H','T','X'])->toarray(), 'tendiaban', 'madiaban'))
                 ->with('m_donvi', $m_donvi)
+                ->with('a_phanloai',  array('DK'=>'Đăng ký giá','KK'=>'Kê khai giá'))
+                ->with('a_nghe',array_column($m_bog->toarray(),'tennghe','manghe'))
                 ->with('m_donvi_th', $m_donvi_th->where('madv','<>',$inputs['madv']))
                 ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
                 ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))

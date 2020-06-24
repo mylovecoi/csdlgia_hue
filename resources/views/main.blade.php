@@ -829,12 +829,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                     @endif
                                 </ul>
                             </li>
-
-
-
-
-
-
                         </ul>
                     </li>
                         @endif

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use App\CsKdDvLt;
-use App\District;
 use App\DmDvQl;
 use App\dmvitridat;
 use App\DnDvGs;
@@ -20,21 +19,19 @@ use App\KkDvVtXtx;
 use App\KkGDvGs;
 use App\KkGDvLt;
 use App\KkGDvTaCn;
-use App\Register;
+use App\Model\system\dmnganhnghekd\DmNgheKd;
 use App\TtDn;
 use App\TtQd;
 use App\Users;
 use App\VanBanQlNn;
 use App\ViewPage;
-use Carbon\Carbon;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
-use PhpOffice\PhpWord\Exception\Exception;
-use PhpOffice\PhpWord\PhpWord;
+use phpDocumentor\Reflection\DocBlock\Description;
 
 class HomeController extends Controller
 {
@@ -63,53 +60,53 @@ User email: hainv@outlook.com
 License code: PRO4-69G6Q4M-8YGNXX-M2N8-KCHVWYK
 
      * */
-    /*11.11.19 thử test word*/
-    public function testword(){
-        /*
-         Excel::create('BANGLUONG_01',function($excel) use($m_dv,$thongtin,$model,$col,$model_congtac,$a_phucap){
-                $excel->sheet('New sheet', function($sheet) use($m_dv,$thongtin,$model,$col,$model_congtac,$a_phucap){
-                    $sheet->loadView('reports.bangluong.donvi.maubangluong_excel')
-                        ->with('pageTitle','Bảng lương chi tiết');
-                    //$sheet->setPageMargin(0.25);
-                    $sheet->setAutoSize(false);
-                    $sheet->setFontFamily('Tahoma');
-                    $sheet->setFontBold(false);
 
-                    //$sheet->setColumnFormat(array('D' => '#,##0.00'));
-                });
-            })->download('xls');
-         * */
-        $phpWord = new PhpWord();
-        $phpWord->loadTemplate('word')->save('word.doc', 'Word2007', true);
-        dd();
-        $section = $phpWord->addSection();
-
-        // Adding Text element to the Section having font styled by default...
-        $section->addText(
-            htmlspecialchars(
-                '"Learn from yesterday, live for today, hope for tomorrow. '
-                . 'The important thing is not to stop questioning." '
-                . '(Albert Einstein)'
-            )
-        );
-        try {
-            return $phpWord->loadTemplate('word.blade.php')->save('word.doc', 'Word2007', true);
-        } catch (Exception $e) {
-            return $phpWord->save('word.doc', 'Word2007', true);
-        }
-    }
-
-    public function index(){
-//        $model = GeneralConfigs::first();
-//        $model->diachi = 'Tỉnh Cao Bằng';
-//        $model->save();
-//        $model_t = GeneralConfigs::first();
-//        dd($model_t);
+    /*
+     * kknygia duyệt quyền của đơn vị để ra menu tương ứng
+     * */
+    public function index()
+    {
         if (Session::has('admin')) {
-            //dd(session('admin'));
+            $a_giaodien = getGiaoDien();
+            $m_bog = DmNgheKd::where('manganh', 'BOG')->where('theodoi', 'TD')->get();
+            $a_kekhai = $a_giaodien['csdlmucgiahhdv']['kknygia'];
             $model = GeneralConfigs::first();
+            unset($a_kekhai['index']);
+            unset($a_kekhai['congbo']);
+            //nếu SSA và tổng hợp mới chạy thống kê
+            if (session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA') {
+                foreach ($a_kekhai as $key => $val) {
+                    if ((!chkPer('csdlmucgiahhdv', 'kknygia', $key)
+                            || !isset(session('admin')->permission[$key]['hoso']['approve'])
+                            || session('admin')->permission[$key]['hoso']['approve'] == '0')
+                        && session('admin')->level != 'SSA') {
+                        unset($a_kekhai[$key]);
+                        continue;
+                    }
+
+                    $a_kekhai[$key]['hoso'] = 0;
+                    if ($val['table'] != '') {
+                        $sql = session('admin')->level == 'SSA' ? "select macqcq from " . $val['table'] . " where trangthai in ('CD')"
+                            : "select macqcq from " . $val['table'] . " where trangthai in ('CD') and macqcq='" . session('admin')->madv . "'";
+
+                        $hoso = DB::select($sql);
+                        $a_kekhai[$key]['hoso'] = count($hoso);
+                    }
+                }
+                foreach ($m_bog as $bog) {
+                    $bog->hoso = 0;
+                    $sql = session('admin')->level == 'SSA' ? "select macqcq from kkmhbog where trangthai in ('CD') and manghe = '" . $bog->manghe . "'"
+                        : "select macqcq from kkmhbog where trangthai in ('CD') and macqcq='" . session('admin')->madv . "' and manghe = '" . $bog->manghe . "'";
+
+                    $hoso = DB::select($sql);
+                    $bog->hoso = count($hoso);
+                }
+            }
+
             return view('dashboard')
-                ->with('model',$model)
+                ->with('model', $model)
+                ->with('a_kekhai', $a_kekhai)
+                ->with('a_bog', $m_bog->keyby('manghe')->toarray())
                 ->with('pageTitle', 'Thông tin hỗ trợ');
         } else {
             $ip = $_SERVER['REMOTE_ADDR'];
@@ -129,9 +126,12 @@ License code: PRO4-69G6Q4M-8YGNXX-M2N8-KCHVWYK
     public function congbo(){
         $viewpage = ViewPage::count();
         $model = VanBanQlNn::orderBy('ngayapdung','desc')->take(10)->get();
+
+        //dd(session('congbo'));
         return view('dashboardcb')
             ->with('viewpage', $viewpage)
             ->with('model', $model)
+            //->with('a_setting', $a_setting)
             ->with('pageTitle', 'Cơ sở dữ liệu về giá');
     }
 
@@ -141,7 +141,6 @@ License code: PRO4-69G6Q4M-8YGNXX-M2N8-KCHVWYK
     }
 
     public function forgotpasswordw(Request $request){
-
         $input = $request->all();
         $model = Users::where('username', $input['username'])->first();
         if (isset($model)) {

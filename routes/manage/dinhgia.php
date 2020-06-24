@@ -78,6 +78,32 @@ Route::group(['prefix'=>'giacldat'],function (){
 
 });
 
+//Giá cước vận chuyển
+Route::group(['prefix'=>'giacuocvanchuyen'],function (){
+    Route::get('danhsach','manage\giacuocvanchuyen\giacuocvanchuyenController@index');
+    Route::get('new','manage\giacuocvanchuyen\giacuocvanchuyenController@create');
+    Route::get('modify','manage\giacuocvanchuyen\giacuocvanchuyenController@edit');
+    Route::post('modify','manage\giacuocvanchuyen\giacuocvanchuyenController@store');
+    Route::post('delete','manage\giacuocvanchuyen\giacuocvanchuyenController@destroy');
+    Route::get('dinhkem','manage\giacuocvanchuyen\giacuocvanchuyenController@show');
+
+    Route::get('store_ct','manage\giacuocvanchuyen\giacuocvanchuyenctController@store');
+    Route::get('edit_ct','manage\giacuocvanchuyen\giacuocvanchuyenctController@show');
+    Route::get('del_ct','manage\giacuocvanchuyen\giacuocvanchuyenctController@destroy');
+    Route::post('importexcel','manage\giacuocvanchuyen\giacuocvanchuyenctController@importexcel');
+
+    Route::post('chuyenhs','manage\giacuocvanchuyen\giacuocvanchuyenController@chuyenhs');
+    Route::get('prints','manage\giacuocvanchuyen\giacuocvanchuyenController@ketxuat');
+
+    Route::get('xetduyet','manage\giacuocvanchuyen\giacuocvanchuyenController@xetduyet');
+    Route::post('chuyenxd','manage\giacuocvanchuyen\giacuocvanchuyenController@chuyenxd');
+    Route::post('tralai','manage\giacuocvanchuyen\giacuocvanchuyenController@tralai');
+    Route::post('congbo','manage\giacuocvanchuyen\giacuocvanchuyenController@congbo');
+    //Route::get('prints','manage\giacuocvanchuyen\giacuocvanchuyenController@bcgiadatdiaban');
+    Route::get('timkiem','manage\giacuocvanchuyen\giacuocvanchuyenController@timkiem');
+    Route::post('timkiem','manage\giacuocvanchuyen\giacuocvanchuyenController@ketquatk');
+});
+
 //giá đất theo phân loại
 Route::group(['prefix'=>'giadatphanloai'],function (){
     Route::get('danhsach','manage\giadatphanloai\GiaDatPhanLoaiController@index');

@@ -138,6 +138,21 @@ License: You must have a valid license purchased only from themeforest(the above
             }
         }
     </script>
+    <?php
+        $a_setting = [];
+        $m_gen = \App\GeneralConfigs::first();
+        if($m_gen != null){
+            $a_setting = json_decode($m_gen->setting, true);
+        }
+        $a_congbo = [];
+        $a_congbo['setting'] = $a_setting;
+        $a_congbo['chucnang'] = array_column(\App\Model\system\danhmucchucnang::all()->toArray(), 'menu', 'maso');
+
+        if (Illuminate\Support\Facades\Session::has('congbo')) {
+            Illuminate\Support\Facades\Session::forget('congbo');
+        }
+        Illuminate\Support\Facades\Session::put('congbo', $a_congbo);
+    ?>
     @yield('custom-script-cb')
 </head>
 <!-- END HEAD -->
@@ -183,11 +198,9 @@ License: You must have a valid license purchased only from themeforest(the above
             <!-- DOC: Apply "hor-menu-light" class after the "hor-menu" class below to have a horizontal menu with white background -->
             <!-- DOC: Remove data-hover="dropdown" and data-close-others="true" attributes below to disable the dropdown opening on mouse hover -->
             <div class="hor-menu ">
-                <?php
-                    $a_cn = array_column(\App\Model\system\danhmucchucnang::all()->toArray(),'menu','maso');
-                ?>
+
                 <ul class="nav navbar-nav">
-                    {{--@if(chkCongBo('csdlmucgiahhdv'))--}}
+                    @if(chkCongBo('csdlmucgiahhdv'))
                         <li class="menu-dropdown classic-menu-dropdown ">
                         <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">&nbsp;CSDL về mức giá HH-DV<i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu pull-left">
@@ -196,27 +209,27 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <i class="icon-folder"></i>
                                     &nbsp;Định giá</a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{{url('cbgiadatdiaban')}}">{{$a_cn['giacldat'] ?? 'Giá đất theo địa bàn'}} </a></li>
-                                    <li><a href="{{url('cbgiadaugiadat')}}">{{$a_cn['giadaugiadat'] ?? 'Giá đấu giá đất'}}</a></li>
-                                    <li><a href="{{url('cbgiathuetainguyen')}}">&nbsp;{{$a_cn['giathuetn'] ?? 'Giá thuế tài nguyên'}}</a></li>
-                                    <li><a href="{{url('cbgiathuedatnuoc')}}">{{$a_cn['giathuedatnuoc'] ?? 'Giá thuê mặt đất-nước'}}</a></li>
-                                    <li><a href="{{url('cbgiarung')}}">{{$a_cn['giarung'] ?? 'Giá rừng'}}</a></li>
-                                    <li><a href="{{url('cbthuemuanhaxh')}}">{{$a_cn['giathuemuanhaxh'] ?? 'Giá thuê mua nhà XH'}}</a></li>
-                                    <li><a href="{{url('cbgiathuenhacongvu')}}">{{$a_cn['giathuenhacongvu'] ?? 'Giá thuê nhà công vụ'}}</a></li>
-                                    <li><a href="{{url('cbgianuocsachsinhhoat')}}">{{$a_cn['gianuocsh'] ?? 'Giá nước sạch sinh hoạt'}}</a></li>
+                                    <li><a href="{{url('cbgiadatdiaban')}}">{{session('congbo')['chucnang']['giacldat'] ?? 'Giá đất theo địa bàn'}} </a></li>
+                                    <li><a href="{{url('cbgiadaugiadat')}}">{{session('congbo')['chucnang']['giadaugiadat'] ?? 'Giá đấu giá đất'}}</a></li>
+                                    <li><a href="{{url('cbgiathuetainguyen')}}">&nbsp;{{session('congbo')['chucnang']['giathuetn'] ?? 'Giá thuế tài nguyên'}}</a></li>
+                                    <li><a href="{{url('cbgiathuedatnuoc')}}">{{session('congbo')['chucnang']['giathuedatnuoc'] ?? 'Giá thuê mặt đất-nước'}}</a></li>
+                                    <li><a href="{{url('cbgiarung')}}">{{session('congbo')['chucnang']['giarung'] ?? 'Giá rừng'}}</a></li>
+                                    <li><a href="{{url('cbthuemuanhaxh')}}">{{session('congbo')['chucnang']['giathuemuanhaxh'] ?? 'Giá thuê mua nhà XH'}}</a></li>
+                                    <li><a href="{{url('cbgiathuenhacongvu')}}">{{session('congbo')['chucnang']['giathuenhacongvu'] ?? 'Giá thuê nhà công vụ'}}</a></li>
+                                    <li><a href="{{url('cbgianuocsachsinhhoat')}}">{{session('congbo')['chucnang']['gianuocsh'] ?? 'Giá nước sạch sinh hoạt'}}</a></li>
 {{--                                    <li><a href="{{url('cbgiathuetaisan')}}">Giá thuê tài sản công</a></li>--}}
-                                    <li><a href="{{url('cbgiadvgiaoducdaotao')}}">{{$a_cn['giadvgddt'] ?? 'Giá dịch vụ GD-ĐT'}}</a></li>
-                                    <li><a href="{{url('cbdichvukcb')}}">{{$a_cn['giadvkcb'] ?? 'Giá dịch vụ KCB'}}</a></li>
+                                    <li><a href="{{url('cbgiadvgiaoducdaotao')}}">{{session('congbo')['chucnang']['giadvgddt'] ?? 'Giá dịch vụ GD-ĐT'}}</a></li>
+                                    <li><a href="{{url('cbdichvukcb')}}">{{session('congbo')['chucnang']['giadvkcb'] ?? 'Giá dịch vụ KCB'}}</a></li>
 {{--                                    <li><a href="{{url('coming')}}">Mức trợ giá, trợ cước</a></li>--}}
                                 </ul>
                             </li>
 {{--                            <li><a href="{{url('coming')}}"><i class="icon-folder"></i>&nbsp;Giá HH-DV khác</a></li>--}}
-                            <li><a href="{{url('cbgialephitruocba')}}"><i class="icon-folder"></i>&nbsp;{{$a_cn['gialephitruocba'] ?? 'Giá lệ phí trước bạ'}}</a></li>
-                            <li><a href="{{url('cbphilephi')}}"><i class="icon-folder"></i>&nbsp;{{$a_cn['giaphilephi'] ?? 'Phí, lệ phí'}}</a></li>
+                            <li><a href="{{url('cbgialephitruocba')}}"><i class="icon-folder"></i>&nbsp;{{session('congbo')['chucnang']['gialephitruocba'] ?? 'Giá lệ phí trước bạ'}}</a></li>
+                            <li><a href="{{url('cbphilephi')}}"><i class="icon-folder"></i>&nbsp;{{session('congbo')['chucnang']['giaphilephi'] ?? 'Phí, lệ phí'}}</a></li>
 
                             @if(canGeneral('kkgia','congbo'))
                                 <li class=" dropdown-submenu">
-                                <a href="">
+                                <a href="javascript:;">
                                     <i class="icon-folder"></i>
                                     &nbsp;Kê khai - niêm yết giá</a>
                                 <ul class="dropdown-menu">
@@ -253,7 +266,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             @endif
                         </ul>
                     </li>
-                    {{--@endif--}}
+                    @endif
 
                     {{--@if(chkCongBo('csdlthamdinhgia'))--}}
                         <li class="menu-dropdown classic-menu-dropdown">

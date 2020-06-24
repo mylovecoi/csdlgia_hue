@@ -177,22 +177,6 @@ var TableManaged = function () {
 
         // begin: third table
         table.dataTable({
-
-            // Internationalisation. For more info refer to http://datatables.net/manual/i18n
-            "language": {
-                "aria": {
-                    "sortAscending": ": activate to sort column ascending",
-                    "sortDescending": ": activate to sort column descending"
-                },
-                "emptyTable": "No data available in table",
-                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
-                "infoEmpty": "No entries found",
-                "infoFiltered": "(filtered1 from _MAX_ total entries)",
-                "lengthMenu": "Show _MENU_ entries",
-                "search": "Search:",
-                "zeroRecords": "No matching records found"
-            },
-            
             // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
             // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js). 
             // So when dropdowns used the scrollable div should be removed. 
@@ -322,12 +306,12 @@ var TableManaged = function () {
                 [5, 10, 15, 20, "All"] // change per page values here
             ],
             // set the initial value
-            "pageLength": 5,
+            "pageLength": 10,
             "language": {
                 "lengthMenu": "Hiển thị _MENU_ thông tin",
                 "search": "Tìm kiếm:",
                 "emptyTable": "Không có thông tin",
-                "info": "Hiển thị _START_ đến _END_ trên _TOTAL_ thông tin",
+                "info": "Từ _START_ đến _END_ trong _MAX_ thông tin",
                 "infoEmpty": "",
                 "infoFiltered": "(tìm kiếm trong _MAX_ thông tin)",
                 "zeroRecords": "Không có thông tin"
@@ -352,8 +336,6 @@ var TableManaged = function () {
             if (!jQuery().dataTable) {
                 return;
             }
-            //initTable1();
-            //initTable2();
             initTable3();
             initTable4();
             initTable88();
