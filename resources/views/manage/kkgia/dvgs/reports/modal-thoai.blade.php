@@ -18,21 +18,10 @@
             <div class="modal-header modal-header-primary">
                 <button type="button" data-dismiss="modal" aria-hidden="true"
                         class="close">&times;</button>
-                <h4 id="modal-header-primary-label" class="modal-title">Báo cáo tổng hợp kê khai Thực phẩm chức năng cho trẻ em dưới 6 tuổi</h4>
+                <h4 id="modal-header-primary-label" class="modal-title">Báo cáo tổng hợp kê khai giá thực phẩm chức năng cho trẻ em dưới 6 tuổi</h4>
             </div>
             <div class="modal-body">
                 <div class="form-horizontal">
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            <label class="control-label"><b>Đơn vị</b></label>
-                            <select id="mahuyen" name="mahuyen" class="form-control">
-                                <option value="all">--Tất cả--</option>
-                                @foreach($m_donvi as $donvi)
-                                    <option value="{{$donvi->maxa}}">{{$donvi->tendv}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
                     <div class="form-group">
                         <div class="col-md-12">
                             <label class="control-label"><b>Phân loại</b></label>
@@ -47,9 +36,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
-                <button type="submit" data-dismiss="modal" class="btn btn-success" onclick="ClickBC1('/baocaokekhaigiatpcnte6t/bc1')">BC Tổng hợp</button>
-                <button type="submit" data-dismiss="modal" class="btn btn-success" onclick="ClickBC2('/baocaokekhaigiatpcnte6t/bc2')">BC chi tiét</button>
-                <!--button type="submit" data-dismiss="modal" class="btn btn-primary" onclick="ClickBCExcel('/reports/thuetn/bcgiathuetnexcel')">Xuất Excel</button-->
+                <button type="submit" data-dismiss="modal" class="btn btn-success" onclick="ClickBC1('/baocaokkgiatpcnte6t/bc1')">BC Tổng hợp</button>
+                <button type="submit" data-dismiss="modal" class="btn btn-success" onclick="ClickBC2('/baocaokkgiatpcnte6t/bc2')">BC chi tiét</button>
             </div>
             {!! Form::close() !!}
         </div>

@@ -53,7 +53,7 @@
             </td>
         </tr>
     </table>
-    <p>- Họ và tên người nộp biểu mẫu : {{$modelkk->nguoinop}}</p>
+    <p>- Họ và tên người nộp biểu mẫu : {{$modelkk->ttnguoinop}}</p>
     <p>- Địa chỉ đơn vị thực hiện kê khai: {{$modeldn->diachi}}</p>
     <p>- Số điện thoại liên lạc : {{$modelkk->dtll}}</p>
     <p>- Email : {{$modelkk->email}}</p>
@@ -132,5 +132,4 @@
     <p>3. Các trường hợp ưu đãi; giảm giá; điều kiện áp dụng giá (nếu có)</p>
     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$modelkk->thydggadgia}}</p>
     <p>Mức giá kê khai này thực hiện từ ngày {{getDayVn($modelkk->ngayhieuluc)}}</p>
-
 @stop

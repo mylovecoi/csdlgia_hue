@@ -332,21 +332,10 @@
             <div class="portlet box blue">
                 <div class="portlet-body">
                     <h4 class="form-section" style="color: #0000ff">Thông tin hồ sơ</h4>
-                    <!--div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group"><label for="selGender" class="control-label">Thực hiện theo</label>
-                                <div>
-                                    <textarea id="thqd" class="form-control" name="thqd" cols="30" rows="5"
-                                    autofocus></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div-->
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Ngày kê khai<span class="require">*</span></label>
-                                <!--input type="date" name="ngaynhap" id="ngaynhap" class="form-control required" autofocus-->
                                 {!!Form::text('ngaynhap',date('d/m/Y',  strtotime($model->ngaynhap)), array('id' => 'ngaynhap','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required','onchange'=>"checkngaykk()"))!!}
                             </div>
                         </div>
@@ -354,7 +343,6 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Ngày thực hiện mức giá kê khai<span class="require">*</span></label>
-                                <!--input type="date" name="ngayhieuluc" id="ngayhieuluc" class="form-control required"-->
                                 {!!Form::text('ngayhieuluc',date('d/m/Y',  strtotime($model->ngayhieuluc)), array('id' => 'ngayhieuluc','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required','onchange'=>"checkngay()"))!!}
                             </div>
                         </div>
@@ -381,7 +369,6 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Ngày nhập số công văn liền kề<span class="require">*</span></label>
-                                <!--input type="date" name="ngaycvlk" id="ngaycvlk" class="form-control" value="{{isset($modelcb) ? $modelcb->ngaynhap : '' }}"-->
                                 {!!Form::text('ngaycvlk',$model->ngaycvlk != '' ? date('d/m/Y',  strtotime($model->ngaycvlk)) : '', array('id' => 'ngaycvlk','data-inputmask'=>"'alias': 'date'",'class' => 'form-control'))!!}
                             </div>
                         </div>
@@ -391,8 +378,7 @@
                             <div class="form-group"><label for="selGender" class="control-label">Phân tích nguyên nhân, nêu rõ biến động của các yếu tố hình thành giá tác động
                                     làm tăng hoặc giảm giá hàng hóa, dịch vụ thực hiện kê khai giá</label>
                                 <div>
-                                        <textarea id="ptnguyennhan" class="form-control" name="ptnguyennhan" cols="30" rows="5"
-                                                >{{$model->ptnguyennhan}}</textarea>
+                                        <textarea id="ptnguyennhan" class="form-control" name="ptnguyennhan" cols="30" rows="5">{{$model->ptnguyennhan}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -402,8 +388,7 @@
                             <div class="form-group"><label for="selGender" class="control-label">Ghi rõ cách chính sách và mức khuyến mại, giảm giá hoặc chiết khấu đối với các đối
                                     tượng khách hàng, các Điều kiện vận chuyển, giao hàng, bán hàng kèm theo mức giá kê khai (nếu có)</label>
                                 <div>
-                                        <textarea id="chinhsachkm" class="form-control" name="chinhsachkm" cols="30" rows="5"
-                                                >{{$model->chinhsachkm}}</textarea>
+                                        <textarea id="chinhsachkm" class="form-control" name="chinhsachkm" cols="30" rows="5">{{$model->chinhsachkm}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -441,10 +426,10 @@
                                 @foreach($modelct as $key=>$tt)
                                     <tr>
                                         <td style="text-align: center">{{($key +1)}}</td>
-                                        <td class="active">{{$tt->tenhhdv}}</td>
+                                        <td class="active">{{$tt->tendvcu}}</td>
                                         <td style="text-align: left">{{$tt->qccl}}</td>
                                         <td style="text-align: center">{{$tt->dvt}}</td>
-                                        <td style="text-align: right">{{number_format($tt->gialk)}}</td>
+                                        <td style="text-align: right">{{number_format($tt->donggialk)}}</td>
                                         <td style="text-align: right">{{number_format($tt->gia)}}</td>
                                         <td>{{$tt->ghichu}}</td>
                                         <td>
@@ -461,7 +446,7 @@
             </div>
             <!-- END EXAMPLE TABLE PORTLET-->
             <div style="text-align: center">
-                <a href="{{url('thongtinkkdvhoatdongthuongmai?&masothue='.$model->maxa)}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                <a href="{{url('?&masothue='.$model->maxa)}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                 <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
                 <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i> Cập nhật</button>
             </div>
@@ -500,7 +485,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group"><label for="selGender" class="control-label"><b>Tên hàng hóa dịch vụ</b><span class="require">*</span></label>
-                                <div><input type="text" name="tenhhdv" id="tenhhdv" class="form-control" ></div>
+                                <div><input type="text" name="tendvcu" id="tendvcu" class="form-control" ></div>
                             </div>
                         </div>
                     </div>
@@ -522,12 +507,12 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group"><label for="selGender" class="control-label"><b>Giá liền kề</b><span class="require">*</span></label>
-                                <div><input type="text" name="gialk" id="gialk" class="form-control" data-mask="fdecimal" style="text-align: right;font-weight: bold"></div>
+                                <div><input type="text" name="dongialk" id="dongialk" class="form-control" data-mask="fdecimal" style="text-align: right;font-weight: bold"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group"><label for="selGender" class="control-label"><b>Giá kê khai</b><span class="require">*</span></label>
-                                <div><input type="text" name="gia" id="gia" class="form-control" data-mask="fdecimal" style="text-align: right;font-weight: bold"></div>
+                                <div><input type="text" name="dongiakk" id="dongiakk" class="form-control" data-mask="fdecimal" style="text-align: right;font-weight: bold"></div>
                             </div>
                         </div>
                     </div>

@@ -94,7 +94,7 @@ class KkGiaDvHdTmController extends Controller
                         ->with('modeldn', $modeldn)
                         ->with('modeldv',$modeldv)
                         ->with('inputs', $inputs)
-                        ->with('pageTitle', 'Danh sách hồ sơ kê khai giá dịch vụ hỗ trợ hoạt động thương mại');
+                        ->with('pageTitle', 'Danh sách hồ sơ kê khai giá dịch vụ hỗ trợ hoạt động thương mại .');
                 }else
                     return view('errors.perm');
 

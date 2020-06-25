@@ -53,7 +53,7 @@
             </td>
         </tr>
     </table>
-    <p>- Họ và tên người nộp biểu mẫu : {{$modelkk->nguoinop}}</p>
+    <p>- Họ và tên người nộp biểu mẫu : {{$modelkk->ttnguoinop}}</p>
     <p>- Địa chỉ đơn vị thực hiện kê khai: {{$modeldn->diachi}}</p>
     <p>- Số điện thoại liên lạc : {{$modelkk->dtll}}</p>
     <p>- Email : {{$modelkk->email}}</p>

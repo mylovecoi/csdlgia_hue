@@ -11,13 +11,14 @@ class GiaOtoNkSxCt extends Model
         'id',
         'mahs',
         'maxa',
-        'tthhdv',
+        'madv',
+        'tendvcu',
         'qccl',
         'dvt',
-        'dongialk',
-        'dongia',
+        'gialk',
+        'giakk',
         'ghichu',
+        'trangthai',
         'thuevat',
-        'trangthai'
     ];
 }

@@ -235,7 +235,7 @@
         <div class="modal fade" id="chuyen-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    {!! Form::open(['url'=>'thongtinkkdvhoatdongthuongmai/chuyen','id' => 'frm_chuyen'])!!}
+                    {!! Form::open(['url'=>'/chuyen','id' => 'frm_chuyen'])!!}
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                         <h4 class="modal-title">Đồng ý chuyển hồ sơ?</h4>
@@ -245,7 +245,7 @@
                         </div>
                         <div class="form-group">
                             <label><b>Họ và tên người nộp</b></label>
-                            <input type="text" id="nguoinop" name="nguoinop" class="form-control">
+                            <input type="text" id="ttnguoinop" name="ttnguoinop" class="form-control">
                         </div>
                         <div class="form-group">
                             <label><b>Số điện thoại liên hệ</b></label>
@@ -264,7 +264,6 @@
                     <div class="modal-footer">
                         <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
                         <button type="submit" class="btn blue" onclick="ClickChuyen()" id="submitChuyen">Đồng ý</button>
-
                     </div>
                     {!! Form::close() !!}
                 </div>

@@ -432,6 +432,28 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </ul>
                                 </li>
                             @endif
+                            @if(chkPer('csdlmucgiahhdv', 'kknygia', 'tpcnte6t'))
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="title">Thực phẩm chức năng cho trẻ em dưới 6 tuổi</span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li><a href="{{url('kekhaigiatpcnte6t')}}">Giá kê khai</a> </li>
+                                    </ul>
+                                </li>
+                            @endif
+                            @if(chkPer('csdlmucgiahhdv', 'kknygia', 'xemay'))
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="title">Giá xe máy nhập khẩu, sản xuất trong nước</span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li><a href="{{url('kekhaigiaxemaynksx')}}">Giá kê khai</a> </li>
+                                    </ul>
+                                </li>
+                            @endif
 
                             @if(canKkGiaGr('DVCB'))
                                 @if(canKkGiaCt('DVCB','DVCB'))

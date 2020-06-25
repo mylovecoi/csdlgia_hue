@@ -15,30 +15,32 @@ class CreateKkgiaxmtxdTable extends Migration
     {
         Schema::create('kkgiaxmtxd', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('mahs')->nullable();
             $table->string('maxa')->nullable();
             $table->string('mahuyen')->nullable();
-            $table->text('thqd')->nullable();
+            $table->string('mahs')->nullable();
             $table->date('ngaynhap')->nullable();
+            $table->date('ngayhieuluc')->nullable();
             $table->string('socv')->nullable();
             $table->string('socvlk')->nullable();
-            $table->date('ngaycvlk')->nullable();
-            $table->date('ngayhieuluc')->nullable();
+            $table->string('ngaycvlk')->nullable();
+            $table->text('ytcauthanhgia')->nullable();
+            $table->text('thydggadgia')->nullable();
             $table->string('nguoinop')->nullable();
             $table->string('dtll')->nullable();
             $table->string('email')->nullable();
             $table->string('fax')->nullable();
             $table->date('ngaynhan')->nullable();
             $table->string('sohsnhan')->nullable();
-            $table->text('ghichu')->nullable();
-            $table->text('ptnguyennhan')->nullable();
-            $table->text('chinhsachkm')->nullable();
             $table->dateTime('ngaychuyen')->nullable();
             $table->text('lydo')->nullable();
             $table->string('trangthai')->nullable();
             $table->string('plhs')->nullable();
             $table->string('thoihan')->nullable();
+            $table->string('dvt')->nullable();
             $table->string('congbo')->nullable();
+            $table->text('ghichu')->nullable();
+            $table->text('ptnguyennhan')->nullable();
+            $table->text('chinhsachkm')->nullable();
             $table->timestamps();
         });
     }
