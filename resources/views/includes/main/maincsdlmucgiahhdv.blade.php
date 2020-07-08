@@ -720,15 +720,14 @@
                     session('admin')->chucnang = NHAPLIEU && session('admin')->level == 'DN'
                     session('admin')->level != 'DN' && session('admin')->chucnang = TONGHOP
             -->
-        <!-- 10/05/2020 tạm khóa
-                            @if(session('admin')->level == 'DN')
-            <li><a href="{{url('thongtindoanhnghiep')}}">Thông tin doanh nghiệp</a></li>
-                            @else
-            @if(chkPer('csdlmucgiahhdv','kknygia', 'thongtinkknygia', 'hoso', 'index'))
-                <li><a href="{{url('xetduyettdttdn')}}"> Xét duyệt thay đổi thông tin doanh nghiệp</a></li>
-                                @endif
+            @if(session('admin')->level == 'SSA')
+                <li><a href="{{url('/doanhnghiep/danhsach')}}">Thông tin doanh nghiệp</a></li>
             @endif
-                -->
+
+            @if(chkPer('csdlmucgiahhdv','kknygia', 'thongtinkknygia', 'hoso', 'index'))
+                <li><a href="{{url('/doanhnghiep/xetduyet')}}"> Xét duyệt thay đổi thông tin doanh nghiệp</a></li>
+            @endif
+
             @if(canKkGiaGr('VLXD'))
                 @if(canKkGiaCt('VLXD','VLXD'))
                     <li>
@@ -752,7 +751,6 @@
                 @endif
                 {{--Ok--}}
             @endif
-
             @if(canKkGiaGr('DVHDTMCK'))
                 @if(canKkGiaCt('DVHDTMCK','DVHDTMCK'))
                     <li class="tooltips" data-container="body" data-placement="right" data-html="true"
@@ -776,6 +774,7 @@
                 @endif
                 {{--OK--}}
             @endif
+
 
             @if(chkPer('csdlmucgiahhdv','kknygia', 'xmtxd', 'hoso', 'index'))
                 <li>
@@ -1730,8 +1729,6 @@
         </ul>
     </li>
 @endif
-
-
 
 @if(chkPer('csdlmucgiahhdv','taisan', 'giagocvlxd'))
         <li>

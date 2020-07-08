@@ -11,6 +11,7 @@ use App\Model\system\company\Company;
 use App\Model\system\company\CompanyLvCc;
 use App\Model\system\dmnganhnghekd\DmNganhKd;
 use App\Model\system\dmnganhnghekd\DmNgheKd;
+use App\Model\system\dsdiaban;
 use App\Model\system\dsdonvi;
 use App\TtDnTd;
 use App\TtDnTdCt;
@@ -129,14 +130,21 @@ class CompanyController extends Controller
             return view('errors.notlogin');
     }
 
+    //Tài khoản doanh nghiệp hoặc tài khoản SSA
     public function ttdn(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = Company::where('madv',session('admin')->madv)->first();
-            $modellvcc = CompanyLvCc::where('madv',session('admin')->madv)->get();
+            //dd($inputs);
+            $m_doanhnghiep = getDoanhNghiep(session('admin')->level,session('admin')->madiaban);
+            $m_diaban = dsdiaban::wherein('madiaban', array_column($m_doanhnghiep->toarray(),'madiaban'))->get();
 
-            $modeltttd = TtDnTd::where('madv',session('admin')->madv)->first();
-            $modeltttdct = TtDnTdCt::where('madv',session('admin')->madv)->get();
+            $inputs['madv'] = $inputs['madv'] ?? $m_doanhnghiep->first()->madv;
+
+            $model = Company::where('madv',$inputs['madv'])->first();
+            $modellvcc = CompanyLvCc::where('madv',$inputs['madv'])->get();
+
+            $modeltttd = TtDnTd::where('madv',$inputs['madv'])->first();
+            $modeltttdct = TtDnTdCt::where('madv',$inputs['madv'])->get();
             $a_nghe = array_column(DmNgheKd::all()->toArray(),'tennghe','manghe');
             $a_dv = array_column(dsdonvi::all()->toArray(),'tendv','madv');
 
@@ -147,25 +155,34 @@ class CompanyController extends Controller
                 ->with('modeltttdct',$modeltttdct)
                 ->with('a_nghe',$a_nghe)
                 ->with('a_dv',$a_dv)
+                ->with('m_doanhnghiep',$m_doanhnghiep)
+                ->with('m_diaban',$m_diaban)
+                ->with('a_diaban',array_column($m_diaban->toarray(), 'tendiaban', 'madiaban'))
+                ->with('inputs',$inputs)
                 ->with('pageTitle', 'Thông tin doanh nghiệp');
         }else
             return view('errors.notlogin');
     }
 
-    public function ttdnedit($id){
+    public function ttdnedit(Request $request){
         if (Session::has('admin')) {
-            //Kiểm tra thông tin có thuộc quyền quản lý hay k
-            TtDnTdCt::where('trangthai', 'CXD')->delete();
-            $model = Company::findOrFail($id);
-            $modelgetlvcc = CompanyLvCc::where('madv', $model->madv)->get();
-            foreach ($modelgetlvcc as $lvcc) {
-                $modeladddf = new TtDnTdCt();
-                $modeladddf->madv = $lvcc->madv;
-                $modeladddf->manganh = $lvcc->manganh;
-                $modeladddf->manghe = $lvcc->manghe;
-                $modeladddf->mahuyen = $lvcc->mahuyen;
-                $modeladddf->trangthai = 'CXD';
-                $modeladddf->save();
+            $inputs = $request->all();
+            $model = TtDnTd::where('madv',$inputs['madv'])->first();
+
+            if($model == null){
+                TtDnTdCt::where('madv',$inputs['madv'])->delete();
+                $model = Company::where('madv',$inputs['madv'])->first();
+                $modelgetlvcc = CompanyLvCc::where('madv', $model->madv)->get();
+                foreach ($modelgetlvcc as $lvcc) {
+                    $modeladddf = new TtDnTdCt();
+                    $modeladddf->madv = $lvcc->madv;
+                    //$modeladddf->manganh = $lvcc->manganh;
+                    $modeladddf->manghe = $lvcc->manghe;
+                    //$modeladddf->mahuyen = $lvcc->mahuyen;
+                    //$modeladddf->trangthai = 'CXD';
+                    $modeladddf->save();
+                }
+
             }
             $modellvcc = TtDnTdCt::where('madv', $model->madv)->get();
             $m_nganh = DmNganhKd::where('theodoi','TD')->get();
@@ -181,48 +198,62 @@ class CompanyController extends Controller
             return view('errors.notlogin');
     }
 
-    public function ttdnupdate(Request $request,$id){
+    public function ttdnupdate(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = new TtDnTd();
-            $inputs['trangthai'] = 'CC';
+            $model = TtDnTd::where('madv',$inputs['madv'])->first();
+            if($model == null){
+                $inputs['trangthai'] = 'CC';
+                TtDnTd::create($inputs);
+            }else{
+                $model->update($inputs);
+            }
+
             if(isset($inputs['tailieu'])){
                 $ipf1 = $request->file('tailieu');
-                $inputs['ipt1'] = $inputs['maxa'].'df.'.$ipf1->getClientOriginalExtension();
+                $inputs['ipt1'] = $inputs['madv'].'df.'.$ipf1->getClientOriginalExtension();
                 $ipf1->move(public_path() . '/data/doanhnghiep/', $inputs['ipt1']);
                 $inputs['tailieu']= $inputs['ipt1'];
             }else{
-                $inputs['tailieu'] = Company::where('maxa',$inputs['maxa'])->first()->tailieu;
+                $inputs['tailieu'] = Company::where('madv',$inputs['madv'])->first()->tailieu;
             }
-            if($model->create($inputs))
-                $modelct = TtDnTdCt::where('maxa',$inputs['maxa'])
-                    ->update(['trangthai' => 'XD']);
 
-            return redirect('thongtindoanhnghiep');
+            return redirect('/doanhnghiep/danhsach');
         } else
             return view('errors.notlogin');
     }
 
-    public function ttdnchinhsua($id){
+    public function ttdnchinhsua(Request $request){
         if (Session::has('admin')) {
-            //Kiểm tra thông tin có thuộc quyền quản lý hay k
-            $model = TtDnTd::findOrFail($id);
-            if(session('admin')->maxa == $model->maxa) {
-                $modellvcc = TtDnTdCt::Leftjoin('town','town.maxa','=','ttdntdct.mahuyen')
-                    ->join('dmnganhkd','dmnganhkd.manganh','=','ttdntdct.manganh')
-                    ->join('dmnghekd','dmnghekd.manghe','=','ttdntdct.manghe')
-                    ->select('ttdntdct.*','town.tendv','dmnganhkd.tennganh','dmnghekd.tennghe')
-                    ->where('ttdntdct.maxa',$model->maxa)
-                    ->get();
-                $nganhs = DmNganhKd::where('theodoi','TD')
-                    ->get();
-                return view('manage.kkgia.ttdn.editdf')
-                    ->with('model', $model)
-                    ->with('modellvcc',$modellvcc)
-                    ->with('nganhs',$nganhs)
-                    ->with('pageTitle', 'Thông tin doanh nghiệp chỉnh sửa');
-            }else
-                return view('errors.noperm');
+            $inputs = $request->all();
+            $model = TtDnTd::where('madv',$inputs['madv'])->first();
+            $m_nganh = DmNganhKd::where('theodoi','TD')->get();
+            $m_nghe = DmNgheKd::where('theodoi','TD')->get();
+            $modellvcc = TtDnTdCt::where('madv', $model->madv)->get();
+            return view('manage.kkgia.ttdn.edit')
+                ->with('model', $model)
+                ->with('modellvcc', $modellvcc)
+                ->with('m_nganh', $m_nganh)
+                ->with('m_nghe', $m_nghe)
+                ->with('a_nghe', array_column($m_nghe->toArray(),'tennghe','manghe'))
+                ->with('pageTitle', 'Thông tin doanh nghiệp chỉnh sửa');
+
+//            if(session('admin')->maxa == $model->maxa) {
+//                $modellvcc = TtDnTdCt::Leftjoin('town','town.maxa','=','ttdntdct.mahuyen')
+//                    ->join('dmnganhkd','dmnganhkd.manganh','=','ttdntdct.manganh')
+//                    ->join('dmnghekd','dmnghekd.manghe','=','ttdntdct.manghe')
+//                    ->select('ttdntdct.*','town.tendv','dmnganhkd.tennganh','dmnghekd.tennghe')
+//                    ->where('ttdntdct.maxa',$model->maxa)
+//                    ->get();
+//                $nganhs = DmNganhKd::where('theodoi','TD')
+//                    ->get();
+//                return view('manage.kkgia.ttdn.editdf')
+//                    ->with('model', $model)
+//                    ->with('modellvcc',$modellvcc)
+//                    ->with('nganhs',$nganhs)
+//                    ->with('pageTitle', 'Thông tin doanh nghiệp chỉnh sửa');
+//            }else
+//                return view('errors.noperm');
         }else
             return view('errors.notlogin');
     }
@@ -248,22 +279,23 @@ class CompanyController extends Controller
             return view('errors.notlogin');
     }
 
-    public function ttdnchuyen($id){
+    public function ttdnchuyen(Request $request){
         if (Session::has('admin')) {
-            $model = TtDnTd::find($id);
+            $inputs = $request->all();
+            $model = TtDnTd::where('madv',$inputs['madv'])->first();
             $model->trangthai = 'CD';
             if($model->save()) {
-                $modeldn = Company::where('maxa',$model->maxa)
+                $modeldn = Company::where('madv',$model->madv)
                     ->first();
                 $modeldv = GeneralConfigs::first();
                 $tg = getDateTime(Carbon::now()->toDateTimeString());
                 $contentdn = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã nhận yêu cầu thay đổi thông tin doanh nghiệp !!!';
-                $contentht = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã nhận yêu cầu thay đổi thông tin doanh nghiệp '.$modeldn->tendn.' - mã số thuế '.$modeldn->maxa.' !!!';
+                $contentht = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã nhận yêu cầu thay đổi thông tin doanh nghiệp '.$modeldn->tendn.' - mã số thuế '.$modeldn->madv.' !!!';
                 $run = new SendMail($modeldn,$contentdn,$modeldv,$contentht);
                 $run->handle();
                 //dispatch($run);
             }
-            return redirect('thongtindoanhnghiep');
+            return redirect('doanhnghiep/danhsach');
         }else
             return view('errors.notlogin');
     }
@@ -284,7 +316,75 @@ class CompanyController extends Controller
             return view('errors.notlogin');
     }
 
+    //xét duyệt thay đổi thông tin doanh nghiệp
+    public function xetduyet(Request $request)
+    {
+        //lấy thông tin đơn vị đễ lấy level
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['url'] = '/doanhnghiep';
+            $a_diaban = getDiaBan_HeThong(\session('admin')->level, \session('admin')->madiaban);
+            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
+            $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
+            $model = TtDnTd::where('madiaban', $inputs['madiaban'])->get();
 
+            //dd($a_diaban);
+            return view('manage.kkgia.ttdn.xetduyet.index')
+                ->with('model', $model)
+                ->with('inputs', $inputs)
+                ->with('m_diaban', $m_diaban)
+                ->with('a_diaban', $a_diaban)
+                ->with('pageTitle', 'Thông tin hồ sơ');
+        } else
+            return view('errors.notlogin');
+    }
 
+    public function chitiet(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $model = TtDnTd::where('madv',$inputs['madv'])->first();
+            $modellvcc = TtDnTdCt::where('madv', $model->madv)->get();
+            $m_nganh = DmNganhKd::where('theodoi','TD')->get();
+            $m_nghe = DmNgheKd::where('theodoi','TD')->get();
+            return view('manage.kkgia.ttdn.xetduyet.detail')
+                ->with('model', $model)
+                ->with('modellvcc', $modellvcc)
+                ->with('m_nganh', $m_nganh)
+                ->with('m_nghe', $m_nghe)
+                ->with('a_nghe', array_column($m_nghe->toArray(),'tennghe','manghe'))
+                ->with('pageTitle', 'Thông tin doanh nghiệp');
+        } else
+            return view('errors.notlogin');
+    }
+
+    public function thaydoi(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            //dd($inputs);
+            $model = TtDnTd::where('madv', $inputs['madv'])->first();
+            $com = Company::where('madv', $inputs['madv'])->first();
+            $com->tendn = $model->tendn;
+            $com->tel = $model->tel;
+            $com->fax = $model->fax;
+            $com->diachi = $model->diachi;
+            $com->email = $model->email;
+            $com->chucdanh = $model->chucdanh;
+            $com->nguoiky = $model->nguoiky;
+            $com->diadanh = $model->diadanh;
+            $com->save();
+            $m_llvcc = TtDnTdCt::where('madv', $model->madv)->get();
+            CompanyLvCc::where('madv', $model->madv)->delete();
+            foreach ($m_llvcc as $lv) {
+                $ct = new CompanyLvCc();
+                $ct->madv = $lv->madv;
+                $ct->manghe = $lv->manghe;
+                $ct->save();
+            }
+            TtDnTdCt::where('madv', $model->madv)->delete();
+            TtDnTd::where('madv', $model->madv)->delete();
+            return redirect('doanhnghiep/xetduyet?madiaban=' . $model->madiaban);
+        } else
+            return view('errors.notlogin');
+    }
 
 }

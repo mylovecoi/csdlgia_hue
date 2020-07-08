@@ -38,7 +38,7 @@
                 </div-->
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
-                    {!! Form::model($model, ['method' => 'post', 'url'=>'doanhnghiep/store', 'class'=>'horizontal-form','id'=>'update_tttaikhoan','files'=>true]) !!}
+                    {!! Form::model($model, ['method' => 'post', 'url'=>'doanhnghiep/thaydoi', 'class'=>'horizontal-form','id'=>'update_tttaikhoan','files'=>true]) !!}
                         <meta name="csrf-token" content="{{ csrf_token() }}" />
                         <input type="hidden" name="madiaban" value="{{$model->madiaban}}">
                         <div class="form-body">
@@ -182,14 +182,7 @@
                             {{--</div>--}}
                             {{--</div>--}}
                             {{--</div>--}}
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-success btn-xs"><i class="fa fa-plus"></i>&nbsp;Thêm mới thông tin lĩnh vực kinh doanh</button>
-                                        &nbsp;
-                                    </div>
-                                </div>
-                            </div>
+
                             <div class="row" id="dsts">
                                 <div class="col-md-12">
                                     <table class="table table-striped table-bordered table-hover" id="sample_3">
@@ -197,7 +190,6 @@
                                         <tr>
                                             <th width="5%" style="text-align: center">STT</th>
                                             <th style="text-align: center">Ngành nghề kinh doanh</th>
-                                            <th width="15%" style="text-align: center">Thao tác</th>
                                         </tr>
                                         </thead>
                                         <tbody id="ttts">
@@ -205,10 +197,6 @@
                                             <tr>
                                                 <td>{{$key+1}}</td>
                                                 <td>{{$a_nghe[$lvcc->manghe] ?? ''}}</td>
-                                                <td>
-                                                    <button type="button" onclick="getid({{$lvcc->id}});" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs">
-                                                        <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
-                                                </td>
                                             </tr>
                                         @endforeach
                                         </tbody>
@@ -221,9 +209,8 @@
             </div>
             <div class="row" style="text-align: center">
                 <div class="col-md-12">
-                    <a href="{{url('/doanhnghiep/danhsach')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
-                    <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
-                    <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i>&nbsp;Cập nhật</button>
+                    <a href="{{url('/doanhnghiep/xetduyet')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                    <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i>&nbsp;Thay đổi</button>
                 </div>
             </div>
             {!! Form::close() !!}

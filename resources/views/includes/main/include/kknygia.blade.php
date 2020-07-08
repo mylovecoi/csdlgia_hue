@@ -1,6 +1,6 @@
 
         <li class="tooltips" data-container="body" data-placement="right" data-html="true"
-            data-original-title="Giá kê khai của hàng hóa, dịch vụ thuộc dah mục Giá kê khai">
+            data-original-title="Giá kê khai của hàng hóa, dịch vụ thuộc danh mục Giá kê khai">
             <a href="javascript:;">
                 <i class="icon-folder"></i>
                 <span class="title">Mức giá kê khai - đăng ký</span>

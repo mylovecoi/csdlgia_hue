@@ -76,18 +76,25 @@ License code: PRO4-69G6Q4M-8YGNXX-M2N8-KCHVWYK
             //nếu SSA và tổng hợp mới chạy thống kê
             if (session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA') {
                 foreach ($a_kekhai as $key => $val) {
-                    if ((!chkPer('csdlmucgiahhdv', 'kknygia', $key)
-                            || !isset(session('admin')->permission[$key]['hoso']['approve'])
+                    if(session('admin')->level == 'SSA' ){
+                        if (!chkPer('csdlmucgiahhdv', 'kknygia', $key)) {
+                            unset($a_kekhai[$key]);
+                            continue;
+                        }
+                    }else{
+                        if ((!chkPer('csdlmucgiahhdv', 'kknygia', $key) ||
+                            !isset(session('admin')->permission[$key]['hoso']['approve'])
                             || session('admin')->permission[$key]['hoso']['approve'] == '0')
-                        && session('admin')->level != 'SSA') {
-                        unset($a_kekhai[$key]);
-                        continue;
+                        ) {
+                            unset($a_kekhai[$key]);
+                            continue;
+                        }
                     }
 
                     $a_kekhai[$key]['hoso'] = 0;
                     if ($val['table'] != '') {
-                        $sql = session('admin')->level == 'SSA' ? "select macqcq from " . $val['table'] . " where trangthai in ('CD')"
-                            : "select macqcq from " . $val['table'] . " where trangthai in ('CD') and macqcq='" . session('admin')->madv . "'";
+                        $sql = session('admin')->level == 'SSA' ? "select id from " . $val['table'] . " where trangthai in ('CD')"
+                            : "select id from " . $val['table'] . " where trangthai in ('CD') and macqcq='" . session('admin')->madv . "'";
 
                         $hoso = DB::select($sql);
                         $a_kekhai[$key]['hoso'] = count($hoso);

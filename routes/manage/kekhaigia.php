@@ -1,18 +1,28 @@
 <?php
-Route::get('thongtindoanhnghiep','system\company\CompanyController@ttdn');
-Route::get('thongtindoanhnghiep/{id}/edit','system\company\CompanyController@ttdnedit');
-Route::patch('thongtindoanhnghiep/{id}','system\company\CompanyController@ttdnupdate');
-Route::get('thongtindoanhnghiep/{id}/chinhsua','system\company\CompanyController@ttdnchinhsua');
-Route::patch('thongtindoanhnghiep/df/{id}','system\company\CompanyController@ttdncapnhat');
-Route::get('thongtindoanhnghiep/{id}/chuyen','system\company\CompanyController@ttdnchuyen');
-Route::post('thongtindoanhnghiep/upavatar','system\company\CompanyController@upavatar');
-
-Route::get('ttdntdct/edit','manage\kekhaigia\TtDnTdCtController@edit');
-Route::get('ttdntdct/update','manage\kekhaigia\TtDnTdCtController@update');
-Route::get('ttdntdct/store','manage\kekhaigia\TtDnTdCtController@store');
-Route::get('ttdntdct/delete','manage\kekhaigia\TtDnTdCtController@delete');
 
 
+Route::group(['prefix'=>'doanhnghiep'],function (){
+    Route::get('danhsach','system\company\CompanyController@ttdn');
+    Route::get('modify','system\company\CompanyController@ttdnedit');
+    Route::post('store','system\company\CompanyController@ttdnupdate');
+    Route::post('thaydoi','system\company\CompanyController@thaydoi');
+    Route::get('chuyenhs','system\company\CompanyController@ttdnchuyen');
+
+    Route::get('store_ct','manage\kekhaigia\TtDnTdCtController@store');
+    Route::get('delete_ct','manage\kekhaigia\TtDnTdCtController@delete');
+
+    Route::get('xetduyet','system\company\CompanyController@xetduyet');
+    Route::get('chitiet','system\company\CompanyController@chitiet');
+    //
+    Route::get('thongtindoanhnghiep','system\company\CompanyController@ttdn');
+    Route::get('thongtindoanhnghiep/{id}/edit','system\company\CompanyController@ttdnedit');
+
+    Route::get('thongtindoanhnghiep/{id}/chinhsua','system\company\CompanyController@ttdnchinhsua');
+    Route::patch('thongtindoanhnghiep/df/{id}','system\company\CompanyController@ttdncapnhat');
+
+    Route::post('thongtindoanhnghiep/upavatar','system\company\CompanyController@upavatar');
+
+});
 //DVLT
 include('kkgia/dvlt.php');
 
