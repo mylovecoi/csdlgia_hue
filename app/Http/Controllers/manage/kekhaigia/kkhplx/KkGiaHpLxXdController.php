@@ -342,4 +342,27 @@ class KkGiaHpLxXdController extends Controller
         }else
             return view('errors.notlogin');
     }
+
+    public function printf(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
+            $inputs['mota'] = isset($inputs['mota']) ? $inputs['mota'] : '';
+            $model = KkGiaHpLxCt::join('kkgiahplx','kkgiahplx.mahs','=','kkgiahplxct.mahs')
+                ->join('company','company.madv','=','kkgiahplx.madv')
+                ->select('kkgiahplxct.*','company.tendn','kkgiahplx.ngayhieuluc')
+                ->where('kkgiahplx.trangthai','DD');
+            if($inputs['mota'] != '')
+                $model = $model->where('kkgiahplxct.tendvcu','like','%'.$inputs['mota'].'%');
+            if($inputs['nam'] != 'all')
+                $model = $model->whereYear('kkgiahplx.ngayhieuluc',$inputs['nam']);
+            $model = $model->get();
+            /*dd($model);*/
+            return view('manage.kkgia.hplx.kkgia.timkiem.printf')
+                ->with('model',$model)
+                ->with('inputs',$inputs)
+                ->with('pageTitle','Tìm kiếm thông tin kê khai giá học phí lái xe');
+        }else
+            return view('errors.notlogin');
+    }
 }

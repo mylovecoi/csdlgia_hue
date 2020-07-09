@@ -38,6 +38,7 @@ Route::post('xetduyetgiatacn/chuyenxd','manage\kekhaigia\kkgiatacn\KkGiaTaCnXdCo
 Route::post('xetduyetgiatacn/congbo','manage\kekhaigia\kkgiatacn\KkGiaTaCnXdController@congbo');
 
 Route::get('timkiemgiatacn','manage\kekhaigia\kkgiatacn\KkGiaTaCnXdController@search');
+Route::get('timkiemgiatacn/printf','manage\kekhaigia\kkgiatacn\KkGiaTaCnXdController@printf');
 
 Route::get('/ttdnkktacn','manage\kekhaigia\kkgiatacn\KkGiaTaCnXdController@ttdnkktacn');
 

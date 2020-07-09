@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\manage\kekhaigia\kkgiaotonksx;
 
-use App\District;
 use App\Model\manage\kekhaigia\kkgiaotonksx\GiaOtoNkSx;
 use App\Model\manage\kekhaigia\kkgiaotonksx\GiaOtoNkSxCt;
 use App\Model\system\dmnganhnghekd\DmNgheKd;
-use App\Town;
+use App\Model\system\dsdiaban;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -15,13 +14,13 @@ class GiaOtoNkSxBcController extends Controller
 {
     public function index(){
         if (Session::has('admin')) {
-            $modeldmnghe = DmNgheKd::where('manganh','OTO')
-                ->where('manghe','OTO')
+            $modeldmnghe = DmNgheKd::where('manghe','OTO')
                 ->first();
-            $m_donvi = Town::where('mahuyen',$modeldmnghe->mahuyen)->get();
+            $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
+            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             return view('manage.kkgia.otonksx.reports.index')
-                ->with('m_donvi',$m_donvi)
-                ->with('pageTitle', 'Báo cáo tổng hợp kê khai Giá ô tô nhập khẩu, sản xuất trong nước dưới 15 chỗ ngồi');
+                ->with('a_diaban', array_column($m_diaban->wherein('level', ['H','T','X'])->toarray(), 'tendiaban', 'madiaban'))
+                ->with('pageTitle', 'Báo cáo tổng hợp kê khai giá ô tô nhập khẩu, sản xuất trong nước');
         }else
             return view('errors.notlogin');
     }
@@ -29,20 +28,9 @@ class GiaOtoNkSxBcController extends Controller
     public function bc1(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-//            dd($inputs);
-            $model =  GiaOtoNkSx::join('company','company.maxa','=','giaotonksx.maxa')
+            $model =  GiaOtoNkSx::join('company','company.madv','=','giaotonksx.madv')
                 ->where('giaotonksx.trangthai','DD')
                 ->select('giaotonksx.*','company.tendn');
-            if($inputs['mahuyen'] != 'all') {
-                $model = $model->where('giaotonksx.mahuyen', $inputs['mahuyen']);
-                $modeldvql = Town::where('maxa',$inputs['mahuyen'])
-                    ->get();
-            }else{
-                $modeldmnghe = DmNgheKd::where('manganh','OTO')
-                    ->where('manghe','OTO')
-                    ->first();
-                $modeldvql = Town::where('mahuyen',$modeldmnghe->mahuyen)->get();
-            }
             if($inputs['phanloai'] == 'ngaychuyen'){
                 if($inputs['time'] == 'ngay')
                     $model = $model->whereBetween('ngaychuyen',[getDateToDb($inputs['tungay']), getDateToDb($inputs['denngay'])]);
@@ -89,31 +77,11 @@ class GiaOtoNkSxBcController extends Controller
                 }
             }
             $model = $model->get();
-//            dd($model);
-            $inputs['counths'] = count($model);
-
-            if(session('admin')->level == 'T'){
-                $inputs['dvcaptren'] = getGeneralConfigs()['tendvcqhienthi'];
-                $inputs['dv'] = getGeneralConfigs()['tendvhienthi'];
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }elseif(session('admin')->level == 'H'){
-                $modeldv = District::where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }else{
-                $modeldv = Town::where('maxa',session('admin')->maxa)
-                    ->where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }
 
             return view('manage.kkgia.otonksx.reports.bc1')
                 ->with('model',$model)
                 ->with('inputs',$inputs)
-                ->with('modeldvql',$modeldvql)
-                ->with('pageTitle', 'Báo cáo tổng hợp kê khai Giá ô tô nhập khẩu, sản xuất trong nước dưới 15 chỗ ngồi');
+                ->with('pageTitle', 'Báo cáo tổng hợp kê khai giá ô tô nhập khẩu, sản xuất trong nước');
         }else
             return view('errors.notlogin');
     }
@@ -121,20 +89,9 @@ class GiaOtoNkSxBcController extends Controller
     public function bc2(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-//            dd($inputs);
-            $model =  GiaOtoNkSx::join('company','company.maxa','=','giaotonksx.maxa')
+            $model =  GiaOtoNkSx::join('company','company.madv','=','giaotonksx.madv')
                 ->where('giaotonksx.trangthai','DD')
                 ->select('giaotonksx.*','company.tendn');
-            if($inputs['mahuyen'] != 'all') {
-                $model = $model->where('giaotonksx.mahuyen', $inputs['mahuyen']);
-                $modeldvql = Town::where('maxa',$inputs['mahuyen'])
-                    ->get();
-            }else{
-                $modeldmnghe = DmNgheKd::where('manganh','OTO')
-                    ->where('manghe','OTO')
-                    ->first();
-                $modeldvql = Town::where('mahuyen',$modeldmnghe->mahuyen)->get();
-            }
             if($inputs['phanloai'] == 'ngaychuyen'){
                 if($inputs['time'] == 'ngay')
                     $model = $model->whereBetween('ngaychuyen',[getDateToDb($inputs['tungay']), getDateToDb($inputs['denngay'])]);
@@ -181,36 +138,18 @@ class GiaOtoNkSxBcController extends Controller
                 }
             }
             $model = $model->get();
+            /*dd($model);*/
             $mahss = '';
             foreach($model as $ct){
                 $mahss = $mahss.$ct->mahs.',';
             }
-            $modelct = GiaOtoNkSxCt::whereIn('mahs',explode(',',$mahss))
-                ->get();
-
-            if(session('admin')->level == 'T'){
-                $inputs['dvcaptren'] = getGeneralConfigs()['tendvcqhienthi'];
-                $inputs['dv'] = getGeneralConfigs()['tendvhienthi'];
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }elseif(session('admin')->level == 'H'){
-                $modeldv = District::where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }else{
-                $modeldv = Town::where('maxa',session('admin')->maxa)
-                    ->where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }
+            $modelct = GiaOtoNkSxCt::whereIn('mahs',explode(',',$mahss))->get();
 
             return view('manage.kkgia.otonksx.reports.bc2')
                 ->with('model',$model)
                 ->with('inputs',$inputs)
-                ->with('modeldvql',$modeldvql)
                 ->with('modelct',$modelct)
-                ->with('pageTitle', 'Báo cáo tổng hợp kê khai Giá ô tô nhập khẩu, sản xuất trong nước dưới 15 chỗ ngồi');
+                ->with('pageTitle', 'Báo cáo tổng hợp kê khai giá ô tô nhập khẩu, sản xuất trong nước');
         }else
             return view('errors.notlogin');
     }

@@ -130,6 +130,7 @@
             $('#mucgialk').val('0');
             $('#mucgiakk').val('0');
             $('#ghichu').val('');
+            document.getElementById('btn-comp').disabled = false;
         }
         function createttp(){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -461,7 +462,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-default">Thoát</button>
-                    <button type="button" class="btn btn-primary" onclick="createttp()">Bổ xung</button>
+                    <button type="button" class="btn btn-primary" id="btn-comp"
+                            onclick="createttp();this.disabled = true;"> Bổ sung</button>
                 </div>
             </div>
             <!-- /.modal-content -->

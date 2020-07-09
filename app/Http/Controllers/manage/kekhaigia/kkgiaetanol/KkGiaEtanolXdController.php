@@ -344,4 +344,27 @@ class KkGiaEtanolXdController extends Controller
         }else
             return view('errors.notlogin');
     }
+
+    public function printf(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
+            $inputs['mota'] = isset($inputs['mota']) ? $inputs['mota'] : '';
+            $model = KkGiaEtanolCt::join('kkgiaetanol','kkgiaetanol.mahs','=','kkgiaetanolct.mahs')
+                ->join('company','company.madv','=','kkgiaetanol.madv')
+                ->select('kkgiaetanolct.*','company.tendn','kkgiaetanol.ngayhieuluc')
+                ->where('kkgiaetanol.trangthai','DD');
+            if($inputs['mota'] != '')
+                $model = $model->where('kkgiaetanolct.tendvcu','like','%'.$inputs['mota'].'%');
+            if($inputs['nam'] != 'all')
+                $model = $model->whereYear('kkgiaetanol.ngayhieuluc',$inputs['nam']);
+            $model = $model->get();
+            /*dd($model);*/
+            return view('manage.kkgia.etanol.kkgia.timkiem.printf')
+                ->with('model',$model)
+                ->with('inputs',$inputs)
+                ->with('pageTitle','Tìm kiếm thông tin kê khai giá etanol');
+        }else
+            return view('errors.notlogin');
+    }
 }

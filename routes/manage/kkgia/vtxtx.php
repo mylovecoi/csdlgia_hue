@@ -44,6 +44,7 @@ Route::post('xetduyetkekhaigiavtxtx/congbo','manage\kekhaigia\kkdvvt\vtxtx\KkGia
 //End xét duyệt kk
 
 Route::get('timkiemgiavantaixetaxi','manage\kekhaigia\kkdvvt\vtxtx\KkGiaVtXtxXdController@search');
+Route::get('timkiemgiavantaixetaxi/printf','manage\kekhaigia\kkdvvt\vtxtx\KkGiaVtXtxXdController@printf');
 
 //Ajax
 Route::get('/ttdnkkvtxtx','manage\kekhaigia\kkdvvt\vtxtx\KkGiaVtXtxXdController@ttdnkkvtxtx');

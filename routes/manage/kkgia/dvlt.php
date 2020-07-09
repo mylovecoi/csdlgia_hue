@@ -34,6 +34,7 @@ Route::post('xetduyetkkgiadvlt/congbo','manage\kekhaigia\kkdvlt\KkGiaDvLtXdContr
 Route::get('xetduyetkkgiadvlt/ttdnkkdvlt','manage\kekhaigia\kkdvlt\KkGiaDvLtXdController@ttdnkkdvlt');
 
 Route::get('timkiemkkgiadvlt','manage\kekhaigia\kkdvlt\KkGiaDvLtXdController@search');
+Route::get('timkiemkkgiadvlt/printf','manage\kekhaigia\kkdvlt\KkGiaDvLtXdController@printf');
 
 Route::get('baocaokekhaidvlt','manage\kekhaigia\kkdvlt\ReportsKkDvLtController@index');
 Route::post('reports/kekhaidvlt/BC5','manage\kekhaigia\kkdvlt\ReportsKkDvLtController@dvltbc5');

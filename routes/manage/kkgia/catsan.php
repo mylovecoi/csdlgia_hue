@@ -27,6 +27,7 @@ Route::post('xetduyetkkgiacatsan/congbo','manage\kekhaigia\kkcatsan\KkGiaCatSanX
 Route::get('/ttdnkkcatsan','manage\kekhaigia\kkcatsan\KkGiaCatSanXdController@ttdnkkcatsan');
 
 Route::get('timkiemkkgiacatsan','manage\kekhaigia\kkcatsan\KkGiaCatSanXdController@search');
+Route::get('timkiemkkgiacatsan/printf','manage\kekhaigia\kkcatsan\KkGiaCatSanXdController@printf');
 
 Route::get('baocaokekhaicatsan','manage\kekhaigia\kkcatsan\KkGiaCatSanBcController@index');
 Route::post('baocaokekhaicatsan/bc1','manage\kekhaigia\kkcatsan\KkGiaCatSanBcController@bc1');

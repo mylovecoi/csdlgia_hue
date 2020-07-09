@@ -344,4 +344,27 @@ class KkGiaXmTxdXdController extends Controller
         }else
             return view('errors.notlogin');
     }
+
+    public function printf(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
+            $inputs['mota'] = isset($inputs['mota']) ? $inputs['mota'] : '';
+            $model = KkGiaXmTxdCt::join('kkgiaxmtxd','kkgiaxmtxd.mahs','=','kkgiaxmtxdct.mahs')
+                ->join('company','company.madv','=','kkgiaxmtxd.madv')
+                ->select('kkgiaxmtxdct.*','company.tendn','kkgiaxmtxd.ngayhieuluc')
+                ->where('kkgiaxmtxd.trangthai','DD');
+            if($inputs['mota'] != '')
+                $model = $model->where('kkgiaxmtxdct.tendvcu','like','%'.$inputs['mota'].'%');
+            if($inputs['nam'] != 'all')
+                $model = $model->whereYear('kkgiaxmtxd.ngayhieuluc',$inputs['nam']);
+            $model = $model->get();
+            /*dd($model);*/
+            return view('manage.kkgia.xmtxd.kkgia.timkiem.printf')
+                ->with('model',$model)
+                ->with('inputs',$inputs)
+                ->with('pageTitle','Tìm kiếm thông tin kê khai giá xi măng thép xây dựng');
+        }else
+            return view('errors.notlogin');
+    }
 }

@@ -459,7 +459,7 @@
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-default">Thoát</button>
                     <button type="button" class="btn btn-primary" id="btn-comp"
-                            onclick="createttp();this.disabled = true;"> Bổ xung</button>
+                            onclick="createttp();this.disabled = true;"> Bổ sung</button>
                 </div>
             </div>
             <!-- /.modal-content -->

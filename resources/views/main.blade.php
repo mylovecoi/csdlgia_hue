@@ -454,6 +454,17 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </ul>
                                 </li>
                             @endif
+                            @if(chkPer('csdlmucgiahhdv', 'kknygia', 'oto'))
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="title">Giá ôtô nhập khẩu, sản xuất trong nước</span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li><a href="{{url('kekhaigiaotonksx')}}">Giá kê khai</a> </li>
+                                    </ul>
+                                </li>
+                            @endif
 
                             @if(canKkGiaGr('DVCB'))
                                 @if(canKkGiaCt('DVCB','DVCB'))

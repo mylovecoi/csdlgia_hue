@@ -344,4 +344,27 @@ class KkGiaSachXdController extends Controller
         }else
             return view('errors.notlogin');
     }
+
+    public function printf(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
+            $inputs['mota'] = isset($inputs['mota']) ? $inputs['mota'] : '';
+            $model = KkGiaSachCt::join('kkgiasach','kkgiasach.mahs','=','kkgiasachct.mahs')
+                ->join('company','company.madv','=','kkgiasach.madv')
+                ->select('kkgiasachct.*','company.tendn','kkgiasach.ngayhieuluc')
+                ->where('kkgiasach.trangthai','DD');
+            if($inputs['mota'] != '')
+                $model = $model->where('kkgiasachct.tendvcu','like','%'.$inputs['mota'].'%');
+            if($inputs['nam'] != 'all')
+                $model = $model->whereYear('kkgiasach.ngayhieuluc',$inputs['nam']);
+            $model = $model->get();
+            /*dd($model);*/
+            return view('manage.kkgia.sach.kkgia.timkiem.printf')
+                ->with('model',$model)
+                ->with('inputs',$inputs)
+                ->with('pageTitle','Tìm kiếm thông tin kê khai giá sách');
+        }else
+            return view('errors.notlogin');
+    }
 }

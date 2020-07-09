@@ -478,77 +478,77 @@
             @endif
 
             @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetn'))
-                    <li>
-                        <a href="javascript:;">
-                            <span class="title">{{session('admin')['a_chucnang']['giathuetn'] ?? 'Giá thuế tài nguyên'}}</span>
-                            <span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetn', 'danhmuc','index'))
+                <li>
+                    <a href="javascript:;">
+                        <span class="title">{{session('admin')['a_chucnang']['giathuetn'] ?? 'Giá thuế tài nguyên'}}</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetn', 'danhmuc','index'))
+                            <li>
+                                <a href="{{url('/giathuetn/danhmuc')}}">Danh mục</a>
+                            </li>
+                        @endif
+                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetn', 'hoso','index'))
+                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
                                 <li>
-                                    <a href="{{url('/giathuetn/danhmuc')}}">Danh mục</a>
+                                    <a href="{{url('/giathuetn/danhsach')}}">
+                                        Thông tin hồ sơ
+                                    </a>
                                 </li>
                             @endif
-                            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetn', 'hoso','index'))
-                                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
-                                    <li>
-                                        <a href="{{url('/giathuetn/danhsach')}}">
-                                            Thông tin hồ sơ
-                                        </a>
-                                    </li>
-                                @endif
 
-                                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
-                                    <li>
-                                        <a href="{{url('/giathuetn/xetduyet')}}">
-                                            Xét duyệt hồ sơ
-                                        </a>
-                                    </li>
-                                @endif
-
+                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
                                 <li>
-                                    <a href="{{url('/giathuetn/timkiem')}}">Tìm kiếm hồ sơ</a>
-                                </li>
-
-                                <li>
-                                    <a href="{{url('/giathuetn/baocao')}}">Báo cáo tổng hợp</a>
+                                    <a href="{{url('/giathuetn/xetduyet')}}">
+                                        Xét duyệt hồ sơ
+                                    </a>
                                 </li>
                             @endif
-                        </ul>
-                    </li>
-                @endif
+
+                            <li>
+                                <a href="{{url('/giathuetn/timkiem')}}">Tìm kiếm hồ sơ</a>
+                            </li>
+
+                            <li>
+                                <a href="{{url('/giathuetn/baocao')}}">Báo cáo tổng hợp</a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
+            @endif
 
             @if(chkPer('csdlmucgiahhdv','dinhgia', 'giacuocvanchuyen'))
-                    <li>
-                        <a href="javascript:;">
-                            <span class="title">{{session('admin')['a_chucnang']['giacuocvanchuyen'] ?? 'Giá cước vận chuyển'}}</span>
-                            <span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giacuocvanchuyen', 'hoso','index'))
-                                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
-                                    <li>
-                                        <a href="{{url('/giacuocvanchuyen/danhsach')}}">
-                                            Thông tin hồ sơ
-                                        </a>
-                                    </li>
-                                @endif
-
-                                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
-                                    <li>
-                                        <a href="{{url('/giacuocvanchuyen/xetduyet')}}">
-                                            Xét duyệt hồ sơ
-                                        </a>
-                                    </li>
-                                @endif
-
+                <li>
+                    <a href="javascript:;">
+                        <span class="title">{{session('admin')['a_chucnang']['giacuocvanchuyen'] ?? 'Giá cước vận chuyển'}}</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giacuocvanchuyen', 'hoso','index'))
+                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
                                 <li>
-                                    <a href="{{url('/giacuocvanchuyen/timkiem')}}">Tìm kiếm hồ sơ</a>
+                                    <a href="{{url('/giacuocvanchuyen/danhsach')}}">
+                                        Thông tin hồ sơ
+                                    </a>
                                 </li>
                             @endif
-                        </ul>
-                    </li>
-                @endif
+
+                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                                <li>
+                                    <a href="{{url('/giacuocvanchuyen/xetduyet')}}">
+                                        Xét duyệt hồ sơ
+                                    </a>
+                                </li>
+                            @endif
+
+                            <li>
+                                <a href="{{url('/giacuocvanchuyen/timkiem')}}">Tìm kiếm hồ sơ</a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
+            @endif
 
             @if(canGeneral('giathuenhacongvu','index'))
                 @if(can('giathuenhacongvu','index'))
@@ -609,7 +609,7 @@
 
             @if(chkPer('csdlmucgiahhdv','bog', 'bog', 'hoso', 'index'))
                 @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
-                <!-- chức năng nhập liệu cho đơn vị -->
+                    <!-- chức năng nhập liệu cho đơn vị -->
                     @if(session('admin')->level == 'SSA')
                         <li><a href="{{url('/binhongia/danhsach')}}">Thông tin hồ sơ</a></li>
                     @endif
@@ -720,61 +720,15 @@
                     session('admin')->chucnang = NHAPLIEU && session('admin')->level == 'DN'
                     session('admin')->level != 'DN' && session('admin')->chucnang = TONGHOP
             -->
-            @if(session('admin')->level == 'SSA')
-                <li><a href="{{url('/doanhnghiep/danhsach')}}">Thông tin doanh nghiệp</a></li>
-            @endif
-
+            <!-- 10/05/2020 tạm khóa
+                            @if(session('admin')->level == 'DN')
+            <li><a href="{{url('thongtindoanhnghiep')}}">Thông tin doanh nghiệp</a></li>
+                            @else
             @if(chkPer('csdlmucgiahhdv','kknygia', 'thongtinkknygia', 'hoso', 'index'))
-                <li><a href="{{url('/doanhnghiep/xetduyet')}}"> Xét duyệt thay đổi thông tin doanh nghiệp</a></li>
+                <li><a href="{{url('xetduyettdttdn')}}"> Xét duyệt thay đổi thông tin doanh nghiệp</a></li>
+                                @endif
             @endif
-
-            @if(canKkGiaGr('VLXD'))
-                @if(canKkGiaCt('VLXD','VLXD'))
-                    <li>
-                        <a href="javascript:;">
-                            <span class="title">Vật liệu xây dựng</span>
-                            <span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            @if(session('admin')->level == 'DN')
-                                <li><a href="{{url('thongtinkekhaigiavatlieuxaydung')}}">Giá kê khai</a> </li>
-                            @endif
-                            @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
-                                <li><a href="{{url('danhmucvatlieuxaydung')}}">Danh mục VLXD</a></li>
-                                <li><a href="{{url('thongtindnkkgiavlxd')}}">Giá kê khai</a></li>
-                                <li><a href="{{url('xetduyetkkgiavlxd')}}">Thông tin hồ sơ xét duyệt</a></li>
-                                <li><a href="{{url('timkiemkkgiavlxd')}}">Tìm kiếm thông tin</a> </li>
-                                <li><a href="{{url('baocaokekhaigiavlxd')}}">Báo cáo thống kê</a></li>
-                            @endif
-                        </ul>
-                    </li>
-                @endif
-                {{--Ok--}}
-            @endif
-            @if(canKkGiaGr('DVHDTMCK'))
-                @if(canKkGiaCt('DVHDTMCK','DVHDTMCK'))
-                    <li class="tooltips" data-container="body" data-placement="right" data-html="true"
-                        data-original-title="Giá dịch vụ hỗ trợ hoạt động thương mại tại cửa khẩu (kho,bến, bãi, bốc xếp hàng hóa tại cửa khẩu, dịch vụ khác">
-                        <a href="javascript:;">
-                            <span class="title">Giá dịch vụ hỗ trợ hoạt động thương mại tại cửa khẩu</span>
-                            <span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            @if(session('admin')->level == 'DN')
-                                <li><a href="{{url('thongtinkkdvhoatdongthuongmai')}}">Giá kê khai</a> </li>
-                            @endif
-                            @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
-                                <li><a href="{{url('thongtindnkkgiadvhdtm')}}">Giá kê khai</a></li>
-                                <li><a href="{{url('xetduyetkkgiadvhdtm')}}">Thông tin hồ sơ xét duyệt</a></li>
-                                <li><a href="{{url('timkiemgiadvhdtm')}}">Tìm kiếm thông tin</a> </li>
-                                <li><a href="{{url('baocaokkgiadvhdtm')}}">Báo cáo thống kê</a></li>
-                            @endif
-                        </ul>
-                    </li>
-                @endif
-                {{--OK--}}
-            @endif
-
+                    -->
 
             @if(chkPer('csdlmucgiahhdv','kknygia', 'xmtxd', 'hoso', 'index'))
                 <li>
@@ -904,52 +858,22 @@
                     </ul>
                 </li>
             @endif
-
-            @if(canKkGiaGr('DVCB'))
-                @if(canKkGiaCt('DVCB','DVCB'))
-                    <li>
-                        <a href="javascript:;">
-                            <span class="title">Giá dịch vụ tại cảng biển, cảng hàng không</span>
-                            <span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            @if(session('admin')->level == 'DN')
-                                <li><a href="{{url('kekhaigiadvcang')}}">Giá kê khai</a> </li>
-                            @endif
-                            @if(session('admin')->level == 'X' || session('admin')->level == 'T' || session('admin')->level == 'H')
-                                <li><a href="{{url('thongtindndvcang')}}">Giá kê khai </a> </li>
-                                <li><a href="{{url('xetduyetgiadvcang')}}">Thông tin hồ sơ xét duyệt</a></li>
-                                <li><a href="{{url('timkiemgiadvcang')}}">Tìm kiếm thông tin</a> </li>
-                                <li><a href="{{url('baocaokkgiadvcang')}}">Báo cáo thống kê</a></li>
-                            @endif
-                        </ul>
-                    </li>
-                @endif
-                {{--Ok--}}
+            @if(chkPer('csdlmucgiahhdv','kknygia', 'oto', 'hoso', 'index'))
+                <li>
+                    <a href="javascript:;">
+                        <span class="title">Giá ô tô nhập khẩu, sản xuất trong nước dưới 15 chỗ ngồi</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        @if(session('admin')->level == 'SSA')
+                            <li><a href="{{url('kekhaigiaotonksx')}}">Giá kê khai</a> </li>
+                        @endif
+                        <li><a href="{{url('xetduyetgiaotonksx')}}">Thông tin hồ sơ xét duyệt</a></li>
+                        <li><a href="{{url('timkiemgiaotonksx')}}">Tìm kiếm thông tin</a> </li>
+                        <li><a href="{{url('baocaokkgiaotonksx')}}">Báo cáo thống kê</a></li>
+                    </ul>
+                </li>
             @endif
-
-            @if(canKkGiaGr('KCBTN'))
-                @if(canKkGiaCt('KCBTN','KCBTN'))
-                    <li>
-                        <a href="javascript:;">
-                            <span class="title">Dịch vụ khám chữa bệnh cho người tại cơ sở khám chữa bệnh tư nhân; khám chữa bệnh theo yêu cầu tại cơ sở khám chữa bệnh của nhà nước</span>
-                            <span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            @if(session('admin')->level == 'DN')
-                                <li><a href="{{url('kekhaigiakcbtn')}}">Giá kê khai</a> </li>
-                            @endif
-                            @if(session('admin')->level == 'X' || session('admin')->level == 'T' || session('admin')->level == 'H')
-                                <li><a href="{{url('thongtindnkcbtn')}}">Giá kê khai </a> </li>
-                                <li><a href="{{url('xetduyetgiakcbtn')}}">Thông tin hồ sơ xét duyệt</a></li>
-                                <li><a href="{{url('timkiemgiakcbtn')}}">Tìm kiếm thông tin</a> </li>
-                                <li><a href="{{url('baocaogiakcbtn')}}">Báo cáo thống kê</a></li>
-                            @endif
-                        </ul>
-                    </li>
-                @endif
-            @endif
-
             @if(chkPer('csdlmucgiahhdv','kknygia', 'dvvtxk', 'hoso', 'index'))
                 <li>
                     <a href="javascript:;">
@@ -960,15 +884,12 @@
                         @if(session('admin')->level == 'SSA')
                             <li><a href="{{url('kekhaigiavantaixekhach')}}">Giá kê khai</a></li>
                         @endif
-
-{{--                        <li><a href="{{url('thongtindnvtxk')}}">Giá kê khai</a></li>--}}
                         <li><a href="{{url('xetduyetkekhaigiavtxk')}}">Xét duyệt hồ sơ kê khai</a></li>
                         <li><a href="{{url('timkiemgiavantaixekhach')}}">Tìm kiếm hồ sơ kê khai</a></li>
                         <li><a href="{{url('baocaogiavantaixekhach')}}">Báo cáo thống kê</a></li>
                     </ul>
                 </li>
             @endif
-
             @if(chkPer('csdlmucgiahhdv','kknygia', 'dvvtxb', 'hoso', 'index'))
                 <li>
                     <a href="javascript:;">
@@ -985,7 +906,6 @@
                     </ul>
                 </li>
             @endif
-
             @if(chkPer('csdlmucgiahhdv','kknygia', 'dvvtxtx', 'hoso', 'index'))
                 <li>
                     <a href="javascript:;">
@@ -1002,50 +922,6 @@
                     </ul>
                 </li>
             @endif
-
-            @if(canKkGiaCt('DVVTHK','VC'))
-                <li>
-                    <a href="javascript:;">
-                        <span class="title">Cước vận chuyển hành khách: xe buýt, xe điện, bè mảng</span>
-                        <span class="arrow"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        @if(session('admin')->level == 'DN')
-                            <li><a href="{{url('kekhaicuocvchk')}}">Giá kê khai</a></li>
-                        @endif
-                        @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
-                            <li><a href="{{url('thongtindnvchk')}}">Giá kê khai</a></li>
-                            <li><a href="{{url('xetduyetkekhaicuocvchk')}}">Xét duyệt hồ sơ kê khai</a></li>
-                            <li><a href="{{url('timkiemcuocvchk')}}">Tìm kiếm hồ sơ kê khai</a></li>
-                            <li><a href="{{url('baocaogiacuocvchk')}}">Báo cáo thống kê</a></li>
-                        @endif
-                    </ul>
-                </li>
-            @endif
-
-            @if(canKkGiaGr('TPCNTE6T'))
-                @if(canKkGiaCt('TPCNTE6T','TPCNTE6T'))
-                    <li>
-                        <a href="javascript:;">
-                            <span class="title">Thực phẩm chức năng cho trẻ em dưới 6 tuổi</span>
-                            <span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            @if(session('admin')->level == 'DN')
-                                <li><a href="{{url('kekhaithucphamchucnangchote6t')}}">Giá kê khai</a> </li>
-                            @endif
-                            @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
-                                <li><a href="{{url('thongtindntpcn6t')}}">Giá kê khai</a></li>
-                                <li><a href="{{url('xdkekhaigiatpcnte6t')}}">Thông tin hồ sơ xét duyệt</a></li>
-                                <li><a href="{{url('timkiemkekhaigiatpcnte6t')}}">Tìm kiếm thông tin</a> </li>
-                                <li><a href="{{url('baocaokekhaigiatpcnte6t')}}">Báo cáo thống kê</a></li>
-                            @endif
-                        </ul>
-                    </li>
-                @endif
-                {{--OK--}}
-            @endif
-
             @if(chkPer('csdlmucgiahhdv','kknygia', 'dvlt', 'hoso', 'index'))
                 <li>
                     <a href="javascript:;">
@@ -1145,6 +1021,73 @@
                 </li>
             @endif
 
+            {{--@if(canKkGiaCt('DVVTHK','VC'))
+                <li>
+                    <a href="javascript:;">
+                        <span class="title">Cước vận chuyển hành khách: xe buýt, xe điện, bè mảng</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        @if(session('admin')->level == 'DN')
+                            <li><a href="{{url('kekhaicuocvchk')}}">Giá kê khai</a></li>
+                        @endif
+                        @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
+                            <li><a href="{{url('thongtindnvchk')}}">Giá kê khai</a></li>
+                            <li><a href="{{url('xetduyetkekhaicuocvchk')}}">Xét duyệt hồ sơ kê khai</a></li>
+                            <li><a href="{{url('timkiemcuocvchk')}}">Tìm kiếm hồ sơ kê khai</a></li>
+                            <li><a href="{{url('baocaogiacuocvchk')}}">Báo cáo thống kê</a></li>
+                        @endif
+                    </ul>
+                </li>
+            @endif--}}
+
+
+
+            @if(canKkGiaGr('DVCB'))
+                @if(canKkGiaCt('DVCB','DVCB'))
+                    <li>
+                        <a href="javascript:;">
+                            <span class="title">Giá dịch vụ tại cảng biển, cảng hàng không</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            @if(session('admin')->level == 'DN')
+                                <li><a href="{{url('kekhaigiadvcang')}}">Giá kê khai</a> </li>
+                            @endif
+                            @if(session('admin')->level == 'X' || session('admin')->level == 'T' || session('admin')->level == 'H')
+                                <li><a href="{{url('thongtindndvcang')}}">Giá kê khai </a> </li>
+                                <li><a href="{{url('xetduyetgiadvcang')}}">Thông tin hồ sơ xét duyệt</a></li>
+                                <li><a href="{{url('timkiemgiadvcang')}}">Tìm kiếm thông tin</a> </li>
+                                <li><a href="{{url('baocaokkgiadvcang')}}">Báo cáo thống kê</a></li>
+                            @endif
+                        </ul>
+                    </li>
+                @endif
+                {{--Ok--}}
+            @endif
+
+            @if(canKkGiaGr('KCBTN'))
+                @if(canKkGiaCt('KCBTN','KCBTN'))
+                    <li>
+                        <a href="javascript:;">
+                            <span class="title">Dịch vụ khám chữa bệnh cho người tại cơ sở khám chữa bệnh tư nhân; khám chữa bệnh theo yêu cầu tại cơ sở khám chữa bệnh của nhà nước</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            @if(session('admin')->level == 'DN')
+                                <li><a href="{{url('kekhaigiakcbtn')}}">Giá kê khai</a> </li>
+                            @endif
+                            @if(session('admin')->level == 'X' || session('admin')->level == 'T' || session('admin')->level == 'H')
+                                <li><a href="{{url('thongtindnkcbtn')}}">Giá kê khai </a> </li>
+                                <li><a href="{{url('xetduyetgiakcbtn')}}">Thông tin hồ sơ xét duyệt</a></li>
+                                <li><a href="{{url('timkiemgiakcbtn')}}">Tìm kiếm thông tin</a> </li>
+                                <li><a href="{{url('baocaogiakcbtn')}}">Báo cáo thống kê</a></li>
+                            @endif
+                        </ul>
+                    </li>
+                @endif
+            @endif
+
             @if(canKkGiaGr('DLBB'))
                 @if(canKkGiaCt('DLBB','DLBB'))
                     <li>
@@ -1167,6 +1110,7 @@
                 @endif
                 {{--OK--}}
             @endif
+
             @if(canKkGiaGr('TQKDL'))
                 @if(canKkGiaCt('TQKDL','TQKDL'))
                     <li>
@@ -1183,6 +1127,54 @@
                                 <li><a href="{{url('xetduyetgiavetqkdl')}}">Thông tin hồ sơ xét duyệt</a></li>
                                 <li><a href="{{url('timkiemgiavetqkdl')}}">Tìm kiếm thông tin</a> </li>
                                 <li><a href="{{url('baocaokekhaigiavetqkdl')}}">Báo cáo thống kê</a></li>
+                            @endif
+                        </ul>
+                    </li>
+                @endif
+                {{--OK--}}
+            @endif
+
+            @if(canKkGiaGr('VLXD'))
+                @if(canKkGiaCt('VLXD','VLXD'))
+                    <li>
+                        <a href="javascript:;">
+                            <span class="title">Vật liệu xây dựng</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            @if(session('admin')->level == 'DN')
+                                <li><a href="{{url('thongtinkekhaigiavatlieuxaydung')}}">Giá kê khai</a> </li>
+                            @endif
+                            @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
+                                <li><a href="{{url('danhmucvatlieuxaydung')}}">Danh mục VLXD</a></li>
+                                <li><a href="{{url('thongtindnkkgiavlxd')}}">Giá kê khai</a></li>
+                                <li><a href="{{url('xetduyetkkgiavlxd')}}">Thông tin hồ sơ xét duyệt</a></li>
+                                <li><a href="{{url('timkiemkkgiavlxd')}}">Tìm kiếm thông tin</a> </li>
+                                <li><a href="{{url('baocaokekhaigiavlxd')}}">Báo cáo thống kê</a></li>
+                            @endif
+                        </ul>
+                    </li>
+                @endif
+                {{--Ok--}}
+            @endif
+
+            @if(canKkGiaGr('DVHDTMCK'))
+                @if(canKkGiaCt('DVHDTMCK','DVHDTMCK'))
+                    <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+                        data-original-title="Giá dịch vụ hỗ trợ hoạt động thương mại tại cửa khẩu (kho,bến, bãi, bốc xếp hàng hóa tại cửa khẩu, dịch vụ khác">
+                        <a href="javascript:;">
+                            <span class="title">Giá dịch vụ hỗ trợ hoạt động thương mại tại cửa khẩu</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            @if(session('admin')->level == 'DN')
+                                <li><a href="{{url('thongtinkkdvhoatdongthuongmai')}}">Giá kê khai</a> </li>
+                            @endif
+                            @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
+                                <li><a href="{{url('thongtindnkkgiadvhdtm')}}">Giá kê khai</a></li>
+                                <li><a href="{{url('xetduyetkkgiadvhdtm')}}">Thông tin hồ sơ xét duyệt</a></li>
+                                <li><a href="{{url('timkiemgiadvhdtm')}}">Tìm kiếm thông tin</a> </li>
+                                <li><a href="{{url('baocaokkgiadvhdtm')}}">Báo cáo thống kê</a></li>
                             @endif
                         </ul>
                     </li>
@@ -1275,18 +1267,18 @@
                         </a>
                     </li>
 
-{{--                    @if(chkPer('csdlmucgiahhdv','hhdv', 'giavangngoaite', 'khac','tonghop'))--}}
-{{--                        <li>--}}
-{{--                            <a href="{{url('/giavangngoaite/tonghop')}}">Tổng hợp giá</a>--}}
-{{--                        </li>--}}
-{{--                    @endif--}}
+                    {{--                    @if(chkPer('csdlmucgiahhdv','hhdv', 'giavangngoaite', 'khac','tonghop'))--}}
+                    {{--                        <li>--}}
+                    {{--                            <a href="{{url('/giavangngoaite/tonghop')}}">Tổng hợp giá</a>--}}
+                    {{--                        </li>--}}
+                    {{--                    @endif--}}
                 @endif
 
-{{--                <li>--}}
-{{--                    <a href="{{url('/giavangngoaite/timkiem')}}">--}}
-{{--                        Tìm kiếm hồ sơ--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                {{--                <li>--}}
+                {{--                    <a href="{{url('/giavangngoaite/timkiem')}}">--}}
+                {{--                        Tìm kiếm hồ sơ--}}
+                {{--                    </a>--}}
+                {{--                </li>--}}
             @endif
 
             <li>
@@ -1377,9 +1369,9 @@
                     </li>
                 @endif
                 {{--@if(can('thgialephitruocbanha','timkiem'))--}}
-                    {{--<li>--}}
-                        {{--<a href="{{url('tklephitruocbanha')}}">Tìm kiếm thông tin</a>--}}
-                    {{--</li>--}}
+                {{--<li>--}}
+                {{--<a href="{{url('tklephitruocbanha')}}">Tìm kiếm thông tin</a>--}}
+                {{--</li>--}}
                 {{--@endif--}}
             </ul>
         </li>
@@ -1394,11 +1386,11 @@
             <span class="arrow"></span>
         </a>
         <ul class="sub-menu">
-{{--            @if(chkPer('csdlmucgiahhdv','taisan', 'taisancong', 'danhmuc','index'))--}}
-{{--                <li>--}}
-{{--                    <a href="{{url('/taisancong/danhmuc?phanloai=taisancong')}}">Danh mục</a>--}}
-{{--                </li>--}}
-{{--            @endif--}}
+            {{--            @if(chkPer('csdlmucgiahhdv','taisan', 'taisancong', 'danhmuc','index'))--}}
+            {{--                <li>--}}
+            {{--                    <a href="{{url('/taisancong/danhmuc?phanloai=taisancong')}}">Danh mục</a>--}}
+            {{--                </li>--}}
+            {{--            @endif--}}
 
             @if(chkPer('csdlmucgiahhdv','taisan', 'taisancong', 'hoso', 'index'))
                 @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
@@ -1633,25 +1625,25 @@
 
 @if(canGeneral('thanhlytaisan','index'))
     @if(can('thanhlytaisan','index'))
-    <li class="javascript:;">
-        <a href="javascript:;">
-            <i class="icon-folder"></i>
-            <span class="title">{{session('admin')['a_chucnang']['thanhlytaisan'] ?? 'Giá đấu thầu bán TS'}}</span>
-            <span class="arrow"></span>
-        </a>
-        <ul class="sub-menu">
-            @if(can('kkthanhlytaisan','index'))
-                <li>
-                    <a href="{{url('thongtingiabantaisan')}}">Thông tin đấu thầu bán TS</a>
-                </li>
-            @endif
-            @if(can('ththanhlytaisan','timkiem'))
-                <li>
-                    <a href="{{url('timkiemttgiabantaisan')}}">Tìm kiếm thông tin</a>
-                </li>
-            @endif
-        </ul>
-    </li>
+        <li class="javascript:;">
+            <a href="javascript:;">
+                <i class="icon-folder"></i>
+                <span class="title">{{session('admin')['a_chucnang']['thanhlytaisan'] ?? 'Giá đấu thầu bán TS'}}</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                @if(can('kkthanhlytaisan','index'))
+                    <li>
+                        <a href="{{url('thongtingiabantaisan')}}">Thông tin đấu thầu bán TS</a>
+                    </li>
+                @endif
+                @if(can('ththanhlytaisan','timkiem'))
+                    <li>
+                        <a href="{{url('timkiemttgiabantaisan')}}">Tìm kiếm thông tin</a>
+                    </li>
+                @endif
+            </ul>
+        </li>
     @endif
 @endif
 
@@ -1730,26 +1722,28 @@
     </li>
 @endif
 
+
+
 @if(chkPer('csdlmucgiahhdv','taisan', 'giagocvlxd'))
-        <li>
-            <a href="javascript:;">
-                <i class="icon-folder"></i>
-                <span class="title">{{session('admin')['a_chucnang']['giagocvlxd'] ?? 'Giá gốc vật liệu xây dựng'}}</span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-                @if(chkPer('csdlmucgiahhdv','taisan', 'giagocvlxd','hoso','index'))
-                    <!-- tạm thời chưa kích hoạt do chưa tách quyền và chưa xây dựng
+    <li>
+        <a href="javascript:;">
+            <i class="icon-folder"></i>
+            <span class="title">{{session('admin')['a_chucnang']['giagocvlxd'] ?? 'Giá gốc vật liệu xây dựng'}}</span>
+            <span class="arrow"></span>
+        </a>
+        <ul class="sub-menu">
+            @if(chkPer('csdlmucgiahhdv','taisan', 'giagocvlxd','hoso','index'))
+                <!-- tạm thời chưa kích hoạt do chưa tách quyền và chưa xây dựng
                     để đơn vị nhập liệu vào, chức năng tổng hợp sẽ tổng hợp thành hồ so toàn Tỉnh
                     <li>
                         <a href="{{url('/giagocvlxd/danhsach')}}">Thông tin hồ sơ</a>
                     </li>
                     -->
-                    <li>
-                        <a href="{{url('/giagocvlxd/tonghop')}}">Tổng hợp hồ sơ</a>
-                    </li>
-                @endif
-            </ul>
-        </li>
+                <li>
+                    <a href="{{url('/giagocvlxd/tonghop')}}">Tổng hợp hồ sơ</a>
+                </li>
+            @endif
+        </ul>
+    </li>
 
 @endif

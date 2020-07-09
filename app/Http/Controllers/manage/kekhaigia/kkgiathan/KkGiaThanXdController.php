@@ -345,4 +345,27 @@ class KkGiaThanXdController extends Controller
             return view('errors.notlogin');
     }
 
+    public function printf(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
+            $inputs['mota'] = isset($inputs['mota']) ? $inputs['mota'] : '';
+            $model = KkGiaThanCt::join('kkgiathan','kkgiathan.mahs','=','kkgiathanct.mahs')
+                ->join('company','company.madv','=','kkgiathan.madv')
+                ->select('kkgiathanct.*','company.tendn','kkgiathan.ngayhieuluc')
+                ->where('kkgiathan.trangthai','DD');
+            if($inputs['mota'] != '')
+                $model = $model->where('kkgiathanct.tendvcu','like','%'.$inputs['mota'].'%');
+            if($inputs['nam'] != 'all')
+                $model = $model->whereYear('kkgiathan.ngayhieuluc',$inputs['nam']);
+            $model = $model->get();
+            /*dd($model);*/
+            return view('manage.kkgia.than.kkgia.timkiem.printf')
+                ->with('model',$model)
+                ->with('inputs',$inputs)
+                ->with('pageTitle','Tìm kiếm thông tin kê khai giá than');
+        }else
+            return view('errors.notlogin');
+    }
+
 }

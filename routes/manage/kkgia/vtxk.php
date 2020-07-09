@@ -48,6 +48,7 @@ Route::post('xetduyetkekhaigiavtxk/chuyenxd','manage\kekhaigia\kkdvvt\vtxk\KkGia
 Route::post('xetduyetkekhaigiavtxk/congbo','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkXdController@congbo');
 //End xét duyệt kk TACN
 Route::get('timkiemgiavantaixekhach','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkXdController@search');
+Route::get('timkiemgiavantaixekhach/printf','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkXdController@printf');
 
 //Ajax
 Route::get('/ttdnkkvtxk','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkXdController@ttdnkkvtxk');

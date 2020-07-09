@@ -344,4 +344,27 @@ class KkGiaTaCnXdController extends Controller
         }else
             return view('errors.notlogin');
     }
+
+    public function printf(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
+            $inputs['mota'] = isset($inputs['mota']) ? $inputs['mota'] : '';
+            $model = KkGiaTaCnCt::join('kkgiatacn','kkgiatacn.mahs','=','kkgiatacnct.mahs')
+                ->join('company','company.madv','=','kkgiatacn.madv')
+                ->select('kkgiatacnct.*','company.tendn','kkgiatacn.ngayhieuluc')
+                ->where('kkgiatacn.trangthai','DD');
+            if($inputs['mota'] != '')
+                $model = $model->where('kkgiatacnct.tendvcu','like','%'.$inputs['mota'].'%');
+            if($inputs['nam'] != 'all')
+                $model = $model->whereYear('kkgiatacn.ngayhieuluc',$inputs['nam']);
+            $model = $model->get();
+            /*dd($model);*/
+            return view('manage.kkgia.tacn.kkgia.timkiem.printf')
+                ->with('model',$model)
+                ->with('inputs',$inputs)
+                ->with('pageTitle','Tìm kiếm thông tin kê khai giá thức ăn chăn nuôi');
+        }else
+            return view('errors.notlogin');
+    }
 }

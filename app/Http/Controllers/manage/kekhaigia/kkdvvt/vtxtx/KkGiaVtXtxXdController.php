@@ -344,4 +344,27 @@ class KkGiaVtXtxXdController extends Controller
         }else
             return view('errors.notlogin');
     }
+
+    public function printf(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
+            $inputs['mota'] = isset($inputs['mota']) ? $inputs['mota'] : '';
+            $model = KkGiaVtXtxCt::join('kkgiavtxtx','kkgiavtxtx.mahs','=','kkgiavtxtxct.mahs')
+                ->join('company','company.madv','=','kkgiavtxtx.madv')
+                ->select('kkgiavtxtxct.*','company.tendn','kkgiavtxtx.ngayhieuluc')
+                ->where('kkgiavtxtx.trangthai','DD');
+            if($inputs['mota'] != '')
+                $model = $model->where('kkgiavtxtxct.tendvcu','like','%'.$inputs['mota'].'%');
+            if($inputs['nam'] != 'all')
+                $model = $model->whereYear('kkgiavtxtx.ngayhieuluc',$inputs['nam']);
+            $model = $model->get();
+            /*dd($model);*/
+            return view('manage.kkgia.vtxtx.kkgia.timkiem.printf')
+                ->with('model',$model)
+                ->with('inputs',$inputs)
+                ->with('pageTitle','Tìm kiếm thông tin kê khai giá vận tải xe taxi');
+        }else
+            return view('errors.notlogin');
+    }
 }

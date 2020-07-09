@@ -41,6 +41,7 @@ Route::post('xetduyetkekhaigiavtxb/chuyenxd','manage\kekhaigia\kkdvvt\vtxb\KkGia
 Route::post('xetduyetkekhaigiavtxb/congbo','manage\kekhaigia\kkdvvt\vtxb\KkGiaVtXbXdController@congbo');
 
 Route::get('timkiemgiavantaixebuyt','manage\kekhaigia\kkdvvt\vtxb\KkGiaVtXbXdController@search');
+Route::get('timkiemgiavantaixebuyt/printf','manage\kekhaigia\kkdvvt\vtxb\KkGiaVtXbXdController@printf');
 
 Route::get('/ttdnkkvtxb','manage\kekhaigia\kkdvvt\vtxb\KkGiaVtXbXdController@ttdnkkvtxb');
 

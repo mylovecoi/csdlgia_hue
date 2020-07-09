@@ -368,4 +368,28 @@ class KkGiaVtXkXdController extends Controller
         }else
             return view('errors.notlogin');
     }
+
+    public function printf(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
+            $inputs['mota'] = isset($inputs['mota']) ? $inputs['mota'] : '';
+            $model = GiaVtXkCt::leftJoin('giavtxk','giavtxk.mahs','=','giavtxkct.mahs')
+                ->leftjoin('company','company.madv','=','giavtxk.madv')
+                //->whereYear('giavtxk.ngayhieuluc',$inputs['nam'])
+                ->select('giavtxkct.*','company.tendn','giavtxk.ngayhieuluc')
+                ->where('giavtxk.trangthai','DD');
+            if($inputs['mota'] != '')
+                $model = $model->where('giavtxkct.tendvcu','like','%'.$inputs['mota'].'%');
+            if($inputs['nam'] != 'all')
+                $model = $model->whereYear('giavtxk.ngayhieuluc',$inputs['nam']);
+            $model = $model->get();
+
+            return view('manage.kkgia.vtxk.kkgia.timkiem.printf')
+                ->with('model',$model)
+                ->with('inputs',$inputs)
+                ->with('pageTitle','Tìm kiếm thông tin kê khai giá vận tải xe khách');
+        }else
+            return view('errors.notlogin');
+    }
 }

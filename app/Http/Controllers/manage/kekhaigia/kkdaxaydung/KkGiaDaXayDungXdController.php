@@ -342,4 +342,27 @@ class KkGiaDaXayDungXdController extends Controller
         }else
             return view('errors.notlogin');
     }
+
+    public function printf(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
+            $inputs['mota'] = isset($inputs['mota']) ? $inputs['mota'] : '';
+            $model = KkGiaDaXayDungCt::join('kkgiadaxaydung','kkgiadaxaydung.mahs','=','kkgiadaxaydungct.mahs')
+                ->join('company','company.madv','=','kkgiadaxaydung.madv')
+                ->select('kkgiadaxaydungct.*','company.tendn','kkgiadaxaydung.ngayhieuluc')
+                ->where('kkgiadaxaydung.trangthai','DD');
+            if($inputs['mota'] != '')
+                $model = $model->where('kkgiadaxaydungct.tendvcu','like','%'.$inputs['mota'].'%');
+            if($inputs['nam'] != 'all')
+                $model = $model->whereYear('kkgiadaxaydung.ngayhieuluc',$inputs['nam']);
+            $model = $model->get();
+            /*dd($model);*/
+            return view('manage.kkgia.daxaydung.kkgia.timkiem.printf')
+                ->with('model',$model)
+                ->with('inputs',$inputs)
+                ->with('pageTitle','Tìm kiếm thông tin kê khai giá đá xây dựng');
+        }else
+            return view('errors.notlogin');
+    }
 }

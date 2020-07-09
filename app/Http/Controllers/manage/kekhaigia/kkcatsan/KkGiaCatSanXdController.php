@@ -342,4 +342,27 @@ class KkGiaCatSanXdController extends Controller
         }else
             return view('errors.notlogin');
     }
+
+    public function printf(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
+            $inputs['mota'] = isset($inputs['mota']) ? $inputs['mota'] : '';
+            $model = KkGiaCatSanCt::join('kkgiacatsan','kkgiacatsan.mahs','=','kkgiacatsanct.mahs')
+                ->join('company','company.madv','=','kkgiacatsan.madv')
+                ->select('kkgiacatsanct.*','company.tendn','kkgiacatsan.ngayhieuluc')
+                ->where('kkgiacatsan.trangthai','DD');
+            if($inputs['mota'] != '')
+                $model = $model->where('kkgiacatsanct.tendvcu','like','%'.$inputs['mota'].'%');
+            if($inputs['nam'] != 'all')
+                $model = $model->whereYear('kkgiacatsan.ngayhieuluc',$inputs['nam']);
+            $model = $model->get();
+            /*dd($model);*/
+            return view('manage.kkgia.catsan.kkgia.timkiem.printf')
+                ->with('model',$model)
+                ->with('inputs',$inputs)
+                ->with('pageTitle','Tìm kiếm thông tin kê khai giá cát sạn');
+        }else
+            return view('errors.notlogin');
+    }
 }

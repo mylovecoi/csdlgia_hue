@@ -344,4 +344,27 @@ class KkGiaGiayXdController extends Controller
         }else
             return view('errors.notlogin');
     }
+
+    public function printf(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
+            $inputs['mota'] = isset($inputs['mota']) ? $inputs['mota'] : '';
+            $model = KkGiaGiayCt::join('kkgiagiay','kkgiagiay.mahs','=','kkgiagiayct.mahs')
+                ->join('company','company.madv','=','kkgiagiay.madv')
+                ->select('kkgiagiayct.*','company.tendn','kkgiagiay.ngayhieuluc')
+                ->where('kkgiagiay.trangthai','DD');
+            if($inputs['mota'] != '')
+                $model = $model->where('kkgiagiayct.tendvcu','like','%'.$inputs['mota'].'%');
+            if($inputs['nam'] != 'all')
+                $model = $model->whereYear('kkgiagiay.ngayhieuluc',$inputs['nam']);
+            $model = $model->get();
+            /*dd($model);*/
+            return view('manage.kkgia.giay.kkgia.timkiem.printf')
+                ->with('model',$model)
+                ->with('inputs',$inputs)
+                ->with('pageTitle','Tìm kiếm thông tin kê khai giá giấy');
+        }else
+            return view('errors.notlogin');
+    }
 }

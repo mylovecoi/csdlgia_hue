@@ -62,6 +62,12 @@
         <div class="col-md-12">
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box">
+                <div class="portlet-title">
+                    <div class="actions">
+                        <a href="{{url('timkiemkkgiadvlt/printf?&nam='.$inputs['nam'].'&mota='.$inputs['mota'])}}" class="btn btn-default btn-sm" target="_blank">
+                            <i class="fa fa-print"></i> In trang </a>
+                    </div>
+                </div>
                 <div class="portlet-body">
                     <div class="row">
                         <div class="portlet-body form" id="form_wizard">

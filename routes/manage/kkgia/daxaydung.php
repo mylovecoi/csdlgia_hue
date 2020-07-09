@@ -27,6 +27,7 @@ Route::post('xetduyetkkgiadaxaydung/congbo','manage\kekhaigia\kkdaxaydung\KkGiaD
 Route::get('/ttdnkkdaxaydung','manage\kekhaigia\kkdaxaydung\KkGiaDaXayDungXdController@ttdnkkdaxaydung');
 
 Route::get('timkiemkkgiadaxaydung','manage\kekhaigia\kkdaxaydung\KkGiaDaXayDungXdController@search');
+Route::get('timkiemkkgiadaxaydung/printf','manage\kekhaigia\kkdaxaydung\KkGiaDaXayDungXdController@printf');
 
 Route::get('baocaokekhaidaxaydung','manage\kekhaigia\kkdaxaydung\KkGiaDaXayDungBcController@index');
 Route::post('baocaokekhaidaxaydung/bc1','manage\kekhaigia\kkdaxaydung\KkGiaDaXayDungBcController@bc1');

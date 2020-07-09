@@ -18,16 +18,22 @@
     <script>
         jQuery(document).ready(function() {
             TableManaged.init();
-        });
-        $(function(){
-            $('#namhs').change(function() {
-                var nam = $('#namhs').val();
-                var masothue = $('#masothue').val();
-                var url = '/kekhaigiaotonksx?&masothue='+masothue+'&nam='+nam;
 
-                window.location.href = url;
+            $('#namhs').change(function() {
+                changeUrl();
+            });
+
+            $('#madv').change(function() {
+                changeUrl();
             });
         });
+
+        function changeUrl() {
+            var nam = $('#namhs').val();
+            var url = '/kekhaigiaotonksx?&madv='+$('#madv').val()+'&nam='+nam ;
+            window.location.href = url;
+        }
+
         function getId(id){
             document.getElementById("iddelete").value=id;
         }
@@ -43,7 +49,7 @@
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             //alert(id);
             $.ajax({
-                url: '/giaotonksx/kiemtra',
+                url: '/kkotonksx/kiemtra',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -72,7 +78,7 @@
         }
 
         function ClickChuyen(){
-            if($('#nguoinop').val() != '' && $('#dtll').val() != ''){
+            if($('#ttnguoinop').val() != ''){
                 var btn = document.getElementById('submitChuyen');
                 btn.disabled = true;
                 btn.innerText = 'Loading...';
@@ -91,7 +97,7 @@
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             //alert(id);
             $.ajax({
-                url: '/giaotonksx/showlydo',
+                url: '/kkotonksx/showlydo',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -111,12 +117,9 @@
 @stop
 
 @section('content')
-    <marquee>
-        <b style="color: #ff0000">{{$modeldv->tendv}} xin thông báo:</b> Ngày áp dụng hồ sơ kê khai giá ôtô nhập khẩu, sản xuất trong nước dưới 15 chỗ ngồi phải sau {{$modeldv->songaylv}} ngày làm việc, tính từ thời điểm chuyển hồ sơ. Hồ sơ chuyển  trước 17h sẽ tính từ ngày gửi, sau 17h sẽ tính ngày hôm sau!!! (Ngày làm việc không tính thứ 7, CN và ngày nghỉ lể)
-    </marquee>
     <h3 class="page-title">
-        Thông tin kê khai giá<small>&nbsp;ô tô nhập khẩu, sản xuất trong nước dưới 15 chỗ ngồi</small>
-        <p><h5 style="color: blue">{{$modeldn->tendn}}&nbsp;- Mã số thuế: {{$modeldn->maxa}} - Cơ quan chủ quản: {{$modeldv->tendv}}</h5></p>
+        Thông tin kê khai giá<small>&nbsp;ô tô nhập khẩu, sản xuất</small>
+        <p><h5 style="color: blue">{{$modeldn->tendn}}&nbsp;- Mã số thuế: {{$modeldn->madv}}</h5></p>
     </h3>
     <!-- END PAGE HEADER-->
     <div class="row">
@@ -125,33 +128,42 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <div class="actions">
-                        <a href="{{url('kekhaigiaotonksx/create?&masothue='.$inputs['masothue'])}}" class="btn btn-default btn-sm">
+                        <a href="{{url('kekhaigiaotonksx/create?&madv='.$inputs['madv'])}}" class="btn btn-default btn-sm">
                             <i class="fa fa-plus"></i> Kê khai mới </a>
-                        @if(session('admin')->level == 'T' || session('admin')->level == 'H' || session('admin')->level == 'X')
-                            <a href="{{url('thongtindnotonksx?&maxa='.$modeldn->mahuyen)}}" class="btn btn-default btn-sm">
-                                <i class="fa fa-reply"></i> Quay lại </a>
-                        @endif
                     </div>
-                <input type="hidden" name="masothue" id="masothue" value="{{$inputs['masothue']}}">
                 </div>
                 <hr>
-                <div class="portlet-body">
-                    <div class="portlet-body">
-                        <div class="row">
+                <div class="portlet-body form-horizontal">
+                    <div class="row">
+                        <div class="form-group">
                             <div class="col-md-2">
-                                <div class="form-group">
-                                    <label style="font-weight: bold">Năm hồ sơ</label>
-                                    <select name="namhs" id="namhs" class="form-control">
-                                        @if ($nam_start = intval(date('Y')) - 5 ) @endif
-                                        @if ($nam_stop = intval(date('Y')) + 1 ) @endif
-                                        @for($i = $nam_start; $i <= $nam_stop; $i++)
-                                            <option value="{{$i}}" {{$i == $inputs['nam'] ? 'selected' : ''}}>Năm {{$i}}</option>
-                                        @endfor
-                                    </select>
-                                </div>
+                                <label>Năm hồ sơ</label>
+                                <select name="namhs" id="namhs" class="form-control">
+                                    @if ($nam_start = intval(date('Y')) - 5 ) @endif
+                                    @if ($nam_stop = intval(date('Y')) + 1 ) @endif
+                                    @for($i = $nam_start; $i <= $nam_stop; $i++)
+                                        <option value="{{$i}}" {{$i == $inputs['nam'] ? 'selected' : ''}}>Năm {{$i}}</option>
+                                    @endfor
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label style="font-weight: bold">Đơn vị</label>
+                                <select class="form-control select2me" id="madv">
+                                    @foreach($a_diaban as $key=>$val)
+                                        <optgroup label="{{$val}}">
+                                            <?php $donvi = $m_donvi->where('madiaban', $key); ?>
+                                            @foreach($donvi as $ct)
+                                                <option {{$ct->madv == $inputs['madv'] ? "selected":""}} value="{{$ct->madv}}">{{$ct->tendn}}</option>
+                                            @endforeach
+                                        </optgroup>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
-                    <table class="table table-striped table-bordered table-hover" id="sample_3">
+                    </div>
+
+                    <table class="table table-striped table-bordered table-hover" id="sample_4">
                         <thead>
                         <tr>
                             <th style="text-align: center" width="2%">STT</th>
@@ -159,7 +171,7 @@
                             <th style="text-align: center">Ngày thực hiện<br>mức giá kê khai</th>
                             <th style="text-align: center">Số công văn</th>
                             <th style="text-align: center">Số công văn<br> liền kề</th>
-                            <th style="text-align: center">Người chuyển</th>
+                            <th style="text-align: center">Cơ quan tiếp nhận</th>
                             <th style="text-align: center">Trạng thái</th>
                             <th style="text-align: center" width="25%">Thao tác</th>
                         </tr>
@@ -172,8 +184,7 @@
                                 <td style="text-align: center">{{getDayVn($tt->ngayhieuluc)}}</td>
                                 <td style="text-align: center" class="active">{{$tt->socv}}</td>
                                 <td style="text-align: center">{{$tt->socvlk}}</td>
-                                <td style="text-align: left">@if($tt->nguoinop != '')Họ và tên: {{$tt->nguoinop}}
-                                    <br>Số điện thoại liên hệ: {{$tt->dtll}}<br>Số Fax: {{$tt->fax}}@endif</td>
+                                <td style="text-align: left">{{$a_donvi_th[$tt->macqcq]?? ''}}</td>
                                 @if($tt->trangthai == "CC")
                                     <td align="center"><span class="badge badge-warning">Chờ chuyển</span></td>
                                 @elseif($tt->trangthai == 'CD')
@@ -187,7 +198,6 @@
                                 @elseif($tt->trangthai == 'BTL')
                                     <td align="center">
                                         <span class="badge badge-danger">Bị trả lại</span><br>&nbsp;
-                                        Thời gian trả hồ sơ:<br><b>{{getDateTime($tt->updated_at)}}</b>
                                     </td>
                                 @else
                                     <td align="center">
@@ -198,23 +208,21 @@
                                 <td>
                                     <a href="{{url('kekhaigiaotonksx/prints?&mahs='.$tt->mahs)}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
                                     @if(canEdit($tt->trangthai))
-                                            <a href="{{url('kekhaigiaotonksx/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
+                                        <a href="{{url('kekhaigiaotonksx/edit?mahs='.$tt->mahs)}}" class="btn btn-default btn-xs mbs">
+                                            <i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
                                         @if(canChuyenXoa($tt->trangthai))
                                             @if($tt->trangthai == 'CC')
-                                            <button type="button" onclick="getId('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
-                                                Xóa</button>
+                                                <button type="button" onclick="getId('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal">
+                                                    <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
                                             @endif
                                             @if($tt->trangthai == 'CC' || $tt->trangthai == 'BTL')
-                                            <button type="button" onclick="confirmChuyen('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#chuyen-modal" data-toggle="modal"><i class="fa fa-share-square-o"></i>&nbsp;
-                                                Chuyển</button>
-                                            @endif
-                                            @if(session('admin')->sadmin == 'ssa')
-                                                <!--button type="button" onclick="confirmChuyenHSCham('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#chuyenhscham-modal" data-toggle="modal"><i class="fa fa-share-square-o"></i>&nbsp;
-                                                    Chuyển HS chậm</button-->
+                                                <button type="button" onclick="confirmChuyen('{{$tt->mahs}}','{{$inputs['url'].'/chuyen'}}')" class="btn btn-default btn-xs mbs" data-target="#chuyen-modal" data-toggle="modal">
+                                                    <i class="fa fa-share-square-o"></i>&nbsp;Chuyển</button>
                                             @endif
                                         @endif
                                         @if(canShowLyDo($tt->trangthai))
-                                        <button type="button" data-target="#lydo-modal" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="viewLyDo({{$tt->id}})"><i class="fa fa-search"></i>&nbsp;Lý do trả lại</button>
+                                            <button type="button" data-target="#tralai-modal-confirm" onclick="viewLyDo('{{$tt->mahs}}','{{$tt->madv}}')" data-toggle="modal" class="btn btn-default btn-xs mbs">
+                                                <i class="fa fa-search"></i>&nbsp;Lý do trả lại</button>
                                         @endif
                                     @endif
                                 </td>
@@ -232,95 +240,6 @@
 
     <!-- END DASHBOARD STATS -->
     <div class="clearfix"></div>
-    <!--Model chuyển-->
-        <div class="modal fade" id="chuyen-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    {!! Form::open(['url'=>'kekhaigiaotonksx/chuyen','id' => 'frm_chuyen'])!!}
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                        <h4 class="modal-title">Đồng ý chuyển hồ sơ?</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group" id="tthschuyen">
-                        </div>
-                        <div class="form-group">
-                            <label><b>Họ và tên người nộp</b></label>
-                            <input type="text" id="nguoinop" name="nguoinop" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label><b>Số điện thoại liên hệ</b></label>
-                            <input type="tel" id="dtll" name="dtll" class="form-control" maxlength="15">
-                        </div>
-                        <div class="form-group">
-                            <label><b>Email</b></label>
-                            <input type="email" id="email" name="email" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label><b>Số Fax</b></label>
-                            <input type="tel" id="fax" name="fax" class="form-control" maxlength="15">
-                        </div>
-                    </div>
-                    <input type="hidden" name="idchuyen" id="idchuyen">
-                    <div class="modal-footer">
-                        <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn blue" onclick="ClickChuyen()" id="submitChuyen">Đồng ý</button>
-
-                    </div>
-                    {!! Form::close() !!}
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-        </div>
-
-    <!--Model chuyển hs chậm-->
-        <div class="modal fade" id="chuyenhscham-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    {!! Form::open(['url'=>'kekhaigiaotonksx/chuyenhscham','id' => 'frm_chuyenhscham'])!!}
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                        <h4 class="modal-title">Đồng ý chuyển hồ sơ bị chậm?</h4>
-                    </div>
-                    <input type="hidden" name="idchuyenhscham" id="idchuyenhscham">
-                    <div class="modal-footer">
-                        <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn blue" onclick="ClickChuyenHsCham()">Đồng ý</button>
-
-                    </div>
-                    {!! Form::close() !!}
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-        </div>
-
-    <!--Model copy-->
-        <div class="modal fade" id="copy-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    {!! Form::open(['url'=>'kekhaigiaotonksx/copy','id' => 'frm_chuyen'])!!}
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                        <h4 class="modal-title">Sao chép hồ sơ kê khai?</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p style="color: #000066"><u>Ghi chú</u>: Chức năng này sẽ hỗ trợ kê khai nhanh giá dịch vụ, chương trình sẽ tự động sao chép thông tin từ hồ sơ kê khai đã được duyệt
-                            và chuyển các thông tin vào màn hình kê khai mới.Các mức giá kê khai liền kề sẽ tự động lấy từ thông tin kê khai sao chép chuyển vào</p>
-                    <input type="hidden" name="macskdcp" id="macskdcp" value="">
-                    <div class="modal-footer">
-                        <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn blue" onclick="ClickCopy()">Đồng ý</button>
-
-                    </div>
-                    {!! Form::close() !!}
-                    </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-            </div>
-        </div>
 
     <!--Model lý do-->
     <div class="modal fade" id="lydo-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -343,7 +262,7 @@
         <!-- /.modal-dialog -->
     </div>
 
-        <!--Modal delete-->
+    <!--Modal delete-->
     <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -365,6 +284,6 @@
         <!-- /.modal-dialog -->
     </div>
 
-
-
+    @include('manage.include.form.modal_approve_hsdn')
+    @include('manage.include.form.modal_unapprove_dn')
 @stop
