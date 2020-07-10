@@ -93,8 +93,15 @@ License code: PRO4-69G6Q4M-8YGNXX-M2N8-KCHVWYK
 
                     $a_kekhai[$key]['hoso'] = 0;
                     if ($val['table'] != '') {
-                        $sql = session('admin')->level == 'SSA' ? "select id from " . $val['table'] . " where trangthai in ('CD')"
-                            : "select id from " . $val['table'] . " where trangthai in ('CD') and macqcq='" . session('admin')->madv . "'";
+                        if($val['table'] == 'ttdntd'){
+                            $sql = session('admin')->level == 'SSA' ? "select id from " . $val['table'] . " where trangthai in ('CD')"
+                                : "select id from " . $val['table'] . " where trangthai in ('CD') and madiaban='" . session('admin')->madiaban . "'";
+
+                        }else{
+                            $sql = session('admin')->level == 'SSA' ? "select id from " . $val['table'] . " where trangthai in ('CD')"
+                                : "select id from " . $val['table'] . " where trangthai in ('CD') and macqcq='" . session('admin')->madv . "'";
+
+                        }
 
                         $hoso = DB::select($sql);
                         $a_kekhai[$key]['hoso'] = count($hoso);
