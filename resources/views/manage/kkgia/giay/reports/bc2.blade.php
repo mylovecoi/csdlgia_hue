@@ -8,7 +8,7 @@
 @stop
 
 @section('content')
-    <table width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:0 auto 20px; text-align: center;">
+    <table width="96%" border="0" cellspacing="0" cellpadding="9" style="margin:0 auto 20px; text-align: center;">
         <tr>
             <td width="40%" style="vertical-align: top;">
                 <span style="text-transform: uppercase">{{session('admin')->tendvcqhienthi}}</span><br>
@@ -50,6 +50,7 @@
             <th style="text-align: center">Đơn vị<br>tính</th>
             <th style="text-align: center">Mức giá <br>liền kề</th>
             <th style="text-align: center">Mức giá <br>kê khai</th>
+            <th style="text-align: center">Tăng/giảm</th>
         </tr>
         </thead>
         <tbody>
@@ -57,7 +58,7 @@
         @foreach($model as $key=>$tt)
             <tr>
                 <td style="text-align: center">{{$key+1}}</td>
-                <td class="active" colspan="7">{{$tt->tendn}}
+                <td class="active" colspan="8">{{$tt->tendn}}
                     -<b>Mã số thuế:</b> {{$tt->madv}}
                     -<b>Mã hồ sơ:</b> {{$tt->mahs}}
                     . Số công văn :{{$tt->socv}} -
@@ -75,6 +76,7 @@
                     <td style="text-align: center">{{$tt->dvt}}</td>
                     <td style="text-align: right">{{number_format($tt->gialk)}}</td>
                     <td style="text-align: right">{{number_format($tt->giakk)}}</td>
+                    <td style="text-align: right">{{number_format(($tt->giakk) - ($tt->gialk))}}</td>
                 </tr>
             @endforeach
         @endforeach
