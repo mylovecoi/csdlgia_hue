@@ -17,6 +17,7 @@ class CreateTtdntdTable extends Migration
             $table->increments('id');
             $table->string('madv',30)->unique();
             $table->string('madiaban')->nullable();
+            $table->string('macqcq')->nullable();
             $table->string('tendn')->nullable();
             $table->string('diachi')->nullable();
             $table->string('tel')->nullable();

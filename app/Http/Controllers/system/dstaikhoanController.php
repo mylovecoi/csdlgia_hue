@@ -146,11 +146,12 @@ class dstaikhoanController extends Controller
             }
             $inputs = $request->all();
             $model = Users::where('username', $inputs['username'])->first();
-            $model->name = $inputs['name'];
-            $model->status = $inputs['status'];
+            //$model->name = $inputs['name'];
+            //$model->status = $inputs['status'];
             if($inputs['password'] != ''){
-                $model->password = md5($inputs['password']);
+                $inputs['password'] = md5($inputs['password']);
             }
+            //dd($inputs);
             $model->update($inputs);
 
             return redirect('/taikhoan/danhsach?madv='. $inputs['madv']);
