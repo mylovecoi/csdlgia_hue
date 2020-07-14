@@ -51,7 +51,7 @@ class KkGiaDvChController extends Controller
                 ->with('a_diaban', array_column($m_diaban->toarray(),'tendiaban', 'madiaban'))
                 ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
                 ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
-                ->with('pageTitle', 'Danh sách hồ sơ kê khai giá dịch vụ ca huế trên sông hương');
+                ->with('pageTitle', 'Danh sách hồ sơ kê khai giá dịch vụ ca huế trên sông hương.');
         } else
             return view('errors.notlogin');
     }
