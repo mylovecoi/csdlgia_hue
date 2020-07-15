@@ -328,7 +328,7 @@ class KkGiaDatSanLapXdController extends Controller
             $model = KkGiaDatSanLapCt::join('kkgiadatsanlap','kkgiadatsanlap.mahs','=','kkgiadatsanlapct.mahs')
                 ->join('company','company.madv','=','kkgiadatsanlap.madv')
                 ->select('kkgiadatsanlapct.*','company.tendn','kkgiadatsanlap.ngayhieuluc')
-                ->where('kkgiacatsan.trangthai','DD');
+                ->where('kkgiadatsanlap.trangthai','DD');
             if($inputs['mota'] != '')
                 $model = $model->where('kkgiadatsanlapct.tendvcu','like','%'.$inputs['mota'].'%');
             if($inputs['nam'] != 'all')
@@ -351,7 +351,7 @@ class KkGiaDatSanLapXdController extends Controller
             $model = KkGiaDatSanLapCt::join('kkgiadatsanlap','kkgiadatsanlap.mahs','=','kkgiadatsanlapct.mahs')
                 ->join('company','company.madv','=','kkgiadatsanlap.madv')
                 ->select('kkgiadatsanlapct.*','company.tendn','kkgiadatsanlap.ngayhieuluc')
-                ->where('kkgiacatsan.trangthai','DD');
+                ->where('kkgiadatsanlap.trangthai','DD');
             if($inputs['mota'] != '')
                 $model = $model->where('kkgiadatsanlapct.tendvcu','like','%'.$inputs['mota'].'%');
             if($inputs['nam'] != 'all')
