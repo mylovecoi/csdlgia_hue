@@ -35,8 +35,8 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Hồ sơ giá tính lệ phí trước bạ
+    <h3 class="page-title text-uppercase">
+        {{session('admin')['a_chucnang']['giaphilephi'] ?? 'hồ sơ giá tính lệ phí trước bạ'}}
     </h3>
 
     <!-- END PAGE HEADER-->

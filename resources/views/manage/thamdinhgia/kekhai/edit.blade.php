@@ -296,20 +296,20 @@
                             <div class="col-md-12">
                                 <table class="table table-striped table-bordered table-hover" id="sample_4">
                                     <thead>
-                                    <tr>
-                                        <th width="2%" style="text-align: center">STT</th>
-                                        <th style="text-align: center">Mã hàng hóa</th>
-                                        <th style="text-align: center">Tên hàng hóa-Quy cách</th>
-                                        <th style="text-align: center">Thông số kỹ thuật</th>
-                                        <th style="text-align: center">Xuất xứ</th>
-                                        <th style="text-align: center">Đơn vị</br>tính</th>
-                                        <th style="text-align: center">Số <br>lượng</th>
-                                        <th style="text-align: center">Đơn giá</br>đề nghị</th>
-                                        <th style="text-align: center">Giá trị</br>đề nghị</th>
-                                        <th style="text-align: center">Đơn giá</br>thẩm định</th>
-                                        <th style="text-align: center">Giá trị</br>thẩm định</th>
-                                        <th style="text-align: center">Thao tác</th>
-                                    </tr>
+                                        <tr>
+                                            <th width="2%" style="text-align: center">STT</th>
+                                            <th style="text-align: center">Mã hàng hóa</th>
+                                            <th style="text-align: center">Tên hàng hóa-Quy cách</th>
+                                            <th style="text-align: center">Thông số kỹ thuật</th>
+                                            <th style="text-align: center">Xuất xứ</th>
+                                            <th style="text-align: center">Đơn vị</br>tính</th>
+                                            <th style="text-align: center">Số <br>lượng</th>
+                                            <th style="text-align: center">Đơn giá</br>đề nghị</th>
+                                            <th style="text-align: center">Giá trị</br>đề nghị</th>
+                                            <th style="text-align: center">Đơn giá</br>thẩm định</th>
+                                            <th style="text-align: center">Giá trị</br>thẩm định</th>
+                                            <th style="text-align: center">Thao tác</th>
+                                        </tr>
                                     </thead>
                                     <tbody id="ttts">
                                     @foreach($modelct as $key=>$tt)
@@ -360,20 +360,6 @@
             <!-- END VALIDATION STATES-->
         </div>
     </div>
-
-    <script type="text/javascript">
-        function validateForm(){
-
-            var validator = $("#update_thongtinthuetaisancong").validate({
-                rules: {
-                    ten :"required"
-                },
-                messages: {
-                    ten :"Chưa nhập dữ liệu"
-                }
-            });
-        }
-    </script>
 
     <!--Model frm_modify-->
     {!! Form::open(['method' => 'post', 'class'=>'horizontal-form','id'=>'frm_modify']) !!}
@@ -539,7 +525,7 @@
                                 </thead>
                                 <tbody id="ttts">
                                 @foreach($m_dvtdg as $key=>$tt)
-                                    <tr id={{$tt->id}}>
+                                    <tr>
                                         <td style="text-align: center">{{($key +1)}}</td>
                                         <td class="active">{{$tt->tendv}}</td>
                                         <td style="text-align: left">{{$tt->nguoidaidien}}</td>
@@ -561,15 +547,87 @@
             </div>
         </div>
     </div>
+
+    <div id="modal-hanghoa" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                    <h4 id="modal-header-primary-label" class="modal-title">Danh mục hàng hóa</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="tbl_hh" class="table-dulieubang table table-striped table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                <tr>
+                                    <th style="text-align: center" width="2%">STT</th>
+                                    <th style="text-align: center">Mã số</th>
+                                    <th style="text-align: center">Tên hàng hóa</th>
+                                    <th style="text-align: center">Thông số kỹ thuật</th>
+                                    <th style="text-align: center">Xuất xứ</th>
+                                    <th style="text-align: center">Đơn vị<br>tính</th>
+                                    <th style="text-align: center" width="15%">Thao tác</th>
+                                </tr>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($m_dmhh as $key=>$tt)
+                                    <tr id={{'hh_'.$tt->id}}>
+                                        <td style="text-align: center;">{{$key + 1}}</td>
+                                        <td class="active">{{$tt->mahanghoa}}</td>
+                                        <td class="success" style="font-weight: bold">{{$tt->tenhanghoa}}</td>
+                                        <td>{{$tt->thongsokt}}</td>
+                                        <td>{{$tt->xuatxu}}</td>
+                                        <td style="text-align: center">{{$tt->dvt}}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-default btn-xs mbs" onclick="add_hanghoa('{{'hh_'.$tt->id}}')">
+                                                <i class="fa fa-edit"></i>&nbsp;Chọn</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         function adddonvi(tendv){
             $('#modal-donvi').modal('hide');
             $('#dvyeucau').val(tendv);
         }
+
+        function add_hanghoa(mahh){
+            var element = document.getElementById(mahh);
+            $('#mats').val(element.cells.item(1).innerText);
+            $('#tents').val(element.cells.item(2).innerText);
+            $('#thongsokt').val(element.cells.item(3).innerText);
+            $('#nguongoc').val(element.cells.item(4).innerText);
+            $('#dvt').val(element.cells.item(5).innerText).trigger('change');
+            $('#modal-hanghoa').modal('hide');
+        }
+
+        function validateForm(){
+            var validator = $("#update_hsthamdinh").validate({
+                rules: {
+                    ten :"required"
+                },
+                messages: {
+                    ten :"Chưa nhập dữ liệu"
+                }
+            });
+        }
     </script>
 
     @include('manage.include.form.modal_dvt')
     @include('includes.script.set_date_thoihanthamdinh')
-
     @include('includes.script.create-header-scripts')
 @stop

@@ -34,8 +34,8 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Thông tin hồ sơ thuê tài sản công
+    <h3 class="page-title text-uppercase">
+        {{session('admin')['a_chucnang']['giathuetscong'] ?? 'hồ sơ thuê tài sản công'}}
     </h3>
 
     <!-- END PAGE HEADER-->
@@ -101,7 +101,7 @@
                                 <td style="text-align: center">{{$key + 1}}</td>
                                 <td style="text-align: left">{{$tt->soqd}}</td>
                                 <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
-                                <td style="text-align: left">{{$tt->mota}}</td>
+                                <td style="text-align: left">{{$tt->thongtinhs}}</td>
                                 @include('manage.include.form.td_trangthai')
                                 <td style="text-align: left">{{$a_donvi_th[$tt->macqcq]?? ''}}</td>
                                 <td>

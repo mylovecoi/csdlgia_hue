@@ -44,7 +44,7 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <div class="actions">
-                        @if(chkPer('hethong', 'hethong', 'danhsachdiaban', 'danhmuc','modify'))
+                        @if(chkPer('hethong', 'hethong_pq', 'danhsachdiaban', 'danhmuc','modify'))
                             <a href="{{url('/donvi/create?&madiaban='.$inputs['madiaban'])}}" class="btn btn-default btn-xs">
                                 <i class="fa fa-plus"></i> Thêm mới</a>
                         @endif
@@ -79,7 +79,7 @@
                                     <td class="active" >{{$tt->tendv}}</td>
                                     <td>{{$a_phanloai[$tt->chucnang] ?? ''}}</td>
                                     <td>
-                                        @if(chkPer('hethong', 'hethong', 'danhsachdiaban','danhmuc', 'modify'))
+                                        @if(chkPer('hethong', 'hethong_pq', 'danhsachdiaban','danhmuc', 'modify'))
                                             <a href="{{url('/donvi/modify?madv='.$tt->madv)}}" class="btn btn-default btn-xs mbs">
                                                 <i class="fa fa-edit"></i> Sửa</a>
 

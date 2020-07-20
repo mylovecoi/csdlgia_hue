@@ -445,6 +445,7 @@ Route::group(['prefix'=>'giaphilephi'], function (){
     Route::post('chuyenxd','PhiLePhiController@chuyenxd');
     Route::post('tralai','PhiLePhiController@tralai');
     Route::post('congbo','PhiLePhiController@congbo');
+    Route::get('dinhkem','PhiLePhiController@dinhkem');
 
     Route::get('timkiem','PhiLePhiController@timkiem');
     Route::post('timkiem','PhiLePhiController@ketquatk');
@@ -633,6 +634,7 @@ Route::group(['prefix'=>'gianuocsachsinhhoat'], function (){
     Route::get('edit_ct','manage\gianuocsachsh\GiaNuocShCtController@edit');
     Route::get('update_ct','manage\gianuocsachsh\GiaNuocShCtController@update');
 
+    Route::get('getBCLK','manage\gianuocsachsh\GiaNuocShBcController@getBCLK');
     Route::get('baocao','manage\gianuocsachsh\GiaNuocShBcController@index');
     Route::post('baocao/baocaonuocsh1','manage\gianuocsachsh\GiaNuocShBcController@Bc1');
 });

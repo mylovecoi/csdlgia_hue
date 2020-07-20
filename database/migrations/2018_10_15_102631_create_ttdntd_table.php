@@ -38,6 +38,7 @@ class CreateTtdntdTable extends Migration
             $table->string('trangthai')->nullable();
             $table->string('level')->nullable();
             $table->string('lydo')->nullable();
+            $table->date('ngaychuyen')->nullable();
             $table->timestamps();
         });
     }

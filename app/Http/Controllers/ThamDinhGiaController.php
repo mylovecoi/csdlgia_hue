@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DiaBanHd;
 use App\District;
 use App\DmHangHoa;
+use App\DmThamDinhGiaHh;
 use App\dsdonvitdg;
 use App\Model\system\dmdvt;
 use App\Model\system\dsdiaban;
@@ -70,18 +71,20 @@ class ThamDinhGiaController extends Controller
             $inputs = $request->all();
             //$a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             //$m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->where('level', 'H')->first();
-            DB::statement("DELETE FROM thamdinhgiact WHERE mahs not in (SELECT mahs FROM thamdinhgia where madv='" . $inputs['madv'] . "')");
+            //DB::statement("DELETE FROM thamdinhgiact WHERE mahs not in (SELECT mahs FROM thamdinhgia where madv='" . $inputs['madv'] . "')");
             $model = new ThamDinhGia();
             $model->mahs = getdate()[0];
             $model->madv = $inputs['madv'];
             $model->trangthai = 'CHT';
             $model->thoidiem = date('Y-m-d');
 
-
             $inputs['url'] = '/thamdinhgia';
             $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
             $modelct = nullValue();
             $m_dvtdg = dsdonvitdg::all();
+            $m_dmhh = DmHangHoa::all();
+            //dd($a_dmhh);
+            //dd(json_encode($a_dmhh));
             return view('manage.thamdinhgia.kekhai.edit')
                 ->with('model', $model)
                 ->with('modelct', $modelct)
@@ -89,8 +92,9 @@ class ThamDinhGiaController extends Controller
                 //->with('a_diaban', getDiaBan_HoSo($m_diaban->where('level', 'H'), true))
                 ->with('m_dvtdg', $m_dvtdg)
                 ->with('a_dvt', $a_dvt)
+                ->with('m_dmhh', $m_dmhh)
                 ->with('inputs', $inputs)
-                ->with('pageTitle', 'Chỉnh sửa phí chuyển sang giá');
+                ->with('pageTitle', 'Hồ sơ thẩm định giá');
 
         } else
             return view('errors.notlogin');
@@ -107,10 +111,13 @@ class ThamDinhGiaController extends Controller
             $modelct = ThamDinhGiaCt::where('mahs', $model->mahs)->get();
             $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
             $m_dvtdg = dsdonvitdg::all();
+            $m_dmhh = DmHangHoa::all();
+
             return view('manage.thamdinhgia.kekhai.edit')
                 ->with('model', $model)
                 ->with('modelct', $modelct)
                 ->with('a_dvt', $a_dvt)
+                ->with('m_dmhh', $m_dmhh)
                 ->with('m_dvtdg', $m_dvtdg)
                 //->with('a_dm', array_column($m_danhmuc->toArray(),'tengia','maso'))
                 //->with('a_diaban', getDiaBan_HoSo($m_diaban->where('level', 'H'), true))

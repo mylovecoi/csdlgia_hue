@@ -92,8 +92,8 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Giá nước sinh hoạt<small> chỉnh sửa</small>
+    <h3 class="page-title text-uppercase">
+        {{session('admin')['a_chucnang']['gianuocsh'] ?? 'hồ sơ giá nước sạch sinh hoạt'}}<small> chỉnh sửa</small>
     </h3>
     <div class="row">
         {!! Form::model($model,['url'=>$inputs['url']. '/modify', 'method'=>'post'  , 'files'=>true, 'id' => 'update_gnsh','class'=>'form-horizontal','enctype'=>'multipart/form-data', 'files'=>true]) !!}

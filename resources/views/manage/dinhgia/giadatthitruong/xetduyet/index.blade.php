@@ -35,8 +35,8 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Hồ sơ giá đất đấu giá
+    <h3 class="page-title text-uppercase">
+        {{session('admin')['a_chucnang']['giadatthitruong'] ?? 'hồ sơ giá đất giao dịch thực tế trên thị trường'}}
     </h3>
 
     <!-- END PAGE HEADER-->
@@ -112,7 +112,7 @@
                                         H->Hoàn thành (có đơn
 
                                         -->
-                                        @if(chkPer('csdlmucgiahhdv','philephi', 'giaphilephi','hoso','approve'))
+                                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadatthitruong','hoso','approve'))
                                             @if($tt->level == 'ADMIN')
                                                 @if($tt->trangthai == 'CB')
                                                     <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','{{$inputs['url'].'/congbo'}}', 'HCB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">

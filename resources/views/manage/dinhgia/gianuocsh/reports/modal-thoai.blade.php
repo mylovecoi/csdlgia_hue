@@ -1,5 +1,23 @@
 
 <script>
+   function getBCLK() {
+       var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+       $.ajax({
+           url: '/gianuocsachsinhhoat/getBCLK',
+           type: 'GET',
+           data: {
+               _token: CSRF_TOKEN,
+               madv: $('#madv').val()
+           },
+           dataType: 'JSON',
+           success: function (data) {
+               $('#row_bclk').replaceWith(data.message);
+           },
+           error: function (message) {
+               toastr.error(message, 'Lỗi!');
+           }
+       });
+   }
     function ClickBC1(url){
         $('#frm_bc1').attr('action',url);
         $('#frm_bc1').submit();
@@ -21,7 +39,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <label style="font-weight: bold">Đơn vị</label>
-                        <select class="form-control select2me" id="madv" name="madv">
+                        <select class="form-control select2me" id="madv" name="madv" onchange="getBCLK()">
                             @foreach($m_diaban as $diaban)
                                 <optgroup label="{{$diaban->tendiaban}}">
                                     <?php $donvi = $m_donvi->where('madiaban',$diaban->madiaban); ?>
@@ -34,7 +52,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div id="row_bclk" class="row">
                     <div class="col-md-12">
                         <label><b>Báo cáo liền kề</b></label>
                         <select name="mahslk" id="mahslk" class="form-control">
@@ -43,9 +61,7 @@
                             @endforeach
                         </select>
                     </div>
-                </div>
 
-                <div class="row">
                     <div class="col-md-12">
                         <label><b>Báo cáo so sánh</b></label>
                         <select name="mahsbc" id="mahsbc" class="form-control">

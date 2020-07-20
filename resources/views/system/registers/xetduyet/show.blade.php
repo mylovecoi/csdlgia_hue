@@ -113,15 +113,15 @@
                                 {{--</span>--}}
                                 {{--</td>--}}
                             {{--</tr>--}}
-                            {{--<tr>--}}
-                                {{--<td style="width:15%">--}}
-                                    {{--<b>Giấy đăng ký kinh doanh</b>--}}
-                                {{--</td>--}}
-                                {{--<td style="width:35%">--}}
-                                {{--<span class="text-muted"><a href="{{url('data/doanhnghiep/'.$modelcompany->tailieu)}}" target="_blank">{{$modelcompany->giayphepkd}}</a>--}}
-                                {{--</span>--}}
-                                {{--</td>--}}
-                            {{--</tr>--}}
+                            <tr>
+                                <td style="width:15%">
+                                    <b>Giấy đăng ký kinh doanh</b>
+                                </td>
+                                <td style="width:35%">
+                                <span class="text-muted"><a href="{{url('data/doanhnghiep/'.$m_company->tailieu)}}" target="_blank">{{$m_company->tailieu}}</a>
+                                </span>
+                                </td>
+                            </tr>
                             {{--<tr>--}}
                                 {{--<td style="width:15%">--}}
                                     {{--<b>Chức danh</b>--}}
@@ -182,15 +182,15 @@
                         </table>
                         <table class="table table-striped table-bordered table-hover" id="sample_3">
                             <tr>
-                                <th width="5%">STT</th>
+                                <th width="10%">STT</th>
                                 <th>Ngành nghề kinh doanh</th>
-                                <th>Đơn vị nhận hồ sơ</th>
+{{--                                <th>Đơn vị nhận hồ sơ</th>--}}
                             </tr>
                             @foreach($m_lvkd as $key=> $lvcc)
                                 <tr>
                                     <td class="text-center">{{$key+1}}</td>
                                     <td>{{$a_nghe[$lvcc->manghe] ?? ''}}</td>
-                                    <td>{{$a_cqcq[$lvcc->macqcq] ?? ''}}</td>
+{{--                                    <td>{{$a_cqcq[$lvcc->macqcq] ?? ''}}</td>--}}
                                 </tr>
                             @endforeach
                         </table>

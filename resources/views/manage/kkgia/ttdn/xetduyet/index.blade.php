@@ -65,7 +65,8 @@
                             <tr>
                                 <th width="5%" style="text-align: center">STT</th>
                                 <th style="text-align: center">Tên doanh nghiệp</th>
-                                <th style="text-align: center" width="20%">Thao tác</th>
+                                <th style="text-align: center" width="20%">Ngày chuyển</th>
+                                <th style="text-align: center" width="15%">Thao tác</th>
                             </tr>
                         </thead>
 
@@ -74,6 +75,7 @@
                                 <tr>
                                     <td style="text-align: center">{{$key + 1}}</td>
                                     <td style="text-align: left">{{$tt->tendn}}</td>
+                                    <td class="text-center">{{getDateTime($tt->ngaychuyen)}}</td>
                                     <td>
                                         <a href="{{url('doanhnghiep/chitiet?madv='.$tt->madv)}}" class="btn btn-default btn-xs mbs" >
                                             <i class="fa fa-eye"></i>&nbsp;Chi tiết</a>

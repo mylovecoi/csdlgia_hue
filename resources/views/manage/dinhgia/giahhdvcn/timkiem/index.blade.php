@@ -16,8 +16,8 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Tìm kiếm<small> giá hàng hóa, dịch vụ khác theo quy định của pháp luật chuyên ngành</small>
+    <h3 class="page-title text-uppercase">
+        Tìm kiếm {{session('admin')['a_chucnang']['giahhdvcn'] ?? 'Hồ sơ giá hàng hóa, dịch vụ khác theo quy định của pháp luật chuyên ngành'}}
     </h3>
 
     <!-- END PAGE HEADER-->

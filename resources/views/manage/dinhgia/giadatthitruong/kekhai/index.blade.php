@@ -43,8 +43,8 @@
 
 @section('content')
 
-    <h3 class="page-title">
-        Thông tin giá đất giao dịch thực tế trên thị trường
+    <h3 class="page-title text-uppercase">
+        {{session('admin')['a_chucnang']['giadatthitruong'] ?? 'hồ sơ giá đất giao dịch thực tế trên thị trường'}}
     </h3>
     {{--<h3 class="page-title">
         <small> <b style="color: blue">{{$dvql->tendv}}</b><b style="color: blue"> - </b><b style="color: blue">{{$dv->tendv}}</b> - Người soạn thảo: <b style="color: blue">{{isset($model) ? $model->cvsoanthao : session('admin')->name}}</b> </small>
@@ -56,7 +56,7 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <div class="actions">
-                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadaugiadat', 'hoso', 'modify'))
+                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadatthitruong', 'hoso', 'modify'))
                             <a href="{{url($inputs['url'].'/new?&madv='.$inputs['madv'].'&madiaban='.$inputs['madiaban'])}}" class="btn btn-default btn-sm">
                                 <i class="fa fa-plus"></i> Thêm mới</a>
 
@@ -90,7 +90,7 @@
                                 <th style="text-align: center" width="2%">STT</th>
                                 <th style="text-align: center">Địa bàn</th>
                                 <th style="text-align: center">Thời điểm</th>
-                                <th style="text-align: center">Mô tả</th>
+                                <th style="text-align: center">Khu vực</th>
                                 <th style="text-align: center"  width="5%">Trạng thái</th>
                                 <th style="text-align: center">Cơ quan tiếp nhận</th>
                                 <th style="text-align: center"> Thao tác</th>
@@ -102,11 +102,11 @@
                                 <td style="text-align: center">{{$key+1}}</td>
                                 <td><b>{{$a_diaban[$tt->madiaban] ?? ''}}</b></td>
                                 <td><b>{{getDayVn($tt->thoidiem)}}</b></td>
-                                <td style="text-align: left" class="active">{{$tt->tenduan}}</td>
+                                <td style="text-align: left" class="active">{{$tt->khuvuc}}</td>
                                 @include('manage.include.form.td_trangthai')
                                 <td style="text-align: left">{{$a_donvi_th[$tt->macqcq]?? ''}}</td>
                                 <td>
-                                    @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadaugiadat', 'hoso', 'modify') && in_array($tt->trangthai,['CHT', 'HHT']))
+                                    @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadatthitruong', 'hoso', 'modify') && in_array($tt->trangthai,['CHT', 'HHT']))
                                         <a href="{{url($inputs['url'].'/modify?mahs='.$tt->mahs.'&act=true')}}" class="btn btn-default btn-xs mbs">
                                             <i class="fa fa-edit"></i>&nbsp;Chi tiết</a>
                                         <button type="button" onclick="confirmDelete('{{$tt->mahs}}','{{$inputs['url'].'/delete'}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
@@ -116,7 +116,7 @@
                                             <i class="fa fa-edit"></i>&nbsp;Chi tiết</a>
                                     @endif
 
-                                    @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadaugiadat', 'hoso', 'approve')&& in_array($tt->trangthai,['CHT', 'HHT']))
+                                    @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadatthitruong', 'hoso', 'approve')&& in_array($tt->trangthai,['CHT', 'HHT']))
                                         <button type="button" onclick="confirmChuyen('{{$tt->mahs}}','{{$inputs['url'].'/chuyenhs'}}')" class="btn btn-default btn-xs mbs" data-target="#chuyen-modal-confirm" data-toggle="modal">
                                             <i class="fa fa-check"></i> Hoàn thành</button>
                                     @endif

@@ -203,20 +203,16 @@ class RegisterController extends Controller
 
     public function submitcheckmadk(Request $request){
         $inputs = $request->all();
-        $check = Company::where('maxa',$inputs['maxa'])
+        $check = Company::where('madv',$inputs['madv'])
             ->where('mahs',$inputs['mahs'])
             ->count();
         if($check > 0 ){
-            $model = Company::where('maxa',$inputs['maxa'])
+            $model = Company::where('madv',$inputs['madv'])
                 ->where('mahs',$inputs['mahs'])
                 ->first();
-            $modeluser = Users::where('maxa',$inputs['maxa'])
+            $modeluser = Users::where('madv',$inputs['madv'])
                 ->first();
-            $modellvcc = CompanyLvCc::join('town', 'town.maxa', '=', 'companylvcc.mahuyen')
-                ->join('dmnganhkd', 'dmnganhkd.manganh', '=', 'companylvcc.manganh')
-                ->join('dmnghekd', 'dmnghekd.manghe', '=', 'companylvcc.manghe')
-                ->select('companylvcc.*', 'town.tendv', 'dmnganhkd.tennganh', 'dmnghekd.tennghe')
-                ->where('companylvcc.maxa', $inputs['maxa'])
+            $modellvcc = CompanyLvCc::where('madv', $inputs['madv'])
                 ->get();
             $nganhs = DmNganhKd::where('theodoi','TD')
                 ->get();

@@ -34,8 +34,8 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Thông tin hồ sơ giá tính lệ phí trước bạ
+    <h3 class="page-title text-uppercase">
+        {{session('admin')['a_chucnang']['giaphilephi'] ?? 'hồ sơ giá tính lệ phí trước bạ'}}
     </h3>
 
     <!-- END PAGE HEADER-->
@@ -120,6 +120,8 @@
                                         <button type="button" onclick="confirmChuyen('{{$tt->mahs}}','{{$inputs['url'].'/chuyenhs'}}')" class="btn btn-default btn-xs mbs" data-target="#chuyen-modal-confirm" data-toggle="modal">
                                             <i class="fa fa-check"></i> Hoàn thành</button>
                                     @endif
+                                        <button type="button" onclick="get_attack('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
+                                            <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
                                 </td>
                             </tr>
                         @endforeach
@@ -134,6 +136,7 @@
             <!-- END DASHBOARD STATS -->
         </div>
     </div>
+    @include('manage.include.form.modal_attackfile')
     @include('manage.include.form.modal_approve_hs')
     @include('manage.include.form.modal_del_hs')
 @stop

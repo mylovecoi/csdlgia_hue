@@ -34,8 +34,8 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Thông tin hồ sơ giá nước sạch sinh hoạt
+    <h3 class="page-title text-uppercase">
+        {{session('admin')['a_chucnang']['gianuocsh'] ?? 'hồ sơ giá nước sạch sinh hoạt'}}
     </h3>
 
     <!-- END PAGE HEADER-->

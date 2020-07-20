@@ -35,8 +35,8 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Thông tin hồ sơ thuê tài sản công
+    <h3 class="page-title text-uppercase">
+        {{session('admin')['a_chucnang']['giathuetscong'] ?? 'hồ sơ thuê tài sản công'}}
     </h3>
 
     <!-- END PAGE HEADER-->

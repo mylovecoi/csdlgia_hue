@@ -16,8 +16,8 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Tìm kiếm<small> thông tin giá đất theo phân loại</small>
+    <h3 class="page-title text-uppercase">
+        Tìm kiếm {{session('admin')['a_chucnang']['gianuocsh'] ?? 'giá nước sạch sinh hoạt'}}
     </h3>
 
     <!-- END PAGE HEADER-->

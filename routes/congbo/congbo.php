@@ -32,6 +32,16 @@ Route::get('cbthamdinhgia','congbo\kekhaigia\CongboThamDinhGiaController@index')
 Route::get('cbvanbanqlnnvegia','congbo\vanbanqlnn\CongboVanBanQLNNController@index');
 Route::get('danhsachusertaphuan','congbo\taphuan\DanhSachUserTapHuanController@index');
 
+Route::get('cbgiadatpl','congbo\dinhgia\CongboGiaDatPhanLoaiController@index');
+
+
+//cbgiathuetscong
+//cbgiaspdvci
+//cbtrogiatrocuoc
+//cbgiahhdvcn
+//cbgiacuocvanchuyen
+//cbbinhongia
+
 
 
 ?>

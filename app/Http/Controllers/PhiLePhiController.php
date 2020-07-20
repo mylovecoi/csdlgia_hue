@@ -68,7 +68,7 @@ class PhiLePhiController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['url'] = '/giaphilephi';
-            DB::statement("DELETE FROM philephict WHERE mahs not in (SELECT mahs FROM philephi where madv='" . $inputs['madv'] . "')");
+            //DB::statement("DELETE FROM philephict WHERE mahs not in (SELECT mahs FROM philephi where madv='" . $inputs['madv'] . "')");
             $a_dm = array_column(DmPhiLePhi::all()->toArray(), 'tennhom', 'manhom');
             $model = new PhiLePhi();
             $model->madv = $inputs['madv'];
@@ -88,6 +88,12 @@ class PhiLePhiController extends Controller
             $inputs = $request->all();
             $inputs['thoidiem'] = getDateToDb($inputs['thoidiem']);
             $model = PhiLePhi::where('mahs',$inputs['mahs'])->first();
+            if(isset($inputs['ipf1'])){
+                $ipf1 = $request->file('ipf1');
+                $name = $inputs['mahs'] .'&1.'.$ipf1->getClientOriginalName();
+                $ipf1->move(public_path() . '/data/giaphilephi/', $name);
+                $inputs['ipf1']= $name;
+            }
             if($model == null){
                 $inputs['trangthai'] = 'CHT';
                 $inputs['madiaban'] = dsdonvi::where('madv',$inputs['madv'])->first()->madiaban;
@@ -128,6 +134,29 @@ class PhiLePhiController extends Controller
             return redirect('/giaphilephi/danhsach?&madv='.$model->madv);
         }else
             return view('errors.notlogin');
+    }
+
+    public function dinhkem(Request $request)
+    {
+        $result = array(
+            'status' => 'fail',
+            'message' => 'error',
+        );
+
+        $inputs = $request->all();
+        $model = PhiLePhi::where('mahs',$inputs['mahs'])->first();
+
+        $result['message'] ='<div class="modal-body" id = "dinh_kem" >';
+        if (isset($model->ipf1)) {
+            $result['message'] .= '<div class="row" ><div class="col-md-6" ><div class="form-group" >';
+            $result['message'] .= '<label class="control-label" > File đính kèm 1 </label >';
+            $result['message'] .= '<p ><a target = "_blank" href = "' . url('/data/giaphilephi/' . $model->ipf1) . '">' . $model->ipf1 . '</a ></p >';
+            $result['message'] .= '</div ></div ></div >';
+        }
+
+        $result['status'] = 'success';
+
+        die(json_encode($result));
     }
 
     public function show($id){

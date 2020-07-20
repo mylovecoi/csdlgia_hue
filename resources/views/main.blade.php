@@ -311,15 +311,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                     session('admin')->chucnang = NHAPLIEU && session('admin')->level == 'DN'
                                     session('admin')->level != 'DN' && session('admin')->chucnang = TONGHOP
                             -->
-                        <!-- 10/05/2020 tạm khóa
-                            @if(session('admin')->level == 'DN')
-                            <li><a href="{{url('thongtindoanhnghiep')}}">Thông tin doanh nghiệp</a></li>
-                            @else
-                            @if(chkPer('csdlmucgiahhdv','kknygia', 'thongtinkknygia', 'hoso', 'index'))
-                                <li><a href="{{url('xetduyettdttdn')}}"> Xét duyệt thay đổi thông tin doanh nghiệp</a></li>
-                                @endif
-                        @endif
-                                -->
+                            <li><a href="{{url('doanhnghiep/danhsach')}}">Thông tin doanh nghiệp</a></li>
+
                             @if(canKkGiaGr('VLXD'))
                                 @if(canKkGiaCt('VLXD','VLXD'))
                                     <li>

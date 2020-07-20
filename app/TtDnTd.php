@@ -32,5 +32,6 @@ class TtDnTd extends Model
         'trangthai',
         'level',
         'lydo',
+        'ngaychuyen',
     ];
 }
