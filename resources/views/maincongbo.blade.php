@@ -212,7 +212,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <li><a href="{{url('cbgiarung')}}">{{session('congbo')['chucnang']['giarung'] ?? 'Giá rừng'}}</a></li>
                                     <li><a href="{{url('cbthuemuanhaxh')}}">{{session('congbo')['chucnang']['giathuemuanhaxh'] ?? 'Giá thuê mua nhà XH'}}</a></li>
                                     <li><a href="{{url('cbgianuocsachsinhhoat')}}">{{session('congbo')['chucnang']['gianuocsh'] ?? 'Giá nước sạch sinh hoạt'}}</a></li>
-                                    <li><a class="text-uppercase" href="{{url('cbgiathuetscong')}}">{{session('congbo')['chucnang']['giathuetscong'] ?? 'Giá thuê tài sản công'}} </a></li>
+                                    <li><a href="{{url('cbgiathuetscong')}}">{{session('congbo')['chucnang']['giathuetscong'] ?? 'Giá thuê tài sản công'}} </a></li>
                                     <li><a class="text-uppercase" href="{{url('cbgiaspdvci')}}">{{session('congbo')['chucnang']['giaspdvci'] ?? 'Giá sản phẩm, dịch vụ công ích,... đặt hàng'}} </a></li>
                                     <li><a href="{{url('cbgiadvgiaoducdaotao')}}">{{session('congbo')['chucnang']['giadvgddt'] ?? 'Giá dịch vụ GD-ĐT'}}</a></li>
                                     <li><a href="{{url('cbdichvukcb')}}">{{session('congbo')['chucnang']['giadvkcb'] ?? 'Giá dịch vụ KCB'}}</a></li>

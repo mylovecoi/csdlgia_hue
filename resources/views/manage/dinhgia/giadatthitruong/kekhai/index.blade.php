@@ -90,7 +90,7 @@
                                 <th style="text-align: center" width="2%">STT</th>
                                 <th style="text-align: center">Địa bàn</th>
                                 <th style="text-align: center">Thời điểm</th>
-                                <th style="text-align: center">Khu vực</th>
+                                <th style="text-align: center">Mô tả</th>
                                 <th style="text-align: center"  width="5%">Trạng thái</th>
                                 <th style="text-align: center">Cơ quan tiếp nhận</th>
                                 <th style="text-align: center"> Thao tác</th>
@@ -102,7 +102,7 @@
                                 <td style="text-align: center">{{$key+1}}</td>
                                 <td><b>{{$a_diaban[$tt->madiaban] ?? ''}}</b></td>
                                 <td><b>{{getDayVn($tt->thoidiem)}}</b></td>
-                                <td style="text-align: left" class="active">{{$tt->khuvuc}}</td>
+                                <td style="text-align: left" class="active">{{$tt->tenduan}}</td>
                                 @include('manage.include.form.td_trangthai')
                                 <td style="text-align: left">{{$a_donvi_th[$tt->macqcq]?? ''}}</td>
                                 <td>

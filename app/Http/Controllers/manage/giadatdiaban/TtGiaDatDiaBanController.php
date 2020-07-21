@@ -17,7 +17,7 @@ class TtGiaDatDiaBanController extends Controller
                 $model = TtGiaDatDiaBan::all();
                 $inputs['url'] = '/giacldat';
                 return view('manage.dinhgia.giadatdiaban.thongtuquyetdinh.index')
-                    ->with('model',$model)
+                    ->with('model',$model->sortBy('ngayqd_banhanh'))
                     ->with('inputs',$inputs)
                     ->with('pageTitle','Thông tư giá đất theo địa bàn');
             }else

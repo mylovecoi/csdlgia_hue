@@ -70,15 +70,17 @@ class GiaDatDiaBanController extends Controller
                 $model->madiaban = $inputs['madiaban'];
                 $model->save();
                 $modelct = nullValue();
+                $a_khuvuc = nullValue();
             }else{
                 $modelct = GiaDatDiaBanCt::where('mahs',$model->mahs)->get();
+                $a_khuvuc = array_column($modelct->toarray(),'khuvuc', 'khuvuc');
             }
 
             $a_diaban = getDiaBan_XaHuyen(session('admin')->level,session('admin')->madiaban);
             $a_loaidat = array_column(GiaDatDiaBanDm::all()->toArray(),'loaidat','maloaidat');
             $a_xp = array_column(dsxaphuong::where('madiaban',$model->madiaban)->get()->toarray(),'tenxp', 'maxp');
             $a_qd = array_column(TtGiaDatDiaBan::where('soqd', $model->soqd)->get()->toarray(),'mota', 'soqd');
-            $a_khuvuc = array_column($modelct->toarray(),'khuvuc', 'khuvuc');
+
             return view('manage.dinhgia.giadatdiaban.kekhai.edit')
                 ->with('model', $model)
                 ->with('modelct', $modelct)

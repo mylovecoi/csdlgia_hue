@@ -33,6 +33,7 @@ Route::get('cbvanbanqlnnvegia','congbo\vanbanqlnn\CongboVanBanQLNNController@ind
 Route::get('danhsachusertaphuan','congbo\taphuan\DanhSachUserTapHuanController@index');
 
 Route::get('cbgiadatpl','congbo\dinhgia\CongboGiaDatPhanLoaiController@index');
+Route::get('cbgiathuetscong','congbo\dinhgia\CongboGiaThueTaiSanController@index');
 
 
 //cbgiathuetscong
