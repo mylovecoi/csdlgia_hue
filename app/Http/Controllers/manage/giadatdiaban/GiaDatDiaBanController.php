@@ -24,6 +24,7 @@ class GiaDatDiaBanController extends Controller
             $inputs = $request->all();
             $inputs['url'] = '/giacldat';
             //lấy địa bàn
+            //dd(session('admin'));
             $a_diaban = getDiaBan_XaHuyen(session('admin')->level,session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             $m_donvi = getDonViNhapLieu(session('admin')->level);
@@ -31,7 +32,7 @@ class GiaDatDiaBanController extends Controller
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $inputs['nam'] = $inputs['nam'] ?? 'all';
-
+            //dd($a_diaban);
             //lấy thông tin đơn vị
             $model = GiaDatDiaBan::where('madiaban', $inputs['madiaban']);
             if ($inputs['nam'] != 'all')

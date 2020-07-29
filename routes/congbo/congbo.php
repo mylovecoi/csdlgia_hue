@@ -21,6 +21,7 @@ Route::get('cbgialephitruocba','congbo\gialephi\CongboGiaLePhiTruocBaController@
 Route::get('cbphilephi','congbo\philephi\CongboPhiLePhiController@index');
 
 //Kê khai giá
+    //phần I
 Route::get('cbkkgiavlxd','congbo\kekhaigia\CongboVatLieuXayDungController@index');
 Route::get('cbkkgiaxmtxd','congbo\kekhaigia\CongboGiaXMTXDController@index');
 Route::get('cbkkgiadvhdtm','congbo\kekhaigia\CongboGiaHDTMController@index');
@@ -31,18 +32,16 @@ Route::get('cbgiaetanol','congbo\kekhaigia\CongboGiaEtanolController@index');
 Route::get('cbthamdinhgia','congbo\kekhaigia\CongboThamDinhGiaController@index');
 Route::get('cbvanbanqlnnvegia','congbo\vanbanqlnn\CongboVanBanQLNNController@index');
 Route::get('danhsachusertaphuan','congbo\taphuan\DanhSachUserTapHuanController@index');
-
 Route::get('cbgiadatpl','congbo\dinhgia\CongboGiaDatPhanLoaiController@index');
 Route::get('cbgiathuetscong','congbo\dinhgia\CongboGiaThueTaiSanController@index');
+Route::get('cbgiaspdvci','congbo\dinhgia\CongboGiaSpDvCiController@index');
+    //Phần II
+Route::get('cbtrogiatrocuoc','congbo\dinhgia\trogiatrocuocController@index');
+Route::get('cbgiahhdvcn','congbo\dinhgia\CongboGiaHhDvCnController@index');
+Route::get('cbgiacuocvanchuyen','congbo\dinhgia\CongbogiacuocvanchuyenController@index');
 
-
-//cbgiathuetscong
-//cbgiaspdvci
-//cbtrogiatrocuoc
-//cbgiahhdvcn
-//cbgiacuocvanchuyen
 //cbbinhongia
-
+Route::get('cbbinhongia','congbo\CongBoBinhOnGiaController@index');
 
 
 ?>

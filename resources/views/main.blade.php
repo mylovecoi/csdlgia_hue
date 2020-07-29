@@ -745,13 +745,12 @@ License: You must have a valid license purchased only from themeforest(the above
                     </li>
                 @endif
 
-
-            @if(chkPer('csdlthamdinhgia'))
-                    <li class="heading">
-                        <h3 class="uppercase">{{session('admin')['a_chucnang']['csdlthamdinhgia'] ?? 'CSDL thẩm định giá'}}</h3>
-                    </li>
-                    @include('includes.main.mainthamdinhgia')
-                @endif
+                @if(chkPer('csdlthamdinhgia'))
+                        <li class="heading">
+                            <h3 class="uppercase">{{session('admin')['a_chucnang']['csdlthamdinhgia'] ?? 'CSDL thẩm định giá'}}</h3>
+                        </li>
+                        @include('includes.main.mainthamdinhgia')
+                    @endif
 
                 @if(chkPer('csdlvbqlnn'))
                     <li class="heading">

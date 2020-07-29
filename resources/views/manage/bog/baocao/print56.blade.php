@@ -9,6 +9,8 @@
 
 @section('content')
 
+    <p style="text-align: center; font-weight: bold;">Phụ lục số 1: BIỂU MẪU ĐĂNG KÝ GIÁ</p>
+    <p style="text-align: center;"><i>(Ban hành kèm theo Thông tư số 56/2014/TT-BTC ngày 28/4/2014 của Bộ Tài chính )</i></p>
 <table width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:0 auto 20px; text-align: center;">
     <tr>
         <td width="50%">
@@ -16,7 +18,7 @@
             <hr style="width: 10%"> <br>
             Số: {{$modelkk->socv}}<br>V/v kê khai giá hàng hóa, dịch vụ <br>bán trong nước hoặc xuất khẩu
         </td>
-        <td>
+        <td  width="46%">
             <b>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM<br>
                 Độc lập - Tự do - Hạnh phúc</b><br>
             <hr style="width: 15%"> <br>
