@@ -70,7 +70,7 @@ class KkGiaXmTxdController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['url'] = '/kekhaigiaxmtxd';
-            $m_donvi = getDoanhNghiepNhapLieu(session('admin')->level, 'THAN');
+            $m_donvi = getDoanhNghiepNhapLieu(session('admin')->level, 'XMTXD');
             $m_diaban = dsdiaban::wherein('madiaban', array_column($m_donvi->toarray(),'madiaban'))->get();
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $modeldn = $m_donvi->where('madv', $inputs['madv'])->first();
