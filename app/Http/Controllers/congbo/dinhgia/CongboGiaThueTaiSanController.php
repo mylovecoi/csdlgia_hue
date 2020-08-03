@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\congbo\dinhgia;
 
 use App\GiaThueTsCong;
+use App\Model\manage\dinhgia\GiaTaiSanCongDm;
+use App\Model\manage\dinhgia\giathuemuanhaxh\dmnhaxh;
+use App\Model\system\view_dsdiaban_donvi;
+use App\Model\view\view_giathuetscong;
 use App\Town;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -14,92 +18,22 @@ class CongboGiaThueTaiSanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
+    public function index(Request $request){
         $inputs = $request->all();
-        $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
-
-        $modeldv = Town::all();
-        $inputs['trangthai'] = isset($inputs['trangthai']) ? $inputs['trangthai'] : 'HT';
-        $inputs['maxa'] = isset($inputs['maxa']) ? $inputs['maxa'] : $modeldv->first()->maxa;
-
-
-        $model = GiaThueTsCong::join('giathuetscongct','giathuetscongct.mahs','GiaThueTsCong.mahs')
-        ->where('nam',$inputs['nam'])
-        ->where('trangthai','CB');
-        if($inputs['maxa']!= '')
-            $model = $model->where('maxa',$inputs['maxa']);
-        $model=$model->get();
+        $inputs['url'] = '/cbgiathuetscong';
+        $a_diaban = getDiaBan_XaHuyen('ADMIN');
+        $inputs['nam'] = $inputs['nam'] ?? 'all';
+        $model = view_giathuetscong::where('congbo', 'DACONGBO');
+        if ($inputs['nam'] != 'all')
+            $model = $model->whereYear('thoidiem', $inputs['nam']);
+        $a_ts = array_column(GiaTaiSanCongDm::all()->toArray(),'tentaisan','mataisan');
+        $a_donvi = array_column(view_dsdiaban_donvi::all()->toArray(),'tendv','madv');
         return view('congbo.DinhGia.GiaThueTaiSan.index')
-            ->with('model',$model)
-            ->with('modeldv',$modeldv)
+            ->with('model',$model->get())
             ->with('inputs',$inputs)
+            ->with('a_diaban',$a_diaban)
+            ->with('a_ts',$a_ts)
+            ->with('a_donvi',$a_donvi)
             ->with('pageTitle','Thông tin giá thuê tài sản công');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

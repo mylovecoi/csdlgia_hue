@@ -16,8 +16,8 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Tìm kiếm hồ sơ phí, lệ phí
+    <h3 class="page-title text-uppercase">
+        Tìm kiếm {{session('admin')['a_chucnang']['giaphilephi'] ?? 'hồ sơ giá tính lệ phí trước bạ'}}
     </h3>
 
     <!-- END PAGE HEADER-->

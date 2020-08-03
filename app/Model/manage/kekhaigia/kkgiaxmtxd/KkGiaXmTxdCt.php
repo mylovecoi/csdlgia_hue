@@ -10,7 +10,7 @@ class KkGiaXmTxdCt extends Model
     protected $fillable = [
         'id',
         'mahs',
-        'maxa',
+        'madv',
         'qccl',
         'tenhhdv',
         'dvt',

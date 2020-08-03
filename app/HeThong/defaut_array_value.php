@@ -174,13 +174,18 @@ function getDiaBan_ApDung($level, $madiaban = null)
 }
 
 //Lấy danh sách địa bàn có chức năng nhập liệu (X; H; T)
-function getDiaBan_NhapLieu($level, $madiaban = null)
+function getDiaBan_NhapLieu($level, $madiaban = null, $all = true)
 {
 //    if (in_array($level, ['SSA', 'T', 'ADMIN'])) {
 //        return array_column(App\Model\system\dsdiaban::wherein('level', ['T', 'H'])->get()->toarray(),
 //            'tendiaban', 'madiaban');
 //    }
-    if (in_array($level, ['SSA', 'T', 'ADMIN'])) {
+    if (in_array($level, ['SSA'])) {
+        return array_column(App\Model\system\dsdiaban::wherein('level', ['T', 'H'])->get()->toarray(),
+            'tendiaban', 'madiaban');
+    }
+
+    if (in_array($level, ['T', 'ADMIN']) && $all == true) {
         return array_column(App\Model\system\dsdiaban::wherein('level', ['T', 'H'])->get()->toarray(),
             'tendiaban', 'madiaban');
     }

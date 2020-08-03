@@ -283,6 +283,7 @@ class CompanyController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $model = TtDnTd::where('madv',$inputs['madv'])->first();
+            $model->ngaychuyen = Carbon::now()->toDateTimeString();
             $model->trangthai = 'CD';
             if($model->save()) {
                 $modeldn = Company::where('madv',$model->madv)
@@ -317,8 +318,7 @@ class CompanyController extends Controller
     }
 
     //xét duyệt thay đổi thông tin doanh nghiệp
-    public function xetduyet(Request $request)
-    {
+    public function xetduyet(Request $request){
         //lấy thông tin đơn vị đễ lấy level
         if (Session::has('admin')) {
             $inputs = $request->all();
@@ -342,16 +342,20 @@ class CompanyController extends Controller
     public function chitiet(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = TtDnTd::where('madv',$inputs['madv'])->first();
-            $modellvcc = TtDnTdCt::where('madv', $model->madv)->get();
-            $m_nganh = DmNganhKd::where('theodoi','TD')->get();
-            $m_nghe = DmNgheKd::where('theodoi','TD')->get();
+            $model = Company::where('madv',$inputs['madv'])->first();
+            $modellvcc = CompanyLvCc::where('madv',$inputs['madv'])->get();
+
+            $modeltttd = TtDnTd::where('madv',$inputs['madv'])->first();
+            $modeltttdct = TtDnTdCt::where('madv',$inputs['madv'])->get();
+            $a_nghe = array_column(DmNgheKd::all()->toArray(),'tennghe','manghe');
+
             return view('manage.kkgia.ttdn.xetduyet.detail')
                 ->with('model', $model)
-                ->with('modellvcc', $modellvcc)
-                ->with('m_nganh', $m_nganh)
-                ->with('m_nghe', $m_nghe)
-                ->with('a_nghe', array_column($m_nghe->toArray(),'tennghe','manghe'))
+                ->with('modellvcc',$modellvcc)
+                ->with('modeltttd', $modeltttd)
+                ->with('modeltttdct',$modeltttdct)
+                ->with('a_nghe',$a_nghe)
+                ->with('a_diaban',array_column(dsdiaban::all()->toarray(), 'tendiaban', 'madiaban'))
                 ->with('pageTitle', 'Thông tin doanh nghiệp');
         } else
             return view('errors.notlogin');

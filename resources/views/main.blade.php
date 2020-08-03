@@ -311,15 +311,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                     session('admin')->chucnang = NHAPLIEU && session('admin')->level == 'DN'
                                     session('admin')->level != 'DN' && session('admin')->chucnang = TONGHOP
                             -->
-                        <!-- 10/05/2020 tạm khóa
-                            @if(session('admin')->level == 'DN')
-                            <li><a href="{{url('thongtindoanhnghiep')}}">Thông tin doanh nghiệp</a></li>
-                            @else
-                            @if(chkPer('csdlmucgiahhdv','kknygia', 'thongtinkknygia', 'hoso', 'index'))
-                                <li><a href="{{url('xetduyettdttdn')}}"> Xét duyệt thay đổi thông tin doanh nghiệp</a></li>
-                                @endif
-                        @endif
-                                -->
+                            <li><a href="{{url('doanhnghiep/danhsach')}}">Thông tin doanh nghiệp</a></li>
+
                             @if(canKkGiaGr('VLXD'))
                                 @if(canKkGiaCt('VLXD','VLXD'))
                                     <li>
@@ -752,13 +745,12 @@ License: You must have a valid license purchased only from themeforest(the above
                     </li>
                 @endif
 
-
-            @if(chkPer('csdlthamdinhgia'))
-                    <li class="heading">
-                        <h3 class="uppercase">{{session('admin')['a_chucnang']['csdlthamdinhgia'] ?? 'CSDL thẩm định giá'}}</h3>
-                    </li>
-                    @include('includes.main.mainthamdinhgia')
-                @endif
+                @if(chkPer('csdlthamdinhgia'))
+                        <li class="heading">
+                            <h3 class="uppercase">{{session('admin')['a_chucnang']['csdlthamdinhgia'] ?? 'CSDL thẩm định giá'}}</h3>
+                        </li>
+                        @include('includes.main.mainthamdinhgia')
+                    @endif
 
                 @if(chkPer('csdlvbqlnn'))
                     <li class="heading">

@@ -35,8 +35,8 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Hồ sơ giá giao dịch bất động sản
+    <h3 class="page-title text-uppercase">
+        {{session('admin')['a_chucnang']['giabatdongsan'] ?? 'hồ sơ giá giao dịch bất động sản'}}
     </h3>
 
     <!-- END PAGE HEADER-->

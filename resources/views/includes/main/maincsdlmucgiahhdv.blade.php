@@ -716,19 +716,13 @@
             <span class="arrow"></span>
         </a>
         <ul class="sub-menu">
-            <!-- chức năng thông tin doanh nghiệp: xây dựng tương tụ như hồ sơ: load thông tin nhưng đơn vị cấp dươi
-                    session('admin')->chucnang = NHAPLIEU && session('admin')->level == 'DN'
-                    session('admin')->level != 'DN' && session('admin')->chucnang = TONGHOP
-            -->
-            <!-- 10/05/2020 tạm khóa
-                            @if(session('admin')->level == 'DN')
-            <li><a href="{{url('thongtindoanhnghiep')}}">Thông tin doanh nghiệp</a></li>
-                            @else
-            @if(chkPer('csdlmucgiahhdv','kknygia', 'thongtinkknygia', 'hoso', 'index'))
-                <li><a href="{{url('xetduyettdttdn')}}"> Xét duyệt thay đổi thông tin doanh nghiệp</a></li>
-                                @endif
+            @if(session('admin')->level == 'SSA')
+                <li><a href="{{url('doanhnghiep/danhsach')}}">Thông tin doanh nghiệp</a></li>
             @endif
-                    -->
+            @if((chkPer('csdlmucgiahhdv','kknygia', 'thongtinkknygia', 'hoso', 'index') && session('admin')->chucnang == 'TONGHOP' )
+                || session('admin')->level == 'SSA')
+                <li><a href="{{url('doanhnghiep/xetduyet')}}"> Xét duyệt thay đổi thông tin doanh nghiệp</a></li>
+            @endif
 
             @if(chkPer('csdlmucgiahhdv','kknygia', 'xmtxd', 'hoso', 'index'))
                 <li>
@@ -1720,8 +1714,6 @@
         </ul>
     </li>
 @endif
-
-
 
 @if(chkPer('csdlmucgiahhdv','taisan', 'giagocvlxd'))
     <li>

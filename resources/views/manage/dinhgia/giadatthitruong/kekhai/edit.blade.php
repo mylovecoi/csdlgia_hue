@@ -29,23 +29,23 @@
             form.find("[name='giathitruong']").val(0);
             form.find("[name='idct']").val(0);
 
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            $.ajax({
-                url: '{{$inputs['url']}}' + '/get_khuvuc',
-                type: 'GET',
-                data: {
-                    _token: CSRF_TOKEN,
-                    madiaban: $('#madiaban').val(),
-                    maxp: $('#maxp').val(),
-                },
-                dataType: 'JSON',
-                success: function (data) {
-                    if (data.status == 'success') {
-                        $('#sel_khuvuc').replaceWith(data.message);
-                    } else
-                        toastr.error("Không có khu vực nào được chọn!", "Lỗi!");
-                }
-            })
+            {{--var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');--}}
+            {{--$.ajax({--}}
+            {{--    url: '{{$inputs['url']}}' + '/get_khuvuc',--}}
+            {{--    type: 'GET',--}}
+            {{--    data: {--}}
+            {{--        _token: CSRF_TOKEN,--}}
+            {{--        madiaban: $('#madiaban').val(),--}}
+            {{--        maxp: $('#maxp').val(),--}}
+            {{--    },--}}
+            {{--    dataType: 'JSON',--}}
+            {{--    success: function (data) {--}}
+            {{--        if (data.status == 'success') {--}}
+            {{--            $('#sel_khuvuc').replaceWith(data.message);--}}
+            {{--        } else--}}
+            {{--            toastr.error("Không có khu vực nào được chọn!", "Lỗi!");--}}
+            {{--    }--}}
+            {{--})--}}
         }
 
         function createmhbog(){
@@ -55,7 +55,7 @@
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    khuvuc: $('#khuvuc').val(),
+                    //khuvuc: $('#khuvuc').val(),
                     mota: $('#mota').val(),
                     dientich: $('#dientich').val(),
                     giaquydinh: $('#giaquydinh').val(),
@@ -93,7 +93,7 @@
                 dataType: 'JSON',
                 success: function (data) {
                     var form = $('#frm_modify');
-                    form.find("[name='khuvuc']").val(data.khuvuc).trigger('change');
+                    //form.find("[name='khuvuc']").val(data.khuvuc).trigger('change');
                     form.find("[name='mota']").val(data.mota);
                     form.find("[name='giathitruong']").val(data.giathitruong);
                     form.find("[name='giaquydinh']").val(data.giaquydinh);
@@ -219,7 +219,7 @@
                                     <thead>
                                     <tr>
                                         <th style="text-align: center" width="5%">STT</th>
-                                        <th style="text-align: center">Khu vực</th>
+{{--                                        <th style="text-align: center">Khu vực</th>--}}
                                         <th style="text-align: center">Mô tả</th>
                                         <th style="text-align: center">Diện tích</th>
                                         <th style="text-align: center">Giá quy</br>định</th>
@@ -231,7 +231,7 @@
                                     @foreach($model_ct as $key=>$tt)
                                         <tr class="odd gradeX">
                                             <td style="text-align: center">{{$key + 1}}</td>
-                                            <td class="active">{{$tt->khuvuc}}</td>
+{{--                                            <td class="active">{{$tt->khuvuc}}</td>--}}
                                             <td class="active">{{$tt->mota}}</td>
                                             <td class="active">{{dinhdangso($tt->dientich)}}</td>
                                             <td class="active">{{dinhdangso($tt->giaquydinh)}}</td>
@@ -281,14 +281,14 @@
                     <h4 class="modal-title">Thông tin vị trí đất đấu giá</h4>
                 </div>
                 <div class="modal-body" id="ttmhbog">
-                    <div class="row" id="sel_khuvuc">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">Khu vực</label>
+{{--                    <div class="row" id="sel_khuvuc">--}}
+{{--                        <div class="col-md-12">--}}
+{{--                            <div class="form-group">--}}
+{{--                                <label class="control-label">Khu vực</label>--}}
 
-                            </div>
-                        </div>
-                    </div>
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
                     <div class="row">
                         <div class="col-md-12">

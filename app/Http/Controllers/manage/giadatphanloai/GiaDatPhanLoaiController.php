@@ -2,17 +2,12 @@
 
 namespace App\Http\Controllers\manage\giadatphanloai;
 
-use App\DiaBanHd;
-use App\District;
 use App\GiaDatDiaBanDm;
 use App\Model\manage\dinhgia\giadatphanloai\GiaDatPhanLoai;
-use App\Model\manage\dinhgia\giadatphanloai\GiaDatPhanLoaiDm;
-use App\Model\manage\dinhgia\giadaugiadat\DauGiaDatCt;
 use App\Model\system\dmdvt;
 use App\Model\system\dsdiaban;
 use App\Model\system\dsdonvi;
 use App\Model\system\view_dsdiaban_donvi;
-use App\Town;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;

@@ -16,8 +16,8 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Tìm kiếm hồ sơ giá đất giao dịch thực tế trên thị trường
+    <h3 class="page-title text-uppercase">
+        Tìm kiếm {{session('admin')['a_chucnang']['giadatthitruong'] ?? 'hồ sơ giá đất giao dịch thực tế trên thị trường'}}
     </h3>
 
     <!-- END PAGE HEADER-->

@@ -15,25 +15,14 @@
     <script>
         jQuery(document).ready(function() {
             TableManaged.init();
-        });
-    </script>
-    <script>
-        jQuery(document).ready(function() {
-            TableManaged.init();
-        });
 
-        $(function(){
+            function changeUrl() {
+                var current_path_url = '{{$inputs['url']}}' + '/?';
+                var url = current_path_url + 'nam=' + $('#nam').val();
+                window.location.href = url;
+            }
             $('#nam').change(function() {
-                var namhs = '&nam=' + $('#nam').val();
-                var maxa = '&maxa=' + $('#maxa').val();
-                var url = '/cbgiathuetaisan?'+namhs + maxa;
-                window.location.href = url;
-            });
-            $('#maxa').change(function() {
-                var namhs = '&nam=' + $('#nam').val();
-                var maxa = '&maxa=' + $('#maxa').val();
-                var url = '/cbgiathuetaisan?'+namhs + maxa;
-                window.location.href = url;
+                changeUrl();
             });
         });
     </script>
@@ -41,98 +30,58 @@
 
 @section('content-cb')
     <div class="container">
-    <div class="row margin-top-10">
-        <div class=" col-sm-12">
-            <!-- BEGIN PORTLET-->
-            <!--div class="portlet light"-->
-                <div class="portlet-title">
-                    <div class="row">
-                    <div class="caption caption-md">
-                        <i class="icon-bar-chart theme-font hide"></i>
-                        <span class="caption-subject theme-font bold uppercase">Giá thuê tài sản công</span>
-                    </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label>Năm hồ sơ</label>
-                                <select name="nam" id="nam" class="form-control">
-                                    @if ($nam_start = intval(date('Y')) - 5 ) @endif
-                                    @if ($nam_stop = intval(date('Y')) + 1) @endif
-                                    @for($i = $nam_start; $i <= $nam_stop; $i++)
-                                        <option value="{{$i}}" {{$i == $inputs['nam'] ? 'selected' : ''}}>Năm {{$i}}</option>
-                                    @endfor
-                                </select>
-                            </div>
+        <div class="row margin-top-10">
+            <div class="col-sm-12">
+                <div class="portlet box">
+                    <div class="portlet-title">
+                        <div class="caption text-uppercase">
+                            <span class="caption-subject theme-font bold uppercase">{{session('congbo')['chucnang']['giathuetscong'] ?? 'Giá thuê tài sản công'}}</span>
                         </div>
+                    </div>
+
+                    <div class="portlet-body form-horizontal">
+                        <div class="row">
                             <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Đơn vị</label>
-                                    <select name="maxa" id="maxa" class="form-control">
-                                        @foreach($modeldv as $dv)
-                                            <option value="{{$dv->maxa}}" {{$dv->maxa == $inputs['maxa'] ? 'selected' : ''}}>{{$dv->tendv}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                    </div>
-
-                </div>
-
-                <table class="table table-striped table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th width="2%" style="text-align: center">STT</th>
-                        <th style="text-align: center">Thông tin hồ sơ</th>
-                        <th style="text-align: center">Tên tài sản</th>
-                        <th style="text-align: center">Số lượng/Diện tích</th>
-                        <th style="text-align: center">Đơn vị tính</th>
-                        <th style="text-align: center">Đơn giá thuê</th>
-                        <th style="text-align: center">Đơn vị thuê</th>
-                        <th style="text-align: center">Hợp đồng số</th>
-                        <th style="text-align: center">Thời hạn</th>
-                        <th style="text-align: center">Thành tiền</th>
-                        <th style="text-align: center">Ghi chú</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @if(count($model) != 0)
-                        @foreach($model as $key=>$tt)
-                            <tr>
-                                <td style="text-align: center">{{$key + 1}}</td>
-                                <td style="text-align: left">{{$tt->thongtinhs}}</td>
-                                <td style="text-align: left">{{$tt->tents}}</td>
-                                <td style="text-align: left">{{dinhdangso($tt->soluong)}}</td>
-                                <td style="text-align: left">{{$tt->dvt}}</td>
-                                <td style="text-align: left">{{dinhdangso($tt->dongiathue)}}</td>
-                                <td style="text-align: left">{{$tt->dvthue}}</td>
-                                <td style="text-align: left">{{$tt->hdthue}}</td>
-                                <td style="text-align: left">{{$tt->ththue}}</td>
-                                <td style="text-align: left">{{dinhdangso($tt->sotienthuenam)}}</td>
-                                <td style="text-align: left">{{$tt->ghichu}}</td>
-                            </tr>
-                        @endforeach
-                    @else
-                        <tr>
-                            <td style="text-align: center" colspan="10">Không tìm thấy thông tin. Bạn cần kiểm tra lại điều kiện tìm kiếm!!!</td>
-                        </tr>
-                    @endif
-                    </tbody>
-                </table>
-                <div class="row">
-                    @if(count($model) != 0)
-                        <div class="col-md-5 col-sm-12">
-                            <div class="dataTables_info" id="sample_3_info" role="status" aria-live="polite">
-                                Hiển thị 1 đến {{$model->count()}} trên {{count($model)}} thông tin
+                                <label style="font-weight: bold">Năm</label>
+                                {!! Form::select('nam', getNam(true), $inputs['nam'], array('id' => 'nam', 'class' => 'form-control'))!!}
                             </div>
                         </div>
-                    @endif
+                        <hr>
+
+                        <table id="sample_3" class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th width="2%" style="text-align: center">STT</th>
+                                <th style="text-align: center">Đơn vị nhập</th>
+                                <th style="text-align: center">Thời điểm</th>
+                                <th style="text-align: center">Tên tài sản</th>
+                                <th style="text-align: center">Thông tin hồ sơ</th>
+                                <th style="text-align: center">Đơn giá</th>
+                                <th style="text-align: center">Số tiền thuê</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            @foreach($model as $key=>$tt)
+                                <tr>
+                                    <td style="text-align: center">{{$key + 1}}</td>
+                                    <td>{{$a_donvi[$tt->madv] ?? ''}}</td>
+                                    <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
+                                    <td>{{$a_ts[$tt->mataisan] ?? ''}}</td>
+                                    <td>{{$tt->thongtinhs}}</td>
+                                    <td style="text-align: center">{{dinhdangso($tt->dongiathue)}}</td>
+                                    <td style="text-align: right">{{dinhdangso($tt->sotienthuenam)}}</td>
+                                </tr>
+                            @endforeach
+
+                            </tbody>
+                        </table>
+
+                        <!--/div-->
+                        <!-- END PORTLET-->
+                    </div>
                 </div>
-            <!--/div-->
-            <!-- END PORTLET-->
+            </div>
         </div>
     </div>
-    </div>
-    @include('includes.script.inputmask-ajax-scripts')
-    @include('includes.script.create-header-scripts')
 @stop

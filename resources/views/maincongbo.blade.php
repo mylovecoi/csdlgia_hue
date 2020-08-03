@@ -199,142 +199,131 @@ License: You must have a valid license purchased only from themeforest(the above
 
                 <ul class="nav navbar-nav">
                     @if(chkCongBo('csdlmucgiahhdv'))
-                        <li class="menu-dropdown classic-menu-dropdown ">
-                        <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">&nbsp;CSDL về mức giá HH-DV<i class="fa fa-angle-down"></i></a>
+                    <li class="menu-dropdown classic-menu-dropdown ">
+                    <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">Hàng hóa, dịch vụ<i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu pull-left">
                             <li class=" dropdown-submenu">
                                 <a href="javascript:;">
                                     <i class="icon-folder"></i>
-                                    &nbsp;Định giá</a>
+                                    &nbsp;Định giá (Phần I)</a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="text-uppercase" href="{{url('cbgiadatpl')}}">{{session('congbo')['chucnang']['giadatpl'] ?? 'Giá đất phân loại'}} </a></li>
-
+                                    <li><a href="{{url('cbgiadatpl')}}">{{session('congbo')['chucnang']['giadatpl'] ?? 'Giá đất phân loại'}} </a></li>
                                     <li><a href="{{url('cbgiathuedatnuoc')}}">{{session('congbo')['chucnang']['giathuedatnuoc'] ?? 'Giá thuê mặt đất-nước'}}</a></li>
                                     <li><a href="{{url('cbgiarung')}}">{{session('congbo')['chucnang']['giarung'] ?? 'Giá rừng'}}</a></li>
                                     <li><a href="{{url('cbthuemuanhaxh')}}">{{session('congbo')['chucnang']['giathuemuanhaxh'] ?? 'Giá thuê mua nhà XH'}}</a></li>
                                     <li><a href="{{url('cbgianuocsachsinhhoat')}}">{{session('congbo')['chucnang']['gianuocsh'] ?? 'Giá nước sạch sinh hoạt'}}</a></li>
-
-                                    <li><a class="text-uppercase" href="{{url('cbgiathuetscong')}}">{{session('congbo')['chucnang']['giathuetscong'] ?? 'Giá thuê tài sản công'}} </a></li>
-                                    <li><a class="text-uppercase" href="{{url('cbgiaspdvci')}}">{{session('congbo')['chucnang']['giaspdvci'] ?? 'Giá sản phẩm, dịch vụ công ích,... đặt hàng'}} </a></li>
-
+                                    <li><a href="{{url('cbgiathuetscong')}}">{{session('congbo')['chucnang']['giathuetscong'] ?? 'Giá thuê tài sản công'}} </a></li>
+                                    <li><a href="{{url('cbgiaspdvci')}}">{{session('congbo')['chucnang']['giaspdvci'] ?? 'Giá sản phẩm, dịch vụ công ích,... đặt hàng'}} </a></li>
                                     <li><a href="{{url('cbgiadvgiaoducdaotao')}}">{{session('congbo')['chucnang']['giadvgddt'] ?? 'Giá dịch vụ GD-ĐT'}}</a></li>
                                     <li><a href="{{url('cbdichvukcb')}}">{{session('congbo')['chucnang']['giadvkcb'] ?? 'Giá dịch vụ KCB'}}</a></li>
-
-                                    <li><a class="text-uppercase" href="{{url('cbtrogiatrocuoc')}}">{{session('congbo')['chucnang']['trogiatrocuoc'] ?? 'Mức trợ giá, trợ cước'}} </a></li>
-                                    <li><a class="text-uppercase" href="{{url('cbgiahhdvcn')}}">{{session('congbo')['chucnang']['giahhdvcn'] ?? 'Giá hàng hóa, dịch vụ khác theo quy định của pháp luật chuyên ngành'}} </a></li>
-{{--                                    <li><a class="text-uppercase" href="{{url('cbgiadatduan')}}">{{session('congbo')['chucnang']['giadatduan'] ?? 'Giá đất cụ thể dự án'}} </a></li>--}}
-{{--                                    <li><a class="text-uppercase" href="{{url('cbdaugiadatts')}}">{{session('congbo')['chucnang']['daugiadatts'] ?? 'Giá đấu giá đất và tài sản gắn liền đất'}} </a></li>--}}
-
-                                    <li><a href="{{url('cbgiathuetainguyen')}}">&nbsp;{{session('congbo')['chucnang']['giathuetn'] ?? 'Giá thuế tài nguyên'}}</a></li>
-
-                                    <li><a class="text-uppercase" href="{{url('cbgiacuocvanchuyen')}}">{{session('congbo')['chucnang']['giacuocvanchuyen'] ?? 'Giá cước vận chuyển'}} </a></li>
-                                    <li><a href="{{url('cbgiathuenhacongvu')}}">{{session('congbo')['chucnang']['giathuenhacongvu'] ?? 'Giá thuê nhà công vụ'}}</a></li>
-{{--                                    <li><a class="text-uppercase" href="{{url('cbbannhataidinhcu')}}">{{session('congbo')['chucnang']['bannhataidinhcu'] ?? 'Giá bán nhà tái định cư'}} </a></li>--}}
-
-                                    <li><a href="{{url('cbgiadatdiaban')}}">{{session('congbo')['chucnang']['giacldat'] ?? 'Giá đất theo địa bàn'}} </a></li>
-                                    <li><a href="{{url('cbgiadaugiadat')}}">{{session('congbo')['chucnang']['giadaugiadat'] ?? 'Giá đấu giá đất'}}</a></li>
-
                                 </ul>
                             </li>
-                            <li><a class="text-uppercase" href="{{url('cbbinhongia')}}"><i class="icon-folder"></i>&nbsp;{{session('congbo')['chucnang']['bog'] ?? 'Bình ổn giá'}}</a></li>
-{{--                            <li><a href="{{url('coming')}}"><i class="icon-folder"></i>&nbsp;Giá HH-DV khác</a></li>--}}
-                            <li><a href="{{url('cbgialephitruocba')}}"><i class="icon-folder"></i>&nbsp;{{session('congbo')['chucnang']['gialephitruocba'] ?? 'Giá lệ phí trước bạ'}}</a></li>
-                            <li><a href="{{url('cbphilephi')}}"><i class="icon-folder"></i>&nbsp;{{session('congbo')['chucnang']['giaphilephi'] ?? 'Phí, lệ phí'}}</a></li>
 
                             <li class=" dropdown-submenu">
                                 <a href="javascript:;">
                                     <i class="icon-folder"></i>
-                                    &nbsp;{{session('congbo')['chucnang']['kknygia'] ?? 'Kê khai - niêm yết giá'}}</a>
+                                    &nbsp;Định giá (Phần II)</a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="text-uppercase" href="{{url('cbgiadatpl')}}">{{session('congbo')['chucnang']['giadatpl'] ?? 'Giá đất phân loại'}} </a></li>
-
-
+                                    <li><a href="{{url('cbtrogiatrocuoc')}}">{{session('congbo')['chucnang']['trogiatrocuoc'] ?? 'Mức trợ giá, trợ cước'}} </a></li>
+                                    <li><a href="{{url('cbgiahhdvcn')}}">{{session('congbo')['chucnang']['giahhdvcn'] ?? 'Giá hàng hóa, dịch vụ khác theo quy định của pháp luật chuyên ngành'}} </a></li>
+                                    {{--                                    <li><a class="text-uppercase" href="{{url('cbgiadatduan')}}">{{session('congbo')['chucnang']['giadatduan'] ?? 'Giá đất cụ thể dự án'}} </a></li>--}}
+                                    {{--                                    <li><a class="text-uppercase" href="{{url('cbdaugiadatts')}}">{{session('congbo')['chucnang']['daugiadatts'] ?? 'Giá đấu giá đất và tài sản gắn liền đất'}} </a></li>--}}
+                                    <li><a href="{{url('cbgiathuetainguyen')}}">&nbsp;{{session('congbo')['chucnang']['giathuetn'] ?? 'Giá thuế tài nguyên'}}</a></li>
+                                    <li><a href="{{url('cbgiacuocvanchuyen')}}">{{session('congbo')['chucnang']['giacuocvanchuyen'] ?? 'Giá cước vận chuyển'}} </a></li>
+                                    <li><a href="{{url('cbgiathuenhacongvu')}}">{{session('congbo')['chucnang']['giathuenhacongvu'] ?? 'Giá thuê nhà công vụ'}}</a></li>
+                                    {{--                                    <li><a class="text-uppercase" href="{{url('cbbannhataidinhcu')}}">{{session('congbo')['chucnang']['bannhataidinhcu'] ?? 'Giá bán nhà tái định cư'}} </a></li>--}}
+                                    <li><a href="{{url('cbgiadatdiaban')}}">{{session('congbo')['chucnang']['giacldat'] ?? 'Giá đất theo địa bàn'}} </a></li>
+                                    <li><a href="{{url('cbgiadaugiadat')}}">{{session('congbo')['chucnang']['giadaugiadat'] ?? 'Giá đấu giá đất'}}</a></li>
                                 </ul>
                             </li>
+                            <!-- Chon năm; chon phân loại mặt hàng -->
+                            <li><a href="{{url('cbbinhongia')}}"><i class="icon-folder"></i>&nbsp;{{session('congbo')['chucnang']['bog'] ?? 'Bình ổn giá'}}</a></li>
+{{--                            <li><a href="{{url('coming')}}"><i class="icon-folder"></i>&nbsp;Giá HH-DV khác</a></li>--}}
 
-                            @if(canGeneral('kkgia','congbo'))
-                                <li class=" dropdown-submenu">
-                                <a href="javascript:;">
-                                    <i class="icon-folder"></i>
-                                    &nbsp;Kê khai - niêm yết giá</a>
-                                <ul class="dropdown-menu">
-                                    <li class="">
-                                        <a href="{{url('cbkkgiavlxd')}}">
-                                            Vật liệu xây dựng</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="{{url('cbkkgiaxmtxd')}}">
-                                            Xi măng, thép xây dựng</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="{{url('cbkkgiadvhdtm')}}">
-                                            Giá Dv hỗ trợ HĐTM tại cửa khẩu</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="{{url('cbkkgiatacn')}}">
-                                            Thức ăn chăn nuôi</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="{{url('cbgiagiay')}}">
-                                            Giấy in, viết, giấy in báo sản xuất trong nước</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="{{url('cbgiasach')}}">
-                                            Sách giáo khoa</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="{{url('cbgiaetanol')}}">
-                                            Etanol nhiên liệu không biến tính, khí tự nhiên hóa lỏng(LNG); khí thiên nhiên nén (CNG)</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            @endif
+                            <li><a href="{{url('cbgialephitruocba')}}"><i class="icon-folder"></i>&nbsp;{{session('congbo')['chucnang']['gialephitruocba'] ?? 'Giá lệ phí trước bạ'}}</a></li>
+                            <li><a href="{{url('cbphilephi')}}"><i class="icon-folder"></i>&nbsp;{{session('congbo')['chucnang']['giaphilephi'] ?? 'Phí, lệ phí'}}</a></li>
                         </ul>
                     </li>
                     @endif
 
-                    {{--@if(chkCongBo('csdlthamdinhgia'))--}}
-                        <li class="menu-dropdown classic-menu-dropdown">
-                            <a data-hover="megamenu-dropdown" data-close-others="true" href="{{url('cbthamdinhgia')}}">&nbsp;CSDL Thẩm định giá</a>
-                        </li>
-                    {{--@endif--}}
-
-                    {{--@if(chkCongBo('csdlvbqlnn1233523'))--}}
-                        <li class="menu-dropdown classic-menu-dropdown">
-                        <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">&nbsp;Văn bản QLNN về giá, BCTH <i class="fa fa-angle-down"></i></a>
+                    <li class="menu-dropdown classic-menu-dropdown">
+                        <a data-hover="megamenu-dropdown" data-close-others="true" href="javascript:;">Kê khai, niêm yết giá I<i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu pull-left">
-                            @if(canGeneral('vbgia','congbo'))
-                                <li><a href="{{url('cbvanbanqlnnvegia')}}"><i class="icon-folder"></i> &nbsp;Văn bản QLNN về giá, phí lệ phí</a></li>
-                            @endif
-                            @if(canGeneral('bcthvegia','congbo'))
-                                @if ($modelbcthvegia = \App\Model\manage\vanbanplvegia\baocaoth\BcThVeGiaDm::all())
-                                    @endif
-                                @foreach($modelbcthvegia as $bcthvegia)
-                                    <li><a href="{{url('coming')}}"><i class="icon-folder"></i> &nbsp;{{$bcthvegia->mota}}</a></li>
-                                @endforeach
-                            @endif
+                            {{--                                    <li><a class="text-uppercase" href="{{url('cbvlxd')}}">{{session('congbo')['chucnang']['vlxd'] ?? 'Vật liệu xây dựng'}} </a></li>--}}
+                            {{--                                    <li><a class="text-uppercase" href="{{url('cbdvhdtmck')}}">{{session('congbo')['chucnang']['dvhdtmck'] ?? 'Giá dịch vụ hỗ trợ hoạt động thương mại tại cửa khẩu'}} </a></li>--}}
+                            <li><a class="text-uppercase" href="{{url('cbxmtxd')}}">{{session('congbo')['chucnang']['xmtxd'] ?? 'Xi măng, thép xây dựng'}} </a></li>
+                            <li><a class="text-uppercase" href="{{url('cbthan')}}">{{session('congbo')['chucnang']['than'] ?? 'Giá than'}} </a></li>
+                            <li><a class="text-uppercase" href="{{url('cbtacn')}}">{{session('congbo')['chucnang']['tacn'] ?? 'Thức ăn chăn nuôi'}} </a></li>
+                            <li><a class="text-uppercase" href="{{url('cbgiay')}}">{{session('congbo')['chucnang']['giay'] ?? 'Giấy in, viết (dạng cuộn), giấy in báo'}} </a></li>
+                            <li><a class="text-uppercase" href="{{url('cbsach')}}">{{session('congbo')['chucnang']['sach'] ?? 'Sách giáo khoa'}} </a></li>
+                            <li><a class="text-uppercase" href="{{url('cbetanol')}}">{{session('congbo')['chucnang']['etanol'] ?? 'Etanol, khí tự nhiên hóa lỏng(LNG); khí thiên nhiên nén (CNG)'}} </a></li>
+                            <li><a class="text-uppercase" href="{{url('cbtpcnte6t')}}">{{session('congbo')['chucnang']['tpcnte6t'] ?? 'Thực phẩm chức năng cho trẻ em dưới 6 tuổi'}} </a></li>
+                            <li><a class="text-uppercase" href="{{url('cbxemay')}}">{{session('congbo')['chucnang']['xemay'] ?? 'Giá xe máy'}} </a></li>
+                            <li><a class="text-uppercase" href="{{url('cboto')}}">{{session('congbo')['chucnang']['oto'] ?? 'Giá ô tô'}} </a></li>
+
+                            {{--                                    <li><a class="text-uppercase" href="{{url('cbdvcb')}}">{{session('congbo')['chucnang']['dvcb'] ?? 'Giá dịch vụ tại cảng biển, cảng hàng không'}} </a></li>--}}
+                            {{--                                    <li><a class="text-uppercase" href="{{url('cbkcbtn')}}">{{session('congbo')['chucnang']['kcbtn'] ?? 'Dịch vụ khám chữa bệnh cho người tại cơ sở khám chữa bệnh tư nhân; khám chữa bệnh theo yêu cầu tại cơ sở khám chữa bệnh của nhà nước'}} </a></li>--}}
+
                         </ul>
                     </li>
-                    {{--@endif--}}
 
-                    {{--@if(chkCongBo('csdlttpvctqlnn21412421'))--}}
-                        <li class="menu-dropdown classic-menu-dropdown ">
-                        <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">&nbsp;Thông tin QLNN về giá <i class="fa fa-angle-down"></i></a>
+                    <li class="menu-dropdown classic-menu-dropdown">
+                        <a data-hover="megamenu-dropdown" data-close-others="true" href="javascript:;">Kê khai, niêm yết giá II<i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu pull-left">
-                            @if($ttpvctqlnn = \App\Model\manage\ttpvctqlnn\TtPvCtQlNnDm::all())@endif
-                            @foreach($ttpvctqlnn as $ttpv)
-                                <li>
-                                    <a href="{{url('coming')}}"><i class="icon-folder"></i> {{$ttpv->mota}}</span></a>
-                                </li>
-                            @endforeach
+                            <li><a class="text-uppercase" href="{{url('cbdvlt')}}">{{session('congbo')['chucnang']['dvlt'] ?? 'Dịch vụ lưu trú'}} </a></li>
+                            <li><a class="text-uppercase" href="{{url('cbcahue')}}">{{session('congbo')['chucnang']['cahue'] ?? 'Giá dịch vụ xem ca Huế trên sông Hương'}} </a></li>
+                            <li><a class="text-uppercase" href="{{url('cbhocphilx')}}">{{session('congbo')['chucnang']['hocphilx'] ?? 'Mức thu học phí đào tạo lái xe cơ giới đường bộ'}} </a></li>
+                            <li><a class="text-uppercase" href="{{url('cbcatsan')}}">{{session('congbo')['chucnang']['catsan'] ?? 'Vật liệu xây dựng: cát, sạn'}} </a></li>
+                            <li><a class="text-uppercase" href="{{url('cbdatsanlap')}}">{{session('congbo')['chucnang']['datsanlap'] ?? 'Vật liệu xây dựng: đất san lấp'}} </a></li>
+                            <li><a class="text-uppercase" href="{{url('cbdaxaydung')}}">{{session('congbo')['chucnang']['daxaydung'] ?? 'Vật liệu xây dựng: đá xây dựng'}} </a></li>
+
+                            {{--                                    <li><a class="text-uppercase" href="{{url('cbdlbb')}}">{{session('congbo')['chucnang']['dlbb'] ?? 'Giá dịch vụ du lịch tại bãi biển'}} </a></li>--}}
+                            {{--                                    <li><a class="text-uppercase" href="{{url('cbtqkdl')}}">{{session('congbo')['chucnang']['tqkdl'] ?? 'Giá vé tham quan tại các khu du lịch'}} </a></li>--}}
+
                         </ul>
+                    </li>
+
+                    {{--@if(chkCongBo('csdlthamdinhgia'))--}}
+                    <li class="menu-dropdown classic-menu-dropdown">
+                        <a data-hover="megamenu-dropdown" data-close-others="true" href="{{url('cbthamdinhgia')}}">Thẩm định giá</a>
                     </li>
                     {{--@endif--}}
 
                     <li class="menu-dropdown classic-menu-dropdown ">
+                        <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">Văn bản QLNN<i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu pull-left">
+                            <li class=" dropdown-submenu">
+                                <a href="javascript:;">
+                                    <i class="icon-folder"></i>
+                                    &nbsp;Văn bản QLNN về giá, phí lệ phí</a>
+                                <ul class="dropdown-menu">
+                                    <?php $modelbcthvegia = \App\Model\manage\vanbanplvegia\baocaoth\BcThVeGiaDm::all(); ?>
+                                    @foreach($modelbcthvegia as $bcthvegia)
+                                        <li><a href="{{url('coming')}}"><i class="icon-folder"></i> &nbsp;{{$bcthvegia->mota}}</a></li>
+                                    @endforeach
+                                </ul>
+                            </li>
+
+                            <li class=" dropdown-submenu">
+                                <a href="javascript:;">
+                                    <i class="icon-folder"></i>
+                                    &nbsp;Thông tin QLNN về giá</a>
+                                <ul class="dropdown-menu">
+                                    <?php $ttpvctqlnn = \App\Model\manage\ttpvctqlnn\TtPvCtQlNnDm::all(); ?>
+                                    @foreach($ttpvctqlnn as $ttpv)
+                                        <li>
+                                            <a href="{{url('coming')}}"><i class="icon-folder"></i> {{$ttpv->mota}}</span></a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-dropdown classic-menu-dropdown ">
                         <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">&nbsp;Hỗ trợ<i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu pull-left">
-                            <li><a href="{{url('/danhsachusertaphuan')}}"><i class="icon-folder"></i> &nbsp;Danh sách tài khoản tập huấn</a></li>
+                            <li><a href="{{url('/danhsachusertaphuan')}}"><i class="icon-folder"></i>&nbsp;Danh sách tài khoản tập huấn</a></li>
                             <li><a href="{{url('/thongtinhotro')}}" target="_blank"><i class="icon-folder"></i> &nbsp;Thông tin hỗ trợ</a></li>
                         </ul>
                     </li>

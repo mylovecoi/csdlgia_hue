@@ -1,17 +1,15 @@
 @extends('main')
 
 @section('custom-style')
-
+    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/select2/select2.css')}}"/>
 @stop
 
 
 @section('custom-script')
-
+    <script type="text/javascript" src="{{url('assets/global/plugins/select2/select2.min.js') }}"></script>
 @stop
 
 @section('content')
-
-
     <h3 class="page-title">
        Báo cáo tổng hợp<small> giá nước sạch sinh hoạt</small>
     </h3>

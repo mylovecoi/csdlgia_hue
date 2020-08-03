@@ -24,6 +24,7 @@ class GiaDatDiaBanController extends Controller
             $inputs = $request->all();
             $inputs['url'] = '/giacldat';
             //lấy địa bàn
+            //dd(session('admin'));
             $a_diaban = getDiaBan_XaHuyen(session('admin')->level,session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             $m_donvi = getDonViNhapLieu(session('admin')->level);
@@ -31,7 +32,7 @@ class GiaDatDiaBanController extends Controller
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $inputs['nam'] = $inputs['nam'] ?? 'all';
-
+            //dd($a_diaban);
             //lấy thông tin đơn vị
             $model = GiaDatDiaBan::where('madiaban', $inputs['madiaban']);
             if ($inputs['nam'] != 'all')
@@ -70,15 +71,17 @@ class GiaDatDiaBanController extends Controller
                 $model->madiaban = $inputs['madiaban'];
                 $model->save();
                 $modelct = nullValue();
+                $a_khuvuc = nullValue();
             }else{
                 $modelct = GiaDatDiaBanCt::where('mahs',$model->mahs)->get();
+                $a_khuvuc = array_column($modelct->toarray(),'khuvuc', 'khuvuc');
             }
 
             $a_diaban = getDiaBan_XaHuyen(session('admin')->level,session('admin')->madiaban);
             $a_loaidat = array_column(GiaDatDiaBanDm::all()->toArray(),'loaidat','maloaidat');
             $a_xp = array_column(dsxaphuong::where('madiaban',$model->madiaban)->get()->toarray(),'tenxp', 'maxp');
             $a_qd = array_column(TtGiaDatDiaBan::where('soqd', $model->soqd)->get()->toarray(),'mota', 'soqd');
-            $a_khuvuc = array_column($modelct->toarray(),'khuvuc', 'khuvuc');
+
             return view('manage.dinhgia.giadatdiaban.kekhai.edit')
                 ->with('model', $model)
                 ->with('modelct', $modelct)

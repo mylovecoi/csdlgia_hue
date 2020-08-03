@@ -349,6 +349,7 @@ class GiaThueTsCongController extends Controller
             $inputs['nam'] = $inputs['nam'] ?? 'all';
             //lấy thông tin đơn vị
             $model = $this->getHoSo($inputs);
+            //dd($model);
             $m_donvi = dsdonvi::where('madv', $inputs['madv'])->first();
             $m_diaban = dsdiaban::wherein('madiaban',array_column($model->toarray(),'madiaban'))->get();
             $a_ts = array_column(GiaTaiSanCongDm::all()->toArray(),'tentaisan','mataisan');
@@ -367,6 +368,7 @@ class GiaThueTsCongController extends Controller
     {
         $m_donvi = view_dsdiaban_donvi::where('madv', $inputs['madv'])->first();
         $inputs['level'] = $m_donvi->chucnang != 'NHAPLIEU' ? $m_donvi->level : 'NHAPLIEU';
+
         switch ($inputs['level']) {
             case 'H':
             {
@@ -397,6 +399,8 @@ class GiaThueTsCongController extends Controller
                 break;
             }
         }
+        //dd($inputs);
+        //dd($model->toSql());
         return $model->get();
     }
 

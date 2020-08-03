@@ -133,13 +133,8 @@
                             <div class="col-md-12">
                                 <label class="control-label">Đơn vị nhập liệu</label>
                                 <select class="form-control select2me" name="madv">
-                                    @foreach($a_diaban as $key=>$val)
-                                        <optgroup label="{{$val}}">
-                                            <?php $donvi = $m_donvi->where('madiaban',$key); ?>
-                                            @foreach($donvi as $ct)
-                                                <option {{$ct->madv == $inputs['madv'] ? "selected":""}} value="{{$ct->madv}}">{{$ct->tendv}}</option>
-                                            @endforeach
-                                        </optgroup>
+                                    @foreach($m_donvi as $ct)
+                                        <option  value="{{$ct->madv}}">{{$ct->tendv}}</option>
                                     @endforeach
                                 </select>
                             </div>

@@ -145,7 +145,7 @@
             <div class="modal-content">
                 {!! Form::open(['url'=>$inputs['url'].'/danhmuc', 'method'=>'post','id' => 'frm_create'])!!}
                 <input type="hidden" name="mataisan" />
-                <input type="hidden" name="phanloai" value="{{$inputs['phanloai']}}" />
+{{--                <input type="hidden" name="phanloai" value="{{$inputs['phanloai']}}" />--}}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Thông tin tài sản công</h4>
@@ -228,7 +228,7 @@
                     <h4 class="modal-title">Đồng ý xóa?</h4>
                 </div>
                 <input type="hidden" name="mataisan" id="mataisan">
-                <input type="hidden" name="phanloai" value="{{$inputs['phanloai']}}" />
+{{--                <input type="hidden" name="phanloai" value="{{$inputs['phanloai']}}" />--}}
                 <div class="modal-footer">
                     <button type="submit" class="btn blue" onclick="ClickDelete()">Đồng ý</button>
                     <button type="button" class="btn default" data-dismiss="modal">Hủy</button>

@@ -36,6 +36,11 @@ class GiaNuocShBcController extends Controller
         if(Session::has('admin')){
             $inputs = $request->all();
             $model = GiaNuocSachShDm::all();
+            if( !isset($inputs['mahslk']) || !isset($inputs['mahsbc'])) {
+                return view('errors.noperm')
+                    ->with('url', '')
+                    ->with('message', 'Đơn vị báo cáo chưa có hồ sơ kê khai.');
+            }
             foreach($model as $ct){
                 $modellk = GiaNuocShCt::where('mahs',$inputs['mahslk'])
                     ->where('doituongsd',$ct->doituongsd)
@@ -43,8 +48,8 @@ class GiaNuocShBcController extends Controller
                 $modelbc = GiaNuocShCt::where('mahs',$inputs['mahsbc'])
                     ->where('doituongsd',$ct->doituongsd)
                     ->first();
-                $ct->gialk = $modellk->giachuathue;
-                $ct->giabc = $modelbc->giachuathue;
+                $ct->gialk = $modellk->giachuathue ?? 0;
+                $ct->giabc = $modelbc->giachuathue ?? 0;
             }
             $ttlk = GiaNuocSh::where('mahs',$inputs['mahslk'])->first();
             $ttbc = GiaNuocSh::where('mahs',$inputs['mahsbc'])->first();
@@ -59,5 +64,43 @@ class GiaNuocShBcController extends Controller
                 ->with('pageTitle','Báo cáo giá nước sạch sinh hoạt');
         }else
             return view('errors.notlogin');
+    }
+
+    function getBCLK(Request $request){
+        if (!Session::has('admin')) {
+            $result = array(
+                'status' => 'fail',
+                'message' => 'permission denied',
+            );
+            die(json_encode($result));
+        }
+
+        $inputs = $request->all();
+        $modelhs = GiaNuocSh::where('madv', $inputs['madv'])->get();
+
+        $result = array(
+            'status' => 'success',
+            'message' => '',
+        );
+        $result['message'] = '<div id="row_bclk" class="row">';
+        $result['message'] .= '<div class="col-md-12">';
+        $result['message'] .= '<label><b>Báo cáo liền kề</b></label>';
+        $result['message'] .= '<select name="mahslk" id="mahslk" class="form-control">';
+        foreach ($modelhs as $hslk) {
+            $result['message'] .= '<option value="' . $hslk->mahs . '">Số ' . $hslk->soqd . ' - Ngày ' . getDayVn($hslk->ngayapdung) . ' - ' . $hslk->mota . '</option>';
+        }
+        $result['message'] .= '</select>';
+        $result['message'] .= '</div>';
+
+        $result['message'] .= '<div class="col-md-12">';
+        $result['message'] .= '<label><b>Báo cáo so sánh</b></label>';
+        $result['message'] .= '<select name="mahsbc" id="mahsbc" class="form-control">';
+        foreach ($modelhs as $hslk) {
+            $result['message'] .= '<option value="' . $hslk->mahs . '">Số ' . $hslk->soqd . ' - Ngày ' . getDayVn($hslk->ngayapdung) . ' - ' . $hslk->mota . '</option>';
+        }
+        $result['message'] .= '</select>';
+        $result['message'] .= '</div>';
+        $result['message'] .= '</div>';
+        die(json_encode($result));
     }
 }

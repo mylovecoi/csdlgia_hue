@@ -5,7 +5,7 @@ Route::group(['prefix'=>'doanhnghiep'],function (){
     Route::get('danhsach','system\company\CompanyController@ttdn');
     Route::get('modify','system\company\CompanyController@ttdnedit');
     Route::post('store','system\company\CompanyController@ttdnupdate');
-    Route::post('thaydoi','system\company\CompanyController@thaydoi');
+    Route::get('thaydoi','system\company\CompanyController@thaydoi');
     Route::get('chuyenhs','system\company\CompanyController@ttdnchuyen');
 
     Route::get('store_ct','manage\kekhaigia\TtDnTdCtController@store');

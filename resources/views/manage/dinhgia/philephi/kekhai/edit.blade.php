@@ -122,8 +122,8 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Thông tin hồ sơ phí, lệ phí<small> chỉnh sửa</small>
+    <h3 class="page-title text-uppercase">
+        {{session('admin')['a_chucnang']['giaphilephi'] ?? 'hồ sơ giá tính lệ phí trước bạ'}}<small> chỉnh sửa</small>
     </h3>
     <!-- END PAGE HEADER-->
 
@@ -136,7 +136,7 @@
                 </div-->
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
-                    {!! Form::model($model, ['method' => 'post', 'url'=>$inputs['url'].'/modify', 'class'=>'horizontal-form','id'=>'update_philephi']) !!}
+                    {!! Form::model($model, ['method' => 'post', 'url'=>$inputs['url'].'/modify', 'class'=>'horizontal-form','id'=>'update_philephi', 'files'=>true]) !!}
                         <meta name="csrf-token" content="{{ csrf_token() }}" />
                         <input type="hidden" name="mahs" id="mahs" value="{{$model->mahs}}">
                         <input type="hidden" name="madv" id="madv" value="{{$model->madv}}">
@@ -185,6 +185,18 @@
                                     <div class="form-group">
                                         <label class="control-label">Ghi chú</label>
                                         {!!Form::text('ghichu',null, array('id' => 'ghichu','class' => 'form-control'))!!}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">File đính kèm</label>
+                                        @if($model->ipf1 != '')
+                                            <a href="{{url('/data/giaphilephi/'.$model->ipf1)}}" target="_blank">{{$model->ipf1}}</a>
+                                        @endif
+                                        <input name="ipf1" id="ipf1" type="file">
                                     </div>
                                 </div>
                             </div>

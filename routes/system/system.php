@@ -2,6 +2,7 @@
 Route::resource('general','GeneralConfigsController');
 Route::get('setting','GeneralConfigsController@setting');
 Route::post('setting','GeneralConfigsController@updatesetting');
+Route::post('setting_gr','GeneralConfigsController@updatesetting_gr');
 
 Route::group(['prefix'=>'diaban'], function(){
     Route::get('danhsach','system\dsdiabanController@index');

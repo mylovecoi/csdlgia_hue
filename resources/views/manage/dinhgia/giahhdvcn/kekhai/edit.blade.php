@@ -108,8 +108,8 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Hồ sơ mức trợ giá, trợ cước
+    <h3 class="page-title text-uppercase">
+        {{session('admin')['a_chucnang']['giahhdvcn'] ?? 'Hồ sơ giá hàng hóa, dịch vụ khác theo quy định của pháp luật chuyên ngành'}}
     </h3>
     <!-- END PAGE HEADER-->
 

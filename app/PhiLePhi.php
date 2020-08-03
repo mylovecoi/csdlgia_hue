@@ -28,6 +28,11 @@ class PhiLePhi extends Model
         'lydo',
         'thongtin',
         'trangthai',
+        'ipf1',
+'ipf2',
+'ipf3',
+'ipf4',
+'ipf5',
 //Thông tin Hô sơ khi gửi đơn vị cấp trên (Cấp H, T tùy theo level đơn vị khởi tạo)
         'thoidiem_h',
         'macqcq_h',

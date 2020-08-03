@@ -16,8 +16,8 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Tìm kiếm<small> thông tin hồ sơ thuê tài sản công</small>
+    <h3 class="page-title text-uppercase">
+        Tìm kiếm {{session('admin')['a_chucnang']['giathuetscong'] ?? 'hồ sơ thuê tài sản công'}}
     </h3>
 
     <!-- END PAGE HEADER-->
