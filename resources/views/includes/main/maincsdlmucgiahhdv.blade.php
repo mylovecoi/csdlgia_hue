@@ -716,13 +716,13 @@
             <span class="arrow"></span>
         </a>
         <ul class="sub-menu">
-            @if(session('admin')->level == 'SSA')
+            {{--@if(session('admin')->level == 'SSA')
                 <li><a href="{{url('doanhnghiep/danhsach')}}">Thông tin doanh nghiệp</a></li>
             @endif
             @if((chkPer('csdlmucgiahhdv','kknygia', 'thongtinkknygia', 'hoso', 'index') && session('admin')->chucnang == 'TONGHOP' )
                 || session('admin')->level == 'SSA')
                 <li><a href="{{url('doanhnghiep/xetduyet')}}"> Xét duyệt thay đổi thông tin doanh nghiệp</a></li>
-            @endif
+            @endif--}}
 
             @if(chkPer('csdlmucgiahhdv','kknygia', 'xmtxd', 'hoso', 'index'))
                 <li>
