@@ -14,17 +14,19 @@ class CreateKkgiavlxdctTable extends Migration
     public function up()
     {
         Schema::create('kkgiavlxdct', function (Blueprint $table) {
+            $table->string('tennhom')->nullable();
             $table->increments('id');
             $table->string('mahs')->nullable();
             $table->string('maxa')->nullable();
-            $table->string('tennhom')->nullable();
-            $table->string('tenhhdv')->nullable();
+            $table->string('madv')->nullable();
+            $table->text('tendvcu')->nullable();
             $table->string('qccl')->nullable();
             $table->string('dvt')->nullable();
-            $table->string('gialk')->nullable();
-            $table->string('gia')->nullable();
+            $table->double('gialk')->nullable();
+            $table->double('giakk')->nullable();
             $table->string('ghichu')->nullable();
             $table->string('trangthai')->nullable();
+            $table->string('thuevat')->nullable();
             $table->timestamps();
         });
     }

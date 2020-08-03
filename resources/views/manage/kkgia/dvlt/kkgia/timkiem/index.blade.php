@@ -64,7 +64,7 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <div class="actions">
-                        <a href="{{url('timkiemkkgiadvlt/printf?&tencskd='.$inputs['tencskd'].'&tenhhdv='.$inputs['tenhhdv'])}}" class="btn btn-default btn-sm" target="_blank">
+                        <a href="{{url('timkiemkkgiadvlt/printf?&nam='.$inputs['nam'].'&tencskd='.$inputs['tencskd'].'&tenhhdv='.$inputs['tenhhdv'])}}" class="btn btn-default btn-sm" target="_blank">
                             <i class="fa fa-print"></i> In trang </a>
                     </div>
                 </div>

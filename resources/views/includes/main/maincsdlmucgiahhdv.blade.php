@@ -1043,28 +1043,22 @@
 
 
 
-            @if(canKkGiaGr('DVCB'))
-                @if(canKkGiaCt('DVCB','DVCB'))
-                    <li>
-                        <a href="javascript:;">
-                            <span class="title">Giá dịch vụ tại cảng biển, cảng hàng không</span>
-                            <span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            @if(session('admin')->level == 'DN')
-                                <li><a href="{{url('kekhaigiadvcang')}}">Giá kê khai</a> </li>
-                            @endif
-                            @if(session('admin')->level == 'X' || session('admin')->level == 'T' || session('admin')->level == 'H')
-                                <li><a href="{{url('thongtindndvcang')}}">Giá kê khai </a> </li>
-                                <li><a href="{{url('xetduyetgiadvcang')}}">Thông tin hồ sơ xét duyệt</a></li>
-                                <li><a href="{{url('timkiemgiadvcang')}}">Tìm kiếm thông tin</a> </li>
-                                <li><a href="{{url('baocaokkgiadvcang')}}">Báo cáo thống kê</a></li>
-                            @endif
-                        </ul>
-                    </li>
-                @endif
-                {{--Ok--}}
-            @endif
+            {{--@if(chkPer('csdlmucgiahhdv','kknygia', 'dvcb', 'hoso', 'index'))
+                <li>
+                    <a href="javascript:;">
+                        <span class="title">Giá dịch vụ tại cảng biển, cảng hàng không</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        @if(session('admin')->level == 'SSA')
+                            <li><a href="{{url('kekhaigiadvcang')}}">Giá kê khai</a> </li>
+                        @endif
+                        <li><a href="{{url('xetduyetgiadvcang')}}">Thông tin hồ sơ xét duyệt</a></li>
+                        <li><a href="{{url('timkiemgiadvcang')}}">Tìm kiếm thông tin</a> </li>
+                        <li><a href="{{url('baocaokkgiadvcang')}}">Báo cáo thống kê</a></li>
+                    </ul>
+                </li>
+            @endif--}}
 
             @if(canKkGiaGr('KCBTN'))
                 @if(canKkGiaCt('KCBTN','KCBTN'))
@@ -1316,6 +1310,11 @@
                 @if(can('thgiathitruong','baocao'))
                     <li>
                         <a href="{{url('baocaogiathitruong')}}">Báo cáo tổng hợp</a>
+                    </li>
+                @endif
+                @if(can())
+                    <li>
+                        <a href=""></a>
                     </li>
                 @endif
             </ul>

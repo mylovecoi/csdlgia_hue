@@ -16,7 +16,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Họ và tên người nộp</label>
-                            <input type="text" id="nguoinop" name="nguoinop" class="form-control">
+                            <input type="text" id="ttnguoinop" name="ttnguoinop" class="form-control">
                         </div>
                     </div>
                     <div class="col-md-6">

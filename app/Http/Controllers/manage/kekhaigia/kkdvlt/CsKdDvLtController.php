@@ -30,7 +30,6 @@ class CsKdDvLtController extends Controller
                 ->with('a_diaban', array_column($m_diaban->toarray(),'tendiaban', 'madiaban'))
                 ->with('inputs', $inputs)
                 ->with('pageTitle', 'Danh sách cơ sở kinh doanh dịch vụ lưu trú');
-
         } else
             return view('errors.notlogin');
     }
@@ -51,7 +50,7 @@ class CsKdDvLtController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['macskd'] = getdate()[0];
-            //dd($inputs);
+            /*//dd($inputs);*/
             if (isset($inputs['avatar'])) {
                 $avatar = $request->file('avatar');
                 $inputs['avatar'] = $inputs['macskd'] . '.' . $avatar->getClientOriginalExtension();

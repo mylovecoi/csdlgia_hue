@@ -55,7 +55,7 @@ class GiaDvCangController extends Controller
                     ->with('modeldv',$modeldv)
                     ->with('inputs',$inputs)
                     ->with('ttql',$ttql)
-                    ->with('pageTitle', 'Danh sách doanh nghiệp kê khai giá dịch vụ cảng biển');
+                    ->with('pageTitle', 'Danh sách doanh nghiệp kê khai giá dịch vụ cảng biển.');
 
             }else{
                 return view('errors.perm');

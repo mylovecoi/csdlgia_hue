@@ -17,6 +17,7 @@ class CreateKkgiagiayctTable extends Migration
             $table->increments('id');
             $table->string('mahs')->nullable();
             $table->string('maxa')->nullable();
+            $table->string('madv')->nullable();
             $table->text('tendvcu')->nullable();
             $table->string('qccl')->nullable();
             $table->string('dvt')->nullable();

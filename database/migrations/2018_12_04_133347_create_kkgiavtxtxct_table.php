@@ -17,6 +17,7 @@ class CreateKkgiavtxtxctTable extends Migration
             $table->increments('id');
             $table->string('mahs')->nullable();
             $table->string('maxa')->nullable();
+            $table->string('madv')->nullable();
             $table->string('madichvu')->nullable();
             $table->string('loaixe')->nullable();
             $table->text('tendvcu')->nullable();

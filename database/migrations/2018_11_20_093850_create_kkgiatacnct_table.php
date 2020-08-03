@@ -15,17 +15,19 @@ class CreateKkgiatacnctTable extends Migration
     {
         Schema::create('kkgiatacnct', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('mahs')->nullable();
             $table->string('maxa')->nullable();
-            $table->string('mahuyen')->nullable();
+            $table->string('madv')->nullable();
             $table->string('mahs')->nullable();
             $table->text('tendvcu')->nullable();
             $table->string('qccl')->nullable();
             $table->string('dvt')->nullable();
             $table->double('gialk')->nullable();
             $table->double('giakk')->nullable();
-            $table->text('ghichu')->nullable();
+            $table->string('ghichu')->nullable();
             $table->string('trangthai')->nullable();
             $table->string('thuevat')->nullable();
+            $table->timestamps();
 
 //            $table->string('cpnvlttlk')->nullable();
 //            $table->string('cpncttlk')->nullable();

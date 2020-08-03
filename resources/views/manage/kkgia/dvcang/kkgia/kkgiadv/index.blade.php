@@ -263,6 +263,7 @@
                     </div>
                     <input type="hidden" name="idchuyen" id="idchuyen">
                     <div class="modal-footer">
+
                         <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
                         <button type="submit" class="btn blue" onclick="ClickChuyen()" id="submitChuyen">Đồng ý</button>
 
@@ -312,7 +313,6 @@
                     <div class="modal-footer">
                         <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
                         <button type="submit" class="btn blue" onclick="ClickCopy()">Đồng ý</button>
-
                     </div>
                     {!! Form::close() !!}
                     </div>

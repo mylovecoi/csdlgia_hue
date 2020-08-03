@@ -16,6 +16,7 @@ class CreateKkgiavtxbctTable extends Migration
         Schema::create('kkgiavtxbct', function (Blueprint $table) {
             $table->increments('id');
             $table->string('mahs')->nullable();
+            $table->string('madv')->nullable();
             $table->text('tendvcu')->nullable();
             $table->string('qccl')->nullable();
             $table->string('dvt')->nullable();

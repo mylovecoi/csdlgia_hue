@@ -391,7 +391,7 @@ class KkGiaDvLtXdController extends Controller
             return view('manage.kkgia.dvlt.kkgia.timkiem.index')
                 ->with('model', $model)
                 ->with('inputs',$inputs)
-                ->with('pageTitle', 'Tìm kiếm thông tin hồ sơ kê khai giá dịch vụ lưu trú');
+                ->with('pageTitle', 'Tìm kiếm thông tin hồ sơ kê khai giá dịch vụ lưu trú.');
         }else
             return view('errors.notlogin');
     }
@@ -424,7 +424,7 @@ class KkGiaDvLtXdController extends Controller
             return view('manage.kkgia.dvlt.kkgia.timkiem.printf')
                 ->with('model', $model)
                 ->with('inputs',$inputs)
-                ->with('pageTitle', 'Tìm kiếm thông tin hồ sơ kê khai giá dịch vụ lưu trú');
+                ->with('pageTitle', 'Tìm kiếm thông tin hồ sơ kê khai giá dịch vụ lưu trú.');
         }else
             return view('errors.notlogin');
     }
