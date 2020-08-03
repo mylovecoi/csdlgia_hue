@@ -15,7 +15,7 @@ class CreateKkgiaxmtxdctdfTable extends Migration
     {
         Schema::create('kkgiaxmtxdctdf', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('maxa')->nullable();
+            $table->string('madv')->nullable();
             $table->string('mahuyen')->nullable();
             $table->string('ten')->nullable();
             $table->string('qccl')->nullable();

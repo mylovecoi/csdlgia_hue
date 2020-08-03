@@ -182,4 +182,35 @@ class GeneralConfigsController extends Controller
             return view('errors.notlogin');
     }
 
+    public function updatesetting_gr(Request $request){
+        if (Session::has('admin')) {
+            if(session('admin')->level == 'SSA'){
+                $inputs = $request->all();
+                $role = explode(';',$inputs['roles']);
+                $a_group[$role[0]][$role[1]] = getGiaoDien()[$role[0]][$role[1]];
+                $model = GeneralConfigs::first();
+                $setting = json_decode($model->setting,true);
+                //$setting[$role[0]][$role[1]] = $setting[$role[0]][$role[1]] ?? getGiaoDien()[$role[0]][$role[1]];
+                $index = isset($inputs['gr_index']) ? '1' : '0';
+                $congbo = isset($inputs['gr_congbo']) ? '1' : '0';
+                foreach (getGiaoDien()[$role[0]][$role[1]] as $key=>$val){
+                    if(!is_array($val)){
+                        continue;
+                    }
+                    $setting[$role[0]][$role[1]][$key] = $setting[$role[0]][$role[1]][$key] ?? getGiaoDien()[$role[0]][$role[1]][$key];
+                    $setting[$role[0]][$role[1]][$key]['index'] = $index;
+                    $setting[$role[0]][$role[1]][$key]['congbo'] = $congbo;
+                }
+
+                $model->setting = json_encode($setting);
+                $model->save();
+                //dd($model);
+                return redirect('/setting');
+            }else{
+                return view('errors.noperm');
+            }
+
+        }else
+            return view('errors.notlogin');
+    }
 }
