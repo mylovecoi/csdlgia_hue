@@ -37,6 +37,8 @@
                 dataType: 'JSON',
                 success: function (data) {
                     var form = $('#frm_create');
+                    form.find("[name='trangthai']").val('EDIT');
+                    form.find("[name='manhom']").prop('readonly', true);
                     form.find("[name='manhom']").val(data.manhom);
                     form.find("[name='tennhom']").val(data.tennhom);
                 },
@@ -48,6 +50,8 @@
         function new_hs() {
             var form = $('#frm_create');
             //Nhà xã hội cho thuê
+            form.find("[name='trangthai']").val('ADD');
+            form.find("[name='manhom']").prop('readonly', false);
             form.find("[name='manhom']").val(null);
             form.find("[name='tennhom']").val(null);
         }
@@ -129,6 +133,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 {!! Form::open(['url'=>$inputs['url'].'/danhmuc','id' => 'frm_create'])!!}
+                <input type="hidden" name="trangthai" value="ADD" />
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Thêm mới nhóm  hàng hóa?</h4>

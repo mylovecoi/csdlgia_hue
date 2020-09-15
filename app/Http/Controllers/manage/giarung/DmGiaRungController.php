@@ -26,6 +26,10 @@ class DmGiaRungController extends Controller
             if($check == 0){
                 $model = new DmGiaRung();
                 $model->create($inputs);
+            }else{
+                return view('errors.duplicate')
+                    ->with('message','Mã số này đã được sử dụng.')
+                    ->with('url','/giarung/danhmuc');
             }
             return redirect('/giarung/danhmuc');
         }else
@@ -49,8 +53,8 @@ class DmGiaRungController extends Controller
         $id = $inputs['id'];
         $model = DmGiaRung::findOrFail($id);
         //check xem có chưa thì mới cho sửa mã
-        $check = 0;
-        $check1 = 0;
+//        $check = 0;
+//        $check1 = 0;
 
 
         $result['message'] = '<div class="modal-body" id="edit-tt">';
@@ -58,10 +62,10 @@ class DmGiaRungController extends Controller
         $result['message'] .= '<div class="col-md-12">';
         $result['message'] .= '<div class="form-group">';
         $result['message'] .= '<label class="control-label">Mã nhóm<span class="require">*</span></label>';
-        if($check == 0 && $check1 == 0)
-            $result['message'] .= '<input type="text" name="edit_manhom" id="edit_manhom" class="form-control" value="'.$model->manhom.'"/>';
-        else
-            $result['message'] .= '<label  class="form-control" style="color: #0000ff">'.$model->manhom.'</label>';
+//        if($check == 0 && $check1 == 0)
+            $result['message'] .= '<input type="text" name="edit_manhom" readonly id="edit_manhom" class="form-control" value="'.$model->manhom.'"/>';
+//        else
+//            $result['message'] .= '<label  class="form-control" style="color: #0000ff">'.$model->manhom.'</label>';
         $result['message'] .= '</div></div>';
         $result['message'] .= '</div>';
 

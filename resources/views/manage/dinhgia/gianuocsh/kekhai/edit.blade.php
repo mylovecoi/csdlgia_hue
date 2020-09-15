@@ -23,7 +23,6 @@
 
         function edittt(id){
 
-
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 url: '{{$inputs['url']}}' + '/edit_ct',
@@ -49,6 +48,9 @@
 
             if($('#tunam').val()=='' || $('#dennam').val()==''){
                 toastr.error('Năm lộ trình không được bỏ trống.', 'Lỗi!');
+                $('#tunam').focus();
+            }else{
+                $('#edit-modal').modal('show');
             }
         }
 
@@ -179,7 +181,7 @@
 
                                                 <td>
                                                     @if(in_array($model->trangthai, ['CHT', 'HHT']))
-                                                        <button type="button" onclick="edittt('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#edit-modal" data-toggle="modal">
+                                                        <button type="button" onclick="edittt('{{$tt->id}}')" class="btn btn-default btn-xs mbs">
                                                             <i class="fa fa-trash-o"></i>&nbsp;Sửa</button>
                                                     @endif
                                                 </td>

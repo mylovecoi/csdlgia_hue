@@ -97,7 +97,7 @@
                                     <td style="text-align: left" class="active">{{$tt->tendv_ch}}</td>
                                     <td style="text-align: center">{{$tt->soqd}}</td>
                                     <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
-                                    <td style="text-align: left">{{$a_tt[$tt->matt]}}</td>
+                                    <td style="text-align: left">{{$a_tt[$tt->matt] ?? ''}}</td>
                                     @include('manage.include.form.td_trangthai')
                                     <td style="text-align: left">{{$tt->tencqcq}}</td>
                                     <td>

@@ -3025,6 +3025,10 @@ function getPhanQuyen()
         'index' => '0',
         'danhmuc' => array('index' => '0', 'modify' => '0'),);
 
+    $gui['nhomtaikhoan'] = array(
+        'index' => '0',
+        'danhmuc' => array('index' => '0', 'modify' => '0'),);
+
     $gui['ngaynghile'] = array(
         'index' => '0',
         'danhmuc' => array('index' => '0', 'modify' => '0'),);

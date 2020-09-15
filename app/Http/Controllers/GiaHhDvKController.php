@@ -501,13 +501,13 @@ class GiaHhDvKController extends Controller
             $inputs = $request->all();
             $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
             $model = view_giahhdvk::wherein('madv',array_column($m_donvi->toarray(),'madv'));
-            //dd($model);
+            //dd($inputs);
 
             if($inputs['madv'] != 'all'){
                 $model = $model->where('madv',$inputs['madv']);
             }
             if($inputs['madoituong'] != 'all') {
-                $model = $model->where('madoituong', getTimkiemLike($inputs['madoituong']));
+                $model = $model->where('matt', 'like', getTimkiemLike($inputs['madoituong']));
             }
 
             if(getDayVn($inputs['thoidiem_tu']) != ''){
@@ -522,7 +522,7 @@ class GiaHhDvKController extends Controller
             if(chkDbl($inputs['giatri_den']) > 0){
                 $model = $model->where('gia','<=',chkDbl($inputs['giatri_den']));
             }
-            //dd($model);
+            //dd($model->toSql());
             $a_dm = array_column(NhomHhDvK::all()->toArray(),'tentt','matt');
             $inputs['url'] = '/giahhdvk';
             return view('manage.dinhgia.giahhdvk.timkiem.result')

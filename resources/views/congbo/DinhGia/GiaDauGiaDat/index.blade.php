@@ -16,11 +16,6 @@
         jQuery(document).ready(function() {
             TableManaged.init();
         });
-    </script>
-    <script>
-        jQuery(document).ready(function() {
-            TableManaged.init();
-        });
         $(function(){
             $('#nam,#mahuyen,#maxa,#tenduan,#paginate').change(function() {
                 var current_path_url = '/cbgiadaugiadat?';

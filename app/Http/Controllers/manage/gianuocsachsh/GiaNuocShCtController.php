@@ -87,7 +87,7 @@ class GiaNuocShCtController extends Controller
                     }
 
                     $result['message'] .= '<td>'.
-                        '<button type="button" data-target="#edit-modal" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="edittt('.$tt->id.')"><i class="fa fa-edit"></i>&nbsp;Sửa</button>'
+                        '<button type="button" class="btn btn-default btn-xs mbs" onclick="edittt('.$tt->id.')"><i class="fa fa-edit"></i>&nbsp;Sửa</button>'
                         .'</td>';
                     $result['message'] .= '</tr>';
                 }

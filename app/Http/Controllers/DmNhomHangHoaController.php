@@ -26,19 +26,25 @@ class DmNhomHangHoaController extends Controller
     }
 
     public function store(Request $request){
-        if(Session::has('admin')){
+        if (Session::has('admin')) {
             $inputs = $request->all();
-            $check = DmNhomHangHoa::where('manhom',$inputs['manhom'])->first();
-            if ($check == null) {
-                //$inputs['maso'] = getdate()[0];
-                $inputs['theodoi'] = 'TD';
-                DmNhomHangHoa::create($inputs);
+            $inputs['manhom'] = chuanhoatruong($inputs['manhom']);
+            $check = DmNhomHangHoa::where('manhom', $inputs['manhom'])->first();
+            if ($inputs['trangthai'] == 'ADD') {
+                if ($check != null) {
+                    return view('errors.duplicate')
+                        ->with('message', 'Mã nhóm hàng hóa này đã được sử dụng.')
+                        ->with('url', '/thamdinhgia/danhmuc');
+                } else {
+                    $inputs['theodoi'] = 'TD';
+                    DmNhomHangHoa::create($inputs);
+                }
             } else {
                 $check->update($inputs);
             }
 
             return redirect('/thamdinhgia/danhmuc');
-        }else
+        } else
             return view('errors.notlogin');
     }
 

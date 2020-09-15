@@ -32,6 +32,7 @@
                 dataType: 'JSON',
                 success: function (data) {
                     var form = $('#frm_create');
+                    form.find("[name='mahanghoa']").prop('readonly', true);
                     form.find("[name='mahanghoa']").val(data.mahanghoa);
                     form.find("[name='tenhanghoa']").val(data.tenhanghoa);
                     form.find("[name='thongsokt']").val(data.thongsokt);
@@ -45,8 +46,10 @@
         }
         function new_hs() {
             var form = $('#frm_create');
+            form.find("[name='mahanghoa']").prop('readonly', false);
             form.find("[name='mahanghoa']").val(null);
             form.find("[name='mahanghoa']").val(null);
+
         }
     </script>
 @stop
@@ -142,7 +145,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label">Mã hàng hóa<span class="require">*</span></label>
-                                <input type="text" name="mahanghoa" id="mahanghoa" class="form-control">
+                                <input type="text" required name="mahanghoa" id="mahanghoa" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -151,7 +154,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label">Tên hàng hóa<span class="require">*</span></label>
-                                <input type="text" name="tenhanghoa" id="tenhanghoa" class="form-control">
+                                <input type="text" required name="tenhanghoa" id="tenhanghoa" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -159,7 +162,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="control-label">Thông số kỹ thuật<span class="require">*</span></label>
+                                <label class="control-label">Thông số kỹ thuật</label>
                                 <input type="text" name="thongsokt" id="thongsokt" class="form-control">
                             </div>
                         </div>
@@ -168,7 +171,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="control-label">Xuất xứ<span class="require">*</span></label>
+                                <label class="control-label">Xuất xứ</label>
                                 <input type="text" name="xuatxu" id="xuatxu" class="form-control">
                             </div>
                         </div>

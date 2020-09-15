@@ -42,6 +42,11 @@ Route::get('cbgiacuocvanchuyen','congbo\dinhgia\CongbogiacuocvanchuyenController
 
 //cbbinhongia
 Route::get('cbbinhongia','congbo\CongBoBinhOnGiaController@index');
-
+//Kê khai-niêm yết giá
+Route::get('cbxmtxd','congbo\kekhaigia\CongboGiaXMTXDController@index');
+Route::get('cbthan','congbo\kekhaigia\CongboGiaThanController@index');
+Route::get('cbtacn','congbo\kekhaigia\CongboGiaTACNController@index');
+Route::get('cbgiay','congbo\kekhaigia\CongboGiaGiayController@index');
+Route::get('cbsach','congbo\kekhaigia\CongboGiaSachController@index');
 
 ?>

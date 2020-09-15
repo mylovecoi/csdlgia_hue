@@ -73,6 +73,12 @@ class dstaikhoanController extends Controller
             $inputs = $request->all();
             //$user->username = chuanhoachuoi($inputs['username']);
             //$user->password = md5($inputs['password']);
+            $chkUser = Users::where('username',chuanhoachuoi($inputs['username']))->first();
+            if($chkUser != null){
+                return view('errors.duplicate')
+                    ->with('message','Tài khoản này đã được sử dụng.')
+                    ->with('url','/taikhoan/danhsach?madv=' . $inputs['madv']);
+            }
             $user = new Users();
             $user->madv = $inputs['madv'];
             $user->name = $inputs['name'];

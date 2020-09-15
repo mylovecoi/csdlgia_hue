@@ -53,6 +53,20 @@
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-md-3">
+                                                        <label style="font-weight: bold">Đơn vị</label>
+                                                        <select class="form-control select2me" id="madv">
+                                                            @foreach($m_diaban as $diaban)
+                                                                <optgroup label="{{$diaban->tendiaban}}">
+                                                                    <?php $donvi = $m_donvi->where('madiaban',$diaban->madiaban); ?>
+                                                                    @foreach($donvi as $ct)
+                                                                        <option {{$ct->madv == $inputs['madv'] ? "selected":""}} value="{{$ct->madv}}">{{$ct->tendv}}</option>
+                                                                    @endforeach
+                                                                </optgroup>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-md-3">
                                                         <div class="form-group">
                                                         <label>Địa bàn</label>
                                                             {!!Form::select('madiaban', array_column($m_diaban->where('level','H')->toarray(),'tendiaban', 'madiaban'),

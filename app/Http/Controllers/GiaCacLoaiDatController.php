@@ -167,7 +167,8 @@ class GiaCacLoaiDatController extends Controller
         $inputs['giavt2'] = isset($inputs['giavt2']) ? getDoubleToDb($inputs['giavt2']) : 0;
         $inputs['giavt3'] = isset($inputs['giavt3']) ? getDoubleToDb($inputs['giavt3']) : 0;
         $inputs['giavt4'] = isset($inputs['giavt4']) ? getDoubleToDb($inputs['giavt4']) : 0;
-        $inputs['username'] = session('admin')->name.'('.session('admin')->username.')' ;
+        $inputs['username'] = session('admin')->username;
+        //$inputs['username'] = session('admin')->name.'('.session('admin')->username.')' ;
         $inputs['thaotac'] = 'Cập nhật giá đất';
         $model->update($inputs);
         $arrayh = $model->toArray();
@@ -411,7 +412,8 @@ class GiaCacLoaiDatController extends Controller
             $inputs['giavt2'] = $model->giavt2/$model->hesok * $inputs['hesok'];
             $inputs['giavt3'] = $model->giavt3/$model->hesok * $inputs['hesok'];
             $inputs['giavt4'] = $model->giavt4/$model->hesok * $inputs['hesok'];
-            $inputs['username'] = session('admin')->name.'('.session('admin')->username.')';
+            $inputs['username'] = session('admin')->username;
+            //$inputs['username'] = session('admin')->name.'('.session('admin')->username.')';
             $inputs['thaotac'] = 'Điều chỉnh hệ số K giá đất';
             $model->update($inputs);
             $arrayh = $model->toArray();

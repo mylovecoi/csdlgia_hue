@@ -35,6 +35,7 @@ class DmHangHoaController extends Controller
             if (count($chk_dvt) == 0) {
                 dmdvt::insert(['dvt' => $inputs['dvt']]);
             }
+            $inputs['mahanghoa'] = chuanhoatruong($inputs['mahanghoa']);
             $model = DmHangHoa::where('mahanghoa',$inputs['mahanghoa'])->first();
             if($model == null){
                 $inputs['theodoi'] = 'TD';

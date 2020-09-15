@@ -59,7 +59,7 @@ class GiaRungController extends Controller
                 ->with('m_donvi_th', $m_donvi_th)
                 ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
                 ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
-                ->with('pageTitle', 'Thông tin hồ sơ giá đất');
+                ->with('pageTitle', 'Thông tin hồ sơ giá rừng');
         } else
             return view('errors.notlogin');
     }
@@ -69,10 +69,13 @@ class GiaRungController extends Controller
             $inputs = $request->all();
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
+            $m_donvi = getDonViNhapLieu(session('admin')->level);
             $loairungs = DmGiaRung::all();
             return view('manage.dinhgia.giarung.importexcel')
                 ->with('m_diaban',$m_diaban)
                 ->with('loairungs',$loairungs)
+                ->with('m_diaban', $m_diaban)
+                ->with('m_donvi', $m_donvi)
                 ->with('inputs',$inputs)
                 ->with('pageTitle','Nhận dữ liệu giá thuê môi trường rừng file Excel');
 
@@ -83,7 +86,8 @@ class GiaRungController extends Controller
     public function importexcel(Request $request){
         if(Session::has('admin')){
             $inputs=$request->all();
-            $filename = $inputs['district'] . '_' . getdate()[0];
+
+            $filename = $inputs['madiaban'] . '_' . getdate()[0];
             $request->file('fexcel')->move(public_path() . '/data/uploads/excels/', $filename . '.xls');
             $path = public_path() . '/data/uploads/excels/' . $filename . '.xls';
             $data = [];
@@ -93,22 +97,28 @@ class GiaRungController extends Controller
                 $sheet = $obj->getSheet(0);
                 $data = $sheet->toArray(null, true, true, true);// giữ lại tiêu đề A=>'val';
             });
-
+            //dd($data);
+            $ma = getdate()[0];
             for ($i = $inputs['tudong']; $i <= $inputs['dendong']; $i++) {
-
+                if(!isset($data[$i][$inputs['tenduan']]) || !isset($data[$i][$inputs['thoidiem']]) ||
+                !isset($data[$i][$inputs['dongia']]) || !isset($data[$i][$inputs['ttqd']])){
+                    continue;
+                }
                 $modelctnew = new Giarung();
-                $modelctnew->district = $inputs['district'];
-                $modelctnew->manhom = $inputs['manhom'];
-                $modelctnew->thoidiem = getDateToDb($data[$i][$inputs['khuvuc']]);
-                $modelctnew->tenduan = $data[$i][$inputs['tenduan']];
+                $modelctnew->mahs = $inputs['madv'].'_'.$ma++;
+                $modelctnew->madiaban = $inputs['madiaban'];
+                $modelctnew->madv = $inputs['madv'];
+                $modelctnew->manhom = $inputs['manhom'] ?? '';
+                $modelctnew->thoidiem = getDateToDb($data[$i][$inputs['thoidiem']]) ?? '';
+                $modelctnew->tenduan = $data[$i][$inputs['tenduan']] ?? '';
                 $modelctnew->dongia = (isset($data[$i][$inputs['dongia']]) && $data[$i][$inputs['dongia']] != '' ? chkDbl($data[$i][$inputs['dongia']]) : 0);
-                $modelctnew->ttqd = $data[$i][$inputs['ttqd']];
-                $modelctnew->ghichu = $data[$i][$inputs['ghichu']];
+                $modelctnew->soqd = $data[$i][$inputs['ttqd']] ?? '';
+                $modelctnew->ghichu = $data[$i][$inputs['ghichu']] ?? '';
                 $modelctnew->trangthai = 'CHT';
                 $modelctnew->save();
             }
             File::Delete($path);
-            return redirect('giarung?&district='.$inputs['district'].'&manhom='.$inputs['manhom']);
+            return redirect('/giarung/danhsach?madv='.$inputs['madv']);
         }else
             return view('errors.notlogin');
     }

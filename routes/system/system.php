@@ -126,7 +126,7 @@ Route::group(['prefix'=>'dmnganhnghe'],function (){
 
 Route::group(['prefix'=>'doanhnghiep'],function (){
     Route::get('dangky','Auth\RegisterController@create');
-    Route::post('dangky','Auth\RegisterController@store');
+    Route::post('themdn','Auth\RegisterController@store');
 
     Route::get('get_dvql','system\company\CompanyLvCcController@getdvql');
     Route::get('edit_lvkd','system\company\CompanyLvCcController@edit');

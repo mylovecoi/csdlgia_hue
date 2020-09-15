@@ -73,7 +73,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN LOGIN -->
 <div class="content">
     <!-- BEGIN REGISTER FORM -->
-    {!! Form::open(['url'=>$inputs['url'].'/dangky', 'method'=>'post', 'id' => 'register_create', 'class'=>'form control', 'files'=>true, 'enctype'=>'multipart/form-data']) !!}
+    {!! Form::open(['url'=>$inputs['url'].'/themdn', 'method'=>'post', 'id' => 'register_create', 'class'=>'form control', 'files'=>true, 'enctype'=>'multipart/form-data']) !!}
     <!--form class="register-form" action="index.html" method="post" novalidate="novalidate" style="display: block;"-->
     <div class="row">
         <div class="col-md-12">
