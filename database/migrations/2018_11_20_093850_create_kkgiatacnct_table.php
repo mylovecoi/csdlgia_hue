@@ -18,7 +18,7 @@ class CreateKkgiatacnctTable extends Migration
             $table->string('mahs')->nullable();
             $table->string('maxa')->nullable();
             $table->string('madv')->nullable();
-            $table->string('mahs')->nullable();
+            //$table->string('mahs')->nullable();
             $table->text('tendvcu')->nullable();
             $table->string('qccl')->nullable();
             $table->string('dvt')->nullable();
@@ -70,7 +70,7 @@ class CreateKkgiatacnctTable extends Migration
 //            $table->string('thuettdb')->nullable();
 //            $table->string('thuegtgt')->nullable();
 //            $table->string('gbdct')->nullable();
-            $table->timestamps();
+            //$table->timestamps();
         });
     }
 
