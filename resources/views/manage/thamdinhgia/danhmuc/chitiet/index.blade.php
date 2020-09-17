@@ -38,6 +38,7 @@
                     form.find("[name='thongsokt']").val(data.thongsokt);
                     form.find("[name='xuatxu']").val(data.xuatxu);
                     form.find("[name='dvt']").val(data.dvt).trigger('change');
+                    form.find("[name='trangthai']").val('EDIT');
                 },
                 error: function (message) {
                     toastr.error(message, 'Lỗi!');
@@ -46,10 +47,13 @@
         }
         function new_hs() {
             var form = $('#frm_create');
+            form.find("[name='trangthai']").val('ADD');
             form.find("[name='mahanghoa']").prop('readonly', false);
             form.find("[name='mahanghoa']").val(null);
             form.find("[name='mahanghoa']").val(null);
-
+            form.find("[name='tenhanghoa']").val(null);
+            form.find("[name='thongsokt']").val(null);
+            form.find("[name='xuatxu']").val(null);
         }
     </script>
 @stop
@@ -187,6 +191,7 @@
 
                 </div>
                 <input type="hidden" name="manhom" id="manhom" value="{{$inputs['manhom']}}">
+                <input type="hidden" name="trangthai" id="trangthai" >
                 <div class="modal-footer">
                     <button type="submit" class="btn blue" onclick="ClickCreate()">Đồng ý</button>
                     <button type="button" class="btn default" data-dismiss="modal">Hủy</button>

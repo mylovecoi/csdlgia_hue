@@ -52,7 +52,8 @@
 
                 <td>{{$tt->soqd}}</td>
                 <td>{{getDayVn($tt->thoidiem)}}</td>
-                <td>{{$a_dm[$tt->mataisan] ?? ''}}</td>
+{{--                <td>{{$a_dm[$tt->mataisan] ?? ''}}</td>--}}
+                <td>{{$tt->tentaisan}}</td>
                 <td style="text-align: right">{{dinhdangso($tt->giathue)}}</td>
                 <td></td>
             </tr>

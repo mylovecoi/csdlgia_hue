@@ -48,7 +48,7 @@
                     <div class="caption">
                     </div>
                     <div class="actions">
-                        <a href="{{url($inputs['url'].'/print?madv='.$inputs['madv'].'&nam='. $inputs['nam'])}}" class="btn btn-default btn-sm" target="_blank">
+                        <a href="{{url($inputs['url'].'/printf?madv='.$inputs['madv'].'&nam='. $inputs['nam'])}}" class="btn btn-default btn-sm" target="_blank">
                             <i class="fa fa-print"></i> In danh sách</a>
                     </div>
                 </div>

@@ -35,14 +35,22 @@ class DmHangHoaController extends Controller
             if (count($chk_dvt) == 0) {
                 dmdvt::insert(['dvt' => $inputs['dvt']]);
             }
+            //dd($inputs);
             $inputs['mahanghoa'] = chuanhoatruong($inputs['mahanghoa']);
             $model = DmHangHoa::where('mahanghoa',$inputs['mahanghoa'])->first();
-            if($model == null){
-                $inputs['theodoi'] = 'TD';
-                DmHangHoa::create($inputs);
-            }else{
+            if($inputs['trangthai'] == 'ADD'){
+                if($model == null){
+                    $inputs['theodoi'] = 'TD';
+                    DmHangHoa::create($inputs);
+                }else{
+                    return view('errors.duplicate')
+                        ->with('message', 'Mã hàng hóa này đã được sử dụng.')
+                        ->with('url', 'thamdinhgia/danhmuc/detail?manhom='.$inputs['manhom']);
+                }
+            }else {
                 $model->update($inputs);
             }
+
             return redirect('thamdinhgia/danhmuc/detail?manhom='.$inputs['manhom']);
         }else
             return view('errors.notlogin');
