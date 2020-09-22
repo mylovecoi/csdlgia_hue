@@ -74,7 +74,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <div class="content">
     <!-- BEGIN REGISTER FORM -->
     {{--{!! Form::model($model, ['method' => 'PATCH', 'url'=>'dangkytaikhoantruycap/'. $model->id, 'class'=>'horizontal-form','id'=>'update_register','file'=>'true']) !!}--}}
-    {!! Form::model($model, ['method' => 'PATCH', 'url'=>'dangkytaikhoantruycap/'. $model->id.'/update', 'class'=>'horizontal-form','id'=>'update_register','files'=>true]) !!}
+    {!! Form::model($model, ['method' => 'PATCH', 'url'=>'/doanhnghiep/dangkytaikhoantruycap/'. $model->id.'/update', 'class'=>'horizontal-form','id'=>'update_register','files'=>true]) !!}
     <div class="row">
         <div class="col-md-12">
             <p style="color: #000000">Thông tin doanh nghiệp</p>
@@ -91,10 +91,10 @@ License: You must have a valid license purchased only from themeforest(the above
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Mã số thuế</label>
-                        {!!Form::text('maxa', null, array('id' => 'maxa','class' => 'form-control required','disabled'))!!}
-                        <input type="hidden" id="maxa" name="maxa" value="{{$model->maxa}}">
+                        {!!Form::text('madv', null, array('id' => 'madv','class' => 'form-control required','disabled'))!!}
+                        <input type="hidden" id="madv" name="madv" value="{{$model->madv}}">
                         @if ($errors->any())
-                            <em class="invalid">{{ $errors->first('maxa') }}</em>
+                            <em class="invalid">{{ $errors->first('madv') }}</em>
                         @endif
                     </div>
                 </div>
@@ -199,40 +199,37 @@ License: You must have a valid license purchased only from themeforest(the above
             </div>
 
             <p style="color: #000000">Thông tin dịch vụ kê khai</p>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-success btn-xs"><i class="fa fa-plus"></i>&nbsp;Thêm mới thông tin lĩnh vực kinh doanh</button>
-                        &nbsp;
-                    </div>
-                </div>
-            </div>
+{{--            <div class="row">--}}
+{{--                <div class="col-md-12">--}}
+{{--                    <div class="form-group">--}}
+{{--                        <button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-success btn-xs"><i class="fa fa-plus"></i>&nbsp;Thêm mới thông tin lĩnh vực kinh doanh</button>--}}
+{{--                        &nbsp;--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
             <div class="row" id="dsts">
                 <div class="col-md-12">
                     <table class="table table-striped table-bordered table-hover" id="sample_3">
                         <thead>
                         <tr>
-                            <th width="2%" style="text-align: center">STT</th>
-                            <th style="text-align: center">Mã ngành</th>
-                            <th style="text-align: center">Tên ngành</th>
-                            <th style="text-align: center">Mã nghề</th>
-                            <th style="text-align: center">Tên nghề</th>
-                            <th style="text-align: center">Đơn vị quản lý</th>
+                            <th width="5%" style="text-align: center">STT</th>
+                            <th style="text-align: center">Tên ngành nghề kinh doanh</th>
+{{--                            <th style="text-align: center">Đơn vị quản lý</th>--}}
                             <th style="text-align: center">Thao tác</th>
                         </tr>
                         </thead>
                         <tbody id="ttts">
-                        @foreach($modellvcc as $key=>$ct)
+                        @foreach($modelct as $key=>$ct)
                             <tr>
                                 <td style="text-align: center">{{$key+1}}</td>
-                                <td>{{$ct->manganh}}</td>
-                                <td>{{$ct->tennganh}}</td>
-                                <td>{{$ct->manghe}}</td>
-                                <td>{{$ct->tennghe}}</td>
-                                <td>{{$ct->tendv}}</td>
+                                <td>{{$a_nghe[$ct->manghe] ?? ''}}</td>
+{{--                                <td>{{$ct->tendv}}</td>--}}
                                 <td>
-                                    <button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getidedit({{$ct->id}});" ><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</button>
-                                    <button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid({{$ct->id}});" ><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
+{{--                                    <button type="button" class="btn btn-default btn-xs mbs" onclick="getidedit({{$ct->manghe}});" >--}}
+{{--                                        <i class="fa fa-edit"></i>&nbsp;Sửa</button>--}}
+{{--                                    <button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid({{$ct->id}});" >--}}
+{{--                                        <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>--}}
                                 </td>
                             </tr>
                         @endforeach
@@ -240,7 +237,6 @@ License: You must have a valid license purchased only from themeforest(the above
                     </table>
                 </div>
             </div>
-
             <p style="color: #000000">Thông tin đăng nhập</p>
             <div class="row">
                 <div class="col-md-6">

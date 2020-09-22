@@ -137,8 +137,8 @@ Route::group(['prefix'=>'doanhnghiep'],function (){
     //chưa làm
     Route::post('dangkytaikhoantruycap','Auth\RegisterController@store');
     Route::patch('dangkytaikhoantruycap/{id}/update','Auth\RegisterController@update');
-    Route::get('dangkytaikhoantruycap/checkmadangky','Auth\RegisterController@checkmadk');
-    Route::post('dangkytaikhoantruycap/checkmadangky','Auth\RegisterController@submitcheckmadk');
+    Route::get('dangkytaikhoantruycap/checkmadangky','Auth\RegisterController@submitcheckmadk');
+    //Route::post('dangkytaikhoantruycap/checkmadangky','Auth\RegisterController@submitcheckmadk');
     //Route::get('companylvcc/getmanghe','system\company\CompanyLvCcController@getmanghe');
 });
 

@@ -145,20 +145,20 @@ class RegisterController extends Controller
         $model = Company::findOrFail($id);
         if(isset($inputs['tailieu'])){
             $ipf1 = $request->file('tailieu');
-            $inputs['ipt1'] = $inputs['maxa'].'.'.$ipf1->getClientOriginalExtension();
+            $inputs['ipt1'] = $inputs['madv'].'.'.$ipf1->getClientOriginalExtension();
             $ipf1->move(public_path() . '/data/doanhnghiep/', $inputs['ipt1']);
             $inputs['tailieu']= $inputs['ipt1'];
         }
         $model->update($inputs);
-        $modeldn = Company::where('maxa',$inputs['maxa'])
+        $modeldn = Company::where('madv',$inputs['madv'])
             ->first();
-        $modeluserup = Users::where('maxa',$inputs['maxa'])
+        $modeluserup = Users::where('madv',$inputs['madv'])
             ->where('level','DN')
             ->update(['status' => 'Chờ xét duyệt']);
         $modeldv = GeneralConfigs::first();
         $tg = getDateTime(Carbon::now()->toDateTimeString());
         $contentdn = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã nhận yêu cầu đăng ký thông tin doanh nghiệp . Mã số đăng ký: '.$model->mahs.'!!!';
-        $contentht = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã nhận yêu cầu thay đổi thông tin doanh nghiệp '.$modeldn->tendn.' - mã số thuế '.$modeldn->maxa.' Mã số đăng ký: '.$model->mahs.' !!!';
+        $contentht = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã nhận yêu cầu thay đổi thông tin doanh nghiệp '.$modeldn->tendn.' - mã số thuế '.$modeldn->madv.' Mã số đăng ký: '.$model->mahs.' !!!';
         $run = new SendMail($modeldn,$contentdn,$modeldv,$contentht);
         $run->handle();
         //dispatch($run);
@@ -180,6 +180,7 @@ class RegisterController extends Controller
         $modeluser = Users::where('madv',$inputs['madv'])
             ->where('level','DN')
             ->first();
+        //dd($modelcompany);
         if(isset($modeluser)) {
             if ($modeluser->status == 'Chờ xét duyệt')
                 return view('system.registers.dangkytk.register-choduyet')
@@ -189,38 +190,56 @@ class RegisterController extends Controller
                 return view('system.registers.dangkytk.register-bitralai')
                     ->with('modelcompany', $modelcompany)
                     ->with('modeluser', $modeluser)
-                    ->with('pageTitle', 'Đăng ký tài khoản truy cập bị trả lại');
+                    ->with('pageTitle', 'Đăng ký tài khoản truy cập bị trả lại')
+                    ->with('mahs',$modelcompany->mahs);
             else
                 return view('system.registers.dangkytk.register-usersuccess');
         }else
             return view('system.registers.dangkytk.register-errors-checkmadk');
     }
 
-    public function checkmadk(){
+    public function checkmadk(Request $request){
+        $inputs = $request->all();
+        $modelcompany = Company::where('mahs',$inputs['mahs'])
+            ->first();
+        dd($modelcompany);
         return view('system.registers.dangkytk.checkmadk')
             ->with('pageTitle','Chỉnh sửa thông tin đăng ký tài khoản');
     }
 
     public function submitcheckmadk(Request $request){
         $inputs = $request->all();
-        $check = Company::where('madv',$inputs['madv'])
-            ->where('mahs',$inputs['mahs'])
-            ->count();
-        if($check > 0 ){
-            $model = Company::where('madv',$inputs['madv'])
-                ->where('mahs',$inputs['mahs'])
+        $model = Company::where('mahs',$inputs['mahs'])
+            ->first();
+        if($model != null ){
+            $inputs['url'] = '/doanhnghiep';
+            $modeluser = Users::where('madv',$model->madv)
                 ->first();
-            $modeluser = Users::where('madv',$inputs['madv'])
-                ->first();
-            $modellvcc = CompanyLvCc::where('madv', $inputs['madv'])
+            $modellvcc = CompanyLvCc::where('madv', $model->madv)
                 ->get();
-            $nganhs = DmNganhKd::where('theodoi','TD')
-                ->get();
+//            $nganhs = DmNganhKd::where('theodoi','TD')
+//                ->get();
+            $m_nganh = DmNganhKd::where('theodoi','TD')->get();
+            $m_nghe = DmNgheKd::where('theodoi','TD')->get();
+            //dd($m_nghe);
+            //$m_donvi = getDonViXetDuyet(session('admin')->level);
+            $m_donvi = view_dsdiaban_donvi::where('chucnang', 'TONGHOP')
+                ->wherein('level', ['T', 'H', 'X'])->get();
+            $m_diaban = dsdiaban::wherein('level', ['T', 'H', 'X'])->get();
+            $a_nghe = array_column( DmNgheKd::where('theodoi','TD')->get()->toarray(),'tennghe','manghe');
             return view('system.registers.dangkytk.edit')
                 ->with('model', $model)
                 ->with('modeluser',$modeluser)
                 ->with('modellvcc',$modellvcc)
-                ->with('nganhs',$nganhs)
+                //->with('nganhs',$nganhs)
+                ->with('m_nganh', $m_nganh)
+                ->with('m_nghe', $m_nghe)
+                ->with('a_nghe', $a_nghe)
+                ->with('inputs',$inputs)
+                ->with('modelct',$modellvcc)
+                ->with('m_diaban', $m_diaban)
+                ->with('m_donvi', $m_donvi)
+                ->with('inputs',$inputs)
                 ->with('pageTitle','Chỉnh sửa đăng ký tài khoản truy cập');
         }else
             return view('system.registers.dangkytk.register-errors-checkmadk');

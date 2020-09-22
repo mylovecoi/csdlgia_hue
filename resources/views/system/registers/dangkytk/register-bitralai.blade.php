@@ -21,7 +21,7 @@
     <p>Tên doanh nghiệp: <b>{{$modelcompany->tendn}}</b> - Mã số thuế: <b>{{$modelcompany->madv}}</b></p>
     <p>Địa chỉ: {{$modelcompany->diachi}}</p>
     <p><h4>Lý do: <b>{{$modeluser->lydo}}</b></h4></p>
-    <p><a href="{{url('dangkytaikhoantruycap/checkmadangky')}}">Bấm vào đây </a> để chỉnh sửa thông tin đăng ký <p>
+    <p><a href="{{url('/doanhnghiep/dangkytaikhoantruycap/checkmadangky?mahs='.$mahs)}}">Bấm vào đây </a> để chỉnh sửa thông tin đăng ký <p>
 
     <p><a href='{{ url('/') }}'>Bấm vào đây</a> để quay lại trang chủ.</p>
 
