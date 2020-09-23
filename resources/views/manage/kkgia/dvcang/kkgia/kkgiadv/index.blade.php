@@ -6,7 +6,6 @@
     <!-- END THEME STYLES -->
 @stop
 
-
 @section('custom-script')
     <!-- BEGIN PAGE LEVEL PLUGINS -->
 

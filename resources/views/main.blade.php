@@ -526,26 +526,16 @@ License: You must have a valid license purchased only from themeforest(the above
                                 {{--OK--}}
                             @endif
 
-                            @if(canKkGiaGr('KCBTN'))
-                                @if(canKkGiaCt('KCBTN','KCBTN'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Dịch vụ khám chữa bệnh cho người tại cơ sở khám chữa bệnh tư nhân; khám chữa bệnh theo yêu cầu tại cơ sở khám chữa bệnh của nhà nước</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            @if(session('admin')->level == 'DN')
-                                                <li><a href="{{url('kekhaigiakcbtn')}}">Giá kê khai</a> </li>
-                                            @endif
-                                            @if(session('admin')->level == 'X' || session('admin')->level == 'T' || session('admin')->level == 'H')
-                                                <li><a href="{{url('thongtindnkcbtn')}}">Giá kê khai </a> </li>
-                                                <li><a href="{{url('xetduyetgiakcbtn')}}">Thông tin hồ sơ xét duyệt</a></li>
-                                                <li><a href="{{url('timkiemgiakcbtn')}}">Tìm kiếm thông tin</a> </li>
-                                                <li><a href="{{url('baocaogiakcbtn')}}">Báo cáo thống kê</a></li>
-                                            @endif
-                                        </ul>
-                                    </li>
-                                @endif
+                            @if(chkPer('csdlmucgiahhdv','kknygia', 'kcbtn'))
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="title">Dịch vụ khám chữa bệnh cho người tại cơ sở khám chữa bệnh tư nhân; khám chữa bệnh theo yêu cầu tại cơ sở khám chữa bệnh của nhà nước</span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li><a href="{{url('kekhaigiakcbtn')}}">Giá kê khai</a> </li>
+                                    </ul>
+                                </li>
                             @endif
 
                             @if(chkPer('csdlmucgiahhdv', 'kknygia', 'vtxk'))
@@ -694,6 +684,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </ul>
                                 </li>
                             @endif
+
+
 
                             @if(canKkGiaGr('DLBB'))
                                 @if(canKkGiaCt('DLBB','DLBB'))

@@ -27,6 +27,7 @@ class GiaDvCangCtController extends Controller
         $inputs['dongia'] = getMoneyToDb($inputs['dongia']);
         $inputs['trangthai'] = 'CXD';
         if(isset($inputs['tthhdv'])){
+
             $modelkkgia = new GiaDvCangCt();
             $modelkkgia->create($inputs);
             $model = GiaDvCangCt::where('mahs',$inputs['mahs'])

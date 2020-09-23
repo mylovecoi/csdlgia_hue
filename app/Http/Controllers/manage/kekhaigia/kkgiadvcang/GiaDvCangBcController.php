@@ -21,7 +21,7 @@ class GiaDvCangBcController extends Controller
             $m_donvi = Town::where('mahuyen',$modeldmnghe->mahuyen)->get();
             return view('manage.kkgia.dvcang.reports.index')
                 ->with('m_donvi',$m_donvi)
-                ->with('pageTitle', 'Báo cáo tổng hợp kê khai Giá dv tại cảng biển, cảng hàng không');
+                ->with('pageTitle', 'Báo cáo tổng hợp kê khai Giá dv tại cảng biển, cảng hàng không.');
         }else
             return view('errors.notlogin');
     }

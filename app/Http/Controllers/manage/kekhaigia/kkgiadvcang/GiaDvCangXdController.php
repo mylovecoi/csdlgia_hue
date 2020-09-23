@@ -49,6 +49,7 @@ class GiaDvCangXdController extends Controller
                     ->with('inputs',$inputs)
                     ->with('modeldv',$modeldv)
                     ->with('pageTitle', 'Xét duyệt hồ sơ kê khai giá dịch vụ tại cảng biển');
+
             }else
                 return view('errors.perm');
         }else
@@ -231,5 +232,6 @@ class GiaDvCangXdController extends Controller
                 ->with('pageTitle','Tìm kiếm thông tin kê khai giá dịch vụ tại cảng biển');
         }else
             return view('errors.notlogin');
+
     }
 }

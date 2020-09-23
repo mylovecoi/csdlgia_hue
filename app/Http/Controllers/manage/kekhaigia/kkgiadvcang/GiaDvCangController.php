@@ -56,7 +56,6 @@ class GiaDvCangController extends Controller
                     ->with('inputs',$inputs)
                     ->with('ttql',$ttql)
                     ->with('pageTitle', 'Danh sách doanh nghiệp kê khai giá dịch vụ cảng biển.');
-
             }else{
                 return view('errors.perm');
             }
@@ -202,7 +201,6 @@ class GiaDvCangController extends Controller
                 ->with('modelkkct',$modelkkct)
                 ->with('modelcqcq',$modelcqcq)
                 ->with('pageTitle','Kê khai giá dịch vụ tại cảng biển');
-
         }else
             return view('errors.notlogin');
     }

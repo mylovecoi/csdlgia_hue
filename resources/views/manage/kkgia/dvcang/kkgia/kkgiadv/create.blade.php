@@ -6,7 +6,6 @@
     <!--Date-->
     <link type="text/css" rel="stylesheet" href="{{ url('vendors/bootstrap-datepicker/css/datepicker.css') }}">
     <!--End Date-->
-
 @stop
 
 
@@ -139,7 +138,7 @@
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    tthhdv: $('#tthhdv').val(),
+                    tthhdv: $('#tendvcu').val(),
                     qccl: $('#qccl').val(),
                     dvt: $('#dvt').val(),
                     dongialk: $('#dongialk').val(),
@@ -489,7 +488,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-control-label"><b>Tên Hàng hóa, dịch vụ</b></label>
-                                {!!Form::textarea('tthhdv', null, array('id' => 'tthhdv','class' => 'form-control','rows'=>'3'))!!}
+                                {!!Form::textarea('tthhdv', null, array('id' => 'tendvcu','class' => 'form-control','rows'=>'3'))!!}
                             </div>
                         </div>
                     </div>

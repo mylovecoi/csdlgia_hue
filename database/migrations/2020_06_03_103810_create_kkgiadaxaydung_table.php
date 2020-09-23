@@ -16,6 +16,7 @@ class CreateKkgiadaxaydungTable extends Migration
         Schema::create('kkgiadaxaydung', function (Blueprint $table) {
             $table->increments('id');
             $table->string('mahs')->unique();
+
             $table->string('madiaban')->nullable(30);
             $table->date('ngaynhap')->nullable();
             $table->date('ngayhieuluc')->nullable();

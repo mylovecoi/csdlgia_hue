@@ -16,12 +16,15 @@ class CreateKkgiakcbtnctTable extends Migration
         Schema::create('kkgiakcbtnct', function (Blueprint $table) {
             $table->increments('id');
             $table->string('mahs')->nullable();
-            $table->text('tthhdv')->nullable();
+            $table->string('maxa')->nullable();
+            $table->string('madv')->nullable();
+            $table->text('tendvcu')->nullable();
             $table->string('qccl')->nullable();
             $table->string('dvt')->nullable();
-            $table->string('dongialk')->nullable();
-            $table->string('dongia')->nullable();
+            $table->double('gialk')->default(0);
+            $table->double('giakk')->default(0);
             $table->string('ghichu')->nullable();
+            $table->string('trangthai')->nullable();
             $table->string('thuevat')->nullable();
             $table->timestamps();
         });
