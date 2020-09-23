@@ -13,10 +13,10 @@ Route::post('kekhaigiakcbtn/delete','manage\kekhaigia\kkgiakcbtn\KkGiaKcbTnContr
 
 Route::get('/kkkcbtn/showlydo','manage\kekhaigia\kkgiakcbtn\KkGiaKcbTnController@showlydo');
 
-Route::get('/giakcbtnct/storett','manage\kekhaigia\kkgiakcbtn\KkGiaKcbTnCtDfController@store');
-Route::get('/giakcbtnct/edittt','manage\kekhaigia\kkgiakcbtn\KkGiaKcbTnCtDfController@edit');
-Route::get('/giakcbtnct/updatett','manage\kekhaigia\kkgiakcbtn\KkGiaKcbTnCtDfController@update');
-Route::get('/giakcbtnct/deletett','manage\kekhaigia\kkgiakcbtn\KkGiaKcbTnCtDfController@delete');
+Route::get('/giakcbtnct/storett','manage\kekhaigia\kkgiakcbtn\KkGiaKcbTnCtController@store');
+Route::get('/giakcbtnct/edittt','manage\kekhaigia\kkgiakcbtn\KkGiaKcbTnCtController@edit');
+Route::get('/giakcbtnct/updatett','manage\kekhaigia\kkgiakcbtn\KkGiaKcbTnCtController@update');
+Route::get('/giakcbtnct/deletett','manage\kekhaigia\kkgiakcbtn\KkGiaKcbTnCtController@delete');
 
 Route::get('xetduyetgiakcbtn','manage\kekhaigia\kkgiakcbtn\KkGiaKcbTnXdController@index');
 Route::post('xetduyetgiakcbtn/tralai','manage\kekhaigia\kkgiakcbtn\KkGiaKcbTnXdController@tralai');
