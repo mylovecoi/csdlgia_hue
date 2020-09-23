@@ -336,8 +336,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 @endif
                                 {{--Ok--}}
                             @endif
-                            @if(canKkGiaGr('DVHDTMCK'))
-                                @if(canKkGiaCt('DVHDTMCK','DVHDTMCK'))
+                            @if(chkPer('csdlmucgiahhdv', 'kknygia', 'dvhdtmck'))
                                     <li class="tooltips" data-container="body" data-placement="right" data-html="true"
                                         data-original-title="Giá dịch vụ hỗ trợ hoạt động thương mại tại cửa khẩu (kho,bến, bãi, bốc xếp hàng hóa tại cửa khẩu, dịch vụ khác">
                                         <a href="javascript:;">
@@ -345,19 +344,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <span class="arrow"></span>
                                         </a>
                                         <ul class="sub-menu">
-                                            @if(session('admin')->level == 'DN')
-                                                <li><a href="{{url('thongtinkkdvhoatdongthuongmai')}}">Giá kê khai</a> </li>
-                                            @endif
-                                            @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
-                                                <li><a href="{{url('thongtindnkkgiadvhdtm')}}">Giá kê khai</a></li>
-                                                <li><a href="{{url('xetduyetkkgiadvhdtm')}}">Thông tin hồ sơ xét duyệt</a></li>
-                                                <li><a href="{{url('timkiemgiadvhdtm')}}">Tìm kiếm thông tin</a> </li>
-                                                <li><a href="{{url('baocaokkgiadvhdtm')}}">Báo cáo thống kê</a></li>
-                                            @endif
+                                            <li><a href="{{url('kekhaigiadvhdtm')}}">Giá kê khai</a> </li>
                                         </ul>
                                     </li>
-                                @endif
-                                {{--OK--}}
                             @endif
                             @if(chkPer('csdlmucgiahhdv', 'kknygia', 'xmtxd'))
                                     <li>

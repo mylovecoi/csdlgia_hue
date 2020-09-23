@@ -13,7 +13,7 @@
 
 
     <h3 class="page-title">
-       Báo cáo tổng hợp<small> kê khai giá dịch vụ hoạt động thương mại tại cửa khẩu</small>
+        Báo cáo tổng hợp<small> kê khai giá dịch vụ thương mại</small>
     </h3>
     <!-- END PAGE HEADER-->
 
@@ -26,8 +26,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <ol>
-                                <li><a data-target="#pl1-thoai-confirm" data-toggle="modal" data-href="">Báo cáo tổng hợp giá kê khai dịch vụ hoạt động thương mại tại cửa khẩu theo thời điểm</a> </li>
-                                {{--<li><a data-target="#pl2-thoai-confirm" data-toggle="modal" data-href="">Báo cáo chi tiết giá kê khai giá vật liệu xây dựng theo thời điểm</a> </li>--}}
+                                <li><a data-target="#pl1-thoai-confirm" data-toggle="modal" data-href="">Báo cáo tổng hợp giá kê khai giá dịch vụ thương mại</a> </li>
                             </ol>
                         </div>
                     </div>
