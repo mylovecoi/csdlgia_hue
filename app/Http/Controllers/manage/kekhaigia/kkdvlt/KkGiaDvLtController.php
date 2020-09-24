@@ -222,7 +222,7 @@ class KkGiaDvLtController extends Controller
             //$inputs['trangthai'] = 'CD';
             //$inputs['ngaychuyen'] = Carbon::now()->toDateTimeString();
             $model->lichsu = json_encode($a_lichsu);
-            $model->nguoichuyen = $inputs['nguoinop'];
+            $model->nguoichuyen = $inputs['ttnguoinop'];
             $model->dtll = $inputs['dtll'];
             $model->macqcq = $inputs['macqcq'];
             $model->trangthai = 'CD';
@@ -250,9 +250,9 @@ class KkGiaDvLtController extends Controller
 
                 $tg = getDateTime(Carbon::now()->toDateTimeString());
                 $contentdn = 'Vào lúc: ' . $tg . ', hệ thống CSDL giá đã nhận được hồ sơ giá dịch vụ lưu trú của ' . $modelcskd->tencskd . '. Số công văn: ' . $model->socv .
-                    ' - Ngày áp dung: ' . getDayVn($model->ngayhieuluc) . '- Thông tin người nộp: ' . $inputs['nguoinop'] . '-Số điện thoại liên lạc: ' . $inputs['dtll'] . '!!!';
+                    ' - Ngày áp dung: ' . getDayVn($model->ngayhieuluc) . '- Thông tin người nộp: ' . $inputs['ttnguoinop'] . '-Số điện thoại liên lạc: ' . $inputs['dtll'] . '!!!';
                 $contentht = 'Vào lúc: ' . $tg . ', hệ thống CSDL giá đã nhận được hồ sơ giá dịch vụ lưu trú của doanh nghiệp ' . $modeldn->tendn . ' - mã số thuế ' . $modeldn->madv .
-                    ' -  ' . $modelcskd->tencskd . ' - Số công văn: ' . $model->socv . ' - Ngày áp dung: ' . getDayVn($model->ngayhieuluc) . '- Thông tin người nộp: ' . $inputs['nguoinop'] . '-Số điện thoại liên lạc: ' . $inputs['dtll'] . '!!!';
+                    ' -  ' . $modelcskd->tencskd . ' - Số công văn: ' . $model->socv . ' - Ngày áp dung: ' . getDayVn($model->ngayhieuluc) . '- Thông tin người nộp: ' . $inputs['ttnguoinop'] . '-Số điện thoại liên lạc: ' . $inputs['dtll'] . '!!!';
                 $run = new SendMail($modeldn, $contentdn, $modeldv, $contentht);
                 $run->handle();
             }
