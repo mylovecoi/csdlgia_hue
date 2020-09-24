@@ -297,7 +297,7 @@ class KkGiaVtXkController extends Controller
             //$inputs['trangthai'] = 'CD';
             //$inputs['ngaychuyen'] = Carbon::now()->toDateTimeString();
             $model->lichsu = json_encode($a_lichsu);
-            $model->ttnguoinop = $inputs['nguoinop'];
+            $model->ttnguoinop = $inputs['ttnguoinop'];
             //$model->dtll = $inputs['dtll'];
             $model->macqcq = $inputs['macqcq'];
             $model->trangthai = 'CD';
@@ -323,10 +323,10 @@ class KkGiaVtXkController extends Controller
 
                 $tg = getDateTime(Carbon::now()->toDateTimeString());
                 $contentdn = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã nhận được hồ sơ của doanh nghiệp. Số công văn: '.$model->socv.
-                    ' - Ngày áp dung: '.getDayVn($model->ngayhieuluc).'- Thông tin người nộp: '.$inputs['nguoinop'].'-Số điện thoại liên hệ: '.$inputs['dtll'].'!!!';
+                    ' - Ngày áp dung: '.getDayVn($model->ngayhieuluc).'- Thông tin người nộp: '.$inputs['ttnguoinop'].'-Số điện thoại liên hệ: '.$inputs['dtll'].'!!!';
 
                 $contentht = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã nhận được hồ sơ của doanh nghiệp '.$modeldn->tendn.' - mã số thuế '.$modeldn->madv.
-                    ' Số công văn: '.$model->socv.' - Ngày áp dung: '.getDayVn($model->ngayhieuluc).'- Thông tin người nộp: '.$inputs['nguoinop'].'-Số điện thoại liên hệ: '.$inputs['dtll'].'!!!';
+                    ' Số công văn: '.$model->socv.' - Ngày áp dung: '.getDayVn($model->ngayhieuluc).'- Thông tin người nộp: '.$inputs['ttnguoinop'].'-Số điện thoại liên hệ: '.$inputs['dtll'].'!!!';
                 $run = new SendMail($modeldn,$contentdn,$modeldv,$contentht);
                 $run->handle();
             }
