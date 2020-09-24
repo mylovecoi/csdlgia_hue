@@ -600,6 +600,12 @@
                     2.3 Kê khai hồ sơ: chọn nghề -> load danh mục (phân loại hồ sơ: đăng ký/ kê khai theo danh mục)
 
             -->
+            @if(session('admin')->level == 'SSA')
+                <li><a href="{{url('doanhnghiep/danhsach')}}">Thông tin doanh nghiệp</a></li>
+            @endif
+            @if((session('admin')->chucnang == 'TONGHOP' ) || session('admin')->level == 'SSA')
+                <li><a href="{{url('doanhnghiep/xetduyet')}}"> Xét duyệt thay đổi thông tin doanh nghiệp</a></li>
+            @endif
 
             @if(chkPer('csdlmucgiahhdv','bog', 'bog', 'danhmuc','index'))
                 <li>
