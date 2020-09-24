@@ -11,11 +11,14 @@ class KkGiaDvHdTmCt extends Model
         'id',
         'mahs',
         'maxa',
+        'madv',
+        'tendvcu',
         'qccl',
-        'tenhhdv',
         'dvt',
         'gialk',
-        'gia',
+        'giakk',
         'ghichu',
+        'trangthai',
+        'thuevat',
     ];
 }

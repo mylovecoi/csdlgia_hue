@@ -17,14 +17,15 @@ class CreateKkgiadvhdtmctTable extends Migration
             $table->increments('id');
             $table->string('mahs')->nullable();
             $table->string('maxa')->nullable();
-            $table->string('tenhhdv')->nullable();
+            $table->string('madv')->nullable();
+            $table->text('tendvcu')->nullable();
             $table->string('qccl')->nullable();
             $table->string('dvt')->nullable();
-            $table->string('gialk')->nullable();
-            $table->string('gia')->nullable();
+            $table->double('gialk')->default(0);
+            $table->double('giakk')->default(0);
+            $table->string('ghichu')->nullable();
             $table->string('trangthai')->nullable();
-            $table->text('ghichu')->nullable();
-
+            $table->string('thuevat')->nullable();
             $table->timestamps();
         });
     }
