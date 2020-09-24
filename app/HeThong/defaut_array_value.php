@@ -310,12 +310,22 @@ function getDonViTongHop_dn($linhvuc, $level, $madiaban = null){
         ->wherein('level', ['T', 'H'])->get();
     $m_user = App\Users::wherein('madv',array_column($m_donvi->toarray(),'madv'))->get();
     $ketqua = new Illuminate\Support\Collection();
-    foreach ($m_user as $user){
-        $per = json_decode($user->permission,true);
-        if(isset($per[$linhvuc]['hoso']['approve']) && $per[$linhvuc]['hoso']['approve'] == '1'){
-            $ketqua->add($m_donvi->where('madv',$user->madv)->first());
+//    if($linhvuc == 'binhongia'){
+//        foreach ($m_user as $user){
+//            $per = json_decode($user->permission,true);
+//            if(isset($per[$linhvuc]['hoso']['approve']) && $per[$linhvuc]['hoso']['approve'] == '1'){
+//                $ketqua->add($m_donvi->where('madv',$user->madv)->first());
+//            }
+//        }
+//    }else{
+        foreach ($m_user as $user){
+            $per = json_decode($user->permission,true);
+            if(isset($per[$linhvuc]['hoso']['approve']) && $per[$linhvuc]['hoso']['approve'] == '1'){
+                $ketqua->add($m_donvi->where('madv',$user->madv)->first());
+            }
         }
-    }
+//    }
+
     //dd($ketqua);
     return $ketqua;
 }

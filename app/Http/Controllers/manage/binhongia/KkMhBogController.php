@@ -86,7 +86,7 @@ class KkMhBogController extends Controller
             //$m_diaban = dsdiaban::wherein('madiaban', array_keys(getDiaBan_Level(session('admin')->level, session('admin')->madiaban)))->get();
             $m_donvi = getDoanhNghiep(session('admin')->level, session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', a_unique(array_column($m_donvi->toArray(),'madiaban')))->get();
-            $m_donvi_th = getDonViTongHop_dn('binhongia',session('admin')->level, session('admin')->madiaban);
+            $m_donvi_th = getDonViTongHop_dn('bog',session('admin')->level, session('admin')->madiaban);
 
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_donvi->first()->madiaban;
