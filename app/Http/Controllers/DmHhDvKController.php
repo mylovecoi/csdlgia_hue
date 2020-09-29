@@ -18,6 +18,11 @@ class DmHhDvKController extends Controller
             $modelnhom = NhomHhDvK::where('matt',$inputs['matt'])->first();
             $model = DmHhDvK::where('matt',$inputs['matt'])->get();
             $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
+            if($modelnhom->theodoi == 'KTD'){
+                return view('errors.duplicate')
+                    ->with('message', 'Nhóm danh mục hàng hóa dịch vụ đang tạm ngưng theo dõi.')
+                    ->with('url', '/giahhdvk/danhmuc');
+            }
             return view('manage.dinhgia.giahhdvk.danhmuc.chitiet.index')
                 ->with('model',$model)
                 ->with('a_dvt',$a_dvt)
@@ -30,24 +35,32 @@ class DmHhDvKController extends Controller
 
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             //dd($inputs);
-            $chk_dvt = dmdvt::where('dvt', $inputs['dvt'])->get();
-            if (count($chk_dvt) == 0) {
+            $chk_dvt = dmdvt::where('dvt', $inputs['dvt'])->first();
+            if ($chk_dvt == null) {
                 dmdvt::insert(['dvt' => $inputs['dvt']]);
             }
 
-            $check = DmHhDvK::where('mahhdv',$inputs['mahhdv'])->first();
-            if ($check == null) {
-                //$inputs['mahhdv'] = getdate()[0];
-                DmHhDvK::create($inputs);
+            $check = DmHhDvK::where('mahhdv', $inputs['mahhdv'])->first();
+            if ($inputs['trangthai'] == 'ADD') {
+                if ($check == null) {
+                    $model = new DmHhDvK();
+                    $model->create($inputs);
+                } else {
+                    return view('errors.duplicate')
+                        ->with('message', 'Mã số này đã được sử dụng.')
+                        ->with('url', '/giahhdvk/danhmuc/detail?matt=' . $inputs['matt']);
+                }
             } else {
                 $check->update($inputs);
             }
-            return redirect('/giahhdvk/danhmuc/detail?matt='.$inputs['matt']);
-        }else
+
+            return redirect('/giahhdvk/danhmuc/detail?matt=' . $inputs['matt']);
+        } else
             return view('errors.notlogin');
     }
 

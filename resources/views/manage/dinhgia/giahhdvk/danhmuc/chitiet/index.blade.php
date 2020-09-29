@@ -44,6 +44,7 @@
                     form.find("[name='tenhhdv']").val(data.tenhhdv);
                     form.find("[name='dacdiemkt']").val(data.dacdiemkt);
                     form.find("[name='dvt']").val(data.dvt).trigger('change');
+                    form.find("[name='trangthai']").val('EDIT');
                     //form.find("[name='theodoi']").val(data.theodoi).trigger('change');
 
                 },
@@ -57,6 +58,7 @@
             form.find("[name='mahhdv']").val(null);
             form.find("[name='tenhhdv']").val(null);
             form.find("[name='dacdiemkt']").val(null);
+            form.find("[name='trangthai']").val('ADD');
             form.find("[name='mahhdv']").prop('readonly', false);
         }
     </script>
@@ -181,6 +183,7 @@
                     </div>
                 </div>
                 <input type="hidden" name="matt" id="matt" value="{{$inputs['matt']}}">
+                <input type="hidden" name="trangthai" id="trangthai" >
                 <div class="modal-footer">
                     <button type="submit" class="btn blue">Đồng ý</button>
                     <button type="button" class="btn default" data-dismiss="modal">Hủy</button>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\manage\giataisancong;
 
 use App\Model\manage\dinhgia\giadatphanloai\GiaDatPhanLoaiDm;
+use App\Model\manage\dinhgia\GiaTaiSanCong;
 use App\Model\manage\dinhgia\GiaTaiSanCongDm;
 use App\Model\system\dmdvt;
 use App\Model\system\dsdiaban;
@@ -75,9 +76,16 @@ class GiaTaiSanCongDmController extends Controller
     public function destroy(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();
-            GiaTaiSanCongDm::where('mataisan',$inputs['mataisan'])->delete();
-            return redirect('/giathuetscong/danhmuc');
-            //return redirect('/giathuetscong/danhmuc');
+            $chk = GiaTaiSanCong::where('mataisan',$inputs['mataisan'])->first();
+            if($chk == null){
+                GiaTaiSanCongDm::where('mataisan',$inputs['mataisan'])->delete();
+                return redirect('giathuetscong/danhmuc');
+            }else{
+                return view('errors.duplicate')
+                    ->with('message','Mã số này đã được sử dụng trong hồ sơ giá.')
+                    ->with('url','/giathuetscong/danhmuc');
+            }
+
         } else
             return view('errors.notlogin');
     }

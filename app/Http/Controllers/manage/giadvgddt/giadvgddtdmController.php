@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\manage\giadvgddt;
 
+use App\Model\manage\dinhgia\GiaDvGdDtCt;
 use App\Model\manage\dinhgia\giadvgddtdm;
 
 use Illuminate\Http\Request;
@@ -55,8 +56,16 @@ class giadvgddtdmController extends Controller
     public function destroy(Request $request){
         if(Session::has('admin')){
             $inputs=$request->all();
-            giadvgddtdm::where('maspdv',$inputs['maspdv'])->first()->delete();
-            return redirect('giadvgddt/danhmuc');
+            $chk = GiaDvGdDtCt::where('maspdv',$inputs['maspdv'])->first();
+            if($chk == null){
+                giadvgddtdm::where('maspdv',$inputs['maspdv'])->first()->delete();
+                return redirect('giadvgddt/danhmuc');
+            }else{
+                return view('errors.duplicate')
+                    ->with('message','Mã số này đã được sử dụng trong hồ sơ giá.')
+                    ->with('url','/giadvgddt/danhmuc');
+            }
+
         }else
             return view('errors.notlogin');
     }

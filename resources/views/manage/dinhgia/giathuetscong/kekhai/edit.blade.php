@@ -188,7 +188,7 @@
                                     @foreach($modelct as $key=>$tt)
                                         <tr id={{$tt->id}}>
                                             <td style="text-align: center">{{($key +1)}}</td>
-                                            <td class="active" style="font-weight: bold">{{$a_ts[$tt->mataisan]}}</td>
+                                            <td class="active" style="font-weight: bold">{{$a_ts[$tt->mataisan] ?? ''}}</td>
                                             <td style="text-align: left;">{{$tt->dvthue}}</td>
                                             <td style="text-align: left;">{{$tt->hdthue}}</td>
                                             <td style="text-align: left;">{{$tt->ththue}}</td>
