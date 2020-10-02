@@ -59,7 +59,8 @@ class GiaDvGdDtCtController extends Controller
             die(json_encode($result));
         }
         $inputs = $request->all();
-        GiaDvGdDtCt::where('id',$inputs['id'])->first();
+        GiaDvGdDtCt::where('id',$inputs['id'])->delete();
+
         $model = GiaDvGdDtCt::where('mahs',$inputs['mahs'])->get();
         $result = $this->return_spdv($model);
         die(json_encode($result));
@@ -97,8 +98,8 @@ class GiaDvGdDtCtController extends Controller
                 $result['message'] .= '<td style="text-align: right;font-weight: bold">' . dinhdangso($tents->giadvnongthon) . '</td>';
                 $result['message'] .= '<td style="text-align: right;font-weight: bold">' . dinhdangso($tents->giadvmiennui) . '</td>';
                 $result['message'] .= '<td>' .
-                    '<button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem(' . $tents->id . ');"><i class="fa fa-edit"></i>&nbsp;Sửa</button>' .
-                    '<button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid(' . $tents->id . ')" ><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>'
+                    '<button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem(' . $tents->id . ');"><i class="fa fa-edit"></i>&nbsp;Sửa</button>'
+                    . '<button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid(' . $tents->id . ')" ><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>'
 
                     . '</td>';
                 $result['message'] .= '</tr>';
