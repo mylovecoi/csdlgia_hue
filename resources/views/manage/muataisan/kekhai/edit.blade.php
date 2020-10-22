@@ -115,7 +115,7 @@
                                     <div class="form-group">
                                         <label class="control-label">File đính kèm</label>
                                         @if($model->ipf1 != '')
-                                            <a href="{{url('/data/giagdbatdongsan/'.$model->ipf1)}}" target="_blank">{{$model->ipf1}}</a>
+                                            <a href="{{url('/data/muataisan/'.$model->ipf1)}}" target="_blank">{{$model->ipf1}}</a>
                                         @endif
                                         <input name="ipf1" id="ipf1" type="file">
                                     </div>

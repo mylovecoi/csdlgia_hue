@@ -2,17 +2,12 @@
 
 namespace App\Http\Controllers\manage\giarung;
 
-use App\DiaBanHd;
-use App\District;
 use App\DmGiaRung;
-use App\GiaDatDiaBanDm;
-use App\Model\manage\dinhgia\giadatphanloai\GiaDatPhanLoai;
 use App\Model\manage\dinhgia\GiaRung;
 use App\Model\system\dmdvt;
 use App\Model\system\dsdiaban;
 use App\Model\system\dsdonvi;
 use App\Model\system\view_dsdiaban_donvi;
-use App\Town;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -166,6 +161,7 @@ class GiaRungController extends Controller
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
+            $inputs['dvt'] = $inputs['dvt'] ?? '';
             $chk_dvt = dmdvt::where('dvt', $inputs['dvt'])->get();
             if (count($chk_dvt) == 0) {
                 dmdvt::insert(['dvt' => $inputs['dvt']]);
