@@ -32,6 +32,7 @@
             $('#hdthue').val('');
             $('#ththue').val('');
             $('#sotienthuenam').val('0');
+            $('#trangthai').val('ADD');
         }
 
         function capnhatts(){
@@ -48,6 +49,7 @@
                     ththue:$('#ththue').val(),
                     sotienthuenam:$('#sotienthuenam').val(),
                     mahs:$('#mahs').val(),
+                    trangthai:$('#trangthai').val(),
                 },
                 dataType: 'JSON',
                 success: function (data) {
@@ -60,7 +62,7 @@
                         $('#modal-create').modal("hide");
                     }
                     else
-                        toastr.error("Bạn cần kiểm tra lại thông tin vừa nhập!", "Lỗi!");
+                        toastr.error("Tài sản đã được thêm vào hồ sơ.", "Lỗi!");
                 }
             })
         }
@@ -83,6 +85,7 @@
                     form.find("[name='hdthue']").val(data.hdthue);
                     form.find("[name='ththue']").val(data.ththue);
                     form.find("[name='sotienthuenam']").val(data.sotienthuenam);
+                    form.find("[name='trangthai']").val('EDIT');
                 },
             })
         }
@@ -251,6 +254,7 @@
 
     <!--Model frm_modify-->
     {!! Form::open(['method' => 'post', 'url'=>'', 'class'=>'horizontal-form','id'=>'frm_modify']) !!}
+    <input type="hidden" name="trangthai" id="trangthai" />
     <div class="modal fade bs-modal-lg" id="modal-create" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">

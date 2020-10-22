@@ -11,20 +11,23 @@ use Illuminate\Support\Facades\Session;
 class GiaThueTsCongCtController extends Controller
 {
     public function store(Request $request){
+        $result = array(
+            'status' => 'fail',
+            'message' => 'permission denied',
+        );
         if(!Session::has('admin')) {
-            $result = array(
-                'status' => 'fail',
-                'message' => 'permission denied',
-            );
             die(json_encode($result));
         }
         $inputs = $request->all();
         $inputs['dongiathue'] = getMoneyToDb($inputs['dongiathue']);
         $inputs['sotienthuenam'] = getMoneyToDb($inputs['sotienthuenam']);
         $m_chk = GiaThueTsCongCt::where('mataisan',$inputs['mataisan'])->where('mahs',$inputs['mahs'])->first();
-
-        if($m_chk == null){
-            GiaThueTsCongCt::create($inputs);
+        if($inputs['trangthai'] == 'ADD'){
+            if($m_chk == null){
+                GiaThueTsCongCt::create($inputs);
+            }else{
+                die(json_encode($result));
+            }
         }else{
             $m_chk->update($inputs);
         }
