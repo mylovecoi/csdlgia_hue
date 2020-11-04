@@ -317,84 +317,49 @@ License: You must have a valid license purchased only from themeforest(the above
                             -->
                             <li><a href="{{url('doanhnghiep/danhsach')}}">Thông tin doanh nghiệp</a></li>
 
-                            @if(canKkGiaGr('VLXD'))
-                                @if(canKkGiaCt('VLXD','VLXD'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Vật liệu xây dựng</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            @if(session('admin')->level == 'DN')
-                                                <li><a href="{{url('thongtinkekhaigiavatlieuxaydung')}}">Giá kê khai</a> </li>
-                                            @endif
-                                            @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
-                                                <li><a href="{{url('danhmucvatlieuxaydung')}}">Danh mục VLXD</a></li>
-                                                <li><a href="{{url('thongtindnkkgiavlxd')}}">Giá kê khai</a></li>
-                                                <li><a href="{{url('xetduyetkkgiavlxd')}}">Thông tin hồ sơ xét duyệt</a></li>
-                                                <li><a href="{{url('timkiemkkgiavlxd')}}">Tìm kiếm thông tin</a> </li>
-                                                <li><a href="{{url('baocaokekhaigiavlxd')}}">Báo cáo thống kê</a></li>
-                                            @endif
-                                        </ul>
-                                    </li>
-                                @endif
-                                {{--Ok--}}
-                            @endif
-                            @if(chkPer('csdlmucgiahhdv', 'kknygia', 'dvhdtmck'))
-                                    <li class="tooltips" data-container="body" data-placement="right" data-html="true"
-                                        data-original-title="Giá dịch vụ hỗ trợ hoạt động thương mại tại cửa khẩu (kho,bến, bãi, bốc xếp hàng hóa tại cửa khẩu, dịch vụ khác">
-                                        <a href="javascript:;">
-                                            <span class="title">Giá dịch vụ hỗ trợ hoạt động thương mại tại cửa khẩu</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{url('kekhaigiadvhdtm')}}">Giá kê khai</a> </li>
-                                        </ul>
-                                    </li>
-                            @endif
                             @if(chkPer('csdlmucgiahhdv', 'kknygia', 'xmtxd'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Xi măng, thép xây dựng</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{url('kekhaigiaxmtxd')}}">Giá kê khai</a> </li>
-                                        </ul>
-                                    </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="title">Xi măng, thép xây dựng</span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li><a href="{{url('kekhaigiaxmtxd')}}">Giá kê khai</a> </li>
+                                    </ul>
+                                </li>
                             @endif
                             @if(chkPer('csdlmucgiahhdv', 'kknygia', 'than'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Than</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{url('kekhaigiathan')}}">Giá kê khai than</a> </li>
-                                        </ul>
-                                    </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="title">Than</span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li><a href="{{url('kekhaigiathan')}}">Giá kê khai than</a> </li>
+                                    </ul>
+                                </li>
                             @endif
                             @if(chkPer('csdlmucgiahhdv', 'kknygia', 'tacn'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Thức ăn chăn nuôi</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{url('kekhaigiatacn')}}">Giá kê khai</a> </li>
-                                        </ul>
-                                    </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="title">Thức ăn chăn nuôi</span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li><a href="{{url('kekhaigiatacn')}}">Giá kê khai</a> </li>
+                                    </ul>
+                                </li>
                             @endif
                             @if(chkPer('csdlmucgiahhdv', 'kknygia', 'giay'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Giấy in, viết (dạng cuộn), giấy in báo sản xuất trong nước</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{url('kekhaigiagiay')}}">Giá kê khai</a> </li>
-                                        </ul>
-                                    </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="title">Giấy in, viết (dạng cuộn), giấy in báo sản xuất trong nước</span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li><a href="{{url('kekhaigiagiay')}}">Giá kê khai</a> </li>
+                                    </ul>
+                                </li>
                             @endif
                             @if(chkPer('csdlmucgiahhdv', 'kknygia', 'sach'))
                                 <li>
@@ -451,86 +416,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </ul>
                                 </li>
                             @endif
-
-                            @if(canKkGiaGr('DVCB'))
-                                @if(canKkGiaCt('DVCB','DVCB'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Giá dịch vụ tại cảng biển, cảng hàng không</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            @if(session('admin')->level == 'DN')
-                                                <li><a href="{{url('kekhaigiadvcang')}}">Giá kê khai</a> </li>
-                                            @endif
-                                            @if(session('admin')->level == 'X' || session('admin')->level == 'T' || session('admin')->level == 'H')
-                                                <li><a href="{{url('thongtindndvcang')}}">Giá kê khai </a> </li>
-                                                <li><a href="{{url('xetduyetgiadvcang')}}">Thông tin hồ sơ xét duyệt</a></li>
-                                                <li><a href="{{url('timkiemgiadvcang')}}">Tìm kiếm thông tin</a> </li>
-                                                <li><a href="{{url('baocaokkgiadvcang')}}">Báo cáo thống kê</a></li>
-                                            @endif
-                                        </ul>
-                                    </li>
-                                @endif
-                                {{--Ok--}}
-                            @endif
-                            @if(canKkGiaGr('OTO'))
-                                @if(canKkGiaCt('OTO','OTO'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Giá ô tô nhập khẩu, sản xuất trong nước dưới 15 chỗ ngồi</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            @if(session('admin')->level == 'DN')
-                                                <li><a href="{{url('kekhaigiaotonksx')}}">Giá kê khai</a> </li>
-                                            @endif
-                                            @if(session('admin')->level == 'X' || session('admin')->level == 'T' || session('admin')->level == 'H')
-                                                <li><a href="{{url('thongtindnotonksx')}}">Giá kê khai </a> </li>
-                                                <li><a href="{{url('xetduyetgiaotonksx')}}">Thông tin hồ sơ xét duyệt</a></li>
-                                                <li><a href="{{url('timkiemgiaotonksx')}}">Tìm kiếm thông tin</a> </li>
-                                                <li><a href="{{url('baocaokkgiaotonksx')}}">Báo cáo thống kê</a></li>
-                                            @endif
-                                        </ul>
-                                    </li>
-                                @endif
-                                {{--Ok--}}
-                            @endif
-                            @if(canKkGiaGr('XEMAY'))
-                                @if(canKkGiaCt('XEMAY','XEMAY'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Giá xe gắn máy nhập khẩu, sản xuất trong nước</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            @if(session('admin')->level == 'DN')
-                                                <li><a href="{{url('kekhaigiaxemaynksx')}}">Giá kê khai</a> </li>
-                                            @endif
-                                            @if(session('admin')->level == 'X' || session('admin')->level == 'T' || session('admin')->level == 'H')
-                                                <li><a href="{{url('thongtindnxemaynksx')}}">Giá kê khai </a> </li>
-                                                <li><a href="{{url('xetduyetgiaxemaynksx')}}">Thông tin hồ sơ xét duyệt</a></li>
-                                                <li><a href="{{url('timkiemgiaxemaynksx')}}">Tìm kiếm thông tin</a> </li>
-                                                <li><a href="{{url('baocaokkgiaxemaynksx')}}">Báo cáo thống kê</a></li>
-                                            @endif
-                                        </ul>
-                                    </li>
-                                @endif
-                                {{--OK--}}
-                            @endif
-
-                            @if(chkPer('csdlmucgiahhdv','kknygia', 'kcbtn'))
-                                <li>
-                                    <a href="javascript:;">
-                                        <span class="title">Dịch vụ khám chữa bệnh cho người tại cơ sở khám chữa bệnh tư nhân; khám chữa bệnh theo yêu cầu tại cơ sở khám chữa bệnh của nhà nước</span>
-                                        <span class="arrow"></span>
-                                    </a>
-                                    <ul class="sub-menu">
-                                        <li><a href="{{url('kekhaigiakcbtn')}}">Giá kê khai</a> </li>
-                                    </ul>
-                                </li>
-                            @endif
-
                             @if(chkPer('csdlmucgiahhdv', 'kknygia', 'vtxk'))
                                 <li>
                                     <a href="javascript:;">
@@ -542,7 +427,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </ul>
                                 </li>
                             @endif
-
                             @if(chkPer('csdlmucgiahhdv', 'kknygia', 'vtxb'))
                                 <li>
                                     <a href="javascript:;">
@@ -554,7 +438,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </ul>
                                 </li>
                             @endif
-
                             @if(chkPer('csdlmucgiahhdv', 'kknygia', 'vtxtx'))
                                 <li>
                                     <a href="javascript:;">
@@ -566,50 +449,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </ul>
                                 </li>
                             @endif
-
-                            @if(canKkGiaCt('DVVTHK','VC'))
-                                <li>
-                                    <a href="javascript:;">
-                                        <span class="title">Cước vận chuyển hành khách: xe buýt, xe điện, bè mảng</span>
-                                        <span class="arrow"></span>
-                                    </a>
-                                    <ul class="sub-menu">
-                                        @if(session('admin')->level == 'DN')
-                                            <li><a href="{{url('kekhaicuocvchk')}}">Giá kê khai</a></li>
-                                        @endif
-                                        @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
-                                            <li><a href="{{url('thongtindnvchk')}}">Giá kê khai</a></li>
-                                            <li><a href="{{url('xetduyetkekhaicuocvchk')}}">Xét duyệt hồ sơ kê khai</a></li>
-                                            <li><a href="{{url('timkiemcuocvchk')}}">Tìm kiếm hồ sơ kê khai</a></li>
-                                            <li><a href="{{url('baocaogiacuocvchk')}}">Báo cáo thống kê</a></li>
-                                        @endif
-                                    </ul>
-                                </li>
-                            @endif
-
-                            @if(canKkGiaGr('TPCNTE6T'))
-                                @if(canKkGiaCt('TPCNTE6T','TPCNTE6T'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Thực phẩm chức năng cho trẻ em dưới 6 tuổi</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            @if(session('admin')->level == 'DN')
-                                                <li><a href="{{url('kekhaithucphamchucnangchote6t')}}">Giá kê khai</a> </li>
-                                            @endif
-                                            @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
-                                                <li><a href="{{url('thongtindntpcn6t')}}">Giá kê khai</a></li>
-                                                <li><a href="{{url('xdkekhaigiatpcnte6t')}}">Thông tin hồ sơ xét duyệt</a></li>
-                                                <li><a href="{{url('timkiemkekhaigiatpcnte6t')}}">Tìm kiếm thông tin</a> </li>
-                                                <li><a href="{{url('baocaokekhaigiatpcnte6t')}}">Báo cáo thống kê</a></li>
-                                            @endif
-                                        </ul>
-                                    </li>
-                                @endif
-                                {{--OK--}}
-                            @endif
-
                             @if(chkPer('csdlmucgiahhdv', 'kknygia', 'dvlt'))
                                 <li>
                                     <a href="javascript:;">
@@ -677,8 +516,73 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </ul>
                                 </li>
                             @endif
+                            @if(chkPer('csdlmucgiahhdv','kknygia', 'kcbtn'))
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="title">Dịch vụ khám chữa bệnh cho người tại cơ sở khám chữa bệnh tư nhân; khám chữa bệnh theo yêu cầu tại cơ sở khám chữa bệnh của nhà nước</span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li><a href="{{url('kekhaigiakcbtn')}}">Giá kê khai</a> </li>
+                                    </ul>
+                                </li>
+                            @endif
+                            @if(chkPer('csdlmucgiahhdv', 'kknygia', 'dvhdtmck'))
+                                <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+                                    data-original-title="Giá dịch vụ hỗ trợ hoạt động thương mại tại cửa khẩu (kho,bến, bãi, bốc xếp hàng hóa tại cửa khẩu, dịch vụ khác">
+                                    <a href="javascript:;">
+                                        <span class="title">Giá dịch vụ hỗ trợ hoạt động thương mại tại cửa khẩu</span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li><a href="{{url('kekhaigiadvhdtm')}}">Giá kê khai</a> </li>
+                                    </ul>
+                                </li>
+                            @endif
+                            @if(chkPer('csdlmucgiahhdv', 'kknygia', 'dvcb'))
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="title">Giá dịch vụ tại cảng biển, cảng hàng không</span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li><a href="{{url('kekhaigiadvcang')}}">Giá kê khai</a> </li>
+                                    </ul>
+                                </li>
+                            @endif
+                            @if(chkPer('csdlmucgiahhdv', 'kknygia', 'vlxd'))
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="title">Vật liệu xây dựng</span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li><a href="{{url('kekhaigiavlxd')}}">Giá kê khai</a> </li>
+                                    </ul>
+                                </li>
+                            @endif
 
 
+
+                            @if(canKkGiaCt('DVVTHK','VC'))
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="title">Cước vận chuyển hành khách: xe buýt, xe điện, bè mảng</span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        @if(session('admin')->level == 'DN')
+                                            <li><a href="{{url('kekhaicuocvchk')}}">Giá kê khai</a></li>
+                                        @endif
+                                        @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
+                                            <li><a href="{{url('thongtindnvchk')}}">Giá kê khai</a></li>
+                                            <li><a href="{{url('xetduyetkekhaicuocvchk')}}">Xét duyệt hồ sơ kê khai</a></li>
+                                            <li><a href="{{url('timkiemcuocvchk')}}">Tìm kiếm hồ sơ kê khai</a></li>
+                                            <li><a href="{{url('baocaogiacuocvchk')}}">Báo cáo thống kê</a></li>
+                                        @endif
+                                    </ul>
+                                </li>
+                            @endif
 
                             @if(canKkGiaGr('DLBB'))
                                 @if(canKkGiaCt('DLBB','DLBB'))
@@ -702,6 +606,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 @endif
                                 {{--OK--}}
                             @endif
+
                             @if(canKkGiaGr('TQKDL'))
                                 @if(canKkGiaCt('TQKDL','TQKDL'))
                                     <li>

@@ -62,5 +62,6 @@ class KkGiaDvHdTm extends Model
         'ngaychuyen_ad',
         'lydo_ad',
         'trangthai_ad',
+
     ];
 }

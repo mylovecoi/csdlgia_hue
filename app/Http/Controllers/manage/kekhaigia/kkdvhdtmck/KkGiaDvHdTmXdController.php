@@ -318,6 +318,7 @@ class KkGiaDvHdTmXdController extends Controller
                 'ngaynhan' => date('Y-m-d H:i:s'),'madv'=>$model->madv_ad]);
             $model->save();
             return redirect('xetduyetkkgiadvhdtm?madv=' . $model->madv_ad);
+
         } else
             return view('errors.notlogin');
     }

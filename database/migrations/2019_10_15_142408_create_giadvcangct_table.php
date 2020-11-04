@@ -21,8 +21,8 @@ class CreateGiadvcangctTable extends Migration
             $table->text('tendvcu')->nullable();
             $table->string('qccl')->nullable();
             $table->string('dvt')->nullable();
-            $table->double('gialk')->nullable();
-            $table->double('giakk')->nullable();
+            $table->double('gialk')->default(0);
+            $table->double('giakk')->default(0);
             $table->string('ghichu')->nullable();
             $table->string('trangthai')->nullable();
             $table->string('thuevat')->nullable();

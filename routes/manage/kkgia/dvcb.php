@@ -29,6 +29,6 @@ Route::get('timkiemgiadvcang/printf','manage\kekhaigia\kkgiadvcang\GiaDvCangXdCo
 
 Route::get('/ttdnkkgiadvcang','manage\kekhaigia\kkgiadvcang\GiaDvCangXdController@ttdnkkgiadvcang');
 
-Route::get('baocaokkgiadvcang','manage\kekhaigia\kkgiadvcang\GiaDvCangBcController@index');
-Route::post('baocaokkgiadvcang/bc1','manage\kekhaigia\kkgiadvcang\GiaDvCangBcController@bc1');
-Route::post('baocaokkgiadvcang/bc2','manage\kekhaigia\kkgiadvcang\GiaDvCangBcController@bc2');
+Route::get('baocaogiadvcang','manage\kekhaigia\kkgiadvcang\GiaDvCangBcController@index');
+Route::post('baocaogiadvcang/bc1','manage\kekhaigia\kkgiadvcang\GiaDvCangBcController@bc1');
+Route::post('baocaogiadvcang/bc2','manage\kekhaigia\kkgiadvcang\GiaDvCangBcController@bc2');

@@ -26,10 +26,10 @@
                 var url = '/timkiemgiadvcang?'+namhs;
                 window.location.href = url;
             });
-            $('#tthhdv').change(function() {
+            $('#mota').change(function() {
                 var namhs = '&nam='+ $('#nam').val();
-                var tthhdv = '&tthhdv=' + $('#tthhdv').val();
-                var url = '/timkiemgiadvcang?'+namhs + tthhdv;
+                var mota = '&mota=' + $('#mota').val();
+                var url = '/timkiemgiadvcang?'+namhs + mota;
                 window.location.href = url;
             });
 
@@ -38,8 +38,9 @@
 @stop
 
 @section('content')
+
     <h3 class="page-title">
-        Tìm kiếm thông tin kê khai giá<small>&nbsp;dịch vụ tại cảng biển</small>
+        Tìm kiếm thông tin kê khai giá<small>&nbsp;dịch vụ cảng</small>
     </h3>
     <hr>
     <div class="row">
@@ -57,56 +58,65 @@
         </div>
         <div class="col-md-5">
             <div class="form-group">
-                <label>Tên hàng hóa dịch vụ</label>
-                <input type="text" class="form-control" id="tthhdv" name="tthhdv" value="{{$inputs['tthhdv']}}">
+                <label>Mô tả</label>
+                <input type="text" class="form-control" id="mota" name="mota" value="{{$inputs['mota']}}">
             </div>
         </div>
+
     </div>
+
+
     <!-- END PAGE HEADER-->
     <div class="row">
         <div class="col-md-12">
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box">
+                <div class="portlet-title">
+                    <div class="actions">
+                        <a href="{{url('timkiemgiadvcang/printf?&nam='.$inputs['nam'].'&mota='.$inputs['mota'])}}" class="btn btn-default btn-sm" target="_blank">
+                            <i class="fa fa-print"></i> In trang </a>
+                    </div>
+                </div>
                 <div class="portlet-body">
                     <div class="portlet-body">
-                    <table class="table table-striped table-bordered table-hover" id="sample_3">
-                        <thead>
-                        <tr>
-                            <th style="text-align: center ; margin: auto" width="2%">STT</th>
-                            <th style="text-align: center" width="20%">Doanh nghiệp</th>
-                            <th style="text-align: center" width="8%">Ngày thực hiện<br>mức giá</th>
-                            <th style="text-align: center" >Tên hàng hóa, dịch vụ</th>
-                            <th style="text-align: center" >Quy cách chất lượng</th>
-                            <th style="text-align: center" >Đơn vị tính</th>
-                            <th style="text-align: center" >Mức giá kê khai</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($model as $key=>$tt)
+                        <table class="table table-striped table-bordered table-hover" id="sample_4">
+                            <thead>
                             <tr>
-                                <td style="text-align: center">{{$key+1}}</td>
-                                <td class="active"><b>Tên DN: </b> {{$tt->tendn}}
-                                    <br><b>Mã số thuế:</b> {{$tt->maxa}}</td>
-                                <td style="text-align: center">{{getDayVn($tt->ngayhieuluc)}}</td>
-                                <td style="text-align: left">{{$tt->tthhdv}}</td>
-                                <td style="text-align: left">{{$tt->qccl}}</td>
-                                <td style="text-align: left">{{$tt->dvt}}</td>
-                                <td style="text-align: right;font-weight: bold">{{number_format($tt->dongia)}}</td>
-
+                                <th style="text-align: center ; margin: auto" width="2%">STT</th>
+                                <th style="text-align: center" width="20%">Doanh nghiệp</th>
+                                <th style="text-align: center" width="8%">Ngày thực hiện<br>mức giá</th>
+                                <th style="text-align: center" >Mô tả</th>
+                                <th style="text-align: center" >Quy cách chất lượng</th>
+                                <th style="text-align: center" >Đơn vị tính</th>
+                                <th style="text-align: center" >Mức giá kê khai</th>
                             </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            @foreach($model as $key=>$tt)
+                                <tr>
+                                    <td style="text-align: center">{{$key+1}}</td>
+                                    <td class="active"><b>Tên DN: </b> {{$tt->tendn}}
+                                        <br><b>Mã số thuế:</b> {{$tt->madv}}</td>
+                                    <td style="text-align: center">{{getDayVn($tt->ngayhieuluc)}}</td>
+                                    <td style="text-align: left">{{$tt->tendvcu}}</td>
+                                    <td style="text-align: left">{{$tt->qccl}}</td>
+                                    <td style="text-align: left">{{$tt->dvt}}</td>
+                                    <td style="text-align: right;font-weight: bold">{{number_format($tt->giakk)}}</td>
+
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
             </div>
-            <!-- END EXAMPLE TABLE PORTLET-->
         </div>
-    </div>
 
-    <!-- BEGIN DASHBOARD STATS -->
+        <!-- BEGIN DASHBOARD STATS -->
 
-    <!-- END DASHBOARD STATS -->
-    <div class="clearfix"></div>
+        <!-- END DASHBOARD STATS -->
+        <div class="clearfix"></div>
 
-    @include('includes.script.create-header-scripts')
+        @include('includes.script.create-header-scripts')
 @stop

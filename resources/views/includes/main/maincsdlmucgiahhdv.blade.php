@@ -1053,8 +1053,43 @@
                     </ul>
                 </li>
             @endif
+            @if(chkPer('csdlmucgiahhdv','kknygia', 'dvcb', 'hoso', 'index'))
+                <li>
+                    <a href="javascript:;">
+                        <span class="title">Giá dịch vụ tại cảng biển, cảng hàng không</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        @if(session('admin')->level == 'SSA')
+                            <li><a href="{{url('kekhaigiadvcang')}}">Giá kê khai</a> </li>
+                        @endif
+                        <li><a href="{{url('xetduyetgiadvcang')}}">Thông tin hồ sơ xét duyệt</a></li>
+                        <li><a href="{{url('timkiemgiadvcang')}}">Tìm kiếm thông tin</a> </li>
+                        <li><a href="{{url('baocaogiadvcang')}}">Báo cáo thống kê</a></li>
+                    </ul>
+                </li>
+            @endif
+            @if(chkPer('csdlmucgiahhdv','kknygia', 'vlxd', 'hoso', 'index'))
+                <li>
+                    <a href="javascript:;">
+                        <span class="title">Vật liệu xây dựng</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        @if(session('admin')->level == 'SSA')
+                            <li><a href="{{url('kekhaigiavlxd')}}">Giá kê khai</a> </li>
+                        @endif
+                        {{--<li><a href="{{url('danhmucvlxd')}}">Danh mục VLXD</a></li>--}}
+                        <li><a href="{{url('xetduyetkkgiavlxd')}}">Thông tin hồ sơ xét duyệt</a></li>
+                        <li><a href="{{url('timkiemkkgiavlxd')}}">Tìm kiếm thông tin</a> </li>
+                        <li><a href="{{url('baocaokkgiavlxd')}}">Báo cáo thống kê</a></li>
+                    </ul>
+                </li>
+            @endif
 
-            {{--@if(canKkGiaCt('DVVTHK','VC'))
+
+
+            @if(canKkGiaCt('DVVTHK','VC'))
                 <li>
                     <a href="javascript:;">
                         <span class="title">Cước vận chuyển hành khách: xe buýt, xe điện, bè mảng</span>
@@ -1072,26 +1107,11 @@
                         @endif
                     </ul>
                 </li>
-            @endif--}}
+            @endif
 
 
 
-            {{--@if(chkPer('csdlmucgiahhdv','kknygia', 'dvcb', 'hoso', 'index'))
-                <li>
-                    <a href="javascript:;">
-                        <span class="title">Giá dịch vụ tại cảng biển, cảng hàng không</span>
-                        <span class="arrow"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        @if(session('admin')->level == 'SSA')
-                            <li><a href="{{url('kekhaigiadvcang')}}">Giá kê khai</a> </li>
-                        @endif
-                        <li><a href="{{url('xetduyetgiadvcang')}}">Thông tin hồ sơ xét duyệt</a></li>
-                        <li><a href="{{url('timkiemgiadvcang')}}">Tìm kiếm thông tin</a> </li>
-                        <li><a href="{{url('baocaokkgiadvcang')}}">Báo cáo thống kê</a></li>
-                    </ul>
-                </li>
-            @endif--}}
+
 
 
 
@@ -1143,29 +1163,7 @@
                 {{--OK--}}
             @endif
 
-            @if(canKkGiaGr('VLXD'))
-                @if(canKkGiaCt('VLXD','VLXD'))
-                    <li>
-                        <a href="javascript:;">
-                            <span class="title">Vật liệu xây dựng</span>
-                            <span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            @if(session('admin')->level == 'DN')
-                                <li><a href="{{url('thongtinkekhaigiavatlieuxaydung')}}">Giá kê khai</a> </li>
-                            @endif
-                            @if(session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T' )
-                                <li><a href="{{url('danhmucvatlieuxaydung')}}">Danh mục VLXD</a></li>
-                                <li><a href="{{url('thongtindnkkgiavlxd')}}">Giá kê khai</a></li>
-                                <li><a href="{{url('xetduyetkkgiavlxd')}}">Thông tin hồ sơ xét duyệt</a></li>
-                                <li><a href="{{url('timkiemkkgiavlxd')}}">Tìm kiếm thông tin</a> </li>
-                                <li><a href="{{url('baocaokekhaigiavlxd')}}">Báo cáo thống kê</a></li>
-                            @endif
-                        </ul>
-                    </li>
-                @endif
-                {{--Ok--}}
-            @endif
+
 
 
         </ul>

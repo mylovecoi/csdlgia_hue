@@ -20,5 +20,6 @@ class KkGiaDvHdTmCt extends Model
         'ghichu',
         'trangthai',
         'thuevat',
+
     ];
 }
