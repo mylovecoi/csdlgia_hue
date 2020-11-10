@@ -44,7 +44,7 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <div class="actions">
-                        @if(chkPer('hethong', 'hethong', 'danhsachxaphuong','danhmuc', 'modify'))
+                        @if(chkPer('hethong', 'hethong_pq', 'danhsachxaphuong','danhmuc', 'modify'))
                             <button type="button" onclick="add()" class="btn btn-default btn-xs" data-target="#modify-modal" data-toggle="modal">
                                 <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
                         @endif
@@ -77,7 +77,7 @@
                                     <td class="text-center">{{$tt->maxp}}</td>
                                     <td class="active" >{{$tt->tenxp}}</td>
                                     <td>
-                                        @if(chkPer('hethong', 'hethong', 'danhsachxaphuong','danhmuc', 'modify'))
+                                        @if(chkPer('hethong', 'hethong_pq', 'danhsachxaphuong','danhmuc', 'modify'))
                                             <button type="button" onclick="edit('{{$tt->maxp}}','{{$tt->tenxp}}','{{$tt->level}}')" class="btn btn-default btn-xs mbs" data-target="#modify-modal" data-toggle="modal">
                                                 <i class="fa fa-edit"></i>&nbsp;Sửa</button>
 
