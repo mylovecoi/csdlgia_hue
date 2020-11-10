@@ -72,8 +72,8 @@
 
 @section('content')
 
-    <h3 class="page-title">
-        Thông tin kê khai giá<small>&nbsp;dịch vụ lưu trú</small>
+    <h3 class="page-title text-uppercase">
+        {{session('admin')['a_chucnang']['dvlt'] ?? 'kê khai giá dịch vụ lưu trú'}}
     </h3>
     <!-- END PAGE HEADER-->
     <div class="row">
@@ -84,6 +84,8 @@
                     <div class="actions">
                         <a href="{{url('kekhaigiadvlt/create?&macskd='.$inputs['macskd'])}}" class="btn btn-default btn-sm">
                             <i class="fa fa-plus"></i> Kê khai mới </a>
+                        <a href="{{url('kekhaigiadvlt/nhanexcel?macskd='.$inputs['macskd'])}}" class="btn btn-default btn-sm">
+                            <i class="fa fa-file-excel-o"></i> Nhận dữ liệu</a>
                     </div>
 
                 </div>

@@ -38,6 +38,8 @@ class CreateKkgiadvltTable extends Migration
 
             //Thông tin hồ sơ khi khởi tạo (level lấy theo thông tin đơn vị)
             $table->string('macqcq')->nullable(20);
+            $table->string('macqcq1')->nullable(20);
+            $table->string('macqcq2')->nullable(20);
             $table->string('madv')->nullable(20);
             $table->date('ngaynhan')->nullable();
             $table->string('sohsnhan')->nullable(20);

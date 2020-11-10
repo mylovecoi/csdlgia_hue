@@ -28,6 +28,20 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
+                            <label class="control-label">Địa bàn kinh doanh</label>
+                            <select class="form-control select2me" id="diabankinhdoanh" name="diabankinhdoanh">
+                                <option value="all">-Chọn địa bàn kinh doanh--</option>
+                                @foreach($m_diaban as $diaban)
+                                    <option value="{{$diaban->madiaban}}">{{$diaban->tendiaban}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
                             <label class="control-label">Đơn vị nhận hồ sơ</label>
                             <select class="form-control select2me" id="macqcq" name="macqcq">
                                 <option value="all">-Chọn đơn vị nhận hồ sơ--</option>
@@ -75,6 +89,39 @@
 </div>
 
 <script>
+    function get_dvtonghop() {
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            type: 'GET',
+            url: '/ajax/get_dvtonghop_diaban',
+            data: {
+                _token: CSRF_TOKEN,
+                madiaban: $('#diabankinhdoanh').val(),
+                manghe: $('#manghe').val()
+            },
+            dataType: 'JSON',
+            success: function (data) {
+                $('#macqcq').replaceWith(data.message);
+                // if (data.status == 'success'){
+                //     toastr.success("Mã số thuế sử dụng được!", "Thành công!");
+                // }else{
+                //     toastr.error("Bạn cần nhập lại mã số thuế", "Mã số thuế nhập vào đã tồn tại hoặc đã được đăng ký!!!");
+                //     $('input[name="madv"]').val('');
+                //     $('input[name="madv"]').focus();
+                // }
+
+            }
+        });
+    }
+
+    $('#manghe').change(function () {
+        get_dvtonghop();
+    });
+
+    $('#diabankinhdoanh').change(function(){
+        get_dvtonghop();
+    });
+
     $('#madv').change(function(){
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({

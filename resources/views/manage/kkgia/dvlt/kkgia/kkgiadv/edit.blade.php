@@ -262,8 +262,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-success btn-xs" onclick="clearForm()">
-                                    <i class="fa fa-plus"></i>&nbsp;Kê khai bổ sung phòng</button>                                &nbsp;
+                                <button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-info" onclick="clearForm()">
+                                    <i class="fa fa-plus"></i>&nbsp;Kê khai bổ sung phòng</button>
                             </div>
                         </div>
                     </div>
@@ -293,7 +293,7 @@
                                         <td style="text-align: right;font-weight: bold">{{number_format($tt->mucgiakk)}}</td>
                                         <td>{{$tt->ghichu}}</td>
                                         <td>
-                                            <button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editTtPh({{$tt->id}})"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa thông tin</button>
+                                            <button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editTtPh({{$tt->id}})"><i class="fa fa-edit"></i>&nbsp;Sửa</button>
                                             <button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid({{$tt->id}})" ><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
                                         </td>
                                     </tr>

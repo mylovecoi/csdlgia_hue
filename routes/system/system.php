@@ -153,6 +153,7 @@ Route::get('ajax/checkuser','AjaxController@checkusername');
 Route::get('ajax/checkmasothue','AjaxController@checkmasothue');
 Route::get('searchtkdangky','Auth\RegisterController@searchindex');
 Route::post('searchtkdangky','Auth\RegisterController@search');
+Route::get('ajax/get_dvtonghop_diaban','AjaxController@get_dvtonghop_diaban');
 
 //Danh sách chức năng
 Route::group(['prefix'=>'chucnang'],function (){

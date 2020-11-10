@@ -31,6 +31,8 @@ class KkGiaDvLt extends Model
 
         //Thông tin hồ sơ khi khởi tạo (level lấy theo thông tin đơn vị)
         'macqcq',
+        'macqcq1',
+        'macqcq2',
         'madv',
         'ngaynhan',
         'sohsnhan',
@@ -41,6 +43,8 @@ class KkGiaDvLt extends Model
 
         //Thông tin Hô sơ khi gửi đơn vị cấp trên (Cấp H, T tùy theo level đơn vị khởi tạo)
         'macqcq_h',
+        'macqcq_h1',
+        'macqcq_h2',
         'madv_h',
         'ngaynhan_h',
         'sohsnhan_h',
@@ -51,6 +55,8 @@ class KkGiaDvLt extends Model
 
         //Thông tin Hô sơ khi gửi đơn vị cấp trên (Cấp H, T tùy theo level đơn vị khởi tạo)
         'macqcq_t',
+        'macqcq_t1',
+        'macqcq_t2',
         'madv_t',
         'ngaynhan_t',
         'sohsnhan_t',
@@ -61,6 +67,8 @@ class KkGiaDvLt extends Model
 
         //Thông tin Hô sơ khi gửi đơn vị cấp trên (Cấp H, T tùy theo level đơn vị khởi tạo)
         'macqcq_ad',
+        'macqcq_ad1',
+        'macqcq_ad2',
         'madv_ad',
         'ngaynhan_ad',
         'sohsnhan_ad',

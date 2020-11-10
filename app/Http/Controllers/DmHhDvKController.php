@@ -44,7 +44,8 @@ class DmHhDvKController extends Controller
             if ($chk_dvt == null) {
                 dmdvt::insert(['dvt' => $inputs['dvt']]);
             }
-
+            $inputs['mahhdv'] = chuanhoatruong($inputs['mahhdv']);
+            //dd($inputs);
             $check = DmHhDvK::where('mahhdv', $inputs['mahhdv'])->first();
             if ($inputs['trangthai'] == 'ADD') {
                 if ($check == null) {
@@ -81,6 +82,7 @@ class DmHhDvKController extends Controller
     public function destroy(Request $request){
         if(Session::has('admin')){
             $inputs=$request->all();
+            //dd($inputs);
             $model = DmHhDvK::where('mahhdv',$inputs['mahhdv'])->first();
             $model->delete();
             return redirect('/giahhdvk/danhmuc/detail?matt='.$model->matt);

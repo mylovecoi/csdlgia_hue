@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\manage\kekhaigia\kkdvlt;
 
 use App\Jobs\SendMail;
+use App\Model\manage\dinhgia\GiaRung;
 use App\Model\manage\kekhaigia\kkdvlt\CsKdDvLt;
 use App\Model\manage\kekhaigia\kkdvlt\KkGiaDvLt;
 use App\Model\manage\kekhaigia\kkdvlt\KkGiaDvLtCt;
@@ -17,8 +18,10 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KkGiaDvLtController extends Controller
 {
@@ -101,6 +104,92 @@ class KkGiaDvLtController extends Controller
                 }
                 KkGiaDvLtCt::insert($a_dm);
             }
+
+            $modelct = KkGiaDvLtCt::where('mahs', $inputs['mahs'])->get();
+
+            return view('manage.kkgia.dvlt.kkgia.kkgiadv.edit')
+                ->with('model', $model)
+                ->with('modelcskd', $modelcskd)
+                ->with('modeldn', $modeldn)
+                ->with('modelct', $modelct)
+                ->with('inputs', $inputs)
+                ->with('pageTitle', 'Kê khai giá dịch vụ lưu trú');
+
+        } else
+            return view('errors.notlogin');
+    }
+
+    public function nhanexcel(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $m_cskd = CsKdDvLt::where('macskd', $inputs['macskd'])->first();
+            $inputs['madv'] = $m_cskd->madv;
+            $inputs['url'] = '/kekhaigiadvlt';
+            return view('manage.kkgia._include.importexcel_cskd')
+                ->with('inputs',$inputs)
+                ->with('pageTitle','Nhận dữ liệu từ file Excel');
+
+        } else
+            return view('errors.notlogin');
+    }
+
+    public function create_excel(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            //dd($inputs);
+            $inputs['mahs'] = $inputs['macskd'].'_'.getdate()[0];
+            $modelcskd = CsKdDvLt::where('macskd', $inputs['macskd'])->first();
+            $modeldn = Company::where('madv', $modelcskd->madv)->first();
+            //DB::statement("DELETE FROM kkgiadvltct WHERE macskd='" . $modelcskd->macskd . "' and mahs not in (SELECT mahs FROM kkgiadvlt where madv='" . $modelcskd->madv . "')");
+
+            $model = new KkGiaDvLt();
+            $model->mahs = $inputs['mahs'];
+            $model->macskd = $inputs['macskd'];
+            $model->trangthai = 'CC';
+            $model->ngaynhap = date('Y-m-d');
+            $model->madv = $modelcskd->madv;
+
+            $modellk = KkGiaDvLt::where('macskd', $inputs['macskd'])
+                ->where('trangthai', 'DD')
+                ->orderby('ngayhieuluc', 'desc')->first();
+            //dd($inputs);
+            if ($modellk != null) {
+                $model->socvlk = $modellk->socv;
+                $model->ngaycvlk = $modellk->ngaynhap;
+            }
+
+            $filename = $inputs['macskd'] . '_' . getdate()[0];
+            $request->file('fexcel')->move(public_path() . '/data/uploads/excels/', $filename . '.xls');
+            $path = public_path() . '/data/uploads/excels/' . $filename . '.xls';
+            $data = [];
+
+            Excel::load($path, function ($reader) use (&$data, $inputs) {
+                $obj = $reader->getExcel();
+                $sheet = $obj->getSheet(0);
+                $data = $sheet->toArray(null, true, true, true);// giữ lại tiêu đề A=>'val';
+            });
+            //dd($data);
+
+            $a_dm = array();
+
+            for ($i = $inputs['tudong']; $i <= $inputs['dendong']; $i++) {
+                if(!isset($data[$i][$inputs['tenhhdv']]) || !isset($data[$i][$inputs['qccl']]) ||
+                    !isset($data[$i][$inputs['dvt']]) || !isset($data[$i][$inputs['mucgialk']]) ||
+                    !isset($data[$i][$inputs['mucgiakk']])){
+                    continue;
+                }
+                $a_dm[] = array(
+                    'mahs' => $inputs['mahs'],
+                    'tenhhdv' => $data[$i][$inputs['tenhhdv']] ?? '',
+                    'qccl' => $data[$i][$inputs['qccl']] ?? '',
+                    'dvt' => $data[$i][$inputs['dvt']] ?? '',
+                    'mucgialk' => $data[$i][$inputs['mucgialk']] ?? '',
+                    'mucgiakk' => $data[$i][$inputs['mucgiakk']] ?? '',
+                    'macskd' => $inputs['macskd'],
+                );
+            }
+            KkGiaDvLtCt::insert($a_dm);
+            File::Delete($path);
 
             $modelct = KkGiaDvLtCt::where('mahs', $inputs['mahs'])->get();
 
@@ -225,6 +314,8 @@ class KkGiaDvLtController extends Controller
             $model->nguoichuyen = $inputs['ttnguoinop'];
             $model->dtll = $inputs['dtll'];
             $model->macqcq = $inputs['macqcq'];
+            $model->macqcq1 = $inputs['macqcq1'];
+            $model->macqcq2 = $inputs['macqcq2'];
             $model->trangthai = 'CD';
             $model->ngaychuyen = date('Y-m-d H:i:s');
             $chk_dvcq = view_dsdiaban_donvi::where('madv', $inputs['macqcq'])->first();

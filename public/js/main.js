@@ -56,6 +56,18 @@ $(function () {
         }
     }
 
+    index = chk.indexOf('nhanexcel');
+    if(index > -1) {
+        url = '';
+        for (var i = 0; i < index; i++) {
+            if(i == index - 1){
+                url += chk[i];
+            }else {
+                url += chk[i] + "/";
+            }
+        }
+    }
+
     // index = chk.indexOf('edit');
     // if(index > -1) {
     //     url = '';

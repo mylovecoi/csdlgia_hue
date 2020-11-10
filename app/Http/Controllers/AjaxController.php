@@ -273,5 +273,24 @@ class AjaxController extends Controller
         die(json_encode($result));
     }
 
+    public function get_dvtonghop_diaban(Request $request){
+        $result = array(
+            'status' => 'fail',
+            'message' => 'error',
+        );
 
+        //dd($request);
+        $inputs = $request->all();
+        $model = getDonViTongHop_dn(strtolower($inputs['manghe']),'SSA',$inputs['madiaban']);
+        $result['message'] = '<select name="macqcq" id="macqcq" class="form-control select2me">';
+        $result['message'] .= '<option value="all">-Chọn đơn vị nhận hồ sơ--</option>';
+        foreach($model as $tt) {
+            $result['message'] .= '<option value="'.$tt->madv.'">'.$tt->tendv.'</option>';
+        }
+        $result['message'] .= '</select>';
+
+        $result['status'] = 'success';
+
+        die(json_encode($result));
+    }
 }

@@ -1,0 +1,7 @@
+use csdlgia_hue
+GO
+ALTER TABLE kkgiadvlt
+ADD
+    [macqcq1] [nvarchar](30) NULL,
+    [macqcq2] [nvarchar](30) NULL;
+GO

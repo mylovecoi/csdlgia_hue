@@ -3442,7 +3442,7 @@ function chuanhoatruong($text)
     $text = strtolower(chuyenkhongdau($text));
     $text = str_replace("ß", "ss", $text);
     $text = str_replace("%", "", $text);
-    $text = preg_replace("/[^_a-zA-Z0-9 -]/", "", $text);
+    $text = preg_replace("/[^_a-zA-Z0-9 - .]/", "", $text);
     $text = str_replace(array('%20', ' '), '_', $text);
     $text = str_replace("----", "_", $text);
     $text = str_replace("---", "_", $text);

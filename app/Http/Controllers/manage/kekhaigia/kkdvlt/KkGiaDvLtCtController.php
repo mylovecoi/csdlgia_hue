@@ -63,7 +63,7 @@ class KkGiaDvLtCtController extends Controller
                     $result['message'] .= '<td style="text-align: right;font-weight: bold">'.number_format($ttphong->mucgiakk).'</td>';
                     $result['message'] .= '<td style="text-align: left">'.$ttphong->ghichu.'</td>';
                     $result['message'] .= '<td>'.
-                        '<button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editTtPh('.$ttphong->id.')"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa thông tin</button>'.
+                        '<button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editTtPh('.$ttphong->id.')"><i class="fa fa-edit"></i>&nbsp;Sửa</button>'.
                         '<button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid('.$ttphong->id.')" ><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>'
 
                         .'</td>';

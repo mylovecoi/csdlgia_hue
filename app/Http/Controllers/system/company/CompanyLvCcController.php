@@ -69,9 +69,7 @@ class CompanyLvCcController extends Controller
         die(json_encode($result));
     }
 
-    public function store(Request $request)
-    {
-
+    public function store(Request $request){
         $inputs = $request->all();
         $model = CompanyLvCc::where('mahs',$inputs['mahs'])->where('manghe',$inputs['manghe'])->first();
         if ($model == null) {
@@ -319,7 +317,7 @@ class CompanyLvCcController extends Controller
         );
 
         $a_nghe = array_column(DmNgheKd::all()->toArray(), 'tennghe', 'manghe');
-        $a_donvi = array_column(view_dsdiaban_donvi::where('chucnang', 'TONGHOP')->wherein('level', ['T', 'H', 'X'])->get()->toArray(),
+        $a_donvi = array_column(view_dsdiaban_donvi::where('chucnang', 'TONGHOP')->get()->toArray(),
             'tendv', 'madv');
         $result['message'] = '<div class="row" id="dsts">';
         $result['message'] .= '<div class="col-md-12">';

@@ -8,6 +8,9 @@ Route::post('kekhaigiadvlt/store','manage\kekhaigia\kkdvlt\KkGiaDvLtController@s
 Route::get('kekhaigiadvlt/edit','manage\kekhaigia\kkdvlt\KkGiaDvLtController@edit');
 Route::get('kekhaigiadvlt/prints','manage\kekhaigia\kkdvlt\KkGiaDvLtController@show');
 
+Route::get('kekhaigiadvlt/nhanexcel','manage\kekhaigia\kkdvlt\KkGiaDvLtController@nhanexcel');
+Route::post('kekhaigiadvlt/create_excel','manage\kekhaigia\kkdvlt\KkGiaDvLtController@create_excel');
+
 Route::get('kekhaigiadvlt/kiemtra','manage\kekhaigia\kkdvlt\KkGiaDvLtController@ktchuyendvlt');
 Route::post('kekhaigiadvlt/chuyen','manage\kekhaigia\kkdvlt\KkGiaDvLtController@chuyen');
 Route::get('kekhaigiadvlt/get_sohs','manage\kekhaigia\kkdvlt\KkGiaDvLtController@showlydo');

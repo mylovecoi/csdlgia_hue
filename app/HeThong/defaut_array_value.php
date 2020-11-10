@@ -309,6 +309,7 @@ function getDonViTongHop_dn($linhvuc, $level, $madiaban = null){
     $m_donvi = App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')
         ->wherein('level', ['T', 'H'])->get();
     $m_user = App\Users::wherein('madv',array_column($m_donvi->toarray(),'madv'))->get();
+    //dd($m_user);
     $ketqua = new Illuminate\Support\Collection();
 //    if($linhvuc == 'binhongia'){
 //        foreach ($m_user as $user){

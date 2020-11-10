@@ -134,10 +134,11 @@ class CompanyController extends Controller
     public function ttdn(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            //dd($inputs);
             $m_doanhnghiep = getDoanhNghiep(session('admin')->level,session('admin')->madiaban);
-            $m_diaban = dsdiaban::wherein('madiaban', array_column($m_doanhnghiep->toarray(),'madiaban'))->get();
-
+            $m_diaban = dsdiaban::all();
+            //dd($m_diaban);
+            $m_diaban = $m_diaban->whereIn('madiaban', array_column($m_doanhnghiep->toarray(),'madiaban'));
+            //$m_diaban = dsdiaban::wherein('madiaban', array_column($m_doanhnghiep->toarray(),'madiaban'))->get();
             $inputs['madv'] = $inputs['madv'] ?? $m_doanhnghiep->first()->madv;
 
             $model = Company::where('madv',$inputs['madv'])->first();
