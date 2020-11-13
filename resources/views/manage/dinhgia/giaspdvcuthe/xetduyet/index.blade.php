@@ -101,6 +101,8 @@
 
                                     @include('manage.include.form.td_trangthai')
                                     <td>
+                                        <a target="_blank" href="{{url($inputs['url'].'/modify?mahs='.$tt->mahs.'&act=false')}}" class="btn btn-default btn-xs mbs">
+                                            <i class="fa fa-edit"></i>&nbsp;Chi tiết</a>
                                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvcuthe', 'hoso', 'approve'))
                                             @if($tt->level == 'ADMIN')
                                                 @if($tt->trangthai == 'CB')
