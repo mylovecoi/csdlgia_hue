@@ -41,7 +41,7 @@
 
 @section('content')
     <h3 class="page-title text-uppercase">
-        {{session('admin')['a_chucnang']['giacuocvanchuyen'] ?? 'giá cước vận chuyển'}}
+        {{session('admin')['a_chucnang']['giaspdvcuthe'] ?? 'Giá sản phẩm, dịch vụ cụ thể'}}
     </h3>
     {{--<h3 class="page-title">
         <small> <b style="color: blue">{{$dvql->tendv}}</b><b style="color: blue"> - </b><b style="color: blue">{{$dv->tendv}}</b> - Người soạn thảo: <b style="color: blue">{{isset($model) ? $model->cvsoanthao : session('admin')->name}}</b> </small>
@@ -101,7 +101,7 @@
 
                                     @include('manage.include.form.td_trangthai')
                                     <td>
-                                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giacldat', 'hoso', 'approve'))
+                                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvcuthe', 'hoso', 'approve'))
                                             @if($tt->level == 'ADMIN')
                                                 @if($tt->trangthai == 'CB')
                                                     <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','{{$inputs['url'].'/congbo'}}', 'HCB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
