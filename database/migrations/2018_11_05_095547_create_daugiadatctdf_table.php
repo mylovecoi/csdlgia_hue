@@ -15,13 +15,17 @@ class CreateDaugiadatctdfTable extends Migration
     {
         Schema::create('daugiadatctdf', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('vitridiadiem')->nullable();
-            $table->string('mucgiasan')->nullable();
-            $table->string('mucgiadaugia')->nullable();
-            $table->string('donvidaugia')->nullable();
-            $table->string('mahuyen')->nullable();
-            $table->string('maxa')->nullable();
-            $table->string('district')->nullable();
+            $table->string('solo')->nullable();
+            $table->string('sothua')->nullable();
+            $table->string('sotobando')->nullable();
+            $table->string('loaidat')->nullable();
+            $table->string('khuvuc')->nullable();
+            $table->string('dvt')->nullable();
+            $table->string('mota')->nullable();
+            $table->double('dientich')->default(0);
+            $table->double('giakhoidiem')->default(0);
+            $table->double('giadaugia')->default(0);
+            $table->string('mahs')->nullable();
             $table->timestamps();
         });
     }

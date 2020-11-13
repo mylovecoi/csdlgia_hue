@@ -171,14 +171,16 @@ License: You must have a valid license purchased only from themeforest(the above
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="control-label">Địa danh</label>
+{{--                        <label class="control-label">Địa danh</label>--}}
+                        <label class="control-label">Nơi đăng ký kê khai</label>
                         {!!Form::text('diadanh', null, array('id' => 'diadanh','class' => 'form-control required'))!!}
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="control-label">Địa bàn đăng ký</label>
+{{--                        <label class="control-label">Địa bàn đăng ký</label>--}}
+                        <label class="control-label">Cơ quan quản lý trực tiếp</label>
                         {!!Form::select('madiaban', array_column($m_diaban->toarray(),'tendiaban','madiaban'), null, array('id' => 'madiaban','class' => 'form-control'))!!}
                     </div>
                 </div>

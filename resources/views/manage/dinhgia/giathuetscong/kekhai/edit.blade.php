@@ -28,6 +28,7 @@
     <script>
         function clearForm(){
             $('#dongiathue').val('0');
+            $('#dvt').val('');
             $('#dvthue').val('');
             $('#hdthue').val('');
             $('#ththue').val('');
@@ -43,6 +44,7 @@
                 data: {
                     _token: CSRF_TOKEN,
                     mataisan: $('#mataisan').val(),
+                    dvt: $('#dvt').val(),
                     dongiathue: $('#dongiathue').val(),
                     dvthue:$('#dvthue').val(),
                     hdthue:$('#hdthue').val(),
@@ -81,6 +83,7 @@
                     var form = $('#frm_modify');
                     form.find("[name='mataisan']").val(data.mataisan).trigger('change');
                     form.find("[name='dongiathue']").val(data.dongiathue);
+                    form.find("[name='dvt']").val(data.dvt);
                     form.find("[name='dvthue']").val(data.dvthue);
                     form.find("[name='hdthue']").val(data.hdthue);
                     form.find("[name='ththue']").val(data.ththue);
@@ -182,8 +185,9 @@
                                             <th style="text-align: center">Đơn vị thuê</th>
                                             <th style="text-align: center">Hợp đồng số</th>
                                             <th style="text-align: center">Thời hạn</th>
-                                            <th style="text-align: center" width="10%">Đơn giá</th>
-                                            <th style="text-align: center" width="10%">Thành tiền</th>
+                                            <th style="text-align: center" width="8%">Đơn vị<br>tính</th>
+                                            <th style="text-align: center" width="8%">Đơn giá</th>
+                                            <th style="text-align: center" width="8%">Thành tiền</th>
                                             <th style="text-align: center" width="10%">Thao tác</th>
                                         </tr>
                                     </thead>
@@ -195,6 +199,7 @@
                                             <td style="text-align: left;">{{$tt->dvthue}}</td>
                                             <td style="text-align: left;">{{$tt->hdthue}}</td>
                                             <td style="text-align: left;">{{$tt->ththue}}</td>
+                                            <td style="text-align: center;">{{$tt->dvt}}</td>
                                             <td style="text-align: right;font-weight: bold">{{number_format($tt->dongiathue)}}</td>
                                             <td style="text-align: right;font-weight: bold">{{number_format($tt->sotienthuenam)}}</td>
                                             <td>
@@ -298,7 +303,13 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Đơn vị tính</label>
+                                <input type="text" id="dvt" name="dvt" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label class="control-label">Đơn giá thuê</label>
                                 <input type="text" id="dongiathue" name="dongiathue" data-mask="fdecimal" class="form-control" style="font-weight: bold;text-align: right">

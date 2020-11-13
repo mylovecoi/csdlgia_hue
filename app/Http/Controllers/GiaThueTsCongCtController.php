@@ -94,9 +94,10 @@ class GiaThueTsCongCtController extends Controller
         $result['message'] .= '<th style="text-align: center">Đơn vị thuê</th>';
         $result['message'] .= '<th style="text-align: center">Hợp đồng số</th>';
         $result['message'] .= '<th style="text-align: center">Thời hạn</th>';
-        $result['message'] .= '<th style="text-align: center" width="10%">Đơn giá</th>';
-        $result['message'] .= '<th style="text-align: center" width="10%">Thành tiền</th>';
-        $result['message'] .= '<th style="text-align: center" width="10%">Thao tác</th>';
+        $result['message'] .= '<th style="text-align: center" width="8%">Đơn vị</br>tính</th>';
+        $result['message'] .= '<th style="text-align: center" width="8%">Đơn giá</th>';
+        $result['message'] .= '<th style="text-align: center" width="8%">Thành tiền</th>';
+        $result['message'] .= '<th style="text-align: center" width="8%">Thao tác</th>';
         $result['message'] .= '</tr>';
         $result['message'] .= '</thead>';
         $result['message'] .= '<tbody id="ttts">';
@@ -109,6 +110,7 @@ class GiaThueTsCongCtController extends Controller
                 $result['message'] .= '<td style="text-align: left;">' . $tents->dvthue . '</td>';
                 $result['message'] .= '<td style="text-align: left;">' . $tents->hdthue . '</td>';
                 $result['message'] .= '<td style="text-align: left;">' . $tents->ththue . '</td>';
+                $result['message'] .= '<td style="text-align: center;">' . $tents->dvt . '</td>';
                 $result['message'] .= '<td style="text-align: right;font-weight: bold">' . number_format($tents->dongiathue) . '</td>';
                 $result['message'] .= '<td style="text-align: right;font-weight: bold">' . number_format($tents->sotienthuenam) . '</td>';
                 $result['message'] .= '<td>' .

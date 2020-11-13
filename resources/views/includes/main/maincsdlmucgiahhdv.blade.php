@@ -550,6 +550,112 @@
                 </li>
             @endif
 
+            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvcuthe'))
+                <li>
+                    <a href="javascript:;">
+                        <span class="title">{{session('admin')['a_chucnang']['giaspdvcuthe'] ?? 'Giá sản phẩm, dịch vụ cụ thể'}}</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvcuthe', 'hoso','index'))
+                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                                <li>
+                                    <a href="{{url('/giaspdvcuthe/danhsach')}}">
+                                        Thông tin hồ sơ
+                                    </a>
+                                </li>
+                            @endif
+
+                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                                <li>
+                                    <a href="{{url('/giaspdvcuthe/xetduyet')}}">
+                                        Xét duyệt hồ sơ
+                                    </a>
+                                </li>
+                            @endif
+
+                            <li>
+                                <a href="{{url('/giaspdvcuthe/timkiem')}}">Tìm kiếm hồ sơ</a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
+            @endif
+
+            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvtoida'))
+                <li>
+                    <a href="javascript:;">
+                        <span class="title">{{session('admin')['a_chucnang']['giaspdvtoida'] ?? 'Giá sản phẩm, dịch vụ tối đa'}}</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvtoida', 'danhmuc','index'))
+                            <li>
+                                <a href="{{url('/giaspdvtoida/danhmuc')}}">Danh mục</a>
+                            </li>
+                        @endif
+                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvtoida', 'hoso','index'))
+                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                                <li>
+                                    <a href="{{url('/giaspdvtoida/danhsach')}}">
+                                        Thông tin hồ sơ
+                                    </a>
+                                </li>
+                            @endif
+
+                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                                <li>
+                                    <a href="{{url('/giaspdvtoida/xetduyet')}}">
+                                        Xét duyệt hồ sơ
+                                    </a>
+                                </li>
+                            @endif
+
+                            <li>
+                                <a href="{{url('/giaspdvtoida/timkiem')}}">Tìm kiếm hồ sơ</a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
+            @endif
+
+            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvkhunggia'))
+                <li>
+                    <a href="javascript:;">
+                        <span class="title">{{session('admin')['a_chucnang']['giaspdvkhunggia'] ?? 'Khung giá sản phẩm, dịch vụ'}}</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvkhunggia', 'danhmuc','index'))
+                            <li>
+                                <a href="{{url('/giaspdvkhunggia/danhmuc')}}">Danh mục</a>
+                            </li>
+                        @endif
+                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvkhunggia', 'hoso','index'))
+                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                                <li>
+                                    <a href="{{url('/giaspdvkhunggia/danhsach')}}">
+                                        Thông tin hồ sơ
+                                    </a>
+                                </li>
+                            @endif
+
+                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                                <li>
+                                    <a href="{{url('/giaspdvkhunggia/xetduyet')}}">
+                                        Xét duyệt hồ sơ
+                                    </a>
+                                </li>
+                            @endif
+
+                            <li>
+                                <a href="{{url('/giaspdvkhunggia/timkiem')}}">Tìm kiếm hồ sơ</a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
+            @endif
+
             @if(canGeneral('giathuenhacongvu','index'))
                 @if(can('giathuenhacongvu','index'))
                     <li class="tooltips" data-container="body" data-placement="right" data-html="true">

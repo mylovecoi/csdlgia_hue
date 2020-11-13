@@ -109,6 +109,25 @@ class KkGiaDvLtXdController extends Controller
                     break;
                 }
             }
+            //lấy danh sách hồ sơ đc gửi đồng thời
+
+            if ($inputs['nam'] != 'all'){
+                $model_dongthoi = KkGiaDvLt::whereYear('ngaychuyen', $inputs['nam'])
+                ->where(function ($qr) use ($inputs){
+                    $qr->where('macqcq1', $inputs['madv'])
+                        ->orwhere('macqcq2', $inputs['madv'])
+                        ->get();
+                })->get();
+            }else{
+                $model_dongthoi = KkGiaDvLt::where('macqcq1', $inputs['madv'])
+                    ->orwhere('macqcq2', $inputs['madv'])
+                ->get();
+            }
+            //$model = $model->merge($model_dongthoi);
+            foreach ($model_dongthoi as $key=>$val){
+                $val->trangthai = 'DONGTHOI';
+                $model->add($val);
+            }
             //dd($model);
             return view('manage.kkgia.dvlt.kkgia.xetduyet.index')
                 ->with('model', $model)

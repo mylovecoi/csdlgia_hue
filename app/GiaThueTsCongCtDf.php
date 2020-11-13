@@ -9,16 +9,14 @@ class GiaThueTsCongCtDf extends Model
     protected $table = 'giathuetscongctdf';
     protected $fillable = [
         'id',
-        'maxa',
-        'mahuyen',
-        'district',
+        'mataisan',
         'tents',
-        'soluong',
         'dvt',
         'dongiathue',
         'dvthue',
         'hdthue',
         'ththue',
         'sotienthuenam',
+        'mahs',
     ];
 }

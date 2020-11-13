@@ -16,5 +16,9 @@ class DauGiaDatCt extends Model
         'dientich',
         'giakhoidiem',
         'giadaugia',
+        'solo',
+        'sothua',
+        'sotobando',
+        'dvt',
     ];
 }

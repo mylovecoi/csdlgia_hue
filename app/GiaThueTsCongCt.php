@@ -11,6 +11,7 @@ class GiaThueTsCongCt extends Model
         'id',
         'mataisan',
         'tents',
+        'dvt',
         'dongiathue',
         'dvthue',
         'hdthue',

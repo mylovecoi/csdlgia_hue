@@ -38,7 +38,7 @@
     <div class="row center">
         <div class="col-md-12 center">
             <!-- BEGIN VALIDATION STATES-->
-            {!! Form::open(['url'=>'giahhdvkhac', 'id' => 'create_giahhdvkhac', 'class'=>'horizontal-form']) !!}
+            {!! Form::open(['url'=>'giahhdvkhac', 'id' => 'create_giahhdvkhac', 'class'=>'horizontal-form','files'=>true]) !!}
             <meta name="csrf-token" content="{{ csrf_token() }}" />
             <div class="portlet box blue">
                 <div class="portlet-body form">
@@ -114,6 +114,17 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label">File đính kèm</label>
+                                @if($model->ipf1 != '')
+                                    <a href="{{url('/data/giahhdvk/'.$model->ipf1)}}" target="_blank">{{$model->ipf1}}</a>
+                                @endif
+                                <input name="ipf1" id="ipf1" type="file">
+                            </div>
+                        </div>
+                        
                         <input type="hidden" name="district" id="district" value="{{$inputs['districtbc']}}">
                         <input type="hidden" name="matt" id="matt" value="{{$inputs['mattbc']}}">
                         <input type="hidden" name="thang" id="thang" value="{{$inputs['thangbc']}}">

@@ -15,17 +15,15 @@ class CreateGiathuetscongctdfTable extends Migration
     {
         Schema::create('giathuetscongctdf', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('mataisan')->nullable();
             $table->string('tents')->nullable();
-            $table->string('soluong')->nullable();
             $table->string('dvt')->nullable();
             $table->string('dongiathue')->nullable();
             $table->string('dvthue')->nullable();
             $table->string('hdthue')->nullable();
             $table->string('ththue')->nullable();
             $table->string('sotienthuenam')->nullable();
-            $table->string('maxa')->nullable();
-            $table->string('mahuyen')->nullable();
-            $table->string('district')->nullable();
+            $table->string('mahs')->nullable();
             $table->timestamps();
         });
     }

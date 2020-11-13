@@ -149,26 +149,7 @@
                                     <td style="text-align: center" class="active">{{$tt->socv}}</td>
                                     <td style="text-align: center">{{$tt->socvlk}}</td>
                                     <td style="text-align: left">{{$a_donvi_th[$tt->macqcq]?? ''}}</td>
-                                    @if($tt->trangthai == "CC")
-                                        <td align="center"><span class="badge badge-warning">Chờ chuyển</span></td>
-                                    @elseif($tt->trangthai == 'CD')
-                                        <td align="center"><span class="badge badge-blue">Chờ duyệt</span>
-                                            <br>Thời gian chuyển:<br><b>{{getDateTime($tt->ngaychuyen)}}</b>
-                                        </td>
-                                    @elseif($tt->trangthai == 'BTL')
-                                        <td align="center">
-                                            <span class="badge badge-danger">Bị trả lại</span><br>&nbsp;
-                                        </td>
-                                    @elseif($tt->trangthai == 'CB')
-                                        <td align="center"><span class="badge badge-warning">Công bố</span>
-                                            <br>Thời gian chuyển:<br><b>{{getDateTime($tt->ngaychuyen)}}</b>
-                                        </td>
-                                    @else
-                                        <td align="center">
-                                            <span class="badge badge-success">Đã duyệt</span>
-                                            <br>Thời gian chuyển:<br><b>{{getDateTime($tt->ngaychuyen)}}</b>
-                                        </td>
-                                    @endif
+                                    @include('manage.include.form.td_trangthai_kekhai')
                                     <td>
                                         <a href="{{url('kekhaigiadvlt/prints?&mahs='.$tt->mahs)}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
 

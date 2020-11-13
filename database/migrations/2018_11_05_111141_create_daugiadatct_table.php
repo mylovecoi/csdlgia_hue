@@ -15,8 +15,12 @@ class CreateDaugiadatctTable extends Migration
     {
         Schema::create('daugiadatct', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('solo')->nullable();
+            $table->string('sothua')->nullable();
+            $table->string('sotobando')->nullable();
             $table->string('loaidat')->nullable();
             $table->string('khuvuc')->nullable();
+            $table->string('dvt')->nullable();
             $table->string('mota')->nullable();
             $table->double('dientich')->default(0);
             $table->double('giakhoidiem')->default(0);

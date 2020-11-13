@@ -387,6 +387,7 @@ Route::group(['prefix'=>'giahhdvk'], function (){
     Route::post('bc2','ReportsHhDvKController@bc2');
     Route::post('exWordBc2','ReportsHhDvKController@exWordBc2');
 
+    Route::get('dinhkem','GiaHhDvKController@show_dk');
     Route::get('nhanexcel','GiaHhDvKController@nhanexcel');
     Route::post('import_excel','GiaHhDvKController@import_excel');
 });
@@ -860,4 +861,91 @@ Route::group(['prefix'=>'muataisan'],function (){
     Route::post('timkiem','manage\muataisan\MuaTaiSanController@ketquatk');
 });
 
+//Giá sản phẩm dịch vụ cụ thế
+Route::group(['prefix'=>'giaspdvcuthe'],function (){
+    Route::get('danhsach','manage\giaspdvcuthe\giaspdvcutheController@index');
+    Route::get('new','manage\giaspdvcuthe\giaspdvcutheController@create');
+    Route::get('modify','manage\giaspdvcuthe\giaspdvcutheController@edit');
+    Route::post('modify','manage\giaspdvcuthe\giaspdvcutheController@store');
+    Route::post('delete','manage\giaspdvcuthe\giaspdvcuthetroller@destroy');
+    Route::get('dinhkem','manage\giaspdvcuthe\giaspdvcutheController@show');
+
+    Route::get('store_ct','manage\giaspdvcuthe\giaspdvcuthectController@store');
+    Route::get('edit_ct','manage\giaspdvcuthe\giaspdvcuthectController@show');
+    Route::get('del_ct','manage\giaspdvcuthe\giaspdvcuthectController@destroy');
+    Route::post('importexcel','manage\giaspdvcuthe\giaspdvcuthectController@importexcel');
+
+    Route::post('chuyenhs','manage\giaspdvcuthe\giaspdvcutheController@chuyenhs');
+    Route::get('prints','manage\giaspdvcuthe\giaspdvcutheController@ketxuat');
+
+    Route::get('xetduyet','manage\giaspdvcuthe\giaspdvcutheController@xetduyet');
+    Route::post('chuyenxd','manage\giaspdvcuthe\giaspdvcutheController@chuyenxd');
+    Route::post('tralai','manage\giaspdvcuthe\giaspdvcutheController@tralai');
+    Route::post('congbo','manage\giaspdvcuthe\giaspdvcutheController@congbo');
+    //Route::get('prints','manage\giaspdvcuthe\giaspdvcutheController@bcgiadatdiaban');
+    Route::get('timkiem','manage\giaspdvcuthe\giaspdvcutheController@timkiem');
+    Route::post('timkiem','manage\giaspdvcuthe\giaspdvcutheController@ketquatk');
+});
+
+//Giá sản phẩm dịch vụ tối đa
+Route::group(['prefix'=>'giaspdvtoida'],function (){
+    Route::get('danhmuc','manage\giaspdvtoida\giaspdvtoidadmController@index');
+    Route::post('danhmuc','manage\giaspdvtoida\giaspdvtoidadmController@store');
+    Route::get('show_dm','manage\giaspdvtoida\giaspdvtoidadmController@edit');
+    Route::post('delete_dm','manage\giaspdvtoida\giaspdvtoidadmController@destroy');
+
+    Route::get('danhsach','manage\giaspdvtoida\giaspdvtoidaController@index');
+    Route::get('new','manage\giaspdvtoida\giaspdvtoidaController@create');
+    Route::get('modify','manage\giaspdvtoida\giaspdvtoidaController@edit');
+    Route::post('modify','manage\giaspdvtoida\giaspdvtoidaController@store');
+    Route::post('delete','manage\giaspdvtoida\giaspdvtoidatroller@destroy');
+    Route::get('dinhkem','manage\giaspdvtoida\giaspdvtoidaController@show_dk');
+
+    Route::get('store_ct','manage\giaspdvtoida\giaspdvtoidactController@store');
+    Route::get('get_ct','manage\giaspdvtoida\giaspdvtoidactController@show');
+    Route::get('del_ct','manage\giaspdvtoida\giaspdvtoidactController@destroy');
+    Route::post('importexcel','manage\giaspdvtoida\giaspdvtoidactController@importexcel');
+
+    Route::post('chuyenhs','manage\giaspdvtoida\giaspdvtoidaController@chuyenhs');
+    Route::get('prints','manage\giaspdvtoida\giaspdvtoidaController@ketxuat');
+
+    Route::get('xetduyet','manage\giaspdvtoida\giaspdvtoidaController@xetduyet');
+    Route::post('chuyenxd','manage\giaspdvtoida\giaspdvtoidaController@chuyenxd');
+    Route::post('tralai','manage\giaspdvtoida\giaspdvtoidaController@tralai');
+    Route::post('congbo','manage\giaspdvtoida\giaspdvtoidaController@congbo');
+    //Route::get('prints','manage\giaspdvtoida\giaspdvtoidaController@bcgiadatdiaban');
+    Route::get('timkiem','manage\giaspdvtoida\giaspdvtoidaController@timkiem');
+    Route::post('timkiem','manage\giaspdvtoida\giaspdvtoidaController@ketquatk');
+});
+
+//Giá sản phẩm dịch vụ khung giá
+Route::group(['prefix'=>'giaspdvkhunggia'],function (){
+    Route::get('danhmuc','manage\giaspdvkhunggia\giaspdvkhunggiadmController@index');
+    Route::post('danhmuc','manage\giaspdvkhunggia\giaspdvkhunggiadmController@store');
+    Route::get('show_dm','manage\giaspdvkhunggia\giaspdvkhunggiadmController@edit');
+    Route::post('delete_dm','manage\giaspdvkhunggia\giaspdvkhunggiadmController@destroy');
+
+    Route::get('danhsach','manage\giaspdvkhunggia\giaspdvkhunggiaController@index');
+    Route::get('new','manage\giaspdvkhunggia\giaspdvkhunggiaController@create');
+    Route::get('modify','manage\giaspdvkhunggia\giaspdvkhunggiaController@edit');
+    Route::post('modify','manage\giaspdvkhunggia\giaspdvkhunggiaController@store');
+    Route::post('delete','manage\giaspdvkhunggia\giaspdvkhunggiatroller@destroy');
+    Route::get('dinhkem','manage\giaspdvkhunggia\giaspdvkhunggiaController@show_dk');
+
+    Route::get('store_ct','manage\giaspdvkhunggia\giaspdvkhunggiactController@store');
+    Route::get('get_ct','manage\giaspdvkhunggia\giaspdvkhunggiactController@show');
+    Route::get('del_ct','manage\giaspdvkhunggia\giaspdvkhunggiactController@destroy');
+    Route::post('importexcel','manage\giaspdvkhunggia\giaspdvkhunggiactController@importexcel');
+
+    Route::post('chuyenhs','manage\giaspdvkhunggia\giaspdvkhunggiaController@chuyenhs');
+    Route::get('prints','manage\giaspdvkhunggia\giaspdvkhunggiaController@ketxuat');
+
+    Route::get('xetduyet','manage\giaspdvkhunggia\giaspdvkhunggiaController@xetduyet');
+    Route::post('chuyenxd','manage\giaspdvkhunggia\giaspdvkhunggiaController@chuyenxd');
+    Route::post('tralai','manage\giaspdvkhunggia\giaspdvkhunggiaController@tralai');
+    Route::post('congbo','manage\giaspdvkhunggia\giaspdvkhunggiaController@congbo');
+    //Route::get('prints','manage\giaspdvkhunggia\giaspdvkhunggiaController@bcgiadatdiaban');
+    Route::get('timkiem','manage\giaspdvkhunggia\giaspdvkhunggiaController@timkiem');
+    Route::post('timkiem','manage\giaspdvkhunggia\giaspdvkhunggiaController@ketquatk');
+});
 ?>

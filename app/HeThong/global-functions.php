@@ -2546,6 +2546,9 @@ function getGiaoDien()
             'giaspdvci' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
             'giahhdvcn' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
             'giacuocvanchuyen' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
+            'giaspdvcuthe' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
+            'giaspdvtoida' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
+            'giaspdvkhunggia' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
         ),
         'bog' => array(
             'index' => '0', 'congbo' => '0',
@@ -2801,6 +2804,22 @@ function getPhanQuyen()
         'danhmuc' => array('index' => '0', 'modify' => '0',),
         'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
     );
+    $gui['giaspdvcuthe'] = array(
+        'index' => '0',
+        'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+    );
+
+    $gui['giaspdvtoida'] = array(
+        'index' => '0',
+        'danhmuc' => array('index' => '0', 'modify' => '0',),
+        'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+    );
+    $gui['giaspdvkhungia'] = array(
+        'index' => '0',
+        'danhmuc' => array('index' => '0', 'modify' => '0',),
+        'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+    );
+
 
     $gui['bog'] = array(
         'index' => '0',

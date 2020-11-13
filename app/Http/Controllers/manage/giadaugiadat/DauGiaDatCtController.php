@@ -118,9 +118,13 @@ class DauGiaDatCtController extends Controller
         $result['message'] .= '<thead>';
         $result['message'] .= '<tr>';
         $result['message'] .= '<th width="5%" style="text-align: center">STT</th>';
+        $result['message'] .= '<th style="text-align: center">Số lô</th>';
+        $result['message'] .= '<th style="text-align: center">Số thửa</th>';
+        $result['message'] .= '<th style="text-align: center">Tờ bản đồ</th>';
         $result['message'] .= '<th style="text-align: center">Khu vực</th>';
         $result['message'] .= '<th style="text-align: center">Mô tả</th>';
         $result['message'] .= '<th style="text-align: center">Diên tích</th>';
+        $result['message'] .= '<th style="text-align: center">ĐVT</th>';
         $result['message'] .= '<th style="text-align: center">Giá khởi</br>điểm</th>';
         $result['message'] .= '<th style="text-align: center">Giá đấu</br>giá</th>';
         $result['message'] .= '<th style="text-align: center" width="15%">Thao tác</th>';
@@ -133,9 +137,13 @@ class DauGiaDatCtController extends Controller
             foreach ($model as $key => $ttbog) {
                 $result['message'] .= '<tr id="' . $ttbog->id . '">';
                 $result['message'] .= '<td style="text-align: center">' . ($key + 1) . '</td>';
+                $result['message'] .= '<td>' . $ttbog->solo . '</td>';
+                $result['message'] .= '<td>' . $ttbog->sothua . '</td>';
+                $result['message'] .= '<td>' . $ttbog->sotobando . '</td>';
                 $result['message'] .= '<td>' . $ttbog->khuvuc . '</td>';
                 $result['message'] .= '<td>' . $ttbog->mota . '</td>';
                 $result['message'] .= '<td style="text-align: right;">' . dinhdangso($ttbog->dientich) . '</td>';
+                $result['message'] .= '<td>' . $ttbog->dvt . '</td>';
                 $result['message'] .= '<td style="text-align: right;">' . dinhdangso($ttbog->giakhoidiem) . '</td>';
                 $result['message'] .= '<td style="text-align: right;">' . dinhdangso($ttbog->giadaugia) . '</td>';
                 $result['message'] .= '<td>' .

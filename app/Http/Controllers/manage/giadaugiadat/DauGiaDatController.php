@@ -105,6 +105,7 @@ class DauGiaDatController extends Controller
             $a_diaban = getDiaBan_XaHuyen(session('admin')->level,session('admin')->madiaban);
             $a_xp = array_column(dsxaphuong::where('madiaban',$model->madiaban)->get()->toarray(),'tenxp', 'maxp');
             $model_ct = DauGiaDatCt::where('mahs',$inputs['mahs'])->get();
+            //dd($model_ct);
             return view('manage.dinhgia.giadaugiadat.kekhai.edit')
                 ->with('model',$model)
                 ->with('model_ct', $model_ct)

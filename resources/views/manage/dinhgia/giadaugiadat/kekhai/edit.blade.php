@@ -24,28 +24,31 @@
         function clearForm(){
             var form = $('#frm_modify');
             form.find("[name='mota']").val('');
+            form.find("[name='solo']").val('');
+            form.find("[name='sothua']").val('');
+            form.find("[name='sotobando']").val('');
             form.find("[name='dientich']").val(0);
             form.find("[name='giakhoidiem']").val(0);
             form.find("[name='giadaugia']").val(0);
             form.find("[name='idct']").val(0);
 
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            $.ajax({
-                url: '{{$inputs['url']}}' + '/get_khuvuc',
-                type: 'GET',
-                data: {
-                    _token: CSRF_TOKEN,
-                    madiaban: $('#madiaban').val(),
-                    maxp: $('#maxp').val(),
-                },
-                dataType: 'JSON',
-                success: function (data) {
-                    if (data.status == 'success') {
-                        $('#sel_khuvuc').replaceWith(data.message);
-                    } else
-                        toastr.error("Không có khu vực nào được chọn!", "Lỗi!");
-                }
-            })
+            {{--var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');--}}
+            {{--$.ajax({--}}
+            {{--    url: '{{$inputs['url']}}' + '/get_khuvuc',--}}
+            {{--    type: 'GET',--}}
+            {{--    data: {--}}
+            {{--        _token: CSRF_TOKEN,--}}
+            {{--        madiaban: $('#madiaban').val(),--}}
+            {{--        maxp: $('#maxp').val(),--}}
+            {{--    },--}}
+            {{--    dataType: 'JSON',--}}
+            {{--    success: function (data) {--}}
+            {{--        if (data.status == 'success') {--}}
+            {{--            $('#sel_khuvuc').replaceWith(data.message);--}}
+            {{--        } else--}}
+            {{--            toastr.error("Không có khu vực nào được chọn!", "Lỗi!");--}}
+            {{--    }--}}
+            {{--})--}}
         }
 
         function createmhbog(){
@@ -55,7 +58,11 @@
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
+                    solo: $('#solo').val(),
+                    sothua: $('#sothua').val(),
+                    sotobando: $('#sotobando').val(),
                     khuvuc: $('#khuvuc').val(),
+                    dvt: $('#dvt').val(),
                     mota: $('#mota').val(),
                     dientich: $('#dientich').val(),
                     giakhoidiem: $('#giakhoidiem').val(),
@@ -95,6 +102,10 @@
                     var form = $('#frm_modify');
                     form.find("[name='khuvuc']").val(data.khuvuc).trigger('change');
                     form.find("[name='mota']").val(data.mota);
+                    form.find("[name='dvt']").val(data.dvt);
+                    form.find("[name='solo']").val(data.solo);
+                    form.find("[name='sothua']").val(data.sothua);
+                    form.find("[name='sotobando']").val(data.sotobando);
                     form.find("[name='giakhoidiem']").val(data.giakhoidiem);
                     form.find("[name='giadaugia']").val(data.giadaugia);
                     form.find("[name='dientich']").val(data.dientich);
@@ -216,7 +227,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label">Phân loại</label>
-                                    {!!Form::select('phanloai',['Theo dự án'=> 'Theo dự án','Theo lô'=>'Theo lô'],null, array('id' => 'phanloai','class' => 'form-control'))!!}
+                                    {!!Form::select('phanloai',['Theo dự án'=> 'Theo dự án','Theo lô'=>'Theo lô','Đất ở'=>'Đất ở','Đất công ích'=>'Đất công ích','Đất khác'=>'Đất khác'],null, array('id' => 'phanloai','class' => 'form-control'))!!}
                                 </div>
                             </div>
                             <!--/span-->
@@ -256,9 +267,13 @@
                                     <thead>
                                     <tr>
                                         <th style="text-align: center" width="5%">STT</th>
+                                        <th style="text-align: center">Số lô</th>
+                                        <th style="text-align: center">Số thửa</th>
+                                        <th style="text-align: center">Tờ bản đồ</th>
                                         <th style="text-align: center">Khu vực</th>
                                         <th style="text-align: center">Mô tả</th>
                                         <th style="text-align: center">Diện tích</th>
+                                        <th style="text-align: center">DVT</th>
                                         <th style="text-align: center">Giá khởi</br>điểm</th>
                                         <th style="text-align: center">Giá đấu</br>giá</th>
                                         <th style="text-align: center" width="20%">Thao tác</th>
@@ -268,11 +283,15 @@
                                     @foreach($model_ct as $key=>$tt)
                                         <tr class="odd gradeX">
                                             <td style="text-align: center">{{$key + 1}}</td>
+                                            <td>{{$tt->solo}}</td>
+                                            <td>{{$tt->sothua}}</td>
+                                            <td>{{$tt->sotobando}}</td>
                                             <td class="active">{{$tt->khuvuc}}</td>
                                             <td class="active">{{$tt->mota}}</td>
-                                            <td class="active">{{dinhdangso($tt->dientich)}}</td>
-                                            <td class="active">{{dinhdangso($tt->giakhoidiem)}}</td>
-                                            <td class="active">{{dinhdangso($tt->giadaugia)}}</td>
+                                            <td>{{dinhdangso($tt->dientich)}}</td>
+                                            <td>{{$tt->dvt}}</td>
+                                            <td>{{dinhdangso($tt->giakhoidiem)}}</td>
+                                            <td>{{dinhdangso($tt->giadaugia)}}</td>
                                             <td>
                                                 @if(in_array($model->trangthai, ['CHT', 'HHT']))
                                                     <button type="button" onclick="editmhbog('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
@@ -318,11 +337,34 @@
                     <h4 class="modal-title">Thông tin vị trí đất đấu giá</h4>
                 </div>
                 <div class="modal-body" id="ttmhbog">
-                    <div class="row" id="sel_khuvuc">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">Khu vực</label>
+{{--                    <div class="row" id="sel_khuvuc">--}}
+{{--                        <div class="col-md-12">--}}
+{{--                            <div class="form-group">--}}
+{{--                                <label class="control-label">Khu vực</label>--}}
 
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Số lô</label>
+                                <input type="text" id="solo" name="solo" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Số thửa</label>
+                                <input type="text" id="sothua" name="sothua" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Tờ bản đồ</label>
+                                <input type="text" id="sotobando" name="sotobando" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -335,22 +377,30 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label class="control-label">Diện tích</label>
                                 <input type="text" id="dientich" name="dientich" class="form-control" data-mask="fdecimal">
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Đơn vị tính</label>
+                                <input type="text" id="dvt" name="dvt" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label class="control-label">Giá khởi điểm</label>
                                 <input type="text" id="giakhoidiem" name="giakhoidiem" class="form-control" data-mask="fdecimal">
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label class="control-label">Giá đấu giá</label>
                                 <input type="text" id="giadaugia" name="giadaugia" class="form-control" data-mask="fdecimal">
@@ -361,7 +411,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-default">Thoát</button>
-                    <button type="button" class="btn btn-primary" onclick="createmhbog()">Thêm mới</button>
+                    <button type="button" class="btn btn-primary" onclick="createmhbog()">Hoàn thành</button>
                 </div>
             </div>
             <!-- /.modal-content -->

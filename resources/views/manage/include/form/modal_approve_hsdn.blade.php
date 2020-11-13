@@ -31,7 +31,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label">Cơ quan tiếp nhận<span class="require">*</span></label>
-                            <select class="form-control select2me" name="macqcq" required>
+                            <select class="form-control select2me" id="macqcq" name="macqcq" required>
                                 @foreach($a_diaban_th as $key=>$val)
                                     <optgroup label="{{$val}}">
                                         <?php $donvi = $m_donvi_th->where('madiaban',$key); ?>
@@ -49,7 +49,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label">Cơ quan tiếp nhận đồng thời</label>
-                            <select class="form-control select2me" name="macqcq1">
+                            <select class="form-control select2me" id="macqcq1" name="macqcq1">
                                 <option value="ALL">-- Chọn cơ quan tiếp nhận đồng thời --</option>
                                 @foreach($a_diaban_th as $key=>$val)
                                     <optgroup label="{{$val}}">
@@ -68,7 +68,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label">Cơ quan tiếp nhận đồng thời</label>
-                            <select class="form-control select2me" name="macqcq2">
+                            <select class="form-control select2me" id="macqcq2" name="macqcq2">
                                 <option value="ALL">-- Chọn cơ quan tiếp nhận đồng thời --</option>
                                 @foreach($a_diaban_th as $key=>$val)
                                     <optgroup label="{{$val}}">
@@ -78,6 +78,17 @@
                                         @endforeach
                                     </optgroup>
                                 @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Cơ quan tiếp nhận<span class="require">*</span></label>
+                            <select class="form-control select2me" id="macqcq3" name="macqcq3" required>
+
                             </select>
                         </div>
                     </div>
@@ -99,25 +110,25 @@
         var ok = true;
 
         if ($('#macqcq').val() == null) {
-            str += '  - Cơ quan tiếp nhận \n';
+            str += '  - Cơ quan tiếp nhận. \n';
             $('#macqcq').parent().addClass('has-error');
             ok = false;
         }
 
         if ($('#macqcq1').val() != 'ALL' && $('#macqcq1').val() == $('#macqcq').val()) {
-            str += '  - Cơ quan đồng thời tiếp nhận \n';
+            str += '  - Cơ quan đồng thời tiếp nhận. \n';
             $('#macqcq1').parent().addClass('has-error');
             ok = false;
         }
 
         if ($('#macqcq2').val() != 'ALL' && $('#macqcq2').val() == $('#macqcq').val()) {
-            str += '  - Cơ quan đồng thời tiếp nhận \n';
+            str += '  - Cơ quan đồng thời tiếp nhận. \n';
             $('#macqcq2').parent().addClass('has-error');
             ok = false;
         }
 
         if (ok == false) {
-            alert('Các trường: \n' + str + 'Không được để trống');
+            //alert('Các trường: \n' + str + 'Không được để trống');
             toastr.error('Thông tin: \n' + str + 'Không hợp lệ','Lỗi!.');
             $("frm_chuyen").submit(function (e) {
                 e.preventDefault();
@@ -125,7 +136,7 @@
         }
         else {
             $("frm_chuyen").unbind('submit').submit();
-
+            $('#frm_chuyen').submit();
         }
     }
 

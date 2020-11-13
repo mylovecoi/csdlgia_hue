@@ -37,7 +37,7 @@
     <div class="row center">
         <div class="col-md-12 center">
             <!-- BEGIN VALIDATION STATES-->
-            {!! Form::model($model, ['method' => 'post', 'url'=>$inputs['url'].'/store', 'class'=>'horizontal-form','id'=>'update_giahhdvkhac']) !!}
+            {!! Form::model($model, ['method' => 'post', 'url'=>$inputs['url'].'/store', 'class'=>'horizontal-form','id'=>'update_giahhdvkhac','files'=>true]) !!}
             <meta name="csrf-token" content="{{ csrf_token() }}" />
             <div class="portlet box blue">
                 <div class="portlet-body form">
@@ -114,6 +114,17 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label">File đính kèm</label>
+                                @if($model->ipf1 != '')
+                                    <a href="{{url('/data/giahhdvk/'.$model->ipf1)}}" target="_blank">{{$model->ipf1}}</a>
+                                @endif
+                                <input name="ipf1" id="ipf1" type="file">
+                            </div>
+                        </div>
+
                         <input type="hidden" name="mahs" id="mahs" value="{{$model->mahs}}">
                         <input type="hidden" name="matt" id="matt" value="{{$model->matt}}">
                         <input type="hidden" name="madv" id="madv" value="{{$model->madv}}">

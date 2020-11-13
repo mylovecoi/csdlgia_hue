@@ -255,7 +255,8 @@ class RegisterController extends Controller
 
             $a_diaban = getDiaBan_HeThong(\session('admin')->level, \session('admin')->madiaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? array_key_first($a_diaban);
-            $m_company = Company::where('madiaban', $inputs['madiaban'])->get();
+            $m_company = Company::where('madiaban', strtolower($inputs['madiaban']))->get();
+            //dd($m_company);
             $model = Users::wherein('status', ['Chờ xét duyệt', 'Bị trả lại'])
                 ->wherein('madv', array_column($m_company->toarray(),'madv'))
                 ->where('level', 'DN')
