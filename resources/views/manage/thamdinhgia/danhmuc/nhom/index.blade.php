@@ -81,7 +81,7 @@
                         <thead>
                         <tr>
                             <th style="text-align: center" width="2%">STT</th>
-                            <th style="text-align: center">Mã nhóm</th>
+                            <th style="text-align: center" width="10%">Mã nhóm</th>
                             <th style="text-align: center">Tên nhóm</th>
                             <th style="text-align: center">Theo dõi</th>
                             <th style="text-align: center" width="20%">Thao tác</th>

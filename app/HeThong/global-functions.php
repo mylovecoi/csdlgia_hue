@@ -2814,7 +2814,7 @@ function getPhanQuyen()
         'danhmuc' => array('index' => '0', 'modify' => '0',),
         'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
     );
-    $gui['giaspdvkhungia'] = array(
+    $gui['giaspdvkhunggia'] = array(
         'index' => '0',
         'danhmuc' => array('index' => '0', 'modify' => '0',),
         'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),

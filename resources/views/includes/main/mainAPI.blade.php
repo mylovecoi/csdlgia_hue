@@ -1,5 +1,6 @@
 
-@if((chkPer('hethong', 'hethong_pq', 'api') && session('admin')->chucnang == 'QUANTRI') || session('admin')->level == 'SSA')
+{{--@if((chkPer('hethong', 'hethong_pq', 'api') && session('admin')->chucnang == 'QUANTRI') || session('admin')->level == 'SSA')--}}
+@if(chkPer('hethong', 'hethong_pq', 'api'))
     <li class="heading">
         <h3 class="uppercase">Hệ Thống API</h3>
     </li>
