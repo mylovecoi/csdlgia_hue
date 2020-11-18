@@ -86,7 +86,7 @@
                         <th style="text-align: center" width="25%">Thao tác</th>
                         </thead>
                         <tbody>
-                        @if($model->count() != 0)
+{{--                        @if($model->count() != 0)--}}
                             @foreach($model as $key=>$tt)
                                 <tr class="odd gradeX">
                                     <td style="text-align: center">{{$key + 1}}</td>
@@ -108,11 +108,11 @@
                                     </td>
                                 </tr>
                             @endforeach
-                        @else
-                            <tr>
-                                <td style="text-align: center" colspan="6">Không tìm thấy thông tin. Bạn cần kiểm tra lại điều kiện tìm kiếm!!!</td>
-                            </tr>
-                        @endif
+{{--                        @else--}}
+{{--                            <tr>--}}
+{{--                                <td style="text-align: center" colspan="6">Không tìm thấy thông tin. Bạn cần kiểm tra lại điều kiện tìm kiếm!!!</td>--}}
+{{--                            </tr>--}}
+{{--                        @endif--}}
                         </tbody>
                     </table>
                 </div>
