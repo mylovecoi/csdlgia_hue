@@ -156,6 +156,8 @@ class dstaikhoanController extends Controller
             //$model->status = $inputs['status'];
             if($inputs['password'] != ''){
                 $inputs['password'] = md5($inputs['password']);
+            }else{
+                unset($inputs['password']);
             }
             //dd($inputs);
             $model->update($inputs);
