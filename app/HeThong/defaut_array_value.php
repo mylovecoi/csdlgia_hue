@@ -237,7 +237,7 @@ function getDoanhNghiepNhapLieu($level, $lvcc){
 
 function getDoanhNghiep($level, $madiaban = null){
     if ($level == 'SSA') {
-        return App\Model\system\company\Company::all();
+        return App\Model\system\company\Company::take(1000)->get();
     } elseif (in_array($level, ['X', 'H', 'T'])) {
         return App\Model\system\company\Company::where('madiaban', $madiaban)->get();
     } else {
