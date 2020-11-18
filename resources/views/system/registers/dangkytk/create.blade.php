@@ -246,13 +246,14 @@ License: You must have a valid license purchased only from themeforest(the above
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Mật khẩu</label>
-                        {!!Form::text('password', null, array('id' => 'password','class' => 'form-control required'))!!}
+{{--                        {!!Form::password('password', null, array('id' => 'password','class' => 'form-control required','password'))!!}--}}
+                        {{ Form::password('password', array('id' => 'password', 'class' => 'form-control required')) }}
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Nhập lại mật khẩu</label>
-                        {!!Form::text('rpassword', null, array('id' => 'rpassword','class' => 'form-control required'))!!}
+                        {{ Form::password('rpassword', array('id' => 'rpassword', 'class' => 'form-control required')) }}
                     </div>
                 </div>
             </div>
