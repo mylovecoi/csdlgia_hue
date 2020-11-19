@@ -28,7 +28,7 @@
                 <th width="2%" style="text-align: center">STT</th>
                 <th style="text-align: center">Mã<br> hàng hóa</th>
                 <th style="text-align: center">Tên hàng hóa dịch vụ</th>
-                <th style="text-align: center">Đặc điểm kinh tế, <br>kỹ thuật, quy cách</th>
+                <th style="text-align: center" width="20%">Đặc điểm kinh tế, <br>kỹ thuật, quy cách</th>
                 <th style="text-align: center">Đơn <br>vị<br> tính</th>
                 <th style="text-align: center" >Loại giá</th>
                 <th style="text-align: center" >Giá kỳ <br>trước</th>
@@ -36,7 +36,7 @@
                 <th style="text-align: center">Mức tăng<br>(giảm)</th>
                 <th style="text-align: center">Tỷ lệ<br>tăng<br>(giảm)<br>(%)</th>
                 <th style="text-align: center">Nguồn thông tin</th>
-                <th style="text-align: center" width="10%">Ghi chú</th>
+                <th style="text-align: center" width="5%">Ghi chú</th>
             </tr>
             <tr>
                 <th>1</th>

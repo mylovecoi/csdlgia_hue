@@ -82,7 +82,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Địa bàn</label>
+                                <label>Đơn vị báo cáo</label>
                                 {!! Form::select('madiaban_td', $a_diaban, $inputs['madiaban'], array('id' => 'madiaban_td', 'class' => 'form-control'))!!}
                             </div>
                         </div>

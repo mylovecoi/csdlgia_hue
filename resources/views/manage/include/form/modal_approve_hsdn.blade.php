@@ -83,17 +83,6 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="control-label">Cơ quan tiếp nhận<span class="require">*</span></label>
-                            <select class="form-control select2me" id="macqcq3" name="macqcq3" required>
-
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>

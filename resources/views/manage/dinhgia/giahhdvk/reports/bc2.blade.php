@@ -34,10 +34,10 @@
             <th style="text-align: center" >Loại giá</th>
             <th style="text-align: center" width="10%" >Giá kỳ trước</th>
             <th style="text-align: center" width="10%" >Giá kỳ này</th>
-            <th style="text-align: center" width="10%" >Mức tăng giảm</th>
-            <th style="text-align: center" width="10%" >Tỷ lệ tăng (giảm)(%)</th>
-            <th style="text-align: center" width="10%" >Nguồn thông tin</th>
-            <th style="text-align: center" width="10%" >Ghi chú</th>
+            <th style="text-align: center" width="5%" >Mức tăng giảm</th>
+            <th style="text-align: center" width="5%" >Tỷ lệ tăng (giảm)(%)</th>
+            <th style="text-align: center">Nguồn thông tin</th>
+            <th style="text-align: center" width="5%" >Ghi chú</th>
         </tr>
         <tr style="font-size: 10px">
             <th>1</th>

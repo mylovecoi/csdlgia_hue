@@ -717,7 +717,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <li><a href="{{url('/chucnang/danhsach')}}">{{session('admin')['a_chucnang']['chucnang'] ?? 'Danh mục chức năng hệ thống'}}</a> </li>
                                         @endif
                                     <!-- chức năng này không có => chỉ có quyền SSA mới lên -->
-                                        @if(chkPer('hethong', 'hethong_pq', 'vanphong'))
+                                        @if(session('admin')->level == 'SSA')
                                             <li><a href="{{url('/vanphonghotro/danhsach')}}">{{session('admin')['a_chucnang']['vanphong'] ?? 'Văn phòng hỗ trợ'}}</a> </li>
                                         @endif
 

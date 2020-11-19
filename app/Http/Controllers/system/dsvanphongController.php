@@ -16,9 +16,9 @@ class dsvanphongController extends Controller
     public function index(){
         if (Session::has('admin')) {
             //tài khoản SSA; tài khoản quản trị + có phân quyền
-            if (!chkPer('hethong', 'hethong_pq', 'vanphong', 'index')) {
-                return view('errors.noperm');
-            }
+//            if (!chkPer('hethong', 'hethong_pq', 'vanphong', 'index')) {
+//                return view('errors.noperm');
+//            }
             $model = dsvanphong::all();
             $a_vp = array_column($model->toArray(),'vanphong','vanphong');
             return view('system.vanphonghotro.index')
