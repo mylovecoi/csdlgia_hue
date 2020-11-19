@@ -27,7 +27,7 @@
         <td style="text-align: right;vertical-align: top;"><i style="margin-right: 25%;">{{$modeldn->diadanh}}, ngày..{{ date("d",strtotime($modelkk->ngaynhap))}}..tháng..{{ date("m",strtotime($modelkk->ngaynhap))}}..năm..{{ date("Y",strtotime($modelkk->ngaynhap))}}..</i></td>
     </tr>
 </table>
-<p style="text-align: center; font-weight: bold; font-size: 16px;">Kính gửi: {{$modelcqcq->tendv ?? ''}}</p>
+<p style="text-align: center; font-weight: bold; font-size: 16px;">Kính gửi: {{$modelcqcq->tendvhienthi ?? ''}}</p>
 <br><br>
 <p>Thực hiện quy định tại Thông tư liên tịch số 152/2014?TTLT-BTC-BGTVT ngày 15 tháng 10 năm 2014
     của Bộ trưởng Bộ Tài chính và Bộ trưởng Bộ Giao thông vận tải hướng dẫn thực hiện giá cước vận tải bằng xe ô tô và giá dịch vụ hỗ trợ vận tải đường bộ;</p>
@@ -56,7 +56,7 @@
 <p>- Số Fax : {{$modelkk->fax}}</p>
 <p style="font-weight: bold; text-align: center">Ghi nhận <br>của cơ quan tiếp nhận</p>
 <table cellspacing="0" cellpadding="0" border="1" style="margin-top: 5px;; border-collapse: collapse;width:30%">
-    <td><b>{{$modelcqcq->tendv ?? ''}}</b></td>
+    <td><b>{{$modelcqcq->tendvhienthi ?? ''}}</b></td>
     <tr>
     </tr>
     <tr>
@@ -196,13 +196,13 @@
             <td style="text-align: right;vertical-align: top;"><i style="margin-right: 25%;">{{$modeldn->diadanh}}, ngày..{{ date("d",strtotime($modelkk->ngaynhap))}}..tháng..{{ date("m",strtotime($modelkk->ngaynhap))}}..năm..{{ date("Y",strtotime($modelkk->ngaynhap))}}..</i></td>
         </tr>
     </table>
-    <p style="text-align: center; font-weight: bold; font-size: 16px;">Kính gửi: {{$modelcqcq->tendv ?? ''}}</p>
+    <p style="text-align: center; font-weight: bold; font-size: 16px;">Kính gửi: {{$modelcqcq->tendvhienthi ?? ''}}</p>
     <br><br>
     <p>Thực hiện quy định tại Thông tư liên tịch số 152/2014?TTLT-BTC-BGTVT ngày 15 tháng 10 năm 2014
         của Bộ trưởng Bộ Tài chính và Bộ trưởng Bộ Giao thông vận tải hướng dẫn thực hiện giá cước vận tải bằng xe ô tô và giá dịch vụ hỗ trợ vận tải đường bộ;</p>
 
     <p><b>{{$modeldn->tendn}}</b> đã lập phương án giá dịch vụ vận tải hành khách bằng xe chạy tuyến cố định (có phương án giá kèm theo).</p>
-    <p>Đề nghị {{$modelcqcq->tendv ?? ''}} xem xét phê duyệt giá dịch vụ vận tải hành khách bằng xe chạy tuyến cố định theo quy định của pháp luật./.</p>
+    <p>Đề nghị {{$modelcqcq->tendvhienthi ?? ''}} xem xét phê duyệt giá dịch vụ vận tải hành khách bằng xe chạy tuyến cố định theo quy định của pháp luật./.</p>
 
     <table width="96%" border="0" cellspacing="0" height cellpadding="0" style="margin: 20px auto;text-align: center; height:200px">
         <tr>
