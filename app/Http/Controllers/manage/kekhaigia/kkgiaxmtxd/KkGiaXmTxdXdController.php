@@ -359,7 +359,7 @@ class KkGiaXmTxdXdController extends Controller
             if($inputs['nam'] != 'all')
                 $model = $model->whereYear('kkgiaxmtxd.ngayhieuluc',$inputs['nam']);
             $model = $model->get();
-            /*dd($model);*/
+//            dd($model);
             return view('manage.kkgia.xmtxd.kkgia.timkiem.printf')
                 ->with('model',$model)
                 ->with('inputs',$inputs)

@@ -25,7 +25,7 @@ class ThGiaHhDvKController extends Controller
 {
     public function index(Request $request){
         if (Session::has('admin')) {
-            if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'khac','tonghop')){
+            if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'khac','baocao')){
                 $inputs = $request->all();
                 $inputs['url'] = '/giahhdvk';
                 $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
@@ -48,7 +48,7 @@ class ThGiaHhDvKController extends Controller
 
     public function create(Request $request){
         if (Session::has('admin')) {
-            if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'khac','tonghop')){
+            if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'khac','baocao')){
                 $inputs = $request->all();
                 $inputs['ngaychotbc'] = getDateToDb($inputs['ngaychotbc']);
                 dd($inputs);
@@ -129,7 +129,7 @@ class ThGiaHhDvKController extends Controller
 
     public function store(Request $request){
         if (Session::has('admin')) {
-            if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'khac','tonghop')){
+            if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'khac','baocao')){
                 $inputs = $request->all();
                 $inputs['ngaybc'] = getDateToDb($inputs['ngaybc']);
                 $model = ThGiaHhDvK::where('mahs',$inputs['mahs'])->first();
@@ -189,7 +189,7 @@ class ThGiaHhDvKController extends Controller
 
     public function edit(Request $request){
         if (Session::has('admin')) {
-            if (chkPer('csdlmucgiahhdv', 'hhdv', 'giahhdvk', 'khac', 'tonghop')) {
+            if (chkPer('csdlmucgiahhdv', 'hhdv', 'giahhdvk', 'khac', 'baocao')) {
                 $inputs = $request->all();
                 $inputs['url'] = '/giahhdvk';
                 $model = ThGiaHhDvK::where('mahs', $inputs['mahs'])->first();
@@ -211,7 +211,7 @@ class ThGiaHhDvKController extends Controller
 
     public function destroy(Request $request){
         if (Session::has('admin')) {
-            if (chkPer('csdlmucgiahhdv', 'hhdv', 'giahhdvk', 'khac', 'tonghop')) {
+            if (chkPer('csdlmucgiahhdv', 'hhdv', 'giahhdvk', 'khac', 'baocao')) {
                 $inputs = $request->all();
                 //dd($inputs);
                 $model = ThGiaHhDvK::where('mahs', $inputs['mahs'])->first();
@@ -294,7 +294,7 @@ class ThGiaHhDvKController extends Controller
     public function createthang(Request $request)
     {
         if (Session::has('admin')) {
-            if (chkPer('csdlmucgiahhdv', 'hhdv', 'giahhdvk', 'khac', 'tonghop')) {
+            if (chkPer('csdlmucgiahhdv', 'hhdv', 'giahhdvk', 'khac', 'baocao')) {
                 $inputs = $request->all();
                 $inputs['url'] = '/giahhdvk';
                 //dd($inputs);
@@ -307,7 +307,7 @@ class ThGiaHhDvKController extends Controller
                     return redirect('/giahhdvk/tonghop/edit?mahs=' . $model->mahs . '&act=false');
                     //dd('Đã có báo cáo, bạn cần kiểm tra lại! Nếu số liệu không đúng bạn cần xóa báo cáo trước để tạo báo cáo mới');
                 }
-                DB::statement("DELETE FROM thgiahhdvkct WHERE mahs not in (SELECT mahs FROM thgiahhdvk)");
+                //DB::statement("DELETE FROM thgiahhdvkct WHERE mahs not in (SELECT mahs FROM thgiahhdvk)");
                 $m_diaban = dsdiaban::where('level', 'H')->get();
 
                 //Lấy ra mahs kê khai
