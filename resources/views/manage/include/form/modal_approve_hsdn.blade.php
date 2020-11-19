@@ -97,13 +97,13 @@
     function clickChuyen(){
         var str = '';
         var ok = true;
-        if ($('#ttnguoinop').val() == null) {
+        if ($('#ttnguoinop').val() == '') {
             str += '  - Thông tin người nộp. \n';
             $('#ttnguoinop').parent().addClass('has-error');
             ok = false;
         }
 
-        if ($('#dtll').val() == null) {
+        if ($('#dtll').val() == '') {
             str += '  - Số điện thoại liên lạc. \n';
             $('#dtll').parent().addClass('has-error');
             ok = false;
