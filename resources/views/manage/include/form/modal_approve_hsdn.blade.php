@@ -15,13 +15,13 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Họ và tên người nộp</label>
+                            <label>Họ và tên người nộp<span class="require">*</span></label>
                             <input type="text" id="ttnguoinop" name="ttnguoinop" class="form-control">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Số điện thoại liên hệ</label>
+                            <label>Số điện thoại liên hệ<span class="require">*</span></label>
                             <input type="tel" id="dtll" name="dtll" class="form-control" maxlength="15">
                         </div>
                     </div>
@@ -97,6 +97,17 @@
     function clickChuyen(){
         var str = '';
         var ok = true;
+        if ($('#ttnguoinop').val() == null) {
+            str += '  - Thông tin người nộp. \n';
+            $('#ttnguoinop').parent().addClass('has-error');
+            ok = false;
+        }
+
+        if ($('#dtll').val() == null) {
+            str += '  - Số điện thoại liên lạc. \n';
+            $('#dtll').parent().addClass('has-error');
+            ok = false;
+        }
 
         if ($('#macqcq').val() == null) {
             str += '  - Cơ quan tiếp nhận. \n';
