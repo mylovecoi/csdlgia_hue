@@ -117,6 +117,7 @@ License code: PRO4-69G6Q4M-8YGNXX-M2N8-KCHVWYK
                 }
             }
 
+            //dd(session('admin'));
             return view('dashboard')
                 ->with('model', $model)
                 ->with('a_kekhai', $a_kekhai)

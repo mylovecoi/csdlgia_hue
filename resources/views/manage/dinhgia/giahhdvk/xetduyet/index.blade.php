@@ -101,9 +101,10 @@
                                     @include('manage.include.form.td_trangthai')
                                     <td style="text-align: left">{{$tt->tencqcq}}</td>
                                     <td>
-                                        <a href="{{url($inputs['url'].'/modify?mahs='.$tt->mahs.'&act=false')}}" class="btn btn-default btn-xs mbs" target="_blank">
+                                        {{--<a href="{{url($inputs['url'].'/modify?mahs='.$tt->mahs.'&act=false')}}" class="btn btn-default btn-xs mbs" target="_blank">--}}
+                                            {{--<i class="fa fa-eye"></i>&nbsp;Chi tiết</a>--}}
+                                        <a href="{{url($inputs['url'].'/chitiet?mahs='.$tt->mahs)}}" class="btn btn-default btn-xs mbs" target="_blank">
                                             <i class="fa fa-eye"></i>&nbsp;Chi tiết</a>
-
                                         @if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'hoso', 'approve'))
                                             @if($tt->level == 'ADMIN')
                                                 @if($tt->trangthai == 'CB')

@@ -119,7 +119,7 @@ class GiaHhDvKController extends Controller
                     //gọi đến hàm modify
                 } else {
                     //xóa các chi tiết ko có hồ sơ (dữ liệu thừa do khi tạo mới thì tự thêm vào trong chi tiết mà ko cần lưu hồ sơ)
-                    DB::statement("DELETE FROM giahhdvkct WHERE mahs not in (SELECT mahs FROM giahhdvk where madv='" . $inputs['madv'] . "')");
+                    //DB::statement("DELETE FROM giahhdvkct WHERE mahs not in (SELECT mahs FROM giahhdvk where madv='" . $inputs['madv'] . "')");
 
                     $model = new GiaHhDvK();
                     //$tennhom = NhomHhDvK::where('matt', $inputs['mattbc'])->first()->tentt;

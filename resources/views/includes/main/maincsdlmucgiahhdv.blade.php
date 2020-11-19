@@ -1307,7 +1307,7 @@
                         </a>
                     </li>
 
-                    @if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'khac','tonghop'))
+                    @if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'khac','baocao'))
                         <li>
                             <a href="{{url('/giahhdvk/tonghop')}}">Tổng hợp giá hàng hóa, dịch vụ</a>
                         </li>
