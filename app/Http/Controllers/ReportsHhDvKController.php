@@ -84,16 +84,17 @@ class ReportsHhDvKController extends Controller
             $mahs = ThGiaHhDvK::where('thang',$inputs['thang'])
                 ->where('matt',$inputs['matt'])
                 ->where('nam',$inputs['nam'])
-                ->wherein('trangthai',['HT','CB'])
+                //->wherein('trangthai',['HT','CB'])
                 ->first();
             $mahslk = ThGiaHhDvK::where('thang',$inputs['thanglk'])
                 ->where('matt',$inputs['matt'])
                 ->where('nam',$inputs['namlk'])
-                ->wherein('trangthai',['HT','CB'])
+                //->wherein('trangthai',['HT','CB'])
                 ->first();
+            //dd($mahs);
             foreach($model as $ct){
                 if(isset($mahs)) {
-                    $ttgia = ThGiaHhDvKCt::where('mahs',$mahslk->mahs)
+                    $ttgia = ThGiaHhDvKCt::where('mahs',$mahs->mahs)
                         ->where('mahhdv', $ct->mahhdv)
                         ->first();
                     $ct->gia = $ttgia->gia;

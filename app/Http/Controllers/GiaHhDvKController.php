@@ -348,16 +348,18 @@ class GiaHhDvKController extends Controller
 
             $m_donvi = getDonViXetDuyet(session('admin')->level);
             $m_donvi_th = getDonViTongHop('giahhdvk',\session('admin')->level, \session('admin')->madiaban);
+
+            //dd(session('admin'));
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $inputs['nam'] = $inputs['nam'] ?? 'all';
-            $inputs['level'] = $m_donvi_th->where('madv', $inputs['madv'])->first()->level ?? 'H';
+            $inputs['level'] = view_dsdiaban_donvi::where('madv', $inputs['madv'])->first()->level ?? 'H';
             //dd($inputs);
             //gán lại thông tin về trường madv, thoidiem để truyền sang form index
             //xét macqcq để tìm đơn vị chuyển đến
             $a_ttdv = array_column(view_dsdiaban_donvi::wherein('madiaban', array_keys($a_diaban))->get()->toarray(),
                 'tendv', 'madv');
-
+//            dd($a_ttdv);
             switch ($inputs['level']){
                 case 'H':{
                     $model = GiaHhDvK::where('madv_h', $inputs['madv']);
