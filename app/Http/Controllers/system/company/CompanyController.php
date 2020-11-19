@@ -73,6 +73,10 @@ class CompanyController extends Controller
             $inputs = $request->all();
             $model = new Company();
             $inputs['trangthai'] = 'Kích hoạt';
+//            dd(CompanyLvCc::where('mahs',$inputs['mahs'])->count());
+//            if(CompanyLvCc::where('mahs',$inputs['mahs'])->count() == 0){
+//                dd(1);
+//            }
             if(isset($inputs['tailieu'])){
                 $ipf1 = $request->file('tailieu');
                 $inputs['ipt1'] = $inputs['maxa'].'.'.$ipf1->getClientOriginalExtension();

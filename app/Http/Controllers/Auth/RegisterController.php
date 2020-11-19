@@ -108,6 +108,12 @@ class RegisterController extends Controller
         $inputs = $request->all();
         $inputs['trangthai'] = 'Chưa kích hoạt';
         $inputs['level']  = 'DN';
+        if(CompanyLvCc::where('mahs',$inputs['mahs'])->count()==0){
+            return view('errors.duplicate')
+                ->with('url','/doanhnghiep/dangky')
+                ->with('message','Lĩnh vực kinh doanh không được bỏ trống.')
+                ->with('pageTitle','Đăng ký tài khoản truy cập thành công');
+        };
         $model = new Company();
         if(isset($inputs['tailieu'])){
             $ipf1 = $request->file('tailieu');

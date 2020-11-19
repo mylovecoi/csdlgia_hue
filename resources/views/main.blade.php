@@ -292,9 +292,9 @@ License: You must have a valid license purchased only from themeforest(the above
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-{{--                            <li>--}}
-{{--                                <a href="{{url('doanhnghiep/danhsach')}}">Thông tin doanh nghiệp</a>--}}
-{{--                            </li>--}}
+                            <li>
+                                <a href="{{url('doanhnghiep/danhsach')}}">Thông tin doanh nghiệp</a>
+                            </li>
 
                             <li>
                                 <a href="{{url('/binhongia/danhsach?madv='.session('admin')->madv)}}">Thông tin hồ sơ</a>
