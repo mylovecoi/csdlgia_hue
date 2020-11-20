@@ -59,9 +59,9 @@ class ReportsHhDvKController extends Controller
                 //->where('theodoi','TD')
                 ->get();
             foreach($modelct as $ct){
-                $ttgialk = $ttlk->where('mahhdv',$ct->mahhdv)->avg('gia');
+                $ttgialk = round($ttlk->where('mahhdv',$ct->mahhdv)->avg('gia'));
                 $ct->giathlk = $ttgialk;
-                $ttgia = $tt->where('mahhdv',$ct->mahhdv)->avg('gia');
+                $ttgia = round($tt->where('mahhdv',$ct->mahhdv)->avg('gia'));
                 $ct->giath = $ttgia;
             }
             $a_gr = a_unique( array_column($modelct->toarray(),'manhom'));

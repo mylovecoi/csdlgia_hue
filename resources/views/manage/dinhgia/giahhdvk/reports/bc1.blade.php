@@ -68,8 +68,8 @@
                 <td style="text-align: right;font-weight: bold">{{dinhdangsothapphan($tt->giathlk,5)}}</td>
                 <td style="text-align: right;font-weight: bold">{{dinhdangsothapphan($tt->giath,5)}}</td>
                 <td style="text-align: right;font-weight: bold">{{dinhdangsothapphan($tt->giath - $tt->giathlk,5)}}</td>
-                <td style="text-align: right;font-weight: bold">{{number_format($tt->giathlk) == 0 ? number_format($tt->giath) == 0 ? 0 : 100
-                                : dinhdangsothapphan(($tt->giath-$tt->giathlk)/$tt->giathlk,5)}}</td>
+                <td style="text-align: right;font-weight: bold">{{dinhdangsothapphan(number_format($tt->giathlk) == 0 ? number_format($tt->giath) == 0 ? 0 : 100
+                                : dinhdangsothapphan(($tt->giath-$tt->giathlk)/$tt->giathlk,5),5)}}</td>
                 <td></td>
             </tr>
         @endforeach
