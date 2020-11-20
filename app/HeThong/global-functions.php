@@ -2583,7 +2583,7 @@ function getGiaoDien()
             'index' => '0', 'congbo' => '0',
             'thongtinkknygia' => array('index' => '0', 'congbo' => '0', 'table' => 'ttdntd', 'url' => '/doanhnghiep/xetduyet'),//xét duyệt thay đổi thông tin của đơn vị
             'vlxd' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
-            'xmtxd' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => 'xetduyetgiaxmtxd'),//chưa update migration
+            'xmtxd' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiaxmtxd', 'url' => 'xetduyetgiaxmtxd'),//chưa update migration
             'dvhdtmck' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
             'than' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiathan', 'url' => 'xetduyetgiathan'),
             'tacn' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiatacn', 'url' => 'xetduyetgiatacn'),
