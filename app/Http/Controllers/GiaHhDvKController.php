@@ -124,6 +124,7 @@ class GiaHhDvKController extends Controller
                     $model = new GiaHhDvK();
                     //$tennhom = NhomHhDvK::where('matt', $inputs['mattbc'])->first()->tentt;
                     //$diaban = DiaBanHd::where('district', $inputs['districtbc'])->where('level', 'H')->first()->diaban;
+                    //dd($inputs);
                     $m_lk = GiaHhDvK::where('trangthai', 'HT')
                         ->where('matt', $inputs['mattbc'])
                         ->where('madiaban', $inputs['madiaban'])
@@ -131,8 +132,9 @@ class GiaHhDvKController extends Controller
                     if ($m_lk != null) {
                         $model->soqdlk = $m_lk->soqd;
                         $model->thoidiemlk = $m_lk->thoidiemlk;
-                        $a_ctlk = array_column(GiaHhDvKCt::where('mahs', $m_lk->mahs)->get()->toarray(), 'mahhdv', 'gia');
+                        $a_ctlk = array_column(GiaHhDvKCt::where('mahs', $m_lk->mahs)->get()->toarray(),'gia', 'mahhdv');
                     }
+                    //dd($a_ctlk);
                     $model->mahs = $inputs['madiaban'] . '_' . getdate()[0];
                     $model->matt = $inputs['mattbc'];
                     $model->madiaban = $inputs['madiaban'];
