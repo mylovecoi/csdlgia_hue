@@ -323,10 +323,30 @@ function getDonViTongHop_dn($linhvuc, $level, $madiaban = null){
             $linhvuc = 'dvvthk';
             break;
         }
+        case 'tpcb':
+        case 'tgtt':
+        case 'dadtl':
+        case 'sted6t':
+        case 'ma':
+        case 'vxgsgc':
+        case 'tbvtv':
+        case 'pdurenpk':
+        case 'kdmhl':
+        case 'dbl':
+        case 'xd':{
+            $linhvuc = 'bog';
+            break;
+        }
     }
-    //dd($linhvuc);
-    $m_donvi = App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')
-        ->wherein('level', ['T', 'H'])->get();
+    //dd($madiaban);
+    if($madiaban == null){
+        $m_donvi = App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')
+            ->wherein('level', ['T', 'H'])->get();
+    }else{
+        $m_donvi = App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')
+            ->wherein('level', ['T', 'H'])->where('madiaban', $madiaban)->get();
+    }
+
     $m_user = App\Users::wherein('madv',array_column($m_donvi->toarray(),'madv'))->get();
     //dd($m_user);
     $ketqua = new Illuminate\Support\Collection();
