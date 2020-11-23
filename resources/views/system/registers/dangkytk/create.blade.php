@@ -88,7 +88,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="control-label">Mã số thuế</label>
+                        <label class="control-label">Mã số thuế hoặc mã số đăng ký KD</label>
                         {!!Form::text('madv', null, array('id' => 'madv','class' => 'form-control required'))!!}
                     </div>
                 </div>
@@ -172,7 +172,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <div class="col-md-6">
                     <div class="form-group">
 {{--                        <label class="control-label">Địa danh</label>--}}
-                        <label class="control-label">Nơi đăng ký kê khai</label>
+                        <label class="control-label">Địa danh</label>
                         {!!Form::text('diadanh', null, array('id' => 'diadanh','class' => 'form-control required'))!!}
                     </div>
                 </div>
@@ -180,7 +180,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <div class="col-md-6">
                     <div class="form-group">
 {{--                        <label class="control-label">Địa bàn đăng ký</label>--}}
-                        <label class="control-label">Cơ quan quản lý trực tiếp</label>
+                        <label class="control-label">Cơ quan quản lý xét duyệt đăng ký tài khoản</label>
                         {!!Form::select('madiaban', array_column($m_diaban->toarray(),'tendiaban','madiaban'), null, array('id' => 'madiaban','class' => 'form-control'))!!}
                     </div>
                 </div>
@@ -238,7 +238,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="control-label">Tài khoản đăng nhập</label>
-                        {!!Form::text('username', null, array('id' => 'username','class' => 'form-control required','data-mask'=>"user"))!!}
+                        {!!Form::text('taikhoandn', null, array('id' => 'taikhoandn','class' => 'form-control required','data-mask'=>"user"))!!}
                     </div>
                 </div>
             </div>

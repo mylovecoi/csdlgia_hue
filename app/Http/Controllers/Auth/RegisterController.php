@@ -114,6 +114,7 @@ class RegisterController extends Controller
                 ->with('message','Lĩnh vực kinh doanh không được bỏ trống.')
                 ->with('pageTitle','Đăng ký tài khoản truy cập thành công');
         };
+        //dd($inputs);
         $model = new Company();
         if(isset($inputs['tailieu'])){
             $ipf1 = $request->file('tailieu');
@@ -123,7 +124,7 @@ class RegisterController extends Controller
         }
         if($model->create($inputs)){
             $modeluser = new Users();
-            $modeluser->username = $inputs['username'];
+            $modeluser->username = $inputs['taikhoandn'];
             $modeluser->password = md5($inputs['rpassword']);
             $modeluser->name = $inputs['tendn'];
             $modeluser->status = 'Chờ xét duyệt';

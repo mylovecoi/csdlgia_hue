@@ -2598,7 +2598,7 @@ function getGiaoDien()
             'dvvtxb' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiavtxb', 'url' => 'xetduyetkekhaigiavtxb'),
             'dvvtxtx' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiavtxtx', 'url' => 'xetduyetkekhaigiavtxtx'),
             'dvvthk' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
-            'tpcnte6t' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
+            'tpcnte6t' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgs', 'url' => 'xetduyetkkgiatpcnte6t'),
             'dvlt' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiadvlt', 'url' => 'xetduyetkkgiadvlt'),
             'dlbb' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
             'tqkdl' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
