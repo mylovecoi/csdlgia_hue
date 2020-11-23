@@ -14,6 +14,9 @@ Route::post('kekhaigiathan/delete','manage\kekhaigia\kkgiathan\KkGiaThanControll
 
 Route::get('kekhaigiathan/kiemtra','manage\kekhaigia\kkgiathan\KkGiaThanController@kiemtra');
 
+Route::get('kekhaigiathan/nhanexcel','manage\kekhaigia\kkgiathan\KkGiaThanController@nhanexcel');
+Route::post('kekhaigiathan/create_excel','manage\kekhaigia\kkgiathan\KkGiaThanController@create_excel');
+
 Route::get('/giathanctdf/storett','manage\kekhaigia\kkgiathan\KkGiaThanCtDfController@store');
 Route::get('/giathanctdf/edittt','manage\kekhaigia\kkgiathan\KkGiaThanCtDfController@edit');
 Route::get('/giathanctdf/updatett','manage\kekhaigia\kkgiathan\KkGiaThanCtDfController@update');

@@ -14,6 +14,9 @@ Route::post('kekhaigiaetanol/delete','manage\kekhaigia\kkgiaetanol\KkGiaEtanolCo
 
 Route::get('kekhaigiaetanol/kiemtra','manage\kekhaigia\kkgiaetanol\KkGiaEtanolController@kiemtra');
 
+Route::get('kekhaigiaetanol/nhanexcel','manage\kekhaigia\kkgiaetanol\KkGiaEtanolController@nhanexcel');
+Route::post('kekhaigiaetanol/create_excel','manage\kekhaigia\kkgiaetanol\KkGiaEtanolController@create_excel');
+
 Route::get('/giaetanolctdf/storett','manage\kekhaigia\kkgiaetanol\KkGiaEtanolCtDfController@store');
 Route::get('/giaetanolctdf/edittt','manage\kekhaigia\kkgiaetanol\KkGiaEtanolCtDfController@edit');
 Route::get('/giaetanolctdf/updatett','manage\kekhaigia\kkgiaetanol\KkGiaEtanolCtDfController@update');

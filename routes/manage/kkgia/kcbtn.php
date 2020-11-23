@@ -13,6 +13,9 @@ Route::post('kekhaigiakcbtn/delete','manage\kekhaigia\kkgiakcbtn\KkGiaKcbTnContr
 
 Route::get('/kkkcbtn/showlydo','manage\kekhaigia\kkgiakcbtn\KkGiaKcbTnController@showlydo');
 
+Route::get('kekhaigiakcbtn/nhanexcel','manage\kekhaigia\kkgiakcbtn\KkGiaKcbTnController@nhanexcel');
+Route::post('kekhaigiakcbtn/create_excel','manage\kekhaigia\kkgiakcbtn\KkGiaKcbTnController@create_excel');
+
 Route::get('/giakcbtnct/storett','manage\kekhaigia\kkgiakcbtn\KkGiaKcbTnCtController@store');
 Route::get('/giakcbtnct/edittt','manage\kekhaigia\kkgiakcbtn\KkGiaKcbTnCtController@edit');
 Route::get('/giakcbtnct/updatett','manage\kekhaigia\kkgiakcbtn\KkGiaKcbTnCtController@update');

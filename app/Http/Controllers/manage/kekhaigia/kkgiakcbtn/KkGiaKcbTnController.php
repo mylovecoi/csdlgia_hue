@@ -17,6 +17,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\File;
 
 class KkGiaKcbTnController extends Controller
 {
@@ -297,5 +299,85 @@ class KkGiaKcbTnController extends Controller
             $model->lydo = $model->lydo_ad;
         }
         die($model);
+    }
+
+    public function nhanexcel(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['url'] = '/kekhaigiakcbtn';
+            return view('manage.kkgia._include.importexcel')
+                ->with('inputs',$inputs)
+                ->with('pageTitle','Nhận dữ liệu từ file Excel');
+
+        } else
+            return view('errors.notlogin');
+    }
+
+    public function create_excel(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            //dd($inputs);
+            $inputs['mahs'] = $inputs['madv'].'_'.getdate()[0];
+            $modeldn = Company::where('madv', $inputs['madv'])->first();
+
+            $model = new KkGiaKcbTn();
+            $model->mahs = $inputs['mahs'];
+            $model->trangthai = 'CC';
+            $model->ngaynhap = date('Y-m-d');
+            $model->madv = $modeldn->madv;
+
+            $modellk = KkGiaKcbTn::where('madv', $inputs['madv'])
+                ->where('trangthai', 'DD')
+                ->orderby('ngayhieuluc', 'desc')->first();
+            //dd($inputs);
+            if ($modellk != null) {
+                $model->socvlk = $modellk->socv;
+                $model->ngaycvlk = $modellk->ngaynhap;
+            }
+
+            $filename = $inputs['madv'] . '_' . getdate()[0];
+            $request->file('fexcel')->move(public_path() . '/data/uploads/excels/', $filename . '.xls');
+            $path = public_path() . '/data/uploads/excels/' . $filename . '.xls';
+            $data = [];
+
+            Excel::load($path, function ($reader) use (&$data, $inputs) {
+                $obj = $reader->getExcel();
+                $sheet = $obj->getSheet(0);
+                $data = $sheet->toArray(null, true, true, true);// giữ lại tiêu đề A=>'val';
+            });
+            //dd($data);
+
+            $a_dm = array();
+
+            for ($i = $inputs['tudong']; $i <= $inputs['dendong']; $i++) {
+                if(!isset($data[$i][$inputs['tenhhdv']]) || !isset($data[$i][$inputs['qccl']]) ||
+                    !isset($data[$i][$inputs['dvt']]) || !isset($data[$i][$inputs['mucgialk']]) ||
+                    !isset($data[$i][$inputs['mucgiakk']])){
+                    continue;
+                }
+                $a_dm[] = array(
+                    'mahs' => $inputs['mahs'],
+                    'tendvcu' => $data[$i][$inputs['tenhhdv']] ?? '',
+                    'qccl' => $data[$i][$inputs['qccl']] ?? '',
+                    'dvt' => $data[$i][$inputs['dvt']] ?? '',
+                    'gialk' => $data[$i][$inputs['mucgialk']] ?? '',
+                    'giakk' => $data[$i][$inputs['mucgiakk']] ?? '',
+                    'madv' => $inputs['madv'],
+                );
+            }
+            KkGiaKcbTnCt::insert($a_dm);
+            File::Delete($path);
+
+            $modelct = KkGiaKcbTnCt::where('mahs', $inputs['mahs'])->get();
+
+            return view('manage.kkgia.kcbtn.kkgia.kkgiadv.edit')
+                ->with('model', $model)
+                ->with('modeldn', $modeldn)
+                ->with('modelct', $modelct)
+                ->with('inputs', $inputs)
+                ->with('pageTitle', 'Kê khai giá khám chữa bệnh tư nhân thêm mới');
+
+        } else
+            return view('errors.notlogin');
     }
 }

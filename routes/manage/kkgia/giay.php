@@ -14,6 +14,9 @@ Route::post('kekhaigiagiay/delete','manage\kekhaigia\kkgiay\KkGiaGiayController@
 
 Route::get('kekhaigiagiay/kiemtra','manage\kekhaigia\kkgiay\KkGiaGiayController@kiemtra');
 
+Route::get('kekhaigiagiay/nhanexcel','manage\kekhaigia\kkgiay\KkGiaGiayController@nhanexcel');
+Route::post('kekhaigiagiay/create_excel','manage\kekhaigia\kkgiay\KkGiaGiayController@create_excel');
+
 Route::get('/giagiayctdf/storett','manage\kekhaigia\kkgiay\KkGiaGiayCtDfController@store');
 Route::get('/giagiayctdf/edittt','manage\kekhaigia\kkgiay\KkGiaGiayCtDfController@edit');
 Route::get('/giagiayctdf/updatett','manage\kekhaigia\kkgiay\KkGiaGiayCtDfController@update');

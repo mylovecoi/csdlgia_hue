@@ -15,6 +15,9 @@
 
     Route::get('/kkvlxd/showlydo','manage\kekhaigia\kkgiavlxd\KkGiaVlXdController@showlydo');
 
+    Route::get('kekhaigiavlxd/nhanexcel','manage\kekhaigia\kkgiavlxd\KkGiaVlXdController@nhanexcel');
+    Route::post('kekhaigiavlxd/create_excel','manage\kekhaigia\kkgiavlxd\KkGiaVlXdController@create_excel');
+
     Route::get('/giavlxdct/storett','manage\kekhaigia\kkgiavlxd\KkGiaVlXdCtController@store');
     Route::get('/giavlxdct/edittt','manage\kekhaigia\kkgiavlxd\KkGiaVlXdCtController@edit');
     Route::get('/giavlxdct/updatett','manage\kekhaigia\kkgiavlxd\KkGiaVlXdCtController@update');

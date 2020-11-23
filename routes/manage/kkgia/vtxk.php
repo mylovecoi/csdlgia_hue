@@ -18,6 +18,9 @@ Route::post('kekhaigiavantaixekhach/delete','manage\kekhaigia\kkdvvt\vtxk\KkGiaV
 Route::get('/kekhaigiavantaixekhach/kiemtra','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkController@kiemtra');
 //End Ajax chuyển
 
+Route::get('kekhaigiavantaixekhach/nhanexcel','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkController@nhanexcel');
+Route::post('kekhaigiavantaixekhach/create_excel','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkController@create_excel');
+
 Route::get('/giavtxkctdf/storett','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkCtDfController@store');
 Route::get('/giavtxkctdf/edittt','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkCtDfController@edit');
 Route::get('/giavtxkctdf/updatett','manage\kekhaigia\kkdvvt\vtxk\KkGiaVtXkCtDfController@update');

@@ -15,6 +15,9 @@ Route::post('kekhaigiavantaixetaxi/delete','manage\kekhaigia\kkdvvt\vtxtx\KkGiaV
 
 Route::get('/kekhaigiavantaixetaxi/kiemtra','manage\kekhaigia\kkdvvt\vtxtx\KkGiaVtXtxController@kiemtra');
 
+Route::get('kekhaigiavantaixetaxi/nhanexcel','manage\kekhaigia\kkdvvt\vtxtx\KkGiaVtXtxController@nhanexcel');
+Route::post('kekhaigiavantaixetaxi/create_excel','manage\kekhaigia\kkdvvt\vtxtx\KkGiaVtXtxController@create_excel');
+
 Route::get('/giavtxtxctdf/storett','manage\kekhaigia\kkdvvt\vtxtx\KkGiaVtXtxCtDfController@store');
 Route::get('/giavtxtxctdf/edittt','manage\kekhaigia\kkdvvt\vtxtx\KkGiaVtXtxCtDfController@edit');
 Route::get('/giavtxtxctdf/updatett','manage\kekhaigia\kkdvvt\vtxtx\KkGiaVtXtxCtDfController@update');

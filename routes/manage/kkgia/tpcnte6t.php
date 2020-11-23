@@ -12,6 +12,9 @@ Route::post('kekhaigiatpcnte6t/delete','manage\kekhaigia\kkgiatpcnte6t\KkGsContr
 
 Route::get('/kktpcnte6t/showlydo','manage\kekhaigia\kkgiatpcnte6t\KkGsController@showlydo');
 
+Route::get('kekhaigiatpcnte6t/nhanexcel','manage\kekhaigia\kkgiatpcnte6t\KkGsController@nhanexcel');
+Route::post('kekhaigiatpcnte6t/create_excel','manage\kekhaigia\kkgiatpcnte6t\KkGsController@create_excel');
+
 Route::get('/giatpcnte6tct/storett','manage\kekhaigia\kkgiatpcnte6t\KkGsCtController@store');
 Route::get('/giatpcnte6tct/edittt','manage\kekhaigia\kkgiatpcnte6t\KkGsCtController@edit');
 Route::get('/giatpcnte6tct/updatett','manage\kekhaigia\kkgiatpcnte6t\KkGsCtController@update');
