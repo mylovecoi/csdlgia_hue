@@ -8,6 +8,9 @@ Route::get('kekhaigiaxmtxd/edit','manage\kekhaigia\kkgiaxmtxd\KkGiaXmTxdControll
 Route::get('kekhaigiaxmtxd/prints','manage\kekhaigia\kkgiaxmtxd\KkGiaXmTxdController@show');
 Route::get('kekhaigiaxmtxd/get_sohs','manage\kekhaigia\kkgiaxmtxd\KkGiaXmTxdController@showlydo');
 
+Route::get('kekhaigiaxmtxd/nhanexcel','manage\kekhaigia\kkgiaxmtxd\KkGiaXmTxdController@nhanexcel');
+Route::post('kekhaigiaxmtxd/create_excel','manage\kekhaigia\kkgiaxmtxd\KkGiaXmTxdController@create_excel');
+
 Route::post('kekhaigiaxmtxd/chuyen','manage\kekhaigia\kkgiaxmtxd\KkGiaXmTxdController@chuyen');
 Route::get('/giaxmtxd/showlydo','manage\kekhaigia\kkgiaxmtxd\KkGiaXmTxdController@showlydo');
 Route::post('kekhaigiaxmtxd/delete','manage\kekhaigia\kkgiaxmtxd\KkGiaXmTxdController@delete');

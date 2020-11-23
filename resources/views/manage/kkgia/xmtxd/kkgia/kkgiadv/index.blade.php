@@ -130,6 +130,9 @@
                     <div class="actions">
                         <a href="{{url('kekhaigiaxmtxd/create?&madv='.$inputs['madv'])}}" class="btn btn-default btn-sm">
                             <i class="fa fa-plus"></i> Kê khai mới </a>
+
+                        <a href="{{url('kekhaigiaxmtxd/nhanexcel?madv='.$inputs['madv'])}}" class="btn btn-default btn-sm">
+                            <i class="fa fa-file-excel-o"></i> Nhận dữ liệu</a>
                     </div>
 
                 </div>
