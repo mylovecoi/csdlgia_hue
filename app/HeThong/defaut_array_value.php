@@ -307,20 +307,24 @@ function getDonViTongHop($linhvuc, $level, $madiaban = null){
 function getDonViTongHop_dn($linhvuc, $level, $madiaban = null){
     //return App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')->wherein('level', ['T', 'H'])->get();
     switch($linhvuc){
-        case 'dvvtxtx':{
-            $linhvuc = 'vtxtx';
+        case 'vtxtx':{
+            $linhvuc = 'dvvtxtx';
             break;
         }
-        case 'dvvtxk':{
-            $linhvuc = 'vtxk';
+        case 'vtxk':{
+            $linhvuc = 'dvvtxk';
             break;
         }
-        case 'dvvtxb':{
-            $linhvuc = 'vtxb';
+        case 'vtxb':{
+            $linhvuc = 'dvvtxb';
             break;
         }
-
+        case 'vthk':{
+            $linhvuc = 'dvvthk';
+            break;
+        }
     }
+    //dd($linhvuc);
     $m_donvi = App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')
         ->wherein('level', ['T', 'H'])->get();
     $m_user = App\Users::wherein('madv',array_column($m_donvi->toarray(),'madv'))->get();
