@@ -238,7 +238,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="control-label">Tài khoản đăng nhập</label>
-                        {!!Form::text('taikhoandn', null, array('id' => 'taikhoandn','class' => 'form-control required','data-mask'=>"user"))!!}
+                        {!!Form::text('taikhoandn', null, array('id' => 'taikhoandn','class' => 'form-control required'))!!}
                     </div>
                 </div>
             </div>
