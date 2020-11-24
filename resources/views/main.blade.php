@@ -719,6 +719,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <!-- chức năng này không có => chỉ có quyền SSA mới lên -->
                                         @if(session('admin')->level == 'SSA')
                                             <li><a href="{{url('/vanphonghotro/danhsach')}}">{{session('admin')['a_chucnang']['vanphong'] ?? 'Văn phòng hỗ trợ'}}</a> </li>
+                                                <li><a href="{{url('/doanhnghiep/dsdangky')}}">Danh sách doanhnghiep đăng ký</a> </li>
                                         @endif
 
                                         @if(chkPer('hethong', 'hethong_pq', 'thongtin'))

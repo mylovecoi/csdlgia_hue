@@ -13,6 +13,7 @@ use App\Model\system\dmnganhnghekd\DmNganhKd;
 use App\Model\system\dmnganhnghekd\DmNgheKd;
 use App\Model\system\dsdiaban;
 use App\Model\system\dsdonvi;
+use App\Model\system\view_dsdoanhnghiep_dangky;
 use App\TtDnTd;
 use App\TtDnTdCt;
 use App\Users;
@@ -396,4 +397,16 @@ class CompanyController extends Controller
             return view('errors.notlogin');
     }
 
+    public function dsdangky(){
+        if (Session::has('admin')) {
+            $model = view_dsdoanhnghiep_dangky::all();
+            //dd($model);
+
+            return view('system.company.dsdangky')
+                ->with('model', $model)
+                ->with('pageTitle', 'Danh sách doanh nghiệp đăng ký tài khoản');
+
+        } else
+            return view('errors.notlogin');
+    }
 }

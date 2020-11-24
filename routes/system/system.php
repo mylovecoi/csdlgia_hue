@@ -140,6 +140,8 @@ Route::group(['prefix'=>'doanhnghiep'],function (){
     Route::get('dangkytaikhoantruycap/checkmadangky','Auth\RegisterController@submitcheckmadk');
     //Route::post('dangkytaikhoantruycap/checkmadangky','Auth\RegisterController@submitcheckmadk');
     //Route::get('companylvcc/getmanghe','system\company\CompanyLvCcController@getmanghe');
+
+    Route::get('dsdangky','system\company\CompanyController@dsdangky');
 });
 
 //Đăng ký tài khoản
