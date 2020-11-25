@@ -49,7 +49,7 @@
                                 <th style="text-align: center">Trạng thái</th>
                                 <th style="text-align: center">Địa bàn đăng ký</th>
                                 <th style="text-align: center">Tài khoản<br>truy cập</th>
-                                {{--<th style="text-align: center" width="5%">Thao tác</th>--}}
+                                <th style="text-align: center" width="5%">Thao tác</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -62,9 +62,9 @@
                                         <td>{{$tt->status}}</td>
                                         <td>{{$tt->tendiaban}}</td>
                                         <td>{{$tt->username}}</td>
-                                        {{--<td>--}}
-                                            {{--<a href="{{url('company/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>--}}
-                                        {{--</td>--}}
+                                        <td>
+                                            <a href="{{url('/dangky/modify?madv='.$tt->madv)}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Xét duyệt</a>
+                                        </td>
                                     </tr>
                                 @endforeach
 

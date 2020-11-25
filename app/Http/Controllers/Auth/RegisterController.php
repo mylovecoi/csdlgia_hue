@@ -104,47 +104,54 @@ class RegisterController extends Controller
             ->with('pageTitle','Đăng ký tài khoản truy cập');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $inputs = $request->all();
         $inputs['trangthai'] = 'Chưa kích hoạt';
-        $inputs['level']  = 'DN';
-        if(CompanyLvCc::where('mahs',$inputs['mahs'])->count()==0){
+        $inputs['level'] = 'DN';
+        if (CompanyLvCc::where('mahs', $inputs['mahs'])->count() == 0) {
             return view('errors.duplicate')
-                ->with('url','/doanhnghiep/dangky')
-                ->with('message','Lĩnh vực kinh doanh không được bỏ trống.')
-                ->with('pageTitle','Đăng ký tài khoản truy cập thành công');
+                ->with('url', '/doanhnghiep/dangky')
+                ->with('message', 'Lĩnh vực kinh doanh không được bỏ trống.')
+                ->with('pageTitle', 'Đăng ký tài khoản truy cập');
         };
+        if (Company::where('madv', $inputs['madv'])->count() > 0) {
+            return view('errors.duplicate')
+                ->with('url', '/doanhnghiep/dangky')
+                ->with('message', 'Mã số thuế hoặc mã số đăng ký kinh doanh này đã đăng ký trên hệ thống.')
+                ->with('pageTitle', 'Đăng ký tài khoản truy cập');
+        }
         //dd($inputs);
         $model = new Company();
-        if(isset($inputs['tailieu'])){
+        if (isset($inputs['tailieu'])) {
             $ipf1 = $request->file('tailieu');
-            $inputs['ipt1'] = $inputs['madv'].'.'.$ipf1->getClientOriginalExtension();
+            $inputs['ipt1'] = $inputs['madv'] . '.' . $ipf1->getClientOriginalExtension();
             $ipf1->move(public_path() . '/data/doanhnghiep/', $inputs['ipt1']);
-            $inputs['tailieu']= $inputs['ipt1'];
+            $inputs['tailieu'] = $inputs['ipt1'];
         }
-        if($model->create($inputs)){
+        if ($model->create($inputs)) {
             $modeluser = new Users();
             $modeluser->username = $inputs['taikhoandn'];
             $modeluser->password = md5($inputs['rpassword']);
             $modeluser->name = $inputs['tendn'];
             $modeluser->status = 'Chờ xét duyệt';
-            $modeluser->level  = 'DN';
-            $modeluser->madv  = $inputs['madv'];
+            $modeluser->level = 'DN';
+            $modeluser->madv = $inputs['madv'];
             $modeluser->save();
-            CompanyLvCc::where('mahs',$inputs['mahs'])
-                ->update(['madv' => $inputs['madv'],'trangthai' => 'XD']);
+            CompanyLvCc::where('mahs', $inputs['mahs'])
+                ->update(['madv' => $inputs['madv'], 'trangthai' => 'XD']);
         }
-        $modeldn = Company::where('madv',$inputs['madv'])->first();
+        $modeldn = Company::where('madv', $inputs['madv'])->first();
         $modeldv = GeneralConfigs::first();
         $tg = getDateTime(Carbon::now()->toDateTimeString());
-        $contentdn = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã nhận yêu cầu đăng ký thông tin doanh nghiệp . Mã số đăng ký: '.$inputs['mahs'].'!!!';
-        $contentht = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã nhận yêu cầu thay đổi thông tin doanh nghiệp '.$modeldn->tendn.' - mã số thuế '.$modeldn->madv.' Mã số đăng ký: '.$inputs['mahs'].' !!!';
-        $run = new SendMail($modeldn,$contentdn,$modeldv,$contentht);
+        $contentdn = 'Vào lúc: ' . $tg . ', hệ thống CSDL giá đã nhận yêu cầu đăng ký thông tin doanh nghiệp . Mã số đăng ký: ' . $inputs['mahs'] . '!!!';
+        $contentht = 'Vào lúc: ' . $tg . ', hệ thống CSDL giá đã nhận yêu cầu thay đổi thông tin doanh nghiệp ' . $modeldn->tendn . ' - mã số thuế ' . $modeldn->madv . ' Mã số đăng ký: ' . $inputs['mahs'] . ' !!!';
+        $run = new SendMail($modeldn, $contentdn, $modeldv, $contentht);
         $run->handle();
         //dispatch($run);
         return view('system.registers.dangkytk.register-success')
-            ->with('mahs',$inputs['mahs'])
-            ->with('pageTitle','Đăng ký tài khoản truy cập thành công');
+            ->with('mahs', $inputs['mahs'])
+            ->with('pageTitle', 'Đăng ký tài khoản truy cập thành công');
     }
 
     public function update(Request $request,$id){
