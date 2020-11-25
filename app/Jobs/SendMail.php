@@ -42,11 +42,11 @@ class SendMail implements ShouldQueue
     {
         //tạm thời tắt tính năng gửi mail
 
-//        $emaildn = new MailDoanhNghiep($this->modeldn, $this->contentdn);
-//        if (isset($this->modeldn) && $this->modeldn->email != '' && emailValid($this->modeldn->email))
-//            Mail::to($this->modeldn->email)->send($emaildn);
-//        $emailht = new MailHeThong($this->contentht, $this->modeldv);
-//        if (isset($this->modeldv) && $this->modeldv->emailql != '' && emailValid($this->modeldv->emailql))
-//            Mail::to($this->modeldv->emailql)->send($emailht);
+        $emaildn = new MailDoanhNghiep($this->modeldn, $this->contentdn);
+        if (isset($this->modeldn) && $this->modeldn->email != '' && emailValid($this->modeldn->email))
+            Mail::to($this->modeldn->email)->send($emaildn);
+        $emailht = new MailHeThong($this->contentht, $this->modeldv);
+        if (isset($this->modeldv) && $this->modeldv->emailql != '' && emailValid($this->modeldv->emailql))
+            Mail::to($this->modeldv->emailql)->send($emailht);
     }
 }
