@@ -30,6 +30,7 @@ class UsersController extends Controller
     public function login(Request $request)
     {
         $inputs = $request->all();
+        //dd($inputs);
         return view('system.users.login')
             ->with('inputs',$inputs)
             ->with('pageTitle', 'Đăng nhập hệ thống');
@@ -150,8 +151,9 @@ class UsersController extends Controller
     public function logout()
     {
         if (Session::has('admin')) {
+            $url = '/login?username='.session('admin')->username;
             Session::flush();
-            return redirect('/login');
+            return redirect($url);
         } else {
             return redirect('');
         }

@@ -77,7 +77,7 @@ License: You must have a valid license purchased only from themeforest(the above
 			<div class="input-icon">
 				<i class="fa fa-user"></i>
 				<input class="form-control required" type="text" autocomplete="off" placeholder="Tài khoản" name="username" id="username" autofocus
-						value="{{isset($inputs['username']) ?? ''}}">
+						value="{{$inputs['username'] ?? ''}}">
 			</div>
 		</div>
 		<div class="form-group">
