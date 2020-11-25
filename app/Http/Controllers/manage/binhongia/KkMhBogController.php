@@ -130,7 +130,7 @@ class KkMhBogController extends Controller
             $m_dn = Company::where('madv', $inputs['madv'])->first();
 
             //xóa các chi tiết ko có hồ sơ (dữ liệu thừa do khi tạo mới thì tự thêm vào trong chi tiết mà ko cần lưu hồ sơ)
-            DB::statement("DELETE FROM kkmhbogct WHERE mahs not in (SELECT mahs FROM kkmhbog where madv='" . $inputs['madv'] . "')");
+            //DB::statement("DELETE FROM kkmhbogct WHERE mahs not in (SELECT mahs FROM kkmhbog where madv='" . $inputs['madv'] . "')");
 
             //lấy hồ sơ liền kề
             $hslk = KkMhBog::where('trangthai', 'HT')
