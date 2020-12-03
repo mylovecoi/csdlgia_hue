@@ -291,7 +291,7 @@ class KkGiaGiayController extends Controller
             );
             $model->lichsu = json_encode($a_lichsu);
             $model->ttnguoinop = $inputs['ttnguoinop'];
-            $model->dtll = $inputs['dtll'];
+            /*$model->dtll = $inputs['dtll'];*/
             $model->macqcq = $inputs['macqcq'];
             $model->trangthai = 'CD';
             $model->ngaychuyen = date('Y-m-d H:i:s');
