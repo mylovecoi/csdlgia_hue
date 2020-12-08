@@ -1286,9 +1286,18 @@
         </a>
         <ul class="sub-menu">
             @if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'danhmuc','index'))
-                <li>
-                    <a href="{{url('/giahhdvk/danhmuc')}}">Danh mục</a>
-                </li>
+                <!-- Ko dùng if else do quyền SSA sẽ lên cả 2 -->
+                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                    <li>
+                        <a href="{{url('/giahhdvk/danhmuc')}}">Danh mục hàng hóa, dịch vụ</a>
+                    </li>
+                @endif
+                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                    <li>
+                        <a href="{{url('/giahhdvk/dmdonvi')}}">Danh mục hàng hóa, dịch vụ (đơn vị)</a>
+                    </li>
+                @endif
+
             @endif
 
             @if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'hoso','index'))

@@ -57,8 +57,8 @@ Route::group(['prefix'=>'dmloaidat'], function(){
     Route::post('delete','system\GiaDatDiaBanDmController@destroy');
 });
 
-Route::resource('district','DistrictController');
-Route::resource('town','TownController');
+//Route::resource('district','DistrictController');
+//Route::resource('town','TownController');
 
 Route::get('company','system\company\CompanyController@index');
 Route::get('company/create','system\company\CompanyController@create');
@@ -112,6 +112,13 @@ Route::post('userscompany/phan-quyen','UsersCompanyController@uppermission');
 Route::get('thongtindonvi','ThongTinDonViController@index');
 Route::get('thongtindonvi/edit','ThongTinDonViController@edit');
 Route::post('thongtindonvi','ThongTinDonViController@update');
+
+//Danh mục nhóm hàng hóa cho Giá HHDV khác
+Route::group(['prefix'=>'dmnhomhh'],function (){
+    Route::get('danhsach','system\DmNhomHangHoaController@index');
+    Route::post('danhsach', 'system\DmNhomHangHoaController@store');
+    Route::get('show_dm', 'system\DmNhomHangHoaController@show');
+});
 
 //Danh mục ngành nghề
 Route::group(['prefix'=>'dmnganhnghe'],function (){

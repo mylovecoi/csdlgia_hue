@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\system;
 
 use App\DmHangHoa;
 use App\DmNhomHangHoa;
@@ -15,9 +15,9 @@ class DmNhomHangHoaController extends Controller
 {
     public function index(){
         if(Session::has('admin')){
-            $model = DmNhomHangHoa::where('phanloai','THAMDINHGIA')->get();
-            $inputs['url'] = '/thamdinhgia';
-            return view('manage.thamdinhgia.danhmuc.nhom.index')
+            $model = DmNhomHangHoa::where('phanloai','GIAHHDVK')->get();
+            $inputs['url'] = '/dmnhomhh';
+            return view('system.dmnhomhanghoa.index')
                 ->with('model',$model)
                 ->with('inputs', $inputs)
                 ->with('pageTitle','Danh mục nhóm hàng hóa');
@@ -29,22 +29,22 @@ class DmNhomHangHoaController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['manhom'] = chuanhoatruong($inputs['manhom']);
-            $check = DmNhomHangHoa::where('manhom', $inputs['manhom'])->first();
+            $check = DmNhomHangHoa::where('manhom', $inputs['manhom'])->where('phanloai','GIAHHDVK')->first();
             if ($inputs['trangthai'] == 'ADD') {
                 if ($check != null) {
                     return view('errors.duplicate')
                         ->with('message', 'Mã nhóm hàng hóa này đã được sử dụng.')
-                        ->with('url', '/thamdinhgia/danhmuc');
+                        ->with('url', '/dmnhomhh/danhsach');
                 } else {
                     $inputs['theodoi'] = 'TD';
-                    $inputs['phanloai'] = 'THAMDINHGIA';
+                    $inputs['phanloai'] = 'GIAHHDVK';
                     DmNhomHangHoa::create($inputs);
                 }
             } else {
                 $check->update($inputs);
             }
 
-            return redirect('/thamdinhgia/danhmuc');
+            return redirect('/dmnhomhh/danhsach');
         } else
             return view('errors.notlogin');
     }
@@ -59,7 +59,7 @@ class DmNhomHangHoaController extends Controller
         }
 
         $inputs = $request->all();
-        $model = DmNhomHangHoa::where('manhom',$inputs['manhom'])->first();
+        $model = DmNhomHangHoa::where('manhom',$inputs['manhom'])->where('phanloai','GIAHHDVK')->first();
         die($model);
     }
 

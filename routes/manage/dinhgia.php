@@ -351,6 +351,10 @@ Route::group(['prefix'=>'giahhdvk'], function (){
     Route::post('dm','DmHhDvKController@store');
     Route::post('delete_dm','DmHhDvKController@destroy');
     Route::get('show_dm','DmHhDvKController@edit');
+    //Danh mục hàng hóa theo đơn vị
+    Route::get('dmdonvi','NhomHhDvKController@index_donvi');
+    Route::get('add_dmdonvi','NhomHhDvKController@store_dmdonvi');
+    Route::post('delete_dmdonvi','NhomHhDvKController@destroy_dmdonvi');
     //chi tiết hồ sơ
     Route::get('edit_ct','GiaHhDvKCtController@edit');
     Route::post('update_ct','GiaHhDvKCtController@update');

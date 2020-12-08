@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DiaBanHd;
 use App\District;
 use App\DmHhDvK;
+use App\DmHhDvK_DonVi;
 use App\GiaHhDvK;
 use App\GiaHhDvKCt;
 use App\Model\system\dsdiaban;
@@ -142,7 +143,13 @@ class GiaHhDvKController extends Controller
                     $model->trangthai  = 'CHT';
                     $model->thang = $inputs['thang'];
                     $model->nam = $inputs['nam'];
-                    $m_dm = DmHhDvK::where('matt', $inputs['mattbc'])->get();
+
+                    //kiểm tra nếu đã tạo danh mục theo đơn vị thì lấy dm ko thì lấy theo hệ thống
+                    $m_dm = DmHhDvK_DonVi::where('matt', $inputs['mattbc'])->where('madv', $inputs['madv'])->get();
+                    if(count($m_dm) == 0){
+                        $m_dm = DmHhDvK::where('matt', $inputs['mattbc'])->get();
+                    }
+
                     $a_dm = array();
                     foreach ($m_dm as $dm) {
                         $a_dm[] = [

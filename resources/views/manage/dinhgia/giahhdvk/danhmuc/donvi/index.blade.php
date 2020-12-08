@@ -149,6 +149,7 @@
                                     @endforeach
                                 </select>
                             </div>
+
                             <div class="col-md-8">
                                 <label style="font-weight: bold">Thông tư, quyết định</label>
                                 {!!Form::select('matt', $a_thongtu, $inputs['matt'], array('id' => 'matt','class' => 'form-control select2me'))!!}
