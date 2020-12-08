@@ -94,7 +94,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Loại văn bản</label>
                                 {!! Form::select('loaivb',getLoaiVbQlNn(),$inputs['loaivb'], ['id' => 'loaivb','class' => 'form-control']) !!}

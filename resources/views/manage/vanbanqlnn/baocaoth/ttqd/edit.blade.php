@@ -102,7 +102,7 @@
                                         @if(isset($model->ipf1))
                                             <a href="{{url('/data/vbqlnnvegia/bcth/'.$model->ipf1)}}" target="_blank">{{$model->ipt1}}</a>
                                         @endif
-                                        <input name="ipf1" id="ipf1" type="file">
+                                        <input name="ipf1" id="ipf1" type="file" accept="{{getFileExtension()}}" onchange="chkFile(this)" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -111,7 +111,7 @@
                                         @if(isset($model->ipf2))
                                             <a href="{{url('/data/vbqlnnvegia/bcth/'.$model->ipf2)}}" target="_blank">{{$model->ipt2}}</a>
                                         @endif
-                                        <input name="ipf2" id="ipf2" type="file">
+                                        <input name="ipf2" id="ipf2" type="file" accept="{{getFileExtension()}}" onchange="chkFile(this)" />
                                     </div>
                                 </div>
                             </div>
@@ -122,7 +122,7 @@
                                         @if(isset($model->ipf3))
                                             <a href="{{url('/data/vbqlnnvegia/bcth/'.$model->ipf3)}}" target="_blank">{{$model->ipt3}}</a>
                                         @endif
-                                        <input name="ipf3" id="ipf3" type="file">
+                                        <input name="ipf3" id="ipf3" type="file" accept="{{getFileExtension()}}" onchange="chkFile(this)" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -131,7 +131,7 @@
                                         @if(isset($model->ipf4))
                                             <a href="{{url('/data/vbqlnnvegia/bcth/'.$model->ipf4)}}" target="_blank">{{$model->ipt4}}</a>
                                         @endif
-                                        <input name="ipf4" id="ipf4" type="file">
+                                        <input name="ipf4" id="ipf4" type="file" accept="{{getFileExtension()}}" onchange="chkFile(this)" />
                                     </div>
                                 </div>
                             </div>
@@ -142,7 +142,7 @@
                                         @if(isset($model->ipf5))
                                             <a href="{{url('/data/ttpvctqlnn/'.$model->ipf5)}}" target="_blank">{{$model->ipt5}}</a>
                                         @endif
-                                        <input name="ipf5" id="ipf5" type="file">
+                                        <input name="ipf5" id="ipf5" type="file" accept="{{getFileExtension()}}" onchange="chkFile(this)" />
                                     </div>
                                 </div>
                             </div>
@@ -197,4 +197,5 @@
             })
         }(jQuery));
     </script>
+    @include('includes.crumbs.scrip_chkFileExtension')
 @stop

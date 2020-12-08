@@ -94,14 +94,14 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">File đính kèm 1</label>
-                                        <input name="ipf1" id="ipf1" type="file">
+                                        <input name="ipf1" id="ipf1" type="file" accept="{{getFileExtension()}}" onchange="chkFile(this)" />
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">File đính kèm 2</label>
-                                        <input name="ipf2" id="ipf2" type="file">
+                                        <input name="ipf2" id="ipf2" type="file" accept="{{getFileExtension()}}" onchange="chkFile(this)" />
                                     </div>
                                 </div>
                             </div>
@@ -109,14 +109,14 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">File đính kèm 3</label>
-                                        <input name="ipf3" id="ipf3" type="file">
+                                        <input name="ipf3" id="ipf3" type="file" accept="{{getFileExtension()}}" onchange="chkFile(this)" />
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">File đính kèm 4</label>
-                                        <input name="ipf4" id="ipf4" type="file">
+                                        <input name="ipf4" id="ipf4" type="file" accept="{{getFileExtension()}}" onchange="chkFile(this)" />
                                     </div>
                                 </div>
                             </div>
@@ -124,7 +124,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">File đính kèm 5</label>
-                                        <input name="ipf5" id="ipf5" type="file">
+                                        <input name="ipf5" id="ipf5" type="file" accept="{{getFileExtension()}}" onchange="chkFile(this)" />
                                     </div>
                                 </div>
                             </div>
@@ -176,4 +176,5 @@
             })
         }(jQuery));
     </script>
+    @include('includes.crumbs.scrip_chkFileExtension')
 @stop

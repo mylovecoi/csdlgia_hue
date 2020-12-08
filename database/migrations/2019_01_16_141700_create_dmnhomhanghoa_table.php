@@ -18,6 +18,7 @@ class CreateDmnhomhanghoaTable extends Migration
             $table->string('manhom')->nullable();
             $table->string('tennhom')->nullable();
             $table->string('theodoi')->nullable();
+            $table->string('phanloai')->nullable();
             $table->timestamps();
         });
     }

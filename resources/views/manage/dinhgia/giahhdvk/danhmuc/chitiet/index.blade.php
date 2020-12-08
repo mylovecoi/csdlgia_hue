@@ -44,6 +44,7 @@
                     form.find("[name='tenhhdv']").val(data.tenhhdv);
                     form.find("[name='dacdiemkt']").val(data.dacdiemkt);
                     form.find("[name='dvt']").val(data.dvt).trigger('change');
+                    form.find("[name='manhom']").val(data.manhom).trigger('change');
                     form.find("[name='trangthai']").val('EDIT');
                     //form.find("[name='theodoi']").val(data.theodoi).trigger('change');
 
@@ -147,6 +148,15 @@
                     <h4 class="modal-title">Thêm mới hàng hóa dịch vụ ?</h4>
                 </div>
                 <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Nhóm hàng hóa, dịch vụ</label>
+                                {!!Form::select('manhom', $a_nhomhh, null, array('id' => 'manhom','class' => 'form-control'))!!}
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">

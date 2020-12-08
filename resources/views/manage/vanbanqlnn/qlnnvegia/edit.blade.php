@@ -103,7 +103,7 @@
                                         @if(isset($model->ipf1))
                                             <a href="{{url('/data/vbqlnnvegia/'.$model->ipf1)}}" target="_blank">{{$model->ipt1}}</a>
                                         @endif
-                                        <input name="ipf1" id="ipf1" type="file">
+                                        <input name="ipf1" id="ipf1" type="file" accept="{{getFileExtension()}}" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -112,7 +112,7 @@
                                         @if(isset($model->ipf2))
                                             <a href="{{url('/data/vbqlnnvegia/'.$model->ipf2)}}" target="_blank">{{$model->ipt2}}</a>
                                         @endif
-                                        <input name="ipf2" id="ipf2" type="file">
+                                        <input name="ipf2" id="ipf2" type="file" accept="{{getFileExtension()}}" />
                                     </div>
                                 </div>
                             </div>
@@ -123,7 +123,7 @@
                                         @if(isset($model->ipf3))
                                             <a href="{{url('/data/vbqlnnvegia/'.$model->ipf3)}}" target="_blank">{{$model->ipt3}}</a>
                                         @endif
-                                        <input name="ipf3" id="ipf3" type="file">
+                                        <input name="ipf3" id="ipf3" type="file" accept="{{getFileExtension()}}" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -132,7 +132,7 @@
                                         @if(isset($model->ipf4))
                                             <a href="{{url('/data/vbqlnnvegia/'.$model->ipf4)}}" target="_blank">{{$model->ipt4}}</a>
                                         @endif
-                                        <input name="ipf4" id="ipf4" type="file">
+                                        <input name="ipf4" id="ipf4" type="file" accept="{{getFileExtension()}}" />
                                     </div>
                                 </div>
                             </div>
@@ -143,7 +143,7 @@
                                         @if(isset($model->ipf5))
                                             <a href="{{url('/data/vbqlnnvegia/'.$model->ipf5)}}" target="_blank">{{$model->ipt5}}</a>
                                         @endif
-                                        <input name="ipf5" id="ipf5" type="file">
+                                        <input name="ipf5" id="ipf5" type="file" accept="{{getFileExtension()}}" />
                                     </div>
                                 </div>
                             </div>
@@ -153,7 +153,7 @@
                 </div>
             </div>
             <div class="col-md-12" style="text-align: center">
-                <a href="{{url('vanbanqlnnvegia?&&phanloai='.$model->phanloai.'&loaivb='.$model->loaivb)}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                <a href="{{url('vanbanqlnnvegia?phanloai='.$model->phanloai.'&loaivb='.$model->loaivb)}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                 <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
                 <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i> Cập nhập</button>
             </div>
