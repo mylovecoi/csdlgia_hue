@@ -16,11 +16,11 @@
     <script type="text/javascript" src="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
     <!-- END PAGE LEVEL PLUGINS -->
     <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
-    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>
+{{--    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>--}}
     <script>
         jQuery(document).ready(function() {
             TableManaged.init();
-            $(":input").inputmask();
+            // $(":input").inputmask();
 
             function changeUrl() {
                 var current_path_url = '{{$inputs['url']}}' + '/danhsach?';
@@ -40,6 +40,7 @@
             var form = $('#frm_modify');
             form.find("[name='madv']").val(madv);
             form.find("[name='mahs']").val('NEW');
+            InputMask();
         }
 
         function edittt(mahs) {
