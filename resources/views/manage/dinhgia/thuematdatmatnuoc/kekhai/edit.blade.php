@@ -31,6 +31,7 @@
             $('#mota').val('');
             $('#dientich').val(0);
             $('#dongia').val(0);
+            InputMask();
         }
         function capnhatts(){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
