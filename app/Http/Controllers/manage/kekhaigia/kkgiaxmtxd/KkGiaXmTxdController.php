@@ -73,6 +73,11 @@ class KkGiaXmTxdController extends Controller
             $inputs = $request->all();
             $inputs['url'] = '/kekhaigiaxmtxd';
             $m_donvi = getDoanhNghiepNhapLieu(session('admin')->level, 'XMTXD');
+            if(count($m_donvi) == 0){
+                return view('errors.noperm')
+                    ->with('url','')
+                    ->with('message','Hệ thống chưa có doanh nghiệp kê khai giá xi măng thép xây dựng.');
+            }
             $m_diaban = dsdiaban::wherein('madiaban', array_column($m_donvi->toarray(),'madiaban'))->get();
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $modeldn = $m_donvi->where('madv', $inputs['madv'])->first();

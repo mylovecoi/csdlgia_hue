@@ -738,7 +738,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                     @if(chkPer('hethong', 'hethong_pq', 'ngaynghile'))
                                         <li><a href="{{url('thongtinngaynghile')}}">Thông tin ngày nghỉ lễ</a></li>
                                         <li><a href="{{url('dmloaidat')}}">Danh mục loại đất</a></li>
-                                        <li><a href="{{url('dmnhomhh/danhsach')}}">Danh mục nhóm hàng hóa</a></li>
                                     @endif
 
                                     @if(chkPer('hethong', 'hethong_pq', 'danhmucnganhkd'))
