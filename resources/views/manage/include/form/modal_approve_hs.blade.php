@@ -16,7 +16,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label">Cơ quan tiếp nhận<span class="require">*</span></label>
-                            <select class="form-control select2me" name="macqcq">
+                            <select class="form-control select2me" name="macqcq" id="macqcq">
                                 @foreach($a_diaban_th as $key=>$val)
                                     <optgroup label="{{$val}}">
                                         <?php $donvi = $m_donvi_th->where('madiaban',$key); ?>
@@ -41,7 +41,27 @@
 
 <script>
     function clickChuyen(){
-        $('#frm_chuyen').submit();
+        var str = '';
+        var ok = true;
+
+        if ($('#macqcq').val() == null) {
+            str += '  - Cơ quan tiếp nhận. \n';
+            $('#macqcq').parent().addClass('has-error');
+            ok = false;
+        }
+
+        if (ok == false) {
+            //alert('Các trường: \n' + str + 'Không được để trống');
+            toastr.error('Thông tin: \n' + str + 'Không hợp lệ','Lỗi!.');
+            $("frm_chuyen").submit(function (e) {
+                e.preventDefault();
+            });
+        }
+        else {
+            $("frm_chuyen").unbind('submit').submit();
+            $('#frm_chuyen').submit();
+        }
+        //$('#frm_chuyen').submit();
     }
 
     function confirmChuyen(mahs,url) {

@@ -36,6 +36,19 @@ INSERT INTO "dmnhomhanghoa" ("manhom", "tennhom", "theodoi", "phanloai") VALUES
 ('14',N'Pano, market', 'TD', 'THAMDINHGIA'),
 ('15',N'Đồ dùng hàng ngày (bát, ấm chén, chăn màn….)', 'TD', 'THAMDINHGIA'),
 ('16',N'Đồ dịch vụ công ích, cây cảnh', 'TD', 'THAMDINHGIA'),
-('17',N'Hàng hóa khác', 'TD', 'THAMDINHGIA')
+('17',N'Hàng hóa khác', 'TD', 'THAMDINHGIA'),
+
+('01',N'LƯƠNG THỰC, THỰC PHẨM', 'TD', 'GIAHHDVK'),
+('02',N'VẬT TƯ NÔNG NGHIỆP', 'TD', 'GIAHHDVK'),
+('03',N'ĐỒ UỐNG', 'TD', 'GIAHHDVK'),
+('04',N'VẬT LIỆU XÂY DỰNG, CHẤT ĐỐT, NƯỚC SINH HOẠT', 'TD', 'GIAHHDVK'),
+('05',N'THUỐC CHỮA BỆNH CHO NGƯỜI', 'TD', 'GIAHHDVK'),
+('06',N'DỊCH VỤ Y TẾ', 'TD', 'GIAHHDVK'),
+('07',N'GIAO THÔNG', 'TD', 'GIAHHDVK'),
+('08',N'DỊCH VỤ GIÁO DỤC', 'TD', 'GIAHHDVK'),
+('09',N'GIẢI TRÍ VÀ DU LỊCH', 'TD', 'GIAHHDVK'),
+('10',N'VÀNG, ĐÔ LA MỸ', 'TD', 'GIAHHDVK'),
+('11',N'GIÁ KÊ KHAI CÁC MẶT HÀNG TRÊN ĐỊA BÀN', 'TD', 'GIAHHDVK'),
+('12',N'GIÁ ĐĂNG KÝ CÁC MẶT HÀNG TRONG DANH MỤC BÌNH ỔN GIÁ TRONG THỜI GIAN THỰC HIỆN BIỆN PHÁP BÌNH ỔN GIÁ', 'TD', 'GIAHHDVK')
 
  * */

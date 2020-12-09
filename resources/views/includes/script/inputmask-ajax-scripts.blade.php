@@ -55,7 +55,9 @@
                             autoGroup: true,
                             groupSize: 3,
                             radixPoint: attrDefault($this, 'rad', '.'),
-                            groupSeparator: attrDefault($this, 'dec', ',')
+                            groupSeparator: attrDefault($this, 'dec', ','),
+                            placeholder: "0",
+                            clearMaskOnLostFocus: false
                         });
                 }
 
