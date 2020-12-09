@@ -29,8 +29,8 @@
         function clearForm(){
             $('#vitri').val('');
             $('#mota').val('');
-            $('#dientich').val('');
-            $('#dongia').val('');
+            $('#dientich').val(0);
+            $('#dongia').val(0);
         }
         function capnhatts(){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
