@@ -40,6 +40,8 @@
             var form = $('#frm_modify');
             form.find("[name='madv']").val(madv);
             form.find("[name='mahs']").val('NEW');
+            form.find("[name='dientich']").val(0);
+            form.find("[name='dongia']").val(0);
             InputMask();
         }
 
