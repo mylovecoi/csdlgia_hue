@@ -19,15 +19,16 @@
             TableManaged.init();
         });
     </script>
-    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>
-    <script>
-        $(document).ready(function(){
-            $(":input").inputmask();
-        });
-    </script>
+{{--    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>--}}
+{{--    <script>--}}
+{{--        $(document).ready(function(){--}}
+{{--            $(":input").inputmask();--}}
+{{--        });--}}
+{{--    </script>--}}
     <script>
         function clearForm(){
             $('#dongia').val('0');
+            InputMask();
         }
 
         function capnhatts(){
@@ -72,6 +73,7 @@
                     form.find("[name='maspdv']").val(data.maspdv).trigger('change');
                     form.find("[name='dongia']").val(data.dongia);
                     form.find("[name='id']").val(data.id);
+                    InputMask();
                 },
             })
         }

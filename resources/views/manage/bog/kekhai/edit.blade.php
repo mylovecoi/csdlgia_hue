@@ -27,13 +27,13 @@
     <End Date-->
     <!--Date new-->
     <!--script src="{{url('minhtran/jquery.min.js')}}"></script-->
-    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>
+{{--    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>--}}
 
-    <script>
-        $(document).ready(function(){
-            $(":input").inputmask();
-        });
-    </script>
+{{--    <script>--}}
+{{--        $(document).ready(function(){--}}
+{{--            $(":input").inputmask();--}}
+{{--        });--}}
+{{--    </script>--}}
     <!--End date new-->
 
     <script>
@@ -46,6 +46,7 @@
             $('#giatoida').val('');
             $('select[name="thapdung"]').val('1');
             $('textarea[name="ghichu"]').val('');
+            InputMask();
         }
         function createmhbog(){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');

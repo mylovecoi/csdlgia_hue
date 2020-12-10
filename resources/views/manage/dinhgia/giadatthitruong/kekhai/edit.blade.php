@@ -14,11 +14,11 @@
     <script type="text/javascript" src="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
     <!-- END PAGE LEVEL PLUGINS -->
     <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
-    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>
+{{--    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>--}}
     <script>
         $(document).ready(function(){
             TableManaged.init();
-            $(":input").inputmask();
+            // $(":input").inputmask();
         });
 
         function clearForm(){
@@ -28,7 +28,7 @@
             form.find("[name='giaquydinh']").val(0);
             form.find("[name='giathitruong']").val(0);
             form.find("[name='idct']").val(0);
-
+            InputMask();
             {{--var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');--}}
             {{--$.ajax({--}}
             {{--    url: '{{$inputs['url']}}' + '/get_khuvuc',--}}
@@ -99,6 +99,7 @@
                     form.find("[name='giaquydinh']").val(data.giaquydinh);
                     form.find("[name='dientich']").val(data.dientich);
                     form.find("[name='idct']").val(data.id);
+                    InputMask();
                 }
             })
         }

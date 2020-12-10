@@ -15,10 +15,10 @@
     <!-- END PAGE LEVEL PLUGINS -->
     <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
 
-    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>
+{{--    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>--}}
     <script>
         $(document).ready(function(){
-            $(":input").inputmask();
+            InputMask();
         });
     </script>
 @stop

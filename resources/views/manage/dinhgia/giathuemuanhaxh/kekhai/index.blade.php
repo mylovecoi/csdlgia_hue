@@ -68,6 +68,7 @@
                     form.find("[name='soqd']").val(data.soqd);
                     form.find("[name='mahs']").val(data.mahs);
                     form.find("[name='madv']").val(data.madv);
+                    InputMask();
                 },
                 error: function (message) {
                     toastr.error(message, 'Lỗi!');

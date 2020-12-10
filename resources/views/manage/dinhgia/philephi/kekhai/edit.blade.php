@@ -16,14 +16,14 @@
     <!-- END PAGE LEVEL PLUGINS -->
     <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
 
-    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>
+{{--    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>--}}
 
-    <script>
-        $(document).ready(function(){
-            $(":input").inputmask();
-        });
-    </script>
-    <!--End date new-->
+{{--    <script>--}}
+{{--        $(document).ready(function(){--}}
+{{--            $(":input").inputmask();--}}
+{{--        });--}}
+{{--    </script>--}}
+{{--    <!--End date new-->--}}
 
     <script>
         jQuery(document).ready(function() {
@@ -35,6 +35,7 @@
             form.find("[name='ptcp']").val('');
             form.find("[name='ghichuct']").val('');
             form.find("[name='idct']").val(0);
+            InputMask();
         }
         function createmhbog(){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -84,6 +85,7 @@
                     form.find("[name='ptcp']").val(data.ptcp);
                     form.find("[name='ghichuct']").val(data.ghichu);
                     form.find("[name='idct']").val(data.id);
+                    InputMask();
                 }
             })
         }

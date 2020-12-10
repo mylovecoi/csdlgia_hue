@@ -19,12 +19,12 @@
             TableManaged.init();
         });
     </script>
-    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>
-    <script>
-        $(document).ready(function(){
-            $(":input").inputmask();
-        });
-    </script>
+{{--    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>--}}
+{{--    <script>--}}
+{{--        $(document).ready(function(){--}}
+{{--            $(":input").inputmask();--}}
+{{--        });--}}
+{{--    </script>--}}
 @stop
 
 @section('content')
@@ -44,11 +44,7 @@
                     <!-- BEGIN FORM-->
                     <div class="form-body">
                         <h4 style="color: blue">Thông tin hồ sơ</h4>
-
-
-
                         <div class="row">
-
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Ngày báo cáo<span class="require">*</span></label>
@@ -57,7 +53,6 @@
                             </div>
                             <!--/span-->
                         </div>
-
 
                         <div class="row">
                             <div class="col-md-12">
@@ -148,6 +143,7 @@
                     $('#nguontt').val(data.nguontt);
                     $('#loaigia').val(data.loaigia);
                     $('#id').val(data.id);
+                    InputMask();
                 },
                 error: function (message) {
                     toastr.error(message, 'Lỗi!');

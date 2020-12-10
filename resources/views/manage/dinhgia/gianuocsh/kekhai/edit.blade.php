@@ -40,6 +40,7 @@
                     $('#giachuathue3').val(data.giachuathue3);
                     $('#giachuathue4').val(data.giachuathue4);
                     $('#id').val(data.id);
+                    InputMask();
                 },
                 error: function (message) {
                     toastr.error(message, 'Lỗi!');

@@ -19,7 +19,7 @@
             TableManaged.init();
         });
     </script>
-    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>
+{{--    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>--}}
 
 @stop
 

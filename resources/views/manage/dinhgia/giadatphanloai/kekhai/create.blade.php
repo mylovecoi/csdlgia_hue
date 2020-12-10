@@ -16,11 +16,12 @@
     <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
     <script>
         jQuery(document).ready(function() {
-            TableManaged.init();
-            $(":input").inputmask();
+            //TableManaged.init();
+            InputMask();
+            // $(":input").inputmask();
         });
     </script>
-    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>
+{{--    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>--}}
 @stop
 
 @section('content')

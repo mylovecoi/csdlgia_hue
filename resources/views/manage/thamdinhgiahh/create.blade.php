@@ -17,12 +17,13 @@
     <script>
         jQuery(document).ready(function() {
             TableManaged.init();
+            InputMask();
         });
     </script>
-    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>
+{{--    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>--}}
     <script>
         $(document).ready(function(){
-            $(":input").inputmask();
+            // $(":input").inputmask();
             $('#nguyengiadenghi').change(function () {
                 var sl = $('#sl').val();
                 sl = sl.replace(/,/g, "");

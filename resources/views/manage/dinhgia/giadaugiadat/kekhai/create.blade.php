@@ -19,18 +19,19 @@
             TableManaged.init();
         });
     </script>
-    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>
-    <script>
-        $(document).ready(function(){
-            $(":input").inputmask();
-        });
-    </script>
+{{--    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>--}}
+{{--    <script>--}}
+{{--        $(document).ready(function(){--}}
+{{--            $(":input").inputmask();--}}
+{{--        });--}}
+{{--    </script>--}}
     <script>
         function clearForm(){
             $('#add_loaidat').val('');
             $('#mucgiasan').val('0');
             $('#mucgiadaugia').val('0');
             $('#donvidaugia').val('');
+            InputMask();
         }
         function capnhatts(){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');

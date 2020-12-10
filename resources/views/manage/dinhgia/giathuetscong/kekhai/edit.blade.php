@@ -19,12 +19,12 @@
             TableManaged.init();
         });
     </script>
-    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>
-    <script>
-        $(document).ready(function(){
-            $(":input").inputmask();
-        });
-    </script>
+{{--    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>--}}
+{{--    <script>--}}
+{{--        $(document).ready(function(){--}}
+{{--            $(":input").inputmask();--}}
+{{--        });--}}
+{{--    </script>--}}
     <script>
         function clearForm(){
             $('#dongiathue').val('0');
@@ -34,6 +34,7 @@
             $('#ththue').val('');
             $('#sotienthuenam').val('0');
             $('#trangthai').val('ADD');
+            InputMask();
         }
 
         function capnhatts(){
@@ -89,6 +90,7 @@
                     form.find("[name='ththue']").val(data.ththue);
                     form.find("[name='sotienthuenam']").val(data.sotienthuenam);
                     form.find("[name='trangthai']").val('EDIT');
+                    InputMask();
                 },
             })
         }

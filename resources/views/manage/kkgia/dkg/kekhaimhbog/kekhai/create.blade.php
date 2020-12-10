@@ -27,18 +27,19 @@
     <End Date-->
     <!--Date new-->
     <!--script src="{{url('minhtran/jquery.min.js')}}"></script-->
-    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>
+{{--    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>--}}
 
-    <script>
-        $(document).ready(function(){
-            $(":input").inputmask();
-        });
-    </script>
-    <!--End date new-->
+{{--    <script>--}}
+{{--        $(document).ready(function(){--}}
+{{--            $(":input").inputmask();--}}
+{{--        });--}}
+{{--    </script>--}}
+{{--    <!--End date new-->--}}
 
     <script>
         jQuery(document).ready(function() {
             TableManaged.init();
+            InputMask();
         });
         function clearForm(){
             $('#tenhh').val('');
@@ -47,6 +48,7 @@
             $('#giakk').val('');
             $('#dvt').val('');
             $('#ghichu').val('');
+            InputMask();
         }
         function createmhbog(){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -106,6 +108,7 @@
                     $('#giakkedit').val(data.giakk);
                     $('#ghichuedit').val(data.ghichu);
                     $('#idedit').val(data.id);
+                    InputMask();
                 }
             })
         }

@@ -19,16 +19,17 @@
             TableManaged.init();
         });
     </script>
-    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>
-    <script>
-        $(document).ready(function(){
-            $(":input").inputmask();
-        });
-    </script>
+{{--    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>--}}
+{{--    <script>--}}
+{{--        $(document).ready(function(){--}}
+{{--            $(":input").inputmask();--}}
+{{--        });--}}
+{{--    </script>--}}
     <script>
         function clearForm(){
             $('#giatoithieu').val('0');
             $('#giatoida').val('0');
+            InputMask();
         }
 
         function capnhatts(){
@@ -75,6 +76,7 @@
                     form.find("[name='giatoida']").val(data.giatoida);
                     form.find("[name='giatoithieu']").val(data.giatoithieu);
                     form.find("[name='id']").val(data.id);
+                    InputMask();
                 },
             })
         }

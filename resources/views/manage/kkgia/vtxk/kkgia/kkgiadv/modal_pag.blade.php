@@ -69,6 +69,7 @@
                 $('#edit_giaitrinhctcp').val(data.giaitrinhctcp);
 
                 $('#edit_pagid').val(data.id);
+                InputMask();
             },
             error: function (message) {
                 toastr.error(message, 'Lỗi!');

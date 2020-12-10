@@ -14,7 +14,7 @@
     <script type="text/javascript" src="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
     <!-- END PAGE LEVEL PLUGINS -->
     <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
-    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>
+{{--    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>--}}
     <script>
         $(document).ready(function(){
             TableManaged.init();
@@ -31,7 +31,7 @@
             form.find("[name='giakhoidiem']").val(0);
             form.find("[name='giadaugia']").val(0);
             form.find("[name='idct']").val(0);
-
+            InputMask();
             {{--var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');--}}
             {{--$.ajax({--}}
             {{--    url: '{{$inputs['url']}}' + '/get_khuvuc',--}}

@@ -18,12 +18,12 @@
     <script>
         jQuery(document).ready(function() {
             TableManaged.init();
-        });
-    </script>
-    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>
-    <script>
-        $(document).ready(function(){
-            $(":input").inputmask();
+    {{--    });--}}
+    {{--</script>--}}
+    {{--<script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>--}}
+    {{--<script>--}}
+    {{--    $(document).ready(function(){--}}
+    {{--        $(":input").inputmask();--}}
 
             $('#songaykq').change(function(){
                 addngay();
@@ -31,6 +31,7 @@
             $('#thoidiem').change(function(){
                 addngay();
             });
+            InputMask();
         });
         function addngay(){
             var thoidiem = $('#thoidiem').val();
@@ -51,6 +52,7 @@
             $('#nguyengiathamdinh').val('0');
             $('#giatritstd').val('0');
             $('#gc').val('');
+            InputMask();
         }
 
         function capnhatts(){
@@ -115,6 +117,7 @@
                     form.find("[name='nguyengiathamdinh']").val(data.nguyengiathamdinh);
                     form.find("[name='giatritstd']").val(data.giatritstd);
                     form.find("[name='gc']").val(data.gc);
+                    InputMask();
                 },
             })
         }

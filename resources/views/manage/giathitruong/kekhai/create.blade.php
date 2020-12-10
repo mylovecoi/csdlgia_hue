@@ -19,12 +19,12 @@
             TableManaged.init();
         });
     </script>
-    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>
-    <script>
-        $(document).ready(function(){
-            $(":input").inputmask();
-        });
-    </script>
+{{--    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>--}}
+{{--    <script>--}}
+{{--        $(document).ready(function(){--}}
+{{--            $(":input").inputmask();--}}
+{{--        });--}}
+{{--    </script>--}}
     <script>
         function editItem(id) {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -49,6 +49,7 @@
                     $('#edit_nguontt').val(data.nguontt);
                     $('#edit_ghichu').val(data.ghichu);
                     $('#edit_id').val(data.id);
+                    InputMask();
                 }
             })
         }

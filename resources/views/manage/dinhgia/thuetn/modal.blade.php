@@ -20,6 +20,7 @@
                 $('#edit_dvt').val(data.dvt);
                 $('#edit_gia').val(data.gia);
                 $('#edit_id').val(data.id);
+                InputMask();
             }
         })
     }

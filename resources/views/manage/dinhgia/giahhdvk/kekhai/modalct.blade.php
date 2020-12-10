@@ -17,6 +17,7 @@
                 $('#nguontt').val(data.nguontt);
                 $('#loaigia').val(data.loaigia);
                 $('#id').val(data.id);
+                InputMask();
             },
             error: function (message) {
                 toastr.error(message, 'Lỗi!');

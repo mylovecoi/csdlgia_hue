@@ -248,6 +248,7 @@
     function clearForm() {
         var form = $('#frm_modify');
         form.find("[name='id']").val(-1);
+        InputMask();
     }
 
     function editItem(id) {

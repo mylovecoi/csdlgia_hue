@@ -15,14 +15,14 @@
 
     <!-- END PAGE LEVEL PLUGINS -->
     <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
-    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>
+{{--    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>--}}
 
     <!--End date new-->
 
     <script>
         jQuery(document).ready(function() {
             TableManaged.init();
-            $(":input").inputmask();
+            // $(":input").inputmask();
         });
 
         function clearForm(){
@@ -33,6 +33,7 @@
             $('#dvt').val('');
             $('#ghichu').val('');
             $('#id').val(-100);
+            InputMask();
         }
 
         function createmhbog(){
@@ -91,6 +92,7 @@
                     $('#giakk').val(data.giakk);
                     $('#ghichu').val(data.ghichu);
                     $('#id').val(data.id);
+                    InputMask();
                 }
             })
         }
