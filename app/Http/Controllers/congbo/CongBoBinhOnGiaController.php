@@ -37,6 +37,7 @@ class CongBoBinhOnGiaController extends Controller
             $model = $model->where('manghe', $inputs['manghe']);
         $a_donvi = array_column(Company::all()->toArray(),'tendn','madv');
         $a_bog = array_column(view_dmnganhnghe::where('manganh', 'BOG')->get()->toarray(),'tennghe','manghe');
+        //dd($model->get());
         return view('congbo.BinhOnGia.index')
             ->with('model',$model->get())
             ->with('inputs',$inputs)

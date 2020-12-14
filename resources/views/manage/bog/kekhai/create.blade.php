@@ -321,8 +321,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group"><label class="control-label">Giá liền kề</label>
-                                <div><input type="text" id="gialk" name="gialk" class="form-control text-right"></div>
-                                {{--<div><input type="text" id="gialk" name="gialk" class="form-control text-right" data-mask="fdecimal"></div>--}}
+                                <div><input type="text" id="gialk" name="gialk" class="form-control text-right" data-mask="fdecimal"></div>
                             </div>
                         </div>
 

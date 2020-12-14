@@ -77,8 +77,8 @@
                             @foreach($model as $key=>$tt)
                                 <tr>
                                     <td style="text-align: center">{{$key+1}}</td>
-                                    <td class="active"><b>Tên DN: </b> {{$tt->tendn}}
-                                        <br><b>Mã số thuế:</b> {{$tt->maxa}}</td>
+                                    <td class="active"><b>Tên DN: </b> {{$a_donvi[$tt->madv] ?? ''}}
+                                        <br><b>Mã số thuế:</b> {{$tt->madv}}</td>
                                     <td style="text-align: center">{{getDayVn($tt->ngayhieuluc)}}</td>
                                     <td style="text-align: left">{{$tt->tenhh}}</td>
                                     <td style="text-align: left">{{$tt->quycach}}</td>

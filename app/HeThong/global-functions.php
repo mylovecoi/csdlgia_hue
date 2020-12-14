@@ -4149,6 +4149,7 @@ function setCongBoDN($hoso, $a_hoanthanh)
     $hoso->ngaychuyen_ad = $a_hoanthanh['ngaynhan'] ?? null;
     $hoso->trangthai_ad = $a_hoanthanh['trangthai'] ?? 'CHT';
     $hoso->madv_ad = $a_hoanthanh['madv'] ?? null;
+    $hoso->congbo = $a_hoanthanh['congbo'] ?? 'CHUACONGBO';
     if($hoso->macqcq_h == $hoso->madv_ad){
         $hoso->ngaynhan_h = $a_hoanthanh['ngaynhan'] ?? null;
         $hoso->trangthai_h = $a_hoanthanh['trangthai'] ?? 'CCB';

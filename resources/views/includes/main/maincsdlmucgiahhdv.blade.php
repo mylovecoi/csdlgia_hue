@@ -860,7 +860,7 @@
                     </a>
                     <ul class="sub-menu">
                         @if(session('admin')->level == 'SSA')
-                            <li><a href="{{url('kekhaigiathan')}}">Giá kê khai than</a> </li>
+                            <li><a href="{{url('kekhaigiathan')}}">Giá kê khai</a> </li>
                         @endif
                         <li><a href="{{url('xetduyetgiathan')}}">Thông tin hồ sơ xét duyệt</a></li>
                         <li><a href="{{url('timkiemgiathan')}}">Tìm kiếm thông tin</a> </li>
