@@ -689,7 +689,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                                     @if(chkPer('hethong', 'hethong_pq', 'dangky'))
                                         <li><a href="{{url('dangky/danhsach')}}">{{session('admin')['a_chucnang']['dangky'] ?? 'Tài khoản đăng ký'}}</a></li>
-                                        <li><a href="{{url('userscompany')}}">Tài khoản doanh nghiệp</a></li>
+                                        <li><a href="{{url('doanhnghiep/dstaikhoan')}}">Tài khoản doanh nghiệp</a></li>
                                     @endif
                                 </ul>
                             </li>

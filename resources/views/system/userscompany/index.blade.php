@@ -53,11 +53,10 @@
             }
 
         }
-        function confirmDelete(id) {
-            $('#frmDelete').attr('action', "/delete/" + id);
-        }
-        function getId(id){
-            document.getElementById("iddelete").value=id;
+
+        function confirmDelete(madv){
+            $('#frm_delete').find("[id='madv']").val(madv);
+            //document.getElementById("madv").value=madv;
         }
 
         function ClickDelete(){
@@ -67,8 +66,8 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Quản lý thông tin<small>&nbsp;tài khoản truy cập </small>
+    <h3 class="page-title text-uppercase">
+        Quản lý thông tin doanh nghiệp
     </h3>
     <!-- END PAGE HEADER-->
     <div class="row">
@@ -81,9 +80,9 @@
                         <th style="text-align: center" width="2%">STT</th>
                         <th style="text-align: center">Tên tài khoản</th>
                         <th style="text-align: center" width="10%">Username</th>
-                        <th style="text-align: center" width="5%">Level</th>
-                        <th style="text-align: center" width="20%">Trạng thái</th>
-                        <th style="text-align: center" width="25%">Thao tác</th>
+                        <th style="text-align: center">Đơn vị quản lý</th>
+                        <th style="text-align: center" width="5%">Trạng thái</th>
+                        <th style="text-align: center" width="15%">Thao tác</th>
                         </thead>
                         <tbody>
 {{--                        @if($model->count() != 0)--}}
@@ -92,18 +91,20 @@
                                     <td style="text-align: center">{{$key + 1}}</td>
                                     <td>{{$tt->name}}</td>
                                     <td class="active">{{$tt->username}}</td>
-                                    <td style="text-align: center">{{$tt->level}}</td>
+                                    <td>{{$tt->tendiaban}}</td>
                                     <td style="text-align: center">
                                         @if($tt->status == 'Kích hoạt')
                                             <span class="label label-sm label-success">{{$tt->status}}</span><br>
-                                            {{$tt->ttnguoitao}}
                                         @else
                                             <span class="label label-sm label-danger">{{$tt->status}}</span>
                                         @endif
                                     </td>
                                     <td>
-                                        @if(can('users','create'))
-                                            <a href="{{url('userscompany/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
+                                        @if(chkPer('hethong', 'hethong_pq', 'dangky', 'danhmuc', 'modify'))
+                                            <a href="{{url('doanhnghiep/dstaikhoan/edit?madv='.$tt->madv)}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Sửa</a>
+
+                                            <button type="button" onclick="confirmDelete('{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal">
+                                                <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
                                         @endif
                                     </td>
                                 </tr>
@@ -127,12 +128,12 @@
     <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url'=>'userscompany/delete','id' => 'frm_delete'])!!}
+                {!! Form::open(['url'=>'doanhnghiep/dstaikhoan/delete','id' => 'frm_delete'])!!}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Đồng ý xóa?</h4>
                 </div>
-                <input type="hidden" name="iddelete" id="iddelete">
+                <input type="hidden" name="madv" id="madv">
                 <div class="modal-footer">
                     <button type="submit" class="btn blue" onclick="ClickDelete()">Đồng ý</button>
                     <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
@@ -144,5 +145,4 @@
         <!-- /.modal-dialog -->
     </div>
 
-    @include('includes.e.modal-confirm')
 @stop

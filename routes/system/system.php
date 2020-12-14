@@ -105,8 +105,8 @@ Route::get('xetduyettdttdn/{id}/duyet','TdTtDnController@duyet');
 Route::resource('thongtinngaynghile','NgayNghiLeController');
 Route::post('thongtinngaynghile/delete','NgayNghiLeController@destroy');
 
-Route::resource('userscompany','UsersCompanyController');
-Route::get('userscompany/{id}/permission','UsersCompanyController@permission');
+//Route::resource('userscompany','UsersCompanyController');
+//Route::get('userscompany/{id}/permission','UsersCompanyController@permission');
 Route::post('userscompany/phan-quyen','UsersCompanyController@uppermission');
 //EndUsers
 Route::get('thongtindonvi','ThongTinDonViController@index');
@@ -131,33 +131,6 @@ Route::group(['prefix'=>'dmnganhnghe'],function (){
     Route::post('chitiet/store','system\dmnganhnghekd\DmNgheKdController@store');
 });
 
-Route::group(['prefix'=>'doanhnghiep'],function (){
-    Route::get('dangky','Auth\RegisterController@create');
-    Route::post('themdn','Auth\RegisterController@store');
-
-    Route::get('get_dvql','system\company\CompanyLvCcController@getdvql');
-    Route::get('edit_lvkd','system\company\CompanyLvCcController@edit');
-    Route::get('store_lvkd','system\company\CompanyLvCcController@store');
-    Route::get('delete_lvkd','system\company\CompanyLvCcController@delete');
-
-    //Route::get('companylvcc/update','system\company\CompanyLvCcController@update');
-    //chưa làm
-    Route::post('dangkytaikhoantruycap','Auth\RegisterController@store');
-    Route::patch('dangkytaikhoantruycap/{id}/update','Auth\RegisterController@update');
-    Route::get('dangkytaikhoantruycap/checkmadangky','Auth\RegisterController@submitcheckmadk');
-    //Route::post('dangkytaikhoantruycap/checkmadangky','Auth\RegisterController@submitcheckmadk');
-    //Route::get('companylvcc/getmanghe','system\company\CompanyLvCcController@getmanghe');
-
-    Route::get('dsdangky','system\company\CompanyController@dsdangky');
-});
-
-//Đăng ký tài khoản
-Route::group(['prefix'=>'dangky'],function (){
-    Route::get('danhsach','Auth\RegisterController@index');
-    Route::get('modify','Auth\RegisterController@show');
-    Route::post('tralai','Auth\RegisterController@tralai');
-    Route::post('kichhoat','Auth\RegisterController@kichhoat');
-});
 Route::get('ajax/checkuser','AjaxController@checkusername');
 Route::get('ajax/checkmasothue','AjaxController@checkmasothue');
 Route::get('searchtkdangky','Auth\RegisterController@searchindex');

@@ -28,8 +28,10 @@
                 </div-->
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
-                    {!! Form::model($model, ['method' => 'PATCH', 'url'=>'userscompany/'. $model->id, 'class'=>'horizontal-form','id'=>'update_tttaikhoan']) !!}
+                    {!! Form::model($model, ['method' => 'post', 'url'=>'doanhnghiep/dstaikhoan/edit', 'class'=>'horizontal-form','id'=>'update_tttaikhoan']) !!}
                         <meta name="csrf-token" content="{{ csrf_token() }}" />
+                        {{Form::hidden('madv')}}
+                        {{Form::hidden('username')}}
                         <div class="form-body">
                             <div class="row">
                                 <div class="col-md-6">
@@ -183,7 +185,7 @@
                 </div>
             </div>
             <div style="text-align: center">
-                <a href="{{url('userscompany?&level='.$model->level)}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                <a href="{{url('doanhnghiep/dstaikhoan?&madiaban='.$modelcompany->madiaban)}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                 <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i> Cập nhật</button>
             </div>
             {!! Form::close() !!}
