@@ -175,6 +175,7 @@ class KkMhBogXdController extends Controller
                     if ($inputs['nam'] != 'all')
                         $model = $model->whereYear('ngaychuyen_ad', $inputs['nam']);
                     $model = $model->get();
+                    //dd($model);
                     $m_com = Company::wherein('madv', array_column($model->toarray(),'madv'))->get();
                     $a_com = array_column($m_com->toarray(),'madiaban','madv');
                     //dd($a_donvi_th);
@@ -327,9 +328,12 @@ class KkMhBogXdController extends Controller
                 'thoigian' => date('Y-m-d H:i:s'),
             );
             $model->lichsu = json_encode($a_lichsu);
+            //truyền madv_ad vào do hàm kiểm tra nếu rỗng => set null
             setCongBoDN($model, ['trangthai' => $inputs['trangthai_ad'],
                 'congbo' => $inputs['trangthai_ad'] == 'CB' ? 'DACONGBO' : 'CHUACONGBO',
-                'ngaynhan' => date('Y-m-d H:i:s'),]);
+                'ngaynhan' => date('Y-m-d H:i:s'),
+                'madv'=>$model->madv_ad,]);
+            //dd($model);
             $model->save();
             return redirect('binhongia/xetduyet?madv=' . $model->madv_ad);
         } else

@@ -4143,6 +4143,7 @@ function setTraLaiDN($macqcq, $hoso, $a_tralai)
 
 function setCongBoDN($hoso, $a_hoanthanh)
 {
+    //dd($a_hoanthanh);
     //chưa set lại trạng thái cho đơn vị cấp dưới ( đơn vị tổng hợp chuyển nên)
     $hoso->ngaynhan_ad = $a_hoanthanh['ngaynhan'] ?? null;
     $hoso->ngaychuyen_ad = $a_hoanthanh['ngaynhan'] ?? null;
@@ -4156,6 +4157,7 @@ function setCongBoDN($hoso, $a_hoanthanh)
         $hoso->ngaynhan_t = $a_hoanthanh['ngaynhan'] ?? null;
         $hoso->trangthai_t = $a_hoanthanh['trangthai'] ?? 'CCB';
     }
+    //dd($hoso);
 }
 
 function setHoanThanhDV($madv, $hoso, $a_hoanthanh)
