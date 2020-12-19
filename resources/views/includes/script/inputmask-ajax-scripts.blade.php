@@ -51,7 +51,7 @@
 
                     case "username":
                         mask = 'Regex';
-                        opts.regex = "[a-zA-Z0-9._-]";
+                        opts.regex = "[a-zA-Z0-9._-]{2,15}";
                         //alert(opts.regex);
                         break;
 
