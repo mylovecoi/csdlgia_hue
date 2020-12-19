@@ -189,7 +189,8 @@ License: You must have a valid license purchased only from themeforest(the above
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Giấy đăng ký kinh doanh</label>
-                        <input name="tailieu" id="tailieu" type="file" class="required">
+                        <input name="tailieu" id="tailieu" type="file" />
+                        {{--<input name="tailieu" id="tailieu" type="file" class="required">--}}
                     </div>
                 </div>
             </div>
