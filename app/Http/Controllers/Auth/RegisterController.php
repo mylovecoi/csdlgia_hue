@@ -121,6 +121,13 @@ class RegisterController extends Controller
                 ->with('message', 'Mã số thuế hoặc mã số đăng ký kinh doanh này đã đăng ký trên hệ thống.')
                 ->with('pageTitle', 'Đăng ký tài khoản truy cập');
         }
+
+        if (Users::where('username', $inputs['taikhoandn'])->count() > 0) {
+            return view('errors.duplicate')
+                ->with('url', '/doanhnghiep/dangky')
+                ->with('message', 'Tên tài khoản truy cập này đã đăng ký trên hệ thống.')
+                ->with('pageTitle', 'Đăng ký tài khoản truy cập');
+        }
         //dd($inputs);
         $model = new Company();
         if (isset($inputs['tailieu'])) {

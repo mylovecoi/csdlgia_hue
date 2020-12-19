@@ -89,7 +89,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Mã số thuế hoặc mã số đăng ký KD</label>
-                        {!!Form::text('madv', null, array('id' => 'madv','class' => 'form-control required'))!!}
+                        {!!Form::text('madv', null, array('id' => 'madv','class' => 'form-control required', 'data-mask'=>'username'))!!}
                     </div>
                 </div>
             </div>

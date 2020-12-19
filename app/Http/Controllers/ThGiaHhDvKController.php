@@ -257,7 +257,7 @@ class ThGiaHhDvKController extends Controller
         $data .='</title>';
 
         $fp ='hhdvk'.$model->id.'.xml';
-
+        //dd($data);
         File::put(public_path('data/xml/'.$fp),$data);
         return Response::download(public_path('data/xml/'.$fp));
     }
