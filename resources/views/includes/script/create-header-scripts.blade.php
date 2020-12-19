@@ -66,7 +66,7 @@
 
                     case "username":
                         mask = 'Regex';
-                        opts.regex = "[a-zA-Z0-9._-]";
+                        opts.regex = "[a-zA-Z0-9._-]{1,15}";
                         break;
 
                     case "fdecimal":
