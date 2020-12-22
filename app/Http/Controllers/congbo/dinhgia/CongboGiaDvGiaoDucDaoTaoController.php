@@ -23,13 +23,18 @@ class CongboGiaDvGiaoDucDaoTaoController extends Controller
         $a_diaban = getDiaBan_XaHuyen('ADMIN');
         $inputs['nam'] = $inputs['nam'] ?? 'all';
         $inputs['madiaban'] = $inputs['madiaban'] ?? array_key_first($a_diaban);
-        $model = view_giadvgddt::where('congbo', 'DACONGBO')->where('madiaban',$inputs['madiaban']);
-        if ($inputs['nam'] != 'all')
+        $model = view_giadvgddt::where('congbo', 'DACONGBO');
+        $model_dk = GiaDvGdDt::where('congbo', 'DACONGBO')->where('ipf1','<>', '');
+        if ($inputs['nam'] != 'all'){
             $model = $model->where('nam', $inputs['nam']);
+            $model_dk = $model_dk->where('nam', $inputs['nam']);
+        }
+
 
         //dd($model->get());
         return view('congbo.DinhGia.GiaDvGDDT.index')
             ->with('model',$model->get())
+            ->with('model_dk',$model_dk->get())
             ->with('a_diaban',$a_diaban)
             ->with('inputs',$inputs)
             ->with('pageTitle', 'Giá dịch vụ giáo dục đào tạo');

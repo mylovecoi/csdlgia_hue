@@ -57,5 +57,10 @@ class DvKcb extends Model
         'lydo_ad',
         'thongtin_ad',
         'trangthai_ad',
+        'ipf1',
+        'ipf2',
+        'ipf3',
+        'ipf4',
+        'ipf5',
     ];
 }

@@ -86,7 +86,7 @@
     <div class="row center">
         <div class="col-md-12 center">
             <!-- BEGIN VALIDATION STATES-->
-            {!! Form::model($model, ['method' => 'post', 'url'=>$inputs['url'].'/modify', 'class'=>'horizontal-form','id'=>'update_dichvukcb']) !!}
+            {!! Form::model($model, ['method' => 'post', 'url'=>$inputs['url'].'/modify', 'class'=>'horizontal-form','id'=>'update_dichvukcb','files'=>true]) !!}
             <div class="portlet box blue">
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
@@ -130,6 +130,19 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">File đính kèm</label>
+                                    @if($model->ipf1 != '')
+                                        <a href="{{url('/data/giadvkcb/'.$model->ipf1)}}" target="_blank">{{$model->ipf1}}</a>
+                                    @endif
+                                    <input name="ipf1" id="ipf1" type="file">
+                                </div>
+                            </div>
+                        </div>
+
                         <input type="hidden" name="mahs" id="mahs" value="{{$model->mahs}}">
                         <input type="hidden" name="madv" id="madv" value="{{$model->madv}}">
 

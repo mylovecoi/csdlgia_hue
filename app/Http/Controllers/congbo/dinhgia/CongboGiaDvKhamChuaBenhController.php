@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\congbo\dinhgia;
 
-use App\DiaBanHd;
-use App\Model\manage\dinhgia\DvKcb;
+use App\Model\manage\dinhgia\giadvkcb\DvKcb;
 use App\Model\view\view_giadvkcb;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,16 +17,24 @@ class CongboGiaDvKhamChuaBenhController extends Controller
     public function index(Request $request)
     {
         $inputs = $request->all();
-        $inputs['url'] = '/cbgianuocsachsinhhoat';
+        $inputs['url'] = '/cbdichvukcb';
         $a_diaban = getDiaBan_XaHuyen('ADMIN');
         $inputs['nam'] = $inputs['nam'] ?? 'all';
+
         $model = view_giadvkcb::where('congbo', 'DACONGBO');
-        if ($inputs['nam'] != 'all')
+        $model_dk = DvKcb::where('congbo', 'DACONGBO');
+        if ($inputs['nam'] != 'all'){
             $model = $model->whereYear('thoidiem', $inputs['nam']);
+            $model_dk = $model_dk->whereYear('thoidiem', $inputs['nam']);
+        }
+        $model = $model->get();
+        $model_dk = $model_dk->where('ipf1','<>', '')->get();
+
 
         //dd($model->get());
         return view('congbo.DinhGia.GiaDvKhamChuaBenh.index')
-            ->with('model',$model->get())
+            ->with('model',$model)
+            ->with('model_dk',$model_dk)
             ->with('a_diaban',$a_diaban)
             ->with('inputs',$inputs)
             ->with('pageTitle','Thông tin giá dịch vụ khám chữa bệnh');

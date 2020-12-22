@@ -130,11 +130,40 @@ class giahhdvcnController extends Controller
             $inputs = $request->all();
             //dd($inputs);
             $inputs['thoidiem'] = getDateToDb($inputs['thoidiem']);
+            if(isset($inputs['ipf1'])){
+                $ipf1 = $request->file('ipf1');
+                $name = $inputs['mahs'] .'&1.'.$ipf1->getClientOriginalName();
+                $ipf1->move(public_path() . '/data/giahhdvcn/', $name);
+                $inputs['ipf1']= $name;
+            }
             $model = giahhdvcn::where('mahs', $inputs['mahs'])->first();
             $model->update($inputs);
             return redirect('giahhdvcn/danhsach?&madv='.$model->madv);
         }else
             return view('errors.notlogin');
+    }
+
+    public function show_dk(Request $request)
+    {
+        $result = array(
+            'status' => 'fail',
+            'message' => 'error',
+        );
+
+        $inputs = $request->all();
+        $model = giahhdvcn::where('mahs',$inputs['mahs'])->first();
+
+        $result['message'] ='<div class="modal-body" id = "dinh_kem" >';
+        if (isset($model->ipf1)) {
+            $result['message'] .= '<div class="row" ><div class="col-md-6" ><div class="form-group" >';
+            $result['message'] .= '<label class="control-label" > File đính kèm 1 </label >';
+            $result['message'] .= '<p ><a target = "_blank" href = "' . url('/data/giahhdvcn/' . $model->ipf1) . '">' . $model->ipf1 . '</a ></p >';
+            $result['message'] .= '</div ></div ></div >';
+        }
+
+        $result['status'] = 'success';
+
+        die(json_encode($result));
     }
 
     public function chuyenhs(Request $request)

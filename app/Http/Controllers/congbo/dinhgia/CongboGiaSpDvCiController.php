@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\congbo\dinhgia;
 
 use App\GiaThueTsCong;
+use App\Model\manage\dinhgia\giaspdvci\GiaSpDvCi;
 use App\Model\manage\dinhgia\giaspdvci\giaspdvcidm;
 use App\Model\manage\dinhgia\GiaTaiSanCongDm;
 use App\Model\manage\dinhgia\giathuemuanhaxh\dmnhaxh;
@@ -26,13 +27,20 @@ class CongboGiaSpDvCiController extends Controller
         $a_diaban = getDiaBan_XaHuyen('ADMIN');
         $inputs['nam'] = $inputs['nam'] ?? 'all';
         $model = view_giaspdvci::where('congbo', 'DACONGBO');
-        if ($inputs['nam'] != 'all')
+        $model_dk = GiaSpDvCi::where('congbo', 'DACONGBO');
+        if ($inputs['nam'] != 'all'){
             $model = $model->whereYear('thoidiem', $inputs['nam']);
-        $a_ts = array_column(giaspdvcidm::all()->toArray(),'tentaisan','mataisan');
+            $model_dk = $model_dk->whereYear('thoidiem', $inputs['nam']);
+        }
+        $model = $model->get();
+        $model_dk = $model_dk->where('ipf1','<>', '')->get();
+        $a_ts = array_column(giaspdvcidm::all()->toArray(),'tenspdv','maspdv');
         //$a_ts = array_column(GiaTaiSanCongDm::all()->toArray(),'tentaisan','mataisan');
         $a_donvi = array_column(view_dsdiaban_donvi::all()->toArray(),'tendv','madv');
+        //dd($a_ts);
         return view('congbo.DinhGia.GiaSpDvCi.index')
-            ->with('model',$model->get())
+            ->with('model',$model)
+            ->with('model_dk',$model_dk)
             ->with('inputs',$inputs)
             ->with('a_diaban',$a_diaban)
             ->with('a_ts',$a_ts)

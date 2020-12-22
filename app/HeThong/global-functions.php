@@ -4045,19 +4045,23 @@ function chkCongBo($csdl = null, $group = null, $feature = null){
 
 function getDonViChuyen($macqcq, $hoso){
     $madv = '';
-    //dd($hoso);
     if($macqcq == $hoso->macqcq){
         $madv = $hoso->madv;
+        goto ketthuc;
     }
     if($macqcq == $hoso->macqcq_h){
         $madv = $hoso->madv_h;
+        goto ketthuc;
     }
     if($macqcq == $hoso->macqcq_t){
         $madv = $hoso->madv_t;
+        goto ketthuc;
     }
     if($macqcq == $hoso->macqcq_ad){
         $madv = $hoso->madv_ad;
+        goto ketthuc;
     }
+    ketthuc:
     return $madv;
 }
 

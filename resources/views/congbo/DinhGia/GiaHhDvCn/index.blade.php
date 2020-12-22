@@ -52,7 +52,7 @@
                             <thead>
                             <tr>
                                 <th width="2%" style="text-align: center">STT</th>
-                                <th style="text-align: center">Đơn vị nhập</th>
+                                {{--<th style="text-align: center">Đơn vị nhập</th>--}}
                                 <th style="text-align: center">Thời điểm</th>
                                 <th style="text-align: center">Tên sản phẩm, dịch vụ</th>
                                 <th style="text-align: center">Thông tin hồ sơ</th>
@@ -61,13 +61,25 @@
                             </thead>
 
                             <tbody>
+                            <?php $i=1; ?>
+                            @foreach($model_dk as $key=>$tt)
+                                <tr>
+                                    <td style="text-align: center">{{$i++}}</td>
+{{--                                    <td>{{$a_donvi[$tt->madv] ?? ''}}</td>--}}
+                                    <td><b>{{getDayVn($tt->thoidiem)}}</b></td>
+                                    <td><a target = "_blank" href = "{{url('/data/giahhdvcn/'.$tt->ipf1) }}">Tải file đính kèm</a ></td>
+                                    <td>{{$tt->ttqd}}</td>
+                                    <td style="text-align: center"></td>
+                                </tr>
+                            @endforeach
+
                             @foreach($model as $key=>$tt)
                                 <tr>
                                     <td style="text-align: center">{{$key + 1}}</td>
-                                    <td>{{$a_donvi[$tt->madv] ?? ''}}</td>
+{{--                                    <td>{{$a_donvi[$tt->madv] ?? ''}}</td>--}}
                                     <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
                                     <td>{{$tt->tenspdv}}</td>
-                                    <td>{{$tt->mota}}</td>
+                                    <td>{{$tt->ttqd}}</td>
                                     <td style="text-align: center">{{dinhdangso($tt->dongia)}}</td>
                                 </tr>
                             @endforeach

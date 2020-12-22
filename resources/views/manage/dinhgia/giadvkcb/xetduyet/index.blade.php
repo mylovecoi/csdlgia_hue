@@ -107,7 +107,7 @@
                             <tr>
                                 <th width="2%" style="text-align: center">STT</th>
                                 <th style="text-align: center">Cơ quan chuyển hồ sơ</th>
-                                <th style="text-align: center">Địa bàn</th>
+                                {{--<th style="text-align: center">Địa bàn</th>--}}
                                 <th style="text-align: center">Thông tư, quyết định</th>
                                 <th style="text-align: center">Nội dung</th>
                                 <th style="text-align: center">Trạng thái</th>
@@ -121,7 +121,7 @@
                                 <tr>
                                     <td style="text-align: center">{{$key + 1}}</td>
                                     <td style="text-align: left">{{$tt->tendv_ch}}</td>
-                                    <td style="text-align: center">{{$a_diaban[$tt->madiaban] ?? ''}}</td>
+{{--                                    <td style="text-align: center">{{$a_diaban[$tt->madiaban] ?? ''}}</td>--}}
                                     <td style="text-align: left">{{$a_dm[$tt->manhom] ?? ''}}</td>
                                     <td style="text-align: center">{{$tt->mota}}</td>
                                     @include('manage.include.form.td_trangthai')
@@ -159,6 +159,8 @@
                                                         <i class="fa fa-times"></i> Trả lại</button>
                                                 @endif
                                             @endif
+                                                <button type="button" onclick="get_attack('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
+                                                    <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
                                         @endif
                                     </td>
                                 </tr>
@@ -247,4 +249,5 @@
     @include('manage.include.form.modal_approve_xd')
     @include('manage.include.form.modal_unapprove_xd')
     @include('manage.include.form.modal_del_hs')
+    @include('manage.include.form.modal_attackfile')
 @stop

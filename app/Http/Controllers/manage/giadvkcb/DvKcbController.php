@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\manage\giadvkcb;
 
 use App\DiaBanHd;
-use App\District;
-use App\DmGiaRung;
 
 use App\DvKcbCt;
 use App\Model\manage\dinhgia\giadvkcb\DvKcb;
 use App\Model\manage\dinhgia\giadvkcb\dvkcbdm;
-use App\Model\manage\dinhgia\GiaRung;
 use App\Model\manage\dinhgia\giaspdvci\trogiatrocuocdm;
 use App\Model\system\dmdvt;
 use App\Model\system\dsdiaban;
@@ -17,7 +14,6 @@ use App\Model\system\dsdonvi;
 use App\Model\system\view_dsdiaban_donvi;
 use App\Model\view\view_giadvkcb;
 use App\NhomDvKcb;
-use App\Town;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -151,6 +147,12 @@ class DvKcbController extends Controller
             $inputs['thoidiem'] = getDateToDb($inputs['thoidiem']);
             //$inputs['dongia'] = getDoubleToDb($inputs['dongia']);
             $chk = DvKcb::where('mahs', $inputs['mahs'])->first();
+            if(isset($inputs['ipf1'])){
+                $ipf1 = $request->file('ipf1');
+                $name = $inputs['mahs'] .'&1.'.$ipf1->getClientOriginalName();
+                $ipf1->move(public_path() . '/data/giadvkcb/', $name);
+                $inputs['ipf1']= $name;
+            }
             //dd($inputs);
             if ($chk == null) {
                 //$inputs['mahs'] = getdate()[0];
@@ -163,6 +165,29 @@ class DvKcbController extends Controller
             return redirect('giadvkcb/danhsach?&madv=' . $inputs['madv']);
         } else
             return view('errors.notlogin');
+    }
+
+    public function show_dk(Request $request)
+    {
+        $result = array(
+            'status' => 'fail',
+            'message' => 'error',
+        );
+
+        $inputs = $request->all();
+        $model = DvKcb::where('mahs',$inputs['mahs'])->first();
+
+        $result['message'] ='<div class="modal-body" id = "dinh_kem" >';
+        if (isset($model->ipf1)) {
+            $result['message'] .= '<div class="row" ><div class="col-md-6" ><div class="form-group" >';
+            $result['message'] .= '<label class="control-label" > File đính kèm 1 </label >';
+            $result['message'] .= '<p ><a target = "_blank" href = "' . url('/data/giadvkcb/' . $model->ipf1) . '">' . $model->ipf1 . '</a ></p >';
+            $result['message'] .= '</div ></div ></div >';
+        }
+
+        $result['status'] = 'success';
+
+        die(json_encode($result));
     }
 
     //chuyển hô sơ cho Form nhập liệu: chỉ cần chuyển trạng thái và set trạng thái cho đơn vị tiếp nhận

@@ -18,7 +18,8 @@
 
             function changeUrl() {
                 var current_path_url = '{{$inputs['url']}}' + '?';
-                var url = current_path_url + 'nam=' + $('#nam').val() + '&madiaban=' + $('#madiaban').val();
+                //var url = current_path_url + 'nam=' + $('#nam').val() + '&madiaban=' + $('#madiaban').val();
+                var url = current_path_url + 'nam=' + $('#nam').val();
                 window.location.href = url;
             }
 
@@ -43,7 +44,7 @@
             <div class="portlet-body form-horizontal">
                 <div class="row">
                     <div class="form-group">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <label style="font-weight: bold">Năm học</label>
                             <select class="form-control" id="nam">
                                 <option value="all">--Tất cả các năm--</option>
@@ -53,10 +54,10 @@
                             </select>
                         </div>
 
-                        <div class="col-md-4">
-                            <label style="font-weight: bold">Địa bàn</label>
-                            {!!Form::select('madiaban', $a_diaban, $inputs['madiaban'], array('id' => 'madiaban','class' => 'form-control'))!!}
-                        </div>
+                        {{--<div class="col-md-4">--}}
+                            {{--<label style="font-weight: bold">Địa bàn</label>--}}
+                            {{--{!!Form::select('madiaban', $a_diaban, $inputs['madiaban'], array('id' => 'madiaban','class' => 'form-control'))!!}--}}
+                        {{--</div>--}}
                     </div>
                 </div>
 
@@ -70,9 +71,18 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $i=1; ?>
+                    @foreach($model_dk as $key=>$tt)
+                        <tr>
+                            <td style="text-align: center">{{$i++}}</td>
+                            <td style="text-align: center">{{$tt->nam}}</td>
+                            <td><a target = "_blank" href = "{{url('/data/giadvgddt/'.$tt->ipf1) }}">Tải file đính kèm</a ></td>
+                            <td style="text-align: center"></td>
+                        </tr>
+                    @endforeach
                         @foreach($model as $key => $tt)
                             <tr>
-                                <td style="text-align: center">{{$key+1}}</td>
+                                <td style="text-align: center">{{$i++}}</td>
                                 <td style="text-align: center"><b>{{$tt->nam}}</b></td>
                                 <td style="text-align: left" class="active">{{$tt->tenspdv}}</td>
                                 <td style="text-align: right;font-weight: bold">{{dinhdangsothapphan($tt->giadv,2)}}</td>

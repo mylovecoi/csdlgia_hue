@@ -18,7 +18,7 @@
 
             function changeUrl() {
                 var current_path_url = '{{$inputs['url']}}' + '?';
-                var url = current_path_url + 'nam=' + $('#nam').val() + '&madiaban=' + $('#madiaban').val();
+                var url = current_path_url + 'nam=' + $('#nam').val();
                 window.location.href = url;
             }
 
@@ -69,9 +69,20 @@
                     </tr>
                     </thead>
                     <tbody>
+                        <?php $i=1; ?>
+                        @foreach($model_dk as $key=>$tt)
+                            <tr>
+                                <td style="text-align: center">{{$i++}}</td>
+                                <td><b>{{getDayVn($tt->thoidiem)}}</b></td>
+                                <td></td>
+                                <td><a target = "_blank" href = "{{url('/data/giadvkcb/'.$tt->ipf1) }}">Tải file đính kèm</a ></td>
+                                <td></td>
+                                <td style="text-align: center">{{dinhdangsothapphan($tt->dongia,2)}}</td>
+                            </tr>
+                        @endforeach
                         @foreach($model as $key => $tt)
                             <tr>
-                                <td style="text-align: center">{{$key+1}}</td>
+                                <td style="text-align: center">{{$i++}}</td>
                                 <td><b>{{getDayVn($tt->thoidiem)}}</b></td>
 {{--                                <td><b>{{$tt->madiaban}}</b></td>--}}
                                 <td style="text-align: left;"><b>{{$tt->tenbv}}</b></td>

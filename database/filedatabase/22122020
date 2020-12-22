@@ -1,0 +1,28 @@
+use csdlgia_haugiang
+GO
+ALTER TABLE giaspdvci
+ADD
+    [ipf1] [nvarchar](255) NULL,
+    [ipf2] [nvarchar](255) NULL,
+    [ipf3] [nvarchar](255) NULL,
+    [ipf4] [nvarchar](255) NULL,
+    [ipf5] [nvarchar](255) NULL;
+GO
+
+ALTER TABLE dvkcb
+ADD
+    [ipf1] [nvarchar](255) NULL,
+    [ipf2] [nvarchar](255) NULL,
+    [ipf3] [nvarchar](255) NULL,
+    [ipf4] [nvarchar](255) NULL,
+    [ipf5] [nvarchar](255) NULL;
+GO
+
+ALTER TABLE giahhdvcn
+ADD
+    [ipf1] [nvarchar](255) NULL,
+    [ipf2] [nvarchar](255) NULL,
+    [ipf3] [nvarchar](255) NULL,
+    [ipf4] [nvarchar](255) NULL,
+    [ipf5] [nvarchar](255) NULL;
+GO

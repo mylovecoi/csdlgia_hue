@@ -127,6 +127,12 @@ class GiaSpDvCiController extends Controller
             $inputs = $request->all();
             //dd($inputs);
             $inputs['thoidiem'] = getDateToDb($inputs['thoidiem']);
+            if(isset($inputs['ipf1'])){
+                $ipf1 = $request->file('ipf1');
+                $name = $inputs['mahs'] .'&1.'.$ipf1->getClientOriginalName();
+                $ipf1->move(public_path() . '/data/giaspdvci/', $name);
+                $inputs['ipf1']= $name;
+            }
             $model = GiaSpDvCi::where('mahs', $inputs['mahs'])->first();
             $model->update($inputs);
             return redirect('giaspdvci/danhsach?&madv='.$model->madv);
@@ -176,6 +182,28 @@ class GiaSpDvCiController extends Controller
             return view('errors.notlogin');
     }
 
+    public function show_dk(Request $request)
+    {
+        $result = array(
+            'status' => 'fail',
+            'message' => 'error',
+        );
+
+        $inputs = $request->all();
+        $model = GiaSpDvCi::where('mahs',$inputs['mahs'])->first();
+
+        $result['message'] ='<div class="modal-body" id = "dinh_kem" >';
+        if (isset($model->ipf1)) {
+            $result['message'] .= '<div class="row" ><div class="col-md-6" ><div class="form-group" >';
+            $result['message'] .= '<label class="control-label" > File đính kèm 1 </label >';
+            $result['message'] .= '<p ><a target = "_blank" href = "' . url('/data/giaspdvci/' . $model->ipf1) . '">' . $model->ipf1 . '</a ></p >';
+            $result['message'] .= '</div ></div ></div >';
+        }
+
+        $result['status'] = 'success';
+
+        die(json_encode($result));
+    }
     //<editor-fold des="Chức năng xét duyệt">
     public function xetduyet(Request $request)
     {
@@ -196,9 +224,9 @@ class GiaSpDvCiController extends Controller
             //dd($inputs);
             //gán lại thông tin về trường madv, thoidiem để truyền sang form index
             //xét macqcq để tìm đơn vị chuyển đến
-            $a_ttdv = array_column(view_dsdiaban_donvi::wherein('madiaban', array_keys($a_diaban))->get()->toarray(),
+            $a_ttdv = array_column(view_dsdiaban_donvi::all()->toarray(),
                 'tendv', 'madv');
-
+            //dd($inputs);
             switch ($inputs['level']){
                 case 'H':{
                     $model = GiaSpDvCi::where('madv_h', $inputs['madv']);
