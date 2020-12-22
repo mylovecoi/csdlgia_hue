@@ -49,4 +49,9 @@ Route::get('cbtacn','congbo\kekhaigia\CongboGiaTACNController@index');
 Route::get('cbgiay','congbo\kekhaigia\CongboGiaGiayController@index');
 Route::get('cbsach','congbo\kekhaigia\CongboGiaSachController@index');
 
+//Văn bản quản lý nhà nước
+Route::get('cbvbqlnn','congbo\vanbanqlnn\CongboVanBanQLNNController@index');
+
+//Văn bản phục vụ công tác quản lý nhà nước
+Route::get('cbttqlnn','congbo\ttqlnn\ThongTuPVCTQLNNController@index');
 ?>

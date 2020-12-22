@@ -67,7 +67,7 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <div class="actions">
-                        @if(can('ttpvctqlnndm','create'))
+                        @if(chkPer('csdlttpvctqlnn','ttpvctqlnn','ttqlnn','danhmuc','modify'))
                         <button type="button" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
                         @endif
                     </div>
@@ -99,7 +99,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if(can('ttpvctqlnndm','edit'))
+                                        @if(chkPer('csdlttpvctqlnn','ttpvctqlnn','ttqlnn','danhmuc','modify'))
                                         <button type="button" onclick="ClickEdit('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#modal-edit" data-toggle="modal"><i class="fa fa-edit"></i>&nbsp;Sửa</button>
                                         @endif
                                     </td>

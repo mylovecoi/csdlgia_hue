@@ -2616,7 +2616,7 @@ function getGiaoDien()
             'index' => '0', 'congbo' => '0',
             'dmhhthamdinhgia' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
             'dmdonvi' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
-            'thamdinhgia' => array('index' => '0', 'congbo' => '0', 'table' => 'thamdinhgia', 'url' => ''),
+            'thamdinh' => array('index' => '0', 'congbo' => '0', 'table' => 'thamdinhgia', 'url' => ''),
             'cungcapgia' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
         ),
     );
@@ -2634,7 +2634,7 @@ function getGiaoDien()
         'index' => '0', 'congbo' => '0',
         'ttpvctqlnn' => array(
             'index' => '0', 'congbo' => '0',
-            'ttpvctqlnn' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
+            'ttqlnn' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
         ),
     );
     $gui['hethong'] = array(
@@ -2820,7 +2820,6 @@ function getPhanQuyen()
         'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
     );
 
-
     $gui['bog'] = array(
         'index' => '0',
         'khac' => array('company' => '0'),
@@ -2962,7 +2961,6 @@ function getPhanQuyen()
         'index' => '0',
         'hoso' => array('index' => '0', 'approve' => '0',),
     );
-
     $gui['dlbb'] = array(
         'index' => '0',
         'hoso' => array('index' => '0', 'approve' => '0',),
@@ -2971,12 +2969,10 @@ function getPhanQuyen()
         'index' => '0',
         'hoso' => array('index' => '0', 'approve' => '0',),
     );
-
     $gui['cahue'] = array(
         'index' => '0',
         'hoso' => array('index' => '0', 'approve' => '0',),
     );
-
     $gui['hocphilx'] = array(
         'index' => '0',
         'hoso' => array('index' => '0', 'approve' => '0',),
@@ -3002,7 +2998,7 @@ function getPhanQuyen()
         'index' => '0',
         'danhmuc' => array('index' => '0', 'modify' => '0',),
     );
-    $gui['thamdinhgia'] = array(
+    $gui['thamdinh'] = array(
         'index' => '0',
         'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
     );
@@ -3022,8 +3018,9 @@ function getPhanQuyen()
         'index' => '0',
         'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
     );
-    $gui['ttpvctqlnn'] = array(
+    $gui['ttqlnn'] = array(
         'index' => '0',
+        'danhmuc' => array('index' => '0', 'modify' => '0',),
         'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
     );
 

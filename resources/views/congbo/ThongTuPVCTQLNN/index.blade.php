@@ -29,7 +29,7 @@
                 var loaivb = '&loaivb=' +$('#loaivb').val();
                 var tieude = '&tieude=' +$('#tieude').val();
                 var paginate = '&paginate=' +$('#paginate').val();
-                var url = 'cbvbqlnn?'  + phanloai + loaivb + tieude +  paginate;
+                var url = 'cbttqlnn?'  + phanloai + loaivb + tieude +  paginate;
                 window.location.href = url;
             });
             $('#loaivb').change(function() {
@@ -37,7 +37,7 @@
                 var loaivb = '&loaivb=' +$('#loaivb').val();
                 var tieude = '&tieude=' +$('#tieude').val();
                 var paginate = '&paginate=' +$('#paginate').val();
-                var url = 'cbvbqlnn?'  + phanloai + loaivb + tieude +  paginate;
+                var url = 'cbttqlnn?'  + phanloai + loaivb + tieude +  paginate;
                 window.location.href = url;
             });
             $('#tieude').change(function() {
@@ -45,7 +45,7 @@
                 var loaivb = '&loaivb=' +$('#loaivb').val();
                 var tieude = '&tieude=' +$('#tieude').val();
                 var paginate = '&paginate=' +$('#paginate').val();
-                var url = 'cbvbqlnn?'  + phanloai + loaivb + tieude +  paginate;
+                var url = 'cbttqlnn?'  + phanloai + loaivb + tieude +  paginate;
                 window.location.href = url;
             });
             $('#paginate').change(function() {
@@ -53,14 +53,14 @@
                 var loaivb = '&loaivb=' +$('#loaivb').val();
                 var tieude = '&tieude=' +$('#tieude').val();
                 var paginate = '&paginate=' +$('#paginate').val();
-                var url = 'cbvbqlnn?'  + phanloai + loaivb + tieude +  paginate;
+                var url = 'cbttqlnn?'  + phanloai + loaivb + tieude +  paginate;
                 window.location.href = url;
             });
         })
         function get_attack(id){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: '/vanbanqlnnvegia/dinhkem',
+                url: '/ttpvctqlnn/dinhkem',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -95,26 +95,17 @@
                                     <div class="portlet-title">
                                         <div class="caption">
                                             <i class="fa fa-cogs font-green-sharp"></i>
-                                            <span class="caption-subject theme-font bold uppercase">Văn bản quản lý nhà nước về giá, phí lệ phí</span>
+                                            <span class="caption-subject theme-font bold uppercase">thông tư phục vụ công tác quản lý nhà nước về giá</span>
                                         </div>
                                         <div class="tools">
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Phân loại</label>
-                                                <select class="form-control" name="phanloai" id="phanloai">
-                                                    <option value="all" {{$inputs['phanloai'] == 'all' ? 'selected' : ''}}>--Tất cả--</option>
-                                                    <option value="gia" {{$inputs['phanloai'] == 'gia' ? 'selected' : ''}}>Văn bản về Giá</option>
-                                                    <option value="philephi"{{$inputs['phanloai'] == 'philephi' ? 'selected' : ''}}>Văn bản Phí lệ phí</option>
-                                                </select>
-                                            </div>
-                                        </div>
+
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Loại văn bản</label>
-                                                {!! Form::select('loaivb',getLoaiVbQlNn(),$inputs['loaivb'], ['id' => 'loaivb','class' => 'form-control']) !!}
+                                                {!! Form::select('phanloai',$a_dm,$inputs['phanloai'], ['id' => 'phanloai','class' => 'form-control']) !!}
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -184,7 +175,6 @@
                                                 <div class="col-md-7 col-sm-12">
                                                     <div class="dataTables_paginate paging_simple_numbers" id="sample_3_paginate">
                                                         {{$model->appends(['phanloai' => $inputs['phanloai'],
-                                                                       'loaivb'=>$inputs['loaivb'],
                                                                        'tieude'=>$inputs['tieude'],
                                                                        'paginate'=>$inputs['paginate'],
                                                     ])->links()}}

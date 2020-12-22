@@ -300,7 +300,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <ul class="dropdown-menu">
                                     <?php $modelbcthvegia = \App\Model\manage\vanbanplvegia\baocaoth\BcThVeGiaDm::all(); ?>
                                     @foreach($modelbcthvegia as $bcthvegia)
-                                        <li><a href="{{url('coming')}}"><i class="icon-folder"></i> &nbsp;{{$bcthvegia->mota}}</a></li>
+                                        <li><a href="{{url('/cbvbqlnn')}}"><i class="icon-folder"></i> &nbsp;{{$bcthvegia->mota}}</a></li>
                                     @endforeach
                                 </ul>
                             </li>
@@ -313,7 +313,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <?php $ttpvctqlnn = \App\Model\manage\ttpvctqlnn\TtPvCtQlNnDm::all(); ?>
                                     @foreach($ttpvctqlnn as $ttpv)
                                         <li>
-                                            <a href="{{url('coming')}}"><i class="icon-folder"></i> {{$ttpv->mota}}</span></a>
+                                            <a href="{{url('/cbttqlnn')}}"><i class="icon-folder"></i> {{$ttpv->mota}}</span></a>
                                         </li>
                                     @endforeach
                                 </ul>

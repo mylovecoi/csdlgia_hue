@@ -23,15 +23,15 @@
             TableManaged.init();
         });
 
-        $(function(){
-            $('#nam,#tents,#paginate').change(function() {
-                var tents = '&tents=' + $('#tents').val();
-                var nam = '&nam=' + $('#nam').val();
-                var paginate = '&paginate=' + $('#paginate').val();
-                var url = 'cbthamdinhgia?' + nam + tents + paginate;
-                window.location.href = url;
-            });
-        });
+//        $(function(){
+//            $('#nam,#tents,#paginate').change(function() {
+//                var tents = '&tents=' + $('#tents').val();
+//                var nam = '&nam=' + $('#nam').val();
+//                var paginate = '&paginate=' + $('#paginate').val();
+//                var url = 'cbthamdinhgia?' + nam + tents + paginate;
+//                window.location.href = url;
+//            });
+//        });
     </script>
 @stop
 
@@ -74,22 +74,22 @@
                                     </div>
                                 </div>
                                 <br>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label>
-                                            Hiển thị&nbsp;
-                                            <div class="select2-container form-control input-xsmall input-inline" >
-                                                <select class="form-control" name="paginate" id="paginate" >
-                                                    <option value="5" {{$inputs['paginate'] == 5 ? 'selected' : ''}}>5</option>
-                                                    <option value="20" {{$inputs['paginate'] == 20 ? 'selected' : ''}}>20</option>
-                                                    <option value="50" {{$inputs['paginate'] == 50 ? 'selected' : ''}}>50</option>
-                                                    <option value="100" {{$inputs['paginate'] == 100? 'selected' : ''}}>100</option>
-                                                </select>
-                                            </div>
-                                            &nbsp;thông tin
-                                        </label>
-                                    </div>
-                                </div>
+                                {{--<div class="row">--}}
+                                    {{--<div class="col-md-12">--}}
+                                        {{--<label>--}}
+                                            {{--Hiển thị&nbsp;--}}
+                                            {{--<div class="select2-container form-control input-xsmall input-inline" >--}}
+                                                {{--<select class="form-control" name="paginate" id="paginate" >--}}
+                                                    {{--<option value="5" {{$inputs['paginate'] == 5 ? 'selected' : ''}}>5</option>--}}
+                                                    {{--<option value="20" {{$inputs['paginate'] == 20 ? 'selected' : ''}}>20</option>--}}
+                                                    {{--<option value="50" {{$inputs['paginate'] == 50 ? 'selected' : ''}}>50</option>--}}
+                                                    {{--<option value="100" {{$inputs['paginate'] == 100? 'selected' : ''}}>100</option>--}}
+                                                {{--</select>--}}
+                                            {{--</div>--}}
+                                            {{--&nbsp;thông tin--}}
+                                        {{--</label>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
                                 <div class="portlet-body">
                                     <div class="table-scrollable">
                                         <table class="table table-striped table-bordered table-hover">
@@ -106,7 +106,7 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            @if(count($model) != 0)
+                                            {{--@if(count($model) != 0)--}}
                                                 @foreach($model as $tt)
                                                     <tr>
                                                         <td>{{$tt->sotbkl}}</td>
@@ -117,35 +117,35 @@
                                                         <td style="text-align: center; font-weight: bold;">{{$tt->sl}}-{{$tt->dvt}}</td>
                                                         <td style="text-align: right; font-weight: bold;" class="active">{{number_format($tt->nguyengiathamdinh)}}</td>
                                                         <td>
-                                                            <button type="button" data-target="#modal-show" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="ShowItem({{$tt->id}})"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</button>
+                                                            {{--<button type="button" data-target="#modal-show" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="ShowItem({{$tt->id}})"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</button>--}}
                                                         </td>
                                                     </tr>
                                                 @endforeach
-                                            @else
-                                                <tr>
-                                                    <td style="text-align: center" colspan="9">Không tìm thấy thông tin. Bạn cần kiểm tra lại điều kiện tìm kiếm!!!</td>
-                                                </tr>
-                                            @endif
+                                            {{--@else--}}
+                                                {{--<tr>--}}
+                                                    {{--<td style="text-align: center" colspan="9">Không tìm thấy thông tin. Bạn cần kiểm tra lại điều kiện tìm kiếm!!!</td>--}}
+                                                {{--</tr>--}}
+                                            {{--@endif--}}
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="row">
-                                        @if(count($model) != 0)
-                                            <div class="col-md-5 col-sm-12">
-                                                <div class="dataTables_info" id="sample_3_info" role="status" aria-live="polite">
-                                                    Hiển thị 1 đến {{$model->count()}} trên {{$model->total()}} thông tin
-                                                </div>
-                                            </div>
-                                            <div class="col-md-7 col-sm-12">
-                                                <div class="dataTables_paginate paging_simple_numbers" id="sample_3_paginate">
-                                                    {{$model->appends(['nam' => $inputs['nam'],
-                                                                   'tents'=>$inputs['tents'],
-                                                                   'paginate'=>$inputs['paginate'],
-                                                ])->links()}}
-                                                </div>
-                                            </div>
-                                        @endif
-                                    </div>
+                                    {{--<div class="row">--}}
+                                        {{--@if(count($model) != 0)--}}
+                                            {{--<div class="col-md-5 col-sm-12">--}}
+                                                {{--<div class="dataTables_info" id="sample_3_info" role="status" aria-live="polite">--}}
+                                                    {{--Hiển thị 1 đến {{$model->count()}} trên {{$model->total()}} thông tin--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
+                                            {{--<div class="col-md-7 col-sm-12">--}}
+                                                {{--<div class="dataTables_paginate paging_simple_numbers" id="sample_3_paginate">--}}
+                                                    {{--{{$model->appends(['nam' => $inputs['nam'],--}}
+                                                                   {{--'tents'=>$inputs['tents'],--}}
+                                                                   {{--'paginate'=>$inputs['paginate'],--}}
+                                                {{--])->links()}}--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
+                                        {{--@endif--}}
+                                    {{--</div>--}}
                                 </div>
                             </div>
                             <!-- END SAMPLE TABLE PORTLET-->
