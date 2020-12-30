@@ -152,7 +152,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">File đính kèm</label>
                                     @if($model->ipf1 != '')
@@ -161,8 +161,52 @@
                                     <input name="ipf1" id="ipf1" type="file">
                                 </div>
                             </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">File đính kèm</label>
+                                    @if($model->ipf2 != '')
+                                        <a href="{{url('/data/giaspdvci/'.$model->ipf2)}}" target="_blank">{{$model->ipf2}}</a>
+                                    @endif
+                                    <input name="ipf2" id="ipf2" type="file">
+                                </div>
+                            </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">File đính kèm</label>
+                                    @if($model->ipf3 != '')
+                                        <a href="{{url('/data/giaspdvci/'.$model->ipf3)}}" target="_blank">{{$model->ipf3}}</a>
+                                    @endif
+                                    <input name="ipf3" id="ipf3" type="file">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">File đính kèm</label>
+                                    @if($model->ipf4 != '')
+                                        <a href="{{url('/data/giaspdvci/'.$model->ipf4)}}" target="_blank">{{$model->ipf4}}</a>
+                                    @endif
+                                    <input name="ipf4" id="ipf4" type="file">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">File đính kèm</label>
+                                    @if($model->ipf5 != '')
+                                        <a href="{{url('/data/giaspdvci/'.$model->ipf5)}}" target="_blank">{{$model->ipf5}}</a>
+                                    @endif
+                                    <input name="ipf5" id="ipf5" type="file">
+                                </div>
+                            </div>                            
+                        </div>
+                        
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">

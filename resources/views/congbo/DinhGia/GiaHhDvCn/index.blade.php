@@ -61,28 +61,32 @@
                             </thead>
 
                             <tbody>
-                            <?php $i=1; ?>
-                            @foreach($model_dk as $key=>$tt)
-                                <tr>
-                                    <td style="text-align: center">{{$i++}}</td>
-{{--                                    <td>{{$a_donvi[$tt->madv] ?? ''}}</td>--}}
-                                    <td><b>{{getDayVn($tt->thoidiem)}}</b></td>
-                                    <td><a target = "_blank" href = "{{url('/data/giahhdvcn/'.$tt->ipf1) }}">Tải file đính kèm</a ></td>
-                                    <td>{{$tt->ttqd}}</td>
-                                    <td style="text-align: center"></td>
-                                </tr>
-                            @endforeach
+                                <?php $i=1; ?>
+                                @foreach($model_dk as $key=>$tt)
+                                    <tr>
+                                        <td style="text-align: center">{{$i++}}</td>
+    {{--                                    <td>{{$a_donvi[$tt->madv] ?? ''}}</td>--}}
+                                        <td><b>{{getDayVn($tt->thoidiem)}}</b></td>
+    {{--                                    <td><a target = "_blank" href = "{{url('/data/giahhdvcn/'.$tt->ipf1) }}">Tải file đính kèm</a ></td>--}}
+                                        <td>
+                                            <button type="button" onclick="get_attack('{{$tt->mahs}}','giahhdvcn')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
+                                                <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp đính kèm</button>
+                                        </td>
+                                        <td>{{$tt->ttqd}}</td>
+                                        <td style="text-align: center"></td>
+                                    </tr>
+                                @endforeach
 
-                            @foreach($model as $key=>$tt)
-                                <tr>
-                                    <td style="text-align: center">{{$key + 1}}</td>
-{{--                                    <td>{{$a_donvi[$tt->madv] ?? ''}}</td>--}}
-                                    <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
-                                    <td>{{$tt->tenspdv}}</td>
-                                    <td>{{$tt->ttqd}}</td>
-                                    <td style="text-align: center">{{dinhdangso($tt->dongia)}}</td>
-                                </tr>
-                            @endforeach
+                                @foreach($model as $key=>$tt)
+                                    <tr>
+                                        <td style="text-align: center">{{$key + 1}}</td>
+    {{--                                    <td>{{$a_donvi[$tt->madv] ?? ''}}</td>--}}
+                                        <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
+                                        <td>{{$tt->tenspdv}}</td>
+                                        <td>{{$tt->ttqd}}</td>
+                                        <td style="text-align: center">{{dinhdangso($tt->dongia)}}</td>
+                                    </tr>
+                                @endforeach
 
                             </tbody>
                         </table>
@@ -91,4 +95,5 @@
             </div>
         </div>
     </div>
+    @include('manage.include.form.modal_attackfile_congbo')
 @stop

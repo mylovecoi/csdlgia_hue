@@ -113,7 +113,7 @@
                                         H->Hoàn thành (có đơn
 
                                         -->
-                                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetscong', 'hoso', 'approve'))
+                                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvci', 'hoso', 'approve'))
                                             @if($tt->level == 'ADMIN')
                                                 @if($tt->trangthai == 'CB')
                                                     <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','{{$inputs['url'].'/congbo'}}', 'HCB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">

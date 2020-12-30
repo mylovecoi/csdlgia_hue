@@ -76,7 +76,11 @@
                         <tr>
                             <td style="text-align: center">{{$i++}}</td>
                             <td style="text-align: center">{{$tt->nam}}</td>
-                            <td><a target = "_blank" href = "{{url('/data/giadvgddt/'.$tt->ipf1) }}">Tải file đính kèm</a ></td>
+{{--                            <td><a target = "_blank" href = "{{url('/data/giadvgddt/'.$tt->ipf1) }}">Tải file đính kèm</a ></td>--}}
+                            <td>
+                                <button type="button" onclick="get_attack('{{$tt->mahs}}','giadvgddt')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
+                                    <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp đính kèm</button>
+                            </td>
                             <td style="text-align: center"></td>
                         </tr>
                     @endforeach
@@ -94,4 +98,6 @@
             </div>
         </div>
     </div>
+
+    @include('manage.include.form.modal_attackfile_congbo')
 @stop

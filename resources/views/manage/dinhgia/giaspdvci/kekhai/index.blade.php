@@ -48,7 +48,7 @@
                     <div class="caption">
                     </div>
                     <div class="actions">
-                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetscong', 'hoso', 'modify'))
+                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvci', 'hoso', 'modify'))
                             <a href="{{url($inputs['url'].'/new?madv='.$inputs['madv'])}}" class="btn btn-default btn-sm">
                                 <i class="fa fa-plus"></i> Thêm mới </a>
                             {{--<a href="{{url('giadatphanloai/nhandulieutuexcel')}}" class="btn btn-default btn-sm">--}}
@@ -104,9 +104,9 @@
                                 <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
                                 <td style="text-align: left">{{$tt->ttqd}}</td>
                                 @include('manage.include.form.td_trangthai')
-                                <td style="text-align: left">{{$a_donvi_th[$tt->macqcq]?? ''}}</td>
+                                <td style="text-align: left">{{$a_donvi_th[$tt->macqcq] ?? ''}}</td>
                                 <td>
-                                    @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetscong', 'hoso', 'modify') && in_array($tt->trangthai,['CHT', 'HHT']))
+                                    @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvci', 'hoso', 'modify') && in_array($tt->trangthai,['CHT', 'HHT']))
                                         <a href="{{url($inputs['url'].'/modify?mahs='.$tt->mahs.'&act=true')}}" class="btn btn-default btn-xs mbs">
                                             <i class="fa fa-edit"></i>&nbsp;Chi tiết</a>
                                         <button type="button" onclick="confirmDelete('{{$tt->mahs}}','{{$inputs['url'].'/delete'}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
@@ -115,7 +115,7 @@
                                         <a href="{{url($inputs['url'].'/modify?mahs='.$tt->mahs.'&act=false')}}" target="_blank" class="btn btn-default btn-xs mbs">
                                             <i class="fa fa-eye"></i>&nbsp;Chi tiết</a>
                                     @endif
-                                    @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetscong', 'hoso', 'approve')&& in_array($tt->trangthai,['CHT', 'HHT']))
+                                    @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvci', 'hoso', 'approve')&& in_array($tt->trangthai,['CHT', 'HHT']))
                                         <button type="button" onclick="confirmChuyen('{{$tt->mahs}}','{{$inputs['url'].'/chuyenhs'}}')" class="btn btn-default btn-xs mbs" data-target="#chuyen-modal-confirm" data-toggle="modal">
                                             <i class="fa fa-check"></i> Hoàn thành</button>
                                     @endif

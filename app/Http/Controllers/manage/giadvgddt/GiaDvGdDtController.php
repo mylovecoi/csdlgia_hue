@@ -127,6 +127,30 @@ class GiaDvGdDtController extends Controller
                 $ipf1->move(public_path() . '/data/giadvgddt/', $name);
                 $inputs['ipf1']= $name;
             }
+            if(isset($inputs['ipf2'])){
+                $ipf2 = $request->file('ipf2');
+                $name = $inputs['mahs'] .'&2.'.$ipf2->getClientOriginalName();
+                $ipf2->move(public_path() . '/data/giadvgddt/', $name);
+                $inputs['ipf2']= $name;
+            }
+            if(isset($inputs['ipf3'])){
+                $ipf3 = $request->file('ipf3');
+                $name = $inputs['mahs'] .'&3.'.$ipf3->getClientOriginalName();
+                $ipf3->move(public_path() . '/data/giadvgddt/', $name);
+                $inputs['ipf3']= $name;
+            }
+            if(isset($inputs['ipf4'])){
+                $ipf4 = $request->file('ipf4');
+                $name = $inputs['mahs'] .'&4.'.$ipf4->getClientOriginalName();
+                $ipf4->move(public_path() . '/data/giadvgddt/', $name);
+                $inputs['ipf4']= $name;
+            }
+            if(isset($inputs['ipf5'])){
+                $ipf5 = $request->file('ipf5');
+                $name = $inputs['mahs'] .'&5.'.$ipf5->getClientOriginalName();
+                $ipf5->move(public_path() . '/data/giadvgddt/', $name);
+                $inputs['ipf5']= $name;
+            }
             $model->update($inputs);
             return redirect('giadvgddt/danhsach?&nam=' . $model->nam . '&madv=' . $model->madv);
         } else
@@ -296,15 +320,50 @@ class GiaDvGdDtController extends Controller
         $inputs = $request->all();
         $model = GiaDvGdDt::where('mahs',$inputs['mahs'])->first();
 
-        $result['message'] ='<div class="modal-body" id = "dinh_kem" >';
+        $result['message'] = '<div class="modal-body" id = "dinh_kem" >';
+        $result['message'] .= '<div class="row">';
         if (isset($model->ipf1)) {
-            $result['message'] .= '<div class="row" ><div class="col-md-6" ><div class="form-group" >';
-            $result['message'] .= '<label class="control-label" > File đính kèm 1 </label >';
-            $result['message'] .= '<p ><a target = "_blank" href = "' . url('/data/giadvgddt/' . $model->ipf1) . '">' . $model->ipf1 . '</a ></p >';
-            $result['message'] .= '</div ></div ></div >';
+            $result['message'] .= '<div class="col-md-6" ><div class="form-group">';
+            $result['message'] .= '<label class="control-label" > File đính kèm</label>';
+            $result['message'] .= '<p><a target = "_blank" href = "' . url('/data/giadvgddt/' . $model->ipf1) . '">' . $model->ipf1 . '</a ></p>';
+            $result['message'] .= '</div></div>';
         }
-
+        if (isset($model->ipf2)) {
+            $result['message'] .= '<div class="col-md-6" ><div class="form-group">';
+            $result['message'] .= '<label class="control-label" > File đính kèm</label>';
+            $result['message'] .= '<p><a target = "_blank" href = "' . url('/data/giadvgddt/' . $model->ipf2) . '">' . $model->ipf2 . '</a ></p>';
+            $result['message'] .= '</div></div>';
+        }
+        if (isset($model->ipf3)) {
+            $result['message'] .= '<div class="col-md-6" ><div class="form-group">';
+            $result['message'] .= '<label class="control-label" > File đính kèm</label>';
+            $result['message'] .= '<p><a target = "_blank" href = "' . url('/data/giadvgddt/' . $model->ipf3) . '">' . $model->ipf3 . '</a ></p>';
+            $result['message'] .= '</div></div>';
+        }
+        if (isset($model->ipf4)) {
+            $result['message'] .= '<div class="col-md-6" ><div class="form-group">';
+            $result['message'] .= '<label class="control-label" > File đính kèm</label>';
+            $result['message'] .= '<p><a target = "_blank" href = "' . url('/data/giadvgddt/' . $model->ipf4) . '">' . $model->ipf4 . '</a ></p>';
+            $result['message'] .= '</div></div>';
+        }
+        if (isset($model->ipf5)) {
+            $result['message'] .= '<div class="col-md-6" ><div class="form-group">';
+            $result['message'] .= '<label class="control-label" > File đính kèm</label>';
+            $result['message'] .= '<p><a target = "_blank" href = "' . url('/data/giadvgddt/' . $model->ipf5) . '">' . $model->ipf5 . '</a ></p>';
+            $result['message'] .= '</div></div>';
+        }
+        $result['message'] .= '</div>';
         $result['status'] = 'success';
+
+//        $result['message'] ='<div class="modal-body" id = "dinh_kem" >';
+//        if (isset($model->ipf1)) {
+//            $result['message'] .= '<div class="row" ><div class="col-md-6" ><div class="form-group" >';
+//            $result['message'] .= '<label class="control-label" > File đính kèm 1 </label >';
+//            $result['message'] .= '<p ><a target = "_blank" href = "' . url('/data/giadvgddt/' . $model->ipf1) . '">' . $model->ipf1 . '</a ></p >';
+//            $result['message'] .= '</div ></div ></div >';
+//        }
+//
+//        $result['status'] = 'success';
 
         die(json_encode($result));
     }

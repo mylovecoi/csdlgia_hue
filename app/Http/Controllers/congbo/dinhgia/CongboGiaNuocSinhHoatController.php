@@ -22,12 +22,17 @@ class CongboGiaNuocSinhHoatController extends Controller
         $a_diaban = getDiaBan_XaHuyen('ADMIN');
         $inputs['nam'] = $inputs['nam'] ?? 'all';
         $model = view_gianuocsh::where('congbo', 'DACONGBO');
-        if ($inputs['nam'] != 'all')
+        $model_dk = GiaNuocSh::where('congbo', 'DACONGBO')->where('ipf1','<>', '');
+        if ($inputs['nam'] != 'all'){
             $model = $model->whereYear('thoidiem', $inputs['nam']);
+            $model_dk = $model_dk->whereYear('thoidiem', $inputs['nam']);
+        }
+
         $a_dm = array_column( GiaNuocSachShDm::all()->toArray(),'doituongsd','madoituong');
 
         return view('congbo.DinhGia.GiaNuocSinhHoat.index')
             ->with('model',$model->get())
+            ->with('model_dk',$model_dk->get())
             ->with('a_dm',$a_dm)
             ->with('a_diaban',$a_diaban)
             ->with('inputs',$inputs)

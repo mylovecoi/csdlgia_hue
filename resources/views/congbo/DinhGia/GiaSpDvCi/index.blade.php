@@ -67,7 +67,10 @@
                                         <td style="text-align: center">{{$i++}}</td>
                                         {{--                                        <td>{{$a_donvi[$tt->madv] ?? ''}}</td>--}}
                                         <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
-                                        <td><a target = "_blank" href = "{{url('/data/giaspdvci/'.$tt->ipf1) }}">Tải file đính kèm</a ></td>
+                                        <td>
+                                            <button type="button" onclick="get_attack('{{$tt->mahs}}','giaspdvci')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
+                                                <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp đính kèm</button>
+                                        </td>
                                         <td>{{$tt->ttqd}}</td>
                                         <td style="text-align: center">{{dinhdangso($tt->dongia)}}</td>
                                     </tr>
@@ -93,4 +96,6 @@
             </div>
         </div>
     </div>
+
+    @include('manage.include.form.modal_attackfile_congbo')
 @stop

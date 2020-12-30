@@ -61,6 +61,21 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @foreach($model_dk as $key=>$tt)
+                        <?php $i=1; ?>
+                        <tr>
+                            <td style="text-align: center">{{$i++}}</td>
+                            <td><b>{{$a_diaban[$tt->madiaban] ?? ''}}</b></td>
+                            <td style="text-align: center;"><b>{{getDayVn($tt->thoidiem)}}</b></td>
+                            <td style="text-align: center">
+                                <button type="button" onclick="get_attack('{{$tt->mahs}}','gianuocsachsinhhoat')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
+                                    <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp đính kèm</button>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    @endforeach
                         @foreach($model as $key => $tt)
                             <tr>
                                 <td style="text-align: center">{{$key+1}}</td>
@@ -80,4 +95,5 @@
             </div>
         </div>
     </div>
+    @include('manage.include.form.modal_attackfile_congbo')
 @stop
