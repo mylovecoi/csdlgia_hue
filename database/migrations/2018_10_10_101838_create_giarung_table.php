@@ -20,11 +20,11 @@ class CreateGiarungTable extends Migration
             $table->string('mahs')->unique();
             $table->string('manhom',20)->nullable();
             $table->string('soqd',20)->nullable();
-            $table->text('tenduan')->nullable();
+//            $table->text('tenduan')->nullable();
             $table->text('mota')->nullable();
-            $table->string('dvt')->nullable(25);
-            $table->double('dientich')->nullable();
-            $table->double('dongia')->nullable();
+//            $table->string('dvt')->nullable(25);
+//            $table->double('dientich')->nullable();
+//            $table->double('dongia')->nullable();
             $table->string('congbo')->nullable(25);
             $table->text('lichsu')->nullable(); //Thao tác lịch sử hồ sơ theo dạng JSON
             $table->text('ghichu')->nullable();
@@ -56,6 +56,11 @@ class CreateGiarungTable extends Migration
             $table->string('lydo_ad')->nullable();
             $table->string('thongtin_ad')->nullable();
             $table->string('trangthai_ad')->nullable(20);
+            $table->string('ipf1')->nullable();
+            $table->string('ipf2')->nullable();
+            $table->string('ipf3')->nullable();
+            $table->string('ipf4')->nullable();
+            $table->string('ipf5')->nullable();
             $table->timestamps();
         });
     }

@@ -183,8 +183,11 @@ Route::group(['prefix'=>'giarung'], function (){
     Route::get('show_dm','manage\giarung\DmGiaRungController@show');
     //
     Route::get('danhsach','manage\giarung\GiaRungController@index');
+    Route::get('new','manage\giarung\GiaRungController@create');
     Route::post('modify','manage\giarung\GiaRungController@store');
+    Route::get('modify','manage\giarung\GiaRungController@edit');
     Route::get('get_hs','manage\giarung\GiaRungController@edit');
+    Route::get('dinhkem','manage\giarung\GiaRungController@show_dk');
 
     Route::post('delete','manage\giarung\GiaRungController@destroy');
     Route::post('chuyenhs','manage\giarung\GiaRungController@chuyenhs');
@@ -200,6 +203,18 @@ Route::group(['prefix'=>'giarung'], function (){
 
     Route::get('timkiem','manage\giarung\GiaRungController@timkiem');
     Route::post('timkiem','manage\giarung\GiaRungController@ketquatk');
+//
+//    Route::get('danhsach','manage\giaspdvci\GiaSpDvCiController@index');
+//    Route::get('new','manage\giaspdvci\GiaSpDvCiController@create');
+//    Route::get('modify','manage\giaspdvci\GiaSpDvCiController@edit');
+//    Route::post('modify','manage\giaspdvci\GiaSpDvCiController@update');
+//    Route::post('delete','manage\giaspdvci\GiaSpDvCiController@destroy');
+//    Route::get('delete','manage\giaspdvci\GiaSpDvCiController@destroy');
+//    Route::get('dinhkem','manage\giaspdvci\GiaSpDvCiController@show_dk');
+//
+//    Route::get('store_ct','manage\giaspdvci\GiaSpDvCiCtController@store');
+//    Route::get('get_ct','manage\giaspdvci\GiaSpDvCiCtController@show');
+//    Route::get('del_ct','manage\giaspdvci\GiaSpDvCiCtController@destroy');
 });
 
 //Thuế tài nguyên

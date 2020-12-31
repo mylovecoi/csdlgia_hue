@@ -4,6 +4,7 @@ namespace App\Http\Controllers\manage\giarung;
 
 use App\DmGiaRung;
 use App\Model\manage\dinhgia\GiaRung;
+use App\Model\manage\dinhgia\GiaRungCt;
 use App\Model\system\dmdvt;
 use App\Model\system\dsdiaban;
 use App\Model\system\dsdonvi;
@@ -56,6 +57,46 @@ class GiaRungController extends Controller
                 ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
                 ->with('pageTitle', 'Thông tin hồ sơ giá rừng');
         } else
+            return view('errors.notlogin');
+    }
+
+    public function create(Request $request){
+        if(Session::has('admin')){
+            $inputs = $request->all();
+            $inputs['act'] = true;
+            $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
+            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->where('level','H')->get();
+            $model = new GiaRung();
+            $model->mahs = getdate()[0];
+            $model->madiaban = $m_diaban->first()->madiaban ?? null;
+            $model->madv = $inputs['madv'];
+            $model->trangthai = 'CHT';
+            $model->thoidiem = date('Y-m-d');
+
+//            $a_lichsu[$model->mahs] = [
+//                'username' => session('admin')->username,
+//                'hanhdong' => 'ADD',
+//                'mota' => 'Thêm mới hồ sơ',
+//                'thoigian' => $model->thoidiem,
+//            ];
+//
+//            $model->lichsu = json_encode($a_lichsu);
+//            $model->save();
+            $a_loairung = array_column(DmGiaRung::all()->toArray(),'tennhom','manhom');
+            $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
+            //dd($a_diaban);
+
+            return view('manage.dinhgia.giarung.kekhai.edit')
+                ->with('model', $model)
+                ->with('modelct', nullValue())
+                ->with('inputs', $inputs)
+                ->with('a_loairung', $a_loairung)
+                ->with('a_dvt', $a_dvt)
+                ->with('a_diaban', array_column($m_diaban->toarray(), 'tendiaban', 'madiaban'))
+                ->with('pageTitle', 'Thông tin hồ sơ');
+
+            //return redirect('/giaspdvci/modify?mahs='.$model->mahs.'&act=true&addnew=true');
+        }else
             return view('errors.notlogin');
     }
 
@@ -144,42 +185,124 @@ class GiaRungController extends Controller
     }
 
     public function edit(Request $request){
-        if (!Session::has('admin')) {
-            $result = array(
-                'status' => 'fail',
-                'message' => 'permission denied',
-            );
-            die(json_encode($result));
-        }
+        //kiểm tra đơn vị (madv) cấp H=> chỉ load danh mục H; T => load toàn Tỉnh
+        if(Session::has('admin')){
+            $inputs = $request->all();
+            $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
+            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
+            $m_donvi = getDonViNhapLieu(session('admin')->level);
+            $model = GiaRung::where('mahs',$inputs['mahs'])->first();
+            $modelct = GiaRungCt::where('mahs',$model->mahs)->get();
+            $inputs['url'] = '/giarung';
+            $a_loairung = array_column(DmGiaRung::all()->toArray(),'tennhom','manhom');
+            $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
+            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->where('level','H')->get();
+            $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
+            return view('manage.dinhgia.giarung.kekhai.edit')
+                ->with('model',$model)
+                ->with('modelct',$modelct)
+                ->with('m_diaban',$m_diaban)
+                ->with('m_donvi',$m_donvi)
+                ->with('a_loairung', $a_loairung)
+                ->with('a_dvt', $a_dvt)
+                ->with('a_diaban', array_column($m_diaban->toarray(), 'tendiaban', 'madiaban'))
+                ->with('inputs',$inputs)
+                ->with('pageTitle','Chi tiết hồ sơ');
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function show_dk(Request $request)
+    {
+        $result = array(
+            'status' => 'fail',
+            'message' => 'error',
+        );
 
         $inputs = $request->all();
         $model = GiaRung::where('mahs', $inputs['mahs'])->first();
-        die($model);
+
+        $result['message'] = '<div class="modal-body" id = "dinh_kem" >';
+
+        $result['message'] .= '<div class="row">';
+        if (isset($model->ipf1)) {
+            $result['message'] .= '<div class="col-md-6" ><div class="form-group">';
+            $result['message'] .= '<label class="control-label" > File đính kèm</label>';
+            $result['message'] .= '<p><a target = "_blank" href = "' . url('/data/giaspdvci/' . $model->ipf1) . '">' . $model->ipf1 . '</a ></p>';
+            $result['message'] .= '</div></div>';
+        }
+        if (isset($model->ipf2)) {
+            $result['message'] .= '<div class="col-md-6" ><div class="form-group">';
+            $result['message'] .= '<label class="control-label" > File đính kèm</label>';
+            $result['message'] .= '<p><a target = "_blank" href = "' . url('/data/giaspdvci/' . $model->ipf2) . '">' . $model->ipf2 . '</a ></p>';
+            $result['message'] .= '</div></div>';
+        }
+        if (isset($model->ipf3)) {
+            $result['message'] .= '<div class="col-md-6" ><div class="form-group">';
+            $result['message'] .= '<label class="control-label" > File đính kèm</label>';
+            $result['message'] .= '<p><a target = "_blank" href = "' . url('/data/giaspdvci/' . $model->ipf3) . '">' . $model->ipf3 . '</a ></p>';
+            $result['message'] .= '</div></div>';
+        }
+        if (isset($model->ipf4)) {
+            $result['message'] .= '<div class="col-md-6" ><div class="form-group">';
+            $result['message'] .= '<label class="control-label" > File đính kèm</label>';
+            $result['message'] .= '<p><a target = "_blank" href = "' . url('/data/giaspdvci/' . $model->ipf4) . '">' . $model->ipf4 . '</a ></p>';
+            $result['message'] .= '</div></div>';
+        }
+        if (isset($model->ipf5)) {
+            $result['message'] .= '<div class="col-md-6" ><div class="form-group">';
+            $result['message'] .= '<label class="control-label" > File đính kèm</label>';
+            $result['message'] .= '<p><a target = "_blank" href = "' . url('/data/giaspdvci/' . $model->ipf5) . '">' . $model->ipf5 . '</a ></p>';
+            $result['message'] .= '</div></div>';
+        }
+        $result['message'] .= '</div>';
+        $result['status'] = 'success';
+
+        die(json_encode($result));
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $inputs['dvt'] = $inputs['dvt'] ?? '';
-            $chk_dvt = dmdvt::where('dvt', $inputs['dvt'])->get();
-            if (count($chk_dvt) == 0) {
-                dmdvt::insert(['dvt' => $inputs['dvt']]);
-            }
+            //dd($inputs);
             $inputs['thoidiem'] = getDateToDb($inputs['thoidiem']);
-            $inputs['dongia'] = getDoubleToDb($inputs['dongia']);
-            $inputs['dientich'] = getDoubleToDb($inputs['dientich']);
-
-            $chk = GiaRung::where('mahs', $inputs['mahs'])->first();
-            //dd($chk);
-            if ($chk == null) {
-                $inputs['mahs'] = getdate()[0];
+            if(isset($inputs['ipf1'])){
+                $ipf1 = $request->file('ipf1');
+                $name = $inputs['mahs'] .'&1.'.$ipf1->getClientOriginalName();
+                $ipf1->move(public_path() . '/data/giarung/', $name);
+                $inputs['ipf1']= $name;
+            }
+            if(isset($inputs['ipf2'])){
+                $ipf2 = $request->file('ipf2');
+                $name = $inputs['mahs'] .'&2.'.$ipf2->getClientOriginalName();
+                $ipf2->move(public_path() . '/data/giarung/', $name);
+                $inputs['ipf2']= $name;
+            }
+            if(isset($inputs['ipf3'])){
+                $ipf3 = $request->file('ipf3');
+                $name = $inputs['mahs'] .'&3.'.$ipf3->getClientOriginalName();
+                $ipf3->move(public_path() . '/data/giarung/', $name);
+                $inputs['ipf3']= $name;
+            }
+            if(isset($inputs['ipf4'])){
+                $ipf4 = $request->file('ipf4');
+                $name = $inputs['mahs'] .'&4.'.$ipf4->getClientOriginalName();
+                $ipf4->move(public_path() . '/data/giarung/', $name);
+                $inputs['ipf4']= $name;
+            }
+            if(isset($inputs['ipf5'])){
+                $ipf5 = $request->file('ipf5');
+                $name = $inputs['mahs'] .'&5.'.$ipf5->getClientOriginalName();
+                $ipf5->move(public_path() . '/data/giarung/', $name);
+                $inputs['ipf5']= $name;
+            }
+            $model = GiaRung::where('mahs',$inputs['mahs'])->first();
+            if($model == null){
                 $inputs['trangthai'] = 'CHT';
                 GiaRung::create($inputs);
-            } else {
-                $chk->update($inputs);
+            }else{
+                $model->update($inputs);
             }
-
             return redirect('giarung/danhsach?&madv=' . $inputs['madv']);
         } else
             return view('errors.notlogin');

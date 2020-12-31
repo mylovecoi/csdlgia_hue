@@ -1,6 +1,12 @@
 <?php
 
-
+function PhanLoaiHSRung(){
+    return array(
+        'Thuê môi trường'=>'Thuê môi trường',
+        'Khai thác'=>'Khai thác',
+        'Thanh lý'=>'Thanh lý',
+    );
+}
 
 function NhomQuanLy()
 {

@@ -16,16 +16,13 @@ class CreateGiarungctTable extends Migration
         Schema::create('giarungct', function (Blueprint $table) {
             $table->increments('id');
             $table->string('mahs')->nullable();
-            $table->string('mahuyen')->nullable();
-            $table->string('maxa')->nullable();
-            $table->string('district')->nullable();
             $table->string('manhom')->nullable();
-            $table->string('loairung')->nullable();
-            $table->string('mucdo')->nullable();
-            $table->string('dongiasd')->nullable();
-            $table->string('dongiat50')->nullable();
-            $table->string('dongiat1')->nullable();
-            $table->string('dongiaxp')->nullable();
+            $table->string('phanloai')->nullable();
+            $table->text('noidung')->nullable();
+            $table->string('dvt')->nullable(25);
+            $table->double('dientich')->nullable();
+            $table->double('dientichsd')->nullable();
+            $table->double('giatri')->nullable();
             $table->timestamps();
         });
     }
