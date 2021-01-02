@@ -9,6 +9,7 @@ use App\Model\system\dmdvt;
 use App\Model\system\dsdiaban;
 use App\Model\system\dsdonvi;
 use App\Model\system\view_dsdiaban_donvi;
+use App\Model\view\view_giarung;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -36,7 +37,7 @@ class GiaRungController extends Controller
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $inputs['nam'] = $inputs['nam'] ?? 'all';
-
+            //dd($inputs);
             //lấy thông tin đơn vị
             $model = GiaRung::where('madv', $inputs['madv']);
             if ($inputs['nam'] != 'all')
@@ -63,6 +64,7 @@ class GiaRungController extends Controller
     public function create(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();
+            $inputs['url'] = '/giarung';
             $inputs['act'] = true;
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->where('level','H')->get();
@@ -371,9 +373,9 @@ class GiaRungController extends Controller
             //dd($inputs);
             //gán lại thông tin về trường madv, thoidiem để truyền sang form index
             //xét macqcq để tìm đơn vị chuyển đến
-            $a_ttdv = array_column(view_dsdiaban_donvi::wherein('madiaban', array_keys($a_diaban))->get()->toarray(),
+            $a_ttdv = array_column(view_dsdiaban_donvi::all()->toarray(),
                 'tendv', 'madv');
-
+            //dd($a_ttdv);
             switch ($inputs['level']){
                 case 'H':{
                     $model = GiaRung::where('madv_h', $inputs['madv']);
@@ -565,7 +567,7 @@ class GiaRungController extends Controller
             //Lấy hết hồ sơ trên địa bàn rồi bắt đầu tìm kiểm
             $inputs = $request->all();
             $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
-            $model = GiaRung::wherein('madv',array_column($m_donvi->toarray(),'madv'))->get();
+            $model = view_giarung::wherein('madv',array_column($m_donvi->toarray(),'madv'));
             //dd($inputs);
 
             if($inputs['madv'] != 'all'){
@@ -583,18 +585,18 @@ class GiaRungController extends Controller
                 $model = $model->where('thoidiem','<=',$inputs['thoidiem_den']);
             }
 
-            $model = $model->where('dongia','>=',chkDbl($inputs['giatri_tu']));
+            $model = $model->where('giatri','>=',chkDbl($inputs['giatri_tu']));
             if(chkDbl($inputs['giatri_den']) > 0){
                 $model = $model->where('giatri','<=',chkDbl($inputs['giatri_den']));
             }
 
             $a_loairung = array_column(DmGiaRung::all()->toArray(),'tennhom','manhom');
             return view('manage.dinhgia.giarung.timkiem.result')
-                ->with('model',$model)
+                ->with('model',$model->get())
                 ->with('a_diaban',array_column($m_donvi->toarray(),'tendiaban','madiaban'))
                 ->with('a_donvi',array_column($m_donvi->toarray(),'tendv','madv'))
                 ->with('a_loairung',$a_loairung)
-                ->with('pageTitle','Tìm kiếm thông tin giá thuê môi trường rừng');
+                ->with('pageTitle','Tìm kiếm thông tin giá rừng');
         }else
             return view('errors.notlogin');
     }

@@ -27,20 +27,32 @@
 {{--    </script>--}}
     <script>
         function clearForm(){
-            $('#dongia').val('0');
+            var form = $('#frm_modify');
+            form.find("[name='dientich']").val(0);
+            form.find("[name='dientichsd']").val(0);
+            form.find("[name='giatri']").val(0);
+            form.find("[name='id']").val(-1);
+            form.find("[name='mahs']").val('{{$model->mahs}}');
             InputMask();
         }
 
         function capnhatts(){
+            var form = $('#frm_modify');
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: '/giaspdvci/store_ct',
+                url: '{{$inputs['url']}}' + '/store_ct',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    maspdv: $('#maspdv').val(),
-                    dongia: $('#dongia').val(),
-                    mahs:$('#mahs').val(),
+                    phanloai: form.find("[name='phanloai']").val(),
+                    manhom: form.find("[name='manhom']").val(),
+                    noidung: form.find("[name='noidung']").val(),
+                    dvt: form.find("[name='dvt']").val(),
+                    giatri: form.find("[name='giatri']").val(),
+                    dientich: form.find("[name='dientich']").val(),
+                    dientichsd: form.find("[name='dientichsd']").val(),
+                    mahs: form.find("[name='mahs']").val(),
+                    id: form.find("[name='id']").val(),
                 },
                 dataType: 'JSON',
                 success: function (data) {
@@ -57,11 +69,13 @@
                 }
             })
         }
+
         function editItem(id) {
+            var form = $('#frm_modify');
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             //alert(id);
             $.ajax({
-                url: '/giaspdvci/get_ct',
+                url: '{{$inputs['url']}}' + '/get_ct',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -69,9 +83,15 @@
                 },
                 dataType: 'JSON',
                 success: function (data) {
-                    var form = $('#frm_modify');
-                    form.find("[name='maspdv']").val(data.maspdv).trigger('change');
-                    form.find("[name='dongia']").val(data.dongia);
+                    form.find("[name='phanloai']").val(data.phanloai).trigger('change');
+                    form.find("[name='manhom']").val(data.manhom).trigger('change');
+                    form.find("[name='dvt']").val(data.dvt).trigger('change');
+                    form.find("[name='noidung']").val(data.noidung);
+                    form.find("[name='giatri']").val(data.giatri);
+                    form.find("[name='dientich']").val(data.dientich);
+                    form.find("[name='dientichsd']").val(data.dientichsd);
+                    form.find("[name='mahs']").val(data.mahs);
+                    form.find("[name='id']").val(data.id);
                     InputMask();
                 },
             })
@@ -84,7 +104,7 @@
         function delrow(){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: '/giaspdvci/del_ct',
+                url: '{{$inputs['url']}}' + '/del_ct',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -214,15 +234,17 @@
                                 </div>
                             </div>                            
                         </div>
-                        
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-success btn-xs" onclick="clearForm()">
-                                        <i class="fa fa-plus"></i>&nbsp;Thêm mới sản phẩm</button>                                    &nbsp;
+
+                        @if(in_array($model->trangthai, ['CHT', 'HHT']))
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-success btn-xs" onclick="clearForm()">
+                                            <i class="fa fa-plus"></i>&nbsp;Thêm mới chi tiết</button>                                    &nbsp;
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
 
                         <div class="row" id="dsts">
                             <div class="col-md-12">
@@ -240,12 +262,18 @@
                                             <th style="text-align: center"> Thao tác</th>
                                         </tr>
                                     </thead>
+                                    <?php $i = 1; ?>
                                     <tbody id="ttts">
                                     @foreach($modelct as $key=>$tt)
                                         <tr id={{$tt->id}}>
-                                            <td style="text-align: center">{{($key +1)}}</td>
-                                            <td class="active" style="font-weight: bold">{{$a_spdv[$tt->maspdv] ?? ''}}</td>
-                                            <td style="text-align: right;font-weight: bold">{{number_format($tt->dongia)}}</td>
+                                            <td style="text-align: center">{{($i++)}}</td>
+                                            <td class="info">{{$tt->phanloai}}</td>
+                                            <td>{{$a_loairung[$tt->manhom] ?? ''}}</td>
+                                            <td>{{$tt->noidung}}</td>
+                                            <td style="text-align: right;">{{dinhdangso($tt->dientich)}}</td>
+                                            <td style="text-align: right;">{{dinhdangso($tt->dientichsd)}}</td>
+                                            <td>{{$tt->dvt}}</td>
+                                            <td style="text-align: right;">{{dinhdangso($tt->giatri)}}</td>
                                             <td>
                                                 @if(in_array($model->trangthai, ['CHT', 'HHT']))
                                                     <button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem({{$tt->id}})">
@@ -282,19 +310,19 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-        function validateForm(){
+{{--    <script type="text/javascript">--}}
+{{--        function validateForm(){--}}
 
-            var validator = $("#update_thongtinthuetaisancong").validate({
-                rules: {
-                    ten :"required"
-                },
-                messages: {
-                    ten :"Chưa nhập dữ liệu"
-                }
-            });
-        }
-    </script>
+{{--            var validator = $("#update_thongtinthuetaisancong").validate({--}}
+{{--                rules: {--}}
+{{--                    ten :"required"--}}
+{{--                },--}}
+{{--                messages: {--}}
+{{--                    ten :"Chưa nhập dữ liệu"--}}
+{{--                }--}}
+{{--            });--}}
+{{--        }--}}
+{{--    </script>--}}
 
     <!--Model Delete-->
     <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true">
@@ -317,14 +345,15 @@
 
     <div id="modal-create" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
         {!! Form::open(['url'=>'', 'id' => 'frm_modify', 'class'=>'horizontal-form']) !!}
+        {!! Form::hidden('id', null) !!}
+        {!! Form::hidden('mahs', null) !!}
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header modal-header-primary">
                     <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
                     <h4 id="modal-header-primary-label" class="modal-title">Thông tin chi tiết hồ sơ</h4>
                 </div>
-                <div class="modal-body" id="edit_node">
-
+                <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -344,7 +373,8 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label">Nội dung chi tiết</label>
-                                <input name="noidung" id="noidung" class="form-control" required>
+{{--                                <input name="noidung" id="noidung" class="form-control" required>--}}
+                                {!!Form::textarea('noidung',null, array('id' => 'noidung','class' => 'form-control', 'rows'=>'2'))!!}
                             </div>
                         </div>
                     </div>
@@ -374,41 +404,29 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">Đơn giá<span class="require">*</span></label>
-                                <input type="text" name="dongia" id="dongia" class="form-control text-right" data-mask="fdecimal" required>
+                                <label class="control-label">Giá trị<span class="require">*</span></label>
+                                <input type="text" name="giatri" id="giatri" class="form-control text-right" data-mask="fdecimal" required>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">Ghi chú</label>
-                                {!!Form::textarea('ghichu',null, array('id' => 'ghichu','class' => 'form-control', 'rows'=>'2'))!!}
-                            </div>
-                        </div>
-                    </div>
-                    <input type="hidden" name="mahs">
-                    <input type="hidden" name="madv">
+{{--                    <div class="row">--}}
+{{--                        <div class="col-md-12">--}}
+{{--                            <div class="form-group">--}}
+{{--                                <label class="control-label">Ghi chú</label>--}}
+{{--                                {!!Form::textarea('ghichu',null, array('id' => 'ghichu','class' => 'form-control', 'rows'=>'2'))!!}--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                 </div>
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
-                    <button type="submit" id="submit" name="submit" value="submit" class="btn btn-primary" onclick="ClickUpdate()">Đồng ý</button>
+                    <button type="button" class="btn btn-primary" onclick="capnhatts()">Đồng ý</button>
                 </div>
                 {!! Form::close() !!}
             </div>
         </div>
     </div>
-
-    <script>
-        function ClickUpdate(){
-            $('#frm_modify').submit();
-        }
-
-        function ClickAdd(){
-            $('#frm_add').submit();
-        }
-    </script>
 
     @include('manage.include.form.modal_dvt')
     @include('manage.include.form.modal_del_hs')

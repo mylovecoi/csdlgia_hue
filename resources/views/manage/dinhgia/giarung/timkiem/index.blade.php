@@ -16,8 +16,8 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Tìm kiếm<small> thông tin hồ sơ cho thuê môi trường rừng</small>
+    <h3 class="page-title text-uppercase">
+        Tìm kiếm thông tin hồ sơ {{session('admin')['a_chucnang']['giarung'] ?? 'giá rừng'}}
     </h3>
 
     <!-- END PAGE HEADER-->

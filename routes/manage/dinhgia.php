@@ -198,6 +198,10 @@ Route::group(['prefix'=>'giarung'], function (){
     Route::post('tralai','manage\giarung\GiaRungController@tralai');
     Route::post('congbo','manage\giarung\GiaRungController@congbo');
 
+    Route::get('store_ct','manage\giarung\GiaRungCtController@store');
+    Route::get('get_ct','manage\giarung\GiaRungCtController@show');
+    Route::get('del_ct','manage\giarung\GiaRungCtController@destroy');
+
     Route::get('nhandulieutuexcel','manage\giarung\GiaRungController@nhandulieutuexcel');
     Route::post('importexcel','manage\giarung\GiaRungController@importexcel');
 

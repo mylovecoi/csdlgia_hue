@@ -1,45 +1,15 @@
-use csdlgia_haugiang
-GO
-ALTER TABLE giarung
-ADD
-    [ipf1] [nvarchar](255) NULL,
-    [ipf2] [nvarchar](255) NULL,
-    [ipf3] [nvarchar](255) NULL,
-    [ipf4] [nvarchar](255) NULL,
-    [ipf5] [nvarchar](255) NULL;
-GO
+<?php
 
-DROP TABLE [dbo].[giarungct]
-GO
+namespace App\Model\view;
 
-/****** Object:  Table [dbo].[giarungct]    Script Date: 12/31/2020 4:56:29 PM ******/
-SET ANSI_NULLS ON
-GO
+use Illuminate\Database\Eloquent\Model;
 
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE [dbo].[giarungct](
-	[id] [int] IDENTITY(1,1) NOT NULL,
-	[mahs] [nvarchar](255) NULL,
-	[manhom] [nvarchar](255) NULL,
-	[phanloai] [nvarchar](255) NULL,
-	[noidung] [nvarchar](max) NULL,
-	[dvt] [nvarchar](255) NULL,
-	[dientich] [float] NULL,
-	[dientichsd] [float] NULL,
-	[giatri] [float] NULL,
-	[created_at] [datetime] NULL,
-	[updated_at] [datetime] NULL,
-PRIMARY KEY CLUSTERED
-(
-	[id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-
-GO
-CREATE OR ALTER VIEW [dbo].[view_giarung]
-AS
+class view_giarung extends Model
+{
+    protected $table = 'view_giarung';
+    protected $fillable = [];
+}
+/*
 SELECT        dbo.giarung.madiaban, dbo.giarung.maxp, dbo.giarung.mahs, dbo.giarung.soqd, dbo.giarung.congbo, dbo.giarung.lichsu, dbo.giarung.ghichu, dbo.giarung.thoidiem, dbo.giarung.macqcq, dbo.giarung.madv, dbo.giarung.lydo,
                          dbo.giarung.thongtin, dbo.giarung.trangthai, dbo.giarung.thoidiem_h, dbo.giarung.macqcq_h, dbo.giarung.madv_h, dbo.giarung.lydo_h, dbo.giarung.thongtin_h, dbo.giarung.trangthai_h, dbo.giarung.thoidiem_t,
                          dbo.giarung.macqcq_t, dbo.giarung.madv_t, dbo.giarung.lydo_t, dbo.giarung.thongtin_t, dbo.giarung.trangthai_t, dbo.giarung.thoidiem_ad, dbo.giarung.macqcq_ad, dbo.giarung.madv_ad, dbo.giarung.lydo_ad,
@@ -47,4 +17,4 @@ SELECT        dbo.giarung.madiaban, dbo.giarung.maxp, dbo.giarung.mahs, dbo.giar
                          dbo.giarung.mota
 FROM            dbo.giarung INNER JOIN
                          dbo.giarungct ON dbo.giarung.mahs = dbo.giarungct.mahs
-GO
+ */

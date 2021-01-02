@@ -79,8 +79,8 @@
 
 @section('content')
 
-    <h3 class="page-title">
-        Giá rừng
+    <h3 class="page-title text-uppercase">
+        {{session('admin')['a_chucnang']['giarung'] ?? 'giá rừng'}}
     </h3>
     {{--<h3 class="page-title">
         <small> <b style="color: blue">{{$dvql->tendv}}</b><b style="color: blue"> - </b><b style="color: blue">{{$dv->tendv}}</b> - Người soạn thảo: <b style="color: blue">{{isset($model) ? $model->cvsoanthao : session('admin')->name}}</b> </small>
@@ -193,9 +193,6 @@
         <!-- END DASHBOARD STATS -->
 
     <!--Modal edit-->
-
-
-
     @include('manage.include.form.modal_approve_hs')
     @include('manage.include.form.modal_del_hs')
     @include('manage.include.form.modal_attackfile')

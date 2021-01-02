@@ -38,10 +38,13 @@
                                 <th width="2%" style="text-align: center">STT</th>
                                 <th style="text-align: center">Đơn vị nhập</th>
                                 <th style="text-align: center">Thời điểm</th>
-                                <th style="text-align: center">Phân loại rừng</th>
+                                <th style="text-align: center">Loại hồ sơ</th>
+                                <th style="text-align: center">Loại rừng</th>
                                 <th style="text-align: center">Vị trí</th>
-                                <th style="text-align: center">Diện tích</th>
-                                <th style="text-align: center">Đơn giá</th>
+                                <th style="text-align: center">Diện tích<br>rừng</th>
+                                <th style="text-align: center">Diện tích<br>sử dụng</th>
+                                <th style="text-align: center">Đơn vị<br>tính</th>
+                                <th style="text-align: center">Giá trị</th>
                             </tr>
                         </thead>
 
@@ -51,10 +54,13 @@
                                     <td style="text-align: center">{{$key + 1}}</td>
                                     <td>{{$a_donvi[$tt->madv] ?? ''}}</td>
                                     <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
+                                    <td>{{$tt->phanloai}}</td>
                                     <td>{{$a_loairung[$tt->manhom] ?? ''}}</td>
-                                    <td>{{$tt->tenduan}}</td>
-                                    <td style="text-align: center">{{dinhdangso($tt->dientich)}}</td>
-                                    <td style="text-align: right">{{dinhdangso($tt->dongia)}}</td>
+                                    <td>{{$tt->noidung}}</td>
+                                    <td class="text-right">{{dinhdangso($tt->dientich)}}</td>
+                                    <td class="text-right">{{dinhdangso($tt->dientichsd)}}</td>
+                                    <td>{{$tt->dvt}}</td>
+                                    <td class="text-right">{{dinhdangso($tt->giatri)}}</td>
                                 </tr>
                             @endforeach
 

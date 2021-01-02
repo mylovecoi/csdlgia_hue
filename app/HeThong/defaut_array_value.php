@@ -225,9 +225,11 @@ function getDiaBan_HeThong($level, $madiaban = null)
 }
 function getDonViNhapLieu($level){
     if ($level == 'SSA') {
-        return App\Model\system\dsdonvi::where('chucnang', 'NHAPLIEU')->get();
+        //return App\Model\system\dsdonvi::where('chucnang', 'NHAPLIEU')->get();
+        return App\Model\system\view_dsdiaban_donvi::where('chucnang', 'NHAPLIEU')->get();
     }else{
-        return App\Model\system\dsdonvi::where('madv', session('admin')->madv)->get();
+        //return App\Model\system\dsdonvi::where('madv', session('admin')->madv)->get();
+        return App\Model\system\view_dsdiaban_donvi::where('madv', session('admin')->madv)->get();
     }
 }
 

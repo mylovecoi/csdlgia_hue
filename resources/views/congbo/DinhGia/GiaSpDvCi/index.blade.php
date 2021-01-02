@@ -61,7 +61,7 @@
                             </thead>
 
                             <tbody>
-                            <?php $i=1; ?>
+                                <?php $i=1; ?>
                                 @foreach($model_dk as $key=>$tt)
                                     <tr>
                                         <td style="text-align: center">{{$i++}}</td>

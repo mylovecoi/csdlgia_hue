@@ -57,7 +57,7 @@ class GiaSpDvCiCtController extends Controller
             die(json_encode($result));
         }
         $inputs = $request->all();
-        GiaSpDvCiCt::where('id',$inputs['id'])->first();
+        GiaSpDvCiCt::where('id',$inputs['id'])->delete();
         $model = GiaSpDvCiCt::where('mahs',$inputs['mahs'])->get();
         $result = $this->return_spdv($model);
         die(json_encode($result));

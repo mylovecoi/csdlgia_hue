@@ -4041,6 +4041,7 @@ function chkCongBo($csdl = null, $group = null, $feature = null){
 
 
 function getDonViChuyen($macqcq, $hoso){
+    //dd($macqcq);
     $madv = '';
     if($macqcq == $hoso->macqcq){
         $madv = $hoso->madv;
@@ -4059,6 +4060,7 @@ function getDonViChuyen($macqcq, $hoso){
         goto ketthuc;
     }
     ketthuc:
+    //dd($madv);
     return $madv;
 }
 

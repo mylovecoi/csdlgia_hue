@@ -5,6 +5,7 @@ namespace App\Http\Controllers\congbo\dinhgia;
 use App\DiaBanHd;
 use App\DmGiaRung;
 use App\Model\manage\dinhgia\GiaRung;
+use App\Model\view\view_giarung;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -24,14 +25,19 @@ class CongboGiaRungController extends Controller
         $inputs['nam'] = $inputs['nam'] ?? 'all';
 
         //lấy thông tin đơn vị
-        $model = GiaRung::where('congbo', 'DACONGBO');
-        if ($inputs['nam'] != 'all')
+        $model = view_giarung::where('congbo', 'DACONGBO');
+        $model_dk = GiaRung::where('congbo', 'DACONGBO')->where('ipf1','<>', '');
+        if ($inputs['nam'] != 'all'){
             $model = $model->whereYear('thoidiem', $inputs['nam']);
+            $model_dk = $model_dk->whereYear('thoidiem', $inputs['nam']);
+        }
+
         $a_loairung = array_column(DmGiaRung::all()->toArray(),'tennhom','manhom');
 
         //dd($inputs);
         return view('congbo.DinhGia.GiaRung.index')
             ->with('model', $model->get())
+            ->with('model_dk', $model_dk->get())
             ->with('inputs', $inputs)
             ->with('a_loairung', $a_loairung)
             ->with('a_diaban', $a_diaban)

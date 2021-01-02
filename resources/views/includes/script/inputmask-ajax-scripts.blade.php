@@ -1,3 +1,4 @@
+<script type="text/javascript" src="{{ url('js/jquery.inputmask.bundle.min.js') }}"></script>
 <script>
     function InputMask() {
         //$(function(){
@@ -76,5 +77,14 @@
             });
         }
         //});
+    }
+    function attrDefault($el, data_var, default_val)
+    {
+        if(typeof $el.data(data_var) != 'undefined')
+        {
+            return $el.data(data_var);
+        }
+
+        return default_val;
     }
 </script>
