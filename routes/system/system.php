@@ -49,6 +49,8 @@ Route::group(['prefix'=>'taikhoan'],function(){
     Route::get('perm', 'system\dstaikhoanController@permission');
     Route::post('perm', 'system\dstaikhoanController@store_perm');
     Route::get('get_perm', 'system\dstaikhoanController@get_perm');
+
+    Route::post('perm_group', 'system\dstaikhoanController@store_perm_group');
 });
 
 Route::group(['prefix'=>'dmloaidat'], function(){

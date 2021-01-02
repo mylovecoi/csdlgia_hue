@@ -6,6 +6,7 @@ use App\GeneralConfigs;
 use App\Model\system\danhmucchucnang;
 use App\Model\system\dsdiaban;
 use App\Model\system\dsdonvi;
+use App\Model\system\dsnhomtaikhoan;
 use App\Users;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -35,10 +36,12 @@ class dstaikhoanController extends Controller
                 $ct->chucnang = $dv->chucnang;
             }
             //dd($model);
+            $a_nhomtk = array_column(dsnhomtaikhoan::all()->toArray(),'mota','maso');
             return view('system.taikhoan.index')
                 ->with('model', $model)
                 ->with('inputs', $inputs)
                 ->with('a_phanloai', getPhanLoaiDonVi())
+                ->with('a_nhomtk', $a_nhomtk)
                 ->with('m_diaban', $m_diaban)
                 ->with('m_donvi', $m_donvi)
                 ->with('pageTitle', 'Danh sách tài khoản đơn vị');
@@ -428,5 +431,21 @@ class dstaikhoanController extends Controller
         $result['message'] .= '</div>';
 
         die(json_encode($result));
+    }
+
+    function store_perm_group(Request $request){
+        if (Session::has('admin')) {
+            //tài khoản SSA; tài khoản quản trị + có phân quyền
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan','danhmuc', 'modify')) {
+                return view('errors.noperm');
+            }
+            $inputs = $request->all();
+            $model = Users::where('username',$inputs['username'])->first();
+            $m_nhomtk = dsnhomtaikhoan::where('maso',$inputs['maso'])->first();
+            $model->permission = $m_nhomtk->permission;
+            $model->save();
+            return redirect('/taikhoan/danhsach?madv='.$model->madv);
+        } else
+            return view('errors.notlogin');
     }
 }
