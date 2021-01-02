@@ -602,13 +602,17 @@ Route::group(['prefix'=>'taisancong'], function (){
     Route::post('delete_dm','manage\giataisancong\GiaTaiSanCongDmController@destroy');
 
     Route::get('danhsach','manage\giataisancong\GiaTaiSanCongController@index');
-
-    Route::get('get_hs','manage\giataisancong\GiaTaiSanCongController@edit');
+    Route::get('new','manage\giataisancong\GiaTaiSanCongController@create');
+    Route::get('modify','manage\giataisancong\GiaTaiSanCongController@edit');
     Route::post('modify','manage\giataisancong\GiaTaiSanCongController@store');
     Route::post('delete','manage\giataisancong\GiaTaiSanCongController@destroy');
-
+    Route::get('dinhkem','manage\giataisancong\GiaTaiSanCongController@show_dk');
     Route::post('chuyenhs','manage\giataisancong\GiaTaiSanCongController@chuyenhs');
     Route::get('prints','manage\giataisancong\GiaTaiSanCongController@ketxuat');
+
+    Route::get('store_ct','manage\giataisancong\GiaTaiSanCongCtController@store');
+    Route::get('get_ct','manage\giataisancong\GiaTaiSanCongCtController@show');
+    Route::get('del_ct','manage\giataisancong\GiaTaiSanCongCtController@destroy');
 
     Route::get('xetduyet','manage\giataisancong\GiaTaiSanCongController@xetduyet');
     Route::post('chuyenxd','manage\giataisancong\GiaTaiSanCongController@chuyenxd');
@@ -617,7 +621,6 @@ Route::group(['prefix'=>'taisancong'], function (){
 
     Route::get('timkiem','manage\giataisancong\GiaTaiSanCongController@timkiem');
     Route::post('timkiem','manage\giataisancong\GiaTaiSanCongController@ketquatk');
-
 
     Route::get('danhsach/print','manage\giataisancong\GiaTaiSanCongController@ketxuat');
     Route::resource('giataisancong','manage\giataisancong\GiaTaiSanCongController');
@@ -704,11 +707,18 @@ Route::group(['prefix'=>'thuemuanhaxahoi'],function (){
     Route::get('show_dm','manage\thuemuanhaxh\DmNhaXhController@show');
     //
     Route::get('danhsach','manage\thuemuanhaxh\GiaThueMuaNhaXhController@index');
+    Route::get('new','manage\thuemuanhaxh\GiaThueMuaNhaXhController@create');
     Route::post('modify','manage\thuemuanhaxh\GiaThueMuaNhaXhController@update');
-    Route::get('get_hs','manage\thuemuanhaxh\GiaThueMuaNhaXhController@edit');
+    Route::get('modify','manage\thuemuanhaxh\GiaThueMuaNhaXhController@edit');
+    //Route::get('get_hs','manage\thuemuanhaxh\GiaThueMuaNhaXhController@edit');
     Route::post('delete','manage\thuemuanhaxh\GiaThueMuaNhaXhController@destroy');
     Route::post('chuyenhs','manage\thuemuanhaxh\GiaThueMuaNhaXhController@chuyenhs');
     Route::get('prints','manage\thuemuanhaxh\GiaThueMuaNhaXhController@BcGiaThueMuaNhaXh');
+    Route::get('dinhkem','manage\thuemuanhaxh\GiaThueMuaNhaXhController@show_dk');
+
+    Route::get('store_ct','manage\thuemuanhaxh\GiaThueMuaNhaXhCtController@store');
+    Route::get('get_ct','manage\thuemuanhaxh\GiaThueMuaNhaXhCtController@show');
+    Route::get('del_ct','manage\thuemuanhaxh\GiaThueMuaNhaXhCtController@destroy');
 
     Route::get('xetduyet','manage\thuemuanhaxh\GiaThueMuaNhaXhController@xetduyet');
     Route::post('chuyenxd','manage\thuemuanhaxh\GiaThueMuaNhaXhController@chuyenxd');
@@ -720,7 +730,6 @@ Route::group(['prefix'=>'thuemuanhaxahoi'],function (){
 
     Route::get('timkiem','manage\thuemuanhaxh\GiaThueMuaNhaXhController@timkiem');
     Route::post('timkiem','manage\thuemuanhaxh\GiaThueMuaNhaXhController@ketquatk');
-    //
 });
 
 //Giá thị trường

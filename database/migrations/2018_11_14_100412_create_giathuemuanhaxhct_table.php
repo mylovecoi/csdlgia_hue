@@ -16,10 +16,13 @@ class CreateGiathuemuanhaxhctTable extends Migration
         Schema::create('giathuemuanhaxhct', function (Blueprint $table) {
             $table->increments('id');
             $table->string('mahs')->nullable();
-            $table->string('loainha')->nullable();
-            $table->string('dongia')->nullable();
-            $table->string('thoigian')->nullable();
-            $table->string('hesodc')->nullable();
+            $table->text('maso')->nullable();
+            $table->text('phanloai')->nullable()->default('THUENHA');
+            $table->string('dvt',30)->nullable();
+            $table->double('dongia')->default(0);
+            $table->double('dongiathue')->default(0);
+            $table->date('tungay')->nullable();
+            $table->date('denngay')->nullable();
             $table->timestamps();
         });
     }

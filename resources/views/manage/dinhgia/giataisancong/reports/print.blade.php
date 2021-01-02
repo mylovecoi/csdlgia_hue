@@ -25,15 +25,15 @@
             </td>
         </tr>
     </table>
-<p style="font-weight: bold;font-size: 16px;text-transform: uppercase;text-align: center">THÔNG TIN VỀ GIÁ TÀI SẢN CÔNG</p>
+<p style="font-weight: bold;font-size: 16px;text-transform: uppercase;text-align: center">THÔNG TIN VỀ HỒ SƠ GIÁ TÀI SẢN CÔNG</p>
 
 <table width="96%" cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;" id="data">
     <tr>
         <th style="text-align: center;width: 1%">STT</th>
         <th style="text-align: center" >Số quyết định</th>
         <th style="text-align: center">Thời điểm<br> xác định</th>
-        <th style="text-align: center">Tên tài sản</th>
-        <th style="text-align: center">Nguyên giá</th>
+        <th style="text-align: center">Mô tả</th>
+{{--        <th style="text-align: center">Nguyên giá</th>--}}
         <th style="text-align: center">Ghi chú</th>
     </tr>
 
@@ -43,7 +43,7 @@
         <th style="text-align: center">3</th>
         <th style="text-align: center">4</th>
         <th style="text-align: center">5</th>
-        <th style="text-align: center">6</th>
+{{--        <th style="text-align: center">6</th>--}}
     </tr>
 
         @foreach($model as $gr2=>$tt)
@@ -53,8 +53,8 @@
                 <td>{{$tt->soqd}}</td>
                 <td>{{getDayVn($tt->thoidiem)}}</td>
 {{--                <td>{{$a_dm[$tt->mataisan] ?? ''}}</td>--}}
-                <td>{{$tt->tentaisan}}</td>
-                <td style="text-align: right">{{dinhdangso($tt->giathue)}}</td>
+                <td>{{$tt->mota}}</td>
+{{--                <td style="text-align: right">{{dinhdangso($tt->giathue)}}</td>--}}
                 <td></td>
             </tr>
         @endforeach

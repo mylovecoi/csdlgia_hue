@@ -19,13 +19,13 @@ class CreateGiaTaiSanCongTable extends Migration
             $table->string('maxp')->nullable();
             $table->string('mahs')->unique();
             $table->string('soqd')->nullable();
-            $table->string('mataisan')->nullable();
-            $table->string('phanloai')->nullable();
-            $table->string('thongtinhs')->nullable();
-            $table->date('tungay')->nullable();
-            $table->date('denngay')->nullable();
-            $table->double('giathue')->default(0);
-            $table->double('giaban')->default(0);
+//            $table->string('mataisan')->nullable();
+//            $table->string('phanloai')->nullable();
+//            $table->string('thongtinhs')->nullable();
+//            $table->date('tungay')->nullable();
+//            $table->date('denngay')->nullable();
+//            $table->double('giathue')->default(0);
+//            $table->double('giaban')->default(0);
             $table->string('congbo')->nullable(25);
             $table->text('lichsu')->nullable(); //Thao tác lịch sử hồ sơ theo dạng JSON
             $table->string('ghichu')->nullable();
@@ -57,6 +57,11 @@ class CreateGiaTaiSanCongTable extends Migration
             $table->string('lydo_ad')->nullable();
             $table->string('thongtin_ad')->nullable();
             $table->string('trangthai_ad')->nullable(20);
+            $table->string('ipf1')->nullable();
+            $table->string('ipf2')->nullable();
+            $table->string('ipf3')->nullable();
+            $table->string('ipf4')->nullable();
+            $table->string('ipf5')->nullable();
             $table->timestamps();
         });
 }

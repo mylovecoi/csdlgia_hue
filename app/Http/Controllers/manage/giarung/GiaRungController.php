@@ -191,7 +191,7 @@ class GiaRungController extends Controller
         if(Session::has('admin')){
             $inputs = $request->all();
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
-            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
+            //$m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             $m_donvi = getDonViNhapLieu(session('admin')->level);
             $model = GiaRung::where('mahs',$inputs['mahs'])->first();
             $modelct = GiaRungCt::where('mahs',$model->mahs)->get();
@@ -230,31 +230,31 @@ class GiaRungController extends Controller
         if (isset($model->ipf1)) {
             $result['message'] .= '<div class="col-md-6" ><div class="form-group">';
             $result['message'] .= '<label class="control-label" > File đính kèm</label>';
-            $result['message'] .= '<p><a target = "_blank" href = "' . url('/data/giaspdvci/' . $model->ipf1) . '">' . $model->ipf1 . '</a ></p>';
+            $result['message'] .= '<p><a target = "_blank" href = "' . url('/data/giarung/' . $model->ipf1) . '">' . $model->ipf1 . '</a ></p>';
             $result['message'] .= '</div></div>';
         }
         if (isset($model->ipf2)) {
             $result['message'] .= '<div class="col-md-6" ><div class="form-group">';
             $result['message'] .= '<label class="control-label" > File đính kèm</label>';
-            $result['message'] .= '<p><a target = "_blank" href = "' . url('/data/giaspdvci/' . $model->ipf2) . '">' . $model->ipf2 . '</a ></p>';
+            $result['message'] .= '<p><a target = "_blank" href = "' . url('/data/giarung/' . $model->ipf2) . '">' . $model->ipf2 . '</a ></p>';
             $result['message'] .= '</div></div>';
         }
         if (isset($model->ipf3)) {
             $result['message'] .= '<div class="col-md-6" ><div class="form-group">';
             $result['message'] .= '<label class="control-label" > File đính kèm</label>';
-            $result['message'] .= '<p><a target = "_blank" href = "' . url('/data/giaspdvci/' . $model->ipf3) . '">' . $model->ipf3 . '</a ></p>';
+            $result['message'] .= '<p><a target = "_blank" href = "' . url('/data/giarung/' . $model->ipf3) . '">' . $model->ipf3 . '</a ></p>';
             $result['message'] .= '</div></div>';
         }
         if (isset($model->ipf4)) {
             $result['message'] .= '<div class="col-md-6" ><div class="form-group">';
             $result['message'] .= '<label class="control-label" > File đính kèm</label>';
-            $result['message'] .= '<p><a target = "_blank" href = "' . url('/data/giaspdvci/' . $model->ipf4) . '">' . $model->ipf4 . '</a ></p>';
+            $result['message'] .= '<p><a target = "_blank" href = "' . url('/data/giarung/' . $model->ipf4) . '">' . $model->ipf4 . '</a ></p>';
             $result['message'] .= '</div></div>';
         }
         if (isset($model->ipf5)) {
             $result['message'] .= '<div class="col-md-6" ><div class="form-group">';
             $result['message'] .= '<label class="control-label" > File đính kèm</label>';
-            $result['message'] .= '<p><a target = "_blank" href = "' . url('/data/giaspdvci/' . $model->ipf5) . '">' . $model->ipf5 . '</a ></p>';
+            $result['message'] .= '<p><a target = "_blank" href = "' . url('/data/giarung/' . $model->ipf5) . '">' . $model->ipf5 . '</a ></p>';
             $result['message'] .= '</div></div>';
         }
         $result['message'] .= '</div>';

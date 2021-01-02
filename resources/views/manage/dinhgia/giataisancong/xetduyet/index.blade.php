@@ -35,8 +35,8 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Thông tin hồ sơ giá tài sản công
+    <h3 class="page-title text-uppercase">
+        {{session('admin')['a_chucnang']['taisancong'] ?? 'tài sản công'}}
     </h3>
 
     <!-- END PAGE HEADER-->
@@ -83,7 +83,7 @@
                                 <th style="text-align: center">Cơ quan chuyển hồ sơ</th>
                                 <th style="text-align: center">Địa bàn</th>
                                 <th style="text-align: center">Thời điểm<br>xác định</th>
-                                <th style="text-align: center">Tên tài sản</th>
+                                <th style="text-align: center">Mô tả</th>
                                 <th style="text-align: center">Trạng thái</th>
                                 <th style="text-align: center">Cơ quan tiếp nhận hồ sơ</th>
                                 <th style="text-align: center" width="20%">Thao tác</th>
@@ -97,11 +97,12 @@
                                     <td style="text-align: left">{{$tt->tendv_ch}}</td>
                                     <td style="text-align: center">{{$a_diaban[$tt->madiaban] ?? ''}}</td>
                                     <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
-                                    <td style="text-align: left">{{$a_dm[$tt->mataisan] ?? ''}}</td>
+                                    <td style="text-align: left">{{$tt->mota}}</td>
                                     @include('manage.include.form.td_trangthai')
                                     <td style="text-align: left">{{$tt->tencqcq}}</td>
                                     <td>
-
+                                        <a href="{{url($inputs['url'].'/modify?mahs='.$tt->mahs.'&act=false')}}" target="_blank" class="btn btn-default btn-xs mbs">
+                                            <i class="fa fa-eye"></i>&nbsp;Chi tiết</a>
                                         @if(chkPer('csdlmucgiahhdv','taisan', 'taisancong', 'hoso', 'approve'))
                                             @if($tt->level == 'ADMIN')
                                                 @if($tt->trangthai == 'CB')
@@ -124,6 +125,8 @@
                                                 @endif
                                             @endif
                                         @endif
+                                        <button type="button" onclick="get_attack('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
+                                            <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -142,4 +145,5 @@
     @include('manage.include.form.modal_approve_xd')
     @include('manage.include.form.modal_unapprove_xd')
     @include('manage.include.form.modal_del_hs')
+    @include('manage.include.form.modal_attackfile')
 @stop

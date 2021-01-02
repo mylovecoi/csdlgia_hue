@@ -16,8 +16,8 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Tìm kiếm<small> thông tin hồ sơ giá bán, cho thuê, thuê mua nhà ở</small>
+    <h3 class="page-title text-uppercase">
+        TÌM KIẾM HỒ SƠ {{session('admin')['a_chucnang']['giathuemuanhaxh'] ?? 'Giá bán, cho thuê, thuê mua nhà ở'}}
     </h3>
 
     <!-- END PAGE HEADER-->

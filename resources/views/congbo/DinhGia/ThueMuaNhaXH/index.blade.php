@@ -56,20 +56,39 @@
                             <th style="text-align: center" >Quyết định</th>
                             <th style="text-align: center">Địa bàn</th>
                             <th style="text-align: center">Tên nhà</th>
-                            <th style="text-align: center" >Đơn giá</th>
-                            <th style="text-align: center" >Ghi chú</th>
+                            <th style="text-align: center">Đơn vị<br>tính</th>
+                            <th style="text-align: center" >Giá bán</th>
+                            <th style="text-align: center" >Giá thuê</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $i=1; ?>
+                        @foreach($model_dk as $key=>$tt)
+                            <tr>
+                                <td style="text-align: center">{{$i++}}</td>
+                                <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
+                                <td style="text-align: center">{{$tt->soqd}}</td>
+                                <td><b>{{$a_diaban[$tt->madiaban] ?? ''}}</b></td>
+                                <td>
+                                    <button type="button" onclick="get_attack('{{$tt->mahs}}','thuemuanhaxahoi')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
+                                        <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp đính kèm</button>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        @endforeach
+
                         @foreach($model as $key => $tt)
                             <tr>
-                                <td style="text-align: center">{{$key+1}}</td>
-                                <td><b>{{getDayVn($tt->thoidiem)}}</b></td>
+                                <td style="text-align: center">{{$i++}}</td>
+                                <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
                                 <td style="text-align: center">{{$tt->soqd}}</td>
                                 <td><b>{{$a_diaban[$tt->madiaban] ?? ''}}</b></td>
                                 <td style="text-align: left;"><b>{{$a_nhaxh[$tt->maso] ?? ''}}</b></td>
+                                <td style="text-align: left;"><b>{{$tt->dvt}}</b></td>
                                 <td style="text-align: center">{{dinhdangso($tt->dongia)}}</td>
-                                <td style="text-align: center">{{$tt->ghichu}}</td>
+                                <td style="text-align: center">{{dinhdangso($tt->dongiathue)}}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -79,4 +98,5 @@
             </div>
         </div>
     </div>
+    @include('manage.include.form.modal_attackfile_congbo')
 @stop

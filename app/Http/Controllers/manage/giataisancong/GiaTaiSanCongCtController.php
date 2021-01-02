@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\manage\giarung;
+namespace App\Http\Controllers\manage\giataisancong;
 
-use App\DmGiaRung;
-use App\Model\manage\dinhgia\GiaRungCt;
+use App\Model\manage\dinhgia\GiaTaiSanCongCt;
 use App\Model\system\dmdvt;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
-class GiaRungCtController extends Controller
+class GiaTaiSanCongCtController extends Controller
 {
     public function store(Request $request){
         if(!Session::has('admin')) {
@@ -20,22 +19,23 @@ class GiaRungCtController extends Controller
             die(json_encode($result));
         }
         $inputs = $request->all();
-        $chk_dvt = dmdvt::where('dvt', $inputs['dvt'])->get();
-        if (count($chk_dvt) == 0) {
-            dmdvt::insert(['dvt' => $inputs['dvt']]);
-        }
+//        $chk_dvt = dmdvt::where('dvt', $inputs['dvt'])->get();
+//        if (count($chk_dvt) == 0) {
+//            dmdvt::insert(['dvt' => $inputs['dvt']]);
+//        }
 
-        $inputs['dientich'] = getDoubleToDb($inputs['dientich']);
-        $inputs['dientichsd'] = getDoubleToDb($inputs['dientichsd']);
-        $inputs['giatri'] = getDoubleToDb($inputs['giatri']);
-        $m_chk = GiaRungCt::where('id',$inputs['id'])->first();
+        $inputs['giathue'] = getDoubleToDb($inputs['giathue']);
+        $inputs['giaban'] = getDoubleToDb($inputs['giaban']);
+        $inputs['giapheduyet'] = getDoubleToDb($inputs['giapheduyet']);
+        $inputs['giaconlai'] = getDoubleToDb($inputs['giaconlai']);
+        $m_chk = GiaTaiSanCongCt::where('id',$inputs['id'])->first();
         unset($inputs['id']);
         if($m_chk == null){
-            GiaRungCt::create($inputs);
+            GiaTaiSanCongCt::create($inputs);
         }else{
             $m_chk->update($inputs);
         }
-        $model = GiaRungCt::where('mahs',$inputs['mahs'])->get();
+        $model = GiaTaiSanCongCt::where('mahs',$inputs['mahs'])->get();
         $result = $this->return_spdv($model);
         die(json_encode($result));
     }
@@ -51,7 +51,7 @@ class GiaRungCtController extends Controller
 
         $inputs = $request->all();
         $id = $inputs['id'];
-        $model = GiaRungCt::findOrFail($id);
+        $model = GiaTaiSanCongCt::findOrFail($id);
         die($model);
     }
 
@@ -64,8 +64,8 @@ class GiaRungCtController extends Controller
             die(json_encode($result));
         }
         $inputs = $request->all();
-        GiaRungCt::where('id',$inputs['id'])->delete();
-        $model = GiaRungCt::where('mahs',$inputs['mahs'])->get();
+        GiaTaiSanCongCt::where('id',$inputs['id'])->delete();
+        $model = GiaTaiSanCongCt::where('mahs',$inputs['mahs'])->get();
         $result = $this->return_spdv($model);
         die(json_encode($result));
     }
@@ -83,30 +83,27 @@ class GiaRungCtController extends Controller
         $result['message'] .= '<thead>';
         $result['message'] .= '<tr>';
         $result['message'] .= '<th width="5%" style="text-align: center">STT</th>';
-        $result['message'] .= '<th style="text-align: center">Phân loại</th>';
-        $result['message'] .= '<th style="text-align: center">Loại rừng</th>';
-        $result['message'] .= '<th style="text-align: center">Nội dung chi tiết</th>';
-        $result['message'] .= '<th style="text-align: center">Diện tích rừng</th>';
-        $result['message'] .= '<th style="text-align: center">Diện tích<br>sử dụng</th>';
-        $result['message'] .= '<th style="text-align: center">Đơn vị<br>tính</th>';
-        $result['message'] .= '<th style="text-align: center" >Giá trị</th>';
+        $result['message'] .= '<th style="text-align: center">Tên tài sản</th>';
+        $result['message'] .= '<th style="text-align: center">Đặc điểm</th>';
+        $result['message'] .= '<th style="text-align: center">Nguyên giá</th>';
+        $result['message'] .= '<th style="text-align: center">Giá còn lại</th>';
+        $result['message'] .= '<th style="text-align: center">Giá phê duyệt</th>';
+        $result['message'] .= '<th style="text-align: center">Giá bán<br>(thanh lý)</th>';
         $result['message'] .= '<th style="text-align: center"> Thao tác</th>';
         $result['message'] .= '</tr>';
         $result['message'] .= '</thead>';
         $result['message'] .= '<tbody id="ttts">';
         if (count($model) > 0) {
             $i=1;
-            $a_dm = array_column(DmGiaRung::all()->toArray(), 'tennhom','manhom');
             foreach ($model as $key => $tt) {
                 $result['message'] .= '<tr>';
-                $result['message'] .= '<td style="text-align: center">' . ($key + 1) . '</td>';
-                $result['message'] .= '<td class="info">' . $tt->phanloai . '</td>';
-                $result['message'] .= '<td>' . ($a_dm[$tt->manhom] ?? '') . '</td>';
-                $result['message'] .= '<td>' . $tt->noidung . '</td>';
-                $result['message'] .= '<td style="text-align: right;">' . dinhdangso($tt->dientich) . '</td>';
-                $result['message'] .= '<td style="text-align: right;">' . dinhdangso($tt->dientichsd) . '</td>';
-                $result['message'] .= '<td>' . $tt->dvt . '</td>';
-                $result['message'] .= '<td style="text-align: right;">' . dinhdangso($tt->giatri) . '</td>';
+                $result['message'] .= '<td style="text-align: center">' . ($i++) . '</td>';
+                $result['message'] .= '<td>' .$tt->tentaisan. '</td>';
+                $result['message'] .= '<td>' . $tt->dacdiem . '</td>';
+                $result['message'] .= '<td style="text-align: right;">' . dinhdangso($tt->giathue) . '</td>';
+                $result['message'] .= '<td style="text-align: right;">' . dinhdangso($tt->giaban) . '</td>';
+                $result['message'] .= '<td style="text-align: right;">' . dinhdangso($tt->giapheduyet) . '</td>';
+                $result['message'] .= '<td style="text-align: right;">' . dinhdangso($tt->giaconlai) . '</td>';
                 $result['message'] .= '<td>' .
                     '<button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem(' . $tt->id . ');"><i class="fa fa-edit"></i>&nbsp;Sửa</button>' .
                     '<button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid(' . $tt->id . ')" ><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>'

@@ -39,10 +39,9 @@
                                 <th style="text-align: center">Đơn vị nhập</th>
                                 <th style="text-align: center">Thời điểm</th>
                                 <th style="text-align: center">Tên nhà xã hội</th>
-                                <th style="text-align: center">Mô tả</th>
-                                <th style="text-align: center">Từ ngày</th>
-                                <th style="text-align: center">Đến ngày</th>
-                                <th style="text-align: center">Đơn giá</th>
+                                <th style="text-align: center">Đơn vị<br>tính</th>
+                                <th style="text-align: center">Giá bán</th>
+                                <th style="text-align: center">Giá thuê</th>
                             </tr>
                         </thead>
 
@@ -53,10 +52,9 @@
                                     <td>{{$a_donvi[$tt->madv] ?? ''}}</td>
                                     <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
                                     <td>{{$a_nhaxh[$tt->maso] ?? ''}}</td>
-                                    <td>{{$tt->mota}}</td>
-                                    <td style="text-align: center">{{getDayVn($tt->tungay)}}</td>
-                                    <td style="text-align: center">{{getDayVn($tt->denngay)}}</td>
+                                    <td style="text-align: center">{{$tt->dvt}}</td>
                                     <td style="text-align: right">{{dinhdangso($tt->dongia)}}</td>
+                                    <td style="text-align: right">{{dinhdangso($tt->dongiathue)}}</td>
                                 </tr>
                             @endforeach
 

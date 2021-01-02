@@ -48,3 +48,117 @@ SELECT        dbo.giarung.madiaban, dbo.giarung.maxp, dbo.giarung.mahs, dbo.giar
 FROM            dbo.giarung INNER JOIN
                          dbo.giarungct ON dbo.giarung.mahs = dbo.giarungct.mahs
 GO
+
+DROP TABLE [dbo].[giathuemuanhaxhct]
+GO
+
+/****** Object:  Table [dbo].[giathuemuanhaxhct]    Script Date: 1/2/2021 2:10:13 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[giathuemuanhaxhct](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[mahs] [nvarchar](255) NULL,
+	[maso] [nvarchar](max) NULL,
+	[phanloai] [nvarchar](max) NULL,
+	[dvt] [nvarchar](30) NULL,
+	[dongia] [float] NOT NULL,
+	[dongiathue] [float] NOT NULL,
+	[tungay] [date] NULL,
+	[denngay] [date] NULL,
+	[created_at] [datetime] NULL,
+	[updated_at] [datetime] NULL,
+PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[giathuemuanhaxhct] ADD  DEFAULT ('THUENHA') FOR [phanloai]
+GO
+
+ALTER TABLE [dbo].[giathuemuanhaxhct] ADD  DEFAULT ('0') FOR [dongia]
+GO
+
+ALTER TABLE [dbo].[giathuemuanhaxhct] ADD  DEFAULT ('0') FOR [dongiathue]
+GO
+
+CREATE OR ALTER VIEW [dbo].[view_giathuemuanhaxh]
+AS
+SELECT        dbo.giathuemuanhaxh.madiaban, dbo.giathuemuanhaxh.maxp, dbo.giathuemuanhaxh.mahs, dbo.giathuemuanhaxh.soqd, dbo.giathuemuanhaxh.congbo, dbo.giathuemuanhaxh.lichsu, dbo.giathuemuanhaxh.ghichu,
+                         dbo.giathuemuanhaxh.thoidiem, dbo.giathuemuanhaxh.macqcq, dbo.giathuemuanhaxh.madv, dbo.giathuemuanhaxh.lydo, dbo.giathuemuanhaxh.thongtin, dbo.giathuemuanhaxh.trangthai, dbo.giathuemuanhaxh.thoidiem_h,
+                         dbo.giathuemuanhaxh.macqcq_h, dbo.giathuemuanhaxh.madv_h, dbo.giathuemuanhaxh.lydo_h, dbo.giathuemuanhaxh.thongtin_h, dbo.giathuemuanhaxh.trangthai_h, dbo.giathuemuanhaxh.thoidiem_t,
+                         dbo.giathuemuanhaxh.macqcq_t, dbo.giathuemuanhaxh.madv_t, dbo.giathuemuanhaxh.lydo_t, dbo.giathuemuanhaxh.thongtin_t, dbo.giathuemuanhaxh.trangthai_t, dbo.giathuemuanhaxh.thoidiem_ad,
+                         dbo.giathuemuanhaxh.macqcq_ad, dbo.giathuemuanhaxh.madv_ad, dbo.giathuemuanhaxh.lydo_ad, dbo.giathuemuanhaxh.thongtin_ad, dbo.giathuemuanhaxh.trangthai_ad, dbo.giathuemuanhaxhct.phanloai,
+                         dbo.giathuemuanhaxhct.dvt, dbo.giathuemuanhaxhct.dongia, dbo.giathuemuanhaxhct.dongiathue, dbo.giathuemuanhaxhct.tungay, dbo.giathuemuanhaxhct.denngay, dbo.dmnhaxh.tennha, dbo.dmnhaxh.diachi,
+                         dbo.dmnhaxh.donviql, dbo.dmnhaxh.dientich, dbo.dmnhaxh.hientrang, dbo.dmnhaxh.maso
+FROM            dbo.dmnhaxh INNER JOIN
+                         dbo.giathuemuanhaxhct ON dbo.dmnhaxh.maso = dbo.giathuemuanhaxhct.maso INNER JOIN
+                         dbo.giathuemuanhaxh ON dbo.giathuemuanhaxhct.mahs = dbo.giathuemuanhaxh.mahs
+GO
+
+ALTER TABLE giathuemuanhaxh
+ADD
+    [ipf1] [nvarchar](255) NULL,
+    [ipf2] [nvarchar](255) NULL,
+    [ipf3] [nvarchar](255) NULL,
+    [ipf4] [nvarchar](255) NULL,
+    [ipf5] [nvarchar](255) NULL;
+GO
+
+ALTER TABLE giataisancong
+ADD
+    [mota] [nvarchar](255) NULL,
+    [ipf1] [nvarchar](255) NULL,
+    [ipf2] [nvarchar](255) NULL,
+    [ipf3] [nvarchar](255) NULL,
+    [ipf4] [nvarchar](255) NULL,
+    [ipf5] [nvarchar](255) NULL;
+GO
+
+CREATE TABLE [dbo].[giataisancongct](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[mahs] [nvarchar](255) NULL,
+	[mataisan] [nvarchar](255) NULL,
+	[tentaisan] [nvarchar](255) NULL,
+	[dacdiem] [nvarchar](255) NULL,
+	[giathue] [float] NOT NULL,
+	[giaban] [float] NOT NULL,
+	[giapheduyet] [float] NOT NULL,
+	[giaconlai] [float] NOT NULL,
+	[created_at] [datetime] NULL,
+	[updated_at] [datetime] NULL,
+PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[giataisancongct] ADD  DEFAULT ('0') FOR [giathue]
+GO
+
+ALTER TABLE [dbo].[giataisancongct] ADD  DEFAULT ('0') FOR [giaban]
+GO
+
+ALTER TABLE [dbo].[giataisancongct] ADD  DEFAULT ('0') FOR [giapheduyet]
+GO
+
+ALTER TABLE [dbo].[giataisancongct] ADD  DEFAULT ('0') FOR [giaconlai]
+GO
+
+CREATE OR ALTER VIEW [dbo].[view_giataisancong]
+AS
+SELECT        dbo.giataisancong.madiaban, dbo.giataisancong.maxp, dbo.giataisancong.mahs, dbo.giataisancong.soqd, dbo.giataisancong.congbo, dbo.giataisancong.lichsu, dbo.giataisancong.ghichu, dbo.giataisancong.thoidiem,
+                         dbo.giataisancong.macqcq, dbo.giataisancong.madv, dbo.giataisancong.lydo, dbo.giataisancong.thongtin, dbo.giataisancong.trangthai, dbo.giataisancong.thoidiem_h, dbo.giataisancong.macqcq_h, dbo.giataisancong.madv_h,
+                         dbo.giataisancong.lydo_h, dbo.giataisancong.thongtin_h, dbo.giataisancong.trangthai_h, dbo.giataisancong.thoidiem_t, dbo.giataisancong.macqcq_t, dbo.giataisancong.madv_t, dbo.giataisancong.lydo_t,
+                         dbo.giataisancong.thongtin_t, dbo.giataisancong.trangthai_t, dbo.giataisancong.thoidiem_ad, dbo.giataisancong.macqcq_ad, dbo.giataisancong.madv_ad, dbo.giataisancong.lydo_ad, dbo.giataisancong.thongtin_ad,
+                         dbo.giataisancong.trangthai_ad, dbo.giataisancongct.mataisan, dbo.giataisancongct.tentaisan, dbo.giataisancongct.dacdiem, dbo.giataisancongct.giathue, dbo.giataisancongct.giaban, dbo.giataisancongct.giapheduyet,
+                         dbo.giataisancongct.giaconlai
+FROM            dbo.giataisancong INNER JOIN
+                         dbo.giataisancongct ON dbo.giataisancong.mahs = dbo.giataisancongct.mahs
+GO
