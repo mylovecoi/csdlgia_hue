@@ -117,11 +117,13 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                <label class="control-label">File đính kèm</label>
-                                @if($model->ipf1 != '')
-                                    <a href="{{url('/data/giahhdvk/'.$model->ipf1)}}" target="_blank">{{$model->ipf1}}</a>
-                                @endif
-                                <input name="ipf1" id="ipf1" type="file">
+                                <div class="form-group">
+                                    <label class="control-label">File đính kèm</label>
+                                    @if($model->ipf1 != '')
+                                        <a href="{{url('/data/giahhdvk/'.$model->ipf1)}}" target="_blank">{{$model->ipf1}}</a>
+                                    @endif
+                                    <input name="ipf1" id="ipf1" type="file">
+                                </div>
                             </div>
                         </div>
 
@@ -131,6 +133,18 @@
                         <input type="hidden" name="thang" id="thang" value="{{$model->thang}}">
                         <input type="hidden" name="nam" id="nam" value="{{$model->nam}}">
                         <input type="hidden" name="madiaban" id="madiaban" value="{{$model->madiaban}}">
+
+                        @if(in_array($model->trangthai, ['CHT', 'HHT']))
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        &nbsp;<button type="button" onclick="setValExl()" class="btn btn-success btn-xs mbs" data-target="#modal-importexcel" data-toggle="modal">
+                                            <i class="fa fa-file-excel-o"></i>&nbsp;Nhận dữ liệu</button>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
                         <h4 style="color: blue">Thông tin chi tiết</h4>
                         <div class="row" id="dsts">
                             <div class="col-md-12">

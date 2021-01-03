@@ -53,6 +53,10 @@
                 }
             });
         }
+
+        function setPerGroup(maso){
+            $('#frm_pergroup').find("[name='maso']").val(maso);
+        }
     </script>
 @stop
 
@@ -98,6 +102,9 @@
 
                                             <a href="{{url('/nhomtaikhoan/perm?maso='.$tt->maso)}}" class="btn btn-default btn-xs mbs">
                                                 <i class="fa fa-cogs"></i>&nbsp;Phân quyền</a>
+
+                                            <button type="button" onclick="setPerGroup('{{$tt->maso}}')" class="btn btn-default btn-xs mbs" data-target="#modify-phanquyen" data-toggle="modal">
+                                                <i class="fa fa-cogs"></i>&nbsp;Tải quyền theo tài khoản</button>
 
                                             <button type="button" onclick="getId('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal">
                                                 <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
@@ -153,6 +160,35 @@
         <!-- /.modal-dialog -->
     </div>
     {!! Form::close() !!}
+
+    {!! Form::open(['url'=>'nhomtaikhoan/set_perm_user','id' => 'frm_pergroup'])!!}
+    {!! Form::hidden('maso', null) !!}
+    <div id="modify-phanquyen" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                    <h4 id="modal-header-primary-label" class="modal-title">Phân quyền theo tài khoản</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="control-label">Tên tài khoản</label>
+                                {!!Form::select('username',$a_user, null,  array('id' => 'username','class' => 'form-control select2me'))!!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
+                    <button type="submit" id="submit" name="submit" value="submit" class="btn btn-primary">Đồng ý</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {!! Form::close() !!}
+
 
     <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">

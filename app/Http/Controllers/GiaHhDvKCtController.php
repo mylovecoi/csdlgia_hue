@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\DmHhDvK;
+use App\GiaHhDvK;
 use App\GiaHhDvKCt;
+use App\Model\system\dsdiaban;
+use App\NhomHhDvK;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
 
 class GiaHhDvKCtController extends Controller
 {
@@ -107,4 +112,73 @@ class GiaHhDvKCtController extends Controller
         }
         return $result;
     }
+
+    public function importexcel_chitiet(Request $request)
+    {
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['url'] = '/giahhdvk';
+            $inputs['act'] = 'true';
+            $filename = $inputs['madv'] . '_' . getdate()[0];
+            //dd($inputs);
+            $request->file('fexcel')->move(public_path() . '/data/uploads/excels/', $filename . '.xls');
+            $path = public_path() . '/data/uploads/excels/' . $filename . '.xls';
+            $data = [];
+
+            Excel::load($path, function ($reader) use (&$data, $inputs) {
+                $obj = $reader->getExcel();
+                $sheet = $obj->getSheet(0);
+                $data = $sheet->toArray(null, true, true, true);// giữ lại tiêu đề A=>'val';
+            });
+            $a_data = array();
+            $inputs['dendong'] = $inputs['dendong'] > count($data) ? count($data) : $inputs['dendong'];
+            for ($i = $inputs['tudong']; $i <= $inputs['dendong']; $i++) {
+                if($data[$i][$inputs['mahhdv']] == ''){
+                    continue;
+                }
+                $a_data[$data[$i][$inputs['mahhdv']]] = array(
+                    'gialk' => (isset($data[$i][$inputs['gialk']]) && $data[$i][$inputs['gialk']] != '' ? chkDbl($data[$i][$inputs['gialk']]) : 0),
+                    'gia' => (isset($data[$i][$inputs['gia']]) && $data[$i][$inputs['gia']] != '' ? chkDbl($data[$i][$inputs['gia']]) : 0),
+                );
+            }
+            $modelct = GiaHhDvKCt::where('mahs', $inputs['mahs'])->get();
+            foreach ($modelct as $key=>$val){
+                if(isset($a_data[$val->mahhdv])){
+                    $val->gia = $a_data[$val->mahhdv]['gia'];
+                    $val->gialk = $a_data[$val->mahhdv]['gialk'];
+                    $val->save();
+                }
+            }
+            File::Delete($path);
+            $model = GiaHhDvK::where('mahs', $inputs['mahs'])->first();
+            if($model == null) {
+                $model = new GiaHhDvK();
+                $model->mahs = $inputs['mahs'];
+                $model->matt = $inputs['matt'];
+                $model->madiaban = $inputs['madiaban'];
+                $model->madv = $inputs['madv'];
+                $model->trangthai = 'CHT';
+                $model->thang = $inputs['thang'];
+                $model->nam = $inputs['nam'];
+                $model->soqd = $inputs['soqd'];
+                $model->thoidiem = $inputs['thoidiem'];
+                $model->soqdlk = $inputs['soqdlk'];
+                $model->thoidiemlk = $inputs['thoidiemlk'];
+            }
+            $a_diaban = array_column(dsdiaban::where('madiaban', $inputs['madiaban'])->get()->toarray(), 'tendiaban', 'madiaban');
+            $a_tt = array_column(NhomHhDvK::where('matt', $inputs['matt'])->get()->toarray(), 'tentt', 'matt');
+            $a_dm = array_column(DmHhDvK::where('matt', $inputs['matt'])->get()->toarray(), 'tenhhdv', 'mahhdv');
+
+            return view('manage.dinhgia.giahhdvk.kekhai.edit')
+                ->with('model', $model)
+                ->with('modelct', $modelct)
+                ->with('a_diaban', $a_diaban)
+                ->with('a_tt', $a_tt)
+                ->with('a_dm', $a_dm)
+                ->with('inputs', $inputs)
+                ->with('pageTitle', 'Thông tin giá hàng hóa dịch vụ khác');
+        } else
+            return view('errors.notlogin');
+    }
+
 }

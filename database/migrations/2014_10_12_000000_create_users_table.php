@@ -20,10 +20,6 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable();
             $table->string('email')->nullable();
             $table->string('status')->nullable();
-            $table->string('maxa')->nullable();
-            $table->string('mahuyen')->nullable();
-            $table->string('town')->nullable();
-            $table->string('district')->nullable();
             $table->string('level')->nullable();
             $table->string('sadmin')->nullable();
             $table->text('permission')->nullable();
@@ -33,6 +29,7 @@ class CreateUsersTable extends Migration
             $table->string('ttnguoitao')->nullable();
             $table->text('lydo')->nullable();
             $table->text('madv')->nullable();
+            $table->text('manhomtk')->nullable();
             $table->timestamps();
         });
     }

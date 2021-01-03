@@ -34,6 +34,7 @@ Route::group(['prefix'=>'nhomtaikhoan'],function(){
     Route::get('perm', 'system\dsnhomtaikhoanController@permission');
     Route::post('perm', 'system\dsnhomtaikhoanController@store_perm');
     Route::get('get_perm', 'system\dsnhomtaikhoanController@get_perm');
+    Route::post('set_perm_user', 'system\dsnhomtaikhoanController@set_perm_user');
 });
 
 Route::group(['prefix'=>'taikhoan'],function(){

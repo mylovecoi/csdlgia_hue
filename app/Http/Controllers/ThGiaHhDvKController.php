@@ -345,7 +345,8 @@ class ThGiaHhDvKController extends Controller
                         'mahs' => $model->mahs,
                         'mahhdv' => $dm->mahhdv,
                         'gia' => $modelcthskk->where('mahhdv', $dm->mahhdv)->avg('gia'),
-                        'gialk' => $a_ctlk[$dm->mahhdv] ?? 0,
+                        'gialk' => $modelcthskk->where('mahhdv', $dm->mahhdv)->avg('gialk'),
+                        //'gialk' => $a_ctlk[$dm->mahhdv] ?? 0,
                     ];
                 }
                 ThGiaHhDvKCt::insert($a_dm);

@@ -4345,4 +4345,6 @@ function setCongBo($hoso, $a_congbo){
     $hoso->trangthai_ad = $a_congbo['trangthai'];
     $hoso->congbo = $a_congbo['congbo'];
 }
+
+
 ?>

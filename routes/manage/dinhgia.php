@@ -379,6 +379,7 @@ Route::group(['prefix'=>'giahhdvk'], function (){
     //chi tiết hồ sơ
     Route::get('edit_ct','GiaHhDvKCtController@edit');
     Route::post('update_ct','GiaHhDvKCtController@update');
+    Route::post('importexcel_chitiet','GiaHhDvKCtController@importexcel_chitiet');
     //hồ sơ
     Route::post('danhmucmau','GiaHhDvKController@filemau');
     Route::get('danhsach','GiaHhDvKController@index');

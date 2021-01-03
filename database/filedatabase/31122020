@@ -162,3 +162,8 @@ SELECT        dbo.giataisancong.madiaban, dbo.giataisancong.maxp, dbo.giataisanc
 FROM            dbo.giataisancong INNER JOIN
                          dbo.giataisancongct ON dbo.giataisancong.mahs = dbo.giataisancongct.mahs
 GO
+
+ALTER TABLE users
+ADD
+    [manhomtk] [nvarchar](255) NULL;
+GO

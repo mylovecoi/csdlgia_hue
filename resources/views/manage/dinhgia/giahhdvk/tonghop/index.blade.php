@@ -258,6 +258,7 @@
                     </h4>
                 </div>
                 <div class="modal-body">
+                    <p style="color: #0000FF">Phần mềm sẽ lấy các báo cáo giá hàng hóa, dịch vụ của các Thành phố, Huyện theo thời gian tương ứng để chia trung bình.</p>
                     <div class="form-horizontal">
                         <div class="form-group">
                             <div class="col-md-12">

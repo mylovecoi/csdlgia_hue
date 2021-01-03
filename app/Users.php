@@ -14,11 +14,6 @@ class Users extends Model
         'phone',
         'email',
         'status',
-        'maxa',
-        'mahuyen',
-        'town',
-        'district',
-        'cqcq',
         'level',
         'sadmin',
         'permission',
@@ -27,6 +22,7 @@ class Users extends Model
         'answer',
         'ttnguoitao',
         'lydo',
-        'madv'
+        'madv',
+        'manhomtk',
     ];
 }

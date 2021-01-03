@@ -67,7 +67,7 @@
                 <td style="text-align: right;font-weight: bold">{{dinhdangsothapphan($tt->gia,5)}}</td>
                 <td style="text-align: right;font-weight: bold">{{number_format($tt->gialk) == 0 ? '' : dinhdangsothapphan($tt->gia - $tt->gialk,5)}}</td>
                 <td style="text-align: right;font-weight: bold">{{number_format($tt->gialk) == 0 ? ''
-                            : dinhdangsothapphan(($tt->gia-$tt->gialk)/$tt->gialk,2)}}</td>
+                            : dinhdangsothapphan(($tt->gia-$tt->gialk)*100/$tt->gialk,2)}}</td>
                 <td>{{$tt->nguontt}}</td>
                 <td>{{$tt->ghichu}}</td>
             </tr>

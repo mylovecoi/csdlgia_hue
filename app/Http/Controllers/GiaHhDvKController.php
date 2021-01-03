@@ -51,7 +51,7 @@ class GiaHhDvKController extends Controller
                 $model = $model->whereYear('thoidiem', $inputs['nam']);
             //dd($model->get());
             return view('manage.dinhgia.giahhdvk.kekhai.index')
-                ->with('model', $model->get()->sortby('nam')->sortby('thang'))
+                ->with('model', $model->orderby('nam')->orderby('thang')->get())
                 ->with('inputs', $inputs)
                 //->with('m_diaban', $m_diaban)
                 ->with('a_nhom', $a_nhom)
@@ -374,7 +374,7 @@ class GiaHhDvKController extends Controller
                     $model = GiaHhDvK::where('madv_h', $inputs['madv']);
                     if ($inputs['nam'] != 'all')
                         $model = $model->whereYear('thoidiem_h', $inputs['nam']);
-                    $model = $model->get();
+                    $model = $model->orderby('nam')->orderby('thang')->get();
                     foreach ($model as $ct){
                         $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
                         $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
@@ -391,7 +391,7 @@ class GiaHhDvKController extends Controller
                     $model = GiaHhDvK::where('madv_t', $inputs['madv']);
                     if ($inputs['nam'] != 'all')
                         $model = $model->whereYear('thoidiem_t', $inputs['nam']);
-                    $model = $model->get();
+                    $model = $model->orderby('nam')->orderby('thang')->get();
                     foreach ($model as $ct){
                         $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
                         $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
@@ -408,7 +408,7 @@ class GiaHhDvKController extends Controller
                     $model = GiaHhDvK::where('madv_ad', $inputs['madv']);
                     if ($inputs['nam'] != 'all')
                         $model = $model->whereYear('thoidiem_ad', $inputs['nam']);
-                    $model = $model->get();
+                    $model = $model->orderby('nam')->orderby('thang')->get();
                     foreach ($model as $ct){
                         $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
                         $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';

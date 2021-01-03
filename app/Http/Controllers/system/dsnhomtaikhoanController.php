@@ -7,6 +7,7 @@ use App\Model\system\danhmucchucnang;
 use App\Model\system\dsdiaban;
 use App\Model\system\dsdonvi;
 use App\Model\system\dsnhomtaikhoan;
+use App\Model\system\view_dsdiaban_donvi;
 use App\Users;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -21,9 +22,13 @@ class dsnhomtaikhoanController extends Controller
                 return view('errors.noperm');
             }
             $model = dsnhomtaikhoan::all();
+            $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
+            $a_donvi = array_column(view_dsdiaban_donvi::wherein('madiaban', array_keys($a_diaban))->get()->toarray(),'madv');
+            $a_user = array_column(Users::wherein('madv', $a_donvi)->get()->toarray(), 'name', 'username');
             //dd($model);
             return view('system.nhomtaikhoan.index')
                 ->with('model', $model)
+                ->with('a_user', array_merge(['ALL'=>'-- Xóa phân quyền --'],$a_user))
                 ->with('a_phanloai', getPhanLoaiDonVi())
                 ->with('pageTitle', 'Danh sách nhóm tài khoản');
         } else
@@ -312,5 +317,25 @@ Cập nhật quyền user vào quyền mặc định (để luôn chạy theo qu
         $result['message'] .= '</div>';
 
         die(json_encode($result));
+    }
+
+    function set_perm_user(Request $request){
+        if (Session::has('admin')) {
+            //tài khoản SSA; tài khoản quản trị + có phân quyền
+            if (!chkPer('hethong', 'hethong_pq', 'nhomtaikhoan','danhmuc', 'modify')) {
+                return view('errors.noperm');
+            }
+            $inputs = $request->all();
+            if($inputs['username'] == 'ALL'){
+                $permission = null;
+            }else{
+                $permission = Users::where('username',$inputs['username'])->first()->permission;
+            }
+            $model = dsnhomtaikhoan::where('maso',$inputs['maso'])->first();
+            $model->permission = $permission;
+            $model->save();
+            return redirect('/nhomtaikhoan/danhsach');
+        } else
+            return view('errors.notlogin');
     }
 }
