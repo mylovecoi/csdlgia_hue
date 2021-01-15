@@ -33,6 +33,13 @@
             $('#hdthue').val('');
             $('#ththue').val('');
             $('#sotienthuenam').val('0');
+            $('#diachi').val('');
+            $('#soqdpd').val('');
+            $('#thoigianpd').val();
+            $('#soqddg').val('');
+            $('#thoigiandg').val();
+            $('#thuetungay').val();
+            $('#thuedenngay').val();
             $('#trangthai').val('ADD');
             InputMask();
         }
@@ -53,6 +60,13 @@
                     sotienthuenam:$('#sotienthuenam').val(),
                     mahs:$('#mahs').val(),
                     trangthai:$('#trangthai').val(),
+                    diachi: $('#diachi').val(),
+                    soqdpd: $('#soqdpd').val(),
+                    thoigianpd: $('#thoigianpd').val(),
+                    soqddg: $('#soqddg').val(),
+                    thoigiandg: $('#thoigiandg').val(),
+                    thuetungay: $('#thuetungay').val(),
+                    thuedenngay: $('#thuedenngay').val(),
                 },
                 dataType: 'JSON',
                 success: function (data) {
@@ -90,6 +104,13 @@
                     form.find("[name='ththue']").val(data.ththue);
                     form.find("[name='sotienthuenam']").val(data.sotienthuenam);
                     form.find("[name='trangthai']").val('EDIT');
+                    form.find("[name='diachi']").val(data.diachi);
+                    form.find("[name='soqdpd']").val(data.soqdpd);
+                    form.find("[name='thoigianpd']").val(data.thoigianpd);
+                    form.find("[name='soqddg']").val(data.soqddg);
+                    form.find("[name='thoigiandg']").val(data.thoigiandg);
+                    form.find("[name='thuetungay']").val(data.thuetungay);
+                    form.find("[name='thuedenngay']").val(data.thuedenngay);
                     InputMask();
                 },
             })
@@ -283,23 +304,76 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label">Đơn vị thuê</label>
-                                <input type="text" id="dvthue" name="dvthue" class="form-control" style="font-weight: bold">
+                                <input type="text" id="dvthue" name="dvthue" class="form-control" />
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Địa chỉ</label>
+                                <input type="text" id="diachi" name="diachi" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Số quyết định phê duyệt</label>
+                                {!!Form::text('soqdpd',null, array('id' => 'soqdpd','class' => 'form-control'))!!}
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Thời điểm phê duyệt</label>
+                                {!! Form::input('date', 'thoigianpd', null, array('id' => 'thoigianpd', 'class' => 'form-control'))!!}
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Số quyết định đấu giá</label>
+                                {!!Form::text('soqddg',null, array('id' => 'soqddg','class' => 'form-control'))!!}
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Thời điểm đấu giá</label>
+                                {!! Form::input('date', 'thoigiandg', null, array('id' => 'thoigiandg', 'class' => 'form-control'))!!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label class="control-label">Hợp đồng số</label>
                                 <input type="text" id="hdthue" name="hdthue"  class="form-control" style="font-weight: bold">
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
-                                <label class="control-label">Thời hạn</label>
+                                <label class="control-label">Thời hạn thuê</label>
                                 <input type="text" id="ththue" name="ththue"  class="form-control" style="font-weight: bold">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Thuê từ ngày</label>
+                                {!! Form::input('date', 'thuetungay', null, array('id' => 'thuetungay', 'class' => 'form-control'))!!}
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Thuê đến ngày</label>
+                                {!! Form::input('date', 'thuedenngay', null, array('id' => 'thuedenngay', 'class' => 'form-control'))!!}
                             </div>
                         </div>
                     </div>

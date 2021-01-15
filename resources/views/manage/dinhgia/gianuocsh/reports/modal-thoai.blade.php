@@ -56,6 +56,7 @@
                     <div class="col-md-12">
                         <label><b>Báo cáo liền kề</b></label>
                         <select name="mahslk" id="mahslk" class="form-control">
+                            <option value="ALL">-- Chọn báo cáo liền kề --</option>
                             @foreach($modelhs as $hslk)
                                 <option value="{{$hslk->mahs}}">Số {{$hslk->soqd}}- Ngày {{getDayVn($hslk->ngayapdung)}}-{{$hslk->mota}}</option>
                             @endforeach
@@ -63,8 +64,9 @@
                     </div>
 
                     <div class="col-md-12">
-                        <label><b>Báo cáo so sánh</b></label>
+                        <label><b>Báo cáo</b></label>
                         <select name="mahsbc" id="mahsbc" class="form-control">
+                            <option value="ALL">-- Chọn báo cáo--</option>
                             @foreach($modelhs as $hsbc)
                                 <option value="{{$hsbc->mahs}}">Số {{$hslk->soqd}}- Ngày {{getDayVn($hsbc->ngayapdung)}}-{{$hsbc->mota}}</option>
                             @endforeach

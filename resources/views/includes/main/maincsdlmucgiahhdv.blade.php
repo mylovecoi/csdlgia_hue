@@ -150,6 +150,11 @@
                                 </a>
                             </li>
                         @endif
+                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuemuanhaxh', 'khac','baocao'))
+                            <li>
+                                <a href="{{url('/thuemuanhaxahoi/baocao')}}">Báo cáo tổng hợp</a>
+                            </li>
+                        @endif
                     </ul>
                 </li>
             @endif
@@ -231,6 +236,11 @@
                                 <a href="{{url('/giathuetscong/timkiem')}}">
                                     Tìm kiếm hồ sơ
                                 </a>
+                            </li>
+                        @endif
+                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetscong', 'khac','baocao'))
+                            <li>
+                                <a href="{{url('/giathuetscong/baocao')}}">Báo cáo tổng hợp</a>
                             </li>
                         @endif
                     </ul>

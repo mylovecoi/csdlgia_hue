@@ -2742,11 +2742,13 @@ function getPhanQuyen()
         'index' => '0',
         'danhmuc' => array('index' => '0', 'modify' => '0',),
         'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+        'khac' => array('baocao' => '0',),
     );
     $gui['giathuemuanhaxh'] = array(
         'index' => '0',
         'danhmuc' => array('index' => '0', 'modify' => '0',),
         'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+        'khac' => array('baocao' => '0',),
     );
     $gui['giathuenhacongvu'] = array(
         'index' => '0',
@@ -2768,6 +2770,7 @@ function getPhanQuyen()
         'index' => '0',
         'danhmuc' => array('index' => '0', 'modify' => '0',),
         'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+        'khac' => array('baocao' => '0',),
     );
     $gui['giathuetsdautu'] = array(
         'index' => '0',

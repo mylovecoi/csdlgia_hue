@@ -593,6 +593,10 @@ Route::group(['prefix'=>'giathuetscong'], function (){
 
     Route::get('timkiem','GiaThueTsCongController@timkiem');
     Route::post('timkiem','GiaThueTsCongController@ketquatk');
+
+//    Route::get('getBCLK','manage\gianuocsachsh\GiaNuocShBcController@getBCLK');
+    Route::get('baocao','manage\giathuetscong\GiaThueTsCongBcController@index');
+    Route::post('baocao/tonghop','manage\giathuetscong\GiaThueTsCongBcController@tonghop');
 });
 
 //giá tài sản công
@@ -731,6 +735,9 @@ Route::group(['prefix'=>'thuemuanhaxahoi'],function (){
 
     Route::get('timkiem','manage\thuemuanhaxh\GiaThueMuaNhaXhController@timkiem');
     Route::post('timkiem','manage\thuemuanhaxh\GiaThueMuaNhaXhController@ketquatk');
+
+    Route::get('baocao','manage\thuemuanhaxh\GiaThueMuaNhaXhBcController@index');
+    Route::post('baocao/tonghop','manage\thuemuanhaxh\GiaThueMuaNhaXhBcController@tonghop');
 });
 
 //Giá thị trường

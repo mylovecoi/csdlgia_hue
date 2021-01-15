@@ -27,6 +27,10 @@ class GiaThueMuaNhaXhCtController extends Controller
             dmdvt::insert(['dvt' => $inputs['dvt']]);
         }
 
+        $inputs['thoigianpd'] = getDateToDb($inputs['thoigianpd']);
+        $inputs['thoigiandg'] = getDateToDb($inputs['thoigiandg']);
+        $inputs['tungay'] = getDateToDb($inputs['tungay']);
+        $inputs['denngay'] = getDateToDb($inputs['denngay']);
         $inputs['dongia'] = getDoubleToDb($inputs['dongia']);
         $inputs['dongiathue'] = getDoubleToDb($inputs['dongiathue']);
         $m_chk = GiaThueMuaNhaXhCt::where('id',$inputs['id'])->first();
@@ -85,10 +89,11 @@ class GiaThueMuaNhaXhCtController extends Controller
         $result['message'] .= '<tr>';
         $result['message'] .= '<th width="5%" style="text-align: center">STT</th>';
         $result['message'] .= '<th style="text-align: center">Tên nhà</th>';
+        $result['message'] .= '<th style="text-align: center">Tên đơn vị</th>';
         $result['message'] .= '<th style="text-align: center">Đơn vị<br>tính</th>';
         $result['message'] .= '<th style="text-align: center">Giá bán</th>';
         $result['message'] .= '<th style="text-align: center">Giá thuê</th>';
-        $result['message'] .= '<th style="text-align: center"> Thao tác</th>';
+        $result['message'] .= '<th style="text-align: center">Thao tác</th>';
         $result['message'] .= '</tr>';
         $result['message'] .= '</thead>';
         $result['message'] .= '<tbody id="ttts">';
@@ -99,6 +104,7 @@ class GiaThueMuaNhaXhCtController extends Controller
                 $result['message'] .= '<tr>';
                 $result['message'] .= '<td style="text-align: center">' . ($i++) . '</td>';
                 $result['message'] .= '<td>' . ($a_dm[$tt->maso] ?? '') . '</td>';
+                $result['message'] .= '<td>' . $tt->dvthue . '</td>';
                 $result['message'] .= '<td>' . $tt->dvt . '</td>';
                 $result['message'] .= '<td style="text-align: right;">' . dinhdangso($tt->dongia) . '</td>';
                 $result['message'] .= '<td style="text-align: right;">' . dinhdangso($tt->dongiathue) . '</td>';

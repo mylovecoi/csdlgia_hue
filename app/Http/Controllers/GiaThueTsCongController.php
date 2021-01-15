@@ -104,7 +104,7 @@ class GiaThueTsCongController extends Controller
                 ->with('m_donvi',$m_donvi)
                 ->with('a_ts',$a_ts)
                 ->with('inputs',$inputs)
-                ->with('pageTitle','Hồ sơ thuê mặt đất, mặt nước');
+                ->with('pageTitle','Thông tin chi tiết hồ sơ');
         }else
             return view('errors.notlogin');
     }

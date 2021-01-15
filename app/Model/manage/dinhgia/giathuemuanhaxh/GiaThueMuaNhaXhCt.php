@@ -18,5 +18,13 @@ class GiaThueMuaNhaXhCt extends Model
         'dongiathue',
         'tungay',
         'denngay',
+        'dvthue',
+        'hdthue',
+        'ththue',
+        'diachi',
+        'soqdpd',
+        'thoigianpd',
+        'soqddg',
+        'thoigiandg',
     ];
 }

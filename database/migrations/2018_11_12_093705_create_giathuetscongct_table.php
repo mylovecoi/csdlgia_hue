@@ -24,6 +24,13 @@ class CreateGiathuetscongctTable extends Migration
             $table->string('ththue')->nullable();
             $table->string('sotienthuenam')->nullable();
             $table->string('mahs')->nullable();
+            $table->string('diachi')->nullable();
+            $table->string('soqdpd')->nullable();
+            $table->date('thoigianpd')->nullable();
+            $table->string('soqddg')->nullable();
+            $table->date('thoigiandg')->nullable();
+            $table->date('thuetungay')->nullable();
+            $table->date('thuedenngay')->nullable();
             $table->timestamps();
         });
     }

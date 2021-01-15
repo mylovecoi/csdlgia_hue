@@ -40,6 +40,47 @@
                     $('#giachuathue3').val(data.giachuathue3);
                     $('#giachuathue4').val(data.giachuathue4);
                     $('#id').val(data.id);
+                    //alert(data.namchuathue);
+                    if(data.namchuathue == '' || data.namchuathue == null ){
+                        if($('#tunam').val()!='' || $('#dennam').val()!=''){
+                            var i=1;
+                            var tunam = $('#tunam').val();
+                            var dennam = $('#dennam').val();
+                            for(j=tunam; j<=dennam; j++) {
+                                switch (i) {
+                                    case(1):{
+                                        $('#namchuathue').val(j);
+                                        break;
+                                    }
+                                    case(2):{
+                                        $('#namchuathue1').val(j);
+                                        break;
+                                    }
+                                    case(3):{
+                                        $('#namchuathue2').val(j);
+                                        break;
+                                    }
+                                    case(4):{
+                                        $('#namchuathue3').val(j);
+                                        break;
+                                    }
+                                    case(5):{
+                                        $('#namchuathue4').val(j);
+                                        break;
+                                    }
+                                }
+                                i++;
+                            }
+                        }
+                    }else{
+                        $('#namchuathue').val(data.namchuathue);
+                        $('#namchuathue1').val(data.namchuathue1);
+                        $('#namchuathue2').val(data.namchuathue2);
+                        $('#namchuathue3').val(data.namchuathue3);
+                        $('#namchuathue4').val(data.namchuathue4);
+
+                    }
+
                     InputMask();
                 },
                 error: function (message) {
@@ -72,6 +113,11 @@
                     giachuathue2: $('#giachuathue2').val(),
                     giachuathue3: $('#giachuathue3').val(),
                     giachuathue4: $('#giachuathue4').val(),
+                    namchuathue: $('#namchuathue').val(),
+                    namchuathue1: $('#namchuathue1').val(),
+                    namchuathue2: $('#namchuathue2').val(),
+                    namchuathue3: $('#namchuathue3').val(),
+                    namchuathue4: $('#namchuathue4').val(),
                     mahs: $('#mahs').val(),
                     tunam: $('#tunam').val(),
                     dennam: $('#dennam').val(),
@@ -207,12 +253,18 @@
                                         <tr>
                                             <th rowspan="2" style="text-align: center" width="2%">STT</th>
                                             <th rowspan="2" style="text-align: center">Mục đích sử dụng</th>
-                                            <th colspan="{{$model->dennam - $model->tunam > 0 ? ($model->dennam - $model->tunam) + 1 : 1}}" style="text-align: center">Đơn giá</th>
-                                            <th rowspan="2" style="text-align: center" width="10%">Thao tác</th>
+{{--                                            <th colspan="{{$model->dennam - $model->tunam > 0 ? ($model->dennam - $model->tunam) + 1 : 1}}" style="text-align: center">Đơn giá</th>--}}
+                                            <th colspan="2" width="10%" style="text-align: center">Đơn giá</th>
+                                            <th colspan="2" width="10%" style="text-align: center">Đơn giá</th>
+                                            <th colspan="2" width="10%" style="text-align: center">Đơn giá</th>
+                                            <th colspan="2" width="10%" style="text-align: center">Đơn giá</th>
+                                            <th colspan="2" width="10%" style="text-align: center">Đơn giá</th>
+                                            <th rowspan="2" style="text-align: center" width="8%">Thao tác</th>
                                         </tr>
                                         <tr>
-                                            @for($i=0; $i< ($model->dennam - $model->tunam > 0 ? ($model->dennam - $model->tunam) + 1 : 1); $i++)
-                                                <th width="7%" style="text-align: center">{{$model->tunam + $i}}</th>
+                                            @for($i=0; $i < 5; $i++)
+                                                <th style="text-align: center">Năm<br>áp<br>dụng</th>
+                                                <th width="7%" style="text-align: center">Giá<br>tiền</th>
                                             @endfor
                                         </tr>
                                     </thead>
@@ -221,10 +273,16 @@
                                             <tr class="odd gradeX">
                                                 <td style="text-align: center">{{$key + 1}}</td>
                                                 <td class="active">{{$tt->doituongsd}}</td>
-                                                @for($i=0; $i< ($model->dennam - $model->tunam > 0 ? ($model->dennam - $model->tunam) + 1 : 1); $i++)
-                                                    <?php $col= $i > 0 ?'giachuathue'.$i : 'giachuathue'; ?>
-                                                    <td class="active">{{number_format($tt->$col)}}</td>
-                                                @endfor
+                                                <td>{{$tt->namchuathue}}</td>
+                                                <td>{{dinhdangsothapphan($tt->giachuathue)}}</td>
+                                                <td>{{$tt->namchuathue1}}</td>
+                                                <td>{{dinhdangsothapphan($tt->giachuathue1)}}</td>
+                                                <td>{{$tt->namchuathue2}}</td>
+                                                <td>{{dinhdangsothapphan($tt->giachuathue2)}}</td>
+                                                <td>{{$tt->namchuathue3}}</td>
+                                                <td>{{dinhdangsothapphan($tt->giachuathue3)}}</td>
+                                                <td>{{$tt->namchuathue4}}</td>
+                                                <td>{{dinhdangsothapphan($tt->giachuathue4)}}</td>
 
                                                 <td>
                                                     @if(in_array($model->trangthai, ['CHT', 'HHT']))
@@ -261,7 +319,7 @@
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
                         <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-                        <h4 id="modal-header-primary-label" class="modal-title">Chỉnh sửa thông tin giá nước sạch sinh hoạt</h4>
+                        <h4 id="modal-header-primary-label" class="modal-title">Thông tin chi tiết hồ sơ</h4>
                     </div>
                     <div class="modal-body" id="edit_node">
                         <div class="row">
@@ -273,34 +331,46 @@
                             </div>
                         </div>
                         <div class="row">
-
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Năm áp dụng 1</label>
+                                    {!!Form::text('namchuathue',null, array('id' => 'namchuathue','class' => 'form-control'))!!}
+                                </div>
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Đơn giá 1</label>
-                                    {!!Form::text('giachuathue',null, array('id' => 'giachuathue','data-mask'=>'fdecimal','class' => 'form-control','style'=>'text-align: right;font-weight: bold'))!!}
+                                    {!!Form::text('giachuathue',null, array('id' => 'giachuathue','data-mask'=>'fdecimal','class' => 'form-control','style'=>'text-align: right'))!!}
                                 </div>
                             </div>
+                        </div>
 
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Năm áp dụng 2</label>
+                                    {!!Form::text('namchuathue1',null, array('id' => 'namchuathue1','class' => 'form-control'))!!}
+                                </div>
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Đơn giá 2</label>
-                                    {!!Form::text('giachuathue1',null, array('id' => 'giachuathue1','data-mask'=>'fdecimal','class' => 'form-control','style'=>'text-align: right;font-weight: bold'))!!}
+                                    {!!Form::text('giachuathue1',null, array('id' => 'giachuathue1','data-mask'=>'fdecimal','class' => 'form-control','style'=>'text-align: right'))!!}
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Năm áp dụng 3</label>
+                                    {!!Form::text('namchuathue2',null, array('id' => 'namchuathue2','class' => 'form-control'))!!}
+                                </div>
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Đơn giá 3</label>
-                                    {!!Form::text('giachuathue2',null, array('id' => 'giachuathue2','data-mask'=>'fdecimal','class' => 'form-control','style'=>'text-align: right;font-weight: bold'))!!}
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">Đơn giá 4</label>
-                                    {!!Form::text('giachuathue3',null, array('id' => 'giachuathue3','data-mask'=>'fdecimal','class' => 'form-control','style'=>'text-align: right;font-weight: bold'))!!}
+                                    {!!Form::text('giachuathue2',null, array('id' => 'giachuathue2','data-mask'=>'fdecimal','class' => 'form-control','style'=>'text-align: right;'))!!}
                                 </div>
                             </div>
                         </div>
@@ -308,8 +378,29 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label class="control-label">Năm áp dụng 4</label>
+                                    {!!Form::text('namchuathue3',null, array('id' => 'namchuathue3','class' => 'form-control'))!!}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Đơn giá 4</label>
+                                    {!!Form::text('giachuathue3',null, array('id' => 'giachuathue3','data-mask'=>'fdecimal','class' => 'form-control','style'=>'text-align: right;'))!!}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Năm áp dụng 5</label>
+                                    {!!Form::text('namchuathue4',null, array('id' => 'namchuathue4','class' => 'form-control'))!!}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
                                     <label class="control-label">Đơn giá 5</label>
-                                    {!!Form::text('giachuathue4',null, array('id' => 'giachuathue4','data-mask'=>'fdecimal','class' => 'form-control','style'=>'text-align: right;font-weight: bold'))!!}
+                                    {!!Form::text('giachuathue4',null, array('id' => 'giachuathue4','data-mask'=>'fdecimal','class' => 'form-control','style'=>'text-align: right;'))!!}
                                 </div>
                             </div>
                         </div>

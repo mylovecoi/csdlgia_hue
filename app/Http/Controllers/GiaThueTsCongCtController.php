@@ -21,6 +21,10 @@ class GiaThueTsCongCtController extends Controller
         $inputs = $request->all();
         $inputs['dongiathue'] = getMoneyToDb($inputs['dongiathue']);
         $inputs['sotienthuenam'] = getMoneyToDb($inputs['sotienthuenam']);
+        $inputs['thoigianpd'] = getDateToDb($inputs['thoigianpd']);
+        $inputs['thoigiandg'] = getDateToDb($inputs['thoigiandg']);
+        $inputs['thuetungay'] = getDateToDb($inputs['thuetungay']);
+        $inputs['thuedenngay'] = getDateToDb($inputs['thuedenngay']);
         $m_chk = GiaThueTsCongCt::where('mataisan',$inputs['mataisan'])->where('mahs',$inputs['mahs'])->first();
         if($inputs['trangthai'] == 'ADD'){
             if($m_chk == null){

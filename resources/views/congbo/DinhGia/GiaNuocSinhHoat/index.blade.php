@@ -51,13 +51,22 @@
                 <table id="sample_4" class="table table-striped table-bordered table-hover" >
                     <thead>
                         <tr>
-                            <th style="text-align: center" width="2%">STT</th>
-                            <th style="text-align: center">Địa bàn</th>
-                            <th style="text-align: center">Ngày áp dụng</th>
-                            <th style="text-align: center">Mô tả</th>
-                            <th style="text-align: center">Đối tượng áp dụng</th>
-                            <th style="text-align: center">Đơn giá</th>
-                            <th style="text-align: center" >Ghi chú</th>
+                            <th rowspan="2"  style="text-align: center" width="2%">STT</th>
+                            <th rowspan="2"  style="text-align: center">Địa bàn</th>
+                            <th rowspan="2"  style="text-align: center">Ngày áp dụng</th>
+                            <th rowspan="2"  style="text-align: center">Mô tả</th>
+                            <th rowspan="2"  style="text-align: center">Đối tượng áp dụng</th>
+                            <th colspan="2" width="10%" style="text-align: center">Đơn giá</th>
+                            <th colspan="2" width="10%" style="text-align: center">Đơn giá</th>
+                            <th colspan="2" width="10%" style="text-align: center">Đơn giá</th>
+                            <th colspan="2" width="10%" style="text-align: center">Đơn giá</th>
+                            <th colspan="2" width="10%" style="text-align: center">Đơn giá</th>
+                        </tr>
+                        <tr>
+                            @for($i=0; $i < 5; $i++)
+                                <th style="text-align: center">Năm<br>áp<br>dụng</th>
+                                <th width="7%" style="text-align: center">Giá<br>tiền</th>
+                            @endfor
                         </tr>
                     </thead>
                     <tbody>
@@ -66,25 +75,35 @@
                         <tr>
                             <td style="text-align: center">{{$i++}}</td>
                             <td><b>{{$a_diaban[$tt->madiaban] ?? ''}}</b></td>
-                            <td style="text-align: center;"><b>{{getDayVn($tt->thoidiem)}}</b></td>
+                            <td style="text-align: center;"><b>{{getDayVn($tt->ngayapdung)}}</b></td>
+                            <td style="text-align: center">{{$tt->mota}}</td>
                             <td style="text-align: center">
                                 <button type="button" onclick="get_attack('{{$tt->mahs}}','gianuocsachsinhhoat')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
                                     <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp đính kèm</button>
                             </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            @for($i=0; $i < 10; $i++)
+                                <td></td>
+                            @endfor
                         </tr>
                     @endforeach
                         @foreach($model as $key => $tt)
                             <tr>
                                 <td style="text-align: center">{{$key+1}}</td>
                                 <td><b>{{$a_diaban[$tt->madiaban] ?? ''}}</b></td>
-                                <td style="text-align: center;"><b>{{getDayVn($tt->thoidiem)}}</b></td>
+                                <td style="text-align: center;"><b>{{getDayVn($tt->ngayapdung)}}</b></td>
                                 <td style="text-align: center">{{$tt->mota}}</td>
                                 <td style="text-align: left">{{$tt->doituongsd}}</td>
-                                <td style="text-align: right">{{dinhdangso($tt->giachuathue)}}</td>
-                                <td style="text-align: center">{{$tt->ghichu}}</td>
+                                <td class="text-center">{{$tt->namchuathue}}</td>
+                                <td class="text-right">{{dinhdangsothapphan($tt->giachuathue)}}</td>
+                                <td class="text-center">{{$tt->namchuathue1}}</td>
+                                <td class="text-right">{{dinhdangsothapphan($tt->giachuathue1)}}</td>
+                                <td class="text-center">{{$tt->namchuathue2}}</td>
+                                <td class="text-right">{{dinhdangsothapphan($tt->giachuathue2)}}</td>
+                                <td class="text-center">{{$tt->namchuathue3}}</td>
+                                <td class="text-right">{{dinhdangsothapphan($tt->giachuathue3)}}</td>
+                                <td class="text-center">{{$tt->namchuathue4}}</td>
+                                <td class="text-right">{{dinhdangsothapphan($tt->giachuathue4)}}</td>
+
                             </tr>
                         @endforeach
                     </tbody>

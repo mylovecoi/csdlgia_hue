@@ -23,6 +23,14 @@ class CreateGiathuemuanhaxhctTable extends Migration
             $table->double('dongiathue')->default(0);
             $table->date('tungay')->nullable();
             $table->date('denngay')->nullable();
+            $table->string('dvthue')->nullable();
+            $table->string('hdthue')->nullable();
+            $table->string('ththue')->nullable();
+            $table->string('diachi')->nullable();
+            $table->string('soqdpd')->nullable();
+            $table->date('thoigianpd')->nullable();
+            $table->string('soqddg')->nullable();
+            $table->date('thoigiandg')->nullable();
             $table->timestamps();
         });
     }

@@ -32,16 +32,24 @@
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box">
                 <div class="portlet-body form-horizontal">
-                    <table id="sample_3" class="table table-striped table-bordered table-hover">
+                    <table id="sample_4" class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th width="2%" style="text-align: center">STT</th>
-                                <th style="text-align: center">Đơn vị nhập</th>
-                                <th style="text-align: center">Thời điểm</th>
-                                <th style="text-align: center">Nội dung</th>
-                                <th style="text-align: center">Đối tượng sử dụng</th>
-
-                                <th style="text-align: center">Giá trị</th>
+                                <th rowspan="2" width="2%" style="text-align: center">STT</th>
+                                <th rowspan="2" style="text-align: center">Đơn vị nhập</th>
+                                <th rowspan="2" style="text-align: center">Thời điểm</th>
+                                <th rowspan="2" style="text-align: center">Đối tượng sử dụng</th>
+                                <th colspan="2" width="10%" style="text-align: center">Đơn giá</th>
+                                <th colspan="2" width="10%" style="text-align: center">Đơn giá</th>
+                                <th colspan="2" width="10%" style="text-align: center">Đơn giá</th>
+                                <th colspan="2" width="10%" style="text-align: center">Đơn giá</th>
+                                <th colspan="2" width="10%" style="text-align: center">Đơn giá</th>
+                            </tr>
+                            <tr>
+                                @for($i=0; $i < 5; $i++)
+                                    <th style="text-align: center">Năm<br>áp<br>dụng</th>
+                                    <th width="7%" style="text-align: center">Giá<br>tiền</th>
+                                @endfor
                             </tr>
                         </thead>
 
@@ -52,8 +60,16 @@
                                     <td>{{$a_donvi[$tt->madv] ?? ''}}</td>
                                     <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
                                     <td>{{$tt->doituongsd}}</td>
-                                    <td>{{$tt->mota}}</td>
-                                    <td style="text-align: right">{{dinhdangso($tt->giachuathue)}}</td>
+                                    <td class="text-center">{{$tt->namchuathue}}</td>
+                                    <td class="text-right">{{dinhdangsothapphan($tt->giachuathue)}}</td>
+                                    <td class="text-center">{{$tt->namchuathue1}}</td>
+                                    <td class="text-right">{{dinhdangsothapphan($tt->giachuathue1)}}</td>
+                                    <td class="text-center">{{$tt->namchuathue2}}</td>
+                                    <td class="text-right">{{dinhdangsothapphan($tt->giachuathue2)}}</td>
+                                    <td class="text-center">{{$tt->namchuathue3}}</td>
+                                    <td class="text-right">{{dinhdangsothapphan($tt->giachuathue3)}}</td>
+                                    <td class="text-center">{{$tt->namchuathue4}}</td>
+                                    <td class="text-right">{{dinhdangsothapphan($tt->giachuathue4)}}</td>
                                 </tr>
                             @endforeach
 

@@ -18,5 +18,13 @@ class GiaThueTsCongCt extends Model
         'ththue',
         'sotienthuenam',
         'mahs',
+
+        'diachi',
+        'soqdpd',
+        'thoigianpd',
+        'soqddg',
+        'thoigiandg',
+        'thuetungay',
+        'thuedenngay',
     ];
 }
