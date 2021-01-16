@@ -1700,6 +1700,11 @@
                     Tìm kiếm hồ sơ
                 </a>
             </li>
+            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadatthitruong', 'khac','baocao'))
+                <li>
+                    <a href="{{url('/giadatthitruong/baocao')}}">Báo cáo tổng hợp</a>
+                </li>
+            @endif
         </ul>
     </li>
 @endif

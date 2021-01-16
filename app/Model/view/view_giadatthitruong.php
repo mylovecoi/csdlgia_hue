@@ -15,8 +15,10 @@ SELECT        dbo.giadatthitruong.madiaban, dbo.giadatthitruong.maxp, dbo.giadat
                          dbo.giadatthitruong.thoidiem, dbo.giadatthitruong.macqcq, dbo.giadatthitruong.madv, dbo.giadatthitruong.lydo, dbo.giadatthitruong.thongtin, dbo.giadatthitruong.trangthai, dbo.giadatthitruong.thoidiem_h,
                          dbo.giadatthitruong.macqcq_h, dbo.giadatthitruong.madv_h, dbo.giadatthitruong.lydo_h, dbo.giadatthitruong.thongtin_h, dbo.giadatthitruong.trangthai_h, dbo.giadatthitruong.thoidiem_t, dbo.giadatthitruong.macqcq_t,
                          dbo.giadatthitruong.madv_t, dbo.giadatthitruong.lydo_t, dbo.giadatthitruong.thongtin_t, dbo.giadatthitruong.trangthai_t, dbo.giadatthitruong.thoidiem_ad, dbo.giadatthitruong.macqcq_ad, dbo.giadatthitruong.madv_ad,
-                         dbo.giadatthitruong.lydo_ad, dbo.giadatthitruong.thongtin_ad, dbo.giadatthitruong.trangthai_ad, dbo.giadatthitruongct.khuvuc, dbo.giadatthitruongct.mota, dbo.giadatthitruongct.dientich, dbo.giadatthitruongct.giaquydinh,
-                         dbo.giadatthitruongct.giathitruong, dbo.giadatthitruongct.loaidat
+                         dbo.giadatthitruong.lydo_ad, dbo.giadatthitruong.thongtin_ad, dbo.giadatthitruong.trangthai_ad, dbo.giadatthitruongct.khuvuc, dbo.giadatthitruongct.giathitruong, dbo.giadatthitruongct.loaidat, dbo.giadatthitruongct.tenkhudat,
+                         dbo.giadatthitruongct.diachi, dbo.giadatthitruongct.soqdban, dbo.giadatthitruongct.soqdgiakd, dbo.giadatthitruongct.thoigianban, dbo.giadatthitruongct.thoigiangiakd, dbo.giadatthitruongct.dientichdat,
+                         dbo.giadatthitruongct.dongiadat, dbo.giadatthitruongct.giatridat, dbo.giadatthitruongct.dientichts, dbo.giadatthitruongct.dongiats, dbo.giadatthitruongct.giatrits, dbo.giadatthitruongct.tonggiatri,
+                         dbo.giadatthitruongct.giadaugia
 FROM            dbo.giadatthitruong INNER JOIN
                          dbo.giadatthitruongct ON dbo.giadatthitruong.mahs = dbo.giadatthitruongct.mahs
  */

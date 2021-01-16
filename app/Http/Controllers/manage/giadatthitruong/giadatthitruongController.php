@@ -550,9 +550,9 @@ class giadatthitruongController extends Controller
                 $model = $model->where('thoidiem','<=',$inputs['thoidiem_den']);
             }
 
-            $model = $model->where('giaquydinh','>=',chkDbl($inputs['giaquydinh_tu']));
-            if(chkDbl($inputs['giaquydinh_den']) > 0){
-                $model = $model->where('giaquydinh','<=',chkDbl($inputs['giaquydinh_den']));
+            $model = $model->where('giadaugia','>=',chkDbl($inputs['giadaugia_tu']));
+            if(chkDbl($inputs['giadaugia_den']) > 0){
+                $model = $model->where('giadaugia','<=',chkDbl($inputs['giadaugia_den']));
             }
 
             $model = $model->where('giathitruong','>=',chkDbl($inputs['giathitruong_tu']));

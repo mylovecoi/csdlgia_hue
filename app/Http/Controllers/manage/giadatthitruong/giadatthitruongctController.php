@@ -94,9 +94,18 @@ class giadatthitruongctController extends Controller
             die(json_encode($result));
         }
         $inputs = $request->all();
-        $inputs['giaquydinh'] = getMoneyToDb($inputs['giaquydinh']);
-        $inputs['giathitruong'] = getMoneyToDb($inputs['giathitruong']);
-        $inputs['dientich'] = getMoneyToDb($inputs['dientich']);
+        
+        $inputs['thoigianban'] = getDateToDb($inputs['thoigianban']);
+        $inputs['thoigiangiakd'] = getDateToDb($inputs['thoigiangiakd']);
+        $inputs['dientichdat'] = getDoubleToDb($inputs['dientichdat']);
+        $inputs['dongiadat'] = getDoubleToDb($inputs['dongiadat']);
+        $inputs['giatridat'] = getDoubleToDb($inputs['giatridat']);
+        $inputs['dientichts'] = getDoubleToDb($inputs['dientichts']);
+        $inputs['dongiats'] = getDoubleToDb($inputs['dongiats']);
+        $inputs['giatrits'] = getDoubleToDb($inputs['giatrits']);
+        $inputs['tonggiatri'] = getDoubleToDb($inputs['tonggiatri']);
+        $inputs['giadaugia'] = getDoubleToDb($inputs['giadaugia']);
+        $inputs['giathitruong'] = getDoubleToDb($inputs['giathitruong']);
         $m_chk = giadatthitruongct::where('id',$inputs['id'])->first();
         if($m_chk == null){
             unset($inputs['id']);
@@ -117,28 +126,42 @@ class giadatthitruongctController extends Controller
         $result['message'] .= '<div class="col-md-12">';
         $result['message'] .= '<table class="table table-striped table-bordered table-hover" id="sample_4">';
         $result['message'] .= '<thead>';
-        $result['message'] .= '<tr>';
-        $result['message'] .= '<th width="5%" style="text-align: center">STT</th>';
-//        $result['message'] .= '<th style="text-align: center">Khu vực</th>';
-        $result['message'] .= '<th style="text-align: center">Mô tả</th>';
-        $result['message'] .= '<th style="text-align: center">Diên tích</th>';
-        $result['message'] .= '<th style="text-align: center">Giá quy</br>định</th>';
-        $result['message'] .= '<th style="text-align: center">Giá thị</br>trường</th>';
-        $result['message'] .= '<th style="text-align: center" width="15%">Thao tác</th>';
+        $result['message'] .= '<tr class="text-center">';
+        $result['message'] .= '<th rowspan="2" width="5%">STT</th>';
+        $result['message'] .= '<th rowspan="2" style="text-align: center">Tên khu đất</th>';
+        $result['message'] .= '<th colspan="3">Giá đất</th>';
+        $result['message'] .= '<th colspan="3">Giá tài sản trên đất</th>';
+        $result['message'] .= '<th rowspan="2" style="text-align: center">Tổng giá trị </th>';
+        $result['message'] .= '<th rowspan="2" style="text-align: center">Kết quả đấu giá </th>';
+        $result['message'] .= '<th rowspan="2" style="text-align: center" width="10%">Thao tác</th>';
+        $result['message'] .= '</tr>';
+        $result['message'] .= '<tr class="text-center">';
+        $result['message'] .= '<th>Diện<br>tích</th>';
+        $result['message'] .= '<th>Đơn<br>giá</th>';
+        $result['message'] .= '<th>Thành<br>tiền</th>';
+        $result['message'] .= '<th>Diện<br>tích</th>';
+        $result['message'] .= '<th>Đơn<br>giá</th>';
+        $result['message'] .= '<th>Thành<br>tiền</th>';
         $result['message'] .= '</tr>';
         $result['message'] .= '</thead>';
 
 
         $result['message'] .= '<tbody>';
         if (count($model) > 0) {
+            $i=1;
             foreach ($model as $key => $ttbog) {
-                $result['message'] .= '<tr id="' . $ttbog->id . '">';
-                $result['message'] .= '<td style="text-align: center">' . ($key + 1) . '</td>';
+                $result['message'] .= '<tr>';
+                $result['message'] .= '<td style="text-align: center">' . ($i++) . '</td>';
 //                $result['message'] .= '<td>' . $ttbog->khuvuc . '</td>';
-                $result['message'] .= '<td>' . $ttbog->mota . '</td>';
-                $result['message'] .= '<td style="text-align: right;">' . dinhdangso($ttbog->dientich) . '</td>';
-                $result['message'] .= '<td style="text-align: right;">' . dinhdangso($ttbog->giaquydinh) . '</td>';
-                $result['message'] .= '<td style="text-align: right;">' . dinhdangso($ttbog->giathitruong) . '</td>';
+                $result['message'] .= '<td>' . $ttbog->tenkhudat . '</td>';
+                $result['message'] .= '<td>' . dinhdangso($ttbog->dientichdat) . '</td>';
+                $result['message'] .= '<td>' . dinhdangso($ttbog->dongiadat) . '</td>';
+                $result['message'] .= '<td style="text-align: right;">' . dinhdangso($ttbog->giatridat) . '</td>';
+                $result['message'] .= '<td>' . dinhdangso($ttbog->dientichts) . '</td>';
+                $result['message'] .= '<td>' . dinhdangso($ttbog->dongiats) . '</td>';
+                $result['message'] .= '<td style="text-align: right;">' . dinhdangso($ttbog->giatrits) . '</td>';
+                $result['message'] .= '<td style="text-align: right;">' . dinhdangso($ttbog->tonggiatri) . '</td>';
+                $result['message'] .= '<td style="text-align: right;">' . dinhdangso($ttbog->giadaugia) . '</td>';
                 $result['message'] .= '<td>' .
                     '<button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editmhbog(' . $ttbog->id . ');"><i class="fa fa-edit"></i>&nbsp;Sửa</button>' .
                     '<button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid(' . $ttbog->id . ');" ><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>'

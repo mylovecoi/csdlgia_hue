@@ -2724,6 +2724,7 @@ function getPhanQuyen()
     $gui['giadatthitruong'] = array(
         'index' => '0',
         'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+        'khac' => array('baocao' => '0',),
     );
     $gui['daugiadatts'] = array(
         'index' => '0',

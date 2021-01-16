@@ -34,9 +34,9 @@
             $('#ththue').val('');
             $('#sotienthuenam').val('0');
             $('#diachi').val('');
-            $('#soqdpd').val('');
-            $('#thoigianpd').val();
-            $('#soqddg').val('');
+            $('#soqdpd').val($('#soqd').val());
+            $('#thoigianpd').val($('#thoidiem').val());
+            $('#soqddg').val();
             $('#thoigiandg').val();
             $('#thuetungay').val();
             $('#thuedenngay').val();

@@ -76,15 +76,15 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Giá quy định - Từ</label>
-                                    {!!Form::text('giaquydinh_tu', null, array('class' => 'form-control','data-mask'=>'fdecimal'))!!}
+                                    <label class="control-label">Giá đấu giá - Từ</label>
+                                    {!!Form::text('giadaugia_tu', null, array('class' => 'form-control','data-mask'=>'fdecimal'))!!}
                                 </div>
                             </div>
                             <!--/span-->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Giá quy định - Đến</label>
-                                    {!!Form::text('giaquydinh_den', null, array('class' => 'form-control','data-mask'=>'fdecimal'))!!}
+                                    <label class="control-label">Giá đấu giá - Đến</label>
+                                    {!!Form::text('giadaugia_den', null, array('class' => 'form-control','data-mask'=>'fdecimal'))!!}
                                 </div>
                             </div>
                             <!--/span-->

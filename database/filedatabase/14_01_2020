@@ -49,3 +49,37 @@ FROM            dbo.dmnhaxh INNER JOIN
                          dbo.giathuemuanhaxhct ON dbo.dmnhaxh.maso = dbo.giathuemuanhaxhct.maso INNER JOIN
                          dbo.giathuemuanhaxh ON dbo.giathuemuanhaxhct.mahs = dbo.giathuemuanhaxh.mahs
 GO
+
+ALTER TABLE giadatthitruongct
+ADD
+    [tenkhudat] [nvarchar](255) NULL,
+    [diachi] [nvarchar](255) NULL,
+    [soqdban] [nvarchar](255) NULL,
+    [thoigianban] [date] NULL,
+    [soqdgiakd] [nvarchar](255) NULL,
+    [thoigiangiakd] [date] NULL,
+    [dientichdat] [float] DEFAULT ('0'),
+    [dongiadat] [float] DEFAULT ('0'),
+    [giatridat] [float] DEFAULT ('0'),
+    [dientichts] [float] DEFAULT ('0'),
+    [dongiats] [float] DEFAULT ('0'),
+    [giatrits] [float] DEFAULT ('0'),
+    [tonggiatri] [float] DEFAULT ('0'),
+    [giadaugia] [float] DEFAULT ('0'),
+    [hdban] [nvarchar](255) NULL,;
+GO
+
+CREATE OR ALTER VIEW [dbo].[view_giadatthitruong]
+AS
+SELECT        dbo.giadatthitruong.madiaban, dbo.giadatthitruong.maxp, dbo.giadatthitruong.mahs, dbo.giadatthitruong.tenduan, dbo.giadatthitruong.soqdpagia, dbo.giadatthitruong.soqddaugia, dbo.giadatthitruong.soqdgiakhoidiem,
+                         dbo.giadatthitruong.soqdkqdaugia, dbo.giadatthitruong.ipf1, dbo.giadatthitruong.ipf2, dbo.giadatthitruong.ipf3, dbo.giadatthitruong.ipf4, dbo.giadatthitruong.ipf5, dbo.giadatthitruong.congbo, dbo.giadatthitruong.lichsu,
+                         dbo.giadatthitruong.thoidiem, dbo.giadatthitruong.macqcq, dbo.giadatthitruong.madv, dbo.giadatthitruong.lydo, dbo.giadatthitruong.thongtin, dbo.giadatthitruong.trangthai, dbo.giadatthitruong.thoidiem_h,
+                         dbo.giadatthitruong.macqcq_h, dbo.giadatthitruong.madv_h, dbo.giadatthitruong.lydo_h, dbo.giadatthitruong.thongtin_h, dbo.giadatthitruong.trangthai_h, dbo.giadatthitruong.thoidiem_t, dbo.giadatthitruong.macqcq_t,
+                         dbo.giadatthitruong.madv_t, dbo.giadatthitruong.lydo_t, dbo.giadatthitruong.thongtin_t, dbo.giadatthitruong.trangthai_t, dbo.giadatthitruong.thoidiem_ad, dbo.giadatthitruong.macqcq_ad, dbo.giadatthitruong.madv_ad,
+                         dbo.giadatthitruong.lydo_ad, dbo.giadatthitruong.thongtin_ad, dbo.giadatthitruong.trangthai_ad, dbo.giadatthitruongct.khuvuc, dbo.giadatthitruongct.giathitruong, dbo.giadatthitruongct.loaidat, dbo.giadatthitruongct.tenkhudat,
+                         dbo.giadatthitruongct.diachi, dbo.giadatthitruongct.soqdban, dbo.giadatthitruongct.soqdgiakd, dbo.giadatthitruongct.thoigianban, dbo.giadatthitruongct.thoigiangiakd, dbo.giadatthitruongct.dientichdat,
+                         dbo.giadatthitruongct.dongiadat, dbo.giadatthitruongct.giatridat, dbo.giadatthitruongct.dientichts, dbo.giadatthitruongct.dongiats, dbo.giadatthitruongct.giatrits, dbo.giadatthitruongct.tonggiatri,
+                         dbo.giadatthitruongct.giadaugia,dbo.giadatthitruongct.hdban
+FROM            dbo.giadatthitruong INNER JOIN
+                         dbo.giadatthitruongct ON dbo.giadatthitruong.mahs = dbo.giadatthitruongct.mahs
+GO

@@ -32,16 +32,16 @@
             form.find("[name='dongiathue']").val(0);
             form.find("[name='id']").val(-1);
             form.find("[name='mahs']").val('{{$model->mahs}}');
-            form.find("[name='tungay").val('{{$model->tungay}}');
-            form.find("[name='denngay").val('{{$model->denngay}}');
-            form.find("[name='dvthue").val('{{$model->dvthue}}');
-            form.find("[name='hdthue").val('{{$model->hdthue}}');
-            form.find("[name='ththue").val('{{$model->ththue}}');
-            form.find("[name='diachi").val('{{$model->diachi}}');
-            form.find("[name='soqdpd").val('{{$model->soqdpd}}');
-            form.find("[name='thoigianpd").val('{{$model->thoigianpd}}');
-            form.find("[name='soqddg").val('{{$model->soqddg}}');
-            form.find("[name='thoigiandg").val('{{$model->thoigiandg}}');
+            form.find("[name='tungay']").val();
+            form.find("[name='denngay']").val();
+            form.find("[name='dvthue']").val();
+            form.find("[name='hdthue']").val();
+            form.find("[name='ththue']").val();
+            form.find("[name='diachi']").val();
+            form.find("[name='soqdpd']").val();
+            form.find("[name='thoigianpd']").val();
+            form.find("[name='soqddg']").val($('#soqd').val());
+            form.find("[name='thoigiandg']").val($('#thoidiem').val());
             InputMask();
         }
 

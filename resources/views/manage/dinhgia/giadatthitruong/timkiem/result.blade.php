@@ -32,30 +32,42 @@
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box">
                 <div class="portlet-body form-horizontal">
-                    <table id="sample_4" class="table table-striped table-bordered table-hover">
+                    <table class="table table-striped table-bordered table-hover" id="sample_4">
                         <thead>
-                            <tr>
-                                <th width="2%" style="text-align: center">STT</th>
-                                <th style="text-align: center">Đơn vị nhập</th>
-                                <th style="text-align: center">Thời điểm</th>
-                                <th style="text-align: center">Tên dự án</th>
-                                <th style="text-align: center">Giá khởi điểm</th>
-                                <th style="text-align: center">Giá trúng thầu</th>
-                            </tr>
+                        <tr class="text-center">
+                            <th rowspan="2" width="5%">STT</th>
+                            {{--                                        <th style="text-align: center">Khu vực</th>--}}
+                            <th rowspan="2" style="text-align: center">Tên khu đất</th>
+                            <th colspan="3">Giá đất</th>
+                            <th colspan="3">Giá tài sản trên đất</th>
+                            <th rowspan="2" style="text-align: center">Tổng giá trị </th>
+                            <th rowspan="2" style="text-align: center">Kết quả đấu giá </th>
+                        </tr>
+                        <tr class="text-center">
+                            <th>Diện<br>tích</th>
+                            <th>Đơn<br>giá</th>
+                            <th>Thành<br>tiền</th>
+                            <th>Diện<br>tích</th>
+                            <th>Đơn<br>giá</th>
+                            <th>Thành<br>tiền</th>
+                        </tr>
                         </thead>
-
                         <tbody>
-                            @foreach($model as $key=>$tt)
-                                <tr>
-                                    <td style="text-align: center">{{$key + 1}}</td>
-                                    <td>{{$a_donvi[$tt->madv] ?? ''}}</td>
-                                    <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
-                                    <td>{{$tt->tenduan}}</td>
-                                    <td style="text-align: center">{{dinhdangso($tt->giaquydinh)}}</td>
-                                    <td style="text-align: center">{{dinhdangso($tt->giathitruong)}}</td>
-                                </tr>
-                            @endforeach
-
+                        <?php $i = 1; ?>
+                        @foreach($model as $key=>$tt)
+                            <tr class="odd gradeX">
+                                <td style="text-align: center">{{$i++}}</td>
+                                <td class="active">{{$tt->tenkhudat}}</td>
+                                <td>{{dinhdangsothapphan($tt->dientichdat)}}</td>
+                                <td>{{dinhdangsothapphan($tt->dongiadat)}}</td>
+                                <td>{{dinhdangsothapphan($tt->giatridat)}}</td>
+                                <td>{{dinhdangsothapphan($tt->dientichts)}}</td>
+                                <td>{{dinhdangsothapphan($tt->dongiats)}}</td>
+                                <td>{{dinhdangsothapphan($tt->giatrits)}}</td>
+                                <td>{{dinhdangsothapphan($tt->tonggiatri)}}</td>
+                                <td>{{dinhdangsothapphan($tt->giadaugia)}}</td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                     <div class="row">

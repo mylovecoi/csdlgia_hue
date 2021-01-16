@@ -546,6 +546,9 @@ Route::group(['prefix'=>'giadatthitruong'], function (){
 
     Route::get('timkiem','manage\giadatthitruong\giadatthitruongController@timkiem');
     Route::post('timkiem','manage\giadatthitruong\giadatthitruongController@ketquatk');
+
+    Route::get('baocao','manage\giadatthitruong\giadatthitruongBcController@index');
+    Route::post('baocao/tonghop','manage\giadatthitruong\giadatthitruongBcController@tonghop');
 });
 //Đấu giá đất và tài sản gắn liền đất
 Route::get('thongtindaugiadatts/print','manage\giadaugiadatts\DauGiaDatTsController@ketxuat');
