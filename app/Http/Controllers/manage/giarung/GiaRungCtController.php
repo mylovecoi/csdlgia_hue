@@ -25,6 +25,13 @@ class GiaRungCtController extends Controller
             dmdvt::insert(['dvt' => $inputs['dvt']]);
         }
 
+        $inputs['thoigianpd'] = getDateToDb($inputs['thoigianpd']);
+        $inputs['thoigiangkd'] = getDateToDb($inputs['thoigiangkd']);
+        $inputs['thuetungay'] = getDateToDb($inputs['thuetungay']);
+        $inputs['thuedenngay'] = getDateToDb($inputs['thuedenngay']);
+
+        $inputs['giakhoidiem'] = getDoubleToDb($inputs['giakhoidiem']);
+        $inputs['dongia'] = getDoubleToDb($inputs['dongia']);
         $inputs['dientich'] = getDoubleToDb($inputs['dientich']);
         $inputs['dientichsd'] = getDoubleToDb($inputs['dientichsd']);
         $inputs['giatri'] = getDoubleToDb($inputs['giatri']);
@@ -79,12 +86,13 @@ class GiaRungCtController extends Controller
 
         $result['message'] = '<div class="row" id="dsts">';
         $result['message'] .= '<div class="col-md-12">';
-        $result['message'] .= '<table class="table table-striped table-bordered table-hover" id="sample_3">';
+        $result['message'] .= '<table class="table table-striped table-bordered table-hover" id="sample_4">';
         $result['message'] .= '<thead>';
         $result['message'] .= '<tr>';
         $result['message'] .= '<th width="5%" style="text-align: center">STT</th>';
         $result['message'] .= '<th style="text-align: center">Phân loại</th>';
         $result['message'] .= '<th style="text-align: center">Loại rừng</th>';
+        $result['message'] .= '<th style="text-align: center">Đơn vị khai thác(thuê)</th>';
         $result['message'] .= '<th style="text-align: center">Nội dung chi tiết</th>';
         $result['message'] .= '<th style="text-align: center">Diện tích rừng</th>';
         $result['message'] .= '<th style="text-align: center">Diện tích<br>sử dụng</th>';
@@ -102,6 +110,7 @@ class GiaRungCtController extends Controller
                 $result['message'] .= '<td style="text-align: center">' . ($key + 1) . '</td>';
                 $result['message'] .= '<td class="info">' . $tt->phanloai . '</td>';
                 $result['message'] .= '<td>' . ($a_dm[$tt->manhom] ?? '') . '</td>';
+                $result['message'] .= '<td>' . $tt->dvthue . '</td>';
                 $result['message'] .= '<td>' . $tt->noidung . '</td>';
                 $result['message'] .= '<td style="text-align: right;">' . dinhdangso($tt->dientich) . '</td>';
                 $result['message'] .= '<td style="text-align: right;">' . dinhdangso($tt->dientichsd) . '</td>';

@@ -20,9 +20,19 @@ class CreateGiarungctTable extends Migration
             $table->string('phanloai')->nullable();
             $table->text('noidung')->nullable();
             $table->string('dvt')->nullable(25);
-            $table->double('dientich')->nullable();
-            $table->double('dientichsd')->nullable();
-            $table->double('giatri')->nullable();
+            $table->double('dientich')->default(0);
+            $table->double('dientichsd')->default(0);
+            $table->double('giatri')->default(0);
+            $table->double('giakhoidiem')->default(0);
+            $table->double('dongia')->default(0);
+            $table->string('dvthue')->nullable();
+            $table->string('diachi')->nullable();
+            $table->string('soqdpd')->nullable();
+            $table->date('thoigianpd')->nullable();
+            $table->string('soqdgkd')->nullable();
+            $table->date('thoigiangkd')->nullable();
+            $table->date('thuetungay')->nullable();
+            $table->date('thuedenngay')->nullable();
             $table->timestamps();
         });
     }

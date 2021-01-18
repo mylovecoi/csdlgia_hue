@@ -111,6 +111,11 @@
                                 </a>
                             </li>
                         @endif
+                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giarung', 'khac','baocao'))
+                            <li>
+                                <a href="{{url('/giarung/baocao')}}">Báo cáo tổng hợp</a>
+                            </li>
+                        @endif
                     </ul>
                 </li>
             @endif

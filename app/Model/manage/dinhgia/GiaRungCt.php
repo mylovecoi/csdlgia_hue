@@ -17,5 +17,15 @@ class GiaRungCt extends Model
         'dientich',
         'dientichsd',
         'giatri',
+        'giakhoidiem',
+        'dongia',
+        'dvthue',
+        'diachi',
+        'soqdpd',
+        'thoigianpd',
+        'soqdgkd',
+        'thoigiangkd',
+        'thuetungay',
+        'thuedenngay',
     ];
 }

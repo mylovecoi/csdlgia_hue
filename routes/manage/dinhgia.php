@@ -207,18 +207,9 @@ Route::group(['prefix'=>'giarung'], function (){
 
     Route::get('timkiem','manage\giarung\GiaRungController@timkiem');
     Route::post('timkiem','manage\giarung\GiaRungController@ketquatk');
-//
-//    Route::get('danhsach','manage\giaspdvci\GiaSpDvCiController@index');
-//    Route::get('new','manage\giaspdvci\GiaSpDvCiController@create');
-//    Route::get('modify','manage\giaspdvci\GiaSpDvCiController@edit');
-//    Route::post('modify','manage\giaspdvci\GiaSpDvCiController@update');
-//    Route::post('delete','manage\giaspdvci\GiaSpDvCiController@destroy');
-//    Route::get('delete','manage\giaspdvci\GiaSpDvCiController@destroy');
-//    Route::get('dinhkem','manage\giaspdvci\GiaSpDvCiController@show_dk');
-//
-//    Route::get('store_ct','manage\giaspdvci\GiaSpDvCiCtController@store');
-//    Route::get('get_ct','manage\giaspdvci\GiaSpDvCiCtController@show');
-//    Route::get('del_ct','manage\giaspdvci\GiaSpDvCiCtController@destroy');
+
+    Route::get('baocao','manage\giarung\giarungBcController@index');
+    Route::post('baocao/tonghop','manage\giarung\giarungBcController@tonghop');
 });
 
 //Thuế tài nguyên
@@ -661,8 +652,8 @@ Route::group(['prefix'=>'gianuocsachsinhhoat'], function (){
     Route::post('tralai','manage\gianuocsachsh\GiaNuocShController@tralai');
     Route::post('congbo','manage\gianuocsachsh\GiaNuocShController@congbo');
 
-    Route::get('nhandulieutuexcel','manage\giarung\GiaNuocShController@nhandulieutuexcel');
-    Route::post('importexcel','manage\giarung\GiaNuocShController@importexcel');
+    //Route::get('nhandulieutuexcel','manage\giarung\GiaNuocShController@nhandulieutuexcel');
+    //Route::post('importexcel','manage\giarung\GiaNuocShController@importexcel');
 
     Route::get('timkiem','manage\gianuocsachsh\GiaNuocShController@timkiem');
     Route::post('timkiem','manage\gianuocsachsh\GiaNuocShController@ketquatk');

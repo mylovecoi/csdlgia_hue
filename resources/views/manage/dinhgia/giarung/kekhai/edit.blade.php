@@ -33,6 +33,16 @@
             form.find("[name='giatri']").val(0);
             form.find("[name='id']").val(-1);
             form.find("[name='mahs']").val('{{$model->mahs}}');
+            form.find("[name='giakhoidiem']").val(0);
+            form.find("[name='dongia']").val(0);
+            form.find("[name='dvthue']").val();
+            form.find("[name='diachi']").val();
+            form.find("[name='soqdpd']").val($('#soqd').val());
+            form.find("[name='thoigianpd']").val($('#thoidiem').val());
+            form.find("[name='soqdgkd']").val();
+            form.find("[name='thoigiangkd']").val();
+            form.find("[name='thuetungay']").val();
+            form.find("[name='thuedenngay']").val();
             InputMask();
         }
 
@@ -53,6 +63,16 @@
                     dientichsd: form.find("[name='dientichsd']").val(),
                     mahs: form.find("[name='mahs']").val(),
                     id: form.find("[name='id']").val(),
+                    giakhoidiem: form.find("[name='giakhoidiem']").val(),
+                    dongia: form.find("[name='dongia']").val(),
+                    dvthue: form.find("[name='dvthue']").val(),
+                    diachi: form.find("[name='diachi']").val(),
+                    soqdpd: form.find("[name='soqdpd']").val(),
+                    thoigianpd: form.find("[name='thoigianpd']").val(),
+                    soqdgkd: form.find("[name='soqdgkd']").val(),
+                    thoigiangkd: form.find("[name='thoigiangkd']").val(),
+                    thuetungay: form.find("[name='thuetungay']").val(),
+                    thuedenngay: form.find("[name='thuedenngay']").val(),
                 },
                 dataType: 'JSON',
                 success: function (data) {
@@ -92,6 +112,16 @@
                     form.find("[name='dientichsd']").val(data.dientichsd);
                     form.find("[name='mahs']").val(data.mahs);
                     form.find("[name='id']").val(data.id);
+                    form.find("[name='giakhoidiem']").val(data.giakhoidiem);
+                    form.find("[name='dongia']").val(data.dongia);
+                    form.find("[name='dvthue']").val(data.dvthue);
+                    form.find("[name='diachi']").val(data.diachi);
+                    form.find("[name='soqdpd']").val(data.soqdpd);
+                    form.find("[name='thoigianpd']").val(data.thoigianpd);
+                    form.find("[name='soqdgkd']").val(data.soqdgkd);
+                    form.find("[name='thoigiangkd']").val(data.thoigiangkd);
+                    form.find("[name='thuetungay']").val(data.thuetungay);
+                    form.find("[name='thuedenngay']").val(data.thuedenngay);
                     InputMask();
                 },
             })
@@ -124,7 +154,12 @@
                     //}
                 }
             })
-
+        }
+        
+        function setPLHS() {
+            var form = $('#frm_modify');
+            var pl = form.find("[name='phanloai']").val();
+            //alert(pl)
         }
     </script>
 @stop
@@ -248,12 +283,13 @@
 
                         <div class="row" id="dsts">
                             <div class="col-md-12">
-                                <table class="table table-striped table-bordered table-hover" id="sample_3">
+                                <table class="table table-striped table-bordered table-hover" id="sample_4">
                                     <thead>
                                         <tr>
                                             <th style="text-align: center" width="2%">STT</th>
                                             <th style="text-align: center">Phân loại</th>
                                             <th style="text-align: center">Loại rừng</th>
+                                            <th style="text-align: center">Đơn vị khac thác(thuê)</th>
                                             <th style="text-align: center">Nội dung chi tiết</th>
                                             <th style="text-align: center">Diện tích rừng</th>
                                             <th style="text-align: center">Diện tích<br>sử dụng</th>
@@ -269,6 +305,7 @@
                                             <td style="text-align: center">{{($i++)}}</td>
                                             <td class="info">{{$tt->phanloai}}</td>
                                             <td>{{$a_loairung[$tt->manhom] ?? ''}}</td>
+                                            <td>{{$tt->dvthue}}</td>
                                             <td>{{$tt->noidung}}</td>
                                             <td style="text-align: right;">{{dinhdangso($tt->dientich)}}</td>
                                             <td style="text-align: right;">{{dinhdangso($tt->dientichsd)}}</td>
@@ -347,7 +384,7 @@
         {!! Form::open(['url'=>'', 'id' => 'frm_modify', 'class'=>'horizontal-form']) !!}
         {!! Form::hidden('id', null) !!}
         {!! Form::hidden('mahs', null) !!}
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header modal-header-primary">
                     <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
@@ -357,8 +394,33 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
+                                <label class="control-label">Đơn vị khai thác(thuê)</label>
+                                <input type="text" id="dvthue" name="dvthue" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Địa chỉ</label>
+                                <input type="text" id="diachi" name="diachi" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Nội dung chi tiết</label>
+                                {!!Form::textarea('noidung',null, array('id' => 'noidung','class' => 'form-control', 'rows'=>'2'))!!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 <label class="control-label">Phân loại</label>
-                                {!!Form::select('phanloai', PhanLoaiHSRung(), null, array('id' => 'phanloai','class' => 'form-control'))!!}
+                                {!!Form::select('phanloai', PhanLoaiHSRung(), null, array('id' => 'phanloai','class' => 'form-control', 'onchange'=>'setPLHS()'))!!}
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -370,41 +432,89 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">Nội dung chi tiết</label>
-{{--                                <input name="noidung" id="noidung" class="form-control" required>--}}
-                                {!!Form::textarea('noidung',null, array('id' => 'noidung','class' => 'form-control', 'rows'=>'2'))!!}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                @include('manage.include.form.input_dvt')
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label class="control-label">Diện tích</label>
                                 <input type="text" name="dientich" id="dientich" class="form-control" data-mask="fdecimal" style="text-align: right; font-weight: bold">
                             </div>
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
-                                <label class="control-label">Diện tích sử dụng</label>
+                                <label class="control-label">Diện tích khai thác (thuê)</label>
                                 <input type="text" name="dientichsd" id="dientichsd" class="form-control" data-mask="fdecimal" style="text-align: right; font-weight: bold">
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">Giá trị<span class="require">*</span></label>
+                                @include('manage.include.form.input_dvt')
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Số quyết khai thác(thuê)</label>
+                                {!!Form::text('soqdpd',null, array('id' => 'soqdpd','class' => 'form-control'))!!}
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Thời điểm khai thác(thuê)</label>
+                                {!! Form::input('date', 'thoigianpd', null, array('id' => 'thoigianpd', 'class' => 'form-control'))!!}
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Số quyết giá khởi điểm</label>
+                                {!!Form::text('soqdgkd',null, array('id' => 'soqdgkd','class' => 'form-control'))!!}
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Thời điểm giá khởi điểm</label>
+                                {!! Form::input('date', 'thoigiangkd', null, array('id' => 'thoigiangkd', 'class' => 'form-control'))!!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Thời gian - Từ ngày</label>
+                                {!! Form::input('date', 'thuetungay', null, array('id' => 'thuetungay', 'class' => 'form-control'))!!}
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Thời gian - Đến ngày</label>
+                                {!! Form::input('date', 'thuedenngay', null, array('id' => 'thuedenngay', 'class' => 'form-control'))!!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Đơn giá</label>
+                                <input type="text" name="dongia" id="dongia" class="form-control text-right" data-mask="fdecimal">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Giá khởi điểm<span class="require">*</span></label>
+                                <input type="text" name="giakhoidiem" id="giakhoidiem" class="form-control text-right" data-mask="fdecimal" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Giá khai thác(thuê)<span class="require">*</span></label>
                                 <input type="text" name="giatri" id="giatri" class="form-control text-right" data-mask="fdecimal" required>
                             </div>
                         </div>
