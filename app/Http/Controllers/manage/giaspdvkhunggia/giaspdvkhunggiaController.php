@@ -377,19 +377,28 @@ class giaspdvkhunggiaController extends Controller
     public function ketxuat(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();
-            $inputs['nam'] = $inputs['nam'] ?? 'all';
-            //lấy thông tin đơn vị
-            $model = $this->getHoSo($inputs);
-            $m_donvi = dsdonvi::where('madv', $inputs['madv'])->first();
-            $m_diaban = dsdiaban::wherein('madiaban',array_column($model->toarray(),'madiaban'))->get();
-            $a_ts = array_column(giaspdvkhunggia_dm::all()->toArray(),'tenspdv','maspdv');
-
-            return view('manage.dinhgia.giaspdvkhunggia.reports.baocao')
+            $m_hoso = giaspdvkhunggia::where('mahs', $inputs['mahs'])->first();
+            $m_donvi = dsdonvi::where('madv', $m_hoso->madv)->first();
+            //$m_diaban = dsdiaban::wherein('madiaban',array_column($model->toarray(),'madiaban'))->get();
+            $a_danhmuc = giaspdvkhunggia_dm::all()->keyBy('maspdv')->toArray();
+            $model = giaspdvkhunggia_ct::where('mahs', $inputs['mahs'])->get();
+            foreach ($model as $chitiet){
+                $dm = $a_danhmuc[$chitiet->maspdv];
+                if(isset($dm)){
+                    $chitiet->dvt = $dm['dvt'];
+                    $chitiet->phanloai = $dm['phanloai'];
+                    $chitiet->tenspdv = $dm['tenspdv'];
+                }
+            }
+            //dd($m_hoso);
+            //$a_phanloai = array_column(giaspdvtoida_dm::get('phanloai')->toArray(),'phanloai','phanloai');
+            return view('manage.dinhgia.giaspdvkhunggia.reports.inhoso')
+                ->with('m_hoso',$m_hoso)
                 ->with('model',$model)
                 ->with('m_donvi',$m_donvi)
-                ->with('m_diaban',$m_diaban)
-                ->with('a_dm',$a_ts)
-                ->with('a_pl',getPhanLoaiTroGia())
+                //->with('m_diaban',$m_diaban)
+                //->with('a_dm',$a_ts)
+                ->with('a_phanloai', a_unique(array_column($a_danhmuc,'phanloai')))
                 ->with('inputs',$inputs)
                 ->with('pageTitle','Thông tin hồ sơ');
         }else

@@ -1,5 +1,5 @@
 <div id="modal-modify" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
-        {!! Form::open(['id' => 'frm_modify', 'class'=>'horizontal-form']) !!}
+    {!! Form::open(['id' => 'frm_modify', 'class'=>'horizontal-form']) !!}
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header modal-header-primary">
@@ -7,6 +7,14 @@
                 <h4 id="modal-header-primary-label" class="modal-title">Thông tin chi tiết</h4>
             </div>
             <div class="modal-body" id="edit_node">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @include('manage.include.form.phanloaidv.input_phanloaidv')
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="form-group">
                         <div class="col-md-12">
@@ -17,13 +25,13 @@
                 </div>
 
                 <div class="row">
-                    <div class="form-group">
-                        <div class="col-md-6">
-                            <label class="control-label">Đơn vị tính</label>
-                            <input type="text" name="dvt" id="dvt" class="form-control" />
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @include('manage.include.form.input_dvt')
                         </div>
-
-                        <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <label class="control-label">Mức giá</label>
                             <input type="text" name="mucgia" class="form-control" data-mask="fdecimal">
                         </div>
@@ -62,7 +70,6 @@
     {!! Form::close() !!}
 </div>
 
-
 <script>
     function clearForm() {
         var form = $('#frm_modify');
@@ -83,6 +90,7 @@
             dataType: 'JSON',
             success: function (data) {
                 var form = $('#frm_modify');
+                form.find("[name='phanloaidv']").val(data.phanloaidv).trigger('change');
                 form.find("[name='mota']").val(data.mota);
                 form.find("[name='dvt']").val(data.dvt);
                 form.find("[name='mucgia']").val(data.mucgia);
@@ -106,6 +114,7 @@
             data: {
                 _token: CSRF_TOKEN,
                 mahs: $('#mahs').val(),
+                phanloaidv: form.find("[name='phanloaidv']").val(),
                 mota: form.find("[name='mota']").val(),
                 dvt: form.find("[name='dvt']").val(),
                 mucgia: form.find("[name='mucgia']").val(),
@@ -114,12 +123,13 @@
             dataType: 'JSON',
             success: function (data) {
                 if(data.status == 'success') {
-                    toastr.success("Cập nhật thông tin thuê tài sản công thành công", "Thành công!");
+                    $('#modal-modify').modal("hide");
+                    toastr.success("Cập nhật thông tin thành công", "Thành công!");
                     $('#dsts').replaceWith(data.message);
                     jQuery(document).ready(function() {
                         TableManaged.init();
                     });
-                    $('#modal-modify').modal("hide");
+                    //$('#modal-create').modal("hide");
                 }
                 else
                     toastr.error("Bạn cần kiểm tra lại thông tin vừa nhập!", "Lỗi!");

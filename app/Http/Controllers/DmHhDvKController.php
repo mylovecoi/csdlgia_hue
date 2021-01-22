@@ -17,7 +17,7 @@ class DmHhDvKController extends Controller
             $inputs = $request->all();
             $inputs['url'] = '/giahhdvk';
             $modelnhom = NhomHhDvK::where('matt',$inputs['matt'])->first();
-            $model = DmHhDvK::where('matt',$inputs['matt'])->get();
+            $model = DmHhDvK::where('matt',$inputs['matt'])->orderby('mahhdv')->get();
             $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
             $a_dm = array_column(DmNhomHangHoa::where('phanloai','GIAHHDVK')->get()->toArray(),'tennhom','manhom');
 

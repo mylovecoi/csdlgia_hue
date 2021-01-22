@@ -172,6 +172,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row" id="dsts">
                             <div class="col-md-12">
                                 <table class="table table-striped table-bordered table-hover" id="sample_3">
@@ -202,6 +203,15 @@
 
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label class="control-label">Ghi chú</label>
+                                    {!!Form::textarea('ghichu',null, array('class' => 'form-control', 'rows'=>'2'))!!}
+                                </div>
                             </div>
                         </div>
                     </div>

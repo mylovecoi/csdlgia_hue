@@ -38,6 +38,8 @@
         <div class="col-md-12 center">
             <!-- BEGIN VALIDATION STATES-->
             {!! Form::model($model, ['method' => 'post', 'url'=>$inputs['url'].'/modify', 'class'=>'horizontal-form','id'=>'update_dichvukcb', 'files'=>true]) !!}
+            <input type="hidden" name="mahs" id="mahs" value="{{$model->mahs}}">
+            <input type="hidden" name="madv" id="madv" value="{{$model->madv}}">
             <div class="portlet box blue">
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
@@ -75,15 +77,6 @@
                         </div>
 
                         <div class="row">
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <label class="control-label">Ghi chú</label>
-                                    {!!Form::textarea('ghichu',null, array('class' => 'form-control', 'rows'=>'2'))!!}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">File đính kèm</label>
@@ -95,14 +88,11 @@
                             </div>
                         </div>
 
-                        <input type="hidden" name="mahs" id="mahs" value="{{$model->mahs}}">
-                        <input type="hidden" name="madv" id="madv" value="{{$model->madv}}">
-
                         @if(in_array($model->trangthai, ['CHT', 'HHT']))
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <button type="button" data-target="#modal-modify" data-toggle="modal" class="btn btn-success btn-xs mbs" onclick="clearForm()">
+                                        <button type="button" data-target="#modal-modify" data-toggle="modal" class="btn btn-success btn-xs" onclick="clearForm()">
                                             <i class="fa fa-plus"></i>&nbsp;Thêm sản phẩm, dịch vụ</button>
 {{--                                        <button type="button" class="btn btn-success btn-xs mbs" data-target="#modal-importexcel" data-toggle="modal">--}}
 {{--                                            <i class="fa fa-file-excel-o"></i>&nbsp;Nhận dữ liệu</button>--}}
@@ -115,10 +105,11 @@
 
                         <div class="row" id="dsts">
                             <div class="col-md-12">
-                                <table id="sample_4" class="table table-striped table-bordered table-hover">
+                                <table id="sample_3" class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <th style="text-align: center" width="5%">STT</th>
+                                            <th style="text-align: center">Phân loại sản phẩm, dịch vụ</th>
                                             <th style="text-align: center">Tên sản phẩm, dịch vụ</th>
                                             <th style="text-align: center">Đơn vị<br>tính</th>
                                             <th style="text-align: center">Mức giá</th>
@@ -130,6 +121,7 @@
                                         @foreach($modelct as $tt)
                                             <tr>
                                                 <td style="text-align: center">{{$i++}}</td>
+                                                <td style="text-align: left">{{$tt->phanloaidv}}</td>
                                                 <td style="text-align: left" class="active">{{$tt->mota}}</td>
                                                 <td style="text-align: left">{{$tt->dvt}}</td>
                                                 <td style="text-align: right">{{dinhdangsothapphan($tt->mucgia,2)}}</td>
@@ -146,6 +138,15 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label class="control-label">Ghi chú</label>
+                                    {!!Form::textarea('ghichu',null, array('class' => 'form-control', 'rows'=>'2'))!!}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -182,8 +183,9 @@
         }
     </script>
 
-
     @include('manage.dinhgia.giaspdvcuthe.kekhai.modal')
     @include('includes.script.inputmask-ajax-scripts')
     @include('includes.script.create-header-scripts')
+    @include('manage.include.form.modal_dvt')
+    @include('manage.include.form.phanloaidv.modal_phanloaidv')
 @stop

@@ -84,15 +84,19 @@
             </tr>
         @endforeach
         <tr style="font-weight: bold" class="text-right;">
-            <td colspan="4">Tổng cộng</td>
+            <td colspan="3">Tổng cộng</td>
+            <td style="text-align: center">{{dinhdangsothapphan($model->sum('dientichdat'),2)}}</td>
+            <td style="text-align: right">{{dinhdangsothapphan($model->sum('dongiadat'),2)}}</td>
+            <td style="text-align: right">{{dinhdangsothapphan($model->sum('giatridat'),2)}}</td>
+            <td style="text-align: center">{{dinhdangsothapphan($model->sum('dientichts'),2)}}</td>
+            <td style="text-align: right">{{dinhdangsothapphan($model->sum('dongiats'),2)}}</td>
+            <td style="text-align: right">{{dinhdangsothapphan($model->sum('giatrits'),2)}}</td>
+            <td style="text-align: right">{{dinhdangsothapphan($model->sum('tonggiatri'),2)}}</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td style="text-align: right">{{dinhdangsothapphan($model->sum('dongiathue'),2)}}</td>
-            <td></td>
-            <td></td>
+            <td style="text-align: right">{{dinhdangsothapphan($model->sum('giadaugia'),2)}}</td>
             <td></td>
             <td></td>
         </tr>

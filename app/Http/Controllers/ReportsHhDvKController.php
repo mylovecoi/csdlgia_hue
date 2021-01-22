@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DiaBanHd;
 use App\District;
 use App\DmHhDvK;
+use App\DmNhomHangHoa;
 use App\GiaHhDvK;
 use App\GiaHhDvKCt;
 use App\Model\system\dsdiaban;
@@ -57,6 +58,7 @@ class ReportsHhDvKController extends Controller
 
             $modelct = DmHhDvK::where('matt',$inputs['matt'])
                 //->where('theodoi','TD')
+                ->orderby('mahhdv')
                 ->get();
             foreach($modelct as $ct){
                 $ttgialk = round($ttlk->where('mahhdv',$ct->mahhdv)->avg('gia'));
@@ -65,8 +67,10 @@ class ReportsHhDvKController extends Controller
                 $ct->giath = $ttgia;
             }
             $a_gr = a_unique( array_column($modelct->toarray(),'manhom'));
-
+            $a_nhomhhdv = array_column(DmNhomHangHoa::where('phanloai','GIAHHDVK')->get()->toarray(),'tennhom','manhom');
+            //dd($modelct);
             return view('manage.dinhgia.giahhdvk.reports.bc1')
+                ->with('a_nhomhhdv',$a_nhomhhdv)
                 ->with('a_gr',$a_gr)
                 ->with('inputs',$inputs)
                 ->with('modelct',$modelct)
@@ -80,7 +84,8 @@ class ReportsHhDvKController extends Controller
             $inputs = $request->all();
             $model = DmHhDvK::where('matt',$inputs['matt'])
                 //->where('theodoi','TD')
-                ->get();
+                    ->orderby('mahhdv')
+                    ->get();
             $mahs = ThGiaHhDvK::where('thang',$inputs['thang'])
                 ->where('matt',$inputs['matt'])
                 ->where('nam',$inputs['nam'])
@@ -110,8 +115,9 @@ class ReportsHhDvKController extends Controller
                 }
             }
             $a_gr = a_unique( array_column($model->toarray(),'manhom'));
-
+            $a_nhomhhdv = array_column(DmNhomHangHoa::where('phanloai','GIAHHDVK')->get()->toarray(),'tennhom','manhom');
             return view('manage.dinhgia.giahhdvk.reports.bc2')
+                ->with('a_nhomhhdv',$a_nhomhhdv)
                 ->with('a_gr',$a_gr)
                 ->with('inputs',$inputs)
                 ->with('model',$model)

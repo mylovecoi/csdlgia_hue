@@ -15,7 +15,7 @@ SELECT        dbo.giaspdvcuthe.mahs, dbo.giaspdvcuthe.madiaban, dbo.giaspdvcuthe
                          dbo.giaspdvcuthe.macqcq, dbo.giaspdvcuthe.madv, dbo.giaspdvcuthe.lydo, dbo.giaspdvcuthe.thongtin, dbo.giaspdvcuthe.trangthai, dbo.giaspdvcuthe.thoidiem_h, dbo.giaspdvcuthe.macqcq_h, dbo.giaspdvcuthe.madv_h,
                          dbo.giaspdvcuthe.lydo_h, dbo.giaspdvcuthe.thongtin_h, dbo.giaspdvcuthe.trangthai_h, dbo.giaspdvcuthe.thoidiem_t, dbo.giaspdvcuthe.macqcq_t, dbo.giaspdvcuthe.madv_t, dbo.giaspdvcuthe.lydo_t,
                          dbo.giaspdvcuthe.thongtin_t, dbo.giaspdvcuthe.trangthai_t, dbo.giaspdvcuthe.thoidiem_ad, dbo.giaspdvcuthe.macqcq_ad, dbo.giaspdvcuthe.madv_ad, dbo.giaspdvcuthe.lydo_ad, dbo.giaspdvcuthe.thongtin_ad,
-                         dbo.giaspdvcuthe.trangthai_ad, dbo.giaspdvcuthe_ct.maspdv, dbo.giaspdvcuthe_ct.mota, dbo.giaspdvcuthe_ct.dvt, dbo.giaspdvcuthe_ct.mucgia
+                         dbo.giaspdvcuthe.trangthai_ad, dbo.giaspdvcuthe_ct.maspdv, dbo.giaspdvcuthe_ct.mota, dbo.giaspdvcuthe_ct.dvt, dbo.giaspdvcuthe_ct.mucgia, dbo.giaspdvcuthe_ct.phanloaidv
 FROM            dbo.giaspdvcuthe INNER JOIN
                          dbo.giaspdvcuthe_ct ON dbo.giaspdvcuthe.mahs = dbo.giaspdvcuthe_ct.mahs
  */

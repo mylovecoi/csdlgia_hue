@@ -11,6 +11,7 @@ class giaspdvcuthe_ct extends Model
         'id',
         'mahs',
         'maspdv',
+        'phanloaidv',
         'mota',
         'mucgia',
         'dvt',

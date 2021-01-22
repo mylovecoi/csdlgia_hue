@@ -15,11 +15,12 @@ class giaspdvkhunggiadmController extends Controller
             $model = giaspdvkhunggia_dm::all();
             $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
             $inputs['url'] = '/giaspdvkhunggia';
+            $a_phanloai = array_column(giaspdvkhunggia_dm::get('phanloai')->toArray(),'phanloai','phanloai');
             return view('manage.dinhgia.giaspdvkhunggia.danhmuc.index')
                 ->with('model',$model)
                 ->with('a_dvt',$a_dvt)
                 ->with('inputs',$inputs)
-                ->with('a_phanloai',getPhanLoaiTroGia())
+                ->with('a_phanloai',$a_phanloai)
                 ->with('pageTitle','Danh mục sản phẩm, dịch vụ');
         }else
             return view('errors.notlogin');

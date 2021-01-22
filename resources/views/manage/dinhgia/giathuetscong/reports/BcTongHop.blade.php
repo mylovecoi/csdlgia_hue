@@ -30,7 +30,7 @@
 </table>
 <p style="text-align: center;font-weight: bold;font-size: 20px; text-transform: uppercase;">TỔNG HỢP TÌNH HÌNH SỬ DỤNG TÀI SẢN CÔNG VÀO MỤC ĐÍCH KINH DOANH, CHO THUÊ, LIÊN DOANH, LIÊN KẾT</p>
 <p style="text-align: center;font-style: italic;">{{'Từ ngày: '.getDayVn($inputs['tungay']).' đến ngày '.getDayVn($inputs['denngay'])}}</p>
-{{--<p style="text-align: right;font-style: italic;">Đơn vị tính: Diện tích: m2; Giá trị: ngàn đồng </p>--}}
+<p style="text-align: right;font-style: italic;">Đơn vị tính: Diện tích: m2; Giá trị: ngàn đồng </p>
 
 <table cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;" id="data">
     <thead>

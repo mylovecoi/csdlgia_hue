@@ -57,23 +57,32 @@
         </tr>
     </thead>
     <tbody>
-
-        @foreach($modelct as $key=>$tt)
+    <?php $i = 1; ?>
+    @foreach($a_nhomhhdv as $key=>$tt)
+        <?php
+            $chitiet = $modelct->where('manhom',$key);
+            $k = 1;
+        ?>
+        <tr style="font-weight: bold;">
+            <td>{{IntToRoman($i++)}}</td>
+            <td colspan="9">{{$tt}}</td>
+        </tr>
+        @foreach($chitiet as $ct)
             <tr>
-                <td style="text-align: center">{{$key+1}}</td>
-                <td style="text-align: center">{{$tt->mahhdv}}</td>
-                <td>{{$tt->tenhhdv}}</td>
-                <td>{{$tt->dacdiemkt}}</td>
-                <td style="text-align: center">{{$tt->dvt}}</td>
-                <td style="text-align: right;font-weight: bold">{{dinhdangsothapphan($tt->giathlk,5)}}</td>
-                <td style="text-align: right;font-weight: bold">{{dinhdangsothapphan($tt->giath,5)}}</td>
-                <td style="text-align: right;font-weight: bold">{{dinhdangsothapphan($tt->giath - $tt->giathlk,5)}}</td>
-                <td style="text-align: right;font-weight: bold">{{dinhdangsothapphan(number_format($tt->giathlk) == 0 ? number_format($tt->giath) == 0 ? 0 : 100
-                                : dinhdangsothapphan(($tt->giath-$tt->giathlk)*100/$tt->giathlk,5),5)}}</td>
+                <td style="text-align: center">{{$k++}}</td>
+                <td style="text-align: center">{{$ct->mahhdv}}</td>
+                <td>{{$ct->tenhhdv}}</td>
+                <td>{{$ct->dacdiemkt}}</td>
+                <td style="text-align: center">{{$ct->dvt}}</td>
+                <td style="text-align: right;">{{dinhdangsothapphan($ct->giathlk,5)}}</td>
+                <td style="text-align: right;">{{dinhdangsothapphan($ct->giath,5)}}</td>
+                <td style="text-align: right;">{{dinhdangsothapphan($ct->giath - $ct->giathlk,5)}}</td>
+                <td style="text-align: center;">{{dinhdangsothapphan(number_format($ct->giathlk) == 0 ? number_format($ct->giath) == 0 ? 0 : 100
+                                : dinhdangsothapphan(($ct->giath - $ct->giathlk)*100/$ct->giathlk,5),5)}}</td>
                 <td></td>
             </tr>
         @endforeach
-
+    @endforeach
     </tbody>
 </table>
 <table width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:20px auto; text-align: center;">

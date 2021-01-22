@@ -6,6 +6,7 @@ use App\DiaBanHd;
 use App\District;
 use App\DmHhDvK;
 use App\DmHhDvK_DonVi;
+use App\DmNhomHangHoa;
 use App\GiaHhDvK;
 use App\GiaHhDvKCt;
 use App\Model\system\dsdiaban;
@@ -145,9 +146,9 @@ class GiaHhDvKController extends Controller
                     $model->nam = $inputs['nam'];
 
                     //kiểm tra nếu đã tạo danh mục theo đơn vị thì lấy dm ko thì lấy theo hệ thống
-                    $m_dm = DmHhDvK_DonVi::where('matt', $inputs['mattbc'])->where('madv', $inputs['madv'])->get();
+                    $m_dm = DmHhDvK_DonVi::where('matt', $inputs['mattbc'])->where('madv', $inputs['madv'])->orderby('mahhdv')->get();
                     if(count($m_dm) == 0){
-                        $m_dm = DmHhDvK::where('matt', $inputs['mattbc'])->get();
+                        $m_dm = DmHhDvK::where('matt', $inputs['mattbc'])->orderby('mahhdv')->get();
                     }
 
                     $a_dm = array();
@@ -234,17 +235,22 @@ class GiaHhDvKController extends Controller
         if(Session::has('admin')){
             $inputs = $request->all();
             $model = GiaHhDvK::where('mahs',$inputs['mahs'])->first();
-            $modelct = view_giahhdvk::where('mahs',$model->mahs)->get();
-
+            $modelct = view_giahhdvk::where('mahs',$model->mahs)->orderby('mahhdv')->get();
+            $a_dmhhdv = array_column(DmHhDvK::where('matt', $model->matt)->get()->toarray(),'manhom','mahhdv');
             $a_diaban = array_column(dsdiaban::where('madiaban', $model->madiaban)->get()->toarray(), 'tendiaban', 'madiaban');
             $a_tt = array_column(NhomHhDvK::where('matt', $model->matt)->get()->toarray(), 'tentt', 'matt');
             $a_dm = array_column(DmHhDvK::where('matt', $model->matt)->get()->toarray(), 'tenhhdv', 'mahhdv');
             $m_dv = dsdonvi::where('madv',$model->madv)->first();
+            $a_nhomhhdv = array_column(DmNhomHangHoa::where('phanloai','GIAHHDVK')->get()->toarray(),'tennhom','manhom');
+            foreach ($modelct as $ct){
+                $ct->manhom = $a_dmhhdv[$ct->mahhdv] ?? '';
+            }
             return view('manage.dinhgia.giahhdvk.reports.prints')
                 ->with('model',$model)
                 ->with('modelct',$modelct)
                 ->with('m_dv',$m_dv)
                 ->with('a_diaban', $a_diaban)
+                ->with('a_nhomhhdv', $a_nhomhhdv)
                 ->with('a_tt', $a_tt)
                 ->with('a_dm', $a_dm)
                 ->with('inputs',$inputs)

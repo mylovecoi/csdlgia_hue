@@ -84,15 +84,15 @@
                     </div>
                     <table id="sample_3" class="table table-striped table-bordered table-hover">
                         <thead>
-                        <tr>
-                            <th width="2%" style="text-align: center">STT</th>
-                            <th style="text-align: center">Số QĐ</th>
-                            <th style="text-align: center">Thời điểm <br>xác định</th>
-                            <th style="text-align: center">Nội dung</th>
-                            <th style="text-align: center">Trạng thái</th>
-                            <th style="text-align: center">Cơ quan tiếp nhận</th>
-                            <th style="text-align: center" width="20%">Thao tác</th>
-                        </tr>
+                            <tr>
+                                <th width="2%" style="text-align: center">STT</th>
+                                <th style="text-align: center">Số QĐ</th>
+                                <th style="text-align: center">Thời điểm <br>xác định</th>
+                                <th style="text-align: center">Nội dung</th>
+                                <th style="text-align: center">Trạng thái</th>
+                                <th style="text-align: center">Cơ quan tiếp nhận</th>
+                                <th style="text-align: center" width="20%">Thao tác</th>
+                            </tr>
                         </thead>
 
                         <tbody>
@@ -118,8 +118,11 @@
                                         <button type="button" onclick="confirmChuyen('{{$tt->mahs}}','{{$inputs['url'].'/chuyenhs'}}')" class="btn btn-default btn-xs mbs" data-target="#chuyen-modal-confirm" data-toggle="modal">
                                             <i class="fa fa-check"></i> Hoàn thành</button>
                                     @endif
-                                        <button type="button" onclick="get_attack('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
-                                            <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
+                                    <a href="{{url($inputs['url'].'/prints?mahs='.$tt->mahs)}}" class="btn btn-default btn-xs mbs" target="_blank">
+                                        <i class="fa fa-print"></i>&nbsp;In hồ sơ</a>
+
+                                    <button type="button" onclick="get_attack('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
+                                        <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
                                 </td>
                             </tr>
                         @endforeach

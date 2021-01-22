@@ -4,10 +4,12 @@ namespace App\Http\Controllers\manage\giaspdvcuthe;
 
 use App\Model\manage\dinhgia\giaspdvcuthe\giaspdvcuthe;
 use App\Model\manage\dinhgia\giaspdvcuthe\giaspdvcuthe_ct;
+use App\Model\system\dmdvt;
 use App\Model\system\dsdiaban;
 use App\Model\system\dsdonvi;
 use App\Model\system\view_dsdiaban_donvi;
 use App\Model\view\view_giaspdvcuthe;
+use App\NhomHhDvK;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -71,10 +73,14 @@ class giaspdvcutheController extends Controller
             $model->trangthai = 'CHT';
             //$model->thoidiem = $inputs['thoidiem'];
             $a_diabanapdung = getDiaBan_ApDung(\session('admin')->level, \session('admin')->madiaban);
+            $a_phanloaidv = array_column(giaspdvcuthe_ct::get('phanloaidv')->toArray(),'phanloaidv','phanloaidv');
+            $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
             return view('manage.dinhgia.giaspdvcuthe.kekhai.edit')
                 ->with('model', $model)
                 ->with('modelct', nullValue())
                 ->with('a_diabanapdung', $a_diabanapdung)
+                ->with('a_phanloaidv', $a_phanloaidv)
+                ->with('a_dvt', $a_dvt)
                 ->with('inputs', $inputs)
                 ->with('pageTitle', 'Thông tin hồ sơ');
 
@@ -132,27 +138,29 @@ class giaspdvcutheController extends Controller
         if(Session::has('admin')){
             $inputs = $request->all();
             $model = giaspdvcuthe::where('mahs',$inputs['mahs'])->first();
-            $modelct = view_giaspdvcuthe::where('mahs',$model->mahs)->get();
+            $modelct = giaspdvcuthe_ct::where('mahs',$model->mahs)->get();
 
             $a_diaban = array_column(dsdiaban::where('madiaban', $model->madiaban)->get()->toarray(), 'tendiaban', 'madiaban');
             $a_tt = array_column(NhomHhDvK::where('matt', $model->matt)->get()->toarray(), 'tentt', 'matt');
-            $a_dm = array_column(DmHhDvK::where('matt', $model->matt)->get()->toarray(), 'tenhhdv', 'mahhdv');
             $m_dv = dsdonvi::where('madv',$model->madv)->first();
-            return view('manage.dinhgia.giaspdvcuthe.reports.prints')
-                ->with('model',$model)
-                ->with('modelct',$modelct)
-                ->with('m_dv',$m_dv)
+            //dd($m_dv);
+            return view('manage.dinhgia.giaspdvcuthe.reports.inhoso')
+                ->with('m_hoso',$model)
+                ->with('model',$modelct)
+                ->with('m_donvi',$m_dv)
                 ->with('a_diaban', $a_diaban)
                 ->with('a_tt', $a_tt)
-                ->with('a_dm', $a_dm)
+                ->with('a_phanloai', a_unique(array_column($modelct->toarray(),'phanloaidv')))
+                //->with('a_dm', $a_dm)
                 ->with('inputs',$inputs)
                 ->with('pageTitle', 'Giá sản phẩm, dịch vụ cụ thể');
         }else
             return view('errors.notlogin');
     }
 
-    public function edit(Request $request){
-        if(Session::has('admin')){
+    public function edit(Request $request)
+    {
+        if (Session::has('admin')) {
             $inputs = $request->all();
             //dd($inputs);
             $inputs['url'] = '/giaspdvcuthe';
@@ -160,13 +168,18 @@ class giaspdvcutheController extends Controller
             $inputs['act'] = in_array($model->trangthai, ['CHT', 'HHT']) ? 'true' : $inputs['act']; //do có trường hợp đc gọi từ thêm mới
             $modelct = giaspdvcuthe_ct::where('mahs', $model->mahs)->get();
             $a_diabanapdung = getDiaBan_ApDung(\session('admin')->level, \session('admin')->madiaban);
-           return view('manage.dinhgia.giaspdvcuthe.kekhai.edit')
+            $a_phanloaidv = array_column(giaspdvcuthe_ct::get('phanloaidv')->toArray(),'phanloaidv','phanloaidv');
+            $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
+            //dd($a_phanloaidv);
+            return view('manage.dinhgia.giaspdvcuthe.kekhai.edit')
                 ->with('model', $model)
                 ->with('modelct', $modelct)
                 ->with('a_diabanapdung', $a_diabanapdung)
+                ->with('a_phanloaidv', $a_phanloaidv)
+                ->with('a_dvt', $a_dvt)
                 ->with('inputs', $inputs)
                 ->with('pageTitle', 'Thông tin hồ sơ');
-        }else
+        } else
             return view('errors.notlogin');
     }
 

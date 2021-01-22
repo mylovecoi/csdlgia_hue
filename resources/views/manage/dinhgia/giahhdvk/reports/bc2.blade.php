@@ -56,22 +56,33 @@
     </thead>
     <tbody>
 
-        @foreach($model as $key=>$tt)
+    <?php $i = 1; ?>
+    @foreach($a_nhomhhdv as $key=>$tt)
+        <?php
+        $chitiet = $model->where('manhom',$key);
+        $k = 1;
+        ?>
+        <tr style="font-weight: bold;">
+            <td>{{IntToRoman($i++)}}</td>
+            <td colspan="11">{{$tt}}</td>
+        </tr>
+        @foreach($chitiet as $ct)
             <tr>
-                <td style="text-align: center">{{$key+1}}</td>
-                <td style="text-align: center">{{$tt->mahhdv}}</td>
-                <td>{{$tt->tenhhdv}}</td>
-                <td>{{$tt->dacdiemkt}}</td>
-                <td style="text-align: center">{{$tt->dvt}}</td>
-                <td style="text-align: center">{{$tt->loaigia}}</td>
-                <td style="text-align: right;font-weight: bold">{{dinhdangsothapphan($tt->gialk,5)}}</td>
-                <td style="text-align: right;font-weight: bold">{{dinhdangsothapphan($tt->gia,5)}}</td>
-                <td>{{dinhdangsothapphan($tt->gia-$tt->gialk,5)}}</td>
-                <td>{{$tt->gialk == 0 ? '' : dinhdangsothapphan(($tt->gia-$tt->gialk)/$tt->gialk,5)}}</td>
-                <td>{{$tt->nguontt}}</td>
-                <td>{{$tt->ghichu}}</td>
+                <td style="text-align: center">{{$k++}}</td>
+                <td style="text-align: center">{{$ct->mahhdv}}</td>
+                <td>{{$ct->tenhhdv}}</td>
+                <td>{{$ct->dacdiemkt}}</td>
+                <td style="text-align: center">{{$ct->dvt}}</td>
+                <td style="text-align: center">{{$ct->loaigia}}</td>
+                <td style="text-align: right;">{{dinhdangsothapphan($ct->gialk,5)}}</td>
+                <td style="text-align: right;">{{dinhdangsothapphan($ct->gia,5)}}</td>
+                <td style="text-align: right;">{{dinhdangsothapphan($ct->gia - $ct->gialk,5)}}</td>
+                <td style="text-align: center;">{{$ct->gialk == 0 ? '' : dinhdangsothapphan(($ct->gia - $ct->gialk)/$ct->gialk,5)}}</td>
+                <td>{{$ct->nguontt}}</td>
+                <td>{{$ct->ghichu}}</td>
             </tr>
         @endforeach
+    @endforeach
 
     </tbody>
 </table>

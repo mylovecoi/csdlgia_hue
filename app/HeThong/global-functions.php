@@ -3083,6 +3083,16 @@ function getDayVn($date) {
     return $newday;
 }
 
+function getNt2Bc($date){
+    $newday = 'ngày .... tháng .... năm ....';
+    if ($date != null || $date != '') {
+        $date = strtotime($date);
+        //$newday = 'ngày ' . date("dd", $date);
+        $newday = 'ngày ' . date("d", $date) . ' tháng ' . date("m", $date) . ' năm ' . date("Y", $date);
+    }
+    return $newday;
+}
+
 //$kieu = 0: bắt đầu
 //$kieu = 1: chứa
 function getTimkiemLike($str, $kieu = 0){

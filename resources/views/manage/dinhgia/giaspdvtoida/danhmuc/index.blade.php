@@ -41,7 +41,7 @@
                     form.find("[name='maspdv']").val(data.maspdv);
                     form.find("[name='tenspdv']").val(data.tenspdv);
                     form.find("[name='dvt']").val(data.dvt).trigger('change');
-                    form.find("[name='mota']").val(data.mota);
+                    // form.find("[name='mota']").val(data.mota);
                     form.find("[name='phanloai']").val(data.phanloai).trigger('change');
                 },
                 error: function (message) {
@@ -53,6 +53,13 @@
             var form = $('#frm_create');
             //Nhà xã hội cho thuê
             form.find("[name='maspdv']").val('NEW');
+        }
+
+        function addpl(){
+            $('#modal-phanloai').modal('hide');
+            var gt = $('#phanloai_add').val();
+            $('#phanloai').append(new Option(gt, gt, true, true));
+            $('#phanloai').val(gt).trigger('change');
         }
     </script>
 @stop
@@ -76,15 +83,14 @@
                 </div>
                 <hr>
                 <div class="portlet-body form-horizontal">
-
                     <table class="table table-striped table-bordered table-hover" id="sample_3">
                         <thead>
                         <tr>
                             <th width="2%" style="text-align: center">STT</th>
-                            <th style="text-align: center">Tên hàng hóa</th>
                             <th style="text-align: center">Phân loại</th>
-                            <th style="text-align: center">ĐVT</th>
-                            <th style="text-align: center">Mô tả</th>
+                            <th style="text-align: center">Tên hàng hóa</th>
+                            <th style="text-align: center">Đơn vị<br>tính</th>
+{{--                            <th style="text-align: center">Mô tả</th>--}}
                             <th width="15%" style="text-align: center">Thao tác</th>
                         </tr>
                         </thead>
@@ -92,10 +98,11 @@
                         @foreach($model as $key=>$tt)
                             <tr class="odd gradeX">
                                 <td style="text-align: center">{{$key + 1}}</td>
-                                <td class="success">{{$tt->tenspdv}}</td>
                                 <td>{{$tt->phanloai}}</td>
+                                <td class="success">{{$tt->tenspdv}}</td>
+
                                 <td>{{$tt->dvt}}</td>
-                                <td>{{$tt->mota}}</td>
+{{--                                <td>{{$tt->mota}}</td>--}}
                                 <td>
                                     @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvtoida', 'danhmuc','modify'))
                                         <button type="button" onclick="ClickEdit('{{$tt->maspdv}}')" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
@@ -128,6 +135,23 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <label class="control-label">Phân loại sản phẩm, dịch vụ</label>
+                                {!!Form::select('phanloai', $a_phanloai, null, array('id' => 'phanloai','class' => 'form-control select2me'))!!}
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Thêm</label>
+                                <button type="button" class="btn btn-default" data-target="#modal-phanloai" data-toggle="modal">
+                                    <i class="fa fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label">Tên hàng hóa<span class="require">*</span></label>
@@ -136,23 +160,14 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">Mô tả</label>
-                                <input name="mota" id="mota" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">Phân loại sản phẩm, dịch vụ</label>
-                                <input name="phanloai" id="phanloai" class="form-control">
-                            </div>
-                        </div>
-                    </div>
+{{--                    <div class="row">--}}
+{{--                        <div class="col-md-12">--}}
+{{--                            <div class="form-group">--}}
+{{--                                <label class="control-label">Mô tả</label>--}}
+{{--                                <input name="mota" id="mota" class="form-control">--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
                     <div class="row">
                         <div class="col-md-12">
@@ -191,6 +206,29 @@
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
+    </div>
+
+    <div id="modal-phanloai" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                    <h4 id="modal-header-primary-label" class="modal-title">Thông tin phân loại</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-control-label">Phân loại sản phẩm, dịch vụ<span class="require">*</span></label>
+                            {!!Form::text('phanloai_add', null, array('id' => 'phanloai_add','class' => 'form-control','required'=>'required'))!!}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
+                    <button class="btn btn-primary" onclick="addpl()">Đồng ý</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     @include('manage.include.form.modal_dvt')
