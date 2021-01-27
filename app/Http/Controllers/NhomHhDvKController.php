@@ -40,12 +40,12 @@ class NhomHhDvKController extends Controller
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
 
             $model = DmHhDvK_DonVi::where('madv',$inputs['madv'])
-                ->where('matt',$inputs['matt'])->get();
+                ->where('matt',$inputs['matt'])->orderby('mahhdv')->get();
             $m_hanghoa = DmHhDvK::where('matt',$inputs['matt'])->wherenotin('mahhdv',array_column($model->toarray(),'mahhdv'))->get();
 
             //dd($m_donvi);
             return view('manage.dinhgia.giahhdvk.danhmuc.donvi.index')
-                ->with('model',$model->sortby('mahhdv'))
+                ->with('model',$model)
                 ->with('inputs',$inputs)
                 ->with('m_diaban', $m_diaban)
                 ->with('m_donvi', $m_donvi)
@@ -61,9 +61,9 @@ class NhomHhDvKController extends Controller
             $inputs = $request->all();
             //chỉ cần kiểm tra tồn tại do trên form đã bắt trường hợp ko chọn
             if (isset($inputs['a_hh'])) {
-                $model = DmHhDvK::where('matt', $inputs['matt'])->wherein('mahhdv', $inputs['a_hh'])->get();
+                $model = DmHhDvK::where('matt', $inputs['matt'])->wherein('mahhdv', $inputs['a_hh'])->orderby('mahhdv')->get();
             } else {
-                $model = DmHhDvK::where('matt', $inputs['matt'])->get();
+                $model = DmHhDvK::where('matt', $inputs['matt'])->orderby('mahhdv')->get();
             }
             $a_dm = [];
             $a_check = array_column(DmHhDvK_DonVi::where('madv',$inputs['madv'])
