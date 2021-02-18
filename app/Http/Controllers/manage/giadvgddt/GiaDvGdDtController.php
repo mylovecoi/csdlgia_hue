@@ -36,7 +36,8 @@ class GiaDvGdDtController extends Controller
             $inputs['nam'] = $inputs['nam'] ?? 'all';
             $model = GiaDvGdDt::where('madv', $inputs['madv']);
             if($inputs['nam'] != 'all')
-                $model = $model->where('nam',$inputs['nam']);
+                $model = $model->whereYear('thoidiem', $inputs['nam']);
+//                $model = $model->where('nam',$inputs['nam']);
             $a_dm = array_column(giadvgddtdm::all()->toArray(), 'maspdv', 'tenspdv');
             return view('manage.dinhgia.giadvgddt.kekhai.index')
                 ->with('model', $model->get())
@@ -58,10 +59,11 @@ class GiaDvGdDtController extends Controller
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
-
+            $inputs['url'] = '/giadvgddt';
+            $inputs['act'] = 'true';
             $model = new GiaDvGdDt();
             $model->mahs = getdate()[0];
-            $model->madiaban = view_dsdiaban_donvi::where('madv',$inputs['madv'])->first()->madiaban ?? null;
+//            $model->madiaban = view_dsdiaban_donvi::where('madv',$inputs['madv'])->first()->madiaban ?? null;
             $model->madv = $inputs['madv'];
             $model->trangthai = 'CHT';
             $model->thoidiem = date('Y-m-d');
@@ -80,15 +82,45 @@ class GiaDvGdDtController extends Controller
             foreach ($m_danhmuc as $dm) {
                 $a_dm[] = array(
                     'maspdv' => $dm->maspdv,
-                    'giadv' => '0',
+                    //'giadv' => '0',
+                    'giathanhthi1' => '0',
+                    'gianongthon1' => '0',
+                    'giamiennui1' => '0',
+                    'giathanhthi2' => '0',
+                    'gianongthon2' => '0',
+                    'giamiennui2' => '0',
+                    'giathanhthi3' => '0',
+                    'gianongthon3' => '0',
+                    'giamiennui3' => '0',
+                    'giathanhthi4' => '0',
+                    'gianongthon4' => '0',
+                    'giamiennui4' => '0',
+                    'giathanhthi5' => '0',
+                    'gianongthon5' => '0',
+                    'giamiennui5' => '0',
                     'mahs' => $model->mahs,
                 );
             }
+            GiaDvGdDtCt::insert($a_dm);
+            $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
+            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
+            $m_donvi = getDonViNhapLieu(session('admin')->level);
+            $modelct = GiaDvGdDtCt::where('mahs',$model->mahs)->get();
+            $a_dm = array_column(giadvgddtdm::all()->toArray(),'tenspdv','maspdv');
+            return view('manage.dinhgia.giadvgddt.kekhai.edit')
+                ->with('model',$model)
+                ->with('modelct',$modelct)
+                ->with('m_diaban',$m_diaban)
+                ->with('a_diaban',array_column($m_diaban->wherein('level',['H','T','X'])->toarray(),'tendiaban', 'madiaban'))
+                ->with('m_donvi',$m_donvi)
+                ->with('a_dm',$a_dm)
+                ->with('inputs',$inputs)
+                ->with('pageTitle','Chi tiết hồ sơ');
 
-            if(GiaDvGdDtCt::insert($a_dm)){
-                $model->save();
-            }
-            return redirect('/giadvgddt/modify?mahs='.$model->mahs.'&act=true&addnew=true');
+//            if(GiaDvGdDtCt::insert($a_dm)){
+//                $model->save();
+//            }
+//            return redirect('/giadvgddt/modify?mahs='.$model->mahs.'&act=true&addnew=true');
         } else
             return view('errors.notlogin');
     }
@@ -120,6 +152,7 @@ class GiaDvGdDtController extends Controller
     public function update(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
+            //dd($inputs);
             $model = GiaDvGdDt::where('mahs', $inputs['mahs'])->first();
             if(isset($inputs['ipf1'])){
                 $ipf1 = $request->file('ipf1');
@@ -151,8 +184,14 @@ class GiaDvGdDtController extends Controller
                 $ipf5->move(public_path() . '/data/giadvgddt/', $name);
                 $inputs['ipf5']= $name;
             }
-            $model->update($inputs);
-            return redirect('giadvgddt/danhsach?&nam=' . $model->nam . '&madv=' . $model->madv);
+            if($model == null){
+                $inputs['trangthai'] = 'CHT';
+                GiaDvGdDt::create($inputs);
+            }else{
+                $model->update($inputs);
+            }
+
+            return redirect('giadvgddt/danhsach?&madv=' . $inputs['madv']);
         } else
             return view('errors.notlogin');
     }
@@ -395,7 +434,8 @@ class GiaDvGdDtController extends Controller
                 case 'H':{
                     $model = GiaDvGdDt::where('madv_h', $inputs['madv']);
                     if ($inputs['nam'] != 'all')
-                        $model = $model->where('nam', $inputs['nam']);
+                        $model = $model->whereYear('thoidiem_h', $inputs['nam']);
+//                        $model = $model->where('nam', $inputs['nam']);
                     $model = $model->get();
                     //dd($model);
                     foreach ($model as $ct){
@@ -413,7 +453,8 @@ class GiaDvGdDtController extends Controller
                 case 'T':{
                     $model = GiaDvGdDt::where('madv_t', $inputs['madv']);
                     if ($inputs['nam'] != 'all')
-                        $model = $model->where('nam', $inputs['nam']);
+                        $model = $model->whereYear('thoidiem_t', $inputs['nam']);
+//                        $model = $model->where('nam', $inputs['nam']);
                     $model = $model->get();
                     //dd($model);
                     foreach ($model as $ct){
@@ -431,7 +472,8 @@ class GiaDvGdDtController extends Controller
                 case 'ADMIN':{
                     $model = GiaDvGdDt::where('madv_ad', $inputs['madv']);
                     if ($inputs['nam'] != 'all')
-                        $model = $model->where('nam', $inputs['nam']);
+                        $model = $model->whereYear('thoidiem_ad', $inputs['nam']);
+//                        $model = $model->where('nam', $inputs['nam']);
                     $model = $model->get();
                     foreach ($model as $ct){
                         $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
@@ -669,14 +711,22 @@ class GiaDvGdDtController extends Controller
                 $model = $model->where('maspdv', $inputs['maspdv']);
             }
 
-            if($inputs['nam'] != 'all'){
-                $model = $model->where('nam',$inputs['nam']);
+            if(getDayVn($inputs['thoidiem_tu']) != ''){
+                $model = $model->where('thoidiem','>=',$inputs['thoidiem_tu']);
             }
 
-            $model = $model->where('giadv','>=',chkDbl($inputs['giatri_tu']));
-            if(chkDbl($inputs['giatri_den']) > 0){
-                $model = $model->where('giadv','<=',chkDbl($inputs['giatri_den']));
+            if(getDayVn($inputs['thoidiem_den']) != ''){
+                $model = $model->where('thoidiem','<=',$inputs['thoidiem_den']);
             }
+
+//            if($inputs['nam'] != 'all'){
+//                $model = $model->where('nam',$inputs['nam']);
+//            }
+//
+//            $model = $model->where('giadv','>=',chkDbl($inputs['giatri_tu']));
+//            if(chkDbl($inputs['giatri_den']) > 0){
+//                $model = $model->where('giadv','<=',chkDbl($inputs['giatri_den']));
+//            }
             //dd($model);
             $a_dm = array_column(giadvgddtdm::all()->toArray(),'tenspdv','maspdv');
             return view('manage.dinhgia.giadvgddt.timkiem.result')

@@ -18,6 +18,8 @@ class GiaDvGdDt extends Model
         'congbo',
         'lichsu', //Thao tác lịch sử hồ sơ theo dạng JSON
         'ghichu',
+        'tunam',
+        'dennam',
 //Thông tin hồ sơ khi khởi tạo (level lấy theo thông tin đơn vị)
         'thoidiem',
         'macqcq',

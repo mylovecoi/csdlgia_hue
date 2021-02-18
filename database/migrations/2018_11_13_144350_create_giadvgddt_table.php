@@ -24,6 +24,8 @@ class CreateGiadvgddtTable extends Migration
             $table->string('congbo')->nullable(25);
             $table->text('lichsu')->nullable(); //Thao tác lịch sử hồ sơ theo dạng JSON
             $table->text('ghichu')->nullable();
+            $table->string('tunam',5)->nullable();
+            $table->string('dennam',5)->nullable();
             //Thông tin hồ sơ khi khởi tạo (level lấy theo thông tin đơn vị)
             $table->date('thoidiem')->nullable();
             $table->string('macqcq')->nullable(20);

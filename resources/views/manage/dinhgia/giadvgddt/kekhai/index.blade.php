@@ -35,9 +35,8 @@
 @stop
 
 @section('content')
-
-    <h3 class="page-title">
-        Giá dịch vụ <small>&nbsp;giáo dục và đào tạo</small>
+    <h3 class="page-title text-uppercase">
+        {{session('admin')['a_chucnang']['giadvgddt'] ?? 'hồ sơ giá dịch vụ giáo dục và đào tạo'}}
     </h3>
     {{--<h3 class="page-title">
         <small> <b style="color: blue">{{$dvql->tendv}}</b><b style="color: blue"> - </b><b style="color: blue">{{$dv->tendv}}</b> - Người soạn thảo: <b style="color: blue">{{isset($model) ? $model->cvsoanthao : session('admin')->name}}</b> </small>
@@ -64,14 +63,18 @@
                 <div class="portlet-body form-horizontal">
                     <div class="row">
                         <div class="form-group">
-                            <div class="col-md-4">
-                                <label style="font-weight: bold">Năm học</label>
-                                <select class="form-control" id="nam">
-                                    <option value="all">--Tất cả các năm--</option>
-                                    @for($i = date('Y') - 2; $i <= date('Y'); $i++)
-                                        <option value="{{$i.'-'.($i+1)}}" {{($i.'-'.($i+1)) == $inputs['nam'] ? 'selected' : ''}}>{{$i.'-'.($i+1)}}</option>
-                                    @endfor
-                                </select>
+{{--                            <div class="col-md-4">--}}
+{{--                                <label style="font-weight: bold">Năm học</label>--}}
+{{--                                <select class="form-control" id="nam">--}}
+{{--                                    <option value="all">--Tất cả các năm--</option>--}}
+{{--                                    @for($i = date('Y') - 2; $i <= date('Y'); $i++)--}}
+{{--                                        <option value="{{$i.'-'.($i+1)}}" {{($i.'-'.($i+1)) == $inputs['nam'] ? 'selected' : ''}}>{{$i.'-'.($i+1)}}</option>--}}
+{{--                                    @endfor--}}
+{{--                                </select>--}}
+{{--                            </div>--}}
+                            <div class="col-md-2">
+                                <label style="font-weight: bold">Năm</label>
+                                {!! Form::select('nam', getNam(true), $inputs['nam'], array('id' => 'nam', 'class' => 'form-control'))!!}
                             </div>
 
                             <div class="col-md-4">
@@ -89,51 +92,52 @@
                             </div>
                         </div>
                     </div>
-
-                    <table id="sample_4" class="table table-striped table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th style="text-align: center" width="2%">STT</th>
-{{--                                <th style="text-align: center">Địa bàn</th>--}}
-                                <th style="text-align: center" >Số QĐ</th>
-                                <th style="text-align: center">Năm học</th>
-                                <th style="text-align: center">Mô tả</th>
-                                <th style="text-align: center"> Trạng thái</th>
-                                <th style="text-align: center">Cơ quan tiếp nhận</th>
-                                <th style="text-align: center" width="15%"> Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($model as $key => $tt)
+                    <div class="row">
+                        <table id="sample_4" class="table table-striped table-bordered table-hover">
+                            <thead>
                                 <tr>
-                                    <td style="text-align: center">{{$key+1}}</td>
-{{--                                    <td>{{$a_diaban[$tt->madiaban] ?? ''}}</td>--}}
-                                    <td>{{$tt->soqd}}</td>
-                                    <td style="text-align: center">{{$tt->nam}}</td>
-                                    <td style="text-align: left" class="active">{{$tt->mota}}</td>
-                                    @include('manage.include.form.td_trangthai')
-                                    <td style="text-align: left">{{$a_donvi_th[$tt->macqcq]?? ''}}</td>
-                                    <td>
-                                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvgddt', 'hoso', 'modify') && in_array($tt->trangthai,['CHT', 'HHT']))
-                                            <a href="{{url($inputs['url'].'/modify?mahs='.$tt->mahs.'&act=true')}}" class="btn btn-default btn-xs mbs">
-                                                <i class="fa fa-edit"></i>&nbsp;Chi tiết</a>
-                                            <button type="button" onclick="confirmDelete('{{$tt->mahs}}','{{$inputs['url'].'/delete'}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
-                                                <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
-                                        @else
-                                            <a href="{{url($inputs['url'].'/modify?mahs='.$tt->mahs.'&act=false')}}" target="_blank" class="btn btn-default btn-xs mbs">
-                                                <i class="fa fa-eye"></i>&nbsp;Chi tiết</a>
-                                        @endif
-                                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvgddt', 'hoso', 'approve')&& in_array($tt->trangthai,['CHT', 'HHT']))
-                                            <button type="button" onclick="confirmChuyen('{{$tt->mahs}}','{{$inputs['url'].'/chuyenhs'}}')" class="btn btn-default btn-xs mbs" data-target="#chuyen-modal-confirm" data-toggle="modal">
-                                                <i class="fa fa-check"></i> Hoàn thành</button>
-                                        @endif
-                                        <button type="button" onclick="get_attack('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
-                                            <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
-                                    </td>
+                                    <th style="text-align: center" width="2%">STT</th>
+    {{--                                <th style="text-align: center">Địa bàn</th>--}}
+                                    <th style="text-align: center" >Số QĐ</th>
+                                    <th style="text-align: center">Ngày tháng<br>quyết định</th>
+                                    <th style="text-align: center">Mô tả</th>
+                                    <th style="text-align: center"> Trạng thái</th>
+                                    <th style="text-align: center">Cơ quan tiếp nhận</th>
+                                    <th style="text-align: center" width="15%"> Thao tác</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach($model as $key => $tt)
+                                    <tr>
+                                        <td style="text-align: center">{{$key+1}}</td>
+    {{--                                    <td>{{$a_diaban[$tt->madiaban] ?? ''}}</td>--}}
+                                        <td>{{$tt->soqd}}</td>
+                                        <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
+                                        <td style="text-align: left" class="active">{{$tt->mota}}</td>
+                                        @include('manage.include.form.td_trangthai')
+                                        <td style="text-align: left">{{$a_donvi_th[$tt->macqcq]?? ''}}</td>
+                                        <td>
+                                            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvgddt', 'hoso', 'modify') && in_array($tt->trangthai,['CHT', 'HHT']))
+                                                <a href="{{url($inputs['url'].'/modify?mahs='.$tt->mahs.'&act=true')}}" class="btn btn-default btn-xs mbs">
+                                                    <i class="fa fa-edit"></i>&nbsp;Chi tiết</a>
+                                                <button type="button" onclick="confirmDelete('{{$tt->mahs}}','{{$inputs['url'].'/delete'}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
+                                                    <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
+                                            @else
+                                                <a href="{{url($inputs['url'].'/modify?mahs='.$tt->mahs.'&act=false')}}" target="_blank" class="btn btn-default btn-xs mbs">
+                                                    <i class="fa fa-eye"></i>&nbsp;Chi tiết</a>
+                                            @endif
+                                            @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvgddt', 'hoso', 'approve')&& in_array($tt->trangthai,['CHT', 'HHT']))
+                                                <button type="button" onclick="confirmChuyen('{{$tt->mahs}}','{{$inputs['url'].'/chuyenhs'}}')" class="btn btn-default btn-xs mbs" data-target="#chuyen-modal-confirm" data-toggle="modal">
+                                                    <i class="fa fa-check"></i> Hoàn thành</button>
+                                            @endif
+                                            <button type="button" onclick="get_attack('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
+                                                <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <!-- END EXAMPLE TABLE PORTLET-->
             </div>

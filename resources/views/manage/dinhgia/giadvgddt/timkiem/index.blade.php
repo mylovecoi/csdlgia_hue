@@ -16,8 +16,8 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Tìm kiếm<small> hồ sơ giá dịch vụ giáo dục và đào tạo</small>
+    <h3 class="page-title text-uppercase">
+        Tìm kiếm {{session('admin')['a_chucnang']['giadvgddt'] ?? 'giá dịch vụ giáo dục và đào tạo'}}
     </h3>
 
     <!-- END PAGE HEADER-->
@@ -61,36 +61,53 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label style="font-weight: bold">Năm học</label>
-                                    <select class="form-control" name="nam" id="nam">
-                                        <option value="all">--Tất cả các năm--</option>
-                                        @for($i = date('Y') - 2; $i <= date('Y'); $i++)
-                                            <option value="{{$i.'-'.($i+1)}}">{{$i.'-'.($i+1)}}</option>
-                                        @endfor
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+{{--                        <div class="row">--}}
+{{--                            <div class="col-md-6">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label style="font-weight: bold">Năm học</label>--}}
+{{--                                    <select class="form-control" name="nam" id="nam">--}}
+{{--                                        <option value="all">--Tất cả các năm--</option>--}}
+{{--                                        @for($i = date('Y') - 2; $i <= date('Y'); $i++)--}}
+{{--                                            <option value="{{$i.'-'.($i+1)}}">{{$i.'-'.($i+1)}}</option>--}}
+{{--                                        @endfor--}}
+{{--                                    </select>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Đơn giá từ</label>
-                                    {!!Form::text('giatri_tu', null, array('id' => 'giatri_tu','class' => 'form-control','data-mask'=>'fdecimal'))!!}
+                                    <label class="control-label">Thời gian nhập từ</label>
+                                    {!! Form::input('date', 'thoidiem_tu', null, array('id' => 'thoidiem_tu', 'class' => 'form-control'))!!}
                                 </div>
                             </div>
                             <!--/span-->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Đơn giá đến</label>
-                                    {!!Form::text('giatri_den', null, array('id' => 'giatri_den','class' => 'form-control','data-mask'=>'fdecimal'))!!}
+                                    <label class="control-label">Thời gian nhập đến</label>
+                                    {!! Form::input('date', 'thoidiem_den', null, array('id' => 'thoidiem_den', 'class' => 'form-control'))!!}
                                 </div>
                             </div>
                             <!--/span-->
                         </div>
+
+{{--                        <div class="row">--}}
+{{--                            <div class="col-md-6">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label class="control-label">Đơn giá từ</label>--}}
+{{--                                    {!!Form::text('giatri_tu', null, array('id' => 'giatri_tu','class' => 'form-control','data-mask'=>'fdecimal'))!!}--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <!--/span-->--}}
+{{--                            <div class="col-md-6">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label class="control-label">Đơn giá đến</label>--}}
+{{--                                    {!!Form::text('giatri_den', null, array('id' => 'giatri_den','class' => 'form-control','data-mask'=>'fdecimal'))!!}--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <!--/span-->--}}
+{{--                        </div>--}}
                     </div>
                 </div>
             </div>

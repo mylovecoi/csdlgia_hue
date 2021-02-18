@@ -1,0 +1,119 @@
+DROP TABLE [dbo].[giadvgddtct]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[giadvgddtct](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[mahs] [nvarchar](255) NULL,
+	[maspdv] [nvarchar](255) NULL,
+	[mota] [nvarchar](max) NULL,
+	[namapdung1] [nvarchar](255) NULL,
+	[giathanhthi1] [float] NOT NULL,
+	[gianongthon1] [float] NOT NULL,
+	[giamiennui1] [float] NOT NULL,
+	[namapdung2] [nvarchar](255) NULL,
+	[giathanhthi2] [float] NOT NULL,
+	[gianongthon2] [float] NOT NULL,
+	[giamiennui2] [float] NOT NULL,
+	[namapdung3] [nvarchar](255) NULL,
+	[giathanhthi3] [float] NOT NULL,
+	[gianongthon3] [float] NOT NULL,
+	[giamiennui3] [float] NOT NULL,
+	[namapdung4] [nvarchar](255) NULL,
+	[giathanhthi4] [float] NOT NULL,
+	[gianongthon4] [float] NOT NULL,
+	[giamiennui4] [float] NOT NULL,
+	[namapdung5] [nvarchar](255) NULL,
+	[giathanhthi5] [float] NOT NULL,
+	[gianongthon5] [float] NOT NULL,
+	[giamiennui5] [float] NOT NULL,
+	[gc] [nvarchar](255) NULL,
+	[created_at] [datetime] NULL,
+	[updated_at] [datetime] NULL,
+PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+DROP TABLE [dbo].[giadvgddt]
+GO
+
+/****** Object:  Table [dbo].[giadvgddt]    Script Date: 1/29/2021 9:37:03 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[giadvgddt](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[madiaban] [nvarchar](255) NULL,
+	[maxp] [nvarchar](255) NULL,
+	[mahs] [nvarchar](255) NOT NULL,
+	[soqd] [nvarchar](255) NULL,
+	[nam] [nvarchar](255) NULL,
+	[mota] [nvarchar](255) NULL,
+	[congbo] [nvarchar](255) NULL,
+	[lichsu] [nvarchar](max) NULL,
+	[ghichu] [nvarchar](max) NULL,
+	[tunam] [nvarchar](5) NULL,
+	[dennam] [nvarchar](5) NULL,
+	[thoidiem] [date] NULL,
+	[macqcq] [nvarchar](255) NULL,
+	[madv] [nvarchar](255) NULL,
+	[lydo] [nvarchar](255) NULL,
+	[thongtin] [nvarchar](255) NULL,
+	[trangthai] [nvarchar](255) NULL,
+	[ipf1] [nvarchar](255) NULL,
+	[ipf2] [nvarchar](255) NULL,
+	[ipf3] [nvarchar](255) NULL,
+	[ipf4] [nvarchar](255) NULL,
+	[ipf5] [nvarchar](255) NULL,
+	[thoidiem_h] [date] NULL,
+	[macqcq_h] [nvarchar](255) NULL,
+	[madv_h] [nvarchar](255) NULL,
+	[lydo_h] [nvarchar](255) NULL,
+	[thongtin_h] [nvarchar](255) NULL,
+	[trangthai_h] [nvarchar](255) NULL,
+	[thoidiem_t] [date] NULL,
+	[macqcq_t] [nvarchar](255) NULL,
+	[madv_t] [nvarchar](255) NULL,
+	[lydo_t] [nvarchar](255) NULL,
+	[thongtin_t] [nvarchar](255) NULL,
+	[trangthai_t] [nvarchar](255) NULL,
+	[thoidiem_ad] [date] NULL,
+	[macqcq_ad] [nvarchar](255) NULL,
+	[madv_ad] [nvarchar](255) NULL,
+	[lydo_ad] [nvarchar](255) NULL,
+	[thongtin_ad] [nvarchar](255) NULL,
+	[trangthai_ad] [nvarchar](255) NULL,
+	[created_at] [datetime] NULL,
+	[updated_at] [datetime] NULL,
+PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+CREATE OR ALTER VIEW [dbo].[view_giadvgddt]
+AS
+SELECT        dbo.giadvgddt.madiaban, dbo.giadvgddt.maxp, dbo.giadvgddt.mahs, dbo.giadvgddt.soqd, dbo.giadvgddt.nam, dbo.giadvgddt.mota, dbo.giadvgddt.congbo, dbo.giadvgddt.lichsu, dbo.giadvgddt.ghichu, dbo.giadvgddt.thoidiem,
+                         dbo.giadvgddt.macqcq, dbo.giadvgddt.madv, dbo.giadvgddt.lydo, dbo.giadvgddt.thongtin, dbo.giadvgddt.trangthai, dbo.giadvgddt.thoidiem_h, dbo.giadvgddt.macqcq_h, dbo.giadvgddt.madv_h, dbo.giadvgddt.lydo_h,
+                         dbo.giadvgddt.thongtin_h, dbo.giadvgddt.trangthai_h, dbo.giadvgddt.thoidiem_t, dbo.giadvgddt.macqcq_t, dbo.giadvgddt.madv_t, dbo.giadvgddt.lydo_t, dbo.giadvgddt.thongtin_t, dbo.giadvgddt.trangthai_t,
+                         dbo.giadvgddt.thoidiem_ad, dbo.giadvgddt.macqcq_ad, dbo.giadvgddt.madv_ad, dbo.giadvgddt.lydo_ad, dbo.giadvgddt.thongtin_ad, dbo.giadvgddt.trangthai_ad, dbo.giadvgddtct.maspdv, dbo.dmgiadvgddt.tenspdv,
+                         dbo.dmgiadvgddt.phanloai, dbo.giadvgddt.tunam, dbo.giadvgddt.dennam, dbo.giadvgddtct.namapdung1, dbo.giadvgddtct.giathanhthi1, dbo.giadvgddtct.gianongthon1, dbo.giadvgddtct.giamiennui1, dbo.giadvgddtct.namapdung2,
+                         dbo.giadvgddtct.giathanhthi2, dbo.giadvgddtct.gianongthon2, dbo.giadvgddtct.giamiennui2, dbo.giadvgddtct.namapdung3, dbo.giadvgddtct.giathanhthi3, dbo.giadvgddtct.gianongthon3, dbo.giadvgddtct.giamiennui3,
+                         dbo.giadvgddtct.namapdung4, dbo.giadvgddtct.giathanhthi4, dbo.giadvgddtct.gianongthon4, dbo.giadvgddtct.giamiennui4, dbo.giadvgddtct.namapdung5, dbo.giadvgddtct.giathanhthi5, dbo.giadvgddtct.gianongthon5,
+                         dbo.giadvgddtct.giamiennui5, dbo.giadvgddtct.gc
+FROM            dbo.giadvgddt INNER JOIN
+                         dbo.giadvgddtct ON dbo.giadvgddt.mahs = dbo.giadvgddtct.mahs INNER JOIN
+                         dbo.dmgiadvgddt ON dbo.giadvgddtct.maspdv = dbo.dmgiadvgddt.maspdv
+GO

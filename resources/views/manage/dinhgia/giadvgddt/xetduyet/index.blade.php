@@ -35,8 +35,8 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Hồ sơ <small> giá dịch vụ giáo dục và đào tạo</small>
+    <h3 class="page-title text-uppercase">
+        {{session('admin')['a_chucnang']['giadvgddt'] ?? 'hồ sơ giá dịch vụ giáo dục và đào tạo'}}
     </h3>
 
     <!-- END PAGE HEADER-->
@@ -56,14 +56,18 @@
                 <div class="portlet-body form-horizontal">
                     <div class="row">
                         <div class="form-group">
-                            <div class="col-md-4">
-                                <label style="font-weight: bold">Năm học</label>
-                                <select class="form-control" id="nam">
-                                    <option value="all">--Tất cả các năm--</option>
-                                    @for($i = date('Y') - 2; $i <= date('Y'); $i++)
-                                        <option value="{{$i.'-'.($i+1)}}" {{($i.'-'.($i+1)) == $inputs['nam'] ? 'selected' : ''}}>{{$i.'-'.($i+1)}}</option>
-                                    @endfor
-                                </select>
+{{--                            <div class="col-md-4">--}}
+{{--                                <label style="font-weight: bold">Năm học</label>--}}
+{{--                                <select class="form-control" id="nam">--}}
+{{--                                    <option value="all">--Tất cả các năm--</option>--}}
+{{--                                    @for($i = date('Y') - 2; $i <= date('Y'); $i++)--}}
+{{--                                        <option value="{{$i.'-'.($i+1)}}" {{($i.'-'.($i+1)) == $inputs['nam'] ? 'selected' : ''}}>{{$i.'-'.($i+1)}}</option>--}}
+{{--                                    @endfor--}}
+{{--                                </select>--}}
+{{--                            </div>--}}
+                            <div class="col-md-2">
+                                <label style="font-weight: bold">Năm</label>
+                                {!! Form::select('nam', getNam(true), $inputs['nam'], array('id' => 'nam', 'class' => 'form-control'))!!}
                             </div>
 
                             <div class="col-md-4">
@@ -81,13 +85,14 @@
                             </div>
                         </div>
                     </div>
-                    <table id="sample_3" class="table table-striped table-bordered table-hover">
+                    <div class="row">
+                        <table id="sample_3" class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th width="2%" style="text-align: center">STT</th>
                                 <th style="text-align: center">Cơ quan chuyển hồ sơ</th>
 {{--                                <th style="text-align: center">Địa bàn</th>--}}
-                                <th style="text-align: center">Năm học</th>
+                                <th style="text-align: center">Ngày tháng<br>quyết định</th>
                                 <th style="text-align: center">Nội dung</th>
                                 <th style="text-align: center">Trạng thái</th>
                                 <th style="text-align: center">Cơ quan tiếp nhận hồ sơ</th>
@@ -101,7 +106,7 @@
                                     <td style="text-align: center">{{$key + 1}}</td>
                                     <td style="text-align: left">{{$tt->tendv_ch}}</td>
 {{--                                    <td style="text-align: center">{{$a_diaban[$tt->madiaban] ?? ''}}</td>--}}
-                                    <td style="text-align: center">{{$tt->nam}}</td>
+                                    <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
                                     <td style="text-align: left">{{$tt->mota}}</td>
                                     @include('manage.include.form.td_trangthai')
                                     <td style="text-align: left">{{$tt->tencqcq}}</td>
@@ -147,6 +152,7 @@
 
                         </tbody>
                     </table>
+                    </div>
                 </div>
                 <!-- END EXAMPLE TABLE PORTLET-->
 

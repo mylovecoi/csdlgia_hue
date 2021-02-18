@@ -32,18 +32,33 @@
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box">
                 <div class="portlet-body form-horizontal">
-                    <table id="sample_3" class="table table-striped table-bordered table-hover">
+                    <table id="sample_4" class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th width="2%" style="text-align: center">STT</th>
-                                <th style="text-align: center">Đơn vị nhập</th>
-                                <th style="text-align: center">Thời điểm</th>
-                                <th style="text-align: center">Tên sản phẩm, dịch vụ</th>
-                                <th style="text-align: center">Thông tin hồ sơ</th>
-                                <th style="text-align: center" width="15%">Mức thu<br>khu vực<br>thành thị</th>
-                                <th style="text-align: center" width="15%">Mức thu<br>khu vực<br>nông thôn</th>
-                                <th style="text-align: center" width="15%">Mức thu<br>khu vực<br>miền núi</th>
+                                <th rowspan="2" width="2%" style="text-align: center">STT</th>
+                                <th rowspan="2" style="text-align: center">Đơn vị nhập</th>
+                                <th rowspan="2" style="text-align: center">Thời điểm</th>
+                                <th rowspan="2" style="text-align: center">Tên sản phẩm, dịch vụ</th>
+                                <th rowspan="2" style="text-align: center">Thông tin hồ sơ</th>
+                                <th colspan="4" style="text-align: center">Mức thu học phí</th>
+                                <th colspan="4" style="text-align: center">Mức thu học phí</th>
+                                <th colspan="4" style="text-align: center">Mức thu học phí</th>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Năm<br>học</th>
+                                <th style="text-align: center">Thành<br>thị</th>
+                                <th style="text-align: center">Nông<br>thôn</th>
+                                <th style="text-align: center">Miền<br>núi</th>
 
+                                <th style="text-align: center">Năm<br>học</th>
+                                <th style="text-align: center">Thành<br>thị</th>
+                                <th style="text-align: center">Nông<br>thôn</th>
+                                <th style="text-align: center">Miền<br>núi</th>
+
+                                <th style="text-align: center">Năm<br>học</th>
+                                <th style="text-align: center">Thành<br>thị</th>
+                                <th style="text-align: center">Nông<br>thôn</th>
+                                <th style="text-align: center">Miền<br>núi</th>
                             </tr>
                         </thead>
 
@@ -55,9 +70,20 @@
                                     <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
                                     <td>{{$a_dm[$tt->maspdv] ?? ''}}</td>
                                     <td>{{$tt->mota}}</td>
-                                    <td style="text-align: right;font-weight: bold">{{dinhdangso($tt->giadvthanhthi)}}</td>
-                                    <td style="text-align: right;font-weight: bold">{{dinhdangso($tt->giadvnongthon)}}</td>
-                                    <td style="text-align: right;font-weight: bold">{{dinhdangso($tt->giadvmiennui)}}</td>
+                                    <td class="text-center">{{$tt->namapdung1}}</td>
+                                    <td>{{dinhdangso($tt->giathanhthi1)}}</td>
+                                    <td>{{dinhdangso($tt->gianongthon1)}}</td>
+                                    <td>{{dinhdangso($tt->giamiennui1)}}</td>
+
+                                    <td class="text-center">{{$tt->namapdung2}}</td>
+                                    <td>{{dinhdangso($tt->giathanhthi2)}}</td>
+                                    <td>{{dinhdangso($tt->gianongthon2)}}</td>
+                                    <td>{{dinhdangso($tt->giamiennui2)}}</td>
+
+                                    <td class="text-center">{{$tt->namapdung3}}</td>
+                                    <td>{{dinhdangso($tt->giathanhthi3)}}</td>
+                                    <td>{{dinhdangso($tt->gianongthon3)}}</td>
+                                    <td>{{dinhdangso($tt->giamiennui3)}}</td>
 
                                 </tr>
                             @endforeach

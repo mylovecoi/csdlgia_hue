@@ -44,6 +44,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	<!-- END THEME STYLES -->
 	<!--link rel="shortcut icon" href="favicon.ico"/-->
 	<link rel="shortcut icon" href="{{ url('images/LIFESOFT.png')}}" type="image/x-icon">
+
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -106,9 +107,13 @@ License: You must have a valid license purchased only from themeforest(the above
 					Đăng ký tài khoản </a></b>
 			</p>
 			<p>
-				<a href="{{url('thongtinhotro')}}" target="_blank">Thông tin hỗ trợ&nbsp;
-				</a>
+				<a href="{{url('thongtinhotro')}}" target="_blank"><b>Thông tin hỗ trợ</b></a>
 			</p>
+			@if($inputs['ipf2'] != '')
+				<p>
+					<a href="{{url('/data/huongdan/'.$inputs['ipf2'])}}" target="_blank"><b>Tài liệu hướng dẫn đăng ký tài khoản</b></a>
+				</p>
+			@endif
 		</div>
 </div>
 <!-- END LOGIN -->

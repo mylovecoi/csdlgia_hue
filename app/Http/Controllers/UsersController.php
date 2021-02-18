@@ -30,6 +30,12 @@ class UsersController extends Controller
     public function login(Request $request)
     {
         $inputs = $request->all();
+        $inputs['ipf2'] = '';
+        $a_gen = getGeneralConfigs();
+        if($a_gen['ipf2'] != null && $a_gen['ipf2'] != ''){
+            $inputs['ipf2'] = $a_gen['ipf2'];
+        }
+
         //dd($inputs);
         return view('system.users.login')
             ->with('inputs',$inputs)

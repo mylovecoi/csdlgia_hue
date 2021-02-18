@@ -120,13 +120,23 @@
                         </div>
                         @if(session('admin')->level == 'SSA')
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">File hướng dẫn sử dụng: </label>
                                     @if(isset($model->ipf1))
                                         <a href="{{url('/data/huongdan/'.$model->ipf1)}}" target="_blank">{{$model->ipf1}}</a>
                                     @endif
                                     <input name="ipf1" id="ipf1" type="file">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">File hướng dẫn đăng ký tài khoản : </label>
+                                    @if(isset($model->ipf1))
+                                        <a href="{{url('/data/huongdan/'.$model->ipf2)}}" target="_blank">{{$model->ipf2}}</a>
+                                    @endif
+                                    <input name="ipf2" id="ipf2" type="file">
                                 </div>
                             </div>
                         </div>
