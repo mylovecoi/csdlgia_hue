@@ -66,7 +66,7 @@ class giaspdvcuthectController extends Controller
             die(json_encode($result));
         }
         $inputs = $request->all();
-        $chk = giaspdvcuthe_ct::where('id',$inputs['id'])->first();
+        $chk = giaspdvcuthe_ct::where('id',$inputs['id'])->delete();
         $mahs = $chk->mahs;
         $chk->delete();
         $model = giacuocvanchuyenct::where('mahs',$mahs)->get();

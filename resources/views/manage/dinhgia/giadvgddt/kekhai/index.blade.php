@@ -103,7 +103,7 @@
                                     <th style="text-align: center">Mô tả</th>
                                     <th style="text-align: center"> Trạng thái</th>
                                     <th style="text-align: center">Cơ quan tiếp nhận</th>
-                                    <th style="text-align: center" width="15%"> Thao tác</th>
+                                    <th style="text-align: center"> Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -132,6 +132,8 @@
                                             @endif
                                             <button type="button" onclick="get_attack('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
                                                 <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
+                                            <a href="{{url($inputs['url'].'/inhoso?mahs='.$tt->mahs)}}" class="btn btn-default btn-xs mbs" target="_blank">
+                                                <i class="fa fa-print"></i>&nbsp;In hồ sơ</a>
                                         </td>
                                     </tr>
                                 @endforeach

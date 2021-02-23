@@ -120,15 +120,18 @@ class giaspdvtoidaController extends Controller
             $model = giaspdvtoida::where('mahs',$inputs['mahs'])->first();
             $modelct = giaspdvtoida_ct::where('mahs',$model->mahs)->get();
             $inputs['url'] = '/giaspdvtoida';
-            $a_spdv = array_column(giaspdvtoida_dm::all()->toArray(),
-                'tenspdv','maspdv');
-            //dd($modelct);
+            $m_dm = giaspdvtoida_dm::all();
+            $a_pl = a_unique(array_column($m_dm->toArray(),'phanloai'));
+//            $a_spdv = array_column(giaspdvtoida_dm::all()->toArray(),
+//                'tenspdv','maspdv');
+            //dd($a_dm);
             return view('manage.dinhgia.giaspdvtoida.kekhai.edit')
                 ->with('model',$model)
                 ->with('modelct',$modelct)
                 ->with('m_diaban',$m_diaban)
                 ->with('m_donvi',$m_donvi)
-                ->with('a_spdv',$a_spdv)
+                ->with('a_pl',$a_pl)
+                ->with('m_dm',$m_dm)
                 ->with('inputs',$inputs)
                 ->with('pageTitle','Chi tiết hồ sơ');
         }else
@@ -142,7 +145,7 @@ class giaspdvtoidaController extends Controller
             $model = giaspdvtoida::where('mahs',$inputs['mahs'])->first();
             $model->delete();
             giaspdvtoida_ct::where('mahs',$model->mahs)->delete();
-            return redirect('giaspdvtoida/danhsach?&madv='.$model->madv);
+            return redirect('/giaspdvtoida/danhsach?&madv='.$model->madv);
         }else
             return view('errors.notlogin');
     }

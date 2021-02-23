@@ -57,7 +57,7 @@ class giaspdvkhunggiactController extends Controller
             die(json_encode($result));
         }
         $inputs = $request->all();
-        giaspdvkhunggia_ct::where('id',$inputs['id'])->first();
+        giaspdvkhunggia_ct::where('id',$inputs['id'])->delete();
         $model = giaspdvkhunggia_ct::where('mahs',$inputs['mahs'])->get();
         $result = $this->return_spdv($model);
         die(json_encode($result));

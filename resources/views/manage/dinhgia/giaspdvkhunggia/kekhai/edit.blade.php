@@ -227,7 +227,7 @@
                     <div class="col-md-12" style="text-align: center">
                         <!-- thêm mới hồ sơ, sau đó nhấn quay lại ==> tự động xoa hồ sơ thêm mới -->
                         @if(isset($inputs['addnew']))
-                            <a href="{{url($inputs['url'].'/delete?mahs='.$model->mahs)}}" class="btn btn-danger">
+                            <a href="{{url($inputs['url'].'/xoahs?mahs='.$model->mahs)}}" class="btn btn-danger">
                                 <i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                         @else
                             <a href="{{url($inputs['url'].'/danhsach?madv='.$model->madv)}}" class="btn btn-danger">
@@ -274,7 +274,16 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label">Tên sản phẩm, dịch vụ<span class="require">*</span></label>
-                                {!!Form::select('maspdv', $a_spdv, null, array('id' => 'maspdv','class' => 'form-control'))!!}
+                                <select name="maspdv" id="maspdv" class="form-control select2me">
+                                    @foreach($a_pl as $pl)
+                                        <optgroup label="{{$pl}}">
+                                            <?php $m_ct = $m_dm->where('phanloai',$pl); ?>
+                                            @foreach($m_ct as $ct)
+                                                <option value="{{$ct->maspdv}}">{{$ct->tenspdv}}</option>
+                                            @endforeach
+                                        </optgroup>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>

@@ -119,15 +119,18 @@ class giaspdvkhunggiaController extends Controller
             $model = giaspdvkhunggia::where('mahs',$inputs['mahs'])->first();
             $modelct = giaspdvkhunggia_ct::where('mahs',$model->mahs)->get();
             $inputs['url'] = '/giaspdvkhunggia';
-            $a_spdv = array_column(giaspdvkhunggia_dm::all()->toArray(),
-                'tenspdv','maspdv');
+//            $a_spdv = array_column(giaspdvkhunggia_dm::all()->toArray(),
+//                'tenspdv','maspdv');
             //dd($modelct);
+            $m_dm = giaspdvkhunggia_dm::all();
+            $a_pl = a_unique(array_column($m_dm->toArray(),'phanloai'));
             return view('manage.dinhgia.giaspdvkhunggia.kekhai.edit')
                 ->with('model',$model)
                 ->with('modelct',$modelct)
                 ->with('m_diaban',$m_diaban)
                 ->with('m_donvi',$m_donvi)
-                ->with('a_spdv',$a_spdv)
+                ->with('m_dm',$m_dm)
+                ->with('a_pl',$a_pl)
                 ->with('inputs',$inputs)
                 ->with('pageTitle','Chi tiết hồ sơ');
         }else

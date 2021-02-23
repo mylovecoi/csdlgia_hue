@@ -605,6 +605,39 @@ class GiaDvGdDtController extends Controller
             return view('errors.notlogin');
     }
 
+    public function inhoso(Request $request){
+        if(Session::has('admin')){
+            $inputs = $request->all();
+            $m_hoso = GiaDvGdDt::where('mahs', $inputs['mahs'])->first();
+            $m_donvi = dsdonvi::where('madv', $m_hoso->madv)->first();
+            //$m_diaban = dsdiaban::wherein('madiaban',array_column($model->toarray(),'madiaban'))->get();
+            $a_dm = array_column(giadvgddtdm::all()->toArray(),'tenspdv','maspdv');
+            $model = GiaDvGdDtCt::where('mahs', $inputs['mahs'])->get();
+            $inputs['namhoc1']= $inputs['namhoc2']= $inputs['namhoc3']= false;
+            foreach ($model as $tt){
+                $tt->tenspdv = $a_dm[$tt->maspdv] ?? '';
+                if(!$inputs['namhoc1'] && ($tt->giathanhthi1 + $tt->gianongthon1 + $tt->giamiennui1) > 0){
+                    $inputs['namhoc1'] = true;
+                }
+                if(!$inputs['namhoc2'] && ($tt->giathanhthi2 + $tt->gianongthon2 + $tt->giamiennui2) > 0){
+                    $inputs['namhoc2'] = true;
+                }
+                if(!$inputs['namhoc3'] && ($tt->giathanhthi3 + $tt->gianongthon3 + $tt->giamiennui3) > 0){
+                    $inputs['namhoc3'] = true;
+                }
+            }
+            //dd($model);
+            //$a_phanloai = array_column(giaspdvtoida_dm::get('phanloai')->toArray(),'phanloai','phanloai');
+            return view('manage.dinhgia.giadvgddt.reports.inhoso')
+                ->with('m_hoso',$m_hoso)
+                ->with('model',$model)
+                ->with('m_donvi',$m_donvi)
+                ->with('inputs',$inputs)
+                ->with('pageTitle','Thông tin hồ sơ');
+        }else
+            return view('errors.notlogin');
+    }
+
     function getHoSo($inputs)
     {
         $m_donvi = view_dsdiaban_donvi::where('madv', $inputs['madv'])->first();

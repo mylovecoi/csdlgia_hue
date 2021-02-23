@@ -137,6 +137,7 @@
             <!-- END DASHBOARD STATS -->
         </div>
     </div>
+
     @include('manage.include.form.modal_attackfile')
     @include('manage.include.form.modal_approve_hs')
     @include('manage.include.form.modal_del_hs')

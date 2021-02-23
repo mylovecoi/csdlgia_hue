@@ -687,6 +687,7 @@ Route::group(['prefix'=>'giadvgddt'],function (){
 
     Route::post('chuyenhs','manage\giadvgddt\GiaDvGdDtController@chuyenhs');
     Route::get('prints','manage\giadvgddt\GiaDvGdDtController@ketxuat');
+    Route::get('inhoso','manage\giadvgddt\GiaDvGdDtController@inhoso');
 
     Route::get('xetduyet','manage\giadvgddt\GiaDvGdDtController@xetduyet');
     Route::post('chuyenxd','manage\giadvgddt\GiaDvGdDtController@chuyenxd');
@@ -935,8 +936,9 @@ Route::group(['prefix'=>'giaspdvtoida'],function (){
     Route::get('new','manage\giaspdvtoida\giaspdvtoidaController@create');
     Route::get('modify','manage\giaspdvtoida\giaspdvtoidaController@edit');
     Route::post('modify','manage\giaspdvtoida\giaspdvtoidaController@store');
-    Route::post('delete','manage\giaspdvtoida\giaspdvtoidatroller@destroy');
     Route::get('dinhkem','manage\giaspdvtoida\giaspdvtoidaController@show_dk');
+    Route::post('delete','manage\giaspdvtoida\giaspdvtoidaController@destroy');
+    Route::get('xoahs','manage\giaspdvtoida\giaspdvtoidaController@destroy');
 
     Route::get('store_ct','manage\giaspdvtoida\giaspdvtoidactController@store');
     Route::get('get_ct','manage\giaspdvtoida\giaspdvtoidactController@show');
@@ -966,7 +968,8 @@ Route::group(['prefix'=>'giaspdvkhunggia'],function (){
     Route::get('new','manage\giaspdvkhunggia\giaspdvkhunggiaController@create');
     Route::get('modify','manage\giaspdvkhunggia\giaspdvkhunggiaController@edit');
     Route::post('modify','manage\giaspdvkhunggia\giaspdvkhunggiaController@store');
-    Route::post('delete','manage\giaspdvkhunggia\giaspdvkhunggiatroller@destroy');
+    Route::post('delete','manage\giaspdvkhunggia\giaspdvkhunggiaController@destroy');
+    Route::get('xoahs','manage\giaspdvkhunggia\giaspdvkhunggiaController@destroy');
     Route::get('dinhkem','manage\giaspdvkhunggia\giaspdvkhunggiaController@show_dk');
 
     Route::get('store_ct','manage\giaspdvkhunggia\giaspdvkhunggiactController@store');

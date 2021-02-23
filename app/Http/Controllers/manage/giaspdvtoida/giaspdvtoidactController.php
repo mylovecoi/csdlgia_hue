@@ -56,7 +56,7 @@ class giaspdvtoidactController extends Controller
             die(json_encode($result));
         }
         $inputs = $request->all();
-        giaspdvtoida_ct::where('id',$inputs['id'])->first();
+        giaspdvtoida_ct::where('id',$inputs['id'])->delete();
         $model = giaspdvtoida_ct::where('mahs',$inputs['mahs'])->get();
         $result = $this->return_spdv($model);
         die(json_encode($result));

@@ -144,8 +144,12 @@
                                                 @endif
                                             @endif
                                         @endif
+                                        <a href="{{url($inputs['url'].'/inhoso?mahs='.$tt->mahs)}}" class="btn btn-default btn-xs mbs" target="_blank">
+                                            <i class="fa fa-print"></i>&nbsp;In hồ sơ</a>
+
                                         <button type="button" onclick="get_attack('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
                                             <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
+
                                     </td>
                                 </tr>
                             @endforeach
