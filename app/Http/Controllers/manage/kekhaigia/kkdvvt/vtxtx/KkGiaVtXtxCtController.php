@@ -24,75 +24,23 @@ class KkGiaVtXtxCtController extends Controller
         $inputs = $request->all();
         $inputs['gialk'] = getDoubleToDb($inputs['gialk']);
         $inputs['giakk'] = getDoubleToDb($inputs['giakk']);
-
-        $inputs['sltgtt'] = isset($inputs['sltgtt']) ? getDoubleToDb($inputs['sltgtt']) : 0;
-
-        $inputs['chiphinltt'] = isset($inputs['chiphinltt']) ? getDoubleToDb($inputs['chiphinltt']) : 0;
-
-        $inputs['chiphinctt'] = isset($inputs['chiphinctt']) ? getDoubleToDb($inputs['chiphinctt']) : 0;
-
-        $inputs['chiphikhtt'] = isset($inputs['chiphikhtt']) ? getDoubleToDb($inputs['chiphikhtt']) : 0;
-
-        $inputs['chiphisxkddttt'] = isset($inputs['chiphisxkddttt']) ? getDoubleToDb($inputs['chiphisxkddttt']) : 0;
-
-        $inputs['chiphisxctt'] = isset($inputs['chiphisxctt']) ? getDoubleToDb($inputs['chiphisxctt']) : 0;
-
-        $inputs['chiphitctt'] = isset($inputs['chiphitctt']) ? getDoubleToDb($inputs['chiphitctt']) : 0;
-
-        $inputs['chiphibhtt'] = isset($inputs['chiphibhtt']) ? getDoubleToDb($inputs['chiphibhtt']) : 0;
-
-        $inputs['chiphiqltt'] = isset($inputs['chiphiqltt']) ? getDoubleToDb($inputs['chiphiqltt']) : 0;
-
-        $inputs['chiphidvktt'] = isset($inputs['chiphidvktt']) ? getDoubleToDb($inputs['chiphidvktt']) : 0;
-        $inputs['trangthai'] = 'CXD';
-        if(isset($inputs['tendvcu'])){
-            $modelkkgia = new KkGiaVtXtxCt();
-            $modelkkgia->create($inputs);
-            $model = KkGiaVtXtxCt::where('mahs',$inputs['mahs'])->get();
-            $result['message'] = '<div class="row" id="dsts">';
-            $result['message'] .= '<div class="col-md-12">';
-            $result['message'] .= '<table class="table table-striped table-bordered table-hover" id="sample_3">';
-            $result['message'] .= '<thead>';
-            $result['message'] .= '<tr>';
-            $result['message'] .= '<th width="2%" style="text-align: center">STT</th>';
-            $result['message'] .= '<th style="text-align: center">Tên dịch vụ cung ứng</th>';
-            $result['message'] .= '<th style="text-align: center">Quy cách chất lượng</th>';
-            $result['message'] .= '<th style="text-align: center">Đơn vị<br>tính</th>';
-            $result['message'] .= '<th style="text-align: center">Mức giá <br>liền kề</th>';
-            $result['message'] .= '<th style="text-align: center">Mức giá <br>kê khai</th>';
-            $result['message'] .= '<th style="text-align: center">Ghi chú</th>';
-            $result['message'] .= '<th style="text-align: center" width="20%">Thao tác</th>';
-            $result['message'] .= '</tr>';
-            $result['message'] .= '</thead>';
-            $result['message'] .= '<tbody>';
-            if(count($model) > 0){
-                foreach($model as $key=>$tt){
-                    $result['message'] .= '<tr id="'.$tt->id.'">';
-                    $result['message'] .= '<td style="text-align: center">'.($key +1).'</td>';
-                    $result['message'] .= '<td class="active">'.$tt->tendvcu.'</td>';
-                    $result['message'] .= '<td style="text-align: left">'.$tt->qccl.'</td>';
-                    $result['message'] .= '<td style="text-align: center">'.$tt->dvt.'</td>';
-                    $result['message'] .= '<td style="text-align: right">'.number_format($tt->gialk).'</td>';
-                    $result['message'] .= '<td style="text-align: right">'.number_format($tt->giakk).'</td>';
-                    $result['message'] .= '<td style="text-align: left">'.$tt->ghichu.'</td>';
-                    $result['message'] .= '<td>'.
-                        '<button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editTtPh('.$tt->id.');"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa thông tin</button>'.
-                        '<button type="button" data-target="#modal-pag" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editPag('.$tt->id.');"><i class="fa fa-edit"></i>&nbsp;Phương án giá</button>'.
-                        '<button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid('.$tt->id.');" ><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>'
-                        .'</td>';
-                    $result['message'] .= '</tr>';
-                }
-                $result['message'] .= '</tbody>';
-                $result['message'] .= '</table>';
-                $result['message'] .= '</div>';
-                $result['message'] .= '</div>';
-                $result['status'] = 'success';
-            }
+        $inputs['gialk1'] = getDoubleToDb($inputs['gialk1']);
+        $inputs['giakk1'] = getDoubleToDb($inputs['giakk1']);
+        $inputs['gialk2'] = getDoubleToDb($inputs['gialk2']);
+        $inputs['giakk2'] = getDoubleToDb($inputs['giakk2']);
+        $model = KkGiaVtXtxCt::where('id',$inputs['id'])->first();
+        unset($inputs['id']);
+        if($model == null){            
+            KkGiaVtXtxCt::create($inputs);
+        }else{
+            $model->update($inputs);
         }
+        //làm hàm trả về dùng chung
+        $result = $this->return_spdv(KkGiaVtXtxCt::where('mahs',$inputs['mahs'])->get());
         die(json_encode($result));
     }
 
-    public function edit(Request $request){
+    public function edit_2021_02_22(Request $request){
         $result = array(
             'status' => 'fail',
             'message' => 'error',
@@ -160,7 +108,24 @@ class KkGiaVtXtxCtController extends Controller
         die(json_encode($result));
     }
 
-    public function update(Request $request){
+    public function edit(Request $request){
+        $result = array(
+            'status' => 'fail',
+            'message' => 'error',
+        );
+        if(!Session::has('admin')) {
+            $result = array(
+                'status' => 'fail',
+                'message' => 'permission denied',
+            );
+            die(json_encode($result));
+        }
+        $inputs = $request->all();
+        $model = KkGiaVtXtxCt::findOrFail($inputs['id']);
+        die($model);
+    }
+
+    public function update_2021_02_22(Request $request){
         $result = array(
             'status' => 'fail',
             'message' => 'error',
@@ -240,49 +205,8 @@ class KkGiaVtXtxCtController extends Controller
         //dd($request);
         $inputs = $request->all();
         if(isset($inputs['id'])){
-            $modelkkgia = KkGiaVtXtxCt::where('id',$inputs['id'])->first();
-            $modelkkgia->delete();
-            $model = KkGiaVtXtxCt::where('mahs',$inputs['mahs'])
-                ->get();
-            $result['message'] = '<div class="row" id="dsts">';
-            $result['message'] .= '<div class="col-md-12">';
-            $result['message'] .= '<table class="table table-striped table-bordered table-hover" id="sample_3">';
-            $result['message'] .= '<thead>';
-            $result['message'] .= '<tr>';
-            $result['message'] .= '<th width="2%" style="text-align: center">STT</th>';
-            $result['message'] .= '<th style="text-align: center">Tên dịch vụ cung ứng</th>';
-            $result['message'] .= '<th style="text-align: center">Quy cách chất lượng</th>';
-            $result['message'] .= '<th style="text-align: center">Đơn vị<br>tính</th>';
-            $result['message'] .= '<th style="text-align: center">Mức giá <br>liền kề</th>';
-            $result['message'] .= '<th style="text-align: center">Mức giá <br>kê khai</th>';
-            $result['message'] .= '<th style="text-align: center">Ghi chú</th>';
-            $result['message'] .= '<th style="text-align: center" width="20%">Thao tác</th>';
-            $result['message'] .= '</tr>';
-            $result['message'] .= '</thead>';
-            $result['message'] .= '<tbody>';
-            if(count($model) > 0){
-                foreach($model as $key=>$tt){
-                    $result['message'] .= '<tr id="'.$tt->id.'">';
-                    $result['message'] .= '<td style="text-align: center">'.($key +1).'</td>';
-                    $result['message'] .= '<td class="active">'.$tt->tendvcu.'</td>';
-                    $result['message'] .= '<td style="text-align: left">'.$tt->qccl.'</td>';
-                    $result['message'] .= '<td style="text-align: center">'.$tt->dvt.'</td>';
-                    $result['message'] .= '<td style="text-align: right">'.number_format($tt->gialk).'</td>';
-                    $result['message'] .= '<td style="text-align: right">'.number_format($tt->giakk).'</td>';
-                    $result['message'] .= '<td style="text-align: left">'.$tt->ghichu.'</td>';
-                    $result['message'] .= '<td>'.
-                        '<button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editTtPh('.$tt->id.');"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa thông tin</button>'.
-                        '<button type="button" data-target="#modal-pag" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editPag('.$tt->id.');"><i class="fa fa-edit"></i>&nbsp;Phương án giá</button>'.
-                        '<button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid('.$tt->id.');" ><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>'
-                        .'</td>';
-                    $result['message'] .= '</tr>';
-                }
-                $result['message'] .= '</tbody>';
-                $result['message'] .= '</table>';
-                $result['message'] .= '</div>';
-                $result['message'] .= '</div>';
-                $result['status'] = 'success';
-            }
+            $modelkkgia = KkGiaVtXtxCt::where('id',$inputs['id'])->delete();
+            $result = $this->return_spdv(KkGiaVtXtxCt::where('mahs',$inputs['mahs'])->get());
         }
         die(json_encode($result));
     }
@@ -303,7 +227,6 @@ class KkGiaVtXtxCtController extends Controller
         $inputs = $request->all();
         $id = $inputs['id'];
         $model = KkGiaVtXtxCt::findOrFail($id);
-
         die($model);
     }
 
@@ -388,5 +311,68 @@ class KkGiaVtXtxCtController extends Controller
             }
         }
         die(json_encode($result));
+    }
+
+    public function return_spdv($model){
+        $result = array(
+            'status' => 'success',
+            'message' => 'error',
+        );
+
+        $result['message'] = '<div class="row" id="dsts">';
+        $result['message'] .= '<div class="col-md-12">';
+        $result['message'] .= '<table class="table table-striped table-bordered table-hover" id="sample_4">';
+        $result['message'] .= '<thead>';
+        $result['message'] .= '<tr>';
+        $result['message'] .= '<th rowspan="2" style="text-align: center" width="2%">STT</th>';
+        $result['message'] .= '<th rowspan="2" style="text-align: center">Tên dịch vụ cung ứng</th>';
+        $result['message'] .= '<th rowspan="2" style="text-align: center">Đơn vị<br>tính</th>';
+        $result['message'] .= '<th colspan="3" style="text-align: center">Kê khai giá</th>';
+        $result['message'] .= '<th colspan="3" style="text-align: center">Kê khai giá</th>';
+        $result['message'] .= '<th colspan="3" style="text-align: center">Kê khai giá</th>';
+        $result['message'] .= '<th rowspan="2" style="text-align: center">Ghi chú</th>';
+        $result['message'] .= '<th rowspan="2" style="text-align: center">Thao tác</th>';
+        $result['message'] .= '</tr>';
+        $result['message'] .= '<tr>';
+        $result['message'] .= '<th style="text-align: center">Số Km</th>';
+        $result['message'] .= '<th style="text-align: center">Giá<br>kê<br>khai</th>';
+        $result['message'] .= '<th style="text-align: center">Giá<br>liền<br>kề</th>';
+        $result['message'] .= '<th style="text-align: center">Số Km</th>';
+        $result['message'] .= '<th style="text-align: center">Giá<br>kê<br>khai</th>';
+        $result['message'] .= '<th style="text-align: center">Giá<br>liền<br>kề</th>';
+        $result['message'] .= '<th style="text-align: center">Số Km</th>';
+        $result['message'] .= '<th style="text-align: center">Giá<br>kê<br>khai</th>';
+        $result['message'] .= '<th style="text-align: center">Giá<br>liền<br>kề</th>';
+        $result['message'] .= '</tr>';
+        $result['message'] .= '</thead>';
+        $result['message'] .= '<tbody>';
+        $i=1;
+        foreach ($model as $key => $tt) {
+            $result['message'] .= '<tr>';
+            $result['message'] .= '<td style="text-align: center">'.$i++.'</td>';
+            $result['message'] .= '<td class="active">'.$tt->tendvcu.'</td>';
+            $result['message'] .= '<td style="text-align: center">'.$tt->dvt.'</td>';
+            $result['message'] .= '<td>'.$tt->sokm.'</td>';
+            $result['message'] .= '<td style="text-align: right">'.number_format($tt->gialk).'</td>';
+            $result['message'] .= '<td style="text-align: right">'.number_format($tt->giakk).'</td>';
+            $result['message'] .= '<td>'.$tt->sokm1.'</td>';
+            $result['message'] .= '<td style="text-align: right">'.number_format($tt->gialk1).'</td>';
+            $result['message'] .= '<td style="text-align: right">'.number_format($tt->giakk1).'</td>';
+            $result['message'] .= '<td>'.$tt->sokm2.'</td>';
+            $result['message'] .= '<td style="text-align: right">'.number_format($tt->gialk2).'</td>';
+            $result['message'] .= '<td style="text-align: right">'.number_format($tt->giakk2).'</td>';
+            $result['message'] .= '<td style="text-align: left">'.$tt->ghichu.'</td>';
+            $result['message'] .= '<td>' .
+                '<button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editTtPh('.$tt->id.');"><i class="fa fa-edit"></i>&nbsp;Sửa</button>' .
+                '<button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid('.$tt->id.');" ><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>' .
+                '<button type="button" data-target="#modal-pag" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editPag('.$tt->id.');"><i class="fa fa-edit"></i>&nbsp;Phương án giá</button>';
+            $result['message'] .= '</td>';
+            $result['message'] .= '</tr>';
+        }
+        $result['message'] .= '</tbody>';
+        $result['message'] .= '</table>';
+        $result['message'] .= '</div>';
+        $result['message'] .= '</div>';
+        return $result;
     }
 }

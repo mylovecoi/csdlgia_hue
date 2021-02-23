@@ -9,15 +9,23 @@ class KkGiaVtXtxCt extends Model
     protected $table = 'kkgiavtxtxct';
     protected $fillable = [
         'id',
-
         'mahs',
-        'maxa',
         'madv',
         'tendvcu',
         'qccl',
         'dvt',
         'gialk',
         'giakk',
+        'sokm',
+        'gialk1',
+        'giakk1',
+        'sokm1',
+        'gialk2',
+        'giakk2',
+        'sokm2',
+        'gialk3',
+        'giakk3',
+        'sokm3',
         'ghichu',
         'trangthai',
 

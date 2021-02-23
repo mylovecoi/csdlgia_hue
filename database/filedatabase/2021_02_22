@@ -1,0 +1,198 @@
+USE [csdlgia_haugiang]
+GO
+
+/****** Object:  Table [dbo].[kkgiavtxtxct]    Script Date: 2/22/2021 11:09:50 AM ******/
+DROP TABLE [dbo].[kkgiavtxtxct]
+GO
+
+/****** Object:  Table [dbo].[kkgiavtxtxct]    Script Date: 2/22/2021 11:09:50 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[kkgiavtxtxct](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[mahs] [nvarchar](255) NULL,
+	[madv] [nvarchar](255) NULL,
+	[madichvu] [nvarchar](255) NULL,
+	[loaixe] [nvarchar](255) NULL,
+	[tendvcu] [nvarchar](max) NULL,
+	[mota] [nvarchar](max) NULL,
+	[qccl] [nvarchar](255) NULL,
+	[sl] [nvarchar](255) NULL,
+	[dvt] [nvarchar](255) NULL,
+	[sllk] [nvarchar](255) NULL,
+	[dvtlk] [nvarchar](255) NULL,
+	[gialk] [float] NOT NULL,
+	[giakk] [float] NOT NULL,
+	[sokm] [nvarchar](255) NULL,
+	[gialk1] [float] NOT NULL,
+	[giakk1] [float] NOT NULL,
+	[sokm1] [nvarchar](255) NULL,
+	[gialk2] [float] NOT NULL,
+	[giakk2] [float] NOT NULL,
+	[sokm2] [nvarchar](255) NULL,
+	[gialk3] [float] NOT NULL,
+	[giakk3] [float] NOT NULL,
+	[sokm3] [nvarchar](255) NULL,
+	[ghichu] [nvarchar](255) NULL,
+	[thuevat] [nvarchar](255) NULL,
+	[trangthai] [nvarchar](255) NULL,
+	[dvcu] [nvarchar](255) NULL,
+	[sltgdvt] [float] NOT NULL,
+	[sltgtt] [float] NOT NULL,
+	[sltggc] [float] NOT NULL,
+	[chiphinldvt] [float] NOT NULL,
+	[chiphinltt] [float] NOT NULL,
+	[chiphinlgc] [float] NOT NULL,
+	[chiphincdvt] [float] NOT NULL,
+	[chiphinctt] [float] NOT NULL,
+	[chiphincgc] [float] NOT NULL,
+	[chiphikhdvt] [float] NOT NULL,
+	[chiphikhtt] [float] NOT NULL,
+	[chiphikhdv] [float] NOT NULL,
+	[chiphisxkddtdvt] [float] NOT NULL,
+	[chiphisxkddttt] [float] NOT NULL,
+	[chiphisxkddtgc] [float] NOT NULL,
+	[chiphisxcdvt] [float] NOT NULL,
+	[chiphisxctt] [float] NOT NULL,
+	[chiphisxcgc] [float] NOT NULL,
+	[chiphitcdvt] [float] NOT NULL,
+	[chiphitctt] [float] NOT NULL,
+	[chiphitcgc] [float] NOT NULL,
+	[chiphibhdvt] [float] NOT NULL,
+	[chiphibhtt] [float] NOT NULL,
+	[chiphibhgc] [float] NOT NULL,
+	[chiphiqldvt] [float] NOT NULL,
+	[chiphiqltt] [float] NOT NULL,
+	[chiphiqlgc] [float] NOT NULL,
+	[chiphidvkdvt] [float] NOT NULL,
+	[chiphidvktt] [float] NOT NULL,
+	[chiphidvkgc] [float] NOT NULL,
+	[giaitrinhctcp] [nvarchar](max) NULL,
+	[created_at] [datetime] NULL,
+	[updated_at] [datetime] NULL,
+PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [gialk]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [giakk]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [gialk1]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [giakk1]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [gialk2]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [giakk2]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [gialk3]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [giakk3]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [sltgdvt]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [sltgtt]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [sltggc]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphinldvt]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphinltt]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphinlgc]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphincdvt]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphinctt]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphincgc]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphikhdvt]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphikhtt]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphikhdv]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphisxkddtdvt]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphisxkddttt]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphisxkddtgc]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphisxcdvt]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphisxctt]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphisxcgc]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphitcdvt]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphitctt]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphitcgc]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphibhdvt]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphibhtt]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphibhgc]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphiqldvt]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphiqltt]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphiqlgc]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphidvkdvt]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphidvktt]
+GO
+
+ALTER TABLE [dbo].[kkgiavtxtxct] ADD  DEFAULT ('0') FOR [chiphidvkgc]
+GO
+
+

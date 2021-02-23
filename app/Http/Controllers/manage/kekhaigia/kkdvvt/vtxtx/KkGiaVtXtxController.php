@@ -137,6 +137,13 @@ class KkGiaVtXtxController extends Controller
                         'dvt' => $ctdf->dvt,
                         'gialk' => $ctdf->gialk,
                         'giakk' => $ctdf->giakk,
+                        'sokm' => $ctdf->sokm,
+                        'gialk1' => $ctdf->gialk1,
+                        'giakk1' => $ctdf->giakk1,
+                        'sokm1' => $ctdf->sokm1,
+                        'gialk2' => $ctdf->gialk2,
+                        'giakk2' => $ctdf->giakk2,
+                        'sokm2' => $ctdf->sokm2,
                     );
                 }
                 KkGiaVtXtxCt::insert($a_dm);
@@ -182,11 +189,23 @@ class KkGiaVtXtxController extends Controller
             $modeldn = Company::where('madv',$modelkk->madv)->first();
             $modelkkct = KkGiaVtXtxCt::where('mahs',$modelkk->mahs)->get();
             $modelcqcq = view_dsdiaban_donvi::where('madv', $modelkk->macqcq)->first();
+            $inputs['sokm'] = $modelkkct->first()->sokm ?? 'Số Km';
+            $inputs['sokm1'] = $modelkkct->first()->sokm1 ?? 'Số Km';
+            $inputs['sokm2'] = $modelkkct->first()->sokm2 ?? 'Số Km';
+            foreach ($modelkkct as $ct){
+                $ct->giacl = $ct->giakk - $ct->gialk;
+                $ct->giapt = $ct->gialk == 0 ? '100%' : round((($ct->giacl / $ct->gialk) * 100),2).'%';
+                $ct->giacl1 = $ct->giakk1 - $ct->gialk1;
+                $ct->giapt1 = $ct->gialk1 == 0 ? '100%' : round((($ct->giacl1 / $ct->gialk1) * 100),2).'%';
+                $ct->giacl2 = $ct->giakk2 - $ct->gialk2;
+                $ct->giapt2 = $ct->gialk2 == 0 ? '100%' : round((($ct->giacl2 / $ct->gialk2) * 100),2).'%';
+            }
             return view('manage.kkgia.vtxtx.reports.print')
                 ->with('modelkk',$modelkk)
                 ->with('modeldn',$modeldn)
                 ->with('modelkkct',$modelkkct)
                 ->with('modelcqcq',$modelcqcq)
+                ->with('inputs',$inputs)
                 ->with('pageTitle','Kê khai giá vận tải xe taxi');
 
         }else

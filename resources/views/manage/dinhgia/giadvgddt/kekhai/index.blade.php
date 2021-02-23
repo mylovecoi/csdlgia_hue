@@ -98,7 +98,7 @@
                                 <tr>
                                     <th style="text-align: center" width="2%">STT</th>
     {{--                                <th style="text-align: center">Địa bàn</th>--}}
-                                    <th style="text-align: center" >Số QĐ</th>
+                                    <th style="text-align: center" >Số công văn</th>
                                     <th style="text-align: center">Ngày tháng<br>quyết định</th>
                                     <th style="text-align: center">Mô tả</th>
                                     <th style="text-align: center"> Trạng thái</th>
