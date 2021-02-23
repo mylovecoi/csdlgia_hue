@@ -29,7 +29,7 @@
         Hồ sơ GIÁ DỊCH VỤ ĐÀO TẠO
     </p>
     <p style="text-align: center;">{{'Số quyết định: '. $m_hoso->soqd . ', ' .getNt2Bc($m_hoso->thoidiem)}}</p>
-    <p style="text-align: center;">{{$m_hoso->ttqd}}</p>
+    <p style="text-align: center;">{{$m_hoso->mota}}</p>
 
     <table cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;">
         <thead>
