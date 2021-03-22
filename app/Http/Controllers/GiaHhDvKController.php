@@ -659,8 +659,7 @@ class GiaHhDvKController extends Controller
 //            return view('errors.notlogin');
 //    }
 
-    function filemau(Request $request)
-    {
+    function filemau(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
             //dd($inputs);
@@ -676,9 +675,9 @@ class GiaHhDvKController extends Controller
                     foreach ($model as $ct) {
                         $modelctlk = GiaHhDvKCt::where('mahs', $modellk->mahs)
                             ->where('mahhdv', $ct->mahhdv)->first();
-                        $ct->gialk = $modelctlk->gia;
-                        $ct->loaigia = $modelctlk->loaigia;
-                        $ct->nguontt = $modelctlk->nguontt;
+                        $ct->gialk = $modelctlk->gia ?? 0;
+                        $ct->loaigia = $modelctlk->loaigia ?? '';
+                        $ct->nguontt = $modelctlk->nguontt ?? '';
                     }
                     Excel::create('DMHANGHOA', function ($excel) use ($model_nhom, $model) {
                         $excel->sheet('DMHANGHOA', function ($sheet) use ($model_nhom, $model) {
@@ -750,7 +749,7 @@ class GiaHhDvKController extends Controller
     function import_excel(Request $request){
         if(Session::has('admin')){
             $inputs=$request->all();
-            dd($inputs);
+            //dd($inputs);
 
             if (isset($inputs['mattbc']) && isset($inputs['madiaban'])) {
                 $model = GiaHhDvK::where('matt', $inputs['mattbc'])

@@ -30,6 +30,7 @@ class CreateUsersTable extends Migration
             $table->text('lydo')->nullable();
             $table->text('madv')->nullable();
             $table->text('manhomtk')->nullable();
+            $table->string('chucnang')->nullable();
             $table->timestamps();
         });
     }

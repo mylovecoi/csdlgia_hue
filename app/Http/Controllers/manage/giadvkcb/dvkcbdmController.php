@@ -37,9 +37,11 @@ class dvkcbdmController extends Controller
         if(Session::has('admin')){
             $inputs = $request->all();
             //dd($inputs);
-            $chk_dvt = dmdvt::where('dvt', $inputs['dvt'])->get();
-            if (count($chk_dvt) == 0) {
-                dmdvt::insert(['dvt' => $inputs['dvt']]);
+            if(isset($inputs['dvt'])){
+                $chk_dvt = dmdvt::where('dvt', $inputs['dvt'])->get();
+                if (count($chk_dvt) == 0) {
+                    dmdvt::insert(['dvt' => $inputs['dvt']]);
+                }
             }
 
             $check = dvkcbdm::where('maspdv',$inputs['maspdv'])->first();

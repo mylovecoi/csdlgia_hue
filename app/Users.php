@@ -24,5 +24,6 @@ class Users extends Model
         'lydo',
         'madv',
         'manhomtk',
+        'chucnang',
     ];
 }

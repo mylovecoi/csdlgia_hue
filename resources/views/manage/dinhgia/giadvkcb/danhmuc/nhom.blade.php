@@ -74,15 +74,14 @@
                 </div>
                 <hr>
                 <div class="portlet-body">
-                    <div class="portlet-body">
                     <table class="table table-striped table-bordered table-hover" id="sample_4">
                         <thead>
-                        <tr>
-                            <th style="text-align: center" width="5%">STT</th>
-                            <th style="text-align: center">Tên thông tư, nghị quyết</th>
-                            <th style="text-align: center" width="15%">Theo dõi</th>
-                            <th style="text-align: center" width="15%">Thao tác</th>
-                        </tr>
+                            <tr>
+                                <th style="text-align: center" width="5%">STT</th>
+                                <th style="text-align: center">Danh mục giá khám bệnh, chữa bệnh</th>
+                                <th style="text-align: center" width="15%">Theo dõi</th>
+                                <th style="text-align: center" width="15%">Thao tác</th>
+                            </tr>
                         </thead>
                         <tbody>
                         @foreach($model as $key=>$tt)
@@ -112,7 +111,6 @@
                         @endforeach
                         </tbody>
                     </table>
-                    </div>
                 </div>
             </div>
             <!-- END EXAMPLE TABLE PORTLET-->

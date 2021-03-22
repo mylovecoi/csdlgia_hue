@@ -39,6 +39,7 @@
                 success: function (data) {
                     var form = $('#frm_create');
                     form.find("[name='maspdv']").val(data.maspdv);
+                    form.find("[name='madichvu']").val(data.madichvu);
                     form.find("[name='tenspdv']").val(data.tenspdv);
                     form.find("[name='dvt']").val(data.dvt).trigger('change');
                     //form.find("[name='phanloai']").val(data.phanloai).trigger('change');
@@ -86,7 +87,7 @@
                             <th style="text-align: center">Mã số</th>
                             <th style="text-align: center">Tên dịch vụ</th>
                             <th style="text-align: center">Phân loại</th>
-                            <th width="10%" style="text-align: center">ĐVT</th>
+                            <th width="10%" style="text-align: center">Đơn vị<br>tính</th>
                             <th width="10%" style="text-align: center">Thao tác</th>
                         </tr>
                         </thead>
@@ -94,9 +95,9 @@
                         @foreach($model as $key=>$tt)
                             <tr class="odd gradeX">
                                 <td style="text-align: center">{{$key + 1}}</td>
-                                <td class="success">{{$tt->madichvu}}</td>
+                                <td>{{$tt->madichvu}}</td>
                                 <td class="success">{{$tt->tenspdv}}</td>
-                                <td class="success">{{$tt->phanloai}}</td>
+                                <td>{{$tt->phanloai}}</td>
                                 <td>{{$tt->dvt}}</td>
                                 <td>
                                     @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvkcb', 'danhmuc','modify'))

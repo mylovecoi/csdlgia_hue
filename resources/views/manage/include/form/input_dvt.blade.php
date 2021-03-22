@@ -1,6 +1,6 @@
 <div class="col-md-11" style="padding-left: 0px;">
     <label class="form-control-label">Đơn vị tính</label>
-    {!!Form::select('dvt', $a_dvt, null, array('id' => 'dvt','class' => 'form-control select2me'))!!}
+    {!!Form::select('dvt', array_merge([''=>''],$a_dvt), null, array('id' => 'dvt','class' => 'form-control select2me'))!!}
 </div>
 <div class="col-md-1" style="padding-left: 0px;">
     <label class="control-label">&nbsp;&nbsp;&nbsp;</label>

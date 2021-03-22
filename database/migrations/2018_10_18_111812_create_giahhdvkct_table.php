@@ -18,8 +18,8 @@ class CreateGiahhdvkctTable extends Migration
             $table->string('mahs')->nullable();
             $table->string('mahhdv')->nullable();
             $table->string('gialk')->nullable();
-            $table->string('gia')->nullable();
-            $table->string('loaigia')->nullable();
+            $table->double('gia')->default(0);
+            $table->double('loaigia')->default(0);
             $table->string('nguontt')->nullable();
             $table->text('ghichu')->nullable();
             $table->timestamps();

@@ -217,16 +217,16 @@ License: You must have a valid license purchased only from themeforest(the above
                     </a>
                     <ul class="dropdown-menu dropdown-menu-default">
                         @if(session('admin')->level != 'SSA')
-                        <li>
-                            <a href="{{url('user_setting')}}">
-                                <i class="icon-settings"></i> Thông tin tài khoản</a>
-                        </li>
+                            <li>
+                                <a href="{{url('user_setting')}}">
+                                    <i class="icon-settings"></i> Thông tin tài khoản</a>
+                            </li>
                         @endif
                         @if(session('admin')->level =='X')
-                        <li>
-                            <a href="{{url('thongtindonvi')}}">
-                                <i class="icon-settings"></i> Thông tin đơn vị</a>
-                        </li>
+                            <li>
+                                <a href="{{url('thongtindonvi')}}">
+                                    <i class="icon-settings"></i> Thông tin đơn vị</a>
+                            </li>
                         @endif
                         {{--@if(session('admin')->level != 'SSA')--}}
                         <li>
@@ -562,8 +562,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </li>
                             @endif
 
-
-
                             @if(canKkGiaCt('DVVTHK','VC'))
                                 <li>
                                     <a href="javascript:;">
@@ -636,11 +634,11 @@ License: You must have a valid license purchased only from themeforest(the above
                 @endif
 
                 @if(chkPer('csdlthamdinhgia'))
-                        <li class="heading">
-                            <h3 class="uppercase">{{session('admin')['a_chucnang']['csdlthamdinhgia'] ?? 'CSDL thẩm định giá'}}</h3>
-                        </li>
-                        @include('includes.main.mainthamdinhgia')
-                    @endif
+                    <li class="heading">
+                        <h3 class="uppercase">{{session('admin')['a_chucnang']['csdlthamdinhgia'] ?? 'CSDL thẩm định giá'}}</h3>
+                    </li>
+                    @include('includes.main.mainthamdinhgia')
+                @endif
 
                 @if(chkPer('csdlvbqlnn'))
                     <li class="heading">
@@ -655,6 +653,8 @@ License: You must have a valid license purchased only from themeforest(the above
                     </li>
                     @include('includes.main.mainttpvctqlnn')
                 @endif
+
+                @include('includes.main.include.thongkenhaplieu')
 
                 @include('includes.main.mainAPI')
                 <!--
@@ -747,10 +747,8 @@ License: You must have a valid license purchased only from themeforest(the above
                             </li>
                         </ul>
                     </li>
-                        @endif
-
+                @endif
             </ul>
-
             <!-- END SIDEBAR MENU -->
         </div>
     </div>
@@ -774,12 +772,10 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="page-toolbar">
                         <b><div id="clock"></div></b>
                     </div>
-
                 </div>
             </div>
 
             @yield('content')
-
         </div>
     </div>
     <!-- END CONTENT -->

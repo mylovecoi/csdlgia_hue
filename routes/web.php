@@ -39,6 +39,7 @@ include('manage/chisogiatieudung.php');
 include('manage/giagocvlxd.php');
 include('manage/giadatduan.php');
 include('manage/ttpvctqlnn.php');
+include('manage/thongke.php');
 
 //End Manage
 

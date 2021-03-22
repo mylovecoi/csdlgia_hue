@@ -1,0 +1,9 @@
+ALTER TABLE users
+ADD
+    [chucnang] [nvarchar](255) NULL;
+
+go
+
+ UPDATE users
+   SET users.chucnang = dsdonvi.chucnang
+   FROM users  INNER JOIN  dsdonvi ON users.madv = dsdonvi.madv

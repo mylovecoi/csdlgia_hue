@@ -2637,6 +2637,15 @@ function getGiaoDien()
             'ttqlnn' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
         ),
     );
+    $gui['thongke'] = array(
+        'index' => '0', 'congbo' => '0',
+        'thongkehethong' => array(
+            'index' => '0', 'congbo' => '0',
+            'nnnhaplieu' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
+            'nntonghop' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
+            'dnnhaplieu' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
+            ),
+    );
     $gui['hethong'] = array(
         'index' => '0', 'congbo' => '0',
         'hethong_pq' => array(
@@ -2669,6 +2678,9 @@ function getPhanQuyen()
         'index' => '0',
     );
     $gui['csdlttpvctqlnn'] = array(
+        'index' => '0',
+    );
+    $gui['thongke'] = array(
         'index' => '0',
     );
     $gui['hethong'] = array(
@@ -3026,6 +3038,20 @@ function getPhanQuyen()
         'index' => '0',
         'danhmuc' => array('index' => '0', 'modify' => '0',),
         'hoso' => array('index' => '0', 'modify' => '0', 'approve' => '0',),
+    );
+
+
+    $gui['nnnhaplieu'] = array(
+        'index' => '0',
+        'danhmuc' => array('index' => '0', 'modify' => '0'),
+    );
+    $gui['nntonghop'] = array(
+        'index' => '0',
+        'danhmuc' => array('index' => '0', 'modify' => '0'),
+    );
+    $gui['dnnhaplieu'] = array(
+        'index' => '0',
+        'danhmuc' => array('index' => '0', 'modify' => '0'),
     );
 
     $gui['danhsachdiaban'] = array(

@@ -268,7 +268,7 @@ Route::group(['prefix'=>'giadvkcb'], function (){
     Route::get('danhmuc/detail','manage\giadvkcb\dvkcbdmController@index');
     Route::post('dm','manage\giadvkcb\dvkcbdmController@store');
     Route::post('delete_dm','manage\giadvkcb\dvkcbdmController@destroy');
-    Route::get('show_dm','manage\giadvkcb\dvkcbdmController@show');
+    Route::get('show_dm','manage\giadvkcb\dvkcbdmController@edit');
     Route::post('importexcel','manage\giadvkcb\dvkcbdmController@importexcel');
 
     Route::get('edit_ct','manage\giadvkcb\dvkcbctController@edit');
