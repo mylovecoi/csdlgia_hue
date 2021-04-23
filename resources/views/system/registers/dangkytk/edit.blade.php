@@ -190,7 +190,8 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="form-group">
                         <label class="control-label">Giấy đăng ký kinh doanh</label>
                         <a href="{{url('data/doanhnghiep/'.$model->tailieu)}}" target="_blank">Giấy đăng ký kinh doanh hiện tại</a>
-                        <input name="tailieu" id="tailieu" type="file">
+                        <input name="tailieu" id="tailieu" type="file" accept="{{getFileExtension()}}" onchange="chkFile(this)" />
+{{--                        <input name="tailieu" id="tailieu" type="file">--}}
                         @if ($errors->any())
                             <em class="invalid">{{ $errors->first('tailieu') }}</em>
                         @endif
@@ -322,6 +323,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
 <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>
 
+@include('includes.crumbs.scrip_chkFileExtension')
 <script>
     jQuery(document).ready(function() {
         //Metronic.init(); // init metronic core components

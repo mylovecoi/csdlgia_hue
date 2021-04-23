@@ -189,10 +189,17 @@ License: You must have a valid license purchased only from themeforest(the above
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Giấy đăng ký kinh doanh</label>
-                        <input name="tailieu" id="tailieu" type="file" />
-                        {{--<input name="tailieu" id="tailieu" type="file" class="required">--}}
+                        <input name="tailieu" id="tailieu" type="file" accept="{{getFileExtension()}}" onchange="chkFile(this)" />
                     </div>
                 </div>
+
+{{--                <div class="col-md-6">--}}
+{{--                    <div class="form-group">--}}
+{{--                        <label class="control-label">Giấy đăng ký kinh doanh</label>--}}
+{{--                        <input name="tailieu" id="tailieu" type="file" />--}}
+{{--                        --}}{{--<input name="tailieu" id="tailieu" type="file" class="required">--}}
+{{--                    </div>--}}
+{{--                </div>--}}
             </div>
 
             <p style="color: #000000">Thông tin dịch vụ kê khai</p>
@@ -317,6 +324,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
 <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>
 
+@include('includes.crumbs.scrip_chkFileExtension')
 <script>
     jQuery(document).ready(function() {
         //Metronic.init(); // init metronic core components

@@ -1,0 +1,9 @@
+ALTER TABLE kkmhbog
+ADD
+    [hoso] [nvarchar](255) NULL;
+go
+
+ALTER TABLE users
+ADD
+    [solandn] [float] DEFAULT ('0');
+GO

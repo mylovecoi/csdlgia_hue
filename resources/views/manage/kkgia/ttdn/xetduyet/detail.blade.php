@@ -198,8 +198,46 @@
 
     <div class="row" style="text-align: center">
         <div class="col-md-12">
-            <a href="{{url('/doanhnghiep/xetduyet')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
-            <a href="{{url('/doanhnghiep/thaydoi?madv='.$model->madv)}}" class="btn green"><i class="fa fa-check"></i>&nbsp;Thay đổi</a>
+            <a href="{{url('/doanhnghiep/xetduyet')}}" class="btn btn-info"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+            <a href="{{url('/doanhnghiep/thaydoi?madv='.$model->madv)}}" class="btn green"><i class="fa icon-check"></i>&nbsp;Thay đổi</a>
+            <button type="button" onclick="ClickTraLai('{{$model->madv}}')" class="btn btn-danger" data-target="#tralai-modal" data-toggle="modal">
+                <i class="fa icon-logout"></i>&nbsp;Trả lại</button>
         </div>
     </div>
+
+    <!--Model trả lại-->
+    <div class="modal fade" id="tralai-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                {!! Form::open(['url'=>'/doanhnghiep/tralai','id' => 'frm_tralai'])!!}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Đồng ý trả lại hồ sơ?</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                    </div>
+                    <div class="form-group">
+                        <label><b>Lý do trả lại</b></label>
+                        <textarea id="lydo" class="form-control" name="lydo" cols="30" rows="8"></textarea>
+                    </div>
+                    <input type="hidden" name="madv" />
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn blue">Đồng ý</button>
+
+                </div>
+                {!! Form::close() !!}
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <script>
+        function ClickTraLai(madv) {
+            $('#frm_tralai').find("[name='madv']").val(madv);
+        }
+    </script>
 @stop

@@ -20,7 +20,7 @@ class GiaGdBatDongSanController extends Controller
             //lấy địa bàn
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi = getDonViNhapLieu(session('admin')->level);
+            $m_donvi = getDonViNhapLieu(session('admin')->level,'giabatdongsan');
             $m_donvi_th = getDonViTongHop('giabatdongsan',\session('admin')->level, \session('admin')->madiaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
@@ -195,7 +195,7 @@ class GiaGdBatDongSanController extends Controller
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
 
-            $m_donvi = getDonViXetDuyet(session('admin')->level);
+            $m_donvi = getDonViXetDuyet(session('admin')->level,'giabatdongsan');
             $m_donvi_th = getDonViTongHop('giabatdongsan',\session('admin')->level, \session('admin')->madiaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
@@ -356,7 +356,7 @@ class GiaGdBatDongSanController extends Controller
         if(Session::has('admin')){
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
+            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban,'giabatdongsan');
             //dd($m_diaban);
             //$a_dm = array_column(DmPhiLePhi::all()->toArray(),'tennhom','manhom');
             return view('manage.dinhgia.giagdbatdongsan.timkiem.index')
@@ -373,7 +373,7 @@ class GiaGdBatDongSanController extends Controller
             //Chỉ tìm kiếm hồ sơ do đơn vị nhập (các hồ sơ chuyển đơn vị cấp trên ko tính)
             //Lấy hết hồ sơ trên địa bàn rồi bắt đầu tìm kiểm
             $inputs = $request->all();
-            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
+            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban,'giabatdongsan');
             $model = GiaGdBatDongSan::wherein('madv',array_column($m_donvi->toarray(),'madv'));
             //dd($inputs);
 

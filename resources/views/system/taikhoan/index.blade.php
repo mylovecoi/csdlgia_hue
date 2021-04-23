@@ -38,7 +38,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Danh sách tài khoản<small>&nbsp;</small>
+        Danh sách tài khoản
     </h3>
     <!-- END PAGE HEADER-->
     <div class="row">
@@ -72,15 +72,20 @@
                         </div>
                     </div>
 
-                    <table class="table table-striped table-bordered table-hover" id="sample_3">
+                    <table class="table table-striped table-bordered table-hover" id="sample_4">
                         <thead>
                             <tr class="text-center">
-                                <th style="text-align: center" width="2%">STT</th>
-                                <th style="text-align: center">Tên tài khoản</th>
-                                <th style="text-align: center" width="10%">Tài khoản</br>truy cập</th>
-                                <th style="text-align: center" width="15%">Phân loại</th>
-                                <th style="text-align: center" width="10%">Trạng thái</th>
-                                <th style="text-align: center" width="20%">Thao tác</th>
+                                <th rowspan="2" width="2%">STT</th>
+                                <th rowspan="2" >Tên tài khoản</th>
+                                <th rowspan="2" width="15%">Tài khoản</br>truy cập</th>
+                                <th colspan="3">Chức năng</th>
+                                <th rowspan="2" width="10%">Trạng thái</th>
+                                <th rowspan="2" width="20%">Thao tác</th>
+                            </tr>
+                            <tr class="text-center">
+                                <th width="5%">Nhập<br>liệu</th>
+                                <th width="5%">Tổng<br>hợp</th>
+                                <th width="5%">Quản<br>trị</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -89,9 +94,11 @@
                                 <tr>
                                     <td style="text-align: center">{{$key + 1}}</td>
                                     <td>{{$tt->name}}</td>
-                                    <td class="active">{{$tt->username}}</td>
-                                    <td>{{$a_phanloai[$tt->chucnang] ?? ''}}</td>
-                                    <td style="text-align: center">
+                                    <td class="active text-center">{{$tt->username}}</td>
+                                    <td class="text-center">{!!  $tt->nhaplieu == 1 ? '<i class="fa fa-check"></i>':'' !!}</td>
+                                    <td class="text-center">{!!  $tt->tonghop == 1 ? '<i class="fa fa-check"></i>':'' !!}</td>
+                                    <td class="text-center">{!!  $tt->quantri == 1 ? '<i class="fa fa-check"></i>':'' !!}</td>
+                                    <td class="text-center">
                                         @if($tt->status == 'Kích hoạt')
                                             <span class="label label-sm label-success">{{$tt->status}}</span><br>
                                             {{$tt->ttnguoitao}}

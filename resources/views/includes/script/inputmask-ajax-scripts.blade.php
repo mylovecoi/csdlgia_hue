@@ -50,6 +50,11 @@
                         opts.regex = "[a-zA-Z0-9._%-]+@[a-zA-Z0-9-]+\\.[a-zA-Z]{2,4}";
                         break;
 
+                    case "password":
+                        mask = 'Regex';
+                        opts.regex = "[a-zA-Z0-9._%-]{8,30}";
+                        break;
+
                     case "username":
                         mask = 'Regex';
                         opts.regex = "[a-zA-Z0-9._-]{2,15}";

@@ -36,19 +36,20 @@ function getLoaiXe(){
     return $a_loaixe ;
 }
 
-function getDiaDanhH(){
-    $diadanhhs = \App\DiaBanHd::where('level','H')
-        ->get();
-
-    $options = array();
-    $options[''] = '--Chọn địa bàn quản lý--';
-    foreach ($diadanhhs as $diadanhh) {
-
-
-        $options[$diadanhh->district] = $diadanhh->diaban;
-    }
-    return $options;
-}
+//function getDiaDanhH()
+//{
+//    $diadanhhs = \App\DiaBanHd::where('level', 'H')
+//        ->get();
+//
+//    $options = array();
+//    $options[''] = '--Chọn địa bàn quản lý--';
+//    foreach ($diadanhhs as $diadanhh) {
+//
+//
+//        $options[$diadanhh->district] = $diadanhh->diaban;
+//    }
+//    return $options;
+//}
 
 function getDtapdungdvlt(){
     $dtads = \App\DtAdDvLt::all();
@@ -223,14 +224,37 @@ function getDiaBan_HeThong($level, $madiaban = null)
     return array_column(App\Model\system\dsdiaban::where('madiaban', $madiaban)->get()->toarray(),
         'tendiaban', 'madiaban');
 }
-function getDonViNhapLieu($level){
-    if ($level == 'SSA') {
+function getDonViNhapLieu($level, $linhvuc=null){
+    if ($level == 'SSA' || $level == 'ADMIN') {
         //return App\Model\system\dsdonvi::where('chucnang', 'NHAPLIEU')->get();
-        return App\Model\system\view_dsdiaban_donvi::where('chucnang', 'NHAPLIEU')->get();
-    }else{
+        $m_donvi = App\Model\system\view_dsdiaban_donvi::all();
+    } else {
         //return App\Model\system\dsdonvi::where('madv', session('admin')->madv)->get();
-        return App\Model\system\view_dsdiaban_donvi::where('madv', session('admin')->madv)->get();
+        $m_donvi = App\Model\system\view_dsdiaban_donvi::where('madv', session('admin')->madv)->get();
     }
+    $ketqua = new Illuminate\Support\Collection();
+    $m_user = App\Users::wherein('madv', array_column($m_donvi->toarray(), 'madv'))->get();
+    //dd($m_user);
+    if($linhvuc != null){
+        foreach ($m_user as $user) {
+            $per = json_decode($user->permission, true);
+            if (isset($per[$linhvuc]['hoso']['approve']) && $per[$linhvuc]['hoso']['approve'] == '1'
+                && in_array('NHAPLIEU', explode(';', $user->chucnang))
+                && $ketqua->where('madv',$user->madv)->first() == null) {
+                $ketqua->add($m_donvi->where('madv', $user->madv)->first());
+            }
+        }
+    }else{
+        foreach ($m_user as $user) {
+            if (in_array('NHAPLIEU', explode(';', $user->chucnang))
+                && $ketqua->where('madv', $user->madv)->first() == null) {
+                $ketqua->add($m_donvi->where('madv', $user->madv)->first());
+            }
+        }
+    }
+    //dd($ketqua);
+    return $ketqua;
+
 }
 
 function getDoanhNghiepNhapLieu($level, $lvcc){
@@ -253,22 +277,68 @@ function getDoanhNghiep($level, $madiaban = null){
     }
 }
 
-function getDonViTimKiem($level, $madiaban = null){
+function getDonViTimKiem($level, $madiaban = null, $linhvuc = null){
     //Lấy danh sách đơn vị nhập liệu trên địa bàn
     if ($level == 'SSA') {
-        return App\Model\system\view_dsdiaban_donvi::where('chucnang', 'NHAPLIEU')->get();
+        $m_donvi = App\Model\system\view_dsdiaban_donvi::all();
     }else{
-        return App\Model\system\view_dsdiaban_donvi::where('madiaban', $madiaban)
-            ->where('chucnang', 'NHAPLIEU')->get();
+        $m_donvi = App\Model\system\view_dsdiaban_donvi::where('madiaban', $madiaban)->get();
     }
+    $ketqua = new Illuminate\Support\Collection();
+    $m_user = App\Users::wherein('madv',array_column($m_donvi->toarray(),'madv'))->get();
+    //dd($m_user);
+    if($linhvuc != null){
+        foreach ($m_user as $user) {
+            $per = json_decode($user->permission, true);
+            if (isset($per[$linhvuc]['hoso']['approve']) && $per[$linhvuc]['hoso']['approve'] == '1'
+                && in_array('NHAPLIEU', explode(';', $user->chucnang))
+                && $ketqua->where('madv',$user->madv)->first() == null) {
+                $ketqua->add($m_donvi->where('madv', $user->madv)->first());
+            }
+        }
+    }else{
+        foreach ($m_user as $user) {
+            if (in_array('NHAPLIEU', explode(';', $user->chucnang))
+                && $ketqua->where('madv',$user->madv)->first() == null) {
+                $ketqua->add($m_donvi->where('madv', $user->madv)->first());
+            }
+        }
+    }
+
+    //dd($ketqua);
+    return $ketqua;
 }
 
-function getDonViXetDuyet($level){
+function getDonViXetDuyet($level, $linhvuc = null){
     if ($level == 'SSA') {
-        return App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')->get();
+        $m_donvi = App\Model\system\view_dsdiaban_donvi::all();
     }else{
-        return App\Model\system\view_dsdiaban_donvi::where('madv', session('admin')->madv)->get();
+        $m_donvi = App\Model\system\view_dsdiaban_donvi::where('madv', session('admin')->madv)->get();
     }
+    $ketqua = new Illuminate\Support\Collection();
+    $m_user = App\Users::wherein('madv',array_column($m_donvi->toarray(),'madv'))->get();
+    //dd($m_user);
+
+    if($linhvuc != null){
+        foreach ($m_user as $user) {
+            $per = json_decode($user->permission, true);
+            if (isset($per[$linhvuc]['hoso']['approve']) && $per[$linhvuc]['hoso']['approve'] == '1'
+                && in_array('TONGHOP', explode(';', $user->chucnang))
+                && $ketqua->where('madv',$user->madv)->first() == null) {
+                $ketqua->add($m_donvi->where('madv', $user->madv)->first());
+            }
+        }
+    }else{
+        foreach ($m_user as $user) {
+            //$per = json_decode($user->permission, true);
+            if (in_array('TONGHOP', explode(';', $user->chucnang))
+                && $ketqua->where('madv',$user->madv)->first() == null) {
+                $ketqua->add($m_donvi->where('madv', $user->madv)->first());
+            }
+        }
+    }
+    //dd($ketqua);
+    return $ketqua;
 }
 
 /*
@@ -277,39 +347,37 @@ function getDonViXetDuyet($level){
  * riêng quyền SSA thì ko kiểm tra User (cho trường hợp gửi mà đơn vị đó ko phân quyền)
  * */
 function getDonViTongHop($linhvuc, $level, $madiaban = null){
-    if ($level == 'SSA') {
+    //mặc định luôn thêm đơn vị tổng hợp toàn tỉnh
+    if ($level == 'SSA' || $level == 'ADMIN') {
         //lấy tất cả đơn vị
         //return App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')->where('level', '<>', 'ADMIN')->get();
-        return App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')->get();
-    }
-    //mặc định luôn thêm đơn vị tổng hợp toàn tỉnh
-    //$ketqua = new Illuminate\Support\Collection();
-    $ketqua = App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')
-        ->where('level', 'ADMIN')->get();
-
-    if ($level == 'T') {
+        $m_donvi = App\Model\system\view_dsdiaban_donvi::all();
+    }elseif ($level == 'T') {
         //return App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')->wherein('level', ['T'])->get();
-        $m_donvi = App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')
-            ->where('level', 'T')->get();
+        $m_donvi = App\Model\system\view_dsdiaban_donvi::wherein('level', ['T','ADMIN'])->get();
     }else{
-        $m_donvi = App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')
-            ->where(function ($qr) use ($madiaban) {
-                $qr->where('level', 'T')
-                    ->orwhere('madiaban', $madiaban);
-            })->get();
+//        $m_donvi = App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')
+//            ->where(function ($qr) use ($madiaban) {
+//                $qr->where('level', 'T')
+//                    ->orwhere('madiaban', $madiaban);
+//            })->get();
+        $m_donvi = App\Model\system\view_dsdiaban_donvi::wherein('level', ['T','ADMIN'])
+                    ->orwhere('madiaban', $madiaban)->get();
     }
 
+    $ketqua = new Illuminate\Support\Collection();
     $m_user = App\Users::wherein('madv',array_column($m_donvi->toarray(),'madv'))->get();
-    foreach ($m_user as $user){
-        $per = json_decode($user->permission,true);
-        if(isset($per[$linhvuc]['hoso']['approve']) && $per[$linhvuc]['hoso']['approve'] == '1'){
-            $ketqua->add($m_donvi->where('madv',$user->madv)->first());
+    //dd($m_user);
+    foreach ($m_user as $user) {
+        $per = json_decode($user->permission, true);
+        if (isset($per[$linhvuc]['hoso']['approve']) && $per[$linhvuc]['hoso']['approve'] == '1'
+            && in_array('TONGHOP', explode(';', $user->chucnang))
+            && $ketqua->where('madv',$user->madv)->first() == null) {
+            $ketqua->add($m_donvi->where('madv', $user->madv)->first());
         }
     }
     //dd($ketqua);
     return $ketqua;
-    //App\Users
-    //})->toSql();
 }
 
 function getDonViTongHop_dn($linhvuc, $level, $madiaban = null){
@@ -348,39 +416,41 @@ function getDonViTongHop_dn($linhvuc, $level, $madiaban = null){
     }
     //dd($madiaban);
     if($madiaban == null){
-        $m_donvi = App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')
-            ->wherein('level', ['T', 'H'])->get();
+        $m_donvi = App\Model\system\view_dsdiaban_donvi::wherein('level', ['T', 'H'])->get();
     }else{
-        $m_donvi = App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')
-            ->wherein('level', ['T', 'H'])->where('madiaban', $madiaban)->get();
+        $m_donvi = App\Model\system\view_dsdiaban_donvi::wherein('level', ['T', 'H'])
+            ->where('madiaban', $madiaban)->get();
     }
 
     $m_user = App\Users::wherein('madv',array_column($m_donvi->toarray(),'madv'))->get();
     //dd($m_user);
     $ketqua = new Illuminate\Support\Collection();
-//    if($linhvuc == 'binhongia'){
-//        foreach ($m_user as $user){
-//            $per = json_decode($user->permission,true);
-//            if(isset($per[$linhvuc]['hoso']['approve']) && $per[$linhvuc]['hoso']['approve'] == '1'){
-//                $ketqua->add($m_donvi->where('madv',$user->madv)->first());
-//            }
-//        }
-//    }else{
-        foreach ($m_user as $user){
-            $per = json_decode($user->permission,true);
-            if(isset($per[$linhvuc]['hoso']['approve']) && $per[$linhvuc]['hoso']['approve'] == '1'){
-                $ketqua->add($m_donvi->where('madv',$user->madv)->first());
-            }
-        }
-//    }
 
+    foreach ($m_user as $user){
+        $per = json_decode($user->permission,true);
+        if(isset($per[$linhvuc]['hoso']['approve']) && $per[$linhvuc]['hoso']['approve'] == '1'
+            && in_array('TONGHOP',explode(';',$user->chucnang))
+            && $ketqua->where('madv',$user->madv)->first() == null){
+            $ketqua->add($m_donvi->where('madv',$user->madv)->first());
+        }
+    }
     //dd($ketqua);
     return $ketqua;
 }
 
 function getDonViCongBo(){
-    return App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')
-        ->wherein('level', ['ADMIN'])->get();
+    $m_donvi = App\Model\system\view_dsdiaban_donvi::wherein('level', ['ADMIN'])->get();
+    $m_user = App\Users::wherein('madv',array_column($m_donvi->toarray(),'madv'))->get();
+    $ketqua = new Illuminate\Support\Collection();
+
+    foreach ($m_user as $user){
+        if(in_array('TONGHOP',explode(';',$user->chucnang))
+            && $ketqua->where('madv',$user->madv)->first() == null){
+            $ketqua->add($m_donvi->where('madv',$user->madv)->first());
+        }
+    }
+    //dd($ketqua);
+    return $ketqua;
 }
 
 function getDiaBan_HoSo($m_diaban, $all = false){

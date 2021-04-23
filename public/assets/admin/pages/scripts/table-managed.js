@@ -330,6 +330,93 @@ var TableManaged = function () {
 
     }
 
+    var initTableGr = function () {
+        var groupColumn = 1;
+        var table = $('#sample_gr');
+
+        table.dataTable({
+            // order: [[2, 'asc'], [1, 'asc']],
+            // rowGroup: {
+            //     dataSrc: [ 2, 1 ]
+            // },
+            // columnDefs: [ {
+            //     targets: [ 1, 2 ],
+            //     visible: false
+            // } ]
+
+            // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
+            // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js).
+            // So when dropdowns used the scrollable div should be removed.
+            //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+
+            "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+
+            "lengthMenu": [
+                [5, 10, 15, 20, -1],
+                [5, 10, 15, 20, "All"] // change per page values here
+            ],
+            // set the initial value
+            "pageLength": -1,
+            "language": {
+                "lengthMenu": "Hiển thị _MENU_ thông tin",
+                "search": "Tìm kiếm:",
+                "emptyTable": "Không có thông tin",
+                "info": "Hiển thị _START_ đến _END_ trên _TOTAL_ thông tin",
+                "infoEmpty": "",
+                "infoFiltered": "(tìm kiếm trong _MAX_ thông tin)",
+                "zeroRecords": "Không có thông tin"
+            },
+            // "columnDefs": [{  // set default column settings
+            //     'orderable': false,
+            //     'targets': [0]
+            // }, {
+            //     "searchable": false,
+            //     "targets": [0]
+            // }],
+
+            "columnDefs": [
+                { "visible": false, "targets": groupColumn }
+            ],
+            "order": [[ groupColumn, 'asc' ]],
+            "rowGroup": {
+                dataSrc: [ groupColumn ]
+            },
+            // "drawCallback": function ( settings ) {
+            //     var api = this.api();
+            //     var rows = api.rows( {page:'current'} ).nodes();
+            //     var last=null;
+            //
+            //     api.column(groupColumn, {page:'current'} ).data().each( function ( group, i ) {
+            //         if ( last !== group ) {
+            //             $(rows).eq( i ).before(
+            //                 '<tr class="group"><td colspan="10">'+group+'</td></tr>'
+            //             );
+            //
+            //             last = group;
+            //         }
+            //     } );
+            // },
+            "bSort" : false
+        });
+
+        // var tableWrapper = jQuery('#sample_gr');
+
+        // table.find('.group-checkable').change(function () {
+        //     var set = jQuery(this).attr("data-set");
+        //     var checked = jQuery(this).is(":checked");
+        //     jQuery(set).each(function () {
+        //         if (checked) {
+        //             $(this).attr("checked", true);
+        //         } else {
+        //             $(this).attr("checked", false);
+        //         }
+        //     });
+        //     jQuery.uniform.update(set);
+        // });
+
+        // tableWrapper.find('.dataTables_length select').select2(); // initialize select2 dropdown
+    }
+
     return {
         //main function to initiate the module
         init: function () {
@@ -339,6 +426,7 @@ var TableManaged = function () {
             initTable3();
             initTable4();
             initTable88();
+            initTableGr();
         },
     };
 }();

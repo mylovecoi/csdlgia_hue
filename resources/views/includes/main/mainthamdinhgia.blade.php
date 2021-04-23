@@ -19,7 +19,7 @@
             @endif
 
             @if(chkPer('csdlthamdinhgia','thamdinhgia', 'thamdinh', 'hoso','index'))
-                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                     <li>
                         <a href="{{url('/thamdinhgia/danhsach')}}">
                             Thông tin hồ sơ
@@ -27,7 +27,7 @@
                     </li>
                 @endif
 
-                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                     <li>
                         <a href="{{url('/thamdinhgia/xetduyet')}}">
                             Xét duyệt hồ sơ

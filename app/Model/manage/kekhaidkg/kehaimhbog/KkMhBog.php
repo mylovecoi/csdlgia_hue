@@ -35,6 +35,7 @@ KkMhBog extends Model
         'ghichu',
         'lichsu', //Thao tác lịch sử hồ sơ theo dạng JSON
         'tinhtrang',//Vị trị hiện tại của Hô sơ: Khởi tạo; Gửi Huyện; Gửi Tỉnh
+        'hoso',//lần đầu, thông báo
         //Thông tin hồ sơ khi khởi tạo (level lấy theo thông tin đơn vị)
         'macqcq',
         'madv',

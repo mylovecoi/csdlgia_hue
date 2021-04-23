@@ -32,7 +32,7 @@ class GiaRungController extends Controller
             //lấy địa bàn
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi = getDonViNhapLieu(session('admin')->level);
+            $m_donvi = getDonViNhapLieu(session('admin')->level,'giarung');
             $m_donvi_th = getDonViTongHop('giarung',\session('admin')->level, \session('admin')->madiaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
@@ -107,7 +107,7 @@ class GiaRungController extends Controller
             $inputs = $request->all();
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi = getDonViNhapLieu(session('admin')->level);
+            $m_donvi = getDonViNhapLieu(session('admin')->level,'giarung');
             $loairungs = DmGiaRung::all();
             return view('manage.dinhgia.giarung.importexcel')
                 ->with('m_diaban',$m_diaban)
@@ -192,7 +192,7 @@ class GiaRungController extends Controller
             $inputs = $request->all();
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             //$m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi = getDonViNhapLieu(session('admin')->level);
+            $m_donvi = getDonViNhapLieu(session('admin')->level,'giarung');
             $model = GiaRung::where('mahs',$inputs['mahs'])->first();
             $modelct = GiaRungCt::where('mahs',$model->mahs)->get();
             $inputs['url'] = '/giarung';
@@ -364,7 +364,7 @@ class GiaRungController extends Controller
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
 
-            $m_donvi = getDonViXetDuyet(session('admin')->level);
+            $m_donvi = getDonViXetDuyet(session('admin')->level,'giarung');
             $m_donvi_th = getDonViTongHop('giarung',\session('admin')->level, \session('admin')->madiaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
@@ -549,7 +549,7 @@ class GiaRungController extends Controller
         if(Session::has('admin')){
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
+            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban,'giarung');
             //dd($m_diaban);
             $a_loairung = array_column(DmGiaRung::all()->toArray(),'tennhom','manhom');
             return view('manage.dinhgia.giarung.timkiem.index')
@@ -566,7 +566,7 @@ class GiaRungController extends Controller
             //Chỉ tìm kiếm hồ sơ do đơn vị nhập (các hồ sơ chuyển đơn vị cấp trên ko tính)
             //Lấy hết hồ sơ trên địa bàn rồi bắt đầu tìm kiểm
             $inputs = $request->all();
-            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
+            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban,'giarung');
             $model = view_giarung::wherein('madv',array_column($m_donvi->toarray(),'madv'));
             //dd($inputs);
 

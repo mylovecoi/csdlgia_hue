@@ -12,9 +12,12 @@
     <script type="text/javascript" src="{{url('assets/global/plugins/select2/select2.min.js')}}"></script>
     <script type="text/javascript" src="{{url('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js')}}"></script>
     <script type="text/javascript" src="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
-
+{{--    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>--}}
+{{--    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/rowgroup/1.1.2/js/dataTables.rowGroup.min.js"></script>--}}
     <!-- END PAGE LEVEL PLUGINS -->
     <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
+
+{{--    <script src="{{url('assets/admin/pages/scripts/dataTables-rowGroup.min.js')}}"></script>--}}
 {{--    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>--}}
 
     <!--End date new-->
@@ -47,6 +50,7 @@
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
+                    plhh:  $('#plhh').val(),
                     tenhh:  $('#tenhh').val(),
                     quycach:  $('#quycach').val(),
                     gialk: $('#gialk').val(),
@@ -85,6 +89,7 @@
                 },
                 dataType: 'JSON',
                 success: function (data) {
+                    $('#plhh').val(data.plhh).trigger('change');
                     $('#tenhh').val(data.tenhh);
                     $('#quycach').val(data.quycach);
                     $('#dvt').val(data.dvt);
@@ -223,11 +228,12 @@
                         </div>
                         <div class="row" id="dsts">
                             <div class="col-md-12">
-                                <table class="table table-striped table-bordered table-hover" id="sample_3">
+                                <table class="table table-striped table-bordered table-hover" id="sample_4">
                                     <thead>
                                     <tr>
                                         <th style="text-align: center">STT</th>
-                                        <th style="text-align: center">Tên hàng hoá<br>dịch vụ</th>
+                                        <th style="text-align: center">Phân loại hàng<br>hoá, dịch vụ</th>
+                                        <th style="text-align: center">Tên hàng hoá,<br>dịch vụ</th>
                                         <th style="text-align: center">Đơn vị<br>tính</th>
                                         <th style="text-align: center">Mức giá <br>liền kề</th>
                                         <th style="text-align: center">Mức giá <br>kê khai</th>
@@ -239,6 +245,7 @@
                                     @foreach($model_ct as $key=>$tt)
                                         <tr>
                                             <td style="text-align: center">{{$key+1}}</td>
+                                            <td>{{$tt->plhh}}</td>
                                             <td class="active">{{$tt->tenhh}}</td>
                                             <td style="text-align: center">{{$tt->dvt}}</td>
                                             <td style="text-align: right">{{dinhdangsothapphan($tt->gialk,2)}}</td>
@@ -246,7 +253,7 @@
                                             <td>{{$tt->ghichu}}</td>
                                             <td>
                                                 <button type="button" onclick="editmhbog({{$tt->id}});" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs">
-                                                    <i class="fa fa-edit"></i>&nbsp;Mức giá mới</button>
+                                                    <i class="fa fa-edit"></i>&nbsp;Sửa</button>
                                                 {{--<button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editmhbog({{$tt->id}});"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</button>--}}
                                                 {{--<button type="button" data-target="#modal-nhapkhau" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editnhapkhau({{$tt->id}});"><i class="fa fa-edit"></i>&nbsp;Thuyết minh với MH nhập khẩu</button>--}}
                                                 {{--<button type="button" data-target="#modal-sanxuat" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editsanxuat({{$tt->id}});"><i class="fa fa-edit"></i>&nbsp;Thuyết minh với MH sản xuất</button>--}}
@@ -298,7 +305,23 @@
                 <div class="modal-body" id="ttmhbog">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="form-group"><label class="control-label">Tên mặt hàng<span class="require">*</span></label>
+                            <div class="form-group">
+                                <div class="col-md-11" style="padding-left: 0px;">
+                                    <label class="form-control-label">Phân loại hàng hóa, dịch vụ</label>
+                                    {!!Form::select('plhh', $a_pl, null, array('id' => 'plhh','class' => 'form-control select2me'))!!}
+                                </div>
+                                <div class="col-md-1" style="padding-left: 0px;">
+                                    <label class="control-label">&nbsp;&nbsp;Thêm</label>
+                                    <button type="button" class="btn btn-default" data-target="#modal-pl" data-toggle="modal">
+                                        <i class="fa fa-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group"><label class="control-label">Tên mặt hàng hóa, dịch vụ<span class="require">*</span></label>
                                 <div><input type="text" name="tenhh" id="tenhh" class="form-control" required ></div>
                             </div>
                         </div>
@@ -314,8 +337,8 @@
 
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="form-group"><label class="control-label">Đơn vị tính</label>
-                                <div><input type="text" name="dvt" id="dvt" class="form-control" ></div>
+                            <div class="form-group">
+                                @include('manage.include.form.input_dvt')
                             </div>
                         </div>
 
@@ -370,6 +393,39 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+
+    <div id="modal-pl" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                    <h4 id="modal-header-primary-label" class="modal-title">Thông tin phân loại hàng hóa, dịch vụ</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-control-label">Phân loại hàng hóa, dịch vụ<span class="require">*</span></label>
+                            {!!Form::text('plhh_add', null, array('id' => 'plhh_add','class' => 'form-control','required'=>'required'))!!}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
+                    <button class="btn btn-primary" onclick="add_plhh()">Đồng ý</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function add_plhh(){
+            $('#modal-pl').modal('hide');
+            var gt = $('#plhh_add').val();
+            $('#plhh').append(new Option(gt, gt, true, true));
+            $('#plhh').val(gt).trigger('change');
+        }
+    </script>
+
+    @include('manage.include.form.modal_dvt')
     @include('includes.script.create-header-scripts')
     @include('includes.script.inputmask-ajax-scripts')
 @stop

@@ -59,7 +59,7 @@
                                 <i class="fa fa-edit"></i> Thay đổi thông tin </a>
                         @endif
 
-                        @if(isset($modeltttd) && $modeltttd->trangthai == 'CC')
+                        @if(isset($modeltttd) && in_array($modeltttd->trangthai, ['CC','TL']))
                             <a href="{{url('doanhnghiep/chuyenhs?madv='.$modeltttd->madv)}}" class="btn btn-default btn-sm">
                                 <i class="fa fa-share-square-o"></i> Chuyển thông tin</a>
                         @endif
@@ -86,7 +86,7 @@
                     </div>
 
                     @if(isset($modeltttd))
-                        @if($modeltttd->trangthai == 'BTL')
+                        @if($modeltttd->trangthai == 'TL')
                             <div class="row">
                                 <div class="form-group">
                                     <div class="col-md-12">

@@ -25,5 +25,6 @@ class Users extends Model
         'madv',
         'manhomtk',
         'chucnang',
+        'solandn',
     ];
 }

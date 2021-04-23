@@ -55,7 +55,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label style="font-weight: bold">Địa bàn</label>
-                                {{Form::select('madiaban',$a_diaban, $inputs['madiaban'],['id'=>'madiaban', 'class'=>'form-control'])}}
+                                {{Form::select('madiaban',$a_diaban, $inputs['madiaban'],['id'=>'madiaban', 'class'=>'form-control select2me'])}}
                             </div>
                         </div>
                     </div>
@@ -63,11 +63,11 @@
                     <table class="table table-striped table-bordered table-hover" id="sample_3">
                         <thead>
                             <tr class="text-center">
-                                <th width="4%">STT</th>
+                                <th width="5%">STT</th>
                                 <th width="15%">Mã đơn vị</th>
                                 <th>Tên đơn vị</th>
-                                <th width="20%">Phân loại</th>
-                                <th width="15%">Thao tác</th>
+{{--                                <th width="20%">Phân loại</th>--}}
+                                <th width="20%">Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -77,7 +77,7 @@
                                     <td style="text-align: center">{{$i++}}</td>
                                     <td class="text-center">{{$tt->madv}}</td>
                                     <td class="active" >{{$tt->tendv}}</td>
-                                    <td>{{$a_phanloai[$tt->chucnang] ?? ''}}</td>
+{{--                                    <td>{{$a_phanloai[$tt->chucnang] ?? ''}}</td>--}}
                                     <td>
                                         @if(chkPer('hethong', 'hethong_pq', 'danhsachdonvi','danhmuc', 'modify'))
                                             <a href="{{url('/donvi/modify?madv='.$tt->madv)}}" class="btn btn-default btn-xs mbs">

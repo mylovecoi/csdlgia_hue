@@ -44,9 +44,9 @@
     Thêm mới: Load danh mục mặt hàng rồi chọn
 -->
 @section('content')
-    <h5 class="page-title">
-        Thông tin hồ sơ kê khai giá các mặt hàng bình ổn giá</small>
-
+    <h5 class="page-title text-uppercase">
+        {{session('admin')['a_chucnang']['bog'] ?? 'Bình ổn giá'}}
+{{--        Thông tin hồ sơ kê khai giá các mặt hàng bình ổn giá</small>--}}
     </h5>
     <!-- END PAGE HEADER-->
     <div class="row">

@@ -31,6 +31,7 @@ class CreateUsersTable extends Migration
             $table->text('madv')->nullable();
             $table->text('manhomtk')->nullable();
             $table->string('chucnang')->nullable();
+            $table->integer('solandn')->default(0);
             $table->timestamps();
         });
     }

@@ -116,9 +116,8 @@
             <td style="text-align: center">{{$tt->dvt}}</td>
             <td style="text-align: right">{{dinhdangsothapphan($tt->gialk,2)}}</td>
             <td style="text-align: right">{{dinhdangsothapphan($tt->giakk,2)}}</td>
-            <td style="text-align: center">{{$tt->gialk == 0 ? '' : dinhdangsothapphan($tt->giakk-$tt->gialk)}}</td>
-            <td style="text-align: center">{{$tt->gialk == 0 ? '' : dinhdangsothapphan(($tt->giakk - $tt->gialk)/$tt->gialk*100,2).'%'}}</td>
-
+            <td style="text-align: center">{{dinhdangsothapphan($tt->chenhlech)}}</td>
+            <td style="text-align: center">{{$tt->phantram == 0 ? '' : dinhdangsothapphan($tt->phantram).'%'}}</td>
             <td>{{$tt->ghichu}}</td>
         </tr>
     @endforeach
@@ -128,4 +127,72 @@
 <p>3. Ghi rõ các chính sách và mức khuyến mại, giảm giá hoặc chiết khấu đối với các đối tượng khách hàng, các Điều kiện vận chuyển, giao hàng, bán hàng kèm theo mức giá kê khai (nếu có)</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$modelkk->chinhsachkm}}</p>
 <p>Mức giá kê khai này thực hiện từ ngày {{getDayVn($modelkk->ngayhieuluc)}}</p>
+
+@if(count($a_plhh) > 1)
+    @foreach($a_plhh as $plhh)
+        <hr class="in">
+        <p style="page-break-before: always">
+            <!--Trang3-->
+
+        <table width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:0 auto 20px; text-align: center;">
+            <tr>
+                <td width="40%">
+                    <b>{{$modeldn->tendn}}</b><br>
+                    <hr style="width: 10%"> <br>
+                </td>
+                <td>
+                    <b>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM<br>
+                        Độc lập - Tự do - Hạnh phúc</b><br>
+                    <hr style="width: 15%"><br>
+                    <i>{{$modeldn->diadanh}}, ngày..{{ date("d",strtotime($modelkk->thoidiem))}}..tháng..{{ date("m",strtotime($modelkk->thoidiem))}}..năm..{{ date("Y",strtotime($modelkk->thoidiem))}}..</i>
+                </td>
+            </tr>
+        </table>
+        <p style="text-align: center; font-weight: bold; font-size: 16px;">BẢNG ĐĂNG KÝ MỨC GIÁ BÁN CỤ THỂ</p>
+        <p style="text-align: center;; font-style: italic">(Kèm theo công văn số {{$modelkk->socv}}  ngày {{ date("d",strtotime($modelkk->thoidiem))}} tháng {{ date("m",strtotime($modelkk->thoidiem))}} năm {{ date("Y",strtotime($modelkk->thoidiem))}} của {{$modeldn->tendn}})</p>
+        <p>1. Mức giá kê khai bán trong nước hoặc xuất khẩu (bán buôn, bán lẻ):  Các mức giá tại cửa kho/ nhà máy, tại các địa bàn, khu vực khác (nếu có)</p>
+        <table cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;">
+            <tr>
+                <th width="2%">STT</th>
+                <th width="30%">Tên hàng hóa, dịch vụ</th>
+                <th>Quy cách, <br>chất lượng</th>
+                <th>Đơn vị<br>tính</th>
+                <th width="10%">Mức giá kê<br>khai hiện<br>hành</th>
+                <th width="10%">Mức giá kê<br>khai mới</th>
+                <th>Mức<br> tăng<br>/ giảm</th>
+                <th>Tỷ lệ<br> tăng<br>/ giảm</th>
+                <th>Ghi chú</th>
+            </tr>
+            <?php
+            $chitiet = $modelkkct->where('plhh',$plhh);
+            $i = 1;
+            ?>
+            @if($plhh != '')
+                <tr>
+                    <td></td>
+                    <td style="font-weight: bold" colspan="8">{{$plhh}}</td>
+                </tr>
+            @endif
+            @foreach($chitiet as $key=>$tt)
+                <tr>
+                    <td style="text-align: center">{{$i++}}</td>
+                    <td>{{$tt->tenhh}}</td>
+                    <td>{{$tt->quycach}}</td>
+                    <td style="text-align: center">{{$tt->dvt}}</td>
+                    <td style="text-align: right">{{dinhdangsothapphan($tt->gialk,2)}}</td>
+                    <td style="text-align: right">{{dinhdangsothapphan($tt->giakk,2)}}</td>
+                    <td style="text-align: center">{{dinhdangsothapphan($tt->chenhlech)}}</td>
+                    <td style="text-align: center">{{$tt->phantram == 0 ? '' : dinhdangsothapphan($tt->phantram).'%'}}</td>
+                    <td>{{$tt->ghichu}}</td>
+                </tr>
+            @endforeach
+        </table>
+        <p>2. Phân tích nguyên nhân, nêu rõ biến động của các yếu tố hình thành giá tác động làm tăng hoặc giảm giá hàng hóa dịch vụ thực hiện kê khai giá</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$modelkk->ptnguyennhan}}</p>
+        <p>3. Ghi rõ các chính sách và mức khuyến mại, giảm giá hoặc chiết khấu đối với các đối tượng khách hàng, các Điều kiện vận chuyển, giao hàng, bán hàng kèm theo mức giá kê khai (nếu có)</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$modelkk->chinhsachkm}}</p>
+        <p>Mức giá kê khai này thực hiện từ ngày {{getDayVn($modelkk->ngayhieuluc)}}</p>
+
+    @endforeach
+@endif
 @stop

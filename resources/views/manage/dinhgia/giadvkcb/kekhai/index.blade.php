@@ -128,7 +128,7 @@
                                 <th width="2%" style="text-align: center">STT</th>
                                 <th style="text-align: center">Số QĐ</th>
                                 <th style="text-align: center">Thời điểm</th>
-                                <th style="text-align: center">Thông tư, quyết định</th>
+                                <th style="text-align: center">Danh mục thông<br>tư, quyết định</th>
                                 <th style="text-align: center">Mô tả</th>
                                 <th style="text-align: center">Trạng thái</th>
                                 <th style="text-align: center">Cơ quan tiếp nhận</th>
@@ -153,7 +153,7 @@
                                                 <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
                                         @else
                                             <a href="{{url($inputs['url'].'/modify?mahs='.$tt->mahs.'&act=false')}}" class="btn btn-default btn-xs mbs">
-                                                <i class="fa fa-edit"></i>&nbsp;Sửa</a>
+                                                <i class="fa fa-edit"></i>&nbsp;Chi tiết</a>
                                         @endif
 
                                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvkcb', 'hoso', 'approve')&& in_array($tt->trangthai,['CHT', 'HHT']))

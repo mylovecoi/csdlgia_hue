@@ -92,7 +92,7 @@
                         <thead>
                         <tr>
                             <th width="7%" rowspan="2">STT</th>
-                            <th rowspan="2">Nội dung CSDL địa phương</th>
+                            <th rowspan="2">Nội dung chi tiết</th>
                             <th colspan="2">Danh mục</th>
                             <th colspan="3">Hồ sơ</th>
                             <th colspan="2">Khác</th>

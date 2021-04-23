@@ -15,7 +15,7 @@
 
 
     <h3 class="page-title">
-        Thông tin tài khoản<small> chỉnh sửa</small>
+        Thông tin tài khoản <small>chỉnh sửa</small>
     </h3>
     <!-- END PAGE HEADER-->
 
@@ -74,6 +74,35 @@
                                 <!--/span-->
                             </div>
 
+                            <div id="hs">
+                                <label class="control-label">Phân loại chức năng (Tài khoản không đồng thời có chức năng: Quản trị và Tổng hợp/Nhập liệu)</label>
+                                <div class="row">
+                                    <div class="col-md-offset-2 col-md-3">
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" onchange="setTongHop()" {{$model->nhaplieu == 1 ? 'checked' : ''}} id="nhaplieu" name="nhaplieu" class="md-check">
+                                            <label for="nhaplieu">
+                                                <span></span><span class="check"></span><span class="box"></span>Nhập liệu</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" onchange="setTongHop()" {{$model->tonghop == 1 ? 'checked' : ''}} id="tonghop" name="tonghop" class="md-check">
+                                            <label for="tonghop">
+                                                <span></span><span class="check"></span><span class="box"></span>Tổng hợp</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" onchange="setQuanTri()" {{$model->quantri == 1 ? 'checked' : ''}} id="quantri" name="quantri" class="md-check">
+                                            <label for="quantri">
+                                                <span></span><span class="check"></span><span class="box"></span>Quản trị</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
                     <!-- END FORM-->
@@ -89,6 +118,17 @@
         </div>
     </div>
     <script type="text/javascript">
+        function setQuanTri() {
+            if(document.getElementById("quantri").checked){
+                $('#tonghop').prop('checked', false);
+                $('#nhaplieu').prop('checked', false);
+            }
+        }
+        function setTongHop() {
+            if(document.getElementById("tonghop").checked ||document.getElementById("nhaplieu").checked){
+                $('#quantri').prop('checked', false);
+            }
+        }
         function validateForm(){
 
             var validator = $("#create_tttaikhoan").validate({
@@ -123,7 +163,6 @@
                             $('input[name="username"]').val('');
                             $('input[name="username"]').focus();
                         }
-
                     }
 
                 });

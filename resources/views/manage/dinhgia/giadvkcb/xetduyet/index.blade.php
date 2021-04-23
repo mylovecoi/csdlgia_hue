@@ -108,7 +108,7 @@
                                 <th width="2%" style="text-align: center">STT</th>
                                 <th style="text-align: center">Cơ quan chuyển hồ sơ</th>
                                 {{--<th style="text-align: center">Địa bàn</th>--}}
-                                <th style="text-align: center">Thông tư, quyết định</th>
+                                <th style="text-align: center">Danh mục thông<br>tư, quyết định</th>
                                 <th style="text-align: center">Nội dung</th>
                                 <th style="text-align: center">Trạng thái</th>
                                 <th style="text-align: center">Cơ quan tiếp nhận hồ sơ</th>

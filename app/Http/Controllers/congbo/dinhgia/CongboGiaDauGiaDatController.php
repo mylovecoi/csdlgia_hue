@@ -5,17 +5,40 @@ namespace App\Http\Controllers\congbo\dinhgia;
 use App\DiaBanHd;
 use App\Model\manage\dinhgia\giadaugiadat\DauGiaDat;
 use App\Model\manage\dinhgia\giadaugiadat\DauGiaDatCt;
+use App\Model\system\view_dsdiaban_donvi;
+use App\Model\view\view_giadatdaugia;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class CongboGiaDauGiaDatController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
+    public function index(Request $request){
+        $inputs = $request->all();
+        $inputs['url'] = '/cbgiadaugiadat';
+        $a_diaban = getDiaBan_XaHuyen('ADMIN');
+        $inputs['nam'] = $inputs['nam'] ?? 'all';
+        $model = view_giadatdaugia::where('congbo', 'DACONGBO');
+        $model_dk = DauGiaDat::where('congbo', 'DACONGBO');
+        if ($inputs['nam'] != 'all'){
+            $model = $model->whereYear('thoidiem', $inputs['nam']);
+            $model_dk = $model_dk->whereYear('thoidiem', $inputs['nam']);
+        }
+        $model = $model->get();
+        $model_dk = $model_dk->where('ipf1','<>', '')->get();
+        //$a_ts = array_column(giaspdvcidm::all()->toArray(),'tenspdv','maspdv');
+        //$a_ts = array_column(GiaTaiSanCongDm::all()->toArray(),'tentaisan','mataisan');
+        $a_donvi = array_column(view_dsdiaban_donvi::all()->toArray(),'tendv','madv');
+        //dd($a_ts);
+        return view('congbo.DinhGia.GiaDauGiaDat.index')
+            ->with('model',$model)
+            ->with('model_dk',$model_dk)
+            ->with('inputs',$inputs)
+            ->with('a_diaban',$a_diaban)
+            ->with('a_donvi',$a_donvi)
+            ->with('pageTitle','Thông tin giá sản phẩm dịch vụ công ích');
+    }
+
+    public function index_c(Request $request)
     {
         //if(Session::has('admin')){
             $inputs = $request->all();
@@ -64,33 +87,6 @@ class CongboGiaDauGiaDatController extends Controller
         //    return view('errors.notlogin');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $model = DauGiaDat::findOrFail($id);
@@ -116,37 +112,4 @@ class CongboGiaDauGiaDatController extends Controller
             ->with('pageTitle','Hồ sơ đấu giá đất');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

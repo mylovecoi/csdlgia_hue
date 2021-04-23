@@ -42,9 +42,8 @@
 @stop
 
 @section('content')
-
-    <h3 class="page-title">
-        Thông tin giá đấu giá đất
+    <h3 class="page-title text-uppercase">
+        {{session('admin')['a_chucnang']['giadaugiadat'] ?? 'giá đấu giá đất'}}
     </h3>
     {{--<h3 class="page-title">
         <small> <b style="color: blue">{{$dvql->tendv}}</b><b style="color: blue"> - </b><b style="color: blue">{{$dv->tendv}}</b> - Người soạn thảo: <b style="color: blue">{{isset($model) ? $model->cvsoanthao : session('admin')->name}}</b> </small>

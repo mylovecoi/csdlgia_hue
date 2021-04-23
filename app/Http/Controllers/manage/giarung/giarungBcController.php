@@ -19,7 +19,7 @@ class giarungBcController extends Controller
             $inputs['url'] = '/giarung';
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi = getDonViNhapLieu(session('admin')->level);
+            $m_donvi = getDonViNhapLieu(session('admin')->level,'giarung');
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             //dd($inputs);
             return view('manage.dinhgia.giarung.reports.index')

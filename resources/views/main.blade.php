@@ -661,7 +661,8 @@ License: You must have a valid license purchased only from themeforest(the above
                     1. Tài khoản SSA
                     2. Tài khoản quản trị hệ thống chucnang=QUANTRI
                 -->
-                @if((chkPer('hethong') && session('admin')->chucnang == 'QUANTRI') || session('admin')->level == 'SSA')
+                @if((chkPer('hethong') && in_array('QUANTRI', session('admin')->chucnang))
+                    || session('admin')->level == 'SSA')
                     <li class="heading">
                         <h3 class="uppercase">{{session('admin')['a_chucnang']['hethong'] ?? 'Hệ thống'}}</h3>
                     </li>

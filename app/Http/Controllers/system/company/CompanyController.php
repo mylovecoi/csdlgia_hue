@@ -153,7 +153,7 @@ class CompanyController extends Controller
             $modeltttdct = TtDnTdCt::where('madv',$inputs['madv'])->get();
             $a_nghe = array_column(DmNgheKd::all()->toArray(),'tennghe','manghe');
             $a_dv = array_column(dsdonvi::all()->toArray(),'tendv','madv');
-
+            //dd($model);
             return view('manage.kkgia.ttdn.index')
                 ->with('model', $model)
                 ->with('modellvcc',$modellvcc)
@@ -332,8 +332,8 @@ class CompanyController extends Controller
             $a_diaban = getDiaBan_HeThong(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
-            $model = TtDnTd::where('madiaban', $inputs['madiaban'])->get();
-
+            $model = TtDnTd::where('madiaban', $inputs['madiaban'])->where('trangthai','CD')->get();
+            //dd($model);
             //dd($a_diaban);
             return view('manage.kkgia.ttdn.xetduyet.index')
                 ->with('model', $model)
@@ -392,6 +392,19 @@ class CompanyController extends Controller
             }
             TtDnTdCt::where('madv', $model->madv)->delete();
             TtDnTd::where('madv', $model->madv)->delete();
+            return redirect('doanhnghiep/xetduyet?madiaban=' . $model->madiaban);
+        } else
+            return view('errors.notlogin');
+    }
+
+    public function tralai(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            //dd($inputs);
+            $model = TtDnTd::where('madv', $inputs['madv'])->first();
+            $model->trangthai = 'TL';
+            $model->lydo = $inputs['lydo'];
+            $model->save();
             return redirect('doanhnghiep/xetduyet?madiaban=' . $model->madiaban);
         } else
             return view('errors.notlogin');

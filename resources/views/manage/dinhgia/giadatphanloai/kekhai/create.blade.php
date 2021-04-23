@@ -17,7 +17,7 @@
     <script>
         jQuery(document).ready(function() {
             //TableManaged.init();
-            InputMask();
+            //InputMask();
             // $(":input").inputmask();
         });
     </script>

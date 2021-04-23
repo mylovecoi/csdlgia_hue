@@ -12,6 +12,7 @@ Route::group(['prefix'=>'doanhnghiep'],function (){
 
     Route::get('xetduyet','system\company\CompanyController@xetduyet');
     Route::get('chitiet','system\company\CompanyController@chitiet');
+    Route::post('tralai','system\company\CompanyController@tralai');
     //
     Route::get('thongtindoanhnghiep','system\company\CompanyController@ttdn');
     Route::get('thongtindoanhnghiep/{id}/edit','system\company\CompanyController@ttdnedit');

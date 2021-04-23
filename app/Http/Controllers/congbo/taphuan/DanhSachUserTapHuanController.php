@@ -12,9 +12,10 @@ class DanhSachUserTapHuanController extends Controller
         $inputs = $request->all();
 //        $inputs['level'] = isset($inputs['level']) ? $inputs['level'] : 'H';
         $inputs['level'] = 'DN';
-        $model = Users::where('status','Kích hoạt')
-            ->where('level',$inputs['level'])
-            ->get();
+//        $model = Users::where('status','Kích hoạt')
+//            ->where('level',$inputs['level'])
+//            ->get();
+        $model = nullValue();
         return view('congbo.taphuan.index')
             ->with('model',$model)
             ->with('inputs',$inputs)

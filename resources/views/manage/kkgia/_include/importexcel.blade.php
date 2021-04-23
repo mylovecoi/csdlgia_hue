@@ -81,7 +81,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label class="control-label">Mức giá liền kề<span class="require">*</span></label>
+                                                        <label class="control-label">Mức giá kê khai<span class="require">*</span></label>
                                                         {!!Form::text('mucgiakk', 'F', array('id' => 'mucgiakk','class' => 'form-control','required'))!!}
                                                     </div>
                                                 </div>

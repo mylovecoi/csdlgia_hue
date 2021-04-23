@@ -29,7 +29,7 @@ class GiaSpDvCiController extends Controller
             //lấy địa bàn
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi = getDonViNhapLieu(session('admin')->level);
+            $m_donvi = getDonViNhapLieu(session('admin')->level,'giaspdvci');
             $m_donvi_th = getDonViTongHop('giaspdvci',\session('admin')->level, \session('admin')->madiaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
@@ -92,7 +92,7 @@ class GiaSpDvCiController extends Controller
             $inputs = $request->all();
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi = getDonViNhapLieu(session('admin')->level);
+            $m_donvi = getDonViNhapLieu(session('admin')->level,'giaspdvci');
             $model = GiaSpDvCi::where('mahs',$inputs['mahs'])->first();
             $modelct = GiaSpDvCiCt::where('mahs',$model->mahs)->get();
             $inputs['url'] = '/giaspdvci';
@@ -265,7 +265,7 @@ class GiaSpDvCiController extends Controller
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
 
-            $m_donvi = getDonViXetDuyet(session('admin')->level);
+            $m_donvi = getDonViXetDuyet(session('admin')->level,'giaspdvci');
             $m_donvi_th = getDonViTongHop('giaspdvci',\session('admin')->level, \session('admin')->madiaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
@@ -484,7 +484,7 @@ class GiaSpDvCiController extends Controller
         if(Session::has('admin')){
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
+            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban,'giaspdvci');
             //dd($m_diaban);
             $a_ts = array_column(giaspdvcidm::all()->toArray(),'tenspdv','maspdv');
             return view('manage.dinhgia.giaspdvci.timkiem.index')
@@ -501,7 +501,7 @@ class GiaSpDvCiController extends Controller
             //Chỉ tìm kiếm hồ sơ do đơn vị nhập (các hồ sơ chuyển đơn vị cấp trên ko tính)
             //Lấy hết hồ sơ trên địa bàn rồi bắt đầu tìm kiểm
             $inputs = $request->all();
-            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
+            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban,'giaspdvci');
             $model = view_giaspdvci::wherein('madv',array_column($m_donvi->toarray(),'madv'))->get();
             //dd($inputs);
 

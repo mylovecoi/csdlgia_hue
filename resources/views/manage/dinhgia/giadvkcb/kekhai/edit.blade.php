@@ -95,7 +95,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Theo thông tư quyết định</label>
+                                    <label class="control-label">Danh mục giá khám bệnh, chữa bệnh</label>
                                     {!!Form::select('manhom', $a_tt, null, array('id' => 'manhom','class' => 'form-control select2me'))!!}
                                 </div>
                             </div>
@@ -241,13 +241,16 @@
 
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12" style="text-align: center">
-                    <a href="{{url($inputs['url'].'/danhsach?&madv='.$model->madv)}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
-                    <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
-                    <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i> Hoàn thành</button>
+            @if($inputs['act'] == 'true')
+                <div class="row">
+                    <div class="col-md-12" style="text-align: center">
+                        <a href="{{url($inputs['url'].'/danhsach?&madv='.$model->madv)}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                        <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i> Hoàn thành</button>
+                    </div>
                 </div>
-            </div>
+            @elseif(session('admin')->madv == $model->madv)
+                <a href="{{url($inputs['url'].'/danhsach?&madv='.$model->madv)}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+            @endif
             {!! Form::close() !!}
             <!-- END FORM-->
 

@@ -37,7 +37,7 @@ class DvKcbController extends Controller
             //lấy địa bàn
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi = getDonViNhapLieu(session('admin')->level);
+            $m_donvi = getDonViNhapLieu(session('admin')->level, 'giadvkcb');
             $m_donvi_th = getDonViTongHop('giadvkcb',\session('admin')->level, \session('admin')->madiaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
@@ -81,17 +81,29 @@ class DvKcbController extends Controller
             $model->manhom = $inputs['manhom'];
             $model->trangthai  = 'CHT';
 
+            $m_lk = DvKcb::where('trangthai', 'HT')
+                ->where('manhom', $inputs['manhom'])
+                ->where('madv', $inputs['madv'])
+                ->orderby('thoidiem', 'desc')->first();
+            if ($m_lk != null) {
+                $model->soqdlk = $m_lk->soqd;
+                $model->thoidiemlk = $m_lk->thoidiemlk;
+                $a_ctlk = array_column(DvKcbCt::where('mahs', $m_lk->mahs)->get()->toarray(),'giadv', 'madichvu');
+            }
+            //dd($a_ctlk);
             $a_dm = [];
             foreach ($modeldm as $dm) {
-                $a_dm[]= [
+                //$giadv = isset($a_ctlk[$dm->madichvu]) ? getDoubleToDb($a_ctlk[$dm->madichvu]) : 0;
+                $a_dm[] = [
                     'mahs' => $inputs['mahs'],
                     'phanloai' => $dm->phanloai,
                     'madichvu' => $dm->madichvu,
                     'tenspdv' => $dm->tenspdv,
                     'dvt' => $dm->dvt,
-                    'giadv'=> 0,
+                    'giadv' => isset($a_ctlk[$dm->madichvu]) && getDoubleToDb($a_ctlk[$dm->madichvu]) > 0 ? getDoubleToDb($a_ctlk[$dm->madichvu]) : 0,
                 ];
             }
+            //dd($a_dm);
             foreach (array_chunk($a_dm , 100) as $dm){
                 DvKcbCt::insert($dm);
             }
@@ -349,7 +361,7 @@ class DvKcbController extends Controller
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
 
-            $m_donvi = getDonViXetDuyet(session('admin')->level);
+            $m_donvi = getDonViXetDuyet(session('admin')->level,'giadvkcb');
             $m_donvi_th = getDonViTongHop('giadvkcb',\session('admin')->level, \session('admin')->madiaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
@@ -512,7 +524,7 @@ class DvKcbController extends Controller
         if(Session::has('admin')){
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
+            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban,'giadvkcb');
             //dd($m_diaban);
             $a_dm = array_column(dvkcbdm::all()->toArray(),'tenspdv','maspdv');
             return view('manage.dinhgia.giadvkcb.timkiem.index')
@@ -529,7 +541,7 @@ class DvKcbController extends Controller
             //Chỉ tìm kiếm hồ sơ do đơn vị nhập (các hồ sơ chuyển đơn vị cấp trên ko tính)
             //Lấy hết hồ sơ trên địa bàn rồi bắt đầu tìm kiểm
             $inputs = $request->all();
-            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
+            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban,'giadvkcb');
             $model = view_giadvkcb::wherein('madv',array_column($m_donvi->toarray(),'madv'))->get();
             //dd($inputs);
 

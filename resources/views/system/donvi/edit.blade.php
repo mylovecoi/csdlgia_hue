@@ -107,12 +107,12 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="control-label">Phân loại đơn vị</label>
-                                        {!! Form::select('chucnang', $a_phanloai, null, array('id'=>'chucnang','class'=>'form-control'))!!}
-                                    </div>
-                                </div>
+{{--                                <div class="col-md-4">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label class="control-label">Phân loại đơn vị</label>--}}
+{{--                                        {!! Form::select('chucnang', $a_phanloai, null, array('id'=>'chucnang','class'=>'form-control'))!!}--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
                             </div>
 
 

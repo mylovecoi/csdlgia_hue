@@ -17,7 +17,7 @@ class ReportsThamDinhGiaController extends Controller
         if (Session::has('admin')) {
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
+            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban,'thamdinhgia');
 
             return view('manage.thamdinhgia.reports.index')
                 ->with('m_diaban',$m_diaban)
@@ -31,7 +31,7 @@ class ReportsThamDinhGiaController extends Controller
     public function Bc1(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
+            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban,'thamdinhgia');
             $model = view_thamdinhgia::wherein('madv',array_column($m_donvi->toarray(),'madv'));
             //dd($model);
 

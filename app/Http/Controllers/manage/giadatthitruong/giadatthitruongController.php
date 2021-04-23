@@ -25,7 +25,7 @@ class giadatthitruongController extends Controller
             $inputs['url'] = '/giadatthitruong';
             //lấy địa bàn
             $a_diaban = getDiaBan_XaHuyen(session('admin')->level,session('admin')->madiaban);
-            $m_donvi = getDonViNhapLieu(session('admin')->level);
+            $m_donvi = getDonViNhapLieu(session('admin')->level,'giadatthitruong');
             $m_donvi_th = getDonViTongHop('giadatthitruong',\session('admin')->level, \session('admin')->madiaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? array_key_first($a_diaban);
             $inputs['madv'] = $m_donvi->first()->madv;

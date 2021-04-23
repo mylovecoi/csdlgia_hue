@@ -158,8 +158,8 @@ class GiaHhDvKController extends Controller
                             'mahhdv' => $dm->mahhdv,
                             'loaigia' => 'Giá bán lẻ',
                             'nguontt' => 'Do cơ quan/đơn vị quản lý nhà nước có liên quan cung cấp/báo cáo theo quy định',
-                            'gia' => $a_ctlk[$dm->mahhdv] ?? 0,
-                            'gialk' => $a_ctlk[$dm->mahhdv] ?? 0,
+                            'gia' => isset($a_ctlk[$dm->mahhdv]) && getDoubleToDb($a_ctlk[$dm->mahhdv]) > 0 ? getDoubleToDb($a_ctlk[$dm->mahhdv]) : 0,
+                            'gialk' => isset($a_ctlk[$dm->mahhdv]) && getDoubleToDb($a_ctlk[$dm->mahhdv]) > 0 ? getDoubleToDb($a_ctlk[$dm->mahhdv]) : 0,
                         ];
                     }
                     //dd($a_dm);
@@ -526,7 +526,7 @@ class GiaHhDvKController extends Controller
         if(Session::has('admin')){
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
+            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban,'giahhdvk');
             //dd($m_diaban);
             $a_dm = array_column(NhomHhDvK::all()->toArray(),'tentt','matt');
             $inputs['url'] = '/giahhdvk';
@@ -545,7 +545,7 @@ class GiaHhDvKController extends Controller
             //Chỉ tìm kiếm hồ sơ do đơn vị nhập (các hồ sơ chuyển đơn vị cấp trên ko tính)
             //Lấy hết hồ sơ trên địa bàn rồi bắt đầu tìm kiểm
             $inputs = $request->all();
-            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
+            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban,'giahhdvk');
             $model = view_giahhdvk::wherein('madv',array_column($m_donvi->toarray(),'madv'));
             //dd($inputs);
 
@@ -736,7 +736,7 @@ class GiaHhDvKController extends Controller
             $inputs = $request->all();
             $m_nhom = array_column(NhomHhDvK::where('theodoi', 'TD')
                 ->get()->toarray(), 'tentt','matt');
-            $m_donvi = getDonViNhapLieu(session('admin')->level);
+            $m_donvi = getDonViNhapLieu(session('admin')->level, 'giahhdvk');
             return view('manage.dinhgia.giahhdvk.excel.information')
                 ->with('a_dv', array_column($m_donvi->toarray(),'tendv','madv'))
                 ->with('a_nhom', $m_nhom)

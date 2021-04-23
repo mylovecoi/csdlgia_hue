@@ -50,14 +50,27 @@ class UsersController extends Controller
         if ($ttuser == null) {
             return view('errors.invalid-user');
         }
-        //Sai mật khẩu
-        if (md5($input['password']) != $ttuser->password) {
-            return view('errors.invalid-pass');
-        }
+
         //Tài khoản đang bị khóa
         if ($ttuser->status != "Kích hoạt") {
             return view('errors.lockuser');
         }
+
+        //Sai mật khẩu
+        if (md5($input['password']) != $ttuser->password && $ttuser->solandn < 6) {
+            $ttuser->solandn = $ttuser->solandn + 1;
+            if($ttuser->solandn >= 6){
+                $ttuser->status = 'Vô hiệu';
+            }
+            $ttuser->save();
+            return view('errors.invalid-user')->with('message','Sai tên tài khoản hoặc sai mật khẩu đăng nhập.<br>Số lần đăng nhập: '.$ttuser->solandn.'/5 lần');
+        }
+        //Kiểm tra số lần đăng nhập > 5 =>Vô hiệu tài khoản
+
+
+
+        $ttuser->solandn = 0;
+        $ttuser->save();
 
         //kiểm tra tài khoản
         //1. level = SSA ->
@@ -84,13 +97,21 @@ class UsersController extends Controller
             $ttuser->chucvukythay = $m_donvi->chucvukythay;
             $ttuser->nguoiky = $m_donvi->nguoiky;
             $ttuser->diadanh = $m_donvi->diadanh;
-            $ttuser->chucnang = $m_donvi->chucnang;
+            if($ttuser->chucnang == null || $ttuser->chucnang == ''){
+                $ttuser->chucnang = explode(';',$m_donvi->chucnang);
+            }else{
+                $ttuser->chucnang = explode(';',$ttuser->chucnang);
+            }
+
             //Lấy thông tin địa bàn
             $m_diaban = dsdiaban::where('madiaban', $ttuser->madiaban)->first();
             $ttuser->tendiaban = $m_diaban->tendiaban;
             //Doanh nghiệp giữ nguyên level; Đơn vị HC lấy level theo địa bàn
             $ttuser->level = $ttuser->level == 'DN' ? $ttuser->level : $m_diaban->level;
+        }else{
+            $ttuser->chucnang = array('SSA');
         }
+
         //Lấy thông tin giao diện
         $ttuser->a_chucnang = array_column(danhmucchucnang::all()->toArray(),'menu','maso');
         //Lấy setting gán luôn vào phiên đăng nhập
@@ -138,7 +159,9 @@ class UsersController extends Controller
                 return view('errors.changepassword-success');
             }
         } else {
-            dd('Mật khẩu cũ không đúng???');
+            return view('errors.403')
+                ->with('message','Mật khẩu cũ không đúng.')
+                ->with('url','/change-password');
         }
     }
 

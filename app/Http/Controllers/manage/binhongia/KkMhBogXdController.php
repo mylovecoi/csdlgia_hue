@@ -117,7 +117,7 @@ class KkMhBogXdController extends Controller
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
 
-            $m_donvi = getDonViXetDuyet(session('admin')->level);
+            $m_donvi = getDonViXetDuyet(session('admin')->level,'bog');
             $m_donvi_th = getDonViCongBo();
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;

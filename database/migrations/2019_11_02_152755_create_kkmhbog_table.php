@@ -39,6 +39,7 @@ class CreateKkmhbogTable extends Migration
             $table->text('ghichu')->nullable();
             $table->text('lichsu')->nullable(); //Thao tác lịch sử hồ sơ theo dạng JSON
             $table->string('tinhtrang')->nullable();//Vị trị hiện tại của Hô sơ: Khởi tạo; Gửi Huyện; Gửi Tỉnh
+            $table->string('hoso')->nullable();//lần đầu, thông báo
             //Thông tin hồ sơ khi khởi tạo (level lấy theo thông tin đơn vị)            
             $table->string('macqcq')->nullable(20);
             $table->string('madv')->nullable(20);            

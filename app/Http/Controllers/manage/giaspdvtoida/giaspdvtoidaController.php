@@ -30,7 +30,7 @@ class giaspdvtoidaController extends Controller
             //lấy địa bàn
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi = getDonViNhapLieu(session('admin')->level);
+            $m_donvi = getDonViNhapLieu(session('admin')->level,'giaspdvtoida');
             $m_donvi_th = getDonViTongHop('giaspdvtoida',\session('admin')->level, \session('admin')->madiaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
@@ -116,7 +116,7 @@ class giaspdvtoidaController extends Controller
             $inputs = $request->all();
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi = getDonViNhapLieu(session('admin')->level);
+            $m_donvi = getDonViNhapLieu(session('admin')->level,'giaspdvtoida');
             $model = giaspdvtoida::where('mahs',$inputs['mahs'])->first();
             $modelct = giaspdvtoida_ct::where('mahs',$model->mahs)->get();
             $inputs['url'] = '/giaspdvtoida';
@@ -221,7 +221,7 @@ class giaspdvtoidaController extends Controller
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
 
-            $m_donvi = getDonViXetDuyet(session('admin')->level);
+            $m_donvi = getDonViXetDuyet(session('admin')->level,'giaspdvtoida');
             $m_donvi_th = getDonViTongHop('giaspdvtoida',\session('admin')->level, \session('admin')->madiaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
@@ -450,7 +450,7 @@ class giaspdvtoidaController extends Controller
         if(Session::has('admin')){
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
+            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban,'giaspdvtoida');
             //dd($m_diaban);
             $a_ts = array_column(giaspdvtoida_dm::all()->toArray(),'tenspdv','maspdv');
             $inputs['url'] = '/giaspdvtoida';
@@ -471,7 +471,7 @@ class giaspdvtoidaController extends Controller
             //Lấy hết hồ sơ trên địa bàn rồi bắt đầu tìm kiểm
             $inputs = $request->all();
             $inputs['url'] = '/giaspdvtoida';
-            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
+            $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban,'giaspdvtoida');
             $model = view_giaspdvtoida::wherein('madv',array_column($m_donvi->toarray(),'madv'))->get();
             //dd($inputs);
 

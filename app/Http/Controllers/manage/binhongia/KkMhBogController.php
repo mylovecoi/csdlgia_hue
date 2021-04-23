@@ -8,6 +8,7 @@ use App\Model\manage\kekhaidkg\kehaimhbog\KkMhBog;
 use App\Model\manage\kekhaidkg\kehaimhbog\KkMhBogCt;
 use App\Model\system\company\Company;
 use App\Model\system\company\CompanyLvCc;
+use App\Model\system\dmdvt;
 use App\Model\system\dmnganhnghekd\DmNgheKd;
 use App\Model\system\dsdiaban;
 use App\Model\system\view_dsdiaban_donvi;
@@ -156,7 +157,8 @@ class KkMhBogController extends Controller
                 }
                 KkMhBogCt::insert($a_ct);
             }
-
+            $a_pl = array_column(KkMhBogCt::all('plhh')->toArray(),'plhh','plhh');
+            $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
             //$model_ct = KkMhBogCt::where('mahs', $model->mahs)->get();
             $inputs['url'] = '/binhongia';
             return view('manage.bog.kekhai.create')
@@ -165,6 +167,8 @@ class KkMhBogController extends Controller
                 ->with('m_nghe', $m_nghe)
                 ->with('inputs', $inputs)
                 ->with('m_dn', $m_dn)
+                ->with('a_pl', $a_pl)
+                ->with('a_dvt', $a_dvt)
                 ->with('pageTitle', 'Giá kê khai mặt hàng BOG');
 
         }
@@ -212,12 +216,19 @@ class KkMhBogController extends Controller
             $modeldn = Company::where('madv',$modelkk->madv)->first();
             $modelkkct = KkMhBogCt::where('mahs',$modelkk->mahs)->get();
             $modelcqcq = view_dsdiaban_donvi::where('madv', $modelkk->macqcq)->first();
+            $a_plhh = a_unique(array_column($modelkkct->toarray(),'plhh'));
+            foreach ($modelkkct as $ct) {
+                $ct->chenhlech = $ct->gialk > 0 ? $ct->giakk - $ct->gialk : 0;
+                $ct->phantram = $ct->giakk > 0 ? round(($ct->chenhlech / $ct->gialk) * 100, 2) : 0;
+            }
+            //dd(count($a_plhh));
             if($modelkk->phanloai == 'DK'){
                 return view('manage.bog.baocao.print56')
                     ->with('modelkk',$modelkk)
                     ->with('modeldn',$modeldn)
                     ->with('modelkkct',$modelkkct)
                     ->with('modelcqcq',$modelcqcq)
+                    ->with('a_plhh',$a_plhh)
                     ->with('pageTitle','Giá kê khai mặt hàng bình ổn giá');
             }
             return view('manage.bog.baocao.print')
@@ -225,6 +236,7 @@ class KkMhBogController extends Controller
                 ->with('modeldn',$modeldn)
                 ->with('modelkkct',$modelkkct)
                 ->with('modelcqcq',$modelcqcq)
+                ->with('a_plhh',$a_plhh)
                 ->with('pageTitle','Giá kê khai mặt hàng bình ổn giá');
 
         }else
@@ -236,16 +248,20 @@ class KkMhBogController extends Controller
             //Kiểm tra có thuộc sự quản lý hay k
             $inputs = $request->all();
             $model = KkMhBog::where('mahs',$inputs['mahs'])->first();
-            $modelct = KkMhBogCt::where('mahs',$model->mahs)->get();
+            $modelct = KkMhBogCt::where('mahs',$model->mahs)->orderby('plhh')->get();
             $m_nghe = DmNgheKd::where('manghe', $model->manghe)->first();
             $m_dn = Company::where('madv', $model->madv)->first();
             $inputs['url'] = '/binhongia';
+            $a_pl = array_column(KkMhBogCt::all('plhh')->toArray(),'plhh','plhh');
+            $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
             return view('manage.bog.kekhai.create')
                 ->with('model', $model)
                 ->with('model_ct', $modelct)
                 ->with('m_nghe', $m_nghe)
                 ->with('inputs', $inputs)
                 ->with('m_dn', $m_dn)
+                ->with('a_pl', $a_pl)
+                ->with('a_dvt', $a_dvt)
                 ->with('pageTitle', 'Chỉnh sửa hồ sơ giá kê khai mặt hàng BOG');
         }else
             return view('errors.notlogin');

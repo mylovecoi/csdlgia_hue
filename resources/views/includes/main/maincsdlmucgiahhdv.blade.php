@@ -16,7 +16,7 @@
                     </a>
                     <ul class="sub-menu">
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadatpl', 'hoso','index'))
-                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                            @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giadatphanloai/danhsach')}}">
                                         Thông tin hồ sơ
@@ -24,7 +24,7 @@
                                 </li>
                             @endif
 
-                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                            @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giadatphanloai/xetduyet')}}">
                                         Xét duyệt hồ sơ
@@ -49,7 +49,7 @@
                     </a>
                     <ul class="sub-menu">
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuedatnuoc', 'hoso','index'))
-                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                            @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giathuematdatmatnuoc/danhsach')}}">
                                         Thông tin hồ sơ
@@ -57,7 +57,7 @@
                                 </li>
                             @endif
 
-                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                            @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giathuematdatmatnuoc/xetduyet')}}">
                                         Xét duyệt hồ sơ
@@ -89,7 +89,7 @@
                             </li>
                         @endif
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giarung', 'hoso','index'))
-                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                            @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giarung/danhsach')}}">
                                         Thông tin hồ sơ
@@ -97,7 +97,7 @@
                                 </li>
                             @endif
 
-                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                            @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giarung/xetduyet')}}">
                                         Xét duyệt hồ sơ
@@ -133,7 +133,7 @@
                             </li>
                         @endif
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuemuanhaxh', 'hoso','index'))
-                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                            @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/thuemuanhaxahoi/danhsach')}}">
                                         Thông tin hồ sơ
@@ -141,7 +141,7 @@
                                 </li>
                             @endif
 
-                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                            @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/thuemuanhaxahoi/xetduyet')}}">
                                         Xét duyệt hồ sơ
@@ -177,7 +177,7 @@
                             </li>
                         @endif
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'gianuocsh', 'hoso','index'))
-                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                            @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/gianuocsachsinhhoat/danhsach')}}">
                                         Thông tin hồ sơ
@@ -185,7 +185,7 @@
                                 </li>
                             @endif
 
-                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                            @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/gianuocsachsinhhoat/xetduyet')}}">
                                         Xét duyệt hồ sơ
@@ -221,7 +221,7 @@
                             </li>
                         @endif
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetscong', 'hoso','index'))
-                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                            @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giathuetscong/danhsach')}}">
                                         Thông tin hồ sơ
@@ -229,7 +229,7 @@
                                 </li>
                             @endif
 
-                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                            @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giathuetscong/xetduyet')}}">
                                         Xét duyệt hồ sơ
@@ -264,7 +264,7 @@
                             </li>
                         @endif
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvci', 'hoso','index'))
-                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                            @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giaspdvci/danhsach')}}">
                                         Thông tin hồ sơ
@@ -272,7 +272,7 @@
                                 </li>
                             @endif
 
-                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                            @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giaspdvci/xetduyet')}}">
                                         Xét duyệt hồ sơ
@@ -302,7 +302,7 @@
                             </li>
                         @endif
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvgddt', 'hoso','index'))
-                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                            @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giadvgddt/danhsach')}}">
                                         Thông tin hồ sơ
@@ -310,7 +310,7 @@
                                 </li>
                             @endif
 
-                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                            @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giadvgddt/xetduyet')}}">
                                         Xét duyệt hồ sơ
@@ -340,7 +340,7 @@
                             </li>
                         @endif
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvkcb', 'hoso','index'))
-                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                            @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giadvkcb/danhsach')}}">
                                         Thông tin hồ sơ
@@ -348,7 +348,7 @@
                                 </li>
                             @endif
 
-                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                            @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giadvkcb/xetduyet')}}">
                                         Xét duyệt hồ sơ
@@ -378,7 +378,7 @@
                             </li>
                         @endif
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'trogiatrocuoc', 'hoso','index'))
-                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                            @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/trogiatrocuoc/danhsach')}}">
                                         Thông tin hồ sơ
@@ -386,7 +386,7 @@
                                 </li>
                             @endif
 
-                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                            @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/trogiatrocuoc/xetduyet')}}">
                                         Xét duyệt hồ sơ
@@ -416,7 +416,7 @@
                             </li>
                         @endif
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giahhdvcn', 'hoso','index'))
-                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                            @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giahhdvcn/danhsach')}}">
                                         Thông tin hồ sơ
@@ -424,7 +424,7 @@
                                 </li>
                             @endif
 
-                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                            @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giahhdvcn/xetduyet')}}">
                                         Xét duyệt hồ sơ
@@ -505,7 +505,7 @@
                             </li>
                         @endif
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetn', 'hoso','index'))
-                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                            @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giathuetn/danhsach')}}">
                                         Thông tin hồ sơ
@@ -513,7 +513,7 @@
                                 </li>
                             @endif
 
-                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                            @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giathuetn/xetduyet')}}">
                                         Xét duyệt hồ sơ
@@ -541,7 +541,7 @@
                     </a>
                     <ul class="sub-menu">
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giacuocvanchuyen', 'hoso','index'))
-                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                            @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giacuocvanchuyen/danhsach')}}">
                                         Thông tin hồ sơ
@@ -549,7 +549,7 @@
                                 </li>
                             @endif
 
-                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                            @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giacuocvanchuyen/xetduyet')}}">
                                         Xét duyệt hồ sơ
@@ -573,7 +573,7 @@
                     </a>
                     <ul class="sub-menu">
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvcuthe', 'hoso','index'))
-                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                            @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giaspdvcuthe/danhsach')}}">
                                         Thông tin hồ sơ
@@ -581,7 +581,7 @@
                                 </li>
                             @endif
 
-                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                            @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giaspdvcuthe/xetduyet')}}">
                                         Xét duyệt hồ sơ
@@ -610,7 +610,7 @@
                             </li>
                         @endif
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvtoida', 'hoso','index'))
-                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                            @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giaspdvtoida/danhsach')}}">
                                         Thông tin hồ sơ
@@ -618,7 +618,7 @@
                                 </li>
                             @endif
 
-                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                            @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giaspdvtoida/xetduyet')}}">
                                         Xét duyệt hồ sơ
@@ -647,7 +647,7 @@
                             </li>
                         @endif
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvkhunggia', 'hoso','index'))
-                            @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                            @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giaspdvkhunggia/danhsach')}}">
                                         Thông tin hồ sơ
@@ -655,7 +655,7 @@
                                 </li>
                             @endif
 
-                            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                            @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
                                     <a href="{{url('/giaspdvkhunggia/xetduyet')}}">
                                         Xét duyệt hồ sơ
@@ -724,7 +724,7 @@
             @if(session('admin')->level == 'SSA')
                 <li><a href="{{url('doanhnghiep/danhsach')}}">Thông tin doanh nghiệp</a></li>
             @endif
-            @if((session('admin')->chucnang == 'TONGHOP' ) || session('admin')->level == 'SSA')
+            @if((in_array('TONGHOP', session('admin')->chucnang) ) || session('admin')->level == 'SSA')
                 <li><a href="{{url('doanhnghiep/xetduyet')}}"> Xét duyệt thay đổi thông tin doanh nghiệp</a></li>
             @endif
 
@@ -735,7 +735,7 @@
             @endif
 
             @if(chkPer('csdlmucgiahhdv','bog', 'bog', 'hoso', 'index'))
-                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                     <!-- chức năng nhập liệu cho đơn vị -->
                     @if(session('admin')->level == 'SSA')
                         <li><a href="{{url('/binhongia/danhsach')}}">Thông tin hồ sơ</a></li>
@@ -761,7 +761,7 @@
                 <a href="{{url('/giaetanol/mathang')}}">Phân loại mặt hàng</a>
             </li>
 
-            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+            @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
         <li><a href="{{url('/giaetanol/danhsach')}}">Thông tin hồ sơ</a></li>
                 <li><a href="{{url('/giaetanol/xetduyet')}}">Xét duyệt hồ sơ</a></li>
                 <li><a href="{{url('/giaetanol/timkiem')}}">Tìm kiếm hồ sơ</a></li>
@@ -782,7 +782,7 @@
                     <a href="{{url('/giasach/mathang')}}">Phân loại mặt hàng</a>
             </li>
 
-            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+            @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
         <li><a href="{{url('/giasach/danhsach')}}">Thông tin hồ sơ</a></li>
                 <li><a href="{{url('/giasach/xetduyet')}}">Xét duyệt hồ sơ</a></li>
                 <li><a href="{{url('/giasach/timkiem')}}">Tìm kiếm hồ sơ</a></li>
@@ -803,7 +803,7 @@
                     <a href="{{url('/giathan/mathang')}}">Phân loại mặt hàng</a>
             </li>
 
-            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+            @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
         <li><a href="{{url('/giathan/danhsach')}}">Thông tin hồ sơ</a></li>
                 <li><a href="{{url('/giathan/xetduyet')}}">Xét duyệt hồ sơ</a></li>
                 <li><a href="{{url('/giathan/timkiem')}}">Tìm kiếm hồ sơ</a></li>
@@ -824,7 +824,7 @@
                     <a href="{{url('/giayin/mathang')}}">Phân loại mặt hàng</a>
             </li>
 
-            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+            @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
         <li><a href="{{url('/giayin/danhsach')}}">Thông tin hồ sơ</a></li>
                 <li><a href="{{url('/giayin/xetduyet')}}">Xét duyệt hồ sơ</a></li>
                 <li><a href="{{url('/giayin/timkiem')}}">Tìm kiếm hồ sơ</a></li>
@@ -846,7 +846,7 @@
             @if(session('admin')->level == 'SSA')
                 <li><a href="{{url('doanhnghiep/danhsach')}}">Thông tin doanh nghiệp</a></li>
             @endif
-            @if((chkPer('csdlmucgiahhdv','kknygia', 'thongtinkknygia', 'hoso', 'index') && session('admin')->chucnang == 'TONGHOP' )
+            @if((chkPer('csdlmucgiahhdv','kknygia', 'thongtinkknygia', 'hoso', 'index') && in_array('TONGHOP', session('admin')->chucnang) )
                 || session('admin')->level == 'SSA')
                 <li><a href="{{url('doanhnghiep/xetduyet')}}"> Xét duyệt thay đổi thông tin doanh nghiệp</a></li>
             @endif
@@ -1302,12 +1302,12 @@
         <ul class="sub-menu">
             @if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'danhmuc','index'))
                 <!-- Ko dùng if else do quyền SSA sẽ lên cả 2 -->
-                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                     <li>
                         <a href="{{url('/giahhdvk/danhmuc')}}">Danh mục hàng hóa, dịch vụ</a>
                     </li>
                 @endif
-                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                     <li>
                         <a href="{{url('/giahhdvk/dmdonvi')}}">Danh mục hàng hóa, dịch vụ (đơn vị)</a>
                     </li>
@@ -1316,7 +1316,7 @@
             @endif
 
             @if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'hoso','index'))
-                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                     <li>
                         <a href="{{url('/giahhdvk/danhsach')}}">
                             Thông tin hồ sơ
@@ -1324,7 +1324,7 @@
                     </li>
                 @endif
 
-                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                     <li>
                         <a href="{{url('/giahhdvk/xetduyet')}}">
                             Xét duyệt hồ sơ
@@ -1368,7 +1368,7 @@
             @endif
 
             @if(chkPer('csdlmucgiahhdv','hhdv', 'giavangngoaite', 'hoso','index'))
-                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                     <li>
                         <a href="{{url('/giavangngoaite/danhsach')}}">
                             Thông tin hồ sơ
@@ -1376,7 +1376,7 @@
                     </li>
                 @endif
 
-                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                     <li>
                         <a href="{{url('/giavangngoaite/xetduyet')}}">
                             Xét duyệt hồ sơ
@@ -1514,7 +1514,7 @@
             {{--            @endif--}}
 
             @if(chkPer('csdlmucgiahhdv','taisan', 'taisancong', 'hoso', 'index'))
-                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                     <li>
                         <a href="{{url('/taisancong/danhsach')}}">
                             Thông tin hồ sơ
@@ -1522,7 +1522,7 @@
                     </li>
                 @endif
 
-                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                     <li>
                         <a href="{{url('/taisancong/xetduyet')}}">
                             Xét duyệt hồ sơ
@@ -1554,7 +1554,7 @@
                 </li>
             @endif
             @if(chkPer('csdlmucgiahhdv','philephi', 'giaphilephi', 'hoso','index'))
-                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                     <li>
                         <a href="{{url('/giaphilephi/danhsach')}}">
                             Thông tin hồ sơ
@@ -1562,7 +1562,7 @@
                     </li>
                 @endif
 
-                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                     <li>
                         <a href="{{url('/giaphilephi/xetduyet')}}">
                             Xét duyệt hồ sơ
@@ -1589,7 +1589,7 @@
         </a>
         <ul class="sub-menu">
             @if(chkPer('csdlmucgiahhdv','dinhgia', 'khunggiadat', 'hoso', 'index'))
-                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                     <li>
                         <a href="{{url('/khunggiadat/danhsach')}}">
                             Thông tin hồ sơ
@@ -1597,7 +1597,7 @@
                     </li>
                 @endif
 
-                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                     <li>
                         <a href="{{url('/khunggiadat/xetduyet')}}">
                             Xét duyệt hồ sơ
@@ -1636,7 +1636,7 @@
                     </a>
                 </li>
             @endif
-            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+            @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                 <li>
                     <a href="{{url('/giacldat/xetduyet')}}">
                         Xét duyệt hồ sơ
@@ -1662,7 +1662,7 @@
                     </a>
                 </li>
             @endif
-            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+            @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                 <li>
                     <a href="{{url('/giadaugiadat/xetduyet')}}">
                         Xét duyệt hồ sơ
@@ -1693,7 +1693,7 @@
                     </a>
                 </li>
             @endif
-            @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+            @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                 <li>
                     <a href="{{url('/giadatthitruong/xetduyet')}}">
                         Xét duyệt hồ sơ
@@ -1723,7 +1723,7 @@
         </a>
         <ul class="sub-menu">
             @if(chkPer('csdlmucgiahhdv','taisan', 'giabatdongsan', 'hoso', 'index'))
-                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                     <li>
                         <a href="{{url('/giabatdongsan/danhsach')}}">
                             Thông tin hồ sơ
@@ -1731,7 +1731,7 @@
                     </li>
                 @endif
 
-                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                     <li>
                         <a href="{{url('/giabatdongsan/xetduyet')}}">
                             Xét duyệt hồ sơ
@@ -1782,7 +1782,7 @@
         </a>
         <ul class="sub-menu">
             @if(chkPer('csdlmucgiahhdv','taisan', 'muataisan', 'hoso', 'index'))
-                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                     <li>
                         <a href="{{url('/muataisan/danhsach')}}">
                             Thông tin hồ sơ
@@ -1790,7 +1790,7 @@
                     </li>
                 @endif
 
-                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                     <li>
                         <a href="{{url('/muataisan/xetduyet')}}">
                             Xét duyệt hồ sơ
@@ -1822,7 +1822,7 @@
                 </li>
             @endif
             @if(chkPer('csdlmucgiahhdv','philephi', 'phichuyengia', 'hoso','index'))
-                @if(session('admin')->chucnang == 'NHAPLIEU' || session('admin')->level == 'SSA')
+                @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                     <li>
                         <a href="{{url('/phichuyengia/danhsach')}}">
                             Thông tin hồ sơ
@@ -1830,7 +1830,7 @@
                     </li>
                 @endif
 
-                @if(session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA')
+                @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
                     <li>
                         <a href="{{url('/phichuyengia/xetduyet')}}">
                             Xét duyệt hồ sơ

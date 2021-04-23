@@ -5,7 +5,7 @@ Route::get('coming','HomeController@coming');
 Route::get('cbgiadatdiaban','congbo\dinhgia\CongboGiaDatDiaBanController@index');
 
 Route::get('cbgiadaugiadat','congbo\dinhgia\CongboGiaDauGiaDatController@index');
-Route::get('cbgiadaugiadat/{id}','congbo\dinhgia\CongboGiaDauGiaDatController@show');
+//Route::get('cbgiadaugiadat/{id}','congbo\dinhgia\CongboGiaDauGiaDatController@show');
 
 Route::get('cbgiathuetainguyen','congbo\dinhgia\CongBoGiaThueTaiNguyenController@index');
 

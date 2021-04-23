@@ -32,8 +32,12 @@ class dstaikhoanController extends Controller
             $model = Users::where('madv', $inputs['madv'])->get();
             //lấy phân loại tài khoản từ bảng dsdonvi để hiển thị
             foreach($model as $ct){
-                $dv = $m_donvi->where('madv',$ct->madv)->first();
-                $ct->chucnang = $dv->chucnang;
+//                $dv = $m_donvi->where('madv',$ct->madv)->first();
+//                $ct->chucnang = $dv->chucnang;
+                $a_chucnang = explode(';',$ct->chucnang);
+                $ct->nhaplieu = in_array('NHAPLIEU',$a_chucnang)? 1 : 0;
+                $ct->tonghop = in_array('TONGHOP',$a_chucnang)? 1 : 0;
+                $ct->quantri = in_array('QUANTRI',$a_chucnang)? 1 : 0;
             }
             //dd($model);
             $a_nhomtk = array_column(dsnhomtaikhoan::all()->toArray(),'mota','maso');
@@ -74,6 +78,7 @@ class dstaikhoanController extends Controller
                 return view('errors.noperm');
             }
             $inputs = $request->all();
+            //dd($inputs);
             //$user->username = chuanhoachuoi($inputs['username']);
             //$user->password = md5($inputs['password']);
             $chkUser = Users::where('username',chuanhoachuoi($inputs['username']))->first();
@@ -82,11 +87,16 @@ class dstaikhoanController extends Controller
                     ->with('message','Tài khoản này đã được sử dụng.')
                     ->with('url','/taikhoan/danhsach?madv=' . $inputs['madv']);
             }
+            $inputs['chucnang'] = '';
+            $inputs['chucnang'] .= isset($inputs['nhaplieu']) ? 'NHAPLIEU;' : '';
+            $inputs['chucnang'] .= isset($inputs['tonghop']) ? 'TONGHOP;' : '';
+            $inputs['chucnang'] .= isset($inputs['quantri']) ? 'QUANTRI;' : '';
             $user = new Users();
             $user->madv = $inputs['madv'];
             $user->name = $inputs['name'];
             $user->username = chuanhoachuoi($inputs['username']);
             $user->password = md5($inputs['password']);
+            $user->chucnang = $inputs['chucnang'];
             $user->status = 'Kích hoạt';
             $user->save();
 
@@ -123,6 +133,7 @@ class dstaikhoanController extends Controller
             $user->password = md5($inputs['password']);
             $user->status = 'Kích hoạt';
             $user->permission = $model->permission;
+            $user->chucnang = $model->chucnang;
             $user->save();
 
             return redirect('/taikhoan/danhsach?madv=' . $model->madv);
@@ -138,7 +149,10 @@ class dstaikhoanController extends Controller
             $inputs = $request->all();
             $model = Users::where('username', $inputs['username'])->first();
             $m_donvi = dsdonvi::where('madv',$model->madv)->get();
-
+            $a_chucnang = explode(';',$model->chucnang);
+            $model->nhaplieu = in_array('NHAPLIEU',$a_chucnang)? 1 : 0;
+            $model->tonghop = in_array('TONGHOP',$a_chucnang)? 1 : 0;
+            $model->quantri = in_array('QUANTRI',$a_chucnang)? 1 : 0;
             return view('system.taikhoan.edit')
                 ->with('model', $model)
                 ->with('a_donvi',array_column($m_donvi->toArray(),'tendv','madv'))
@@ -150,22 +164,26 @@ class dstaikhoanController extends Controller
 
     public function update(Request $request){
         if (Session::has('admin')) {
-            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan','danhmuc', 'modify')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan', 'danhmuc', 'modify')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();
             $model = Users::where('username', $inputs['username'])->first();
             //$model->name = $inputs['name'];
             //$model->status = $inputs['status'];
-            if($inputs['password'] != ''){
+            if ($inputs['password'] != '') {
                 $inputs['password'] = md5($inputs['password']);
-            }else{
+            } else {
                 unset($inputs['password']);
             }
-            //dd($inputs);
+            $inputs['chucnang'] = '';
+            $inputs['chucnang'] .= isset($inputs['nhaplieu']) ? 'NHAPLIEU;' : '';
+            $inputs['chucnang'] .= isset($inputs['tonghop']) ? 'TONGHOP;' : '';
+            $inputs['chucnang'] .= isset($inputs['quantri']) ? 'QUANTRI;' : '';
+//            dd($inputs);
             $model->update($inputs);
 
-            return redirect('/taikhoan/danhsach?madv='. $inputs['madv']);
+            return redirect('/taikhoan/danhsach?madv=' . $inputs['madv']);
         } else
             return view('errors.notlogin');
     }

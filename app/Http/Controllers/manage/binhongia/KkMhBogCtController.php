@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\manage\binhongia;
 
 use App\Model\manage\kekhaidkg\kehaimhbog\KkMhBogCt;
+use App\Model\system\dmdvt;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -20,6 +21,11 @@ class KkMhBogCtController extends Controller
         }
         $inputs = $request->all();
         //dd($inputs);
+        $chk_dvt = dmdvt::where('dvt', $inputs['dvt'])->get();
+        if (count($chk_dvt) == 0) {
+            dmdvt::insert(['dvt' => $inputs['dvt']]);
+        }
+
         $inputs['gialk'] = getDoubleToDb($inputs['gialk']);
         $inputs['giakk'] = getDoubleToDb($inputs['giakk']);
         //$inputs['trangthai'] = 'CXD';
@@ -33,7 +39,7 @@ class KkMhBogCtController extends Controller
             KkMhBogCt::create($inputs);
         }
 
-        $model = KkMhBogCt::where('mahs', $inputs['mahs'])->get();
+        $model = KkMhBogCt::where('mahs', $inputs['mahs'])->orderby('plhh')->get();
         $result = $this->return_html($model);
         die(json_encode($result));
     }
@@ -69,7 +75,7 @@ class KkMhBogCtController extends Controller
         $inputs = $request->all();
         if(isset($inputs['id'])){
             KkMhBogCt::where('id',$inputs['id'])->delete();
-            $model = KkMhBogCt::where('mahs',$inputs['mahs'])->get();
+            $model = KkMhBogCt::where('mahs',$inputs['mahs'])->orderby('plhh')->get();
             die(json_encode($this->return_html($model)));
         }
         die(json_encode($result));
@@ -181,10 +187,11 @@ class KkMhBogCtController extends Controller
 
         $result['message'] = '<div class="row" id="dsts">';
         $result['message'] .= '<div class="col-md-12">';
-        $result['message'] .= '<table class="table table-striped table-bordered table-hover" id="sample_3">';
+        $result['message'] .= '<table class="table table-striped table-bordered table-hover" id="sample_4">';
         $result['message'] .= '<thead>';
         $result['message'] .= '<tr>';
         $result['message'] .= '<th width="2%" style="text-align: center">STT</th>';
+        $result['message'] .= '<th style="text-align: center">Phân loại hàng<br>hoá, dịch vụ</th>';
         $result['message'] .= '<th style="text-align: center">Tên hàng hoá<br>dịch vụ</th>';
         $result['message'] .= '<th style="text-align: center">Đơn vị<br>tính</th>';
         $result['message'] .= '<th style="text-align: center">Mức giá <br>liền kề</th>';
@@ -199,13 +206,14 @@ class KkMhBogCtController extends Controller
         foreach ($model as $key => $ttmh) {
             $result['message'] .= '<tr id="' . $ttmh->id . '">';
             $result['message'] .= '<td style="text-align: center">' . ($key + 1) . '</td>';
+            $result['message'] .= '<td>' . $ttmh->plhh . '</td>';
             $result['message'] .= '<td class="active">' . $ttmh->tenhh . '</td>';
-            $result['message'] .= '<td class="active">' . $ttmh->dvt . '</td>';
-            $result['message'] .= '<td style="text-align: right;font-weight: bold;">' . dinhdangsothapphan($ttmh->gialk, 5) . '</td>';
-            $result['message'] .= '<td style="text-align: right;font-weight: bold;">' . dinhdangsothapphan($ttmh->giakk, 5) . '</td>';
+            $result['message'] .= '<td class="text-center">' . $ttmh->dvt . '</td>';
+            $result['message'] .= '<td style="text-align: right;">' . dinhdangsothapphan($ttmh->gialk, 5) . '</td>';
+            $result['message'] .= '<td style="text-align: right;">' . dinhdangsothapphan($ttmh->giakk, 5) . '</td>';
             $result['message'] .= '<td>' . $ttmh->ghichu . '</td>';
             $result['message'] .= '<td>' .
-                '<button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editmhbog(' . $ttmh->id . ');"><i class="fa fa-edit"></i>&nbsp;Mức giá mới</button>' .
+                '<button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editmhbog(' . $ttmh->id . ');"><i class="fa fa-edit"></i>&nbsp;Sửa</button>' .
                 '<button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid(' . $ttmh->id . ');" ><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>'
 
                 . '</td>';

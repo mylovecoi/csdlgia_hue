@@ -18,7 +18,7 @@ class giadatthitruongBcController extends Controller
             $inputs['url'] = '/giadatthitruong';
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi = getDonViNhapLieu(session('admin')->level);
+            $m_donvi = getDonViNhapLieu(session('admin')->level,'giadatthitruong');
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             //dd($inputs);
             return view('manage.dinhgia.giadatthitruong.reports.index')
