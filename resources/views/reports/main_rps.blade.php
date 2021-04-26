@@ -13,6 +13,9 @@
             width: 98%;
             margin: auto;
         }
+        table tr th {
+            text-align: center;
+        }
         table tr td:first-child {
             text-align: center;
         }

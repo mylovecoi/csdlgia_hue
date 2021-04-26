@@ -113,7 +113,9 @@ Route::group(['prefix'=>'giadatphanloai'],function (){
     Route::post('modify','manage\giadatphanloai\GiaDatPhanLoaiController@update');
     Route::post('delete','manage\giadatphanloai\GiaDatPhanLoaiController@destroy');
     Route::post('chuyenhs','manage\giadatphanloai\GiaDatPhanLoaiController@chuyenhs');
-    Route::get('print','manage\giadatphanloai\GiaDatPhanLoaiController@ketxuat');
+//    Route::get('print','manage\giadatphanloai\GiaDatPhanLoaiController@ketxuat');
+    Route::get('print_hs','manage\giadatphanloai\GiaDatPhanLoaiController@print_hs');
+    Route::get('dinhkem','manage\giadatphanloai\GiaDatPhanLoaiController@show');
 
     Route::get('xetduyet','manage\giadatphanloai\GiaDatPhanLoaiController@xetduyet');
     Route::post('chuyenxd','manage\giadatphanloai\GiaDatPhanLoaiController@chuyenxd');
@@ -122,6 +124,10 @@ Route::group(['prefix'=>'giadatphanloai'],function (){
 
     Route::get('timkiem','manage\giadatphanloai\GiaDatPhanLoaiController@timkiem');
     Route::post('timkiem','manage\giadatphanloai\GiaDatPhanLoaiController@ketquatk');
+
+    Route::get('store_ct','manage\giadatphanloai\GiaDatPhanLoaiCtController@store');
+    Route::get('get_ct','manage\giadatphanloai\GiaDatPhanLoaiCtController@show');
+    Route::get('del_ct','manage\giadatphanloai\GiaDatPhanLoaiCtController@destroy');
     //
 });
 

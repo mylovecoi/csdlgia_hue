@@ -12,17 +12,12 @@ class GiaDatPhanLoai extends Model
         'mahs',
         'madiaban',
         'maxp',
-        'vitri',
-        'maloaidat',
         'soqd',
         'congbo',
         'thaotac',
         'ghichu',
         'lichsu', //Thao tác lịch sử hồ sơ theo dạng JSON
         'tinhtrang',//Vị trị hiện tại của Hô sơ: Khởi tạo; Gửi Huyện; Gửi Tỉnh
-        'dvt',
-        'dientich',
-        'giatri',
         //Thông tin hồ sơ khi khởi tạo (level lấy theo thông tin đơn vị)
         'thoidiem',
         'macqcq',
@@ -51,5 +46,10 @@ class GiaDatPhanLoai extends Model
         'lydo_ad',
         'thongtin_ad',
         'trangthai_ad',
+        'ipf1',
+        'ipf2',
+        'ipf3',
+        'ipf4',
+        'ipf5',
     ];
 }

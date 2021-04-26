@@ -35,8 +35,8 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Thông tin giá đất<small>&nbsp;theo phân loại</small>
+    <h3 class="page-title text-uppercase">
+        {{session('admin')['a_chucnang']['giadatpl'] ?? 'giá đất theo phân loại'}}
     </h3>
 
     <!-- END PAGE HEADER-->
@@ -76,14 +76,14 @@
                             </div>
                         </div>
                     </div>
-                    <table id="sample_3" class="table table-striped table-bordered table-hover">
+                    <table id="sample_4" class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th width="2%" style="text-align: center">STT</th>
                                 <th style="text-align: center">Cơ quan chuyển hồ sơ</th>
-                                <th style="text-align: center">Địa bàn</th>
+                                <th style="text-align: center">Địa bàn<br>áp dụng</th>
                                 <th style="text-align: center">Thời điểm <br>xác định</th>
-                                <th style="text-align: center">Vị trí đất</th>
+                                <th style="text-align: center">Thông tin hồ sơ</th>
                                 <th style="text-align: center">Trạng thái</th>
                                 <th style="text-align: center">Cơ quan tiếp nhận hồ sơ</th>
                                 <th style="text-align: center" width="20%">Thao tác</th>
@@ -96,22 +96,14 @@
                                     <td style="text-align: center">{{$key + 1}}</td>
                                     <td style="text-align: left">{{$tt->tendv_ch}}</td>
                                     <td style="text-align: center">{{$a_diaban[$tt->madiaban] ?? ''}}</td>
+{{--                                    <td style="text-align: center">{{$a_diaban[$tt->madiaban] ?? ''}}</td>--}}
                                     <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
-                                    <td style="text-align: left">{{$tt->vitri}}</td>
+                                    <td style="text-align: left">{{$tt->thongtin}}</td>
                                     @include('manage.include.form.td_trangthai')
                                     <td style="text-align: left">{{$tt->tencqcq}}</td>
                                     <td>
                                         <a href="{{url('giadatphanloai/modify?mahs='.$tt->mahs.'&act=false')}}" class="btn btn-default btn-xs mbs" target="_blank">
                                             <i class="fa fa-eye"></i>&nbsp;Chi tiết</a>
-                                        <!--
-                                        Xem xét bổ sung madv_ad, trangthai_ad,
-                                        Tùy level mà chức năng nút chuyển lại khác nhau
-                                        Đơn vị tiếp nhận có tổng hợp Toàn tỉnh
-                                        ADMIN-> Công bố
-                                        T->
-                                        H->Hoàn thành (có đơn
-
-                                        -->
                                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadatpl', 'hoso', 'approve'))
                                             @if($tt->level == 'ADMIN')
                                                 @if($tt->trangthai == 'CB')
@@ -134,6 +126,10 @@
                                                 @endif
                                             @endif
                                         @endif
+                                        <a href="{{url($inputs['url'].'/print_hs?mahs='.$tt->mahs)}}" class="btn btn-default btn-xs mbs" target="_blank">
+                                            <i class="fa fa-print"></i>&nbsp;In hồ sơ</a>
+                                        <button type="button" onclick="get_attack('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
+                                            <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -152,4 +148,5 @@
     @include('manage.include.form.modal_approve_xd')
     @include('manage.include.form.modal_unapprove_xd')
     @include('manage.include.form.modal_del_hs')
+    @include('manage.include.form.modal_attackfile')
 @stop

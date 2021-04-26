@@ -4,10 +4,12 @@ namespace App\Http\Controllers\manage\giadatphanloai;
 
 use App\GiaDatDiaBanDm;
 use App\Model\manage\dinhgia\giadatphanloai\GiaDatPhanLoai;
+use App\Model\manage\dinhgia\giadatphanloai\GiaDatPhanLoaiCt;
 use App\Model\system\dmdvt;
 use App\Model\system\dsdiaban;
 use App\Model\system\dsdonvi;
 use App\Model\system\view_dsdiaban_donvi;
+use App\Model\view\view_giadatphanloai;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -59,19 +61,24 @@ class GiaDatPhanLoaiController extends Controller
         //Load danh sách địa bàn theo đơn vị sau đó để chọn
         if(Session::has('admin')){
             $inputs = $request->all();
-            //lấy địa bàn
+            $inputs['act'] = 'true';
+            $inputs['url'] = '/giadatphanloai';
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
-            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi = getDonViNhapLieu(session('admin')->level);
+            $model = new GiaDatPhanLoai();
+            $model->madv = $inputs['madv'];
+            $model->mahs = getdate()[0];
+            $model->trangthai = 'CHT';
+
             //dd($m_diaban);
             $a_loaidat = array_column(GiaDatDiaBanDm::all()->toArray(),'loaidat','maloaidat');
-            $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
+            $a_khuvuc = array_column(view_giadatphanloai::where('madv',$inputs['madv'])->get('khuvuc')->toArray(),'khuvuc','khuvuc');
             //dd($a_dvt);
-            return view('manage.dinhgia.giadatphanloai.kekhai.create')
-                ->with('m_diaban',$m_diaban)
-                ->with('m_donvi',$m_donvi)
+            return view('manage.dinhgia.giadatphanloai.kekhai.edit')
+                ->with('model',$model)
+                ->with('modelct',nullValue())
                 ->with('a_loaidat',$a_loaidat)
-                ->with('a_dvt', $a_dvt)
+                ->with('a_khuvuc',$a_khuvuc)
+                ->with('a_diaban', $a_diaban)
                 ->with('inputs',$inputs)
                 ->with('pageTitle','Thông tin hồ sơ giá đất');
         }else
@@ -80,51 +87,56 @@ class GiaDatPhanLoaiController extends Controller
 
     public function store(Request $request)
     {
-        if (Session::has('admin')) {
-            $inputs = $request->all();
-            $chk_dvt = dmdvt::where('dvt', $inputs['dvt'])->get();
-            if (count($chk_dvt) == 0) {
-                dmdvt::insert(['dvt' => $inputs['dvt']]);
-            }
-            $inputs['mahs'] = getdate()[0];
-
-            //lichsu
-            $a_lichsu[$inputs['mahs']] = [
-                'username' => session('admin')->username,
-                'hanhdong' => 'ADD',
-                'mota' => 'Thêm mới hồ sơ',
-                'thoigian' => date('Y-m-d H:i:s'),
-            ];
-
-            $inputs['lichsu'] = json_encode($a_lichsu);
-            $inputs['tinhtrang'] = 'Hồ sơ thêm mới';
-            $inputs['mahs'] = getdate()[0];
-            $inputs['trangthai'] = 'CHT';
-            $inputs['thoidiem'] = getDateToDb($inputs['thoidiem']);
-            $inputs['giatri'] = getDoubleToDb($inputs['giatri']);
-            $inputs['dientich'] = getDoubleToDb($inputs['dientich']);
-
-            GiaDatPhanLoai::create($inputs);
-            return redirect('giadatphanloai/danhsach?madv=' . $inputs['madv']);
-        } else
-            return view('errors.notlogin');
+//        if (Session::has('admin')) {
+//            $inputs = $request->all();
+//            $chk_dvt = dmdvt::where('dvt', $inputs['dvt'])->get();
+//            if (count($chk_dvt) == 0) {
+//                dmdvt::insert(['dvt' => $inputs['dvt']]);
+//            }
+//            $inputs['mahs'] = getdate()[0];
+//
+//            //lichsu
+//            $a_lichsu[$inputs['mahs']] = [
+//                'username' => session('admin')->username,
+//                'hanhdong' => 'ADD',
+//                'mota' => 'Thêm mới hồ sơ',
+//                'thoigian' => date('Y-m-d H:i:s'),
+//            ];
+//
+//            $inputs['lichsu'] = json_encode($a_lichsu);
+//            $inputs['tinhtrang'] = 'Hồ sơ thêm mới';
+//            $inputs['mahs'] = getdate()[0];
+//            $inputs['trangthai'] = 'CHT';
+//            $inputs['thoidiem'] = getDateToDb($inputs['thoidiem']);
+//            $inputs['giatri'] = getDoubleToDb($inputs['giatri']);
+//            $inputs['dientich'] = getDoubleToDb($inputs['dientich']);
+//
+//            GiaDatPhanLoai::create($inputs);
+//            return redirect('giadatphanloai/danhsach?madv=' . $inputs['madv']);
+//        } else
+//            return view('errors.notlogin');
     }
 
     public function edit(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();
+            $inputs['url'] = '/giadatphanloai';
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             $m_donvi = getDonViNhapLieu(session('admin')->level);
             $a_loaidat = array_column(GiaDatDiaBanDm::all()->toArray(),'loaidat','maloaidat');
             $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
             $model = GiaDatPhanLoai::where('mahs',$inputs['mahs'])->first();
+            $modelct = GiaDatPhanLoaiCt::where('mahs',$inputs['mahs'])->get();
+            $a_khuvuc = array_column(view_giadatphanloai::where('madv',$model->madv)->get('khuvuc')->toArray(),'khuvuc','khuvuc');
             //dd($inputs);
             return view('manage.dinhgia.giadatphanloai.kekhai.edit')
                 ->with('model',$model)
-                ->with('m_diaban',$m_diaban)
+                ->with('modelct',$modelct)
+                ->with('a_diaban',$a_diaban)
                 ->with('m_donvi',$m_donvi)
                 ->with('a_loaidat',$a_loaidat)
+                ->with('a_khuvuc',$a_khuvuc)
                 ->with('a_dvt', $a_dvt)
                 ->with('inputs',$inputs)
                 ->with('pageTitle','Thông tin hồ sơ giá đất');
@@ -135,10 +147,18 @@ class GiaDatPhanLoaiController extends Controller
     public function update(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();
-            $inputs['giatri'] = getDoubleToDb($inputs['giatri']);
-            $inputs['dientich'] = getDoubleToDb($inputs['dientich']);
-            $inputs['thoidiem'] = getDateToDb($inputs['thoidiem']);
-            GiaDatPhanLoai::where('mahs',$inputs['mahs'])->first()->update($inputs);
+            if(isset($inputs['ipf1'])){
+                $ipf1 = $request->file('ipf1');
+                $name = $inputs['mahs'] .'&1.'.$ipf1->getClientOriginalName();
+                $ipf1->move(public_path() . '/data/giadatphanloai/', $name);
+                $inputs['ipf1']= $name;
+            }
+            $m_chk = GiaDatPhanLoai::where('mahs',$inputs['mahs'])->first();
+            if($m_chk == null){
+                GiaDatPhanLoai::create($inputs);
+            }else{
+                $m_chk->update($inputs);
+            }
             return redirect('giadatphanloai/danhsach?madv='.$inputs['madv']);
         }else
             return view('errors.notlogin');
@@ -149,10 +169,34 @@ class GiaDatPhanLoaiController extends Controller
             $inputs = $request->all();
             //dd($inputs);
             $model = GiaDatPhanLoai::where('mahs',$inputs['mahs'])->first();
+            GiaDatPhanLoaiCt::where('mahs',$inputs['mahs'])->delete();
             $model->delete();
             return redirect('giadatphanloai/danhsach?&madv='.$model->madv);
         }else
             return view('errors.notlogin');
+    }
+
+    public function show(Request $request)
+    {
+        $result = array(
+            'status' => 'fail',
+            'message' => 'error',
+        );
+
+        $inputs = $request->all();
+        $model = GiaDatPhanLoai::where('mahs',$inputs['mahs'])->first();
+
+        $result['message'] ='<div class="modal-body" id = "dinh_kem" >';
+        if (isset($model->ipf1)) {
+            $result['message'] .= '<div class="row" ><div class="col-md-6" ><div class="form-group" >';
+            $result['message'] .= '<label class="control-label" > File đính kèm 1 </label >';
+            $result['message'] .= '<p ><a target = "_blank" href = "' . url('/data/giadatphanloai/' . $model->ipf1) . '">' . $model->ipf1 . '</a ></p >';
+            $result['message'] .= '</div ></div ></div >';
+        }
+
+        $result['status'] = 'success';
+
+        die(json_encode($result));
     }
 
     //chuyển hô sơ cho Form nhập liệu: chỉ cần chuyển trạng thái và set trạng thái cho đơn vị tiếp nhận
@@ -280,7 +324,7 @@ class GiaDatPhanLoaiController extends Controller
                 ->with('model', $model)
                 ->with('inputs', $inputs)
                 ->with('m_diaban', $m_diaban)
-                ->with('a_diaban', array_column($m_diaban->where('level', 'H')->toarray(), 'tendiaban', 'madiaban'))
+                ->with('a_diaban', array_column(view_dsdiaban_donvi::all()->toarray(), 'tendiaban', 'madiaban'))
                 ->with('m_donvi', $m_donvi)
                 ->with('m_donvi_th', $m_donvi_th->where('madv','<>',$inputs['madv']))
                 ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
@@ -382,6 +426,30 @@ class GiaDatPhanLoaiController extends Controller
                 ->with('a_loaidat',$a_loaidat)
                 ->with('inputs',$inputs)
                 ->with('pageTitle','Thông tin hồ sơ đấu giá đất');
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function print_hs(Request $request){
+        if(Session::has('admin')){
+            $inputs = $request->all();
+            //lấy thông tin đơn vị
+            $model = view_giadatphanloai::where('mahs', $inputs['mahs'])->orderby('khuvuc')->orderby('maloaidat')->orderby('vitri')->get();
+            $m_hs = GiaDatPhanLoai::where('mahs', $inputs['mahs'])->first();
+            //tạo gr theo khuvuc;maloaidat sx theo vị trí
+            $a_group = a_unique(a_split($model->toarray(),['khuvuc','maloaidat']));
+            //dd($a_group);
+            $m_donvi = dsdonvi::where('madv', $m_hs->madv)->first();
+            $a_loaidat = array_column(GiaDatDiaBanDm::all()->toArray(),'loaidat','maloaidat');
+            //dd($model->get());
+            return view('manage.dinhgia.giadatphanloai.reports.inhoso')
+                ->with('m_hoso',$m_hs)
+                ->with('model',$model)
+                ->with('m_donvi',$m_donvi)
+                ->with('a_loaidat',$a_loaidat)
+                ->with('a_group',$a_group)
+                ->with('inputs',$inputs)
+                ->with('pageTitle','Thông tin hồ sơ giá đất');
         }else
             return view('errors.notlogin');
     }

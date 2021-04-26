@@ -18,12 +18,7 @@ class CreateGiadatphanloaiTable extends Migration
             $table->string('mahs')->unique();
             $table->string('madiaban')->nullable();
             $table->string('maxp')->nullable();
-            $table->string('vitri')->nullable();
-            $table->string('maloaidat')->nullable();
             $table->string('soqd')->nullable();
-            $table->string('dvt')->nullable();
-            $table->double('dientich')->default(0);
-            $table->double('giatri')->default(0);
             $table->string('congbo')->default('CHUACONGBO');
             $table->string('thaotac')->nullable();
             $table->text('ghichu')->nullable();
@@ -58,6 +53,11 @@ class CreateGiadatphanloaiTable extends Migration
             $table->string('lydo_ad')->nullable();
             $table->string('thongtin_ad')->nullable();
             $table->string('trangthai_ad')->nullable();
+            $table->string('ipf1')->nullable();
+            $table->string('ipf2')->nullable();
+            $table->string('ipf3')->nullable();
+            $table->string('ipf4')->nullable();
+            $table->string('ipf5')->nullable();
             $table->timestamps();
         });
     }

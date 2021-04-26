@@ -25,8 +25,8 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Hồ sơ giá đất<small> thêm mới</small>
+    <h3 class="page-title text-uppercase">
+        {{session('admin')['a_chucnang']['giadatpl'] ?? 'giá đất theo phân loại'}}<small> thêm mới</small>
     </h3>
     <!-- END PAGE HEADER-->
 

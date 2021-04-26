@@ -35,8 +35,8 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Thông tin giá đất<small>&nbsp;theo phân loại</small>
+    <h3 class="page-title text-uppercase">
+        {{session('admin')['a_chucnang']['giadatpl'] ?? 'giá đất theo phân loại'}}
     </h3>
 
     <!-- END PAGE HEADER-->
@@ -83,13 +83,13 @@
                             </div>
                         </div>
                     </div>
-                    <table id="sample_3" class="table table-striped table-bordered table-hover">
+                    <table id="sample_4" class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th width="2%" style="text-align: center">STT</th>
-                                <th style="text-align: center">Địa bàn</th>
+                                <th style="text-align: center">Địa bàn<br>áp dụng</th>
                                 <th style="text-align: center">Thời điểm <br>xác định</th>
-                                <th style="text-align: center">Vị trí đất</th>
+                                <th style="text-align: center">Thông tin hồ sơ</th>
                                 <th style="text-align: center">Trạng thái</th>
                                 <th style="text-align: center">Cơ quan tiếp nhận</th>
                                 <th style="text-align: center" width="20%">Thao tác</th>
@@ -102,7 +102,7 @@
                                     <td style="text-align: center">{{$key + 1}}</td>
                                     <td style="text-align: center">{{$a_diaban[$tt->madiaban] ?? ''}}</td>
                                     <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
-                                    <td style="text-align: left">{{$tt->vitri}}</td>
+                                    <td style="text-align: left">{{$tt->thongtin}}</td>
                                     @include('manage.include.form.td_trangthai')
                                     <td style="text-align: left">{{$a_donvi_th[$tt->macqcq]?? ''}}</td>
                                     <td>
@@ -119,6 +119,11 @@
                                             <button type="button" onclick="confirmChuyen('{{$tt->mahs}}','{{$inputs['url'].'/chuyenhs'}}')" class="btn btn-default btn-xs mbs" data-target="#chuyen-modal-confirm" data-toggle="modal">
                                                 <i class="fa fa-check"></i> Hoàn thành</button>
                                         @endif
+                                        <a href="{{url($inputs['url'].'/print_hs?mahs='.$tt->mahs)}}" class="btn btn-default btn-xs mbs" target="_blank">
+                                            <i class="fa fa-print"></i>&nbsp;In hồ sơ</a>
+
+                                        <button type="button" onclick="get_attack('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
+                                            <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -135,4 +140,5 @@
     </div>
     @include('manage.include.form.modal_approve_hs')
     @include('manage.include.form.modal_del_hs')
+    @include('manage.include.form.modal_attackfile')
 @stop
