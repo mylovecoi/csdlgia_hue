@@ -40,7 +40,7 @@
         </h3>
 
         <div class="portlet box">
-            <div class="portlet-title"></div>
+{{--            <div class="portlet-title"></div>--}}
 
             <div class="portlet-body form-horizontal">
                 <div class="row">
@@ -65,24 +65,43 @@
                     <th width="2%" style="text-align: center">STT</th>
                     <th style="text-align: center">Số quyết định</th>
                     <th style="text-align: center">Ngày áp dụng</th>
+                    <th style="text-align: center">Tên đường, giới hạn, khu vực</th>
                     <th style="text-align: center">Phân loại đất</th>
                     <th style="text-align: center">Vị trí</th>
-                    <th style="text-align: center">Diện tích</th>
-                    <th style="text-align: center">Giá trị</th>
-                    <th style="text-align: center">Ghi chú</th>
+                    <th style="text-align: center" width="8%">Giá đất<br>tại bảng giá</th>
+                    <th style="text-align: center" width="8%">Giá đất<br>cụ thể</th>
+                    <th style="text-align: center" width="8%">Hệ số<br>điều chỉnh</th>
                 </tr>
                 </thead>
+                    <?php $i=1; ?>
+                    @foreach($model_dk as $key=>$tt)
+                        <tr>
+                            <td style="text-align: center">{{$i++}}</td>
+                            <td style="text-align: center">{{$tt->soqd}}</td>
+                            <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
+                            <td>
+                                <button type="button" onclick="get_attack('{{$tt->mahs}}','/giadatphanloai')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
+                                    <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp đính kèm</button>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    @endforeach
 
                     @foreach($model as $key=>$tt)
                         <tr>
-                            <td style="text-align: center">{{$key + 1}}</td>
+                            <td style="text-align: center">{{$i++}}</td>
                             <td style="text-align: center">{{$tt->soqd}}</td>
                             <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
+                            <td>{{$tt->khuvuc}}</td>
                             <td>{{$a_loaidat[$tt->maloaidat] ?? ''}}</td>
-                            <td>{{$tt->vitri}}</td>
-                            <td style="text-align: center">{{dinhdangso($tt->dientich)}}</td>
-                            <td style="text-align: right">{{dinhdangso($tt->giatri)}}</td>
-                            <td>{{$tt->ghichu}}</td>
+                            <td style="text-align: center">{{$tt->vitri}}</td>
+                            <td style="text-align: right;">{{dinhdangsothapphan($tt->banggiadat,4)}}</td>
+                            <td style="text-align: right;">{{dinhdangsothapphan($tt->giacuthe,4)}}</td>
+                            <td style="text-align: right;">{{dinhdangsothapphan($tt->hesodc,4)}}</td>
                         </tr>
                     @endforeach
             </table>
@@ -92,4 +111,5 @@
 
     @include('includes.script.inputmask-ajax-scripts')
     @include('includes.script.create-header-scripts')
+    @include('manage.include.form.modal_attackfile_congbo')
 @stop
