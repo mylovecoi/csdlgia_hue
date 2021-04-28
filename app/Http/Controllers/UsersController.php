@@ -63,7 +63,9 @@ class UsersController extends Controller
                 $ttuser->status = 'Vô hiệu';
             }
             $ttuser->save();
-            return view('errors.invalid-user')->with('message','Sai tên tài khoản hoặc sai mật khẩu đăng nhập.<br>Số lần đăng nhập: '.$ttuser->solandn.'/5 lần');
+            return view('errors.invalid-user')
+                ->with('message','Sai tên tài khoản hoặc sai mật khẩu đăng nhập.<br>Số lần đăng nhập: '.$ttuser->solandn.'/5 lần
+                    .<br><i>Do thay đổi trong chính sách bảo mật hệ thống nên các tài khoản được cấp có mật khẩu dạng: 123, 123456, ... sẽ bị thay đổi lại</i>');
         }
         //Kiểm tra số lần đăng nhập > 5 =>Vô hiệu tài khoản
 

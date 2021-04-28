@@ -17,13 +17,15 @@
     <link rel="stylesheet" href="{{ url('css/style-responsive.css') }}">
 </head>
 <body id="error-page" class="animated bounceInLeft">
-<div id="error-page-content"><h1>Lỗi!</h1>
+<div id="error-page-content" style="width: 600px;"><h1>Lỗi!</h1>
     @if(isset($message))
         <h2>{!! $message !!}.</h2>
     @else
         <h2>Sai tên tài khoản hoặc sai mật khẩu đăng nhập.</h2>
     @endif
-    <p><a href='{{ url('/') }}'>Bấm vào đây</a> để quay lại trang chủ.</p></div>
+    <p><b><a href='{{ url('/') }}'>Bấm vào đây</a></b> để quay lại trang chủ.</p></div>
+    <p><b><a href='{{ url('/thongtinhotro') }}' target="_blank">Bấm vào đây</a></b> để được hỗ trợ.</p>
+</div>
 <script src="{{ url('js/jquery-1.9.1.js') }}"></script>
 <script src="{{ url('js/jquery-migrate-1.2.1.min.js') }}"></script>
 <script src="{{ url('js/jquery-ui.js') }}"></script>
