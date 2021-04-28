@@ -57,18 +57,47 @@
                                 <!--/span-->
                             </div>
 
+                            <div id="hs">
+                                <label class="control-label">Phân loại chức năng (Tài khoản không đồng thời có chức năng: Quản trị và Tổng hợp/Nhập liệu)</label>
+                                <div class="row">
+                                    <div class="col-md-offset-2 col-md-3">
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" onchange="setTongHop()" id="nhaplieu" name="nhaplieu" class="md-check">
+                                            <label for="nhaplieu">
+                                                <span></span><span class="check"></span><span class="box"></span>Nhập liệu</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" onchange="setTongHop()" id="tonghop" name="tonghop" class="md-check">
+                                            <label for="tonghop">
+                                                <span></span><span class="check"></span><span class="box"></span>Tổng hợp</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" onchange="setQuanTri()" id="quantri" name="quantri" class="md-check">
+                                            <label for="quantri">
+                                                <span></span><span class="check"></span><span class="box"></span>Quản trị</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Tài khoản truy cập<span class="require">*</span></label>
-                                        <input type="text" class="form-control required"  name="username" id="username">
+                                        <input type="text" class="form-control"  name="username" id="username" required />
                                     </div>
                                 </div>
                                 <!--/span-->
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Mật khẩu<span class="require">*</span></label>
-                                        <input type="text" class="form-control required"  name="password" id="password">
+                                        <input type="text" class="form-control"  name="password" id="password" />
                                     </div>
                                 </div>
                                 <!--/span-->
@@ -90,26 +119,43 @@
         </div>
     </div>
     <script type="text/javascript">
-        function validateForm(){
+        function validateForm() {
+            var chk = true;
+            var str = '';
+            var password = $("#password").val();
+            var patte = new RegExp("^(?=.*[A-Za-z@$!%*?&])(?=.*\\d)[A-Za-z@$!%*?&\\d]{6,}");//6 ký tự, 1 số, 1 chữ cái hoặc 1 ký tự đặc biệt
 
-            var validator = $("#create_tttaikhoan").validate({
-                rules: {
-                    name :"required",
-                    mahuyen :"required",
-                    username :"required",
-                    password :"required"
+            if (patte.test(password) == false) {
+                str = str + '\t Mật khẩu mới cần thỏa mãn: độ dài tối thiểu 06 ký tự; ít nhất 01 chữ số; ít nhất 01 chữ cái hoặc ký tự đặc biệt. \n';
+                chk = false;
+            }
 
-                },
-                messages: {
-                    name :"Chưa nhập dữ liệu",
-                    mahuyen :"Chưa nhập dữ liệu",
-                    username :"Chưa nhập dữ liệu",
-                    password :"Chưa nhập dữ liệu"
-                }
-            });
+            if (chk == false) {
+                alert('Thông tin không hợp lệ: \n' + str);
+                $("#create_tttaikhoan").submit(function (e) {
+                    e.preventDefault();
+                });
+            } else {
+                $("#create_tttaikhoan").unbind('submit').submit();
+            }
+
+            // var validator = $("#create_tttaikhoan").validate({
+            //     rules: {
+            //         name :"required",
+            //         mahuyen :"required",
+            //         username :"required",
+            //         password :"required"
+            //
+            //     },
+            //     messages: {
+            //         name :"Chưa nhập dữ liệu",
+            //         mahuyen :"Chưa nhập dữ liệu",
+            //         username :"Chưa nhập dữ liệu",
+            //         password :"Chưa nhập dữ liệu"
+            //     }
+            // });
         }
-    </script>
-    <script>
+
         jQuery(document).ready(function($) {
             $('input[name="username"]').change(function(){
                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');

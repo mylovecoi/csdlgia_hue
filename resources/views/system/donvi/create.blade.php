@@ -144,7 +144,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="control-label">Username<span class="require">*</span></label>
+                                        <label class="control-label">Tài khoản truy cập<span class="require">*</span></label>
                                         {!!Form::text('username', null, array('id' => 'username','class' => 'form-control', 'required'))!!}
                                     </div>
                                 </div>
@@ -175,7 +175,7 @@
             <div style="text-align: center">
                 <a href="{{url('/donvi/danhsach?madiaban='.$inputs['madiaban'])}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                 <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
-                <button type="submit" class="btn green"><i class="fa fa-check"></i> Hoàn thành</button>
+                <button type="submit" onclick="validateForm()" class="btn green"><i class="fa fa-check"></i> Hoàn thành</button>
             </div>
             {!! Form::close() !!}
             <!-- END VALIDATION STATES-->
@@ -183,15 +183,24 @@
     </div>
     <script type="text/javascript">
         function validateForm(){
+            var chk = true;
+            var str = '';
+            var password = $("#password").val();
+            var patte = new RegExp("^(?=.*[A-Za-z@$!%*?&])(?=.*\\d)[A-Za-z@$!%*?&\\d]{6,}");//6 ký tự, 1 số, 1 chữ cái hoặc 1 ký tự đặc biệt
 
-            var validator = $("#create_town").validate({
-                rules: {
-                    ten :"required"
-                },
-                messages: {
-                    ten :"Chưa nhập dữ liệu"
-                }
-            });
+            if (patte.test(password) == false) {
+                str = str + '\t Mật khẩu mới cần thỏa mãn: độ dài tối thiểu 06 ký tự; ít nhất 01 chữ số; ít nhất 01 chữ cái hoặc ký tự đặc biệt. \n';
+                chk = false;
+            }
+
+            if (chk == false) {
+                alert('Thông tin không hợp lệ: \n' + str);
+                $("#create_tttaikhoan").submit(function (e) {
+                    e.preventDefault();
+                });
+            } else {
+                $("#create_tttaikhoan").unbind('submit').submit();
+            }
         }
     </script>
     <script>

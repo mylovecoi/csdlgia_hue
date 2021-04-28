@@ -255,7 +255,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="form-group">
                         <label class="control-label">Mật khẩu</label>
 {{--                        {!!Form::password('password', null, array('id' => 'password','class' => 'form-control required','password'))!!}--}}
-                        {{ Form::password('password', array('id' => 'password', 'class' => 'form-control required')) }}
+                        {{ Form::password('password', array('id' => 'password', 'class' => 'form-control required', 'pattern'=>'[a-z]{6,}')) }}
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -348,6 +348,32 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <script type="text/javascript">
     function validate(){
+        var chk = true;
+        var str = '';
+        var password = $("#password").val();
+        var rpassword = $("#rpassword").val();
+        var patte = new RegExp("^(?=.*[A-Za-z@$!%*?&])(?=.*\\d)[A-Za-z@$!%*?&\\d]{6,}");//6 ký tự, 1 số, 1 chữ cái hoặc 1 ký tự đặc biệt
+
+        if(patte.test(password) == false){
+            str = str + '\n - Mật khẩu mới cần thỏa mãn: độ dài tối thiểu 06 ký tự; ít nhất 01 chữ số; ít nhất 01 chữ cái hoặc ký tự đặc biệt. \n';
+            chk = false;
+        }
+
+        if( password != rpassword){
+            str = str + '\n - Mật khẩu mới không trùng nhau \n';
+            chk = false;
+        }
+
+        if ( chk == false){
+            toastr.error(str,'Thông báo lỗi!!!');
+            $("#password").focus();
+            $("#register_create").submit(function (e) {
+                e.preventDefault();
+            });
+        }
+        else{
+            $("#register_create").unbind('submit').submit();
+        }
 //        var validator = $("#form-register").validate({
 //            rules: {
 //                captcha: "required",
@@ -384,7 +410,6 @@ License: You must have a valid license purchased only from themeforest(the above
             focusInvalid: false, // do not focus the last invalid input
             ignore: "",
             rules: {
-
                 tendn: {
                     required: true
                 },
@@ -408,12 +433,15 @@ License: You must have a valid license purchased only from themeforest(the above
                 username: {
                     required: true
                 },
-                password: {
-                    required: true
-                },
-                rpassword: {
-                    equalTo: "#password"
-                }
+                // password: {
+                //     required: true,
+                //     minlength: 6,
+                //     regex: "[a-zA-Z0-9._%-]{6,}",
+                //     // pattern: new RegExp("^(?=.*[A-Za-z@$!%*?&])(?=.*\\d)[A-Za-z@$!%*?&\\d]{6,}"),
+                // },
+                // rpassword: {
+                //     equalTo: "#password"
+                // }
 
             },
 

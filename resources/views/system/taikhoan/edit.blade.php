@@ -58,17 +58,24 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="control-label">Tài khoản truy cập<span class="require">*</span></label>
                                         {!!Form::text('username', null, array('id' => 'username','class' => 'form-control', 'readonly'))!!}
                                     </div>
                                 </div>
                                 <!--/span-->
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="control-label">Mật khẩu mới</label>
-                                        <input type="text" class="form-control"  name="password" id="password">
+                                        <input type="password" class="form-control"  name="password" id="password">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Nhập lại mật khẩu mới</label>
+                                        <input type="password" class="form-control"  name="rpassword" id="rpassword">
                                     </div>
                                 </div>
                                 <!--/span-->
@@ -129,21 +136,73 @@
                 $('#quantri').prop('checked', false);
             }
         }
-        function validateForm(){
 
-            var validator = $("#create_tttaikhoan").validate({
-                rules: {
-                    name :"required",
-                    mahuyen :"required",
-                    username :"required",
-                },
-                messages: {
-                    name :"Chưa nhập dữ liệu",
-                    mahuyen :"Chưa nhập dữ liệu",
-                    username :"Chưa nhập dữ liệu",
+        function validateForm() {
+            var chk = true;
+            var str = '';
+            var password = $("#password").val();
+            var rpassword = $("#rpassword").val();
+            var patte = new RegExp("^(?=.*[A-Za-z@$!%*?&])(?=.*\\d)[A-Za-z@$!%*?&\\d]{6,}");//6 ký tự, 1 số, 1 chữ cái hoặc 1 ký tự đặc biệt
+
+            // if(password != '' || rpassword != ''){
+            //     if (patte.test(password) == false) {
+            //         str = str + '\t Mật khẩu mới cần thỏa mãn: độ dài tối thiểu 06 ký tự; ít nhất 01 chữ số; ít nhất 01 chữ cái hoặc ký tự đặc biệt. \n';
+            //         chk = false;
+            //     }
+            // }
+
+            if(password.length > 0){
+                if (patte.test(password) == false) {
+                    str = str + '\t Mật khẩu mới cần thỏa mãn: độ dài tối thiểu 06 ký tự; ít nhất 01 chữ số; ít nhất 01 chữ cái hoặc ký tự đặc biệt. \n';
+                    chk = false;
                 }
-            });
+            }
+
+            if( password != rpassword){
+                str = str + '\t Mật khẩu mới không trùng nhau \n';
+                chk = false;
+            }
+
+            if (chk == false) {
+                alert('Thông tin không hợp lệ: \n' + str);
+                $("#create_tttaikhoan").submit(function (e) {
+                    e.preventDefault();
+                });
+            } else {
+                $("#create_tttaikhoan").unbind('submit').submit();
+            }
+
+            // var validator = $("#create_tttaikhoan").validate({
+            //     rules: {
+            //         name :"required",
+            //         mahuyen :"required",
+            //         username :"required",
+            //         password :"required"
+            //
+            //     },
+            //     messages: {
+            //         name :"Chưa nhập dữ liệu",
+            //         mahuyen :"Chưa nhập dữ liệu",
+            //         username :"Chưa nhập dữ liệu",
+            //         password :"Chưa nhập dữ liệu"
+            //     }
+            // });
         }
+        // function validateForm(){
+        //
+        //     var validator = $("#create_tttaikhoan").validate({
+        //         rules: {
+        //             name :"required",
+        //             mahuyen :"required",
+        //             username :"required",
+        //         },
+        //         messages: {
+        //             name :"Chưa nhập dữ liệu",
+        //             mahuyen :"Chưa nhập dữ liệu",
+        //             username :"Chưa nhập dữ liệu",
+        //         }
+        //     });
+        // }
     </script>
     <script>
         jQuery(document).ready(function($) {
