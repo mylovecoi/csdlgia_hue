@@ -25,7 +25,7 @@
 
             function changeUrl() {
                 var current_path_url = '{{$inputs['url']}}' + '/tonghop?';
-                var url = current_path_url + 'thang=' + $('#thang').val() + + 'nam=' + $('#nam').val() + '&matt=' + $('#matt').val();
+                var url = current_path_url + 'thang=' + $('#thang').val() + 'nam=' + $('#nam').val() + '&matt=' + $('#matt').val();
                 window.location.href = url;
             }
 
