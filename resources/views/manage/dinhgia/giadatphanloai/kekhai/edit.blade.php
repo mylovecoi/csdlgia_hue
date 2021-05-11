@@ -138,6 +138,11 @@
             $('#khuvuc').append(new Option(gt, gt, true, true));
             $('#khuvuc').val(gt).trigger('change');
         }
+
+        function setLoaiDat (maloaidat){
+            $('#modal-loaidat').modal('hide');
+            $('#maloaidat').val(maloaidat).trigger('change');
+        }
     </script>
 @stop
 
@@ -303,8 +308,7 @@
                         </div>
 
                         <div class="col-md-1">
-                            <div class="form-group">
-                                <label class="control-label">Thêm</label>
+                            <div class="form-group" style="margin-top: 25px;">
                                 <button type="button" class="btn btn-default" data-target="#modal-khuvuc" data-toggle="modal">
                                     <i class="fa fa-plus"></i></button>
                             </div>
@@ -312,10 +316,17 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-11">
                             <div class="form-group">
                                 <label class="control-label">Loại đất</label>
                                 {!!Form::select('maloaidat', $a_loaidat ,null, array('id' => 'maloaidat','class' => 'form-control select2me'))!!}
+                            </div>
+                        </div>
+
+                        <div class="col-md-1">
+                            <div class="form-group" style="margin-top: 25px;">
+                                <button type="button" class="btn btn-default" data-target="#modal-loaidat" data-toggle="modal">
+                                    <i class="fa fa-list"></i></button>
                             </div>
                         </div>
                     </div>
@@ -396,6 +407,53 @@
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
                     <button type="button" class="btn btn-primary" onclick="addkv()">Đồng ý</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-loaidat" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                    <h4 id="modal-header-primary-label" class="modal-title">Thông tin loại đất</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-striped table-bordered table-hover" id="sample_3">
+                                <thead>
+                                <tr>
+                                    <th width="5%" style="text-align: center">STT</th>
+                                    <th style="text-align: center">Phân loại</th>
+                                    <th style="text-align: center">Mã loại đất</th>
+                                    <th style="text-align: center">Tên loại đất</th>
+                                    <th style="text-align: center" width="5%">Thao tác</th>
+                                </tr>
+                                </thead>
+                                <?php $i = 1; ?>
+                                <tbody id="ttts">
+                                @foreach($m_loaidat as $key=>$tt)
+                                    <tr>
+                                        <td style="text-align: center">{{$i++}}</td>
+                                        <td style="font-weight: bold">{{$tt->phanloai}}</td>
+                                        <td class="active text-center">{{$tt->maloaidat}}</td>
+                                        <td>{{$tt->loaidat}}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-default btn-xs mbs" onclick="setLoaiDat('{{$tt->maloaidat}}')">
+                                                <i class="fa fa-check-circle-o"></i>&nbsp;Chọn</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
                 </div>
             </div>
         </div>

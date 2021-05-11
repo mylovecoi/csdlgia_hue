@@ -2524,13 +2524,13 @@ function getGiaoDien()
         'index' => '0', 'congbo' => '0',
         'dinhgia' => array(
             'index' => '0', 'congbo' => '0',
-            'giacldat' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
-            'giadatduan' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
-            'khunggiadat' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
-            'giadatpl' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
-            'giadaugiadat' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
-            'giadatthitruong' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
-            'daugiadatts' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
+            'giacldat' => array('index' => '0', 'congbo' => '0', 'table' => 'giacacloaidat', 'url' => ''),//
+            'giadatduan' => array('index' => '0', 'congbo' => '0', 'table' => 'giadatduan', 'url' => ''),//
+            'khunggiadat' => array('index' => '0', 'congbo' => '0', 'table' => 'khunggiadat', 'url' => ''),
+            'giadatpl' => array('index' => '0', 'congbo' => '0', 'table' => 'giadatphanloai', 'url' => ''),
+            'giadaugiadat' => array('index' => '0', 'congbo' => '0', 'table' => 'daugiadat', 'url' => ''),
+            'giadatthitruong' => array('index' => '0', 'congbo' => '0', 'table' => 'giadatthitruong', 'url' => ''),
+            'daugiadatts' => array('index' => '0', 'congbo' => '0', 'table' => 'daugiadatts', 'url' => ''),
             'giathuetn' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
             'giathuedatnuoc' => array('index' => '0', 'congbo' => '0', 'table' => 'giathuedatnuoc', 'url' => ''),
             'giarung' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
@@ -2560,7 +2560,7 @@ function getGiaoDien()
         ),*/
         'hhdv' => array(
             'index' => '0', 'congbo' => '0',
-            'giahhdvk' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
+            'giahhdvk' => array('index' => '0', 'congbo' => '0', 'table' => 'giahhdvk', 'url' => 'giahhdvk'),
             'giathitruong' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
             'giavangngoaite' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
         ),

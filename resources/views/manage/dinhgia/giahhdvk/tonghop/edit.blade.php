@@ -14,17 +14,15 @@
     <script type="text/javascript" src="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
     <!-- END PAGE LEVEL PLUGINS -->
     <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
+    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>
     <script>
         jQuery(document).ready(function() {
             TableManaged.init();
-        });
-    </script>
-    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>
-    <script>
-        $(document).ready(function(){
             $(":input").inputmask();
         });
     </script>
+
+
     {{--<script>--}}
         {{--function editItem(id) {--}}
             {{--var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');--}}
@@ -143,6 +141,15 @@
                                 </div>
                             </div>
                             <!--/span-->
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Thông tin hồ sơ</label>
+                                    {!!Form::textarea('ttbc',null, array('id' => 'ttbc','class' => 'form-control', 'rows'=>'2'))!!}
+                                </div>
+                            </div>
                         </div>
 
                         <input type="hidden" name="mahs" id="mahs" value="{{$model->mahs}}">

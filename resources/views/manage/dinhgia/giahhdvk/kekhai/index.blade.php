@@ -40,9 +40,8 @@
 @stop
 
 @section('content')
-
-    <h3 class="page-title">
-        Thông tin báo cáo giá hàng hóa dịch vụ khác
+    <h3 class="page-title text-uppercase">
+        {{session('admin')['a_chucnang']['giahhdvk'] ?? 'giá hàng hóa, dịch vụ'}}
     </h3>
 
     <!-- END PAGE HEADER-->
@@ -76,14 +75,14 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>Năm báo cáo</label>
-                                {!! Form::select('nam', getNam(true), $inputs['nam'], array('id' => 'nam', 'class' => 'form-control'))!!}
+                                {!! Form::select('nam', getNam(true), $inputs['nam'], array('id' => 'nam', 'class' => 'form-control select2me'))!!}
                             </div>
                         </div>
 
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Đơn vị báo cáo</label>
-                                {!! Form::select('madiaban_td', $a_diaban, $inputs['madiaban'], array('id' => 'madiaban_td', 'class' => 'form-control'))!!}
+                                {!! Form::select('madiaban_td', $a_diaban, $inputs['madiaban'], array('id' => 'madiaban_td', 'class' => 'form-control select2me'))!!}
                             </div>
                         </div>
                     </div>

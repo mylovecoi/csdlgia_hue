@@ -1,8 +1,19 @@
 @extends('main')
 
+@section('custom-style')
+    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/select2/select2.css')}}"/>
+@stop
+
+@section('custom-script')
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script type="text/javascript" src="{{url('assets/global/plugins/select2/select2.min.js')}}"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+
+@stop
+
 @section('content')
-    <h3 class="page-title">
-       Báo cáo tổng hợp<small> giá hàng hóa dịch vụ khác</small>
+    <h3 class="page-title text-uppercase">
+        Báo cáo tổng hợp {{session('admin')['a_chucnang']['giahhdvk'] ?? 'giá hàng hóa, dịch vụ'}}
     </h3>
     <!-- END PAGE HEADER-->
 <hr>

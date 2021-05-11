@@ -5,6 +5,10 @@ namespace App\Http\Controllers\manage\giadatphanloai;
 use App\GiaDatDiaBanDm;
 use App\Model\manage\dinhgia\giadatphanloai\GiaDatPhanLoai;
 use App\Model\manage\dinhgia\giadatphanloai\GiaDatPhanLoaiCt;
+use App\Model\manage\kekhaigia\kkdvlt\CsKdDvLt;
+use App\Model\manage\kekhaigia\kkdvlt\KkGiaDvLt;
+use App\Model\manage\kekhaigia\kkdvlt\KkGiaDvLtCt;
+use App\Model\system\company\Company;
 use App\Model\system\dmdvt;
 use App\Model\system\dsdiaban;
 use App\Model\system\dsdonvi;
@@ -12,7 +16,9 @@ use App\Model\system\view_dsdiaban_donvi;
 use App\Model\view\view_giadatphanloai;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
 
 class GiaDatPhanLoaiController extends Controller
 {
@@ -70,12 +76,14 @@ class GiaDatPhanLoaiController extends Controller
             $model->trangthai = 'CHT';
 
             //dd($m_diaban);
-            $a_loaidat = array_column(GiaDatDiaBanDm::all()->toArray(),'loaidat','maloaidat');
+            $m_loaidat = GiaDatDiaBanDm::all();
+            $a_loaidat = array_column($m_loaidat->toArray(),'loaidat','maloaidat');
             $a_khuvuc = array_column(view_giadatphanloai::where('madv',$inputs['madv'])->get('khuvuc')->toArray(),'khuvuc','khuvuc');
             //dd($a_dvt);
             return view('manage.dinhgia.giadatphanloai.kekhai.edit')
                 ->with('model',$model)
                 ->with('modelct',nullValue())
+                ->with('m_loaidat',$m_loaidat)
                 ->with('a_loaidat',$a_loaidat)
                 ->with('a_khuvuc',$a_khuvuc)
                 ->with('a_diaban', $a_diaban)
@@ -124,7 +132,8 @@ class GiaDatPhanLoaiController extends Controller
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             $m_donvi = getDonViNhapLieu(session('admin')->level);
-            $a_loaidat = array_column(GiaDatDiaBanDm::all()->toArray(),'loaidat','maloaidat');
+            $m_loaidat = GiaDatDiaBanDm::all();
+            $a_loaidat = array_column($m_loaidat->toArray(),'loaidat','maloaidat');
             $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
             $model = GiaDatPhanLoai::where('mahs',$inputs['mahs'])->first();
             $modelct = GiaDatPhanLoaiCt::where('mahs',$inputs['mahs'])->get();
@@ -133,6 +142,7 @@ class GiaDatPhanLoaiController extends Controller
             return view('manage.dinhgia.giadatphanloai.kekhai.edit')
                 ->with('model',$model)
                 ->with('modelct',$modelct)
+                ->with('m_loaidat',$m_loaidat)
                 ->with('a_diaban',$a_diaban)
                 ->with('m_donvi',$m_donvi)
                 ->with('a_loaidat',$a_loaidat)
@@ -241,6 +251,92 @@ class GiaDatPhanLoaiController extends Controller
         } else
             return view('errors.notlogin');
     }
+
+    public function nhanexcel(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $m_dv = dsdonvi::where('madv', $inputs['madv'])->first();
+            $inputs['madv'] = $m_dv->madv;
+            $inputs['url'] = '/giadatphanloai';
+
+            return view('manage.dinhgia.giadatphanloai.kekhai.imp_excel')
+                ->with('inputs',$inputs)
+                ->with('pageTitle','Nhận dữ liệu từ file Excel');
+
+        } else
+            return view('errors.notlogin');
+    }
+
+    public function create_excel(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+//            $m_dv = dsdonvi::where('madv', $inputs['madv'])->first();
+            $inputs['mahs'] = $inputs['madv'].'_'.getdate()[0];
+            //DB::statement("DELETE FROM kkgiadvltct WHERE macskd='" . $modelcskd->macskd . "' and mahs not in (SELECT mahs FROM kkgiadvlt where madv='" . $modelcskd->madv . "')");
+
+
+            $filename = $inputs['madv'] . '_' . getdate()[0].'.'.$request->file('fexcel')->getClientOriginalExtension();
+            $path = public_path() . '/data/uploads/excels/';
+            $request->file('fexcel')->move($path, $filename);
+            $data = [];
+
+            Excel::load($path . $filename, function ($reader) use (&$data, $inputs) {
+                $obj = $reader->getExcel();
+                $sheet = $obj->getSheet(0);
+                $data = $sheet->toArray(null, true, true, true);// giữ lại tiêu đề A=>'val';
+            });
+//            dd($data);
+            //dd($inputs);
+
+            $a_dm = array();
+            for ($i = $inputs['tudong']; $i <= $inputs['dendong']; $i++) {
+                if(!isset($data[$i][$inputs['khuvuc']]) || !isset($data[$i][$inputs['maloaidat']]) ||
+                    !isset($data[$i][$inputs['vitri']]) || !isset($data[$i][$inputs['banggiadat']]) ||
+                    !isset($data[$i][$inputs['giacuthe']]) || !isset($data[$i][$inputs['hesodc']])){
+                    continue;
+                }
+                $a_dm[] = array(
+                    'mahs' => $inputs['mahs'],
+                    'khuvuc' => $data[$i][$inputs['khuvuc']] ?? '',
+                    'vitri' => $data[$i][$inputs['vitri']] ?? '',
+                    'maloaidat' => $data[$i][$inputs['maloaidat']] ?? '',
+                    'banggiadat' => $data[$i][$inputs['banggiadat']] ? getDoubleToDb($data[$i][$inputs['banggiadat']]) : 0,
+                    'giacuthe' => $data[$i][$inputs['giacuthe']] ? getDoubleToDb($data[$i][$inputs['giacuthe']]) : 0,
+                    'hesodc' => $data[$i][$inputs['hesodc']] ? round(getDoubleToDb($data[$i][$inputs['hesodc']]),4) : 0,
+                );
+            }
+
+            GiaDatPhanLoaiCt::insert($a_dm);
+            File::Delete($path. $filename);
+
+            $inputs['act'] = 'true';
+            $inputs['url'] = '/giadatphanloai';
+            $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
+            $model = new GiaDatPhanLoai();
+            $model->madv = $inputs['madv'];
+            $model->mahs = $inputs['mahs'];
+            $model->trangthai = 'CHT';
+
+            $m_loaidat = GiaDatDiaBanDm::all();
+            $a_loaidat = array_column($m_loaidat->toArray(),'loaidat','maloaidat');
+            $a_khuvuc = array_column(view_giadatphanloai::where('madv',$inputs['madv'])->get('khuvuc')->toArray(),'khuvuc','khuvuc');
+            $modelct = GiaDatPhanLoaiCt::where('mahs', $inputs['mahs'])->get();
+            //dd($a_dvt);
+
+            return view('manage.dinhgia.giadatphanloai.kekhai.edit')
+                ->with('model',$model)
+                ->with('modelct',$modelct)
+                ->with('m_loaidat',$m_loaidat)
+                ->with('a_loaidat',$a_loaidat)
+                ->with('a_khuvuc',$a_khuvuc)
+                ->with('a_diaban', $a_diaban)
+                ->with('inputs',$inputs)
+                ->with('pageTitle','Thông tin hồ sơ giá đất');
+
+        } else
+            return view('errors.notlogin');
+    }
+
     //</editor-fold>
 
     //<editor-fold des="Chức năng xét duyệt">
@@ -411,6 +507,7 @@ class GiaDatPhanLoaiController extends Controller
     }
     //</editor-fold>
 
+
     public function ketxuat(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();
@@ -434,9 +531,16 @@ class GiaDatPhanLoaiController extends Controller
         if(Session::has('admin')){
             $inputs = $request->all();
             //lấy thông tin đơn vị
-            $model = view_giadatphanloai::where('mahs', $inputs['mahs'])->orderby('khuvuc')->orderby('maloaidat')->orderby('vitri')->get();
+            $model = view_giadatphanloai::where('mahs', $inputs['mahs'])->get();
+//            $model = view_giadatphanloai::where('mahs', $inputs['mahs'])->orderby('khuvuc')->orderby('maloaidat')->orderby('vitri')->get();
             $m_hs = GiaDatPhanLoai::where('mahs', $inputs['mahs'])->first();
             //tạo gr theo khuvuc;maloaidat sx theo vị trí
+            $a_khuvuc = a_unique(array_column($model->toarray(),'khuvuc'));
+//            foreach ($a_khuvuc as $kv){
+//                dd($kv);
+//            }
+
+
             $a_group = a_unique(a_split($model->toarray(),['khuvuc','maloaidat']));
             //dd($a_group);
             $m_donvi = dsdonvi::where('madv', $m_hs->madv)->first();
@@ -447,6 +551,7 @@ class GiaDatPhanLoaiController extends Controller
                 ->with('model',$model)
                 ->with('m_donvi',$m_donvi)
                 ->with('a_loaidat',$a_loaidat)
+                ->with('a_khuvuc',$a_khuvuc)
                 ->with('a_group',$a_group)
                 ->with('inputs',$inputs)
                 ->with('pageTitle','Thông tin hồ sơ giá đất');

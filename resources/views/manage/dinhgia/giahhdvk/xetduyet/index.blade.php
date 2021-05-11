@@ -35,10 +35,9 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Thông tin hồ sơ giá hàng hóa, dịch vụ
+    <h3 class="page-title text-uppercase">
+        {{session('admin')['a_chucnang']['giahhdvk'] ?? 'giá hàng hóa, dịch vụ'}}
     </h3>
-
     <!-- END PAGE HEADER-->
     <div class="row">
         <div class="col-md-12">
@@ -76,7 +75,7 @@
                             </div>
                         </div>
                     </div>
-                    <table id="sample_3" class="table table-striped table-bordered table-hover">
+                    <table id="sample_4" class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th width="2%" style="text-align: center">STT</th>

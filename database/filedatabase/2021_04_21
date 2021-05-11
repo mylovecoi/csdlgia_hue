@@ -17,3 +17,8 @@ ADD
 	[ipf4] [nvarchar](255) NULL,
 	[ipf5] [nvarchar](255) NULL;
 GO
+
+ALTER TABLE thgiahhdvk
+ADD
+    [mahstonghop] [nvarchar](max) NULL;
+GO

@@ -66,6 +66,7 @@ $(function () {
                 url += chk[i] + "/";
             }
         }
+        url += "/danhsach";
     }
 
     // index = chk.indexOf('edit');

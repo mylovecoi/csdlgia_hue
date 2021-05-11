@@ -23,59 +23,65 @@ class ReportsHhDvKController extends Controller
     public function index(){
         if (Session::has('admin')) {
             $modelnhomhhdvk = NhomHhDvK::all();
-                return view('manage.dinhgia.giahhdvk.reports.index')
-                    ->with('modelnhomhhdvk',$modelnhomhhdvk)
-                    ->with('pageTitle','Báo cáo tổng hợp giá hàng hóa dịch vụ khác');
-        }else
+            $a_nhaplieu = array_column(getDonViNhapLieu(session('admin')->level, 'giahhdvk')->toArray(), 'tendv', 'madv');
+            $a_tonghop = array_column(getDonViTongHop('giahhdvk', \session('admin')->level, \session('admin')->madiaban)->toArray(), 'tendv', 'madv');
+            return view('manage.dinhgia.giahhdvk.reports.index')
+                ->with('modelnhomhhdvk', $modelnhomhhdvk)
+                ->with('a_nhaplieu', $a_nhaplieu)
+                ->with('a_tonghop', $a_tonghop)
+                ->with('pageTitle', 'Báo cáo tổng hợp giá hàng hóa dịch vụ khác');
+        } else
             return view('errors.notlogin');
     }
 
     public function bc1(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $a_diaban = getDiaBan_NhapLieu(\session('admin')->level,session('admin')->madiaban);
-
-            $a_hs = GiaHhDvK::where('matt',$inputs['matt'])
-                ->wherein('madiaban',array_keys($a_diaban))
-                ->where('thoidiem','<',getDateToDb($inputs['ngayapdung']))
-                ->where('trangthai','HT')
+            $a_diaban = getDiaBan_NhapLieu(\session('admin')->level, session('admin')->madiaban);
+            //dd($inputs);
+            $a_hs = GiaHhDvK::where('matt', $inputs['matt'])
+                //->wherein('madiabaniaban', array_keys($a_diaban))
+                ->where('madv', $inputs['madv'])
+                ->where('thoidiem', '<', getDateToDb($inputs['ngayapdung']))
+                ->where('trangthai', 'HT')
                 ->select('mahs')
                 ->get()->toarray();
-            $a_hs_lk = GiaHhDvK::where('matt',$inputs['matt'])
-                ->wherein('madiaban',array_keys($a_diaban))
-                ->where('thoidiem','<',getDateToDb($inputs['ngayapdunglk']))
-                ->where('trangthai','HT')
+            $a_hs_lk = GiaHhDvK::where('matt', $inputs['matt'])
+                //->wherein('madiaban', array_keys($a_diaban))
+                ->where('madv', $inputs['madv'])
+                ->where('thoidiem', '<', getDateToDb($inputs['ngayapdunglk']))
+                ->where('trangthai', 'HT')
                 ->select('mahs')
                 ->get()->toarray();
-
-            $ttlk = GiaHhDvKCt::wherein('mahs',$a_hs_lk)
-                ->where('gia','<>',0)
+           // dd($a_hs);
+            $ttlk = GiaHhDvKCt::wherein('mahs', $a_hs_lk)
+                ->where('gia', '<>', 0)
                 ->get();
 
-            $tt  = GiaHhDvKCt::wherein('mahs',$a_hs)
-                ->where('gia','<>',0)
+            $tt = GiaHhDvKCt::wherein('mahs', $a_hs)
+                ->where('gia', '<>', 0)
                 ->get();
 
-            $modelct = DmHhDvK::where('matt',$inputs['matt'])
+            $modelct = DmHhDvK::where('matt', $inputs['matt'])
                 //->where('theodoi','TD')
                 ->orderby('mahhdv')
                 ->get();
-            foreach($modelct as $ct){
-                $ttgialk = round($ttlk->where('mahhdv',$ct->mahhdv)->avg('gia'));
+            foreach ($modelct as $ct) {
+                $ttgialk = round($ttlk->where('mahhdv', $ct->mahhdv)->avg('gia'));
                 $ct->giathlk = $ttgialk;
-                $ttgia = round($tt->where('mahhdv',$ct->mahhdv)->avg('gia'));
+                $ttgia = round($tt->where('mahhdv', $ct->mahhdv)->avg('gia'));
                 $ct->giath = $ttgia;
             }
-            $a_gr = a_unique( array_column($modelct->toarray(),'manhom'));
-            $a_nhomhhdv = array_column(DmNhomHangHoa::where('phanloai','GIAHHDVK')->get()->toarray(),'tennhom','manhom');
-            //dd($modelct);
+            $a_gr = a_unique(array_column($modelct->toarray(), 'manhom'));
+            $a_nhomhhdv = array_column(DmNhomHangHoa::where('phanloai', 'GIAHHDVK')->get()->toarray(), 'tennhom', 'manhom');
+            dd($tt);
             return view('manage.dinhgia.giahhdvk.reports.bc1')
-                ->with('a_nhomhhdv',$a_nhomhhdv)
-                ->with('a_gr',$a_gr)
-                ->with('inputs',$inputs)
-                ->with('modelct',$modelct)
-                ->with('pageTitle','Báo cáo giá hàng hóa, dịch vụ');
-        }else
+                ->with('a_nhomhhdv', $a_nhomhhdv)
+                ->with('a_gr', $a_gr)
+                ->with('inputs', $inputs)
+                ->with('modelct', $modelct)
+                ->with('pageTitle', 'Báo cáo giá hàng hóa, dịch vụ');
+        } else
             return view('errors.notlogin');
     }
 

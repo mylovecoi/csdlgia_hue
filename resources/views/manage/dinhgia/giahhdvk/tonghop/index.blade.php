@@ -33,6 +33,10 @@
                 changeUrl();
             });
 
+            $('#thang').change(function() {
+                changeUrl();
+            });
+
             $('#matt').change(function() {
                 changeUrl();
             });
@@ -54,9 +58,8 @@
 @stop
 
 @section('content')
-
-    <h3 class="page-title">
-        Tổng hợp <small>&nbsp;giá hàng hóa dịch vụ</small>
+    <h3 class="page-title text-uppercase">
+        Tổng hợp {{session('admin')['a_chucnang']['giahhdvk'] ?? 'giá hàng hóa, dịch vụ'}}
     </h3>
 
     <!-- END PAGE HEADER-->
@@ -70,26 +73,6 @@
                     <div class="actions">
                         <button type="button" class="btn btn-default btn-sm" data-target="#createthang-modal-confirm" data-toggle="modal">
                             <i class="fa fa-plus"></i>&nbsp;Tổng hợp tháng</button>
-                        {{--                        @if($inputs['phanloai'] == 'thang')--}}
-{{--                            <button type="button" class="btn btn-default btn-sm" data-target="#createthang-modal-confirm" data-toggle="modal">--}}
-{{--                                <i class="fa fa-plus"></i>&nbsp;Tổng hợp tháng</button>--}}
-{{--                        @else--}}
-{{--                            <button type="button" class="btn btn-default btn-sm" data-target="#create-modal-confirm" data-toggle="modal"><--}}
-{{--                                i class="fa fa-plus"></i>&nbsp;Tổng hợp</button>--}}
-{{--                        @endif--}}
-                            <!--div class="btn-group">
-                                <a class="btn btn-default btn-sm" href="" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                    <i class="fa fa-file-excel-o"></i>&nbsp;Nhận dữ liệu <i class="fa fa-angle-down"></i>
-                                </a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li>
-                                        <a href="">File dữ liệu mẫu</a>
-                                    </li>
-                                    <li>
-                                        <a href="">Nhận dữ liệu</a>
-                                    </li>
-                                </ul>
-                            </div-->
                     </div>
                 </div>
                 <hr>
@@ -97,21 +80,19 @@
                     <div class="row">
                         <div class="col-md-2">
                             <div class="form-group">
+                                <label>Tháng hồ sơ</label>
+                                {!! Form::select('thang', getThang(true), $inputs['thang'], array('id' => 'thang', 'class' => 'form-control'))!!}
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
                                 <label>Năm hồ sơ</label>
                                 {!! Form::select('nam', getNam(true), $inputs['nam'], array('id' => 'nam', 'class' => 'form-control'))!!}
                             </div>
                         </div>
-                        <!--div class="col-md-3">
-                            <div class="form-group">
-                                <label>Phân loại</label>
-                                <select name="phanloai" id="phanloai" class="form-control">
-                                    <option value="15ngaydau" {{$inputs['phanloai'] == '15ngaydau' ? 'selected' : ''}}>15 ngày đầu tháng</option>
-                                    <option value="15ngaycuoi" {{$inputs['phanloai'] == '15ngaycuoi' ? 'selected' : ''}}>15 ngày cuối tháng</option>
-                                    <option value="thang" {{$inputs['phanloai'] == 'thang' ? 'selected' : ''}}>Tháng</option>
-                                </select>
-                            </div>
-                        </div-->
-                        <div class="col-md-5">
+
+                        <div class="col-md-8">
                             <div class="form-group">
                                 <label>Nhóm hàng hóa</label>
                                 {!! Form::select('matt', $a_tt, $inputs['matt'], array('id' => 'matt', 'class' => 'form-control'))!!}
@@ -119,26 +100,24 @@
                         </div>
 
                     </div>
-                    <table class="table table-striped table-bordered table-hover" id="sample_3">
+                    <table class="table table-striped table-bordered table-hover" id="sample_4">
                         <thead>
-                        <tr>
-                            <th width="5%" style="text-align: center">STT</th>
-                            <th style="text-align: center">Theo thông tư quyết định</th>
-                            <th style="text-align: center" width="10%">Thời điểm báo cáo</th>
-                            {{--<th style="text-align: center">Thông tin báo cáo</th>--}}
-                            <th style="text-align: center" width="10%">Ngày báo cáo</th>
-                            <th style="text-align: center" width="10%">Số báo cáo</th>
-                            <th style="text-align: center" width="10%">Trạng thái</th>
-                            <th style="text-align: center" >Thao tác</th>
-                        </tr>
+                            <tr>
+                                <th width="5%" style="text-align: center">STT</th>
+                                <th style="text-align: center">Thông tư, quyết định</th>
+                                <th style="text-align: center">Thông tin báo cáo</th>
+                                <th style="text-align: center">Ngày báo cáo</th>
+                                <th style="text-align: center">Số báo cáo</th>
+                                <th style="text-align: center">Trạng thái</th>
+                                <th style="text-align: center" >Thao tác</th>
+                            </tr>
                         </thead>
                         <tbody>
                         @foreach($model as $key=>$ct)
                             <tr>
                                 <td style="text-align: center">{{$key+1}}</td>
                                 <td style="font-weight: bold">{{$a_tt[$ct->matt]}}</td>
-                                <td style="font-weight: bold">Tháng {{$ct->thang}} /Năm {{$ct->nam}}</td>
-                                {{--<td>{{$ct->ttbc}}</td>--}}
+                                <td>{{$ct->ttbc}}</td>
                                 <td style="text-align: center">{{getDayVn($ct->ngaybc)}}</td>
                                 <td style="text-align: center">{{$ct->sobc}}</td>
                                 <td style="text-align: center">
@@ -161,6 +140,8 @@
                                         <i class="fa fa-file-code-o"></i>&nbsp;Xuất file XML</a>
                                     <a href="{{url($inputs['url'].'/tonghop/exportEx?mahs='.$ct->mahs)}}" class="btn btn-default btn-xs mbs">
                                         <i class="fa fa-file-code-o"></i>&nbsp;Xuất file Excel</a>
+                                    <button type="button" onclick="setHoSo('{{$ct->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#taohoso-modal-confirm" data-toggle="modal">
+                                        <i class="fa glyphicon glyphicon-floppy-open"></i>&nbsp;Tạo hồ sơ</button>
                                     <button type="button" onclick="confirmDelete('{{$ct->mahs}}','{{$inputs['url'].'/tonghop/delete'}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
                                         <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
 
@@ -181,76 +162,10 @@
     </div>
     @include('includes.e.modal-attackfile')
     <!--Modal Create-->
-{{--    <div id="create-modal-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade bs-modal-lg">--}}
-{{--        {!! Form::open(['url'=>'/tonghopgiahhdvk/create','id' => 'frm_create','method'=>'post'])!!}--}}
-{{--        <div class="modal-dialog">--}}
-{{--            <div class="modal-content">--}}
-{{--                <div class="modal-header modal-header-primary">--}}
-{{--                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>--}}
-{{--                    <h4 id="modal-header-primary-label" class="modal-title">Tổng hợp giá hàng hóa dịch vụ--}}
-{{--                        @if($inputs['phanloai'] == '15ngaydau') <b>15 ngày đầu tháng</b>--}}
-{{--                        @else <b>15 ngày cuối tháng</b>--}}
-{{--                        @endif--}}
-{{--                    </h4>--}}
-{{--                </div>--}}
-{{--                <div class="modal-body">--}}
-{{--                    <div class="form-horizontal">--}}
-{{--                        <div class="form-group">--}}
-{{--                            <div class="col-md-12">--}}
-{{--                                <label>Phân loại thông tư quyết định</label>--}}
-{{--                                <select name="mattbc" id="mattbc" class="form-control">--}}
-{{--                                    @foreach($m_nhom as $ct)--}}
-{{--                                        <option value="{{$ct->matt}}">{{$ct->tentt}}</option>--}}
-{{--                                    @endforeach--}}
-{{--                                </select>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="form-group">--}}
-{{--                            <div class="col-md-12">--}}
-{{--                                <label>Tháng</label>--}}
-{{--                                {!! Form::select(--}}
-{{--                                'thangbc',--}}
-{{--                                getThang()--}}
-{{--                                ,date('m'),--}}
-{{--                                array('id' => 'thangbc', 'class' => 'form-control'))--}}
-{{--                                !!}--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="form-group">--}}
-{{--                            <div class="col-md-12">--}}
-{{--                                <label>Năm</label>--}}
-{{--                                <select name="nambc" id="nambc" class="form-control">--}}
-{{--                                    @if ($nam_start = intval(date('Y')) - 5 ) @endif--}}
-{{--                                    @if ($nam_stop = intval(date('Y')) + 1) @endif--}}
-{{--                                    @for($i = $nam_start; $i <= $nam_stop; $i++)--}}
-{{--                                        <option value="{{$i}}" {{$i == $inputs['nam'] ? 'selected' : ''}}>Năm {{$i}}</option>--}}
-{{--                                    @endfor--}}
-{{--                                </select>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="form-group">--}}
-{{--                            <div class="col-md-12">--}}
-{{--                                <label>Ngày chốt báo cáo</label>--}}
-{{--                                {!!Form::text('ngaychotbc','31/12/'.date('Y'), array('id' => 'ngaychotbc','data-inputmask'=>"'alias': 'date'",'class' => 'form-control'))!!}--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <input type="hidden" id="phanloaibc" name="phanloaibc" value="{{$inputs['phanloai']}}">--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-
-{{--                <div class="modal-footer">--}}
-{{--                    <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>--}}
-{{--                    <button type="submit" data-dismiss="modal" class="btn btn-primary" onclick="clickcreate()">Đồng ý</button>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        {!! Form::close() !!}--}}
-{{--    </div>--}}
-    <!--Modal Delete-->
 
     <div id="createthang-modal-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade bs-modal-lg">
         {!! Form::open(['url'=>$inputs['url'].'/tonghop/createthang','id' => 'frm_createthang','method'=>'post'])!!}
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header modal-header-primary">
                     <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
@@ -258,7 +173,13 @@
                     </h4>
                 </div>
                 <div class="modal-body">
-                    <p style="color: #0000FF">Phần mềm sẽ lấy các báo cáo giá hàng hóa, dịch vụ của các Thành phố, Huyện theo thời gian tương ứng để chia trung bình.</p>
+{{--                    <p style="color: #0000FF">Phần mềm sẽ lấy các báo cáo giá hàng hóa, dịch vụ của các Thành phố, Huyện theo thời gian tương ứng để chia trung bình.</p>--}}
+                    @if($inputs['baocao'])
+                        <p style="color: #0000FF">
+                            Đã có báo cáo tổng hợp trong tháng. Bạn cần kiểm tra dữ liệu trước khi tổng hợp để tránh trùng số liệu.
+                        </p>
+                    @endif
+
                     <div class="form-horizontal">
                         <div class="form-group">
                             <div class="col-md-12">
@@ -277,6 +198,35 @@
                                 {!! Form::select('nam', getNam(true), date('Y'), array('id' => 'nam', 'class' => 'form-control'))!!}
                             </div>
                         </div>
+
+                        <table class="table table-striped table-bordered table-hover" id="sample_3">
+                            <thead>
+                            <tr>
+                                <th style="text-align: center" width="5%">STT</th>
+                                <th style="text-align: center">Số quyết định</th>
+                                <th style="text-align: center">Ngày nhập</th>
+                                <th style="text-align: center">Tên đơn vị<br>cập nhật</th>
+                                <th style="text-align: center">Tên đơn vị<br>tiếp nhận hồ sơ</th>
+                                <th style="text-align: center">Thao tác</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php $i=1; ?>
+                            @foreach($m_hoso as $key=>$tt)
+                                <tr>
+                                    <td style="text-align: center">{{$i++}}</td>
+                                    <td style="text-align: center">{{$tt->soqd}}<br>Tháng: {{$tt->thang.'/'.$tt->nam}}</td>
+                                    <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
+                                    <td>{{$a_donvi[$tt->madv]??''}}</td>
+                                    <td>{{$a_donvi[$tt->macqcq]??''}}</td>
+                                    <td class="text-center">
+                                        <input type="checkbox" name="{{'hoso['.$tt->mahs.']'}}" checked />
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+
                     </div>
                 </div>
 
@@ -288,5 +238,45 @@
         </div>
         {!! Form::close() !!}
     </div>
+
+    <div id="taohoso-modal-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+        {!! Form::open(['url'=>$inputs['url'].'/tonghop/taohoso','id' => 'frm_taohoso'])!!}
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <button type="button" data-dismiss="modal" aria-hidden="true"
+                            class="close">&times;</button>
+                    <h4 id="modal-header-primary-label" class="modal-title">Tạo hồ sơ kê khai giá</h4>
+                    <input type="hidden" name="mahs" id="mahs">
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Đơn vị nhập liệu</label>
+                                {!! Form::select('madv', $a_nhaplieu, null, array('class' => 'form-control select2me'))!!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
+                    <button type="submit" class="btn btn-primary">Đồng ý</button>
+                </div>
+            </div>
+        </div>
+        {!! Form::close() !!}
+    </div>
+
+    <script>
+        function setHoSo(mahs,url) {
+            $('#frm_taohoso').find("[id='mahs']").val(mahs);
+        }
+
+        // function clickdelete(){
+        //     $('#frm_delete').submit();
+        // }
+    </script>
+
     @include('manage.include.form.modal_del_hs')
 @stop

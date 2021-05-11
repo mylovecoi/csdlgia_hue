@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><title>Thông báo lỗi</title>
+<head><title>Thành công</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,9 +18,9 @@
 </head>
 <body id="error-page" class="animated bounceInLeft">
 <div id="error-page-content">
-    <h1>Lỗi!</h1>
-    <h3>{{isset($message) ? $message : 'Thông tin này không thuộc phạm vi quản lý của bạn!'}} </h3>
-    <p><a href='{{isset($url) ? url($url) : url('/') }}'>Bấm vào đây</a> để quay lại.</p></div>
+    <h1>Thành công</h1>
+    <h3>{{isset($message) ? $message : 'Thực hiện thao tác thành công!'}} </h3>
+    <p><a href='{{isset($url) ? url($url) : url('/') }}'>Bấm vào đây</a> để quay lại.</p>
 </div>
 <script src="{{ url('js/jquery-1.9.1.js') }}"></script>
 <script src="{{ url('js/jquery-migrate-1.2.1.min.js') }}"></script>

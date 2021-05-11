@@ -25,28 +25,35 @@
                 <h4 id="modal-header-primary-label" class="modal-title">Báo cáo tổng hợp giá hàng hóa thị trường</h4>
             </div>
             <div class="modal-body">
-                <div class="form-horizontal">
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            <label><b>Nhóm hàng hóa dịch vụ khác</b></label>
-                            <select name="matt" id="matt" class="form-control">
-                                @foreach($modelnhomhhdvk as $nhomhhdvk)
-                                <option value="{{$nhomhhdvk->matt}}">{{$nhomhhdvk->tentt}}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Nhóm hàng hóa dịch vụ khác</label>
+                        <select name="matt" id="matt" class="form-control">
+                            @foreach($modelnhomhhdvk as $nhomhhdvk)
+                            <option value="{{$nhomhhdvk->matt}}">{{$nhomhhdvk->tentt}}</option>
+                            @endforeach
+                        </select>
                     </div>
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            <label><b>Ngày báo cáo liền kề đến ngày</b></label>
-                            <input type="date" id="ngayapdunglk" name="ngayapdunglk" class="form-control" value="{{intval(date('Y')).'-01-01'}}" style="text-align: center">
-                        </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Ngày báo cáo liền kề đến ngày</label>
+                        <input type="date" id="ngayapdunglk" name="ngayapdunglk" class="form-control" value="{{intval(date('Y')).'-01-01'}}" style="text-align: center">
                     </div>
-                    <div class="form-group">
-                        <div class="col-md-12">
-                        <label><b>Ngày báo cáo đến ngày</b></label>
-                            <input type="date" id="ngayapdung" name="ngayapdung" class="form-control" value="{{intval(date('Y')).'-12-31'}}" style="text-align: center">
-                        </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                    <label>Ngày báo cáo đến ngày</label>
+                        <input type="date" id="ngayapdung" name="ngayapdung" class="form-control" value="{{intval(date('Y')).'-12-31'}}" style="text-align: center">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Đơn vị nhập liệu</label>
+                        {!!Form::select('madv', $a_nhaplieu, null, array('id' => 'madv','class' => 'form-control select2me'))!!}
                     </div>
                 </div>
             </div>

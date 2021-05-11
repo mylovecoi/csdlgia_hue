@@ -21,6 +21,6 @@ class ThGiaHhDvK extends Model
         'ghichu',
         'congbo',
         'trangthai',
-
+        'mahstonghop',
     ];
 }

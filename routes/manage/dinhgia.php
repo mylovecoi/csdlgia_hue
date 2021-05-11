@@ -1,5 +1,6 @@
 <?php
 //Giá các loại đất
+
 Route::resource('dmqdgiadat','DmQdGiaDatController');
 Route::post('dmqdgiadat/delete','DmQdGiaDatController@destroy');
 
@@ -116,6 +117,13 @@ Route::group(['prefix'=>'giadatphanloai'],function (){
 //    Route::get('print','manage\giadatphanloai\GiaDatPhanLoaiController@ketxuat');
     Route::get('print_hs','manage\giadatphanloai\GiaDatPhanLoaiController@print_hs');
     Route::get('dinhkem','manage\giadatphanloai\GiaDatPhanLoaiController@show');
+
+    Route::get('file/excel',function (){
+        return Illuminate\Support\Facades\Response::download('./data/download/filemau/GIADATPHANLOAI.xlsx');
+    });
+
+    Route::get('nhanexcel','manage\giadatphanloai\GiaDatPhanLoaiController@nhanexcel');
+    Route::post('create_excel','manage\giadatphanloai\GiaDatPhanLoaiController@create_excel');
 
     Route::get('xetduyet','manage\giadatphanloai\GiaDatPhanLoaiController@xetduyet');
     Route::post('chuyenxd','manage\giadatphanloai\GiaDatPhanLoaiController@chuyenxd');
@@ -402,6 +410,7 @@ Route::group(['prefix'=>'giahhdvk'], function (){
     Route::get('tonghop/edit_ct','ThGiaHhDvKCtController@edit');
     Route::post('tonghop/update_ct','ThGiaHhDvKCtController@update');
     Route::post('tonghop/delete','ThGiaHhDvKController@destroy');
+    Route::post('tonghop/taohoso','ThGiaHhDvKController@create_hoso');
 //
     Route::get('tonghop/exportXML','ThGiaHhDvKController@exportXML');
     Route::get('tonghop/exportEx','ThGiaHhDvKController@exportEx');

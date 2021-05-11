@@ -1,4 +1,5 @@
 @extends('reports.main_rps')
+
 @section('content')
     <table width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:0 auto 20px; text-align: center;">
         <tr>
@@ -33,34 +34,84 @@
 
     <table cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;">
         <thead>
-        <tr>
-            <th width="5%">STT</th>
-            <th>Tên đường, giới<br>hạn, khu vực</th>
-            <th>Loại đất</th>
-            <th>Vị trí</th>
-            <th width="8%">Giá đất<br>tại bảng giá</th>
-            <th width="8%">Giá đất<br>cụ thể</th>
-            <th width="5%">Hệ số<br>điều chỉnh</th>
-
-        </tr>
+            <tr>
+                <th width="5%">STT</th>
+                <th>Tên đường, giới<br>hạn, khu vực</th>
+                <th>Loại đất</th>
+                <th>Vị trí</th>
+                <th width="8%">Giá đất<br>tại bảng giá</th>
+                <th width="8%">Giá đất<br>cụ thể</th>
+                <th width="5%">Hệ số<br>điều chỉnh</th>
+            </tr>
         </thead>
+
         <?php $i = 1; ?>
-        @foreach($a_group as $kv)
+        @foreach($a_khuvuc as $kv)
             <?php
-                $chitiet = $model->where('khuvuc', $kv['khuvuc'])->where('maloaidat',$kv['maloaidat']);
-                $kv = count($chitiet) > 1 ? count($chitiet) : 1;
+                $khuvuc = $model->where('khuvuc', $kv);
+                $count_kv = count($khuvuc) > 1 ? count($khuvuc) : 1;
+                $a_loaidat = a_unique(array_column($khuvuc->toarray(),'maloaidat'));
                 $i_kv = 1;
-                $i_pl = 1;
+            ?>
+            @foreach($a_loaidat as $ld)
+                <?php
+                    $loaidat = $khuvuc->where('maloaidat',$ld)->sortby('vitri');
+                    $count_ld = count($loaidat) > 1 ? count($loaidat) : 1;
+                    $i_pl = 1;
+                ?>
+                @foreach($loaidat as $key=>$tt)
+                    <tr>
+                        @if($i_kv == 1)
+                            <td style="text-align: center" rowspan="{{$count_kv}}">{{$i++}}</td>
+                            <td rowspan="{{$count_kv}}">{{$kv}}</td>
+                            <?php $i_kv++; ?>
+                        @endif
+
+                        @if($i_pl == 1)
+                            <td rowspan="{{$count_ld}}" style="text-align: center">{{$tt->maloaidat}}</td>
+                            <?php $i_pl++; ?>
+                        @endif
+
+                        <td style="text-align: center">{{$tt->vitri}}</td>
+                        <td style="text-align: right;">{{dinhdangsothapphan($tt->banggiadat,4)}}</td>
+                        <td style="text-align: right;">{{dinhdangsothapphan($tt->giacuthe,4)}}</td>
+                        <td style="text-align: right;">{{dinhdangsothapphan($tt->hesodc,4)}}</td>
+                    </tr>
+                @endforeach
+            @endforeach
+        @endforeach
+        {{-- lưu làm sắp theo thứ tự loại đất --}}
+
+    <!--
+        @foreach($a_khuvuc as $kv)
+            <?php
+                $khuvuc = $model->where('khuvuc', $kv)->sortby('maloaidat');
+                //                $khuvuc = $model->where('khuvuc', $kv['khuvuc'])->where('maloaidat',$kv['maloaidat']);
+                $count_kv = count($khuvuc) > 1 ? count($khuvuc) : 1;
+                $a_loaidat = [];
+                $i_kv = 1;
             ?>
 
-            @foreach($chitiet as $key=>$tt)
+            @foreach($khuvuc as $key=>$tt)
                 <tr>
                     @if($i_kv == 1)
-                        <td style="text-align: center" rowspan="{{$kv}}">{{$i++}}</td>
-                        <td rowspan="{{$kv}}">{{$tt->khuvuc}}</td>
-                        <td style="text-align: center" rowspan="{{$kv}}">{{$tt->maloaidat}}</td>
+                        <td style="text-align: center" rowspan="{{$count_kv}}">{{$i++}}</td>
+                        <td rowspan="{{$count_kv}}">{{$tt->khuvuc}}</td>
                         <?php $i_kv++; ?>
                     @endif
+                    <?php
+                    if(!in_array($tt->maloaidat,$a_loaidat)){
+                        $ld = $khuvuc->where('maloaidat', $tt->maloaidat)->count();
+                        $a_loaidat[] = $tt->maloaidat;
+                        $ld = $ld < 1 ? 1 : $ld;
+                        $i_pl = 1;
+                    }
+                    ?>
+                    @if($i_pl == 1)
+                        <td rowspan="{{$ld}}" style="text-align: center">{{$tt->maloaidat}}</td>
+                        <?php $i_pl++; ?>
+                    @endif
+
                     <td style="text-align: center">{{$tt->vitri}}</td>
                     <td style="text-align: right;">{{dinhdangsothapphan($tt->banggiadat,4)}}</td>
                     <td style="text-align: right;">{{dinhdangsothapphan($tt->giacuthe,4)}}</td>
@@ -68,6 +119,8 @@
                 </tr>
             @endforeach
         @endforeach
+    -->
+
     </table>
     <p style="text-align: left;">{!! nl2br($m_hoso->ghichu) !!}</p>
 

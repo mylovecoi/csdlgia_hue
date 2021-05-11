@@ -25,8 +25,9 @@ class CreateThgiahhdvkTable extends Migration
             $table->string('thang')->nullable();
             $table->string('nam')->nullable();
             $table->text('ghichu')->nullable();
-            $table->text('congbo')->nullable();
-            $table->text('trangthai')->nullable();
+            $table->string('congbo')->nullable();
+            $table->string('trangthai')->nullable();
+            $table->text('mahstonghop')->nullable();
             $table->timestamps();
         });
     }

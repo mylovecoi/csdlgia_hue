@@ -49,8 +49,10 @@
                     </div>
                     <div class="actions">
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadatpl', 'hoso', 'modify'))
-                            <a href="{{url('giadatphanloai/new?madv='.$inputs['madv'])}}" class="btn btn-default btn-sm">
+                            <a href="{{url($inputs['url'].'/new?madv='.$inputs['madv'])}}" class="btn btn-default btn-sm">
                                 <i class="fa fa-plus"></i> Thêm mới </a>
+                            <a href="{{url($inputs['url'].'/nhanexcel?madv='.$inputs['madv'])}}" class="btn btn-default btn-sm">
+                                <i class="fa fa-file-excel-o"></i> Nhận dữ liệu</a>
                             {{--<a href="{{url('giadatphanloai/nhandulieutuexcel')}}" class="btn btn-default btn-sm">--}}
                                 {{--<i class="fa fa-file-excel-o"></i> Nhận dữ liệu</a>--}}
                         @endif
@@ -87,8 +89,8 @@
                         <thead>
                             <tr>
                                 <th width="2%" style="text-align: center">STT</th>
-                                <th style="text-align: center">Địa bàn<br>áp dụng</th>
-                                <th style="text-align: center">Thời điểm <br>xác định</th>
+                                <th style="text-align: center">Địa bàn áp dụng</th>
+                                <th style="text-align: center">Thời điểm<br>xác định</th>
                                 <th style="text-align: center">Thông tin hồ sơ</th>
                                 <th style="text-align: center">Trạng thái</th>
                                 <th style="text-align: center">Cơ quan tiếp nhận</th>

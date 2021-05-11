@@ -74,7 +74,7 @@ class thongkeController extends Controller
                     }
                 }
             }
-
+            //dd($a_giaodien);
             //chạy $setting nếu cái nào index = 0 => unset()
             foreach ($setting as $k1 => $v1) {
                 if (!isset($v1['index']) || $v1['index'] == '0') {
