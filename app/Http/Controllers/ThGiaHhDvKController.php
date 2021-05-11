@@ -36,13 +36,13 @@ class ThGiaHhDvKController extends Controller
                 $inputs['phanloai'] = 'thang';
                 $m_nhom = NhomHhDvK::where('theodoi', 'TD')->get();
                 $inputs['matt'] = isset($inputs['matt']) ? $inputs['matt'] : $m_nhom->first()->matt;
-//                $m_hoso = GiaHhDvK::where('thang', $inputs['thang'])
-//                    ->where('nam', $inputs['nam'])
-//                    ->where('matt', $inputs['matt'])
-//                    ->where('trangthai', 'HT')->get();
                 $m_hoso = GiaHhDvK::where('thang', $inputs['thang'])
-                    ->where('nam', $inputs['nam'])->get();
-                dd($inputs);
+                    ->where('nam', $inputs['nam'])
+                    ->where('matt', $inputs['matt'])
+                    ->where('trangthai', 'HT')->get();
+//                $m_hoso = GiaHhDvK::where('thang', $inputs['thang'])
+//                    ->where('nam', $inputs['nam'])->get();
+//                dd($inputs);
                 $model = ThGiaHhDvK::where('nam', $inputs['nam'])
                     ->where('thang', $inputs['thang'])
                     ->where('matt', $inputs['matt'])->get();
