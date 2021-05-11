@@ -190,12 +190,12 @@
                         <div class="form-group">
                             <div class="col-md-6">
                                 <label>Tháng</label>
-                                {!! Form::select('thang',getThang(),date('m'),array('id' => 'thang', 'class' => 'form-control'))!!}
+                                {!! Form::select('thang',getThang(),$inputs['thang'],array('id' => 'thang', 'class' => 'form-control'))!!}
                             </div>
 
                             <div class="col-md-6">
                                 <label>Năm</label>
-                                {!! Form::select('nam', getNam(true), date('Y'), array('id' => 'nam', 'class' => 'form-control'))!!}
+                                {!! Form::select('nam', getNam(true), $inputs['nam'], array('id' => 'nam', 'class' => 'form-control'))!!}
                             </div>
                         </div>
 
