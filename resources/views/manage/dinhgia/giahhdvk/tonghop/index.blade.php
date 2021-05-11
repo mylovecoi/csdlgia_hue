@@ -190,7 +190,7 @@
                         <div class="form-group">
                             <div class="col-md-6">
                                 <label>Tháng</label>
-                                {!! Form::select('thang',getThang(),$inputs['thang'],array('id' => 'thang', 'class' => 'form-control'))!!}
+                                {!! Form::select('thang',getThang(true),$inputs['thang'],array('id' => 'thang', 'class' => 'form-control'))!!}
                             </div>
 
                             <div class="col-md-6">

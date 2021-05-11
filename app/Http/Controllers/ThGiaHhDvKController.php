@@ -27,36 +27,40 @@ class ThGiaHhDvKController extends Controller
 {
     public function index(Request $request){
         if (Session::has('admin')) {
-            if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'khac','baocao')){
+            if (chkPer('csdlmucgiahhdv', 'hhdv', 'giahhdvk', 'khac', 'baocao')) {
                 $inputs = $request->all();
                 $inputs['url'] = '/giahhdvk';
                 $inputs['thang'] = isset($inputs['thang']) ? $inputs['thang'] : date('m');
                 $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
                 //$inputs['phanloai'] = isset($inputs['phanloai']) ? $inputs['phanloai'] : 'thang';
                 $inputs['phanloai'] = 'thang';
-                $m_nhom = NhomHhDvK::where('theodoi','TD')->get();
+                $m_nhom = NhomHhDvK::where('theodoi', 'TD')->get();
                 $inputs['matt'] = isset($inputs['matt']) ? $inputs['matt'] : $m_nhom->first()->matt;
+//                $m_hoso = GiaHhDvK::where('thang', $inputs['thang'])
+//                    ->where('nam', $inputs['nam'])
+//                    ->where('matt', $inputs['matt'])
+//                    ->where('trangthai', 'HT')->get();
                 $m_hoso = GiaHhDvK::where('thang', $inputs['thang'])
-                    ->where('nam', $inputs['nam'])
-                    ->where('trangthai','HT')->get();
-                $model = ThGiaHhDvK::where('nam',$inputs['nam'])
-                    ->where('thang',$inputs['thang'])
-                    ->where('matt',$inputs['matt'])->get();
-                $a_donvi = array_column(view_dsdiaban_donvi::all()->toArray(),'tendv','madv');
-                $inputs['baocao'] = count($model)>0? true: false;
-                $a_nhaplieu = array_column(getDonViNhapLieu(session('admin')->level,'giahhdvk')->toArray(),'tendv','madv');
+                    ->where('nam', $inputs['nam'])->get();
+                dd($inputs);
+                $model = ThGiaHhDvK::where('nam', $inputs['nam'])
+                    ->where('thang', $inputs['thang'])
+                    ->where('matt', $inputs['matt'])->get();
+                $a_donvi = array_column(view_dsdiaban_donvi::all()->toArray(), 'tendv', 'madv');
+                $inputs['baocao'] = count($model) > 0 ? true : false;
+                $a_nhaplieu = array_column(getDonViNhapLieu(session('admin')->level, 'giahhdvk')->toArray(), 'tendv', 'madv');
                 //dd($a_nhaplieu);
                 return view('manage.dinhgia.giahhdvk.tonghop.index')
-                    ->with('model',$model)
-                    ->with('m_hoso',$m_hoso)
-                    ->with('a_donvi',$a_donvi)
-                    ->with('a_tt',array_column($m_nhom->toarray(),'tentt','matt'))
-                    ->with('a_nhaplieu',$a_nhaplieu)
-                    ->with('inputs',$inputs)
-                    ->with('pageTitle','Tổng hợp giá hàng hóa dịch vụ khác');
-            }else
+                    ->with('model', $model)
+                    ->with('m_hoso', $m_hoso)
+                    ->with('a_donvi', $a_donvi)
+                    ->with('a_tt', array_column($m_nhom->toarray(), 'tentt', 'matt'))
+                    ->with('a_nhaplieu', $a_nhaplieu)
+                    ->with('inputs', $inputs)
+                    ->with('pageTitle', 'Tổng hợp giá hàng hóa dịch vụ khác');
+            } else
                 return view('errors.perm');
-        }else
+        } else
             return view('errors.notlogin');
     }
 
