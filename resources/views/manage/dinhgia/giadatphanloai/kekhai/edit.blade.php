@@ -14,9 +14,11 @@
     <script type="text/javascript" src="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
     <!-- END PAGE LEVEL PLUGINS -->
     <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
+    <script src="{{url('assets/admin/pages/scripts/table-managed-class.js')}}"></script>
     <script>
         jQuery(document).ready(function() {
             TableManaged.init();
+            TableManagedclass.init();
             function getHeSo(hscu, hsmoi) {
                 if(hscu == 0){
                     return 0;
@@ -422,15 +424,15 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <table class="table table-striped table-bordered table-hover" id="sample_3">
+                            <table class="dulieubang table table-striped table-bordered table-hover">
                                 <thead>
-                                <tr>
-                                    <th width="5%" style="text-align: center">STT</th>
-                                    <th style="text-align: center">Phân loại</th>
-                                    <th style="text-align: center">Mã loại đất</th>
-                                    <th style="text-align: center">Tên loại đất</th>
-                                    <th style="text-align: center" width="5%">Thao tác</th>
-                                </tr>
+                                    <tr>
+                                        <th width="5%" style="text-align: center">STT</th>
+                                        <th style="text-align: center">Phân loại</th>
+                                        <th style="text-align: center">Mã loại đất</th>
+                                        <th style="text-align: center">Tên loại đất</th>
+                                        <th style="text-align: center" width="5%">Thao tác</th>
+                                    </tr>
                                 </thead>
                                 <?php $i = 1; ?>
                                 <tbody id="ttts">

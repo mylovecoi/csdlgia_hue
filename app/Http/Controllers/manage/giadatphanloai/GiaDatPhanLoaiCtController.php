@@ -96,7 +96,7 @@ class GiaDatPhanLoaiCtController extends Controller
                 $result['message'] .= '<tr id>';
                 $result['message'] .= '<td style="text-align: center">'.$i++.'</td>';
                 $result['message'] .= '<td class="active" style="font-weight: bold">'.$tt->khuvuc.'</td>';
-                $result['message'] .= '<td>'.$a_loaidat[$tt->maloaidat] ?? ''.'</td>';
+                $result['message'] .= '<td>'.($a_loaidat[$tt->maloaidat] ?? '').'</td>';
                 $result['message'] .= '<td class="text-center">'.$tt->vitri.'</td>';
                 $result['message'] .= '<td style="text-align: right;">'.dinhdangsothapphan($tt->banggiadat,4).'</td>';
                 $result['message'] .= '<td style="text-align: right;">'.dinhdangsothapphan($tt->giacuthe,4).'</td>';

@@ -300,12 +300,12 @@ class GiaDatPhanLoaiController extends Controller
                     'khuvuc' => $data[$i][$inputs['khuvuc']] ?? '',
                     'vitri' => $data[$i][$inputs['vitri']] ?? '',
                     'maloaidat' => $data[$i][$inputs['maloaidat']] ?? '',
-                    'banggiadat' => $data[$i][$inputs['banggiadat']] ? getDoubleToDb($data[$i][$inputs['banggiadat']]) : 0,
-                    'giacuthe' => $data[$i][$inputs['giacuthe']] ? getDoubleToDb($data[$i][$inputs['giacuthe']]) : 0,
-                    'hesodc' => $data[$i][$inputs['hesodc']] ? round(getDoubleToDb($data[$i][$inputs['hesodc']]),4) : 0,
+                    'banggiadat' => $data[$i][$inputs['banggiadat']] ? (float)getDoubleToDb($data[$i][$inputs['banggiadat']]) : 0,
+                    'giacuthe' => $data[$i][$inputs['giacuthe']] ? (float)getDoubleToDb($data[$i][$inputs['giacuthe']]) : 0,
+                    'hesodc' => $data[$i][$inputs['hesodc']] ? (float)round(getDoubleToDb($data[$i][$inputs['hesodc']]),4) : 0,
                 );
             }
-
+            //dd($a_dm);
             GiaDatPhanLoaiCt::insert($a_dm);
             File::Delete($path. $filename);
 

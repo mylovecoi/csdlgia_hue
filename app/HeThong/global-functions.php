@@ -2524,35 +2524,35 @@ function getGiaoDien()
         'index' => '0', 'congbo' => '0',
         'dinhgia' => array(
             'index' => '0', 'congbo' => '0',
-            'giacldat' => array('index' => '0', 'congbo' => '0', 'table' => 'giacacloaidat', 'url' => ''),//
-            'giadatduan' => array('index' => '0', 'congbo' => '0', 'table' => 'giadatduan', 'url' => ''),//
+            'giacldat' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),//giacacloaidat
+            'giadatduan' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),//giadatduan
             'khunggiadat' => array('index' => '0', 'congbo' => '0', 'table' => 'khunggiadat', 'url' => ''),
             'giadatpl' => array('index' => '0', 'congbo' => '0', 'table' => 'giadatphanloai', 'url' => ''),
             'giadaugiadat' => array('index' => '0', 'congbo' => '0', 'table' => 'daugiadat', 'url' => ''),
             'giadatthitruong' => array('index' => '0', 'congbo' => '0', 'table' => 'giadatthitruong', 'url' => ''),
             'daugiadatts' => array('index' => '0', 'congbo' => '0', 'table' => 'daugiadatts', 'url' => ''),
-            'giathuetn' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
+            'giathuetn' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),//
             'giathuedatnuoc' => array('index' => '0', 'congbo' => '0', 'table' => 'giathuedatnuoc', 'url' => ''),
-            'giarung' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
+            'giarung' => array('index' => '0', 'congbo' => '0', 'table' => 'giarung', 'url' => ''),
             'giathuemuanhaxh' => array('index' => '0', 'congbo' => '0', 'table' => 'giathuemuanhaxh', 'url' => ''),
-            'giathuenhacongvu' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
+            'giathuenhacongvu' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),//giathuenhacongvu
             'bannhataidinhcu' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
-            'gianuocsh' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
-            'giathuetscong' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
-            'giathuetsdautu' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
-            'giadvgddt' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
-            'giadvkcb' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
-            'trogiatrocuoc' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
-            'giaspdvci' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
-            'giahhdvcn' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
-            'giacuocvanchuyen' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
+            'gianuocsh' => array('index' => '0', 'congbo' => '0', 'table' => 'gianuocsh', 'url' => ''),
+            'giathuetscong' => array('index' => '0', 'congbo' => '0', 'table' => 'giathuetscong', 'url' => ''),
+            'giathuetsdautu' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),//
+            'giadvgddt' => array('index' => '0', 'congbo' => '0', 'table' => 'giadvgddt', 'url' => ''),
+            'giadvkcb' => array('index' => '0', 'congbo' => '0', 'table' => 'dvkcb', 'url' => ''),
+            'trogiatrocuoc' => array('index' => '0', 'congbo' => '0', 'table' => 'trogiatrocuoc', 'url' => ''),
+            'giaspdvci' => array('index' => '0', 'congbo' => '0', 'table' => 'giaspdvci', 'url' => ''),
+            'giahhdvcn' => array('index' => '0', 'congbo' => '0', 'table' => 'giahhdvcn', 'url' => ''),
+            'giacuocvanchuyen' => array('index' => '0', 'congbo' => '0', 'table' => 'giacuocvanchuyen', 'url' => ''),
             'giaspdvcuthe' => array('index' => '0', 'congbo' => '0', 'table' => 'giaspdvcuthe', 'url' => ''),
             'giaspdvtoida' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => 'giaspdvtoida'),
             'giaspdvkhunggia' => array('index' => '0', 'congbo' => '0', 'table' => 'giaspdvkhunggia', 'url' => ''),
         ),
         'bog' => array(
             'index' => '0', 'congbo' => '0',
-            'bog' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
+            'bog' => array('index' => '0', 'congbo' => '0', 'table' => 'kkmhbog', 'url' => ''),
         ),
         /*'etanol' => array(
             'index' => '0', 'congbo' => '0',
@@ -2561,47 +2561,47 @@ function getGiaoDien()
         'hhdv' => array(
             'index' => '0', 'congbo' => '0',
             'giahhdvk' => array('index' => '0', 'congbo' => '0', 'table' => 'giahhdvk', 'url' => 'giahhdvk'),
-            'giathitruong' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
-            'giavangngoaite' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
+            'giathitruong' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),//giathitruong
+            'giavangngoaite' => array('index' => '0', 'congbo' => '0', 'table' => 'giavangngoaite', 'url' => ''),
         ),
         'philephi' => array(
             'index' => '0', 'congbo' => '0',
-            'gialephitruocba' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
-            'gialephitruocbanha' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
+            'gialephitruocba' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),//
+            'gialephitruocbanha' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),//
             'giaphilephi' => array('index' => '0', 'congbo' => '0', 'table' => 'philephi', 'url' => ''),
-            'phichuyengia' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
+            'phichuyengia' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),//
         ),
         'taisan' => array(
             'index' => '0', 'congbo' => '0',
-            'thanhlytaisan' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
-            'giabatdongsan' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
+            'thanhlytaisan' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),//thanhlytaisan
+            'giabatdongsan' => array('index' => '0', 'congbo' => '0', 'table' => 'giagdbatdongsan', 'url' => ''),
             'muataisan' => array('index' => '0', 'congbo' => '0', 'table' => 'muataisan', 'url' => ''),
-            'giagocvlxd' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
+            'giagocvlxd' => array('index' => '0', 'congbo' => '0', 'table' => 'giagocvlxd', 'url' => ''),//
             'taisancong' => array('index' => '0', 'congbo' => '0', 'table' => 'giataisancong', 'url' => ''),
         ),
         'kknygia' => array(
             'index' => '0', 'congbo' => '0',
             'thongtinkknygia' => array('index' => '0', 'congbo' => '0', 'table' => 'ttdntd', 'url' => '/doanhnghiep/xetduyet'),//xét duyệt thay đổi thông tin của đơn vị
-            'vlxd' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
+            'vlxd' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiavlxd', 'url' => 'xetduyetkkgiavlxd'),//
             'xmtxd' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiaxmtxd', 'url' => 'xetduyetgiaxmtxd'),//chưa update migration
-            'dvhdtmck' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
+            'dvhdtmck' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiadvhdtm', 'url' => 'xetduyetkkgiadvhdtm'),
             'than' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiathan', 'url' => 'xetduyetgiathan'),
             'tacn' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiatacn', 'url' => 'xetduyetgiatacn'),
             'giay' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiagiay', 'url' => 'xetduyetgiagiay'),
             'sach' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiasach', 'url' => 'xetduyetgiasach'),
             'etanol' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiaetanol', 'url' => 'xetduyetgiaetanol'),
-            'dvcb' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
-            'oto' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
-            'xemay' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
-            'kcbtn' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
+            'dvcb' => array('index' => '0', 'congbo' => '0', 'table' => 'giadvcang', 'url' => 'xetduyetgiadvcang'),
+            'oto' => array('index' => '0', 'congbo' => '0', 'table' => 'giaotonksx', 'url' => 'xetduyetgiaotonksx'),
+            'xemay' => array('index' => '0', 'congbo' => '0', 'table' => 'giaxemaynksx', 'url' => 'xetduyetgiaxemaynksx'),
+            'kcbtn' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiakcbtn', 'url' => 'xetduyetgiakcbtn'),
             'dvvtxk' => array('index' => '0', 'congbo' => '0', 'table' => 'giavtxk', 'url' => 'xetduyetkekhaigiavtxk'),
             'dvvtxb' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiavtxb', 'url' => 'xetduyetkekhaigiavtxb'),
             'dvvtxtx' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiavtxtx', 'url' => 'xetduyetkekhaigiavtxtx'),
-            'dvvthk' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
+            'dvvthk' => array('index' => '0', 'congbo' => '0', 'table' => 'giavtxk', 'url' => 'xetduyetkekhaigiavtxk'),
             'tpcnte6t' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgs', 'url' => 'xetduyetkkgiatpcnte6t'),
             'dvlt' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiadvlt', 'url' => 'xetduyetkkgiadvlt'),
-            'dlbb' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
-            'tqkdl' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => ''),
+            'dlbb' => array('index' => '0', 'congbo' => '0', 'table' => 'giadvdlbb', 'url' => 'xetduyetgiadvdlbb'),
+            'tqkdl' => array('index' => '0', 'congbo' => '0', 'table' => 'giavetqkdl', 'url' => 'xetduyetgiavetqkdl'),
             'cahue' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiadvch', 'url' => 'xetduyetkkgiadvcahue'),
             'hocphilx' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiahplx', 'url' => 'xetduyetkkgiahplx'),
             'catsan' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiacatsan', 'url' => 'xetduyetkkgiacatsan'),
@@ -2707,6 +2707,8 @@ function getPhanQuyen()
     $gui['ttpvctqlnn'] = array(
         'index' => '0',);
     $gui['hethong_pq'] = array(
+        'index' => '0',);
+    $gui['thongkehethong'] = array(
         'index' => '0',);
 
     //chức năng chi tiết

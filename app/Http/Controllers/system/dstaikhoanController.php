@@ -233,7 +233,7 @@ class dstaikhoanController extends Controller
                 $setting = json_decode($m_gui->setting, true);
                 if(isset($setting['hethong'])){unset($setting['hethong']);}
             }
-
+//            dd($setting);
             foreach($per as $key => $val){
                 if(isset($per_user[$key])){
                     $p_u = $per_user[$key];
@@ -248,6 +248,7 @@ class dstaikhoanController extends Controller
                     }
                 }
             }
+
             //chạy $setting nếu cái nào index = 0 => unset()
             foreach($setting as $k1 => $v1){
                 if(!isset($v1['index']) || $v1['index'] == '0'){
@@ -268,6 +269,7 @@ class dstaikhoanController extends Controller
                     }
                 }
             }
+//            dd($setting);
             //chạy thêm lần nữa để xóa các phân hệ ko phân quyền trong hệ thống
             // chỉ có ssa, admin mới hiện lên để phân quyền
             if( $m_donvi->chucnang == 'QUANTRI' && !in_array(session('admin')->level, ['SSA', 'ADMIN'])){
@@ -329,7 +331,6 @@ class dstaikhoanController extends Controller
 
     function get_perm(Request $request)
     {
-
         if (!Session::has('admin')) {
             $result = array(
                 'status' => 'fail',
