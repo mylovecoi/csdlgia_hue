@@ -18,10 +18,10 @@
     </tr>
     <tr>
         <td>Số: ..............</td>
-        <td style="text-align: right"><i style="margin-right: 25%;">{{session('admin')->diadanh}}, ngày .... tháng {{$inputs['thang']}} năm {{$inputs['nam']}}</i></td>
+        <td style="text-align: right"><i style="margin-right: 25%;">{{session('admin')->diadanh}}, {{getNt2Bc($m_hoso->ngaybc ?? '')}}</i></td>
     </tr>
 </table>
-<p style="text-align: center; font-weight: bold; font-size: 16px;">BẢNG GIÁ THỊ TRƯỜNG THÁNG {{$inputs['thang']}} NĂM {{$inputs['nam']}}</p>
+<p style="text-align: center; font-weight: bold; font-size: 16px;">BẢNG GIÁ THỊ TRƯỜNG THÁNG {{$m_hoso->thang ?? '.....'}} NĂM {{$m_hoso->nam ?? '.....'}}</p>
 <p style="font-style: italic; text-align: center">(Ban hành kèm theo Thông tư số 116/2018/TT-BTC ngày 28/11/2018 của Bộ Tài Chính quy định chế độ báo cáo giá thị trường)</p>
 <table cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;" id="data">
     <thead>
@@ -76,8 +76,10 @@
                 <td style="text-align: center">{{$ct->loaigia}}</td>
                 <td style="text-align: right;">{{dinhdangsothapphan($ct->gialk,5)}}</td>
                 <td style="text-align: right;">{{dinhdangsothapphan($ct->gia,5)}}</td>
-                <td style="text-align: right;">{{dinhdangsothapphan($ct->gia - $ct->gialk,5)}}</td>
-                <td style="text-align: center;">{{$ct->gialk == 0 ? '' : dinhdangsothapphan(($ct->gia - $ct->gialk)/$ct->gialk,5)}}</td>
+                <td style="text-align: right;">{{dinhdangsothapphan($ct->chenhlech,5)}}</td>
+                <td style="text-align: center;">{{dinhdangsothapphan($ct->phantram,5).($ct->phantram != 0 ? '%':'')}}</td>
+                {{--<td style="text-align: right;">{{dinhdangsothapphan($ct->gia - $ct->gialk,5)}}</td>--}}
+                {{--<td style="text-align: center;">{{$ct->gialk == 0 ? '' : dinhdangsothapphan(($ct->gia - $ct->gialk)/$ct->gialk,5)}}</td>--}}
                 <td>{{$ct->nguontt}}</td>
                 <td>{{$ct->ghichu}}</td>
             </tr>

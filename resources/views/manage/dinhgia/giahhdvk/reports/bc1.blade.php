@@ -34,9 +34,9 @@
             <th style="text-align: center" rowspan="2">Tên hàng hóa dịch vụ</th>
             <th style="text-align: center" rowspan="2">Đặc điểm kỹ thuật</th>
             <th style="text-align: center" rowspan="2">Đơn vị tính</th>
-            <th style="text-align: center" width="10%" rowspan="2">Giá liền kề<br>({{getDayVn($inputs['ngayapdunglk'])}})</th>
-            <th style="text-align: center" width="10%" rowspan="2">Giá<br>({{getDayVn($inputs['ngayapdung'])}})</th>
-            <th style="text-align: center" width="10%" colspan="2">Tăng, giảm</th>
+            <th style="text-align: center" width="10%" rowspan="2">Giá hàng<br>hóa, dịch vụ<br>liền kề</th>
+            <th style="text-align: center" width="10%" rowspan="2">Giá hàng<br>hóa, dịch vụ<br>kê khai</th>
+            <th style="text-align: center" width="5%" colspan="2">Tăng, giảm</th>
             <th style="text-align: center" width="10%" rowspan="2">Ghi chú</th>
         </tr>
         <tr>
@@ -60,8 +60,10 @@
     <?php $i = 1; ?>
     @foreach($a_nhomhhdv as $key=>$tt)
         <?php
-            $chitiet = $modelct->where('manhom',$key);
+            $chitiet = a_getelement_equal($a_chitiet,['manhom'=>$key]);
             $k = 1;
+            if(count($chitiet) == 0)
+                continue;
         ?>
         <tr style="font-weight: bold;">
             <td>{{IntToRoman($i++)}}</td>
@@ -70,29 +72,37 @@
         @foreach($chitiet as $ct)
             <tr>
                 <td style="text-align: center">{{$k++}}</td>
-                <td style="text-align: center">{{$ct->mahhdv}}</td>
-                <td>{{$ct->tenhhdv}}</td>
-                <td>{{$ct->dacdiemkt}}</td>
-                <td style="text-align: center">{{$ct->dvt}}</td>
-                <td style="text-align: right;">{{dinhdangsothapphan($ct->giathlk,5)}}</td>
-                <td style="text-align: right;">{{dinhdangsothapphan($ct->giath,5)}}</td>
-                <td style="text-align: right;">{{dinhdangsothapphan($ct->giath - $ct->giathlk,5)}}</td>
-                <td style="text-align: center;">{{dinhdangsothapphan(number_format($ct->giathlk) == 0 ? number_format($ct->giath) == 0 ? 0 : 100
-                                : dinhdangsothapphan(($ct->giath - $ct->giathlk)*100/$ct->giathlk,5),5)}}</td>
+                <td style="text-align: center">{{$ct['mahhdv']}}</td>
+                <td>{{$ct['tenhhdv']}}</td>
+                <td>{{$ct['dacdiemkt']}}</td>
+                <td style="text-align: center">{{$ct['dvt']}}</td>
+                <td style="text-align: right;">{{dinhdangsothapphan($ct['giathlk'],5)}}</td>
+                <td style="text-align: right;">{{dinhdangsothapphan($ct['giath'],5)}}</td>
+                <td style="text-align: right;">{{dinhdangsothapphan($ct['chenhlech'],5)}}</td>
+                <td style="text-align: center;">{{dinhdangsothapphan($ct['phantram'],5).($ct['phantram'] != 0 ? '%':'')}}</td>
                 <td></td>
             </tr>
         @endforeach
     @endforeach
     </tbody>
 </table>
-<table width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:20px auto; text-align: center;">
-    <tr>
-        <td style="text-align: left;" width="30%">
+    <table width="96%" border="0" cellspacing="0" height cellpadding="0" style="margin: 20px auto;text-align: center; height:200px">
+        <tr>
+            <td width="40%" style="text-align: left; vertical-align: top;">
 
-        </td>
-        <td style="text-align: center;text-transform: uppercase; " width="70%">
-            <b></b><br>
-        </td>
-    </tr>
-</table>
+            </td>
+            <td style="vertical-align: top;">
+                <b>{{session('admin')->chucvuky}}</b><br>
+                <i>(Ký tên, đóng dấu)</i>
+                </br></br></br></br></br></br>
+            </td>
+        </tr>
+        <tr>
+            <td width="40%" style="text-align: left; vertical-align: top;">
+            </td>
+            <td style="vertical-align: top;">
+                {{session('admin')->nguoiky}}
+            </td>
+        </tr>
+    </table>
 @stop

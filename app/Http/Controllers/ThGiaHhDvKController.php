@@ -309,8 +309,7 @@ class ThGiaHhDvKController extends Controller
             return view('errors.notlogin');
     }
 
-    public function createthang(Request $request)
-    {
+    public function createthang(Request $request){
         if (Session::has('admin')) {
             if (chkPer('csdlmucgiahhdv', 'hhdv', 'giahhdvk', 'khac', 'baocao')) {
                 $inputs = $request->all();
@@ -383,8 +382,7 @@ class ThGiaHhDvKController extends Controller
             return view('errors.notlogin');
     }
 
-    public function create_hoso(Request $request)
-    {
+    public function create_hoso(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
 //            dd($inputs);
@@ -417,8 +415,7 @@ class ThGiaHhDvKController extends Controller
             $model->save();
             return view('errors.success')
                 ->with('message', 'Tạo mới hồ sơ kê khai từ số liệu tổng hợp thành công.')
-                ->with('url', '/giahhdvk/tonghop');
-
+                ->with('url', '/giahhdvk/tonghop?thang=' . $model->thang . '&nam=' . $model->nam);
         } else
             return view('errors.notlogin');
     }
