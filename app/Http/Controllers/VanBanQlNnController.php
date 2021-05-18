@@ -28,7 +28,9 @@ class VanBanQlNnController extends Controller
 
     public function create(){
         if (Session::has('admin')) {
+            $m_donvi = getDonViNhapLieu(session('admin')->level,'vbgia');
             return view('manage.vanbanqlnn.qlnnvegia.create')
+                ->with('a_donvi',array_column($m_donvi->toArray(),'tendv','madv'))
                 ->with('pageTitle', 'Văn bản quản lý nhà nước về giá thêm mới');
         }else
             return view('errors.notlogin');

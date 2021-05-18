@@ -1330,14 +1330,13 @@
                             Xét duyệt hồ sơ
                         </a>
                     </li>
-
-                    @if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'khac','baocao'))
-                        <li>
-                            <a href="{{url('/giahhdvk/tonghop')}}">Tổng hợp giá hàng hóa, dịch vụ</a>
-                        </li>
-                    @endif
                 @endif
 
+                @if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'khac','baocao'))
+                    <li>
+                        <a href="{{url('/giahhdvk/tonghop')}}">Tổng hợp giá hàng hóa, dịch vụ</a>
+                    </li>
+                @endif
 
                 <li>
                     <a href="{{url('/giahhdvk/timkiem')}}">

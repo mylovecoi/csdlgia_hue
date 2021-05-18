@@ -32,5 +32,8 @@ class BcThVeGia extends Model
 
         'ipt5',
         'ipf5',
+        'madv',
+        'trangthai',
+        'thoidiem',
     ];
 }

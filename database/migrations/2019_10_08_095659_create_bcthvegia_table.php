@@ -38,6 +38,9 @@ class CreateBcthvegiaTable extends Migration
 
             $table->string('ipt5')->nullable();
             $table->string('ipf5')->nullable();
+            $table->string('madv')->nullable(30);
+            $table->string('trangthai')->nullable(20);
+            $table->date('thoidiem')->nullable();
             $table->timestamps();
         });
     }

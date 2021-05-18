@@ -29,14 +29,14 @@ class BcThVeGiaController extends Controller
     public function create(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $modeldm = BcThVeGiaDm::where('phanloai',$inputs['phanloai'])
-                ->first();
-
+            $modeldm = BcThVeGiaDm::where('phanloai', $inputs['phanloai'])->first();
+            $m_donvi = getDonViNhapLieu(session('admin')->level, 'bcthvegia');
             return view('manage.vanbanqlnn.baocaoth.ttqd.create')
-                ->with('inputs',$inputs)
+                ->with('inputs', $inputs)
                 ->with('modeldm', $modeldm)
+                ->with('a_donvi', array_column($m_donvi->toArray(), 'tendv', 'madv'))
                 ->with('pageTitle', 'Thông tin báo cáo tổng hợp về giá thêm mới');
-        }else
+        } else
             return view('errors.notlogin');
     }
 

@@ -82,7 +82,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12" style="text-align: center">
-                            <a href="{{url($inputs['url'])}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                            <a href="{{url($inputs['url'].'/danhsach')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                             <button type="submit" class="btn green" onclick="ClickCreate()" id="submitform" name="submitform"><i class="fa fa-plus"></i> Nhận dữ liệu</button>
                         </div>
                     </div>

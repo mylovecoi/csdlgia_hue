@@ -20,17 +20,16 @@ class VanBanQlNn extends Model
         'phanloai',
         'ipt1',
         'ipf1',
-
         'ipt2',
         'ipf2',
-
         'ipt3',
         'ipf3',
-
         'ipt4',
         'ipf4',
-
         'ipt5',
         'ipf5',
+        'madv',
+        'trangthai',
+        'thoidiem',
     ];
 }

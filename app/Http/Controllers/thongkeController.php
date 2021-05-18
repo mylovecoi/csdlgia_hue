@@ -28,10 +28,8 @@ use Illuminate\Support\Facades\Mail;
 
 class thongkeController extends Controller
 {
-    public function hanhchinh(Request $request)
-    {
+    public function hanhchinh(Request $request){
         if (Session::has('admin')) {
-
             $inputs = $request->all();
             //dd($inputs);
             if (session('admin')->level == 'SSA' || session('admin')->level == 'ADMIN') {
@@ -43,6 +41,9 @@ class thongkeController extends Controller
             $m_donvi = dsdonvi::wherein('madiaban', $a_diaban)->take(500)->get();
             $a_donvi = array_column($m_donvi->toArray(), 'madv');
             $m_taikhoan = Users::wherein('madv', $a_donvi)->take(1000)->where('chucnang', 'NHAPLIEU')->get();
+
+            $inputs['thang'] = $inputs['thang'] ?? date('m');
+            $inputs['nam'] = $inputs['nam'] ?? date('Y');
             $inputs['username'] = $inputs['username'] ?? $m_taikhoan->first()->username;
             $model = $m_taikhoan->where('username', $inputs['username'])->first();
             //dd($model);
@@ -76,6 +77,7 @@ class thongkeController extends Controller
             }
             //dd($a_giaodien);
             //chạy $setting nếu cái nào index = 0 => unset()
+            //dd($setting);
             foreach ($setting as $k1 => $v1) {
                 if (!isset($v1['index']) || $v1['index'] == '0') {
                     unset($setting[$k1]);
@@ -88,7 +90,7 @@ class thongkeController extends Controller
                     continue;
                 }
 
-                $k1_hs = $k1_ht = 0;
+                $k1_hs = $k1_ht = $k1_hst = $k1_htt = 0;
                 //xóa các giá trị đơn: index, congbo,... chỉ để mảng để duyệt
                 foreach ($v1 as $k2 => $v2) {
                     if (!is_array($v2) || !isset($v2['index']) || $v2['index'] == '0') {
@@ -101,7 +103,7 @@ class thongkeController extends Controller
                         continue;
                     }
 
-                    $k2_hs = $k2_ht = 0;
+                    $k2_hs = $k2_ht =  $k2_hst =  $k2_htt = 0;
                     foreach ($v2 as $k3 => $v3) {
                         //kiểm tra chức năng không đc phân quyền thì bỏ chức năng đó
                         if (!is_array($v3) || !isset($v3['index']) || $v3['index'] == '0') {
@@ -116,26 +118,49 @@ class thongkeController extends Controller
 
                         $setting[$k1][$k2][$k3]['hoso'] = 0;
                         $setting[$k1][$k2][$k3]['hoanthanh'] = 0;
+                        $setting[$k1][$k2][$k3]['hosothang'] = 0;
+                        $setting[$k1][$k2][$k3]['hoanthanhthang'] = 0;
                         if(isset($a_giaodien[$k1][$k2][$k3]['table']) && $a_giaodien[$k1][$k2][$k3]['table'] !='') {
-                            $setting[$k1][$k2][$k3]['hoso'] = DB::table($a_giaodien[$k1][$k2][$k3]['table'])->where('madv', $model->madv)->count();
+                            $setting[$k1][$k2][$k3]['hoso'] = DB::table($a_giaodien[$k1][$k2][$k3]['table'])
+                                ->where('madv', $model->madv)->count();
                             $setting[$k1][$k2][$k3]['hoanthanh'] = DB::table($a_giaodien[$k1][$k2][$k3]['table'])
                                 ->where('madv', $model->madv)
                                 ->where('trangthai', 'HT')
                                 ->count();
+                            //dd($a_giaodien[$k1][$k2][$k3]);
+                            $setting[$k1][$k2][$k3]['hosothang'] = DB::table($a_giaodien[$k1][$k2][$k3]['table'])
+                                ->wheremonth($a_giaodien[$k1][$k2][$k3]['thoidiem'],$inputs['thang'])
+                                ->whereyear($a_giaodien[$k1][$k2][$k3]['thoidiem'],$inputs['nam'])
+                                ->where('madv', $model->madv)->count();
+                            $setting[$k1][$k2][$k3]['hoanthanhthang'] = DB::table($a_giaodien[$k1][$k2][$k3]['table'])
+                                ->where('madv', $model->madv)
+                                ->wheremonth($a_giaodien[$k1][$k2][$k3]['thoidiem'],$inputs['thang'])
+                                ->whereyear($a_giaodien[$k1][$k2][$k3]['thoidiem'],$inputs['nam'])
+                                ->where('trangthai', 'HT')
+                                ->count();
+
                             $k2_hs += $setting[$k1][$k2][$k3]['hoso'];
                             $k2_ht += $setting[$k1][$k2][$k3]['hoanthanh'];
+                            $k2_hst += $setting[$k1][$k2][$k3]['hosothang'];
+                            $k2_htt += $setting[$k1][$k2][$k3]['hoanthanhthang'];
                         }
                         //lấy thông tin các bảng
                     }
                     $setting[$k1][$k2]['hoso'] = $k2_hs;
                     $setting[$k1][$k2]['hoanthanh'] = $k2_ht;
+                    $setting[$k1][$k2]['hosothang'] = $k2_hst;
+                    $setting[$k1][$k2]['hoanthanhthang'] = $k2_htt;
                     $k1_hs += $k2_hs;
                     $k1_ht += $k2_ht;
+                    $k1_hst += $k2_hst;
+                    $k1_htt += $k2_htt;
                 }
                 $setting[$k1]['hoso'] = $k1_hs;
                 $setting[$k1]['hoanthanh'] = $k1_ht;
+                $setting[$k1]['hosothang'] = $k1_hst;
+                $setting[$k1]['hoanthanhthang'] = $k1_htt;
             }
-
+            //dd($setting);
             $a_chucnang = array_column(danhmucchucnang::all()->toArray(), 'menu', 'maso');
             //dd($inputs);
             return view('thongke.hanhchinh')

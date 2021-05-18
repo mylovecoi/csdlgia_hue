@@ -2,11 +2,12 @@
 
 @section('custom-style')
     <link type="text/css" rel="stylesheet" href="{{ url('vendors/bootstrap-datepicker/css/datepicker.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/select2/select2.css')}}"/>
 @stop
 
 @section('custom-script')
+    <script type="text/javascript" src="{{url('assets/global/plugins/select2/select2.min.js')}}"></script>
     <script type="text/javascript" src="{{url('assets/global/plugins/jquery-validation/js/jquery.validate.min.js')}}"></script>
-    <!--cript src="{{url('assets/admin/pages/scripts/form-validation.js')}}"></script-->
     @include('includes.crumbs.script_inputdate')
 @stop
 
@@ -29,64 +30,71 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label">Phân loại văn bản<span class="require">*</span></label>
-                                        {!! Form::select(
-                                        'phanloai',
-                                        array(
-                                        'gia'=>'Văn bản về giá',
-                                        'philephi'=>'Văn bản phí, lệ phí')
+                                        <label class="control-label">Đơn vị nhập liệu</label>
+                                        {!! Form::select('madv', $a_donvi, null, ['id' => 'madv','class' => 'form-control select2me']) !!}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Phân loại văn bản</label>
+                                        {!! Form::select('phanloai',
+                                        array('gia'=>'Văn bản về giá','philephi'=>'Văn bản phí, lệ phí')
                                         ,null,
                                         array('id' => 'phanloai', 'class' => 'form-control'))
                                         !!}
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="control-label">Loại văn bản<span class="require">*</span></label>
-                                        {!! Form::select('loaivb',getLoaiVbQlNn(),null, ['id' => 'loaivb','class' => 'form-control required']) !!}
+                                        <label class="control-label">Loại văn bản</label>
+                                        {!! Form::select('loaivb',getLoaiVbQlNn(false),null, ['id' => 'loaivb','class' => 'form-control required']) !!}
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-2">
                                     <div class="form-group">
-                                        <label class="control-label">Ký hiệu văn bản<span class="require">*</span></label>
+                                        <label class="control-label">Số hiệu<span class="require">*</span></label>
                                         {!!Form::text('kyhieuvb',null, array('id' => 'kyhieuvb','class' => 'form-control required'))!!}
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Ngày ban hành<span class="require">*</span></label>
+                                        {!!Form::text('ngaybanhanh',null, array('id' => 'ngaybanhanh','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Ngày áp dụng<span class="require">*</span></label>
+                                        {!!Form::text('ngayapdung',null, array('id' => 'ngayapdung','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="control-label">Đơn vị ban hành<span class="require">*</span></label>
                                         {!!Form::text('dvbanhanh',null, array('id' => 'dvbanhanh','class' => 'form-control required'))!!}
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Ngày ban hành</label>
-                                        {!!Form::text('ngaybanhanh',null, array('id' => 'ngaybanhanh','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
 
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label">Ngày áp dụng</label>
-                                        {!!Form::text('ngayapdung',null, array('id' => 'ngayapdung','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                                        <label class="control-label">Nội dung văn bản<span class="require">*</span></label>
+                                        {!!Form::textarea('tieude',null, array('id' => 'tieude','class' => 'form-control required', 'rows'=>'2'))!!}
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label">Tiêu đề</label>
-                                        {!!Form::text('tieude',null, array('id' => 'tieude','class' => 'form-control required'))!!}
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Ghi chú<span class="require">*</span></label>
-                                        {!!Form::text('ghichu',null, array('id' => 'ghichu','class' => 'form-control'))!!}
+                                        <label class="control-label">Ghi chú</label>
+                                        {!!Form::textarea('ghichu',null, array('id' => 'ghichu','class' => 'form-control', 'rows'=>'2'))!!}
                                     </div>
                                 </div>
                             </div>
@@ -135,7 +143,6 @@
             </div>
             <div class="col-md-12" style="text-align: center">
                 <a href="{{url('vanbanqlnnvegia')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
-                <button type="reset" class="btn default"> Hủy</button>
                 <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i> Thêm mới</button>
             </div>
             <!-- END VALIDATION STATES-->

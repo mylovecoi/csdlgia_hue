@@ -76,12 +76,11 @@ function getDvtDvLt(){
     return $dvt;
 }
 
-function getLoaiVbQlNn(){
+function getLoaiVbQlNn($all = true){
     $vbqlnn = array(
-        '' => '--Loại văn bản--',
         'luat' => 'Luật',
-        'nghidinh'=>'Nghị định',
-        'nghiquyet'=> 'Nghị quyết',
+        'nghidinh' => 'Nghị định',
+        'nghiquyet' => 'Nghị quyết',
         'thongtu' => 'Thông tư',
         'quyetdinh' => 'Quyết định',
         'vbhd' => 'Văn bản hướng dẫn',
@@ -90,14 +89,23 @@ function getLoaiVbQlNn(){
         'khoahoc' => 'Kết quả, đề tài nghiên cứu khoa học',
         'vbkhac' => 'Báo cáo, văn bản có liên quan khác',
     );
+
+    if ($all) {
+        $vbqlnn = a_merge(['' => '--Loại văn bản--'], $vbqlnn);
+    }
+
     return $vbqlnn;
 }
 
-function getThang(){
-    return array('01' => '01','02' => '02','03' => '03',
+function getThang($all = false){
+    $a_tl = array('01' => '01','02' => '02','03' => '03',
         '04' => '04','05' => '05','06' => '06',
         '07' => '07','08' => '08','09' => '09',
         '10' => '10','11' => '11','12' => '12');
+    if($all)
+        return a_merge(array('all'=>'--Tất cả--'), $a_tl);
+    else
+        return $a_tl;
 }
 
 function getPhanLoaiDonVi_DiaBan(){
@@ -235,24 +243,33 @@ function getDonViNhapLieu($level, $linhvuc=null){
     $ketqua = new Illuminate\Support\Collection();
     $m_user = App\Users::wherein('madv', array_column($m_donvi->toarray(), 'madv'))->get();
     //dd($m_user);
-    if($linhvuc != null){
+    if ($linhvuc != null) {
         foreach ($m_user as $user) {
             $per = json_decode($user->permission, true);
             if (isset($per[$linhvuc]['hoso']['approve']) && $per[$linhvuc]['hoso']['approve'] == '1'
                 && in_array('NHAPLIEU', explode(';', $user->chucnang))
-                && $ketqua->where('madv',$user->madv)->first() == null) {
+                && $ketqua->where('madv', $user->madv)->first() == null
+            ) {
                 $ketqua->add($m_donvi->where('madv', $user->madv)->first());
             }
         }
-    }else{
+    } else {
         foreach ($m_user as $user) {
             if (in_array('NHAPLIEU', explode(';', $user->chucnang))
-                && $ketqua->where('madv', $user->madv)->first() == null) {
+                && $ketqua->where('madv', $user->madv)->first() == null
+            ) {
                 $ketqua->add($m_donvi->where('madv', $user->madv)->first());
             }
         }
     }
     //dd($ketqua);
+    if ($linhvuc != null && count($ketqua) == 0) {
+        $message = 'Chưa có đơn vị nào được phân quyền nhập liệu cho chức năng: ' . session('admin')['a_chucnang'][$linhvuc]
+            . '. Bạn cần liên hệ người quản trị để phần quyền nhập liệu cho đơn vị.';
+        return view('errors.403')
+            ->with('message', $message);
+    }
+
     return $ketqua;
 
 }

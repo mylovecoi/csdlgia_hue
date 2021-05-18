@@ -59,9 +59,8 @@
 @stop
 
 @section('content')
-
-    <h3 class="page-title">
-        Văn bản quản lý nhà nước<small>&nbsp;về giá, phí lệ phí</small>
+    <h3 class="page-title text-uppercase">
+        {{session('admin')['a_chucnang']['vbqlnn'] ?? 'Văn bản quản lý nhà nước về giá, phí lệ phí'}}
     </h3>
 
     <!-- END PAGE HEADER-->
@@ -101,16 +100,16 @@
                             </div>
                         </div>
                     </div>
-                    <table class="table table-striped table-bordered table-hover" id="sample_3">
+                    <table class="table table-striped table-bordered table-hover" id="sample_4">
                         <thead>
                         <tr>
                             <th width="2%" style="text-align: center">STT</th>
                             <th style="text-align: center" width="15%">Đơn vị ban hành</th>
-                            <th style="text-align: center" width="10%">Số hiệu văn bản</th>
+                            <th style="text-align: center">Số hiệu<br>văn bản</th>
                             <th style="text-align: center">Nội dung</th>
-                            <th style="text-align: center" width="10%">Ngày ban hành</th>
-                            <th style="text-align: center" width="10%">Ngày áp dụng</th>
-                            <th style="text-align: center" width="20%">Thao tác</th>
+                            <th style="text-align: center">Ngày<br>ban hành</th>
+                            <th style="text-align: center">Ngày<br>áp dụng</th>
+                            <th style="text-align: center" width="15%">Thao tác</th>
                         </tr>
                         </thead>
                         <tbody>

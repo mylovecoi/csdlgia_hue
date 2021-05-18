@@ -1,0 +1,26 @@
+
+ALTER TABLE vanbanqlnn
+ADD
+    [madv] [nvarchar](30) NULL;
+GO
+
+ALTER TABLE vanbanqlnn
+ADD
+    [trangthai] [nvarchar](20) NULL;
+GO
+
+ALTER TABLE bcthvegia
+ADD
+    [madv] [nvarchar](30) NULL,
+    [trangthai] [nvarchar](20) NULL;
+GO
+
+ALTER TABLE bcthvegia
+ADD
+    [thoidiem] [date] NULL;
+GO
+
+ALTER TABLE vanbanqlnn
+ADD
+    [thoidiem] [date] NULL;
+GO
