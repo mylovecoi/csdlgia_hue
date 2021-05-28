@@ -37,6 +37,13 @@
 
                                 <div class="col-md-3">
                                     <div class="form-group">
+                                        <label class="control-label">Ngày nhập liệu<span class="require">*</span></label>
+                                        {!! Form::input('date', 'thoidiem', date('Y-m-d'), array('id' => 'thoidiem', 'class' => 'form-control', 'required'))!!}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
                                         <label class="control-label">Phân loại văn bản</label>
                                         {!! Form::select('phanloai',
                                         array('gia'=>'Văn bản về giá','philephi'=>'Văn bản phí, lệ phí')
@@ -45,17 +52,17 @@
                                         !!}
                                     </div>
                                 </div>
+                            </div>
 
+                            <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="control-label">Loại văn bản</label>
                                         {!! Form::select('loaivb',getLoaiVbQlNn(false),null, ['id' => 'loaivb','class' => 'form-control required']) !!}
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="control-label">Số hiệu<span class="require">*</span></label>
                                         {!!Form::text('kyhieuvb',null, array('id' => 'kyhieuvb','class' => 'form-control required'))!!}
@@ -64,17 +71,19 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="control-label">Ngày ban hành<span class="require">*</span></label>
-                                        {!!Form::text('ngaybanhanh',null, array('id' => 'ngaybanhanh','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
-
+                                        {!! Form::input('date', 'ngaybanhanh', null, array('class' => 'form-control', 'required'))!!}
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="control-label">Ngày áp dụng<span class="require">*</span></label>
-                                        {!!Form::text('ngayapdung',null, array('id' => 'ngayapdung','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                                        {!! Form::input('date', 'ngayapdung', null, array('class' => 'form-control', 'required'))!!}
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Đơn vị ban hành<span class="require">*</span></label>
                                         {!!Form::text('dvbanhanh',null, array('id' => 'dvbanhanh','class' => 'form-control required'))!!}
@@ -152,12 +161,7 @@
     <script type="text/javascript">
         function validateForm(){
             var validator = $("#create_ttttqd").validate({
-                rules: {
-                    ten :"required"
-                },
-                messages: {
-                    ten :"Chưa nhập dữ liệu"
-                }
+
             });
         }
     </script>

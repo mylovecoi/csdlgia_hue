@@ -247,42 +247,49 @@ License: You must have a valid license purchased only from themeforest(the above
                     </li>
                     @endif
 
-{{--                    <li class="menu-dropdown classic-menu-dropdown">--}}
-{{--                        <a data-hover="megamenu-dropdown" data-close-others="true" href="javascript:;">Kê khai, niêm yết giá I<i class="fa fa-angle-down"></i></a>--}}
-{{--                        <ul class="dropdown-menu pull-left">--}}
-{{--                            --}}{{--                                    <li><a class="text-uppercase" href="{{url('cbvlxd')}}">{{session('congbo')['chucnang']['vlxd'] ?? 'Vật liệu xây dựng'}} </a></li>--}}
-{{--                            --}}{{--                                    <li><a class="text-uppercase" href="{{url('cbdvhdtmck')}}">{{session('congbo')['chucnang']['dvhdtmck'] ?? 'Giá dịch vụ hỗ trợ hoạt động thương mại tại cửa khẩu'}} </a></li>--}}
-{{--                            <li><a href="{{url('cbxmtxd')}}">{{session('congbo')['chucnang']['xmtxd'] ?? 'Xi măng, thép xây dựng'}} </a></li>--}}
-{{--                            <li><a href="{{url('cbthan')}}">{{session('congbo')['chucnang']['than'] ?? 'Giá than'}} </a></li>--}}
-{{--                            <li><a href="{{url('cbtacn')}}">{{session('congbo')['chucnang']['tacn'] ?? 'Thức ăn chăn nuôi'}} </a></li>--}}
-{{--                            <li><a href="{{url('cbgiay')}}">{{session('congbo')['chucnang']['giay'] ?? 'Giấy in, viết (dạng cuộn), giấy in báo'}} </a></li>--}}
-{{--                            <li><a class="text-uppercase" href="{{url('cbsach')}}">{{session('congbo')['chucnang']['sach'] ?? 'Sách giáo khoa'}} </a></li>--}}
-{{--                            <li><a class="text-uppercase" href="{{url('cbetanol')}}">{{session('congbo')['chucnang']['etanol'] ?? 'Etanol, khí tự nhiên hóa lỏng(LNG); khí thiên nhiên nén (CNG)'}} </a></li>--}}
-{{--                            <li><a class="text-uppercase" href="{{url('cbtpcnte6t')}}">{{session('congbo')['chucnang']['tpcnte6t'] ?? 'Thực phẩm chức năng cho trẻ em dưới 6 tuổi'}} </a></li>--}}
-{{--                            <li><a class="text-uppercase" href="{{url('cbxemay')}}">{{session('congbo')['chucnang']['xemay'] ?? 'Giá xe máy'}} </a></li>--}}
-{{--                            <li><a class="text-uppercase" href="{{url('cboto')}}">{{session('congbo')['chucnang']['oto'] ?? 'Giá ô tô'}} </a></li>--}}
+                    <li class="menu-dropdown classic-menu-dropdown">
+                        <a data-hover="megamenu-dropdown" data-close-others="true" href="javascript:;">Kê khai, niêm yết giá<i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu pull-left">
+                            <li><a href="{{url('cbkekhaigia')}}">Doanh nghiệp kê khai, niêm yết giá</a></li>
+                            <li><a href="{{url('cblinhvuckk')}}">Lĩnh vực hoạt động kinh doanh</a></li>
+                            {{--<li><a href="{{url('timkiemkekhai')}}">Tìm kiếm giá kê khai, niêm yết</a></li>--}}
+                        </ul>
+                    </li>
 
-{{--                            --}}{{--                                    <li><a class="text-uppercase" href="{{url('cbdvcb')}}">{{session('congbo')['chucnang']['dvcb'] ?? 'Giá dịch vụ tại cảng biển, cảng hàng không'}} </a></li>--}}
-{{--                            --}}{{--                                    <li><a class="text-uppercase" href="{{url('cbkcbtn')}}">{{session('congbo')['chucnang']['kcbtn'] ?? 'Dịch vụ khám chữa bệnh cho người tại cơ sở khám chữa bệnh tư nhân; khám chữa bệnh theo yêu cầu tại cơ sở khám chữa bệnh của nhà nước'}} </a></li>--}}
+                    {{--<li class="menu-dropdown classic-menu-dropdown">--}}
+                        {{--<a data-hover="megamenu-dropdown" data-close-others="true" href="javascript:;">Kê khai, niêm yết giá I<i class="fa fa-angle-down"></i></a>--}}
+                        {{--<ul class="dropdown-menu pull-left">--}}
+                        {{--<li><a class="text-uppercase" href="{{url('cbvlxd')}}">{{session('congbo')['chucnang']['vlxd'] ?? 'Vật liệu xây dựng'}} </a></li>--}}
+                        {{--<li><a class="text-uppercase" href="{{url('cbdvhdtmck')}}">{{session('congbo')['chucnang']['dvhdtmck'] ?? 'Giá dịch vụ hỗ trợ hoạt động thương mại tại cửa khẩu'}} </a></li>--}}
+                            {{--<li><a class="text-uppercase" href="{{url('cbxmtxd')}}">{{session('congbo')['chucnang']['xmtxd'] ?? 'Xi măng, thép xây dựng'}} </a></li>--}}
+                            {{--<li><a class="text-uppercase" href="{{url('cbthan')}}">{{session('congbo')['chucnang']['than'] ?? 'Giá than'}} </a></li>--}}
+                            {{--<li><a class="text-uppercase" href="{{url('cbtacn')}}">{{session('congbo')['chucnang']['tacn'] ?? 'Thức ăn chăn nuôi'}} </a></li>--}}
+                            {{--<li><a class="text-uppercase" href="{{url('cbgiay')}}">{{session('congbo')['chucnang']['giay'] ?? 'Giấy in, viết (dạng cuộn), giấy in báo'}} </a></li>--}}
+                            {{--<li><a class="text-uppercase" href="{{url('cbsach')}}">{{session('congbo')['chucnang']['sach'] ?? 'Sách giáo khoa'}} </a></li>--}}
+                            {{--<li><a class="text-uppercase" href="{{url('cbetanol')}}">{{session('congbo')['chucnang']['etanol'] ?? 'Etanol, khí tự nhiên hóa lỏng(LNG); khí thiên nhiên nén (CNG)'}} </a></li>--}}
+                            {{--<li><a class="text-uppercase" href="{{url('cbtpcnte6t')}}">{{session('congbo')['chucnang']['tpcnte6t'] ?? 'Thực phẩm chức năng cho trẻ em dưới 6 tuổi'}} </a></li>--}}
+                            {{--<li><a class="text-uppercase" href="{{url('cbxemay')}}">{{session('congbo')['chucnang']['xemay'] ?? 'Giá xe máy'}} </a></li>--}}
+                            {{--<li><a class="text-uppercase" href="{{url('cboto')}}">{{session('congbo')['chucnang']['oto'] ?? 'Giá ô tô'}} </a></li>--}}
+                            {{--<li><a class="text-uppercase" href="{{url('cbdvcb')}}">{{session('congbo')['chucnang']['dvcb'] ?? 'Giá dịch vụ tại cảng biển, cảng hàng không'}} </a></li>--}}
+                            {{--<li><a class="text-uppercase" href="{{url('cbkcbtn')}}">{{session('congbo')['chucnang']['kcbtn'] ?? 'Dịch vụ khám chữa bệnh cho người tại cơ sở khám chữa bệnh tư nhân; khám chữa bệnh theo yêu cầu tại cơ sở khám chữa bệnh của nhà nước'}} </a></li>--}}
 
-{{--                        </ul>--}}
-{{--                    </li>--}}
+                        {{--</ul>--}}
+                    {{--</li>--}}
 
-{{--                    <li class="menu-dropdown classic-menu-dropdown">--}}
-{{--                        <a data-hover="megamenu-dropdown" data-close-others="true" href="javascript:;">Kê khai, niêm yết giá II<i class="fa fa-angle-down"></i></a>--}}
-{{--                        <ul class="dropdown-menu pull-left">--}}
-{{--                            <li><a class="text-uppercase" href="{{url('cbdvlt')}}">{{session('congbo')['chucnang']['dvlt'] ?? 'Dịch vụ lưu trú'}} </a></li>--}}
-{{--                            <li><a class="text-uppercase" href="{{url('cbcahue')}}">{{session('congbo')['chucnang']['cahue'] ?? 'Giá dịch vụ xem ca Huế trên sông Hương'}} </a></li>--}}
-{{--                            <li><a class="text-uppercase" href="{{url('cbhocphilx')}}">{{session('congbo')['chucnang']['hocphilx'] ?? 'Mức thu học phí đào tạo lái xe cơ giới đường bộ'}} </a></li>--}}
-{{--                            <li><a class="text-uppercase" href="{{url('cbcatsan')}}">{{session('congbo')['chucnang']['catsan'] ?? 'Vật liệu xây dựng: cát, sạn'}} </a></li>--}}
-{{--                            <li><a class="text-uppercase" href="{{url('cbdatsanlap')}}">{{session('congbo')['chucnang']['datsanlap'] ?? 'Vật liệu xây dựng: đất san lấp'}} </a></li>--}}
-{{--                            <li><a class="text-uppercase" href="{{url('cbdaxaydung')}}">{{session('congbo')['chucnang']['daxaydung'] ?? 'Vật liệu xây dựng: đá xây dựng'}} </a></li>--}}
+                    {{--<li class="menu-dropdown classic-menu-dropdown">--}}
+                        {{--<a data-hover="megamenu-dropdown" data-close-others="true" href="javascript:;">Kê khai, niêm yết giá II<i class="fa fa-angle-down"></i></a>--}}
+                        {{--<ul class="dropdown-menu pull-left">--}}
+                            {{--<li><a class="text-uppercase" href="{{url('cbdvlt')}}">{{session('congbo')['chucnang']['dvlt'] ?? 'Dịch vụ lưu trú'}} </a></li>--}}
+                            {{--<li><a class="text-uppercase" href="{{url('cbcahue')}}">{{session('congbo')['chucnang']['cahue'] ?? 'Giá dịch vụ xem ca Huế trên sông Hương'}} </a></li>--}}
+                            {{--<li><a class="text-uppercase" href="{{url('cbhocphilx')}}">{{session('congbo')['chucnang']['hocphilx'] ?? 'Mức thu học phí đào tạo lái xe cơ giới đường bộ'}} </a></li>--}}
+                            {{--<li><a class="text-uppercase" href="{{url('cbcatsan')}}">{{session('congbo')['chucnang']['catsan'] ?? 'Vật liệu xây dựng: cát, sạn'}} </a></li>--}}
+                            {{--<li><a class="text-uppercase" href="{{url('cbdatsanlap')}}">{{session('congbo')['chucnang']['datsanlap'] ?? 'Vật liệu xây dựng: đất san lấp'}} </a></li>--}}
+                            {{--<li><a class="text-uppercase" href="{{url('cbdaxaydung')}}">{{session('congbo')['chucnang']['daxaydung'] ?? 'Vật liệu xây dựng: đá xây dựng'}} </a></li>--}}
+                            {{--<li><a class="text-uppercase" href="{{url('cbdlbb')}}">{{session('congbo')['chucnang']['dlbb'] ?? 'Giá dịch vụ du lịch tại bãi biển'}} </a></li>--}}
+                            {{--<li><a class="text-uppercase" href="{{url('cbtqkdl')}}">{{session('congbo')['chucnang']['tqkdl'] ?? 'Giá vé tham quan tại các khu du lịch'}} </a></li>--}}
 
-{{--                            --}}{{--                                    <li><a class="text-uppercase" href="{{url('cbdlbb')}}">{{session('congbo')['chucnang']['dlbb'] ?? 'Giá dịch vụ du lịch tại bãi biển'}} </a></li>--}}
-{{--                            --}}{{--                                    <li><a class="text-uppercase" href="{{url('cbtqkdl')}}">{{session('congbo')['chucnang']['tqkdl'] ?? 'Giá vé tham quan tại các khu du lịch'}} </a></li>--}}
-
-{{--                        </ul>--}}
-{{--                    </li>--}}
+                        {{--</ul>--}}
+                    {{--</li>--}}
 
                     {{--@if(chkCongBo('csdlthamdinhgia'))--}}
                     <li class="menu-dropdown classic-menu-dropdown">

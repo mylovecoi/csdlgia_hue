@@ -43,11 +43,15 @@ Route::get('cbgiacuocvanchuyen','congbo\dinhgia\CongbogiacuocvanchuyenController
 //cbbinhongia
 Route::get('cbbinhongia','congbo\CongBoBinhOnGiaController@index');
 //Kê khai-niêm yết giá
-Route::get('cbxmtxd','congbo\kekhaigia\CongboGiaXMTXDController@index');
-Route::get('cbthan','congbo\kekhaigia\CongboGiaThanController@index');
-Route::get('cbtacn','congbo\kekhaigia\CongboGiaTACNController@index');
-Route::get('cbgiay','congbo\kekhaigia\CongboGiaGiayController@index');
-Route::get('cbsach','congbo\kekhaigia\CongboGiaSachController@index');
+//Route::get('cbxmtxd','congbo\kekhaigia\CongboGiaXMTXDController@index');
+//Route::get('cbthan','congbo\kekhaigia\CongboGiaThanController@index');
+//Route::get('cbtacn','congbo\kekhaigia\CongboGiaTACNController@index');
+//Route::get('cbgiay','congbo\kekhaigia\CongboGiaGiayController@index');
+//Route::get('cbsach','congbo\kekhaigia\CongboGiaSachController@index');
+
+Route::get('cbkekhaigia','congbo\kekhaigia\CongboKeKhaiGiaController@donvi');
+Route::get('cblinhvuckk','congbo\kekhaigia\CongboKeKhaiGiaController@linhvuc');
+Route::get('timkiemkekhai','congbo\kekhaigia\CongboKeKhaiGiaController@timkiem');
 
 //Văn bản quản lý nhà nước
 Route::get('cbvbqlnn','congbo\vanbanqlnn\CongboVanBanQLNNController@index');

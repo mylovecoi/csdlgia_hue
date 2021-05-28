@@ -40,8 +40,8 @@ class VanBanQlNnController extends Controller
         if(Session::has('admin')){
             $inputs = $request->all();
             $inputs['mahs'] = $inputs['phanloai'].$inputs['loaivb'].getdate()[0];
-            $inputs['ngayapdung'] = getDateToDb($inputs['ngayapdung']);
-            $inputs['ngaybanhanh'] = getDateToDb($inputs['ngaybanhanh']);
+//            $inputs['ngayapdung'] = getDateToDb($inputs['ngayapdung']);
+//            $inputs['ngaybanhanh'] = getDateToDb($inputs['ngaybanhanh']);
             if(isset($inputs['ipf1'])){
                 $ipf1 = $request->file('ipf1');
                 $inputs['ipt1'] = $inputs['mahs'] .'&1.'.$ipf1->getClientOriginalExtension();
@@ -139,8 +139,10 @@ class VanBanQlNnController extends Controller
     public function edit($id){
         if (Session::has('admin')) {
             $model = VanBanQlNn::findOrFail($id);
+            $m_donvi = getDonViNhapLieu(session('admin')->level,'vbgia');
             return view('manage.vanbanqlnn.qlnnvegia.edit')
                 ->with('model', $model)
+                ->with('a_donvi',array_column($m_donvi->toArray(),'tendv','madv'))
                 ->with('pageTitle', 'Văn bản quản lý nhà nước về giá chỉnh sửa');
         }else
             return view('errors.notlogin');

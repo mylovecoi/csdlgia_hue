@@ -101,7 +101,7 @@ class GiaHhDvKController extends Controller
             return view('errors.notlogin');
     }
 
-    public function create(Request $request)
+    public function create_c(Request $request)
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
@@ -178,6 +178,77 @@ class GiaHhDvKController extends Controller
                         ->with('inputs', $inputs)
                         ->with('pageTitle', 'Thông tin giá hàng hóa dịch vụ thêm mới');
                 }
+            } else
+                dd('Lỗi!Bạn cần xem lại thao tác!');
+
+        } else
+            return view('errors.notlogin');
+    }
+
+    public function create(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['url'] = '/giahhdvk';
+            //dd($inputs);
+            if (isset($inputs['mattbc']) && isset($inputs['madiaban'])) {
+                //xóa các chi tiết ko có hồ sơ (dữ liệu thừa do khi tạo mới thì tự thêm vào trong chi tiết mà ko cần lưu hồ sơ)
+                //DB::statement("DELETE FROM giahhdvkct WHERE mahs not in (SELECT mahs FROM giahhdvk where madv='" . $inputs['madv'] . "')");
+
+                $model = new GiaHhDvK();
+                //$tennhom = NhomHhDvK::where('matt', $inputs['mattbc'])->first()->tentt;
+                //$diaban = DiaBanHd::where('district', $inputs['districtbc'])->where('level', 'H')->first()->diaban;
+                //dd($inputs);
+                $m_lk = GiaHhDvK::where('trangthai', 'HT')
+                    ->where('matt', $inputs['mattbc'])
+                    ->where('madiaban', $inputs['madiaban'])
+                    ->orderby('thoidiem', 'desc')->first();
+                if ($m_lk != null) {
+                    $model->soqdlk = $m_lk->soqd;
+                    $model->thoidiemlk = $m_lk->thoidiemlk;
+                    $a_ctlk = array_column(GiaHhDvKCt::where('mahs', $m_lk->mahs)->get()->toarray(), 'gia', 'mahhdv');
+                }
+                //dd($a_ctlk);
+                $model->mahs = $inputs['madiaban'] . '_' . getdate()[0];
+                $model->matt = $inputs['mattbc'];
+                $model->madiaban = $inputs['madiaban'];
+                $model->madv = $inputs['madv'];
+                $model->trangthai = 'CHT';
+                $model->thang = $inputs['thang'];
+                $model->nam = $inputs['nam'];
+
+                //kiểm tra nếu đã tạo danh mục theo đơn vị thì lấy dm ko thì lấy theo hệ thống
+                $m_dm = DmHhDvK_DonVi::where('matt', $inputs['mattbc'])->where('madv', $inputs['madv'])->orderby('mahhdv')->get();
+                if (count($m_dm) == 0) {
+                    $m_dm = DmHhDvK::where('matt', $inputs['mattbc'])->orderby('mahhdv')->get();
+                }
+
+                $a_dm = array();
+                foreach ($m_dm as $dm) {
+                    $a_dm[] = [
+                        'mahs' => $model->mahs,
+                        'mahhdv' => $dm->mahhdv,
+                        'loaigia' => 'Giá bán lẻ',
+                        'nguontt' => 'Do cơ quan/đơn vị quản lý nhà nước có liên quan cung cấp/báo cáo theo quy định',
+                        'gia' => isset($a_ctlk[$dm->mahhdv]) && getDoubleToDb($a_ctlk[$dm->mahhdv]) > 0 ? round(getDoubleToDb($a_ctlk[$dm->mahhdv]), 0) : 0,
+                        'gialk' => isset($a_ctlk[$dm->mahhdv]) && getDoubleToDb($a_ctlk[$dm->mahhdv]) > 0 ? round(getDoubleToDb($a_ctlk[$dm->mahhdv]), 0) : 0,
+                    ];
+                    //để hàm round() để chương trình tự hiểu đó là số
+                }
+                //dd($a_dm);
+                GiaHhDvKCt::insert($a_dm);
+                $modelct = GiaHhDvKCt::where('mahs', $model->mahs)->get();
+                $a_diaban = array_column(dsdiaban::where('madiaban', $inputs['madiaban'])->get()->toarray(), 'tendiaban', 'madiaban');
+                $a_tt = array_column(NhomHhDvK::where('matt', $inputs['mattbc'])->get()->toarray(), 'tentt', 'matt');
+                $a_dm = array_column(DmHhDvK::where('matt', $inputs['mattbc'])->get()->toarray(), 'tenhhdv', 'mahhdv');
+                return view('manage.dinhgia.giahhdvk.kekhai.edit')
+                    ->with('model', $model)
+                    ->with('modelct', $modelct)
+                    ->with('a_diaban', $a_diaban)
+                    ->with('a_tt', $a_tt)
+                    ->with('a_dm', $a_dm)
+                    ->with('inputs', $inputs)
+                    ->with('pageTitle', 'Thông tin giá hàng hóa dịch vụ thêm mới');
+
             } else
                 dd('Lỗi!Bạn cần xem lại thao tác!');
 

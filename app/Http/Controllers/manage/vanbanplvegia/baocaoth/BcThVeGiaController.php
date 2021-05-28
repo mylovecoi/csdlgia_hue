@@ -148,9 +148,11 @@ class BcThVeGiaController extends Controller
             $model = BcThVeGia::findOrFail($id);
             $modeldm = BcThVeGiaDm::where('phanloai',$model->phanloai)
                 ->first();
+            $m_donvi = getDonViNhapLieu(session('admin')->level, 'bcthvegia');
             return view('manage.vanbanqlnn.baocaoth.ttqd.edit')
                 ->with('model', $model)
                 ->with('modeldm',$modeldm)
+                ->with('a_donvi', array_column($m_donvi->toArray(), 'tendv', 'madv'))
                 ->with('pageTitle', 'Thông tin báo cáo tổng hợp về giá chỉnh sửa');
         }else
             return view('errors.notlogin');

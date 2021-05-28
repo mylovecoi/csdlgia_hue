@@ -6,17 +6,33 @@
  * Time: 10:20 AM
  */?>
 <?php
+//Hàm tương tự array_column nhưng key có kiểu string
+function a_column($array, $col, $key){
+    $kq = array();
+    foreach($array as $chitiet){
+        $k = (string)$chitiet[$key];
+        $kq[$k] = $chitiet[$col];
+    }
+    $keys = array_keys($kq);
+    $values = array_values($kq);
+    $stringKeys = array_map('strval', $keys);
+    //dd($stringKeys);
+    $kq = array_combine($stringKeys, $values);
+    //dd(array_combine($values, $values));
+    return $kq;
+}
+
 //Hàm tạo mảng mới bằng cách lấy 1 số cột trong mảng cũ
 function a_split($array,$field){
-    $kq=array();
-    foreach($array as $ar){
-        $holding=array();
-        foreach($ar as $k => $v){
-            if(in_array($k,$field)){
-                $holding[$k]=$v;
+    $kq = array();
+    foreach ($array as $ar) {
+        $holding = array();
+        foreach ($ar as $k => $v) {
+            if (in_array($k, $field)) {
+                $holding[$k] = $v;
             }
         }
-        $kq[]=$holding;
+        $kq[] = $holding;
     }
     return $kq;
 }

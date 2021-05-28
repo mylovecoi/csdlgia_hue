@@ -30,6 +30,22 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <label class="control-label">Đơn vị nhập liệu</label>
+                                        {!! Form::select('madv', $a_donvi, null, ['id' => 'madv','class' => 'form-control select2me']) !!}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Ngày nhập liệu<span class="require">*</span></label>
+                                        {!! Form::input('date', 'thoidiem', null, array('id' => 'thoidiem', 'class' => 'form-control', 'required'))!!}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <label class="control-label">Phân loại văn bản<span class="require">*</span></label>
                                         {!! Form::select(
                                         'phanloai',
