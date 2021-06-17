@@ -87,7 +87,7 @@ class giaspdvtoidaController extends Controller
     public function create(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();
-            $inputs['url'] = '/giaspdvkhunggia';
+            $inputs['url'] = '/giaspdvtoida';
             $inputs['act'] = $inputs['act'] ?? 'true';
 
             $model = new giaspdvtoida();
