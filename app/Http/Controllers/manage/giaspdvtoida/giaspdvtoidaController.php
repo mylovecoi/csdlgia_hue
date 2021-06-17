@@ -164,8 +164,13 @@ class giaspdvtoidaController extends Controller
             //dd($inputs);
             $inputs['thoidiem'] = getDateToDb($inputs['thoidiem']);
             $model = giaspdvtoida::where('mahs', $inputs['mahs'])->first();
-            $model->update($inputs);
-            return redirect('giaspdvtoida/danhsach?&madv='.$model->madv);
+            if($model == null){
+                $inputs['trangthai'] = 'CHT';
+                giaspdvtoida::create($inputs);
+            }else{
+                $model->update($inputs);
+            }
+            return redirect('giaspdvtoida/danhsach?&madv='.$inputs['madv']);
         }else
             return view('errors.notlogin');
     }
