@@ -920,7 +920,7 @@ Route::group(['prefix'=>'giaspdvcuthe'],function (){
     Route::get('new','manage\giaspdvcuthe\giaspdvcutheController@create');
     Route::get('modify','manage\giaspdvcuthe\giaspdvcutheController@edit');
     Route::post('modify','manage\giaspdvcuthe\giaspdvcutheController@store');
-    Route::post('delete','manage\giaspdvcuthe\giaspdvcuthetroller@destroy');
+    Route::post('delete','manage\giaspdvcuthe\giaspdvcutheController@destroy');
     Route::get('dinhkem','manage\giaspdvcuthe\giaspdvcutheController@show');
 
     Route::get('store_ct','manage\giaspdvcuthe\giaspdvcuthectController@store');
