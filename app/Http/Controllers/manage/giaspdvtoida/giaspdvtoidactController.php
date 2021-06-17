@@ -4,6 +4,7 @@ namespace App\Http\Controllers\manage\giaspdvtoida;
 
 use App\Model\manage\dinhgia\giaspdvtoida\giaspdvtoida_ct;
 use App\Model\manage\dinhgia\giaspdvtoida\giaspdvtoida_dm;
+use App\Model\system\dmdvt;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -20,10 +21,16 @@ class giaspdvtoidactController extends Controller
         }
 
         $inputs = $request->all();
-        $inputs['dongia'] = getMoneyToDb($inputs['dongia']);
-        $inputs['trangthai'] = 'CXD';
-        $m_chk = giaspdvtoida_ct::where('maspdv',$inputs['maspdv'])->where('mahs',$inputs['mahs'])->first();
+        $chk_dvt = dmdvt::where('dvt', $inputs['dvt'])->get();
+        if (count($chk_dvt) == 0) {
+            dmdvt::insert(['dvt' => $inputs['dvt']]);
+        }
+
+        $inputs['dongia'] = chkDbl($inputs['dongia']);
+//        $inputs['trangthai'] = 'CXD';
+        $m_chk = giaspdvtoida_ct::where('id',$inputs['id'])->first();
         if($m_chk == null){
+            unset($inputs['id']);
             giaspdvtoida_ct::create($inputs);
         }else{
             $m_chk->update($inputs);
@@ -75,24 +82,27 @@ class giaspdvtoidactController extends Controller
         $result['message'] .= '<table class="table table-striped table-bordered table-hover" id="sample_3">';
         $result['message'] .= '<thead>';
         $result['message'] .= '<tr>';
-        $result['message'] .= '<th width="5%" style="text-align: center">STT</th>';
-        $result['message'] .= '<th style="text-align: center">Mô tả</th>';
-        $result['message'] .= '<th style="text-align: center" width="15%">Mức giá</th>';
-        $result['message'] .= '<th style="text-align: center" width="15%">Thao tác</th>';
+        $result['message'] .= '<th style="text-align: center" width="5%">STT</th>';
+        $result['message'] .= '<th style="text-align: center">Phân loại sản phẩm, dịch vụ</th>';
+        $result['message'] .= '<th style="text-align: center">Tên sản phẩm, dịch vụ</th>';
+        $result['message'] .= '<th style="text-align: center">Đơn vị<br>tính</th>';
+        $result['message'] .= '<th style="text-align: center">Mức giá<br>tối đa</th>';
+        $result['message'] .= '<th style="text-align: center" width="10%">Thao tác</th>';
         $result['message'] .= '</tr>';
         $result['message'] .= '</thead>';
-        $result['message'] .= '<tbody id="ttts">';
+        $result['message'] .= '<tbody>';
+        $i=1;
         if (count($model) > 0) {
-            $a_dm = array_column( giaspdvtoida_dm::all()->toArray(), 'tenspdv','maspdv');
             foreach ($model as $key => $tents) {
-                $result['message'] .= '<tr id="' . $tents->id . '">';
-                $result['message'] .= '<td style="text-align: center">' . ($key + 1) . '</td>';
-                $result['message'] .= '<td class="active" style="font-weight: bold">' . $a_dm[$tents->maspdv] . '</td>';
-                $result['message'] .= '<td style="text-align: right;font-weight: bold">' . number_format($tents->dongia) . '</td>';
+                $result['message'] .= '<tr>';
+                $result['message'] .= '<td style="text-align: center">' . ($i++) . '</td>';
+                $result['message'] .= '<td>' . $tents->phanloaidv. '</td>';
+                $result['message'] .= '<td class="active">' . $tents->mota. '</td>';
+                $result['message'] .= '<td class="text-center">' . $tents->dvt. '</td>';
+                $result['message'] .= '<td style="text-align: right;">' . dinhdangso($tents->dongia) . '</td>';
                 $result['message'] .= '<td>' .
-                    '<button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem(' . $tents->id . ');"><i class="fa fa-edit"></i>&nbsp;Sửa</button>' .
+                    '<button type="button" data-target="#modal-modify" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem(' . $tents->id . ');"><i class="fa fa-edit"></i>&nbsp;Sửa</button>' .
                     '<button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid(' . $tents->id . ')" ><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>'
-
                     . '</td>';
                 $result['message'] .= '</tr>';
             }

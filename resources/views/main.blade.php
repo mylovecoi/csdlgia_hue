@@ -19,7 +19,8 @@ License: You must have a valid license purchased only from themeforest(the above
 <head>
     <meta charset="utf-8"/>
     <title>{{$pageTitle}}</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {{--<meta http-equiv="X-UA-Compatible" content="IE=edge">--}}
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' www.googletagmanager.com connect.facebook.net www.googleadservices.com www.google-analytics.com googleads.g.doubleclick.net onesignal.com tpc.googlesyndication.com;">
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <meta content="" name="description"/>
     <meta content="" name="author"/>

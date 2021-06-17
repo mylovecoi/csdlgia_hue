@@ -1,0 +1,41 @@
+alter table general_configs
+add
+	sudungemail bit default (0);
+go
+
+alter table giaspdvtoida_ct
+add
+	[phanloaidv] [nvarchar](255) NULL,
+	[dvt] [nvarchar](255) NULL;
+go
+
+alter table giaspdvkhunggia_ct
+add
+	[phanloaidv] [nvarchar](255) NULL,
+    	[dvt] [nvarchar](255) NULL;
+go
+
+CREATE OR ALTER VIEW [dbo].[view_giaspdvkhunggia]
+AS
+SELECT        dbo.giaspdvkhunggia.mahs, dbo.giaspdvkhunggia.madiaban, dbo.giaspdvkhunggia.maxp, dbo.giaspdvkhunggia.soqd, dbo.giaspdvkhunggia.ttqd, dbo.giaspdvkhunggia.congbo, dbo.giaspdvkhunggia.thaotac,
+                         dbo.giaspdvkhunggia.ghichu, dbo.giaspdvkhunggia.lichsu, dbo.giaspdvkhunggia.tinhtrang, dbo.giaspdvkhunggia.thoidiem, dbo.giaspdvkhunggia.macqcq, dbo.giaspdvkhunggia.madv, dbo.giaspdvkhunggia.lydo,
+                         dbo.giaspdvkhunggia.thongtin, dbo.giaspdvkhunggia.trangthai, dbo.giaspdvkhunggia.ipf1, dbo.giaspdvkhunggia.ipf2, dbo.giaspdvkhunggia.ipf3, dbo.giaspdvkhunggia.ipf4, dbo.giaspdvkhunggia.ipf5,
+                         dbo.giaspdvkhunggia.thoidiem_h, dbo.giaspdvkhunggia.macqcq_h, dbo.giaspdvkhunggia.madv_h, dbo.giaspdvkhunggia.lydo_h, dbo.giaspdvkhunggia.thongtin_h, dbo.giaspdvkhunggia.trangthai_h,
+                         dbo.giaspdvkhunggia.thoidiem_t, dbo.giaspdvkhunggia.macqcq_t, dbo.giaspdvkhunggia.madv_t, dbo.giaspdvkhunggia.lydo_t, dbo.giaspdvkhunggia.thongtin_t, dbo.giaspdvkhunggia.trangthai_t,
+                         dbo.giaspdvkhunggia.thoidiem_ad, dbo.giaspdvkhunggia.macqcq_ad, dbo.giaspdvkhunggia.madv_ad, dbo.giaspdvkhunggia.lydo_ad, dbo.giaspdvkhunggia.thongtin_ad, dbo.giaspdvkhunggia.trangthai_ad,
+                         dbo.giaspdvkhunggia_ct.giatoithieu, dbo.giaspdvkhunggia_ct.giatoida, dbo.giaspdvkhunggia_ct.phanloaidv, dbo.giaspdvkhunggia_ct.mota, dbo.giaspdvkhunggia_ct.dvt
+FROM            dbo.giaspdvkhunggia INNER JOIN
+                         dbo.giaspdvkhunggia_ct ON dbo.giaspdvkhunggia.mahs = dbo.giaspdvkhunggia_ct.mahs
+GO
+
+CREATE OR ALTER VIEW [dbo].[view_giaspdvtoida]
+AS
+SELECT        dbo.giaspdvtoida.mahs, dbo.giaspdvtoida.madiaban, dbo.giaspdvtoida.maxp, dbo.giaspdvtoida.soqd, dbo.giaspdvtoida.ttqd, dbo.giaspdvtoida.congbo, dbo.giaspdvtoida.thaotac, dbo.giaspdvtoida.ghichu,
+                         dbo.giaspdvtoida.lichsu, dbo.giaspdvtoida.tinhtrang, dbo.giaspdvtoida.thoidiem, dbo.giaspdvtoida.macqcq, dbo.giaspdvtoida.madv, dbo.giaspdvtoida.lydo, dbo.giaspdvtoida.thongtin, dbo.giaspdvtoida.trangthai,
+                         dbo.giaspdvtoida.ipf1, dbo.giaspdvtoida.ipf2, dbo.giaspdvtoida.ipf3, dbo.giaspdvtoida.ipf4, dbo.giaspdvtoida.ipf5, dbo.giaspdvtoida.thoidiem_h, dbo.giaspdvtoida.macqcq_h, dbo.giaspdvtoida.madv_h, dbo.giaspdvtoida.lydo_h,
+                         dbo.giaspdvtoida.thongtin_h, dbo.giaspdvtoida.trangthai_h, dbo.giaspdvtoida.thoidiem_t, dbo.giaspdvtoida.macqcq_t, dbo.giaspdvtoida.madv_t, dbo.giaspdvtoida.lydo_t, dbo.giaspdvtoida.thongtin_t,
+                         dbo.giaspdvtoida.trangthai_t, dbo.giaspdvtoida.thoidiem_ad, dbo.giaspdvtoida.macqcq_ad, dbo.giaspdvtoida.madv_ad, dbo.giaspdvtoida.lydo_ad, dbo.giaspdvtoida.thongtin_ad, dbo.giaspdvtoida.trangthai_ad,
+                         dbo.giaspdvtoida_ct.dongia, dbo.giaspdvtoida_ct.mota, dbo.giaspdvtoida_ct.phanloaidv, dbo.giaspdvtoida_ct.dvt
+FROM            dbo.giaspdvtoida INNER JOIN
+                         dbo.giaspdvtoida_ct ON dbo.giaspdvtoida.mahs = dbo.giaspdvtoida_ct.mahs
+GO

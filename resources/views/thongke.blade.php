@@ -12,7 +12,7 @@
                     </div>
                     <?php $i=1;?>
                     <div class="portlet-body">
-                        <table class="table-dulieubang table table-striped table-bordered">
+                        <table class="dulieubang table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th width="10%" class="text-center">TT</th>
@@ -52,7 +52,7 @@
                         </div>
                         <?php $i=1;?>
                         <div class="portlet-body">
-                            <table class="table-dulieubang table table-striped table-bordered">
+                            <table class="dulieubang table table-striped table-bordered">
                                 <thead>
                                 <tr>
                                     <th width="10%" class="text-center">TT</th>

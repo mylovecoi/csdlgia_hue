@@ -31,5 +31,6 @@ class GeneralConfigs extends Model
         'ipf3',
         'ipf4',
         'ipf5',
+        'sudungemail'
     ];
 }

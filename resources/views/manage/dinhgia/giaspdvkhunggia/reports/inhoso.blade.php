@@ -43,7 +43,7 @@
         <?php $i = 1; ?>
         @foreach($a_phanloai as $pl)
             <?php
-                $chitiet = $model->where('phanloai', $pl);
+                $chitiet = $model->where('phanloaidv', $pl);
                 $k = 1;
             ?>
             <tr style="font-weight: bold;">
@@ -53,7 +53,7 @@
             @foreach($chitiet as $key=>$tt)
                 <tr>
                     <td style="text-align: center">{{$k++}}</td>
-                    <td>{{$tt->tenspdv}}</td>
+                    <td>{{$tt->mota}}</td>
                     <td style="text-align: center;">{{$tt->dvt}}</td>
                     <td style="text-align: right;">{{dinhdangso($tt->giatoithieu)}}</td>
                     <td style="text-align: right;">{{dinhdangso($tt->giatoida)}}</td>

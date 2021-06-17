@@ -106,7 +106,7 @@ class giaspdvcutheController extends Controller
             }else{
                 $model->update($inputs);
             }
-            return redirect('giaspdvcuthe/danhsach');
+            return redirect('giaspdvcuthe/danhsach?madv='.$inputs['madv']);
         }else
             return view('errors.notlogin');
     }

@@ -19,95 +19,6 @@
             TableManaged.init();
         });
     </script>
-{{--    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>--}}
-{{--    <script>--}}
-{{--        $(document).ready(function(){--}}
-{{--            $(":input").inputmask();--}}
-{{--        });--}}
-{{--    </script>--}}
-    <script>
-        function clearForm(){
-            $('#dongia').val('0');
-            InputMask();
-        }
-
-        function capnhatts(){
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            $.ajax({
-                url: '{{$inputs['url']}}' + '/store_ct',
-                type: 'GET',
-                data: {
-                    _token: CSRF_TOKEN,
-                    maspdv: $('#maspdv').val(),
-                    dongia: $('#dongia').val(),
-                    mahs:$('#mahs').val(),
-                },
-                dataType: 'JSON',
-                success: function (data) {
-                    if(data.status == 'success') {
-                        toastr.success("Cập nhật thông tin thuê tài sản công thành công", "Thành công!");
-                        $('#dsts').replaceWith(data.message);
-                        jQuery(document).ready(function() {
-                            TableManaged.init();
-                        });
-                        $('#modal-create').modal("hide");
-                    }
-                    else
-                        toastr.error("Bạn cần kiểm tra lại thông tin vừa nhập!", "Lỗi!");
-                }
-            })
-        }
-        function editItem(id) {
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            //alert(id);
-            $.ajax({
-                url: '{{$inputs['url']}}' + '/get_ct',
-                type: 'GET',
-                data: {
-                    _token: CSRF_TOKEN,
-                    id: id
-                },
-                dataType: 'JSON',
-                success: function (data) {
-                    var form = $('#frm_modify');
-                    form.find("[name='maspdv']").val(data.maspdv).trigger('change');
-                    form.find("[name='dongia']").val(data.dongia);
-                    form.find("[name='id']").val(data.id);
-                    InputMask();
-                },
-            })
-        }
-
-        function getid(id){
-            document.getElementById("iddelete").value=id;
-        }
-
-        function delrow(){
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            $.ajax({
-                url: '{{$inputs['url']}}' + '/del_ct',
-                type: 'GET',
-                data: {
-                    _token: CSRF_TOKEN,
-                    id: $('input[name="iddelete"]').val(),
-                    mahs:$('#mahs').val(),
-                },
-                dataType: 'JSON',
-                success: function (data) {
-                    //if(data.status == 'success') {
-                    toastr.success("Bạn đã xóa thông tin thành công!", "Thành công!");
-                    $('#dsts').replaceWith(data.message);
-                    jQuery(document).ready(function() {
-                        TableManaged.init();
-                    });
-                    $('#modal-delete').modal("hide");
-
-                    //}
-                }
-            })
-
-        }
-    </script>
 @stop
 
 @section('content')
@@ -125,6 +36,7 @@
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
                     <input type="hidden" name="mahs" id="mahs" value="{{$model->mahs}}">
+                    <input type="hidden" name="madv" id="madv" value="{{$model->madv}}">
                     <div class="form-body">
                         <div class="row">
                             <div class="col-md-6">
@@ -167,8 +79,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-success btn-xs" onclick="clearForm()">
-                                        <i class="fa fa-plus"></i>&nbsp;Thêm mới sản phẩm</button>                                    &nbsp;
+                                    <button type="button" data-target="#modal-modify" data-toggle="modal" class="btn btn-success btn-xs" onclick="clearForm()">
+                                        <i class="fa fa-plus"></i>&nbsp;Thêm sản phẩm, dịch vụ</button>                                &nbsp;
                                 </div>
                             </div>
                         </div>
@@ -177,22 +89,27 @@
                             <div class="col-md-12">
                                 <table class="table table-striped table-bordered table-hover" id="sample_3">
                                     <thead>
-                                        <tr>
-                                            <th width="5%" style="text-align: center">STT</th>
-                                            <th style="text-align: center">Tên sản phẩm, dịch vụ</th>
-                                            <th style="text-align: center" width="15%">Đơn giá</th>
-                                            <th style="text-align: center" width="10%">Thao tác</th>
-                                        </tr>
+                                    <tr>
+                                        <th width="5%" style="text-align: center">STT</th>
+                                        <th style="text-align: center">Phân loại sản phẩm, dịch vụ</th>
+                                        <th style="text-align: center">Tên sản phẩm, dịch vụ</th>
+                                        <th style="text-align: center">Đơn vị<br>tính</th>
+                                        <th style="text-align: center">Mức giá<br>tối đa</th>
+                                        <th style="text-align: center" width="10%">Thao tác</th>
+                                    </tr>
                                     </thead>
                                     <tbody id="ttts">
+                                    <?php $i = 1; ?>
                                     @foreach($modelct as $key=>$tt)
                                         <tr id={{$tt->id}}>
-                                            <td style="text-align: center">{{($key +1)}}</td>
-                                            <td class="active" style="font-weight: bold">{{$a_spdv[$tt->maspdv] ?? ''}}</td>
-                                            <td style="text-align: right;font-weight: bold">{{number_format($tt->dongia)}}</td>
+                                            <td style="text-align: center">{{$i++}}</td>
+                                            <td style="text-align: left">{{$tt->phanloaidv}}</td>
+                                            <td style="text-align: left" class="active">{{$tt->mota}}</td>
+                                            <td class="text-center">{{$tt->dvt}}</td>
+                                            <td style="text-align: right;">{{dinhdangso($tt->dongia)}}</td>
                                             <td>
                                                 @if(in_array($model->trangthai, ['CHT', 'HHT']))
-                                                    <button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem({{$tt->id}})">
+                                                    <button type="button" data-target="#modal-modify" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem({{$tt->id}})">
                                                         <i class="fa fa-edit"></i>&nbsp;Sửa</button>
                                                     <button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid({{$tt->id}})" >
                                                         <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
@@ -217,22 +134,16 @@
                     </div>
                 </div>
             </div>
-            @if($inputs['act'] == 'true')
-                <div class="row">
-                    <div class="col-md-12" style="text-align: center">
-                        <!-- thêm mới hồ sơ, sau đó nhấn quay lại ==> tự động xoa hồ sơ thêm mới -->
-                        @if(isset($inputs['addnew']))
-                            <a href="{{url($inputs['url'].'/xoahs?mahs='.$model->mahs)}}" class="btn btn-danger">
-                                <i class="fa fa-reply"></i>&nbsp;Quay lại</a>
-                        @else
-                            <a href="{{url($inputs['url'].'/danhsach?madv='.$model->madv)}}" class="btn btn-danger">
-                                <i class="fa fa-reply"></i>&nbsp;Quay lại</a>
-                        @endif
 
-                        <button type="submit" class="btn green"><i class="fa fa-check"></i> Hoàn thành</button>
-                    </div>
+            <div class="row">
+                <div class="col-md-12" style="text-align: center">
+                    <a href="{{url($inputs['url'].'/danhsach?&madiaban='.$model->madiaban)}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                    @if($inputs['act'] == 'true')
+                        <button type="submit" class="btn green" onclick="validateForm()">
+                            <i class="fa fa-check"></i> Hoàn thành</button>
+                    @endif
                 </div>
-            @endif
+            </div>
             {!! Form::close() !!}
             <!-- END FORM-->
 
@@ -254,71 +165,8 @@
         }
     </script>
 
-    <!--Model frm_modify-->
-    {!! Form::open(['method' => 'post', 'url'=>'', 'class'=>'horizontal-form','id'=>'frm_modify']) !!}
-    {!!Form::hidden('id')!!}
-    <div class="modal fade bs-modal-lg" id="modal-create" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Thông tin sản phẩm, dịch vụ</h4>
-                </div>
-                <div class="modal-body" id="ttmhbog">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">Tên sản phẩm, dịch vụ<span class="require">*</span></label>
-                                <select name="maspdv" id="maspdv" class="form-control select2me">
-                                    @foreach($a_pl as $pl)
-                                        <optgroup label="{{$pl}}">
-                                            <?php $m_ct = $m_dm->where('phanloai',$pl); ?>
-                                                @foreach($m_ct as $ct)
-                                                    <option value="{{$ct->maspdv}}">{{$ct->tenspdv}}</option>
-                                                @endforeach
-                                        </optgroup>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">Đơn giá</label>
-                                <input type="text" id="dongia" name="dongia" data-mask="fdecimal" class="form-control" style="font-weight: bold;text-align: right">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-default">Thoát</button>
-                    <button type="button" class="btn btn-primary" onclick="capnhatts()">Hoàn thành</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!--Model Delete-->
-    <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Đồng ý xóa thông tin?</h4>
-                </div>
-                <input type="hidden" id="iddelete" name="iddelete">
-                <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-default">Thoát</button>
-                    <button type="button" class="btn btn-primary" onclick="delrow()">Đồng ý</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
+    @include('manage.dinhgia.giaspdvtoida.kekhai.modal')
+    @include('manage.include.form.phanloaidv.modal_phanloaidv')
     @include('includes.script.set_date_thoihanthamdinh')
     @include('includes.script.inputmask-ajax-scripts')
     @include('includes.script.create-header-scripts')

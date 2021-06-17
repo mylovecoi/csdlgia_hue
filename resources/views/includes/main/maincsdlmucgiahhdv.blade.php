@@ -604,11 +604,11 @@
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
-                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvtoida', 'danhmuc','index'))
-                            <li>
-                                <a href="{{url('/giaspdvtoida/danhmuc')}}">Danh mục</a>
-                            </li>
-                        @endif
+                        {{--@if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvtoida', 'danhmuc','index'))--}}
+                            {{--<li>--}}
+                                {{--<a href="{{url('/giaspdvtoida/danhmuc')}}">Danh mục</a>--}}
+                            {{--</li>--}}
+                        {{--@endif--}}
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvtoida', 'hoso','index'))
                             @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
@@ -641,11 +641,11 @@
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
-                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvkhunggia', 'danhmuc','index'))
-                            <li>
-                                <a href="{{url('/giaspdvkhunggia/danhmuc')}}">Danh mục</a>
-                            </li>
-                        @endif
+                        {{--@if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvkhunggia', 'danhmuc','index'))--}}
+                            {{--<li>--}}
+                                {{--<a href="{{url('/giaspdvkhunggia/danhmuc')}}">Danh mục</a>--}}
+                            {{--</li>--}}
+                        {{--@endif--}}
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvkhunggia', 'hoso','index'))
                             @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>

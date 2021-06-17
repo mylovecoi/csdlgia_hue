@@ -36,13 +36,13 @@
             <th width="5%" style="text-align: center">STT</th>
             <th style="text-align: center">Phân loại</th>
             <th style="text-align: center" width="15%">Đơn vị<br>tính</th>
-            <th style="text-align: center" width="15%">Đơn giá<br> thuê</th>
+            <th style="text-align: center" width="15%">Mức giá<br>tối đa</th>
 
         </tr>
         <?php $i = 1; ?>
         @foreach($a_phanloai as $pl)
             <?php
-                $chitiet = $model->where('phanloai', $pl);
+                $chitiet = $model->where('phanloaidv', $pl);
                 $k = 1;
             ?>
             <tr style="font-weight: bold;">
@@ -52,7 +52,7 @@
             @foreach($chitiet as $key=>$tt)
                 <tr>
                     <td style="text-align: center">{{$k++}}</td>
-                    <td>{{$tt->tenspdv}}</td>
+                    <td>{{$tt->mota}}</td>
                     <td style="text-align: center;">{{$tt->dvt}}</td>
                     <td style="text-align: right;">{{dinhdangso($tt->dongia)}}</td>
                 </tr>

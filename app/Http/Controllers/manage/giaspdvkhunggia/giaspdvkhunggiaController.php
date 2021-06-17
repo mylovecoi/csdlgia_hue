@@ -5,6 +5,7 @@ namespace App\Http\Controllers\manage\giaspdvkhunggia;
 use App\Model\manage\dinhgia\giaspdvkhunggia\giaspdvkhunggia;
 use App\Model\manage\dinhgia\giaspdvkhunggia\giaspdvkhunggia_ct;
 use App\Model\manage\dinhgia\giaspdvkhunggia\giaspdvkhunggia_dm;
+use App\Model\system\dmdvt;
 use App\Model\system\dsdiaban;
 use App\Model\system\dsdonvi;
 use App\Model\system\view_dsdiaban_donvi;
@@ -85,26 +86,27 @@ class giaspdvkhunggiaController extends Controller
     public function create(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();
-            $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
-            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->where('level','H')->first();
+            $inputs['url'] = '/giaspdvkhunggia';
+            $inputs['act'] = $inputs['act'] ?? 'true';
+
             $model = new giaspdvkhunggia();
-            $model->mahs = getdate()[0];
-            $model->madiaban = $m_diaban->madiaban ?? null;
+            $model->mahs = $inputs['madv'] . '_' . getdate()[0];
             $model->madv = $inputs['madv'];
             $model->trangthai = 'CHT';
             $model->thoidiem = date('Y-m-d');
 
-            $a_lichsu[$model->mahs] = [
-                'username' => session('admin')->username,
-                'hanhdong' => 'ADD',
-                'mota' => 'Thêm mới hồ sơ',
-                'thoigian' => $model->thoidiem,
-            ];
+            $a_phanloaidv = array_column(giaspdvkhunggia_ct::get('phanloaidv')->toArray(),'phanloaidv','phanloaidv');
+            $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
+            $a_diabanapdung = getDiaBan_ApDung(\session('admin')->level, \session('admin')->madiaban);
 
-            $model->lichsu = json_encode($a_lichsu);
-            $model->save();
-
-            return redirect('/giaspdvkhunggia/modify?mahs='.$model->mahs.'&act=true&addnew=true');
+            return view('manage.dinhgia.giaspdvkhunggia.kekhai.edit')
+                ->with('model', $model)
+                ->with('modelct', nullValue())
+                ->with('a_diabanapdung', $a_diabanapdung)
+                ->with('a_phanloaidv', $a_phanloaidv)
+                ->with('a_dvt', $a_dvt)
+                ->with('inputs', $inputs)
+                ->with('pageTitle', 'Thông tin hồ sơ');
         }else
             return view('errors.notlogin');
     }
@@ -122,15 +124,15 @@ class giaspdvkhunggiaController extends Controller
 //            $a_spdv = array_column(giaspdvkhunggia_dm::all()->toArray(),
 //                'tenspdv','maspdv');
             //dd($modelct);
-            $m_dm = giaspdvkhunggia_dm::all();
-            $a_pl = a_unique(array_column($m_dm->toArray(),'phanloai'));
+            $a_phanloaidv = array_column(giaspdvkhunggia_ct::get('phanloaidv')->toArray(),'phanloaidv','phanloaidv');
+            $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
             return view('manage.dinhgia.giaspdvkhunggia.kekhai.edit')
                 ->with('model',$model)
                 ->with('modelct',$modelct)
                 ->with('m_diaban',$m_diaban)
                 ->with('m_donvi',$m_donvi)
-                ->with('m_dm',$m_dm)
-                ->with('a_pl',$a_pl)
+                ->with('a_dvt',$a_dvt)
+                ->with('a_phanloaidv',$a_phanloaidv)
                 ->with('inputs',$inputs)
                 ->with('pageTitle','Chi tiết hồ sơ');
         }else
@@ -155,14 +157,19 @@ class giaspdvkhunggiaController extends Controller
             if(isset($inputs['ipf1'])){
                 $ipf1 = $request->file('ipf1');
                 $name = $inputs['mahs'] .'&1.'.$ipf1->getClientOriginalName();
-                $ipf1->move(public_path() . '/data/giaspdvcuthe/', $name);
+                $ipf1->move(public_path() . '/data/giaspdvkhungia/', $name);
                 $inputs['ipf1']= $name;
             }
             //dd($inputs);
             $inputs['thoidiem'] = getDateToDb($inputs['thoidiem']);
             $model = giaspdvkhunggia::where('mahs', $inputs['mahs'])->first();
-            $model->update($inputs);
-            return redirect('giaspdvkhunggia/danhsach?&madv='.$model->madv);
+            if($model == null){
+                $inputs['trangthai'] = 'CHT';
+                giaspdvkhunggia::create($inputs);
+            }else{
+                $model->update($inputs);
+            }
+            return redirect('giaspdvkhunggia/danhsach?&madv='.$inputs['madv']);
         }else
             return view('errors.notlogin');
     }
@@ -382,26 +389,12 @@ class giaspdvkhunggiaController extends Controller
             $inputs = $request->all();
             $m_hoso = giaspdvkhunggia::where('mahs', $inputs['mahs'])->first();
             $m_donvi = dsdonvi::where('madv', $m_hoso->madv)->first();
-            //$m_diaban = dsdiaban::wherein('madiaban',array_column($model->toarray(),'madiaban'))->get();
-            $a_danhmuc = giaspdvkhunggia_dm::all()->keyBy('maspdv')->toArray();
             $model = giaspdvkhunggia_ct::where('mahs', $inputs['mahs'])->get();
-            foreach ($model as $chitiet){
-                $dm = $a_danhmuc[$chitiet->maspdv];
-                if(isset($dm)){
-                    $chitiet->dvt = $dm['dvt'];
-                    $chitiet->phanloai = $dm['phanloai'];
-                    $chitiet->tenspdv = $dm['tenspdv'];
-                }
-            }
-            //dd($m_hoso);
-            //$a_phanloai = array_column(giaspdvtoida_dm::get('phanloai')->toArray(),'phanloai','phanloai');
             return view('manage.dinhgia.giaspdvkhunggia.reports.inhoso')
                 ->with('m_hoso',$m_hoso)
                 ->with('model',$model)
                 ->with('m_donvi',$m_donvi)
-                //->with('m_diaban',$m_diaban)
-                //->with('a_dm',$a_ts)
-                ->with('a_phanloai', a_unique(array_column($a_danhmuc,'phanloai')))
+                ->with('a_phanloai', a_unique(array_column($model->toarray(),'phanloaidv')))
                 ->with('inputs',$inputs)
                 ->with('pageTitle','Thông tin hồ sơ');
         }else

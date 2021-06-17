@@ -36,7 +36,7 @@
             <th width="5%" style="text-align: center">STT</th>
             <th style="text-align: center">Phân loại</th>
             <th style="text-align: center" width="15%">Đơn vị<br>tính</th>
-            <th style="text-align: center" width="15%">Đơn giá<br> thuê</th>
+            <th style="text-align: center" width="15%">Mức giá<br>cụ thể</th>
 
         </tr>
         <?php $i = 1; ?>

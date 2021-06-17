@@ -33,6 +33,7 @@ class CreateGeneralConfigsTable extends Migration
             $table->string('emailql')->nullable();
             $table->string('tendvhienthi')->nullable();
             $table->string('tendvcqhienthi')->nullable();
+            $table->boolean('sudungemail')->default(0);
             $table->string('ipf1')->nullable();
             $table->string('ipf2')->nullable();
             $table->string('ipf3')->nullable();

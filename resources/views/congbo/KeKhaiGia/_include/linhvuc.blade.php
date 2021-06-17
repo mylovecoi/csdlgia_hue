@@ -87,8 +87,8 @@
                                             <td class="active">{{$tt->tendvcu}}</td>
                                             <td style="text-align: left">{{$tt->qccl}}</td>
                                             <td style="text-align: center">{{$tt->dvt}}</td>
-                                            <td style="text-align: right">{{number_format($tt->gialk)}}</td>
-                                            <td style="text-align: right">{{number_format($tt->giakk)}}</td>
+                                            <td style="text-align: right">{{dinhdangso($tt->gialk)}}</td>
+                                            <td style="text-align: right">{{dinhdangso($tt->giakk)}}</td>
                                             <td style="text-align: left">{{$tt->ghichu}}</td>
                                         </tr>
                                     @endforeach

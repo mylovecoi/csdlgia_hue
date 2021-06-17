@@ -11,7 +11,9 @@ class giaspdvkhunggia_ct extends Model
         'id',
         'mahs',
         'maspdv',
+        'phanloaidv',
         'mota',
+        'dvt',
         'giatoithieu',
         'giatoida',
     ];

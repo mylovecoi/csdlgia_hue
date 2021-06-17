@@ -16,9 +16,7 @@ SELECT        dbo.giaspdvkhunggia.mahs, dbo.giaspdvkhunggia.madiaban, dbo.giaspd
                          dbo.giaspdvkhunggia.thoidiem_h, dbo.giaspdvkhunggia.macqcq_h, dbo.giaspdvkhunggia.madv_h, dbo.giaspdvkhunggia.lydo_h, dbo.giaspdvkhunggia.thongtin_h, dbo.giaspdvkhunggia.trangthai_h,
                          dbo.giaspdvkhunggia.thoidiem_t, dbo.giaspdvkhunggia.macqcq_t, dbo.giaspdvkhunggia.madv_t, dbo.giaspdvkhunggia.lydo_t, dbo.giaspdvkhunggia.thongtin_t, dbo.giaspdvkhunggia.trangthai_t,
                          dbo.giaspdvkhunggia.thoidiem_ad, dbo.giaspdvkhunggia.macqcq_ad, dbo.giaspdvkhunggia.madv_ad, dbo.giaspdvkhunggia.lydo_ad, dbo.giaspdvkhunggia.thongtin_ad, dbo.giaspdvkhunggia.trangthai_ad,
-                         dbo.giaspdvkhunggia_ct.giatoithieu, dbo.giaspdvkhunggia_ct.giatoida, dbo.giaspdvkhunggia_dm.maspdv, dbo.giaspdvkhunggia_dm.tenspdv, dbo.giaspdvkhunggia_dm.dvt, dbo.giaspdvkhunggia_dm.mota,
-                         dbo.giaspdvkhunggia_dm.phanloai
+                         dbo.giaspdvkhunggia_ct.giatoithieu, dbo.giaspdvkhunggia_ct.giatoida, dbo.giaspdvkhunggia_ct.phanloaidv, dbo.giaspdvkhunggia_ct.mota
 FROM            dbo.giaspdvkhunggia INNER JOIN
-                         dbo.giaspdvkhunggia_ct ON dbo.giaspdvkhunggia.mahs = dbo.giaspdvkhunggia_ct.mahs INNER JOIN
-                         dbo.giaspdvkhunggia_dm ON dbo.giaspdvkhunggia_ct.maspdv = dbo.giaspdvkhunggia_dm.maspdv
+                         dbo.giaspdvkhunggia_ct ON dbo.giaspdvkhunggia.mahs = dbo.giaspdvkhunggia_ct.mahs
  */

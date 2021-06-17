@@ -11,7 +11,9 @@ class giaspdvtoida_ct extends Model
         'id',
         'mahs',
         'maspdv',
+        'phanloaidv',
         'mota',
+        'dvt',
         'dongia',
     ];
 }

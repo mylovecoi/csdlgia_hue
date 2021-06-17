@@ -17,9 +17,24 @@ License: You must have a valid license purchased only from themeforest(the above
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
 <head>
+<!--    --><?php
+//    function header_csp_generate(){
+//        header("Content-Security-Policy:
+//          default-src 'self';
+//          script-src 'self' 'unsafe-inline' www.googletagmanager.com www.google-analytics.com tagmanager.google.com;
+//          style-src 'self' 'unsafe-inline' tagmanager.google.com;
+//          img-src 'self' data: www.googletagmanager.com www.google-analytics.com www.google.com www.google.com.vn i.ytimg.com https://*.gravatar.com https://images.dmca.com;
+//          frame-src www.googletagmanager.com www.google.com www.youtube.com;
+//          font-src 'self';
+//          connect-src 'self' *.google.com google.com google.com.vn www.google-analytics.com;
+//          object-src 'none'");
+//    }
+//    add_filter('wp_head', 'header_csp_generate');
+//    ?>
     <meta charset="utf-8"/>
     <title>{{$pageTitle}}</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {{--<meta http-equiv="X-UA-Compatible" content="IE=edge">--}}
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' www.googletagmanager.com connect.facebook.net www.googleadservices.com www.google-analytics.com googleads.g.doubleclick.net onesignal.com tpc.googlesyndication.com;">
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <meta content="" name="description"/>
     <meta content="" name="author"/>

@@ -52,7 +52,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN LOGO -->
 <div class="logo">
 	<a href="">
-		<img src="{{ url('images/LIFESOFT.png')}}"  width="250" alt="Công ty TNHH phát triển phần mềm Cuộc Sống"/>
+		<img src="{{ url('images/LIFESOFT.png')}}"  width="180" alt="Công ty TNHH phát triển phần mềm Cuộc Sống"/>
 	</a>
 	<h2 style="text-transform: uppercase;"><b style="color: #32c5d2">PHẦN MỀM CƠ SỞ DỮ LIỆU VỀ GIÁ
 			{{isset(getGeneralConfigs()['diadanh']) ? getGeneralConfigs()['diadanh'] : ''}}</b></h2>
@@ -89,6 +89,9 @@ License: You must have a valid license purchased only from themeforest(the above
 			</div>
 		</div>
 		<div class="form-actions">
+			{{--<button type="submit" class="btn red pull-left" id="login_button" onclick="validatePassword();">--}}
+				{{--Đăng nhập <i class="m-icon-swapright m-icon-white"></i>--}}
+			{{--</button>--}}
 			<button type="submit" class="btn red pull-right" id="login_button" onclick="validatePassword();">
 				Đăng nhập <i class="m-icon-swapright m-icon-white"></i>
 			</button>
@@ -102,17 +105,25 @@ License: You must have a valid license purchased only from themeforest(the above
 			{{--</p>--}}
 		</div>
 		<div class="create-account">
-			<p>
-				Bạn chưa có tài khoản?&nbsp;  <b><a href="{{url('/doanhnghiep/dangky')}}">
-					Đăng ký tài khoản </a></b>
-			</p>
-			<p>
-				<a href="{{url('thongtinhotro')}}" target="_blank"><b>Thông tin hỗ trợ</b></a>
-			</p>
-			@if($inputs['ipf2'] != '')
+			<div class="row">
 				<p>
-					<a href="{{url('/data/huongdan/'.$inputs['ipf2'])}}" target="_blank"><b>Tài liệu hướng dẫn đăng ký tài khoản</b></a>
+					Bạn chưa có tài khoản?&nbsp;  <b><a href="{{url('/doanhnghiep/dangky')}}">Đăng ký tài khoản</a></b>
+
 				</p>
+			</div>
+
+			<div class="row">
+				<p>
+					<a href="{{url('/data/huongdan/')}}" target="_blank"><b>Tìm lại mật khẩu</b></a>
+					<a class="pull-right"  href="{{url('thongtinhotro')}}" target="_blank"><b>Thông tin hỗ trợ</b></a>
+				</p>
+			</div>
+			@if($inputs['ipf2'] != '')
+				<div class="row">
+					<p>
+						<a href="{{url('/data/huongdan/'.$inputs['ipf2'])}}" target="_blank"><b>Tài liệu hướng dẫn đăng ký tài khoản</b></a>
+					</p>
+				</div>
 			@endif
 		</div>
 </div>

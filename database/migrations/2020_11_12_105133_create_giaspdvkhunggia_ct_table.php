@@ -17,7 +17,9 @@ class CreateGiaspdvkhunggiaCtTable extends Migration
             $table->increments('id');
             $table->string('mahs')->nullable();
             $table->string('maspdv')->nullable();
+            $table->string('phanloaidv')->nullable();
             $table->text('mota')->nullable();
+            $table->string('dvt')->nullable();
             $table->double('giatoithieu')->default(0);
             $table->double('giatoida')->default(0);
             $table->timestamps();

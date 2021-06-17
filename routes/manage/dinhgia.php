@@ -956,7 +956,7 @@ Route::group(['prefix'=>'giaspdvtoida'],function (){
     Route::get('xoahs','manage\giaspdvtoida\giaspdvtoidaController@destroy');
 
     Route::get('store_ct','manage\giaspdvtoida\giaspdvtoidactController@store');
-    Route::get('get_ct','manage\giaspdvtoida\giaspdvtoidactController@show');
+    Route::get('edit_ct','manage\giaspdvtoida\giaspdvtoidactController@show');
     Route::get('del_ct','manage\giaspdvtoida\giaspdvtoidactController@destroy');
     Route::post('importexcel','manage\giaspdvtoida\giaspdvtoidactController@importexcel');
 
@@ -988,7 +988,7 @@ Route::group(['prefix'=>'giaspdvkhunggia'],function (){
     Route::get('dinhkem','manage\giaspdvkhunggia\giaspdvkhunggiaController@show_dk');
 
     Route::get('store_ct','manage\giaspdvkhunggia\giaspdvkhunggiactController@store');
-    Route::get('get_ct','manage\giaspdvkhunggia\giaspdvkhunggiactController@show');
+    Route::get('edit_ct','manage\giaspdvkhunggia\giaspdvkhunggiactController@show');
     Route::get('del_ct','manage\giaspdvkhunggia\giaspdvkhunggiactController@destroy');
     Route::post('importexcel','manage\giaspdvkhunggia\giaspdvkhunggiactController@importexcel');
 

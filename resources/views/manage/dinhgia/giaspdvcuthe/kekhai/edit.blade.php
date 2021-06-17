@@ -113,7 +113,7 @@
                                             <th style="text-align: center">Tên sản phẩm, dịch vụ</th>
                                             <th style="text-align: center">Đơn vị<br>tính</th>
                                             <th style="text-align: center">Mức giá</th>
-                                            <th style="text-align: center" width="20%">Thao tác</th>
+                                            <th style="text-align: center" width="10%">Thao tác</th>
                                         </tr>
                                     </thead>
                                     <tbody>

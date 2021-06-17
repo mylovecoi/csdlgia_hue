@@ -66,10 +66,9 @@ class giaspdvcuthectController extends Controller
             die(json_encode($result));
         }
         $inputs = $request->all();
-        $chk = giaspdvcuthe_ct::where('id',$inputs['id'])->delete();
-        $mahs = $chk->mahs;
-        $chk->delete();
-        $model = giacuocvanchuyenct::where('mahs',$mahs)->get();
+
+        giaspdvcuthe_ct::where('id',$inputs['id'])->delete();
+        $model = giaspdvcuthe_ct::where('mahs',$inputs['mahs'])->get();
         $result = $this->return_spdv($model);
         die(json_encode($result));
     }
@@ -92,7 +91,7 @@ class giaspdvcuthectController extends Controller
         $result['message'] .= '<th style="text-align: center">Tên sản phẩm, dịch vụ</th>';
         $result['message'] .= '<th style="text-align: center">Đơn vị<br>tính</th>';
         $result['message'] .= '<th style="text-align: center">Mức giá</th>';
-        $result['message'] .= '<th style="text-align: center" width="20%">Thao tác</th>';
+        $result['message'] .= '<th style="text-align: center" width="10%">Thao tác</th>';
         $result['message'] .= '</tr>';
         $result['message'] .= '</thead>';
         $result['message'] .= '<tbody>';

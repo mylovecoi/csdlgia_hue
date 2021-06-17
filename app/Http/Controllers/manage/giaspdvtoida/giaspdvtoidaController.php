@@ -6,6 +6,7 @@ namespace App\Http\Controllers\manage\giaspdvtoida;
 use App\Model\manage\dinhgia\giaspdvtoida\giaspdvtoida;
 use App\Model\manage\dinhgia\giaspdvtoida\giaspdvtoida_ct;
 use App\Model\manage\dinhgia\giaspdvtoida\giaspdvtoida_dm;
+use App\Model\system\dmdvt;
 use App\Model\system\dsdiaban;
 use App\Model\system\dsdonvi;
 use App\Model\system\view_dsdiaban_donvi;
@@ -86,26 +87,27 @@ class giaspdvtoidaController extends Controller
     public function create(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();
-            $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
-            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->where('level','H')->first();
+            $inputs['url'] = '/giaspdvkhunggia';
+            $inputs['act'] = $inputs['act'] ?? 'true';
+
             $model = new giaspdvtoida();
-            $model->mahs = getdate()[0];
-            $model->madiaban = $m_diaban->madiaban ?? null;
+            $model->mahs = $inputs['madv'] . '_' . getdate()[0];
             $model->madv = $inputs['madv'];
             $model->trangthai = 'CHT';
             $model->thoidiem = date('Y-m-d');
 
-            $a_lichsu[$model->mahs] = [
-                'username' => session('admin')->username,
-                'hanhdong' => 'ADD',
-                'mota' => 'Thêm mới hồ sơ',
-                'thoigian' => $model->thoidiem,
-            ];
+            $a_phanloaidv = array_column(giaspdvtoida_ct::get('phanloaidv')->toArray(),'phanloaidv','phanloaidv');
+            $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
+            $a_diabanapdung = getDiaBan_ApDung(\session('admin')->level, \session('admin')->madiaban);
 
-            $model->lichsu = json_encode($a_lichsu);
-            $model->save();
-
-            return redirect('/giaspdvtoida/modify?mahs='.$model->mahs.'&act=true&addnew=true');
+            return view('manage.dinhgia.giaspdvtoida.kekhai.edit')
+                ->with('model', $model)
+                ->with('modelct', nullValue())
+                ->with('a_diabanapdung', $a_diabanapdung)
+                ->with('a_phanloaidv', $a_phanloaidv)
+                ->with('a_dvt', $a_dvt)
+                ->with('inputs', $inputs)
+                ->with('pageTitle', 'Thông tin hồ sơ');
         }else
             return view('errors.notlogin');
     }
@@ -120,18 +122,18 @@ class giaspdvtoidaController extends Controller
             $model = giaspdvtoida::where('mahs',$inputs['mahs'])->first();
             $modelct = giaspdvtoida_ct::where('mahs',$model->mahs)->get();
             $inputs['url'] = '/giaspdvtoida';
-            $m_dm = giaspdvtoida_dm::all();
-            $a_pl = a_unique(array_column($m_dm->toArray(),'phanloai'));
 //            $a_spdv = array_column(giaspdvtoida_dm::all()->toArray(),
 //                'tenspdv','maspdv');
             //dd($a_dm);
+            $a_phanloaidv = array_column(giaspdvtoida_ct::get('phanloaidv')->toArray(),'phanloaidv','phanloaidv');
+            $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
             return view('manage.dinhgia.giaspdvtoida.kekhai.edit')
                 ->with('model',$model)
                 ->with('modelct',$modelct)
                 ->with('m_diaban',$m_diaban)
                 ->with('m_donvi',$m_donvi)
-                ->with('a_pl',$a_pl)
-                ->with('m_dm',$m_dm)
+                ->with('a_phanloaidv',$a_phanloaidv)
+                ->with('a_dvt',$a_dvt)
                 ->with('inputs',$inputs)
                 ->with('pageTitle','Chi tiết hồ sơ');
         }else
@@ -383,26 +385,12 @@ class giaspdvtoidaController extends Controller
             $inputs = $request->all();
             $m_hoso = giaspdvtoida::where('mahs', $inputs['mahs'])->first();
             $m_donvi = dsdonvi::where('madv', $m_hoso->madv)->first();
-            //$m_diaban = dsdiaban::wherein('madiaban',array_column($model->toarray(),'madiaban'))->get();
-            $a_danhmuc = giaspdvtoida_dm::all()->keyBy('maspdv')->toArray();
             $model = giaspdvtoida_ct::where('mahs', $inputs['mahs'])->get();
-            foreach ($model as $chitiet){
-                $dm = $a_danhmuc[$chitiet->maspdv];
-                if(isset($dm)){
-                    $chitiet->dvt = $dm['dvt'];
-                    $chitiet->phanloai = $dm['phanloai'];
-                    $chitiet->tenspdv = $dm['tenspdv'];
-                }
-            }
-            //dd($m_hoso);
-            //$a_phanloai = array_column(giaspdvtoida_dm::get('phanloai')->toArray(),'phanloai','phanloai');
             return view('manage.dinhgia.giaspdvtoida.reports.inhoso')
                 ->with('m_hoso',$m_hoso)
                 ->with('model',$model)
                 ->with('m_donvi',$m_donvi)
-                //->with('m_diaban',$m_diaban)
-                //->with('a_dm',$a_ts)
-                ->with('a_phanloai', a_unique(array_column($a_danhmuc,'phanloai')))
+                ->with('a_phanloai', a_unique(array_column($model->toarray(),'phanloaidv')))
                 ->with('inputs',$inputs)
                 ->with('pageTitle','Thông tin hồ sơ');
         }else
