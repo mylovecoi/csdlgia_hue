@@ -25,11 +25,11 @@
         </tr>
         <tr>
             <td>Số: ..............</td>
-            <td style="text-align: right"><i style="margin-right: 25%;">{{session('admin')->diadanh}}, ngày .... tháng .... năm ....</i></td>
+            <td style="text-align: right"><i style="margin-right: 25%;">{{session('admin')->diadanh}}, {{getNt2Bc($model->thoidiem)}}</i></td>
         </tr>
     </table>
-<p style="text-align: center; font-weight: bold">Phụ lục {{$modelnhom->manhom}}</p>
-<p style="font-weight: bold;text-transform: uppercase;text-align: center">BẢNG {{$modelnhom->tennhom}}</p>
+{{--<p style="text-align: center; font-weight: bold">Phụ lục {{$modelnhom->manhom}}</p>--}}
+<p style="font-weight: bold;text-transform: uppercase;text-align: center">BẢNG GIÁ TÍNH THUẾ TÀI NGUYÊN</p>
 <p style="text-align: center;font-style: italic">(Ban hành kèm theo Quyết định số {{$model->soqd}}
     ngày {{date('d',strtotime($model->thoidiem))}} tháng {{date('m',strtotime($model->thoidiem))}} năm {{date('Y',strtotime($model->thoidiem))}}
 

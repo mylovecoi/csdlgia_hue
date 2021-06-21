@@ -83,7 +83,7 @@
                                 <th style="text-align: center">Cơ quan chuyển hồ sơ</th>
                                 <th style="text-align: center">Số QĐ</th>
                                 <th style="text-align: center">Thời điểm <br>xác định</th>
-                                <th style="text-align: center">Nhóm tài nguyên</th>
+                                <th style="text-align: center">Nội dung</th>
                                 <th style="text-align: center">Trạng thái</th>
                                 <th style="text-align: center">Cơ quan tiếp nhận hồ sơ</th>
                                 <th style="text-align: center" width="20%">Thao tác</th>
@@ -97,7 +97,7 @@
                                     <td style="text-align: left" class="active">{{$tt->tendv_ch}}</td>
                                     <td style="text-align: center">{{$tt->soqd}}</td>
                                     <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
-                                    <td style="text-align: left">{{$a_tt[$tt->manhom]}}</td>
+                                    <td style="text-align: left">{{$tt->cqbh}}</td>
                                     @include('manage.include.form.td_trangthai')
                                     <td style="text-align: left">{{$tt->tencqcq}}</td>
                                     <td>

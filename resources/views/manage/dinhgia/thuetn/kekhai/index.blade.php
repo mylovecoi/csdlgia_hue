@@ -20,7 +20,8 @@
 
             function changeUrl() {
                 var current_path_url = '{{$inputs['url']}}' + '/danhsach?';
-                var url = current_path_url + 'nam=' + $('#nam').val() + '&madiaban=' + $('#madiaban_td').val();
+//                var url = current_path_url + 'nam=' + $('#nam').val() + '&madiaban=' + $('#madiaban_td').val();
+                var url = current_path_url + 'nam=' + $('#nam').val()+ '&madv=' + $('#madv').val();
                 window.location.href = url;
             }
 
@@ -81,39 +82,47 @@
                         </div>
 
                         <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Địa bàn</label>
-                                {!! Form::select('madiaban_td', $a_diaban, $inputs['madiaban'], array('id' => 'madiaban_td', 'class' => 'form-control'))!!}
-                            </div>
+                            <label>Đơn vị</label>
+                            <select class="form-control select2me" id="madv">
+                                @foreach($m_diaban as $diaban)
+                                    <optgroup label="{{$diaban->tendiaban}}">
+                                        <?php $donvi = $m_donvi->where('madiaban',$diaban->madiaban); ?>
+                                        @foreach($donvi as $ct)
+                                            <option {{$ct->madv == $inputs['madv'] ? "selected":""}} value="{{$ct->madv}}">{{$ct->tendv}}</option>
+                                        @endforeach
+                                    </optgroup>
+                                @endforeach
+                            </select>
                         </div>
+                        {{--<div class="col-md-4">--}}
+                            {{--<div class="form-group">--}}
+                                {{--<label>Địa bàn</label>--}}
+                                {{--{!! Form::select('madiaban_td', $a_diaban, $inputs['madiaban'], array('id' => 'madiaban_td', 'class' => 'form-control'))!!}--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                     </div>
 
                     <table class="table table-striped table-bordered table-hover" id="sample_4">
                         <thead>
-                        <tr>
-                            <th width="2%" style="text-align: center">STT</th>
-                            <th style="text-align: center">Thời điểm báo cáo</th>
-                            <th style="text-align: center">Nhóm tài nguyên</th>
-                            <th style="text-align: center" width="15%">Số quyết định <br>Ngày báo cáo</th>
-                            <th style="text-align: center" width="15%">Số QĐ liền kề<br>Ngày báo cáo liền kề</th>
-                            <th style="text-align: center" width="10%">Trạng thái</th>
-                            <th style="text-align: center">Cơ quan tiếp nhận</th>
-                            <th style="text-align: center" width="15%">Thao tác</th>
-                        </tr>
+                            <tr class="text-center">
+                                <th width="5%">STT</th>
+                                <th>Ngày báo cáo</th>
+                                <th>Số quyết định</th>
+                                <th>Nội dung</th>
+                                <th>Trạng thái</th>
+                                <th>Cơ quan tiếp nhận</th>
+                                <th style="text-align: center" width="15%">Thao tác</th>
+                            </tr>
                         </thead>
                         <tbody>
                         @foreach($model as $key=>$tt)
                             <tr>
                                 <td style="text-align: center">{{$key + 1}}</td>
-                                <td>
-                                    Tháng {{$tt->thang}}/{{$tt->nam}}
-                                    <br>{{$a_dv[$tt->madv] ?? ''}}
-                                </td>
-                                <td class="active" style="font-weight: bold">{{$a_nhom[$tt->manhom] ?? ''}}</td>
-                                <td>Số: {{$tt->soqd}}<br>Ngày: {{getDayVn($tt->thoidiem)}}</td>
-                                <td>Số: {{$tt->soqdlk}}<br>Ngày: {{getDayVn($tt->thoidiemlk)}}</td>
+                                <td class="text-center">{{getDayVn($tt->thoidiem)}}</td>
+                                <td class="text-center">{{$tt->soqd}}</td>
+                                <td>{{$tt->cqbh}}</td>
                                 @include('manage.include.form.td_trangthai')
-                                <td style="text-align: left">{{$a_donvi_th[$tt->macqcq]?? ''}}</td>
+                                <td style="text-align: left">{{$a_donvi_th[$tt->macqcq] ?? ''}}</td>
                                 <td>
                                     <a href="{{url($inputs['url'].'/chitiet?mahs='.$tt->mahs)}}" class="btn btn-default btn-xs mbs" target="_blank">
                                         <i class="fa fa-eye"></i>&nbsp;Chi tiết</a>
@@ -156,12 +165,12 @@
 
                 <div class="modal-body">
                     <div class="form-horizontal">
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <label>Địa bàn</label>
-                                {!!Form::select('madiaban', $a_diaban, $inputs['madiaban'], array('class' => 'form-control','disabled'=>'disabled'))!!}
-                            </div>
-                        </div>
+                        {{--<div class="form-group">--}}
+                            {{--<div class="col-md-12">--}}
+                                {{--<label>Địa bàn</label>--}}
+                                {{--{!!Form::select('madiaban', $a_diaban, $inputs['madiaban'], array('class' => 'form-control','disabled'=>'disabled'))!!}--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
                         <div class="form-group">
                             <div class="col-md-12">
@@ -173,19 +182,17 @@
                         <div class="form-group">
                             <div class="col-md-12">
                                 <label>Phân loại nhóm hàng hóa dịch vụ</label>
-                                {!!Form::select('manhom', $a_nhom, null, array('id' => 'manhom','class' => 'form-control select2me'))!!}
+                                {!!Form::select('manhom', a_merge(['ALL'=>'--Tất cả các loại tài nguyên--'],$a_nhom), null, array('id' => 'manhom','class' => 'form-control select2me'))!!}
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <label>Năm</label>
-                                {!! Form::select('nam',getNam(),date('Y'),array('id' => 'nam', 'class' => 'form-control'))!!}
-                            </div>
-                        </div>
+                        {{--<div class="form-group">--}}
+                            {{--<div class="col-md-12">--}}
+                                {{--<label>Năm</label>--}}
+                                {{--{!! Form::select('nam',getNam(),date('Y'),array('id' => 'nam', 'class' => 'form-control'))!!}--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                     </div>
-                    <input type="hidden" id="madiaban" name="madiaban" value="{{$inputs['madiaban']}}">
-                    <input type="hidden" id="act" name="act" value="true">
+{{--                    <input type="hidden" id="madiaban" name="madiaban" value="{{$inputs['madiaban']}}">--}}
                 </div>
 
                 <div class="modal-footer">
@@ -235,7 +242,7 @@
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" id="madiaban" name="madiaban" value="{{$inputs['madiaban']}}">
+                    {{--<input type="hidden" id="madiaban" name="madiaban" value="{{$inputs['madiaban']}}">--}}
                 </div>
 
 

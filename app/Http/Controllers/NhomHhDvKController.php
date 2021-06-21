@@ -34,7 +34,8 @@ class NhomHhDvKController extends Controller
             $inputs['matt'] = $inputs['matt'] ?? array_key_first($a_thongtu);
             $a_diaban = getDiaBan_NhapLieu(session('admin')->level, session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi = view_dsdiaban_donvi::wherein('madiaban', array_keys($a_diaban))->where('chucnang', 'NHAPLIEU')->get();
+            $m_donvi = getDonViNhapLieu(session('admin')->level,'giahhdvk');
+//            $m_donvi = view_dsdiaban_donvi::wherein('madiaban', array_keys($a_diaban))->where('chucnang', 'NHAPLIEU')->get();
 
             $inputs['madiaban'] = $inputs['madiaban'] ?? array_key_first($a_diaban);
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;

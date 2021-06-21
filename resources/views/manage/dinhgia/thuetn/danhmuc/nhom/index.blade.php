@@ -66,7 +66,7 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <div class="actions">
-                        @if(chkPer('csdlmucgiahhdv','hhdv', 'giathuetn', 'danhmuc', 'modify'))
+                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetn', 'danhmuc', 'modify'))
                             <button type="button" onclick="new_hs()" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
                                 <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
                         @endif
@@ -74,17 +74,16 @@
                 </div>
                 <hr>
                 <div class="portlet-body">
-                    <div class="portlet-body">
-                        <table class="table table-striped table-bordered table-hover" id="sample_4">
-                            <thead>
+                    <table class="table table-striped table-bordered table-hover" id="sample_4">
+                        <thead>
                             <tr>
                                 <th style="text-align: center" width="5%">STT</th>
                                 <th style="text-align: center">Nhóm tài nguyên</th>
                                 <th style="text-align: center" width="15%">Theo dõi</th>
                                 <th style="text-align: center" width="15%">Thao tác</th>
                             </tr>
-                            </thead>
-                            <tbody>
+                        </thead>
+                        <tbody>
                             @foreach($model as $key=>$tt)
                                 <tr class="odd gradeX">
                                     <td style="text-align: center">{{$key + 1}}</td>
@@ -97,7 +96,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if(chkPer('csdlmucgiahhdv','hhdv', 'giathuetn', 'danhmuc', 'modify'))
+                                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giathuetn', 'danhmuc', 'modify'))
                                             <button type="button" onclick="ClickEdit('{{$tt->manhom}}')" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
                                                 <i class="fa fa-edit"></i>&nbsp;Sửa</button>
                                             <button type="button" onclick="getId('{{$tt->manhom}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal" style="margin: 2px">
@@ -110,9 +109,8 @@
                                     </td>
                                 </tr>
                             @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <!-- END EXAMPLE TABLE PORTLET-->

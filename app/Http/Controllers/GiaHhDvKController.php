@@ -38,23 +38,26 @@ class GiaHhDvKController extends Controller
             //lấy địa bàn
             //$a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $a_diaban = getDiaBan_NhapLieu(session('admin')->level, session('admin')->madiaban);
-
+            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             $m_donvi_th = getDonViTongHop('giahhdvk',\session('admin')->level, \session('admin')->madiaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? array_key_first($a_diaban);
             //$inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $inputs['nam'] = $inputs['nam'] ?? 'all';
 
-            $m_donvi = view_dsdiaban_donvi::where('madiaban', $inputs['madiaban'])->where('chucnang', 'NHAPLIEU')->get();
+//            $m_donvi = view_dsdiaban_donvi::where('madiaban', $inputs['madiaban'])->where('chucnang', 'NHAPLIEU')->get();
+            $m_donvi = getDonViNhapLieu(session('admin')->level,'giahhdvk');
+            $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $a_nhom = array_column(NhomHhDvK::where('theodoi', 'TD')->get()->toarray(), 'tentt','matt');
             //lấy thông tin đơn vị
-            $model = GiaHhDvK::where('madiaban', $inputs['madiaban']);
+            $model = GiaHhDvK::where('madv', $inputs['madv']);
             if ($inputs['nam'] != 'all')
                 $model = $model->whereYear('thoidiem', $inputs['nam']);
             //dd($model->get());
             return view('manage.dinhgia.giahhdvk.kekhai.index')
                 ->with('model', $model->orderby('nam')->orderby('thang')->get())
                 ->with('inputs', $inputs)
-                //->with('m_diaban', $m_diaban)
+                ->with('m_diaban', $m_diaban)
+                ->with('m_donvi', $m_donvi)
                 ->with('a_nhom', $a_nhom)
                 ->with('a_diaban', $a_diaban)
                 ->with('a_dv', array_column($m_donvi->toarray(),'tendv','madv'))

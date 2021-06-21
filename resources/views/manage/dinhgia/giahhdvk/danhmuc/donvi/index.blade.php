@@ -156,37 +156,38 @@
                             </div>
                         </div>
                     </div>
-
-                    <table class="table table-striped table-bordered table-hover" id="sample_4">
-                        <thead>
-                        <tr>
-                            <th style="text-align: center" width="2%">STT</th>
-                            <th style="text-align: center">Mã số</th>
-                            <th style="text-align: center">Tên hàng hóa dịch vụ</th>
-                            <th style="text-align: center">Đặc điểm kỹ thuật</th>
-                            <th style="text-align: center">Đơn vị<br>tính</th>
-                            <th style="text-align: center" width="15%">Thao tác</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php $i=1; ?>
-                        @foreach($model as $key=>$tt)
-                            <tr class="odd gradeX">
-                                <td style="text-align: center">{{$i++}}</td>
-                                <td>{{$tt->mahhdv}}</td>
-                                <td class="success" style="font-weight: bold">{{$tt->tenhhdv}}</td>
-                                <td>{{$tt->dacdiemkt}}</td>
-                                <td style="text-align: center">{{$tt->dvt}}</td>
-                                <td>
-                                    @if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'danhmuc', 'modify'))
-                                        <button type="button" onclick="getId('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal" style="margin: 2px">
-                                            <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
-                                    @endif
-                                </td>
+                    <div class="row">
+                        <table class="table table-striped table-bordered table-hover" id="sample_4">
+                            <thead>
+                            <tr>
+                                <th style="text-align: center" width="2%">STT</th>
+                                <th style="text-align: center">Mã số</th>
+                                <th style="text-align: center">Tên hàng hóa dịch vụ</th>
+                                <th style="text-align: center">Đặc điểm kỹ thuật</th>
+                                <th style="text-align: center">Đơn vị<br>tính</th>
+                                <th style="text-align: center" width="15%">Thao tác</th>
                             </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            <?php $i=1; ?>
+                            @foreach($model as $key=>$tt)
+                                <tr class="odd gradeX">
+                                    <td style="text-align: center">{{$i++}}</td>
+                                    <td>{{$tt->mahhdv}}</td>
+                                    <td class="success" style="font-weight: bold">{{$tt->tenhhdv}}</td>
+                                    <td>{{$tt->dacdiemkt}}</td>
+                                    <td style="text-align: center">{{$tt->dvt}}</td>
+                                    <td>
+                                        @if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'danhmuc', 'modify'))
+                                            <button type="button" onclick="getId('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal" style="margin: 2px">
+                                                <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

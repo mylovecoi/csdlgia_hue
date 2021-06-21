@@ -34,6 +34,7 @@ class DmThueTnController extends Controller
             $inputs = $request->all();
             $model = DmThueTn::where('id',$inputs['id'])->first();
             if($model == null){
+                unset($inputs['id']);
                 $inputs['theodoi'] = 'TD';
                 DmThueTn::create($inputs);
             }else

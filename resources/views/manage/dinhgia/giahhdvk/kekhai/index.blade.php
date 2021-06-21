@@ -80,11 +80,24 @@
                         </div>
 
                         <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Đơn vị báo cáo</label>
-                                {!! Form::select('madiaban_td', $a_diaban, $inputs['madiaban'], array('id' => 'madiaban_td', 'class' => 'form-control select2me'))!!}
-                            </div>
+                            <label>Đơn vị báo cáo</label>
+                            <select class="form-control select2me" id="madv">
+                                @foreach($m_diaban as $diaban)
+                                    <optgroup label="{{$diaban->tendiaban}}">
+                                        <?php $donvi = $m_donvi->where('madiaban',$diaban->madiaban); ?>
+                                        @foreach($donvi as $ct)
+                                            <option {{$ct->madv == $inputs['madv'] ? "selected":""}} value="{{$ct->madv}}">{{$ct->tendv}}</option>
+                                        @endforeach
+                                    </optgroup>
+                                @endforeach
+                            </select>
                         </div>
+                        {{--<div class="col-md-4">--}}
+                            {{--<div class="form-group">--}}
+                                {{--<label>Đơn vị báo cáo</label>--}}
+                                {{--{!! Form::select('madiaban_td', $a_diaban, $inputs['madiaban'], array('id' => 'madiaban_td', 'class' => 'form-control select2me'))!!}--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                     </div>
 
                     <table class="table table-striped table-bordered table-hover" id="sample_4">

@@ -158,7 +158,7 @@ class giaspdvtoidaController extends Controller
             if(isset($inputs['ipf1'])){
                 $ipf1 = $request->file('ipf1');
                 $name = $inputs['mahs'] .'&1.'.$ipf1->getClientOriginalName();
-                $ipf1->move(public_path() . '/data/giaspdvcuthe/', $name);
+                $ipf1->move(public_path() . '/data/giaspdvtoida/', $name);
                 $inputs['ipf1']= $name;
             }
             //dd($inputs);

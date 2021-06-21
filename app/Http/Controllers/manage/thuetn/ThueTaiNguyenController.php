@@ -25,24 +25,29 @@ class ThueTaiNguyenController extends Controller
             $inputs['url'] = '/giathuetn';
             //lấy địa bàn
             //$a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
-            $a_diaban = getDiaBan_NhapLieu(session('admin')->level, session('admin')->madiaban);
-
+            //$a_diaban = getDiaBan_NhapLieu(session('admin')->level, session('admin')->madiaban);
+            $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
+            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             $m_donvi_th = getDonViTongHop('giathuetn',\session('admin')->level, \session('admin')->madiaban);
-            $inputs['madiaban'] = $inputs['madiaban'] ?? array_key_first($a_diaban);
+//            $inputs['madiaban'] = $inputs['madiaban'] ?? array_key_first($a_diaban);
             //$inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $inputs['nam'] = $inputs['nam'] ?? 'all';
 
-            $m_donvi = view_dsdiaban_donvi::where('madiaban', $inputs['madiaban'])->where('chucnang', 'NHAPLIEU')->get();
+//            $m_donvi = view_dsdiaban_donvi::where('madiaban', $inputs['madiaban'])->where('chucnang', 'NHAPLIEU')->get();
+            $m_donvi = getDonViNhapLieu(session('admin')->level,'giathuetn');
+            $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
+            //dd($m_donvi);
             $a_nhom = array_column(NhomThueTn::where('theodoi', 'TD')->get()->toarray(), 'tennhom','manhom');
             //lấy thông tin đơn vị
-            $model = ThueTaiNguyen::where('madiaban', $inputs['madiaban']);
+            $model = ThueTaiNguyen::where('madv', $inputs['madv']);
             if ($inputs['nam'] != 'all')
                 $model = $model->whereYear('thoidiem', $inputs['nam']);
             //dd($model->get());
             return view('manage.dinhgia.thuetn.kekhai.index')
                 ->with('model', $model->get())
                 ->with('inputs', $inputs)
-                //->with('m_diaban', $m_diaban)
+                ->with('m_diaban', $m_diaban)
+                ->with('m_donvi', $m_donvi)
                 ->with('a_nhom', $a_nhom)
                 ->with('a_diaban', $a_diaban)
                 ->with('a_dv', array_column($m_donvi->toarray(),'tendv','madv'))
@@ -52,25 +57,6 @@ class ThueTaiNguyenController extends Controller
                 ->with('pageTitle','Thông tin giá thuế tài nguyên');
         } else
             return view('errors.notlogin');
-
-
-        if(Session::has('admin')){
-            $inputs = $request->all();
-            $inputs['manhom'] = isset($inputs['manhom']) ? $inputs['manhom'] : 'all';
-            $modeldm = NhomThueTn::where('theodoi','TD')->get();
-            $model = ThueTaiNguyen::join('nhomthuetn','nhomthuetn.manhom','=','thuetainguyen.manhom')
-                ->select('thuetainguyen.*','nhomthuetn.tennhom');
-            if($inputs['manhom'] != 'all')
-                $model = $model->where('thuetainguyen.manhom',$inputs['manhom']);
-            $model = $model->get();
-            return view('manage.dinhgia.thuetn.kekhai.index')
-                ->with('model',$model)
-                ->with('modeldm',$modeldm)
-                ->with('inputs',$inputs)
-                ->with('pageTitle','Thông tin giá thuế tài nguyên');
-
-        }else
-            return view('errors.notlogin');
     }
 
     public function create(Request $request)
@@ -78,50 +64,54 @@ class ThueTaiNguyenController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['url'] = '/giathuetn';
-            $modelnhom = NhomThueTn::where('manhom', $inputs['manhom'])->first();
-            $check = ThueTaiNguyen::where('manhom', $inputs['manhom'])
-                ->whereyear('thoidiem', $inputs['nam'])
-                ->where('madiaban', $inputs['madiaban'])
-                ->first();
-            if ($check != null) {
-                return view('manage.dinhgia.thuetn.errors.nodata')
-                    ->with('nam', $inputs['nam'])
-                    ->with('nhomtn', $modelnhom->tennhom);
+            $inputs['act'] = 'true';
+            if($inputs['manhom'] == 'ALL'){
+                $a_nhom = NhomThueTn::where('theodoi', 'TD')->get('manhom')->toarray();
+            }else{
+                $a_nhom[] = $inputs['manhom'];
             }
 
-            $inputs['mahs'] = getdate()[0];
-
-            $modeldm = DmThueTn::where('manhom', $inputs['manhom'])
+            $modeldm = DmThueTn::wherein('manhom', $a_nhom)
                 ->where('theodoi', 'TD')
                 ->get();
+
+            $inputs['mahs'] = $inputs['madv'].'_'.getdate()[0];
             $model = new ThueTaiNguyen();
             $model->mahs = $inputs['mahs'];
             $model->madv = $inputs['madv'];
             $model->manhom = $inputs['manhom'];
             $model->madiaban = $inputs['madiaban'];
             $model->trangthai  = 'CHT';
-
+            $a_dm = [];
             foreach ($modeldm as $dm) {
-                $modelctadd = new ThueTaiNguyenCt();
-                $modelctadd->cap1 = $dm->cap1;
-                $modelctadd->cap2 = $dm->cap2;
-                $modelctadd->cap3 = $dm->cap3;
-                $modelctadd->cap4 = $dm->cap4;
-                $modelctadd->cap5 = $dm->cap5;
-                $modelctadd->ten = $dm->ten;
-                $modelctadd->dvt = $dm->dvt;
-                $modelctadd->level = $dm->level;
-                $modelctadd->mahs = $inputs['mahs'];
+                $a_dm[] = [
+                'cap1' => $dm->cap1,
+                'cap2' => $dm->cap2,
+                'cap3' => $dm->cap3,
+                'cap4' => $dm->cap4,
+                'cap5' => $dm->cap5,
+                'ten' => $dm->ten,
+                'dvt' => $dm->dvt,
+                'level' => $dm->level,
+                'mahs' => $inputs['mahs'],
                 //$modelctadd->trangthai = 'CXD';
-                $modelctadd->save();
+                ];
+            }
+            foreach(array_chunk($a_dm,100) as $data){
+                ThueTaiNguyenCt::insert($data);
             }
             $modelct = ThueTaiNguyenCt::where('mahs', $inputs['mahs'])->get();
-            $a_diaban = array_column(dsdiaban::where('madiaban', $inputs['madiaban'])->get()->toarray(), 'tendiaban', 'madiaban');
+            //duyệt để xác định mã tài nguyên có là mã gốc ko để mở trường nhập số tiền
+//            foreach($modelct as $ct){
+//                $ct->nhaplieu = true;
+//                if($modelct->where()->where()->count()>0){
+//                    $ct->nhaplieu = false;
+//                }
+//            }
+//            $a_diaban = array_column(dsdiaban::where('madiaban', $inputs['madiaban'])->get()->toarray(), 'tendiaban', 'madiaban');
             return view('manage.dinhgia.thuetn.kekhai.edit')
                 ->with('model', $model)
                 ->with('modelct', $modelct)
-                ->with('modelnhom', $modelnhom)
-                ->with('a_diaban', $a_diaban)
                 ->with('inputs', $inputs)
                 ->with('pageTitle', 'Bảng giá tính thuế tài nguyên');
 
@@ -142,7 +132,7 @@ class ThueTaiNguyenController extends Controller
             }else{
                 $model->update($inputs);
             }
-            return redirect('giathuetn/danhsach?madiaban='.$inputs['madiaban']);
+            return redirect('giathuetn/danhsach?nam='.date('Y'));
         }else
             return view('errors.notlogin');
     }
@@ -167,13 +157,12 @@ class ThueTaiNguyenController extends Controller
     }
 
     public function delete(Request $request){
-        if(Session::has('admin')){
-            $inputs=$request->all();
-            $model = ThueTaiNguyen::where('mahs',$inputs['mahs'])->first();
-            $modelct = ThueTaiNguyenCt::where('mahs',$model->mahs)->delete();
-            $model = $model->delete();
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            ThueTaiNguyen::where('mahs', $inputs['mahs'])->delete();
+            ThueTaiNguyenCt::where('mahs', $inputs['mahs'])->delete();
             return redirect('giathuetn/danhsach');
-        }else
+        } else
             return view('errors.notlogin');
     }
 
@@ -181,8 +170,7 @@ class ThueTaiNguyenController extends Controller
         if(Session::has('admin')){
             $inputs=$request->all();
             $model = ThueTaiNguyen::where('mahs',$inputs['mahs'])->first();
-            $modelct = ThueTaiNguyenCt::where('mahs',$model->mahs)
-                ->get();
+            $modelct = ThueTaiNguyenCt::where('mahs',$model->mahs)->get();
             $modelnhom = NhomThueTn::where('manhom',$model->manhom)
                 ->first();
 

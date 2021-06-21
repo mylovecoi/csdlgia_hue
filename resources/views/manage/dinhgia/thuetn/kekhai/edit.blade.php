@@ -24,8 +24,8 @@
 @stop
 
 @section('content')
-    <h3 class="page-title">
-        Hồ sơ giá thuế tài nguyên
+    <h3 class="page-title text-uppercase">
+        Hồ sơ {{session('admin')['a_chucnang']['giathuetn'] ?? 'giá thuế tài nguyên'}}
     </h3>
     <!-- END PAGE HEADER-->
 <hr>
@@ -43,48 +43,19 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Nhóm tài nguyên</label>
-                                    <label class="control-label" style="color: blue;font-weight: bold">{{$modelnhom->tennhom}}</label>
+                                    <label class="control-label">Số quyết định</label>
+                                    {!!Form::text('soqd',null, array('id' => 'soqd','class' => 'form-control', 'autofocus'))!!}
                                 </div>
                             </div>
+
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Đia bàn:</label>
-                                    {!!Form::select('', $a_diaban, null, array('id' => '','class' => 'form-control', 'disabled'=>'disabled'))!!}
+                                    <label class="control-label">Thời điểm<span class="require">*</span></label>
+                                    {!! Form::input('date', 'thoidiem', null, array('id' => 'thoidiem', 'class' => 'form-control', 'required'))!!}
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">Tháng báo cáo: </label>
-                                    <label class="control-label" style="color: blue;font-weight: bold">{{$model->thang}}</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">Năm báo cáo: </label>
-                                    <label class="control-label" style="color: blue;font-weight: bold">{{$model->nam}}</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">Số báo cáo<span class="require">*</span></label>
-                                    {!!Form::text('soqd',null, array('id' => 'soqd','class' => 'form-control required','autofocus'))!!}
-                                </div>
-                            </div>
-                            <!--/span-->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">Ngày áp dụng<span class="require">*</span></label>
-                                    {!! Form::input('date', 'thoidiem', null, array('id' => 'thoidiem', 'class' => 'form-control', 'required'))!!}
-                                </div>
-                            </div>
-                            <!--/span-->
-                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -105,15 +76,24 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
+                                    <label class="control-label">Nội dung</label>
+                                    {!!Form::textarea('cqbh',null, array('class' => 'form-control', 'rows'=>'2'))!!}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
                                     <label class="control-label">Ghi chú</label>
-                                    {!!Form::text('ghichu',null, array('id' => 'ghichu','class' => 'form-control'))!!}
+                                    {!!Form::textarea('ghichu',null, array('class' => 'form-control', 'rows'=>'2'))!!}
                                 </div>
                             </div>
                         </div>
                         <input type="hidden" name="mahs" id="mahs" value="{{$model->mahs}}">
-                        <input type="hidden" name="manhom" id="matt" value="{{$model->manhom}}">
+                        {{--<input type="hidden" name="manhom" id="matt" value="{{$model->manhom}}">--}}
                         <input type="hidden" name="madv" id="madv" value="{{$model->madv}}">
-                        <input type="hidden" name="madiaban" id="madiaban" value="{{$model->madiaban}}">
+                        {{--<input type="hidden" name="madiaban" id="madiaban" value="{{$model->madiaban}}">--}}
                         <h4 style="color: blue">Thông tin chi tiết</h4>
                         <div class="row" id="dsts">
                             <div class="col-md-12">
@@ -166,8 +146,6 @@
                     <a href="{{url($inputs['url'].'/danhsach?madiaban='.$model->madiaban)}}" class="btn btn-danger">
                         <i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                     @if(!isset($inputs['act'])  || $inputs['act'] == 'true')
-                        <button type="reset" class="btn btn-default">
-                            <i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
                         <button type="submit" class="btn green" onclick="validateForm()">
                             <i class="fa fa-check"></i>Hoàn thành</button>
                     @endif
