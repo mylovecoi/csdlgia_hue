@@ -39,17 +39,20 @@ class GiaHhDvKController extends Controller
             //$a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $a_diaban = getDiaBan_NhapLieu(session('admin')->level, session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi_th = getDonViTongHop('giahhdvk',\session('admin')->level, \session('admin')->madiaban);
+            $m_donvi_th = getDonViTongHop('giahhdvk', \session('admin')->level, \session('admin')->madiaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? array_key_first($a_diaban);
             //$inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
-            $inputs['nam'] = $inputs['nam'] ?? 'all';
 
 //            $m_donvi = view_dsdiaban_donvi::where('madiaban', $inputs['madiaban'])->where('chucnang', 'NHAPLIEU')->get();
-            $m_donvi = getDonViNhapLieu(session('admin')->level,'giahhdvk');
+            $m_donvi = getDonViNhapLieu(session('admin')->level, 'giahhdvk');
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
-            $a_nhom = array_column(NhomHhDvK::where('theodoi', 'TD')->get()->toarray(), 'tentt','matt');
+            $a_nhom = array_column(NhomHhDvK::where('theodoi', 'TD')->get()->toarray(), 'tentt', 'matt');
             //lấy thông tin đơn vị
+            $inputs['thang'] = isset($inputs['thang']) ? $inputs['thang'] : date('m');
+            $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
             $model = GiaHhDvK::where('madv', $inputs['madv']);
+            if ($inputs['thang'] != 'all')
+                $model = $model->whereMonth('thoidiem', $inputs['thang']);
             if ($inputs['nam'] != 'all')
                 $model = $model->whereYear('thoidiem', $inputs['nam']);
             //dd($model->get());
@@ -60,11 +63,11 @@ class GiaHhDvKController extends Controller
                 ->with('m_donvi', $m_donvi)
                 ->with('a_nhom', $a_nhom)
                 ->with('a_diaban', $a_diaban)
-                ->with('a_dv', array_column($m_donvi->toarray(),'tendv','madv'))
+                ->with('a_dv', array_column($m_donvi->toarray(), 'tendv', 'madv'))
                 ->with('m_donvi_th', $m_donvi_th)
-                ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
-                ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
-                ->with('pageTitle','Thông tin hồ sơ giá hàng hóa, dịch vụ khác');
+                ->with('a_donvi_th', array_column($m_donvi_th->toarray(), 'tendv', 'madv'))
+                ->with('a_diaban_th', array_column($m_donvi_th->toarray(), 'tendiaban', 'madiaban'))
+                ->with('pageTitle', 'Thông tin hồ sơ giá hàng hóa, dịch vụ khác');
         } else
             return view('errors.notlogin');
     }
@@ -442,7 +445,9 @@ class GiaHhDvKController extends Controller
             //dd(session('admin'));
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
-            $inputs['nam'] = $inputs['nam'] ?? 'all';
+            $inputs['thang'] = isset($inputs['thang']) ? $inputs['thang'] : date('m');
+            $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
+
             $inputs['level'] = view_dsdiaban_donvi::where('madv', $inputs['madv'])->first()->level ?? 'H';
             //dd($inputs);
             //gán lại thông tin về trường madv, thoidiem để truyền sang form index
@@ -455,6 +460,8 @@ class GiaHhDvKController extends Controller
                     $model = GiaHhDvK::where('madv_h', $inputs['madv']);
                     if ($inputs['nam'] != 'all')
                         $model = $model->whereYear('thoidiem_h', $inputs['nam']);
+                    if ($inputs['thang'] != 'all')
+                        $model = $model->whereMonth('thoidiem_h', $inputs['thang']);
                     $model = $model->orderby('nam')->orderby('thang')->get();
                     foreach ($model as $ct){
                         $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
@@ -472,6 +479,8 @@ class GiaHhDvKController extends Controller
                     $model = GiaHhDvK::where('madv_t', $inputs['madv']);
                     if ($inputs['nam'] != 'all')
                         $model = $model->whereYear('thoidiem_t', $inputs['nam']);
+                    if ($inputs['thang'] != 'all')
+                        $model = $model->whereMonth('thoidiem_t', $inputs['thang']);
                     $model = $model->orderby('nam')->orderby('thang')->get();
                     foreach ($model as $ct){
                         $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
@@ -489,6 +498,8 @@ class GiaHhDvKController extends Controller
                     $model = GiaHhDvK::where('madv_ad', $inputs['madv']);
                     if ($inputs['nam'] != 'all')
                         $model = $model->whereYear('thoidiem_ad', $inputs['nam']);
+                    if ($inputs['thang'] != 'all')
+                        $model = $model->whereMonth('thoidiem_ad', $inputs['thang']);
                     $model = $model->orderby('nam')->orderby('thang')->get();
                     foreach ($model as $ct){
                         $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );

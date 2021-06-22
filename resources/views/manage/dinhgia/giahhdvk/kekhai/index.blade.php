@@ -20,7 +20,7 @@
 
             function changeUrl() {
                 var current_path_url = '{{$inputs['url']}}' + '/danhsach?';
-                var url = current_path_url + 'nam=' + $('#nam').val() + '&madiaban=' + $('#madiaban_td').val();
+                var url = current_path_url + 'nam=' + $('#nam').val() + '&thang=' + $('#thang').val() + '&madv=' + $('#madv').val();
                 window.location.href = url;
             }
 
@@ -28,7 +28,11 @@
                 changeUrl();
             });
 
-            $('#madiaban_td').change(function() {
+            $('#thang').change(function() {
+                changeUrl();
+            });
+
+            $('#madv').change(function() {
                 changeUrl();
             });
         });
@@ -72,14 +76,28 @@
                 <hr>
                 <div class="portlet-body">
                     <div class="row">
+                        {{--<div class="col-md-2">--}}
+                            {{--<div class="form-group">--}}
+                                {{--<label>Năm báo cáo</label>--}}
+                                {{--{!! Form::select('nam', getNam(true), $inputs['nam'], array('id' => 'nam', 'class' => 'form-control select2me'))!!}--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+
                         <div class="col-md-2">
                             <div class="form-group">
-                                <label>Năm báo cáo</label>
-                                {!! Form::select('nam', getNam(true), $inputs['nam'], array('id' => 'nam', 'class' => 'form-control select2me'))!!}
+                                <label>Tháng hồ sơ</label>
+                                {!! Form::select('thang', getThang(true), $inputs['thang'], array('id' => 'thang', 'class' => 'form-control'))!!}
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Năm hồ sơ</label>
+                                {!! Form::select('nam', getNam(true), $inputs['nam'], array('id' => 'nam', 'class' => 'form-control'))!!}
+                            </div>
+                        </div>
+
+                        <div class="col-md-8">
                             <label>Đơn vị báo cáo</label>
                             <select class="form-control select2me" id="madv">
                                 @foreach($m_diaban as $diaban)
@@ -92,6 +110,9 @@
                                 @endforeach
                             </select>
                         </div>
+
+
+
                         {{--<div class="col-md-4">--}}
                             {{--<div class="form-group">--}}
                                 {{--<label>Đơn vị báo cáo</label>--}}

@@ -20,10 +20,13 @@
 
             function changeUrl() {
                 var current_path_url = '{{$inputs['url']}}' +'/xetduyet?';
-                var url = current_path_url + 'nam=' + $('#nam').val() + '&madv=' + $('#madv').val();
+                var url = current_path_url + 'nam=' + $('#nam').val() + '&thang=' + $('#thang').val()+ '&madv=' + $('#madv').val();
                 window.location.href = url;
             }
 
+            $('#thang').change(function() {
+                changeUrl();
+            });
             $('#nam').change(function() {
                 changeUrl();
             });
@@ -52,28 +55,38 @@
                     </div>
                 </div>
 
-                <div class="portlet-body form-horizontal">
+                <div class="portlet-body">
                     <div class="row">
-                        <div class="form-group">
-                            <div class="col-md-2">
-                                <label style="font-weight: bold">Năm</label>
-                                {!! Form::select('nam', getNam(true), $inputs['nam'], array('id' => 'nam', 'class' => 'form-control'))!!}
-                            </div>
 
-                            <div class="col-md-4">
-                                <label style="font-weight: bold">Đơn vị</label>
-                                <select class="form-control select2me" id="madv">
-                                    @foreach($m_diaban as $diaban)
-                                        <optgroup label="{{$diaban->tendiaban}}">
-                                            <?php $donvi = $m_donvi->where('madiaban',$diaban->madiaban); ?>
-                                            @foreach($donvi as $ct)
-                                                <option {{$ct->madv == $inputs['madv'] ? "selected":""}} value="{{$ct->madv}}">{{$ct->tendv}}</option>
-                                            @endforeach
-                                        </optgroup>
-                                    @endforeach
-                                </select>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Tháng hồ sơ</label>
+                                {!! Form::select('thang', getThang(true), $inputs['thang'], array('id' => 'thang', 'class' => 'form-control'))!!}
                             </div>
                         </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Năm hồ sơ</label>
+                                {!! Form::select('nam', getNam(true), $inputs['nam'], array('id' => 'nam', 'class' => 'form-control'))!!}
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-8">
+                            <label style="font-weight: bold">Đơn vị</label>
+                            <select class="form-control select2me" id="madv">
+                                @foreach($m_diaban as $diaban)
+                                    <optgroup label="{{$diaban->tendiaban}}">
+                                        <?php $donvi = $m_donvi->where('madiaban',$diaban->madiaban); ?>
+                                        @foreach($donvi as $ct)
+                                            <option {{$ct->madv == $inputs['madv'] ? "selected":""}} value="{{$ct->madv}}">{{$ct->tendv}}</option>
+                                        @endforeach
+                                    </optgroup>
+                                @endforeach
+                            </select>
+                        </div>
+
                     </div>
                     <table id="sample_4" class="table table-striped table-bordered table-hover">
                         <thead>
