@@ -39,13 +39,14 @@
                                 <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
                             <button type="button" class="btn btn-default btn-xs mbs" data-target="#modal-importexcel" data-toggle="modal">
                                 <i class="fa fa-file-excel-o"></i>&nbsp;Nhận dữ liệu</button>
+                            <button type="button" class="btn btn-default btn-xs mbs" data-target="#modal-modify" data-toggle="modal">
+                                <i class="fa fa-file-excel-o"></i>&nbsp;Khóa/Mở khóa</button>
                         @endif
                         <a href="{{url('/giathuetn/danhmuc')}}" class="btn btn-default btn-xs mbs">
                             <i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                     </div>
                 </div>
                 <div class="portlet-body">
-                    <div class="portlet-body">
                     <table class="table table-striped table-bordered table-hover" id="sample_4">
                         <thead>
                         <tr>
@@ -57,7 +58,7 @@
                             <th style="text-align: center">Cấp IV</th>
                             <th style="text-align: center">Cấp V</th>
                             <th style="text-align: center">Tên nhóm, loại tài nguyên</th>
-                            <th style="text-align: center">Đơn vi<br>tính</th>
+                            <th style="text-align: center">Đơn vị<br>tính</th>
                             <th style="text-align: center">Theo dõi</th>
                             <th style="text-align: center" width="15%">Thao tác</th>
                         </tr>
@@ -93,7 +94,6 @@
                         @endforeach
                         </tbody>
                     </table>
-                    </div>
                 </div>
             </div>
             <!-- END EXAMPLE TABLE PORTLET-->

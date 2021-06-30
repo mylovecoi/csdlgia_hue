@@ -1,15 +1,20 @@
-<?php
+alter table dmphilephi
+add
+	[phanloai] [nvarchar](255) NULL;
+go
 
-namespace App\Model\view;
+alter table philephict
+add
+	[phantram] [nvarchar](255) NULL,
+	[phanloai] [nvarchar](255) NULL,
+	[dvt] [nvarchar](255) NULL;
+go
 
-use Illuminate\Database\Eloquent\Model;
+alter table dmphilephi
+add
+	[stt] [integer] default(99);
+go
 
-class view_giaphilephi extends Model
-{
-    protected $table = 'view_giaphilephi';
-    protected $fillable = [];
-}
-/*
 CREATE OR ALTER VIEW [dbo].[view_giaphilephi]
 AS
 SELECT        dbo.philephi.madiaban, dbo.philephi.maxp, dbo.philephi.mahs, dbo.philephi.mota, dbo.philephi.soqd, dbo.philephi.ngayapdung, dbo.philephi.ghichu, dbo.philephi.manhom, dbo.philephi.congbo, dbo.philephi.lichsu,
@@ -20,4 +25,3 @@ SELECT        dbo.philephi.madiaban, dbo.philephi.maxp, dbo.philephi.mahs, dbo.p
 FROM            dbo.philephi INNER JOIN
                          dbo.philephict ON dbo.philephi.mahs = dbo.philephict.mahs
 GO
- */

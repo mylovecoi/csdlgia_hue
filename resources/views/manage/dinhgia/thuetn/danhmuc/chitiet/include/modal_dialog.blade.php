@@ -171,7 +171,7 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label class="control-label">Level<span class="require">*</span></label>
                             <select id="level" name="level" class="form-control">
@@ -183,46 +183,57 @@
                             </select>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
+
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label class="control-label">Cấp I<span class="require">*</span></label>
+                            <label class="control-label">Mã Cấp I<span class="require">*</span></label>
                             <input type="text" name="cap1" id="cap1" class="form-control">
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label class="control-label">Cấp II<span class="require">*</span></label>
+                            <label class="control-label">Mã Cấp II<span class="require">*</span></label>
                             <input type="text" name="cap2" id="cap2" class="form-control">
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label class="control-label">Cấp III<span class="require">*</span></label>
+                            <label class="control-label">Mã Cấp III<span class="require">*</span></label>
                             <input type="text" name="cap3" id="cap3" class="form-control">
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label class="control-label">Cấp IV<span class="require">*</span></label>
+                            <label class="control-label">Mã Cấp IV<span class="require">*</span></label>
                             <input type="text" name="cap4" id="cap4" class="form-control">
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
+
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label class="control-label">Cấp V<span class="require">*</span></label>
+                            <label class="control-label">Mã Cấp V<span class="require">*</span></label>
                             <input type="text" name="cap5" id="cap5" class="form-control">
                         </div>
                     </div>
+                </div>
+
+                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Đơn vị tính<span class="require">*</span></label>
                             <input type="dvt" name="dvt" id="matn" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Trạng thái</label>
+                            <select name="theodoi" id="theodoi" class="form-control">
+                                <option value="TD">Đang theo dõi</option>
+                                <option value="KTD">Không theo dõi</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -359,6 +370,39 @@
             </div>
             {!! Form::close() !!}
 
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="modal-modify" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            {!! Form::open(['url'=>$inputs['url'].'/theodoi', 'method'=>'post','id' => 'frm_modify'])!!}
+            <input type="hidden" name="manhom" id="manhom" value="{{$inputs['manhom']}}" />
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Thông tin chi tiết</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Trạng thái</label>
+                            <select name="theodoi" id="theodoi" class="form-control">
+                                <option value="TD">Đang theo dõi</option>
+                                <option value="KTD">Không theo dõi</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn blue">Đồng ý</button>
+                <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
+            </div>
+            {!! Form::close() !!}
         </div>
         <!-- /.modal-content -->
     </div>

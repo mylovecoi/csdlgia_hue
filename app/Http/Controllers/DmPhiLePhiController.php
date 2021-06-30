@@ -13,10 +13,13 @@ class DmPhiLePhiController extends Controller
         if (Session::has('admin')) {
             $inputs['url'] = '/giaphilephi';
             $model = DmPhiLePhi::all();
+            $inputs['stt'] = count($model) + 1;
+            $a_phanloai = array_column($model->toArray(),'phanloai','phanloai');
             return view('manage.dinhgia.philephi.danhmuc.index')
                 ->with('model',$model)
+                ->with('a_phanloai',$a_phanloai)
                 ->with('inputs',$inputs)
-                ->with('pageTitle','Nhóm phí lệ phí');
+                ->with('pageTitle','Danh mục phí, lệ phí');
 
         }else
             return view('errors.notlogin');

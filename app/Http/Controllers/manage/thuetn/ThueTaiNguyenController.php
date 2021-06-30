@@ -80,7 +80,7 @@ class ThueTaiNguyenController extends Controller
             $model->mahs = $inputs['mahs'];
             $model->madv = $inputs['madv'];
             $model->manhom = $inputs['manhom'];
-            $model->madiaban = $inputs['madiaban'];
+//            $model->madiaban = $inputs['madiaban'];
             $model->trangthai  = 'CHT';
             $a_dm = [];
             foreach ($modeldm as $dm) {

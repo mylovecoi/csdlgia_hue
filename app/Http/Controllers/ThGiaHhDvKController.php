@@ -25,7 +25,8 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ThGiaHhDvKController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         if (Session::has('admin')) {
             if (chkPer('csdlmucgiahhdv', 'hhdv', 'giahhdvk', 'khac', 'baocao')) {
                 $inputs = $request->all();
@@ -36,16 +37,21 @@ class ThGiaHhDvKController extends Controller
                 $inputs['phanloai'] = 'thang';
                 $m_nhom = NhomHhDvK::where('theodoi', 'TD')->get();
                 $inputs['matt'] = isset($inputs['matt']) ? $inputs['matt'] : $m_nhom->first()->matt;
-                $m_hoso = GiaHhDvK::where('thang', $inputs['thang'])
-                    ->where('nam', $inputs['nam'])
-                    ->where('matt', $inputs['matt'])
-                    ->where('trangthai', 'HT')->get();
-//                $m_hoso = GiaHhDvK::where('thang', $inputs['thang'])
-//                    ->where('nam', $inputs['nam'])->get();
-//                dd($inputs);
+                $m_hoso = GiaHhDvK::where('matt', $inputs['matt'])
+                    ->where('trangthai', 'HT');
                 $model = ThGiaHhDvK::where('nam', $inputs['nam'])
-                    ->where('thang', $inputs['thang'])
-                    ->where('matt', $inputs['matt'])->get();
+                    ->where('matt', $inputs['matt']);
+
+                if ($inputs['thang'] != 'all') {
+                    $m_hoso = $m_hoso->where('thang', $inputs['thang']);
+                    $model = $model->where('thang', $inputs['thang']);
+                }
+                if ($inputs['nam'] != 'all') {
+                    $m_hoso = $m_hoso->where('nam', $inputs['nam']);
+                    $model = $model->where('nam', $inputs['nam']);
+                }
+                $model = $model->get();
+                $m_hoso = $m_hoso->get();
                 $a_donvi = array_column(view_dsdiaban_donvi::all()->toArray(), 'tendv', 'madv');
                 $inputs['baocao'] = count($model) > 0 ? true : false;
                 $a_nhaplieu = array_column(getDonViNhapLieu(session('admin')->level, 'giahhdvk')->toArray(), 'tendv', 'madv');

@@ -82,52 +82,52 @@
                             </div>
                         </div>
                     </div>
-                    <table id="sample_3" class="table table-striped table-bordered table-hover">
-                        <thead>
-                        <tr>
-                            <th width="2%" style="text-align: center">STT</th>
-                            <th style="text-align: center">Nhóm phí, lệ phí</th>
-                            <th style="text-align: center">Số QĐ</th>
-                            <th style="text-align: center">Mô tả</th>
-                            <th style="text-align: center">Thời điểm</br>áp dụng</th>
-                            <th style="text-align: center">Trạng thái</th>
-                            <th style="text-align: center">Cơ quan tiếp nhận</th>
-                            <th style="text-align: center" width="20%">Thao tác</th>
-                        </tr>
-                        </thead>
+                    <div class="row">
+                        <table id="sample_3" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th width="2%" style="text-align: center">STT</th>
+                                    <th style="text-align: center">Thời điểm</th>
+                                    <th style="text-align: center">Số QĐ</th>
+                                    <th style="text-align: center">Mô tả</th>
+                                    <th style="text-align: center">Trạng thái</th>
+                                    <th style="text-align: center">Cơ quan tiếp nhận</th>
+                                    <th style="text-align: center" width="20%">Thao tác</th>
+                                </tr>
+                            </thead>
 
-                        <tbody>
-                        @foreach($model as $key=>$tt)
-                            <tr>
-                                <td style="text-align: center">{{$key + 1}}</td>
-                                <td style="text-align: left">{{$a_dm[$tt->manhom] ?? ''}}</td>
-                                <td style="text-align: left">{{$tt->soqd}}</td>
-                                <td style="text-align: left">{{$tt->mota}}</td>
-                                <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
-                                @include('manage.include.form.td_trangthai')
-                                <td style="text-align: left">{{$a_donvi_th[$tt->macqcq]?? ''}}</td>
-                                <td>
-                                    @if(chkPer('csdlmucgiahhdv','philephi', 'giaphilephi','hoso','modify') && in_array($tt->trangthai,['CHT', 'HHT']))
-                                        <a href="{{url($inputs['url'].'/modify?mahs='.$tt->mahs.'&act=true')}}" class="btn btn-default btn-xs mbs">
-                                            <i class="fa fa-edit"></i>&nbsp;Chi tiết</a>
-                                        <button type="button" onclick="confirmDelete('{{$tt->mahs}}','{{$inputs['url'].'/delete'}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
-                                            <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
-                                    @else
-                                        <a href="{{url($inputs['url'].'/modify?mahs='.$tt->mahs.'&act=false')}}" target="_blank" class="btn btn-default btn-xs mbs">
-                                            <i class="fa fa-eye"></i>&nbsp;Chi tiết</a>
-                                    @endif
-                                    @if(chkPer('csdlmucgiahhdv','philephi', 'giaphilephi','hoso', 'approve')&& in_array($tt->trangthai,['CHT', 'HHT']))
-                                        <button type="button" onclick="confirmChuyen('{{$tt->mahs}}','{{$inputs['url'].'/chuyenhs'}}')" class="btn btn-default btn-xs mbs" data-target="#chuyen-modal-confirm" data-toggle="modal">
-                                            <i class="fa fa-check"></i> Hoàn thành</button>
-                                    @endif
-                                        <button type="button" onclick="get_attack('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
-                                            <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
-                                </td>
-                            </tr>
-                        @endforeach
+                            <tbody>
+                            @foreach($model as $key=>$tt)
+                                <tr>
+                                    <td style="text-align: center">{{$key + 1}}</td>
+                                    <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
+                                    <td style="text-align: left">{{$tt->soqd}}</td>
+                                    <td style="text-align: left">{{$tt->mota}}</td>
+                                    @include('manage.include.form.td_trangthai')
+                                    <td style="text-align: left">{{$a_donvi_th[$tt->macqcq]?? ''}}</td>
+                                    <td>
+                                        @if(chkPer('csdlmucgiahhdv','philephi', 'giaphilephi','hoso','modify') && in_array($tt->trangthai,['CHT', 'HHT']))
+                                            <a href="{{url($inputs['url'].'/modify?mahs='.$tt->mahs.'&act=true')}}" class="btn btn-default btn-xs mbs">
+                                                <i class="fa fa-edit"></i>&nbsp;Chi tiết</a>
+                                            <button type="button" onclick="confirmDelete('{{$tt->mahs}}','{{$inputs['url'].'/delete'}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm" data-toggle="modal">
+                                                <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
+                                        @else
+                                            <a href="{{url($inputs['url'].'/modify?mahs='.$tt->mahs.'&act=false')}}" target="_blank" class="btn btn-default btn-xs mbs">
+                                                <i class="fa fa-eye"></i>&nbsp;Chi tiết</a>
+                                        @endif
+                                        @if(chkPer('csdlmucgiahhdv','philephi', 'giaphilephi','hoso', 'approve')&& in_array($tt->trangthai,['CHT', 'HHT']))
+                                            <button type="button" onclick="confirmChuyen('{{$tt->mahs}}','{{$inputs['url'].'/chuyenhs'}}')" class="btn btn-default btn-xs mbs" data-target="#chuyen-modal-confirm" data-toggle="modal">
+                                                <i class="fa fa-check"></i> Hoàn thành</button>
+                                        @endif
+                                            <button type="button" onclick="get_attack('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
+                                                <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
+                                    </td>
+                                </tr>
+                            @endforeach
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <!-- END EXAMPLE TABLE PORTLET-->
 

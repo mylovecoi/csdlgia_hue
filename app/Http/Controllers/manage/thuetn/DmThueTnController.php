@@ -33,6 +33,7 @@ class DmThueTnController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $model = DmThueTn::where('id',$inputs['id'])->first();
+//            dd($inputs);
             if($model == null){
                 unset($inputs['id']);
                 $inputs['theodoi'] = 'TD';
@@ -40,6 +41,15 @@ class DmThueTnController extends Controller
             }else
                 $model->update($inputs);
 
+            return redirect('giathuetn/danhmuc/detail?manhom='.$inputs['manhom']);
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function theodoi(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            DmThueTn::where('manhom',$inputs['manhom'])->update(['theodoi'=>$inputs['theodoi']]);
             return redirect('giathuetn/danhmuc/detail?manhom='.$inputs['manhom']);
         }else
             return view('errors.notlogin');

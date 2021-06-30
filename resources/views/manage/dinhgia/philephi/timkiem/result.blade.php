@@ -34,14 +34,19 @@
                 <div class="portlet-body form-horizontal">
                     <table id="sample_4" class="table table-striped table-bordered table-hover">
                         <thead>
-                            <tr>
-                                <th width="2%" style="text-align: center">STT</th>
-                                <th style="text-align: center">Đơn vị nhập</th>
-                                <th style="text-align: center">Thời điểm</th>
-                                <th style="text-align: center">Tên sản phẩm, dịch vụ</th>
-                                <th style="text-align: center">Thông tin hồ sơ</th>
-                                <th style="text-align: center">Mức phí từ</th>
-                                <th style="text-align: center">Mức phí đến</th>
+                            <tr class="text-center">
+                                <th rowspan="2"width="2%">STT</th>
+                                <th rowspan="2">Đơn vị nhập liệu</th>
+                                <th rowspan="2">Thời điểm</th>
+                                <th rowspan="2">Mô tả</th>
+                                <th rowspan="2">Phân loại</th>
+                                <th rowspan="2">Tên phí, lệ phí</th>
+                                <th rowspan="2">Phần<br>trăm</th>
+                                <th colspan="2">Mức thu</th>
+                            </tr>
+                            <tr class="text-center">
+                                <th>Từ</th>
+                                <th>Đến</th>
                             </tr>
                         </thead>
 
@@ -51,8 +56,10 @@
                                     <td style="text-align: center">{{$key + 1}}</td>
                                     <td>{{$a_donvi[$tt->madv] ?? ''}}</td>
                                     <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
-                                    <td>{{$a_dm[$tt->manhom] ?? ''}}</td>
-                                    <td>{{$tt->soqd}}</td>
+                                    <td>{{$tt->mota}}</td>
+                                    <td>{{$tt->phanloai}}</td>
+                                    <td>{{$tt->ptcp}}</td>
+                                    <td style="text-align: center">{{$tt->phantram}}</td>
                                     <td style="text-align: center">{{dinhdangso($tt->mucthutu)}}</td>
                                     <td style="text-align: center">{{dinhdangso($tt->mucthuden)}}</td>
                                 </tr>

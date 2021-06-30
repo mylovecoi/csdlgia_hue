@@ -69,17 +69,32 @@ class PhiLePhiController extends Controller
             $inputs = $request->all();
             $inputs['url'] = '/giaphilephi';
             //DB::statement("DELETE FROM philephict WHERE mahs not in (SELECT mahs FROM philephi where madv='" . $inputs['madv'] . "')");
-            $a_dm = array_column(DmPhiLePhi::all()->toArray(), 'tennhom', 'manhom');
+            //$a_dm = array_column(DmPhiLePhi::all()->toArray(), 'tennhom', 'manhom');
             $model = new PhiLePhi();
             $model->madv = $inputs['madv'];
-            $model->mahs = getdate()[0].'_'.$model->madv;
+            $model->trangthai = 'CHT';
+            $model->mahs = getdate()[0] . '_' . $model->madv;
+            $m_dm = DmPhiLePhi::orderby('stt')->get();
+            $a_dm = [];
+            foreach ($m_dm as $dm) {
+                $a_dm[] = [
+                    'mahs' => $model->mahs,
+                    'phanloai' => $dm->phanloai,
+                    'ptcp' => $dm->tennhom,
+                ];
+            }
+            foreach (array_chunk($a_dm, 150) as $data) {
+                PhiLePhiCt::insert($data);
+            }
+            $modelct = PhiLePhiCt::where('mahs', $model->mahs)->get();
+            $a_phanloai = array_column($modelct->toArray(),'phanloai','phanloai');
             return view('manage.dinhgia.philephi.kekhai.edit')
-                ->with('a_dm',$a_dm)
-                ->with('model',$model)
-                ->with('modelct',nullValue())
-                ->with('inputs',$inputs)
-                ->with('pageTitle','Thêm mới thông tin hồ sơ phí, lệ phí');
-        }else
+                ->with('model', $model)
+                ->with('modelct', $modelct)
+                ->with('a_phanloai', $a_phanloai)
+                ->with('inputs', $inputs)
+                ->with('pageTitle', 'Thông tin hồ sơ phí, lệ phí');
+        } else
             return view('errors.notlogin');
     }
 
@@ -113,9 +128,10 @@ class PhiLePhiController extends Controller
             $inputs['url'] = '/giaphilephi';
             $model = PhiLePhi::where('mahs',$inputs['mahs'])->first();
             $modelct =  PhiLePhiCt::where('mahs',$model->mahs)->get();
-            $a_dm = array_column(DmPhiLePhi::all()->toArray(), 'tennhom', 'manhom');
+//            $a_dm = array_column(DmPhiLePhi::all()->toArray(), 'tennhom', 'manhom');
+            $a_phanloai = array_column($modelct->toArray(),'phanloai','phanloai');
             return view('manage.dinhgia.philephi.kekhai.edit')
-                ->with('a_dm',$a_dm)
+                ->with('a_phanloai',$a_phanloai)
                 ->with('inputs',$inputs)
                 ->with('model',$model)
                 ->with('modelct',$modelct)
@@ -159,38 +175,38 @@ class PhiLePhiController extends Controller
         die(json_encode($result));
     }
 
-    public function show($id){
-        if(Session::has('admin')){
-            $model = PhiLePhi::findOrFail($id);
-            $modelct = PhiLePhiCt::where('mahs',$model->mahs)
-                ->get();
-            $m_nhomphilephi = DmPhiLePhi::where('manhom',$model->manhom)->first();
-            if(session('admin')->level == 'T'){
-                $inputs['dvcaptren'] = getGeneralConfigs()['tendvcqhienthi'];
-                $inputs['dv'] = getGeneralConfigs()['tendvhienthi'];
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }elseif(session('admin')->level == 'H'){
-                $modeldv = District::where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }else{
-                $modeldv = Town::where('maxa',session('admin')->maxa)
-                    ->where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }
-
-            return view('manage.dinhgia.philephi.reports.print')
-                ->with('model',$model)
-                ->with('modelct',$modelct)
-                ->with('m_nhomphilephi',$m_nhomphilephi)
-                ->with('inputs',$inputs)
-                ->with('pageTitle','Phí lệ phí');
-        }else
-            return view('errors.notlogin');
-    }
+//    public function show($id){
+//        if(Session::has('admin')){
+//            $model = PhiLePhi::findOrFail($id);
+//            $modelct = PhiLePhiCt::where('mahs',$model->mahs)
+//                ->get();
+//            $m_nhomphilephi = DmPhiLePhi::where('manhom',$model->manhom)->first();
+//            if(session('admin')->level == 'T'){
+//                $inputs['dvcaptren'] = getGeneralConfigs()['tendvcqhienthi'];
+//                $inputs['dv'] = getGeneralConfigs()['tendvhienthi'];
+//                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
+//            }elseif(session('admin')->level == 'H'){
+//                $modeldv = District::where('mahuyen',session('admin')->mahuyen)->first();
+//                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
+//                $inputs['dv'] = $modeldv->tendvhienthi;
+//                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
+//            }else{
+//                $modeldv = Town::where('maxa',session('admin')->maxa)
+//                    ->where('mahuyen',session('admin')->mahuyen)->first();
+//                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
+//                $inputs['dv'] = $modeldv->tendvhienthi;
+//                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
+//            }
+//
+//            return view('manage.dinhgia.philephi.reports.print')
+//                ->with('model',$model)
+//                ->with('modelct',$modelct)
+//                ->with('m_nhomphilephi',$m_nhomphilephi)
+//                ->with('inputs',$inputs)
+//                ->with('pageTitle','Phí lệ phí');
+//        }else
+//            return view('errors.notlogin');
+//    }
 
     public function chuyenhs(Request $request)
     {
@@ -245,7 +261,7 @@ class PhiLePhiController extends Controller
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
 
-            $m_donvi = getDonViXetDuyet(session('admin')->level);
+            $m_donvi = getDonViXetDuyet(session('admin')->level, 'giaphilephi');
             $m_donvi_th = getDonViTongHop('giaphilephi',\session('admin')->level, \session('admin')->madiaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;

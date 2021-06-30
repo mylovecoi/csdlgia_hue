@@ -15,6 +15,8 @@ class CreateDmphilephiTable extends Migration
     {
         Schema::create('dmphilephi', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('stt')->default(99);
+            $table->string('phanloai')->nullable();
             $table->string('manhom')->nullable();
             $table->string('tennhom')->nullable();
             $table->string('dvt')->nullable();

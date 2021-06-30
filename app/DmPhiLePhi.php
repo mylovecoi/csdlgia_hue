@@ -9,8 +9,10 @@ class DmPhiLePhi extends Model
     protected $table = 'dmphilephi';
     protected $fillable = [
         'id',
+        'phanloai',
         'manhom',
         'tennhom',
-        'dvt'
+        'dvt',
+        'stt'
     ];
 }

@@ -10,7 +10,10 @@ class PhiLePhiCt extends Model
     protected $fillable = [
         'id',
         'mahs',
+        'phanloai',
         'ptcp',
+        'dvt',
+        'phantram',
         'mucthutu',
         'mucthuden',
         'ghichu'

@@ -38,6 +38,7 @@
                 dataType: 'JSON',
                 success: function (data) {
                     var form = $('#frm_create');
+                    form.find("[name='stt']").val(data.stt);
                     form.find("[name='manhom']").val(data.manhom);
                     form.find("[name='tennhom']").val(data.tennhom);
                 },
@@ -46,10 +47,20 @@
                 }
             });
         }
+
         function new_hs() {
             var form = $('#frm_create');
+            form.find("[name='stt']").val('{{$inputs['stt']}}');
             form.find("[name='manhom']").val('NEW');
             form.find("[name='tennhom']").val('');
+            InputMask();
+        }
+
+        function addpl(){
+            $('#modal-phanloai').modal('hide');
+            var gt = $('#phanloai_add').val();
+            $('#phanloai').append(new Option(gt, gt, true, true));
+            $('#phanloai').val(gt).trigger('change');
         }
     </script>
 @stop
@@ -76,16 +87,18 @@
 
                     <table class="table table-striped table-bordered table-hover" id="sample_3">
                         <thead>
-                        <tr>
-                            <th width="5%" style="text-align: center">STT</th>
-                            <th style="text-align: center">Tên sản phẩm</th>
-                            <th width="15%" style="text-align: center">Thao tác</th>
-                        </tr>
+                            <tr class="text-center">
+                                <th width="5%">STT</th>
+                                <th>Nhóm phí, lệ phí</th>
+                                <th>Tên phí, lệ phí</th>
+                                <th width="15%">Thao tác</th>
+                            </tr>
                         </thead>
                         <tbody>
                         @foreach($model as $key=>$tt)
-                            <tr class="odd gradeX">
-                                <td style="text-align: center">{{$key + 1}}</td>
+                            <tr>
+                                <td style="text-align: center">{{$tt->stt}}</td>
+                                <td>{{$tt->phanloai}}</td>
                                 <td class="success">{{$tt->tennhom}}</td>
                                 <td>
                                     @if(chkPer('csdlmucgiahhdv','philephi', 'giaphilephi','danhmuc','modify'))
@@ -111,17 +124,42 @@
     <div class="modal fade" id="modal-create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url'=>$inputs['url'].'/danhmuc', 'method'=>'post','id' => 'frm_create'])!!}
+                {!! Form::open(['url'=>$inputs['url'].'/danhmuc', 'method'=>'post','id' => 'frm_create', 'class'=>'horizontal-form'])!!}
                 <input type="hidden" name="manhom" />
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Thông tin nhóm phí, lệ phí</h4>
+                    <h4 class="modal-title">Thông tin nhóm phí, lệ phí1</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="control-label">Tên nhóm phí, lệ phí<span class="require">*</span></label>
+                                <label class="control-label">Số thứ tự</label>
+                                <input name="stt" id="stt" class="form-control" required data-mask="fdecimal">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <label class="control-label">Tên phân nhóm phí, lệ phí</label>
+                                {!!Form::select('phanloai', $a_phanloai ,null, array('id' => 'phanloai','class' => 'form-control select2me'))!!}
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group" style="margin-top: 25px;">
+                                <button type="button" class="btn btn-default" data-target="#modal-phanloai" data-toggle="modal">
+                                    <i class="fa fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Tên phí, lệ phí<span class="require">*</span></label>
                                 <input name="tennhom" id="tennhom" class="form-control" required>
                             </div>
                         </div>
@@ -157,5 +195,29 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
-    @include('includes.script.create-header-scripts')
+
+    <div id="modal-phanloai" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                    <h4 id="modal-header-primary-label" class="modal-title">Thông tin chi tiết</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-control-label">Tên phân loại phí, lệ phí<span class="require">*</span></label>
+                            {!!Form::text('phanloai_add', null, array('id' => 'phanloai_add','class' => 'form-control','required'=>'required'))!!}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
+                    <button type="button" class="btn btn-primary" onclick="addpl()">Đồng ý</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @include('includes.script.inputmask-ajax-scripts')
 @stop

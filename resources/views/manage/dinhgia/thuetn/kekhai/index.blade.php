@@ -29,7 +29,7 @@
                 changeUrl();
             });
 
-            $('#madiaban_td').change(function() {
+            $('#madv').change(function() {
                 changeUrl();
             });
         });

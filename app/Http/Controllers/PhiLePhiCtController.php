@@ -23,8 +23,8 @@ class PhiLePhiCtController extends Controller
             die(json_encode($result));
         }
         $inputs = $request->all();
-        $inputs['mucthutu'] = getMoneyToDb($inputs['mucthutu']);
-        $inputs['mucthuden'] = getMoneyToDb($inputs['mucthuden']);
+        $inputs['mucthutu'] = chkDbl($inputs['mucthutu']);
+        $inputs['mucthuden'] = chkDbl($inputs['mucthuden']);
         $m_chk = PhiLePhiCt::where('id',$inputs['id'])->first();
         if($m_chk == null){
             unset($inputs['id']);
@@ -84,39 +84,45 @@ class PhiLePhiCtController extends Controller
         $model = PhiLePhiCt::where('mahs', $inputs['mahs'])->get();
         $result['message'] = '<div class="row" id="dsmhbog">';
         $result['message'] .= '<div class="col-md-12">';
-        $result['message'] .= '<table class="table table-striped table-bordered table-hover" id="sample_3">';
+        $result['message'] .= '<table class="table table-striped table-bordered table-hover" id="sample_4">';
         $result['message'] .= '<thead>';
-        $result['message'] .= '<tr>';
-        $result['message'] .= '<th width="2%" style="text-align: center">STT</th>';
-        $result['message'] .= '<th style="text-align: center">Tên phí</th>';
-        $result['message'] .= '<th style="text-align: center">Mức thu từ</th>';
-        $result['message'] .= '<th style="text-align: center">Mức thu đến</th>';
-        $result['message'] .= '<th style="text-align: center">Ghi chú</th>';
-        $result['message'] .= '<th style="text-align: center" width="15%">Thao tác</th>';
+        $result['message'] .= '<tr class="text-center">';
+        $result['message'] .= '<th rowspan="2" width="5%">STT</th>';
+        $result['message'] .= '<th rowspan="2">Phân loại</th>';
+        $result['message'] .= '<th rowspan="2">Tên phí, lệ phí</th>';
+        $result['message'] .= '<th rowspan="2">Phần<br>trăm</th>';
+        $result['message'] .= '<th colspan="2">Mức thu</th>';
+
+        $result['message'] .= '<th rowspan="2" width="15%">Thao tác</th>';
+        $result['message'] .= '</tr>';
+
+        $result['message'] .= '<tr class="text-center">';
+        $result['message'] .= '<th>Từ</th>';
+        $result['message'] .= '<th>Đến</th>';
         $result['message'] .= '</tr>';
         $result['message'] .= '</thead>';
 
-
         $result['message'] .= '<tbody>';
-        if (count($model) > 0) {
-            foreach ($model as $key => $ttbog) {
-                $result['message'] .= '<tr id="' . $ttbog->id . '">';
-                $result['message'] .= '<td style="text-align: center">' . ($key + 1) . '</td>';
-                $result['message'] .= '<td>' . $ttbog->ptcp . '</td>';
-                $result['message'] .= '<td style="text-align: right;font-weight: bold;">' . number_format($ttbog->mucthutu) . '</td>';
-                $result['message'] .= '<td style="text-align: right;font-weight: bold;">' . number_format($ttbog->mucthuden) . '</td>';
-                $result['message'] .= '<td>' . $ttbog->ghichu . '</td>';
-                $result['message'] .= '<td>' .
-                    '<button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editmhbog(' . $ttbog->id . ');"><i class="fa fa-edit"></i>&nbsp;Sửa</button>' .
-                    '<button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid(' . $ttbog->id . ');" ><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>'
-                    . '</td>';
-                $result['message'] .= '</tr>';
-            }
-            $result['message'] .= '</tbody>';
-            $result['message'] .= '</table>';
-            $result['message'] .= '</div>';
-            $result['message'] .= '</div>';
+        $i = 1;
+        foreach ($model as $key => $ttbog) {
+            $result['message'] .= '<tr>';
+            $result['message'] .= '<td class="text-center">' . $i++ . '</td>';
+            $result['message'] .= '<td>' . $ttbog->phanloai . '</td>';
+            $result['message'] .= '<td>' . $ttbog->ptcp . '</td>';
+            $result['message'] .= '<td class="text-center">' . $ttbog->phantram . '</td>';
+            $result['message'] .= '<td style="text-align: right;">' . dinhdangso($ttbog->mucthutu) . '</td>';
+            $result['message'] .= '<td style="text-align: right;">' . dinhdangso($ttbog->mucthuden) . '</td>';
+            $result['message'] .= '<td>' .
+                '<button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editmhbog(' . $ttbog->id . ');"><i class="fa fa-edit"></i>&nbsp;Sửa</button>' .
+                '<button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid(' . $ttbog->id . ');" ><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>'
+                . '</td>';
+            $result['message'] .= '</tr>';
         }
+        $result['message'] .= '</tbody>';
+        $result['message'] .= '</table>';
+        $result['message'] .= '</div>';
+        $result['message'] .= '</div>';
+
         return $result;
     }
 }

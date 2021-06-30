@@ -238,6 +238,7 @@ Route::group(['prefix'=>'giathuetn'], function (){
     Route::post('delete_dm','manage\thuetn\DmThueTnController@destroy');
     Route::get('show_dm','manage\thuetn\DmThueTnController@show');
     Route::post('importexcel','manage\thuetn\DmThueTnController@importexcel');
+    Route::post('theodoi','manage\thuetn\DmThueTnController@theodoi');
 
     Route::get('thuetainguyen/nhandulieutuexcel','manage\thuetn\ThueTaiNguyenController@nhandulieutuexcel');
     Route::get('danhsach','manage\thuetn\ThueTaiNguyenController@index');

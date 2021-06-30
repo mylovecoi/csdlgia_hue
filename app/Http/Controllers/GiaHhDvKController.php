@@ -206,11 +206,11 @@ class GiaHhDvKController extends Controller
                 //dd($inputs);
                 $m_lk = GiaHhDvK::where('trangthai', 'HT')
                     ->where('matt', $inputs['mattbc'])
-                    ->where('madiaban', $inputs['madiaban'])
+                    ->where('madv', $inputs['madv'])
                     ->orderby('thoidiem', 'desc')->first();
                 if ($m_lk != null) {
                     $model->soqdlk = $m_lk->soqd;
-                    $model->thoidiemlk = $m_lk->thoidiemlk;
+                    $model->thoidiemlk = $m_lk->thoidiem;
                     $a_ctlk = array_column(GiaHhDvKCt::where('mahs', $m_lk->mahs)->get()->toarray(), 'gia', 'mahhdv');
                 }
                 //dd($a_ctlk);
