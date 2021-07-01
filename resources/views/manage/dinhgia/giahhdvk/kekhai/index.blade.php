@@ -202,7 +202,7 @@
                         <div class="form-group">
                             <div class="col-md-12">
                                 <label>Đơn vị báo cáo</label>
-                                {!!Form::select('madv', $a_dv, null, array('id' => 'madv','class' => 'form-control select2me'))!!}
+                                {!!Form::select('madv', $a_dv, $inputs['madv'], array('id' => 'madv','class' => 'form-control select2me'))!!}
                             </div>
                         </div>
 

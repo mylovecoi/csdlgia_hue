@@ -246,6 +246,7 @@ Route::group(['prefix'=>'giathuetn'], function (){
     Route::get('edit_ct','manage\thuetn\ThueTaiNguyenCtController@edit');
     Route::get('update_ct','manage\thuetn\ThueTaiNguyenCtController@update');
     Route::post('store','manage\thuetn\ThueTaiNguyenController@store');
+    Route::get('dinhkem','manage\thuetn\ThueTaiNguyenController@dinhkem');
 
     Route::get('modify','manage\thuetn\ThueTaiNguyenController@edit');
     Route::patch('thuetainguyen/{id}','manage\thuetn\ThueTaiNguyenController@update');

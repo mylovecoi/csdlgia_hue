@@ -169,8 +169,8 @@
                                             <td class="active" style="font-weight: bold">{{$a_dm[$tt->mahhdv] ?? ''}}</td>
                                             <td style="text-align: left">{{$tt->dacdiemkt}}</td>
                                             <td style="text-align: center">{{$tt->dvt}}</td>
-                                            <td style="text-align: right;font-weight: bold">{{number_format($tt->gialk)}}</td>
-                                            <td style="text-align: right;font-weight: bold">{{number_format($tt->gia)}}</td>
+                                            <td style="text-align: right;font-weight: bold">{{dinhdangso($tt->gialk,2)}}</td>
+                                            <td style="text-align: right;font-weight: bold">{{dinhdangso($tt->gia,2)}}</td>
                                             <td>
                                                 @if(in_array($model->trangthai, ['CHT', 'HHT']))
                                                     <button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem({{$tt->id}})">

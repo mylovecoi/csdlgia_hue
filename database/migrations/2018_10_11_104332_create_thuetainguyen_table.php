@@ -55,6 +55,11 @@ class CreateThuetainguyenTable extends Migration
             $table->string('lydo_ad')->nullable();
             $table->string('thongtin_ad')->nullable();
             $table->string('trangthai_ad')->nullable();
+            $table->string('ipf1')->nullable();
+            $table->string('ipf2')->nullable();
+            $table->string('ipf3')->nullable();
+            $table->string('ipf4')->nullable();
+            $table->string('ipf5')->nullable();
             $table->timestamps();
         });
     }

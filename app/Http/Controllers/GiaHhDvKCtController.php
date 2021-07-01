@@ -98,8 +98,8 @@ class GiaHhDvKCtController extends Controller
                 $result['message'] .= '<td class="active" style="font-weight: bold">' . ($a_dm[$tents->mahhdv] ?? '') . '</td>';
                 $result['message'] .= '<td>' . $tents->dacdiemkt . '</td>';
                 $result['message'] .= '<td style="text-align: center">' . $tents->dvt . '</td>';
-                $result['message'] .= '<td style="text-align: right;font-weight: bold">' . number_format($tents->gialk) . '</td>';
-                $result['message'] .= '<td style="text-align: right;font-weight: bold">' . number_format($tents->gia) . '</td>';
+                $result['message'] .= '<td style="text-align: right;font-weight: bold">' . dinhdangso($tents->gialk,2) . '</td>';
+                $result['message'] .= '<td style="text-align: right;font-weight: bold">' . dinhdangso($tents->gia,2) . '</td>';
                 $result['message'] .= '<td>';
                 $result['message'] .= '<button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem(' . $tents->id . ');"><i class="fa fa-edit"></i>&nbsp;Nhập giá</button>';
                 $result['message'] .= '</td>';

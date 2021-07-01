@@ -25,3 +25,12 @@ SELECT        dbo.philephi.madiaban, dbo.philephi.maxp, dbo.philephi.mahs, dbo.p
 FROM            dbo.philephi INNER JOIN
                          dbo.philephict ON dbo.philephi.mahs = dbo.philephict.mahs
 GO
+
+ALTER TABLE thuetainguyen
+ADD
+    [ipf1] [nvarchar](255) NULL,
+	[ipf2] [nvarchar](255) NULL,
+	[ipf3] [nvarchar](255) NULL,
+	[ipf4] [nvarchar](255) NULL,
+	[ipf5] [nvarchar](255) NULL;
+GO
