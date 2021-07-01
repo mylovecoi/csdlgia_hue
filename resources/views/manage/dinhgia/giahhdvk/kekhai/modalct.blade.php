@@ -11,8 +11,9 @@
             dataType: 'JSON',
             success: function (data) {
                 $('#mahhdv').val(data.mahhdv).trigger('change');
-                $('#gialk').val(data.gialk);
-                $('#gia').val(data.gia);
+//                $('#gialk').val(Number.parseFloat(data.gialk).toFixed(3));
+                $('#gialk').val(dinhdangso(data.gialk,3));
+                $('#gia').val(dinhdangso(data.gia,3));
                 $('#ghichu').val(data.ghichu);
                 $('#nguontt').val(data.nguontt);
                 $('#loaigia').val(data.loaigia);

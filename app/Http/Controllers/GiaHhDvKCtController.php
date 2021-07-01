@@ -31,7 +31,6 @@ class GiaHhDvKCtController extends Controller
         $inputs = $request->all();
         $id = $inputs['id'];
         $model = GiaHhDvKCt::findOrFail($id);
-
         die($model);
     }
 
@@ -48,12 +47,10 @@ class GiaHhDvKCtController extends Controller
         $inputs = $request->all();
         if(isset($inputs['id'])){
             $modelupdate = GiaHhDvKCt::where('id',$inputs['id'])->first();
-            $inputs['gialk'] = getDoubleToDb($inputs['gialk']);
-            $inputs['gia'] = getDoubleToDb($inputs['gia']);
+            $inputs['gialk'] = chkDbl($inputs['gialk']);
+            $inputs['gia'] = chkDbl($inputs['gia']);
             $modelupdate->update($inputs);
-
             $result = $this->return_html($inputs);
-
         }
 
         die(json_encode($result));
@@ -98,8 +95,8 @@ class GiaHhDvKCtController extends Controller
                 $result['message'] .= '<td class="active" style="font-weight: bold">' . ($a_dm[$tents->mahhdv] ?? '') . '</td>';
                 $result['message'] .= '<td>' . $tents->dacdiemkt . '</td>';
                 $result['message'] .= '<td style="text-align: center">' . $tents->dvt . '</td>';
-                $result['message'] .= '<td style="text-align: right;font-weight: bold">' . dinhdangso($tents->gialk,2) . '</td>';
-                $result['message'] .= '<td style="text-align: right;font-weight: bold">' . dinhdangso($tents->gia,2) . '</td>';
+                $result['message'] .= '<td style="text-align: right;font-weight: bold">' . dinhdangsothapphan($tents->gialk,2) . '</td>';
+                $result['message'] .= '<td style="text-align: right;font-weight: bold">' . dinhdangsothapphan($tents->gia,2) . '</td>';
                 $result['message'] .= '<td>';
                 $result['message'] .= '<button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem(' . $tents->id . ');"><i class="fa fa-edit"></i>&nbsp;Nhập giá</button>';
                 $result['message'] .= '</td>';
