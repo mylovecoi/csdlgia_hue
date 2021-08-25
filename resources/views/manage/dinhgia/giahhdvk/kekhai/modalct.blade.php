@@ -121,7 +121,7 @@
                         <div class="form-group">
                             <label class="control-label">Nguồn thông tin</label>
                             <select class="form-control" id="nguontt" name="nguontt">
-                                <option value="Do trục tiếp điều tra, thu thập">Do trục tiếp điều tra, thu thập</option>
+                                <option value="Do trực tiếp điều tra, thu thập">Do trực tiếp điều tra, thu thập</option>
                                 <option value="Hợp đồng mua tin">Hợp đồng mua tin</option>
                                 <option value="Do cơ quan/đơn vị quản lý nhà nước có liên quan cung cấp/báo cáo theo quy định">Do cơ quan/đơn vị quản lý nhà nước có liên quan cung cấp/báo cáo theo quy định</option>
                                 <option value="Từ thống kê đăng ký giá, kê khai giá, thông báo giá của doanh nghiệp">Từ thống kê đăng ký giá, kê khai giá, thông báo giá của doanh nghiệp</option>
@@ -135,7 +135,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label">Ghi chú</label>
-                            <input type="text" id="ghichu" name="ghichu" class="form-control">
+                            <input type="textarea" id="ghichu" name="ghichu" class="form-control" rows="2" />
                         </div>
                     </div>
                 </div>

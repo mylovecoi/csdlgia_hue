@@ -237,8 +237,8 @@ class GiaHhDvKController extends Controller
                         'mahhdv' => $dm->mahhdv,
                         'loaigia' => 'Giá bán lẻ',
                         'nguontt' => 'Do cơ quan/đơn vị quản lý nhà nước có liên quan cung cấp/báo cáo theo quy định',
-                        'gia' => isset($a_ctlk[$dm->mahhdv]) ? (float) dinhdangsothapphan($a_ctlk[$dm->mahhdv],3) : 0,
-                        'gialk' => isset($a_ctlk[$dm->mahhdv]) ? (float) dinhdangsothapphan($a_ctlk[$dm->mahhdv],3) : 0,
+                        'gia' => isset($a_ctlk[$dm->mahhdv]) ? (float) round($a_ctlk[$dm->mahhdv],3) : 0,
+                        'gialk' => isset($a_ctlk[$dm->mahhdv]) ? (float) round($a_ctlk[$dm->mahhdv],3) : 0,
 //                        'gia' => isset($a_ctlk[$dm->mahhdv]) && getDoubleToDb($a_ctlk[$dm->mahhdv]) > 0 ? round(getDoubleToDb($a_ctlk[$dm->mahhdv]), 0) : 0,
 //                        'gialk' => isset($a_ctlk[$dm->mahhdv]) && getDoubleToDb($a_ctlk[$dm->mahhdv]) > 0 ? round(getDoubleToDb($a_ctlk[$dm->mahhdv]), 0) : 0,
                     ];
