@@ -3664,6 +3664,40 @@ function IntToRoman($number)
     }
     return $roman;
 }
+
+function canKkGiaGr($manganh){
+    return true;
+    if(session('admin')->level == 'T') {
+        $checkXH = \App\Model\system\dmnganhnghekd\DmNganhKd::where('manganh',$manganh)
+            ->where('theodoi','TD')
+            ->count();
+        if($checkXH > 0)
+            return true;
+        else
+            return false;
+    }else{
+        if(session('admin')->level == 'H' || session('admin')->level == 'X'){
+            $checkXH = \App\Model\system\dmnganhnghekd\DmNgheKd::where('manganh',$manganh)
+                ->where('mahuyen',session('admin')->mahuyen)
+                ->where('theodoi','TD')
+                ->count();
+            if($checkXH > 0)
+                return true;
+            else
+                return false;
+        }else{
+            $checkdn = \App\Model\system\company\CompanyLvCc::where('manganh',$manganh)
+                ->where('maxa',session('admin')->maxa)
+                ->count();
+            if($checkdn > 0)
+                return true;
+            else
+                return false;
+        }
+    }
+
+}
+
 function canKkGiaCt($manganh = null, $manghe = null){
     return true;
 
