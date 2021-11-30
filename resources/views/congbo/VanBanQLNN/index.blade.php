@@ -203,6 +203,7 @@
             </div>
         </div>
     </div>
+    </div>
     @include('includes.e.modal-attackfile')
     @include('includes.script.inputmask-ajax-scripts')
     @include('includes.script.create-header-scripts')

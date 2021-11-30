@@ -1,9 +1,7 @@
 var TableManagedclass = function () {
 
     var initTable = function () {
-
         var table = $('.dulieubang');
-
         // begin: third table
         table.dataTable({
             "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.

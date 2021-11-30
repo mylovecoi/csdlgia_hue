@@ -3276,80 +3276,6 @@ function can($module = null, $action = null)
 
 }
 
-function canKkGiaGr($manganh){
-    if(session('admin')->level == 'T') {
-        $checkXH = \App\Model\system\dmnganhnghekd\DmNganhKd::where('manganh',$manganh)
-            ->where('theodoi','TD')
-            ->count();
-        if($checkXH > 0)
-            return true;
-        else
-            return false;
-    }else{
-        if(session('admin')->level == 'H' || session('admin')->level == 'X'){
-            $checkXH = \App\Model\system\dmnganhnghekd\DmNgheKd::where('manganh',$manganh)
-                //->where('mahuyen',session('admin')->mahuyen)
-                ->where('theodoi','TD')
-                ->count();
-            if($checkXH > 0)
-                return true;
-            else
-                return false;
-        }else{
-            $checkdn = \App\Model\system\company\CompanyLvCc::where('manganh',$manganh)
-                ->where('madv',session('admin')->madv)
-                ->count();
-            if($checkdn > 0)
-                return true;
-            else
-                return false;
-        }
-    }
-
-}
-
-function canKkGiaCt($manganh = null, $manghe = null){
-    if(session('admin')->level == 'T' || session('admin')->sadmin == 'ssa') {
-        $modelnghe = \App\Model\system\dmnganhnghekd\DmNgheKd::where('manganh',$manganh)
-            ->where('manghe',$manghe)
-            ->where('theodoi','TD');
-        if($modelnghe->count() > 0)
-            return true;
-        else
-            return false;
-    }else{
-        $modelnganh = \App\Model\system\dmnganhnghekd\DmNgheKd::where('manganh',$manganh)
-            ->where('theodoi','TD')
-            ->count();
-        if($modelnganh > 0){
-            $modelnghe = \App\Model\system\dmnganhnghekd\DmNgheKd::where('manganh',$manganh)
-                ->where('manghe',$manghe)
-                ->where('theodoi','TD');
-            if($modelnghe->count() > 0){
-                if(session('admin')->level == 'H' || session('admin')->level == 'X'){
-                    //$modelcheck = $modelnghe->where('mahuyen',session('admin')->mahuyen)->count();
-                    return true;
-//                    if($modelcheck > 0)
-//                        return true;
-//                    else
-//                        return false;
-                }else{
-                    $dncheck = \App\Model\system\company\CompanyLvCc::where('madv',session('admin')->madv)
-                        ->where('manganh',$manganh)
-                        ->where('manghe',$manghe)
-                        ->count();
-                    if($dncheck > 0){
-                        return true;
-                    }else
-                        return false;
-                }
-            }else
-                return false;
-        }else
-            return false;
-    }
-}
-
 function canEdit($trangthai){
     if(session('admin')->sadmin == 'ssa')
        return true;
@@ -3383,49 +3309,30 @@ function canApprove($trangthai){
         return false;
 }
 
-function canGeneral($module = null, $action =null)
-{
-    $model = \App\GeneralConfigs::first();
-//    dd($model->count());
-    if($model->count()> 0 && $model->setting != '')
-        $setting = json_decode($model->setting, true);
-    else {
-        $per = '{
-
-                }';
-        $setting = json_decode($per, true);
-    }
-
-    if (isset($setting[$module][$action]) && $setting[$module][$action] == 1)
-        return true;
-    else
-        return false;
-}
-
-function canDvCc($module = null, $action = null)
-{
-    $permission = !empty(session('ttdnvt')->dvcc) ? session('ttdnvt')->dvcc : getDvCcDefault('T');
-    $permission = json_decode($permission, true);
-
-    //check permission
-    if(isset($permission[$module][$action]) && $permission[$module][$action] == 1) {
-        return true;
-    }else
-        return false;
-
-}
-
-function canDV($perm=null,$module = null, $action = null){
-    if($perm == ''){
-        return false;
-    }else {
-        $permission = json_decode($perm,true);
-        if (isset($permission[$module][$action]) && $permission[$module][$action] == 1) {
-            return true;
-        } else
-            return false;
-    }
-}
+//function canDvCc($module = null, $action = null)
+//{
+//    $permission = !empty(session('ttdnvt')->dvcc) ? session('ttdnvt')->dvcc : getDvCcDefault('T');
+//    $permission = json_decode($permission, true);
+//
+//    //check permission
+//    if(isset($permission[$module][$action]) && $permission[$module][$action] == 1) {
+//        return true;
+//    }else
+//        return false;
+//
+//}
+//
+//function canDV($perm=null,$module = null, $action = null){
+//    if($perm == ''){
+//        return false;
+//    }else {
+//        $permission = json_decode($perm,true);
+//        if (isset($permission[$module][$action]) && $permission[$module][$action] == 1) {
+//            return true;
+//        } else
+//            return false;
+//    }
+//}
 
 function getGeneralConfigs() {
     $kq = \App\GeneralConfigs::all()->first();
@@ -3433,37 +3340,37 @@ function getGeneralConfigs() {
     return $kq;
 
 }
-
-function canDVVT($module = null, $action = null){
-    if(session('admin')->level == 'T' || session('admin')->level == 'H' || session('admin')->level == 'X')
-        return true;
-    elseif(session('admin')->level == 'DVVT'){
-        $modeldv = \App\Company::where('maxa',session('admin')->maxa)
-            ->where('level','DVVT')
-            ->first();
-        $setting = json_decode($modeldv->settingdvvt, true);
-        //check permission
-        if(isset($setting[$module][$action]) && $setting[$module][$action] == 1) {
-            return true;
-        }else
-            return false;
-    }else
-        return false;
-
-}
-
-function canshow($module = null, $action = null)
-{
-    $permission = !empty(session('admin')->dvvtcc) ? session('admin')->dvvtcc : '{"dvvt":{"vtxk":"1","vtxb":"1","vtxtx":"1","vtch":"1"}}';
-    $permission = json_decode($permission, true);
-
-    //check permission
-    if(isset($permission[$module][$action]) && $permission[$module][$action] == 1) {
-        return true;
-    }else
-        return false;
-
-}
+//
+//function canDVVT($module = null, $action = null){
+//    if(session('admin')->level == 'T' || session('admin')->level == 'H' || session('admin')->level == 'X')
+//        return true;
+//    elseif(session('admin')->level == 'DVVT'){
+//        $modeldv = \App\Company::where('maxa',session('admin')->maxa)
+//            ->where('level','DVVT')
+//            ->first();
+//        $setting = json_decode($modeldv->settingdvvt, true);
+//        //check permission
+//        if(isset($setting[$module][$action]) && $setting[$module][$action] == 1) {
+//            return true;
+//        }else
+//            return false;
+//    }else
+//        return false;
+//
+//}
+//
+//function canshow($module = null, $action = null)
+//{
+//    $permission = !empty(session('admin')->dvvtcc) ? session('admin')->dvvtcc : '{"dvvt":{"vtxk":"1","vtxb":"1","vtxtx":"1","vtch":"1"}}';
+//    $permission = json_decode($permission, true);
+//
+//    //check permission
+//    if(isset($permission[$module][$action]) && $permission[$module][$action] == 1) {
+//        return true;
+//    }else
+//        return false;
+//
+//}
 
 function chuyenkhongdau($str)
 {
@@ -3772,7 +3679,7 @@ function getThXdHsDvLt($ngaychuyen,$ngayduyet){
     while (strtotime($ngaychuyen) <= strtotime($ngayduyet)) {
         $checkngay = \App\NgayNghiLe::where('tungay', '<=', $ngaychuyen)
             ->where('denngay', '>=', $ngaychuyen)->first();
-        if (count($checkngay) > 0)
+        if ($checkngay != null)
             $ngaylv = $ngaylv;
         elseif (date('D', strtotime($ngaychuyen)) == 'Sat')
             $ngaylv = $ngaylv;
