@@ -3665,6 +3665,54 @@ function IntToRoman($number)
     return $roman;
 }
 
+
+function canGeneral($module = null, $action =null)
+{
+    return true;
+    $model = \App\GeneralConfigs::first();
+    if(isset($model) && $model->setting != '')
+        $setting = json_decode($model->setting, true);
+    else {
+        $per = '{
+
+                }';
+        $setting = json_decode($per, true);
+    }
+
+    if (isset($setting[$module][$action]) && $setting[$module][$action] == 1)
+        return true;
+    else
+        return false;
+}
+
+function canDvCc($module = null, $action = null)
+{
+    return true;
+    $permission = !empty(session('ttdnvt')->dvcc) ? session('ttdnvt')->dvcc : getDvCcDefault('T');
+    $permission = json_decode($permission, true);
+
+    //check permission
+    if(isset($permission[$module][$action]) && $permission[$module][$action] == 1) {
+        return true;
+    }else
+        return false;
+
+}
+
+function canDV($perm=null,$module = null, $action = null){
+    return true;
+    if($perm == ''){
+        return false;
+    }else {
+        $permission = json_decode($perm,true);
+        if (isset($permission[$module][$action]) && $permission[$module][$action] == 1) {
+            return true;
+        } else
+            return false;
+    }
+}
+
+
 function canKkGiaGr($manganh){
     return true;
     if(session('admin')->level == 'T') {
