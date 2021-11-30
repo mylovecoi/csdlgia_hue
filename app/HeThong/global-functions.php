@@ -3664,6 +3664,49 @@ function IntToRoman($number)
     }
     return $roman;
 }
+function canKkGiaCt($manganh = null, $manghe = null){
+    return true;
+
+    if(session('admin')->level == 'T' || session('admin')->sadmin == 'ssa') {
+        $modelnghe = \App\Model\system\dmnganhnghekd\DmNgheKd::where('manganh',$manganh)
+            ->where('manghe',$manghe)
+            ->where('theodoi','TD');
+        if($modelnghe->count() > 0)
+            return true;
+        else
+            return false;
+    }else{
+        $modelnganh = \App\Model\system\dmnganhnghekd\DmNgheKd::where('manganh',$manganh)
+            ->where('theodoi','TD')
+            ->count();
+        if($modelnganh > 0){
+            $modelnghe = \App\Model\system\dmnganhnghekd\DmNgheKd::where('manganh',$manganh)
+                ->where('manghe',$manghe)
+                ->where('theodoi','TD');
+            if($modelnghe->count() > 0){
+                if(session('admin')->level == 'H' || session('admin')->level == 'X'){
+                    $modelcheck = $modelnghe->where('mahuyen',session('admin')->mahuyen)
+                        ->count();
+                    if($modelcheck > 0)
+                        return true;
+                    else
+                        return false;
+                }else{
+                    $dncheck = \App\Model\system\company\CompanyLvCc::where('maxa',session('admin')->maxa)
+                        ->where('manganh',$manganh)
+                        ->where('manghe',$manghe)
+                        ->count();
+                    if($dncheck > 0){
+                        return true;
+                    }else
+                        return false;
+                }
+            }else
+                return false;
+        }else
+            return false;
+    }
+}
 
 function getThXdHsDvLt($ngaychuyen,$ngayduyet){
     //Kiểm tra giờ chuyển quá 16h thì sang ngày sau
