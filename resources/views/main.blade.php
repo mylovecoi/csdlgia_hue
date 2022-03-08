@@ -715,18 +715,31 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <li><a href="{{url('/donvi/danhsach')}}">{{session('admin')['a_chucnang']['danhsachdonvi'] ?? 'Danh sách đơn vị'}}</a></li>
                                     @endif
 
-                                        @if(chkPer('hethong', 'hethong_pq', 'chucnang'))
-                                            <li><a href="{{url('/chucnang/danhsach')}}">{{session('admin')['a_chucnang']['chucnang'] ?? 'Danh mục chức năng hệ thống'}}</a> </li>
-                                        @endif
-                                    <!-- chức năng này không có => chỉ có quyền SSA mới lên -->
-                                        @if(session('admin')->level == 'SSA')
-                                            <li><a href="{{url('/vanphonghotro/danhsach')}}">{{session('admin')['a_chucnang']['vanphong'] ?? 'Văn phòng hỗ trợ'}}</a> </li>
-                                            <li><a href="{{url('/doanhnghiep/dsdangky')}}">Danh sách doanh nghiệp đăng ký</a> </li>
-                                        @endif
+                                    @if(chkPer('hethong', 'hethong_pq', 'chucnang'))
+                                        <li><a href="{{url('/chucnang/danhsach')}}">{{session('admin')['a_chucnang']['chucnang'] ?? 'Danh mục chức năng hệ thống'}}</a> </li>
+                                    @endif
 
-                                        @if(chkPer('hethong', 'hethong_pq', 'thongtin'))
-                                            <li><a href="{{url('/general')}}">{{session('admin')['a_chucnang']['thongtin'] ?? 'Cấu hình hệ thống'}}</a></li>
-                                        @endif
+                                    @if(chkPer('hethong', 'hethong_pq', 'api'))
+                                        <li class="tooltips" data-container="body" data-placement="right" data-html="true">
+                                            <a href="javascript:;">
+                                                <span class="title">Kết nối API</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{url('/KetNoiAPI/ThietLapChung')}}">{{session('admin')['a_chucnang']['api'] ?? 'Thông điệp chung'}}</a> </li>
+                                                <li><a href="{{url('/KetNoiAPI/ThietLapChiTiet')}}">Thông điệp chi tiết</a></li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                <!-- chức năng này không có => chỉ có quyền SSA mới lên -->
+                                    @if(session('admin')->level == 'SSA')
+                                        <li><a href="{{url('/vanphonghotro/danhsach')}}">{{session('admin')['a_chucnang']['vanphong'] ?? 'Văn phòng hỗ trợ'}}</a> </li>
+                                        <li><a href="{{url('/doanhnghiep/dsdangky')}}">Danh sách doanh nghiệp đăng ký</a> </li>
+                                    @endif
+
+                                    @if(chkPer('hethong', 'hethong_pq', 'thongtin'))
+                                        <li><a href="{{url('/general')}}">{{session('admin')['a_chucnang']['thongtin'] ?? 'Cấu hình hệ thống'}}</a></li>
+                                    @endif
                                 </ul>
                             </li>
 

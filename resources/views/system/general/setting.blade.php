@@ -41,12 +41,13 @@
                             <tr>
                                 <th width="7%" rowspan="2">STT</th>
                                 <th rowspan="2">Nội dung CSDL địa phương</th>
-                                <th colspan="2">Chức năng</th>
+                                <th colspan="3">Chức năng</th>
                                 <th rowspan="2" width="15%">Thao</br>tác</th>
                             </tr>
                             <tr>
                                <th width="7%">Quản lý</th>
                                <th width="7%">Công bố</th>
+                                <th width="7%">API</th>
                             </tr>
                             </thead>
                         <tbody>
@@ -59,9 +60,13 @@
                                         @if($v_csdl['index'] == '1')
                                             <i class="fa fa-check"></i>
                                         @endif
+                                    </td>
+                                    <td class="text-center">
+                                        {!! $v_csdl['congbo'] == 1 ? '<i class="fa fa-check"></i>':'' !!}
+                                    </td>
+                                    <td class="text-center">
 
                                     </td>
-                                    <td class="text-center">{!! $v_csdl['congbo'] == 1 ? '<i class="fa fa-check"></i>':'' !!} </td>
                                     <td class="text-center">
                                         <button type="button" onclick="change('[{{$k_csdl}}]', '{{$v_csdl['index']}}', '{{$v_csdl['congbo']}}', '{{isset($a_chucnang[$k_csdl]) ? $a_chucnang[$k_csdl] : $k_csdl}}')" class="btn btn-default btn-xs mbs" data-target="#edit-modal" data-toggle="modal">
                                             <i class="fa fa-gear"></i></button>
@@ -76,6 +81,7 @@
                                             <td>{{isset($a_chucnang[$k_gr]) ? $a_chucnang[$k_gr] : $k_gr}}</td>
                                             <td class="text-center">{!!$v_gr['index'] == 1 ? '<i class="fa fa-check"></i>':''!!} </td>
                                             <td class="text-center">{!!$v_gr['congbo'] == 1 ? '<i class="fa fa-check"></i>':''!!} </td>
+                                            <td class="text-center"></td>
                                             <td class="text-center">
                                                 <button type="button" onclick="change('{{'['.$k_csdl.']['.$k_gr.']'}}', '{{$v_gr['index']}}', '{{$v_gr['congbo']}}', '{{isset($a_chucnang[$k_gr]) ? $a_chucnang[$k_gr] : $k_csdl}}')" class="btn btn-default btn-xs mbs" data-target="#edit-modal" data-toggle="modal">
                                                     <i class="fa fa-gear"></i></button>
@@ -94,8 +100,9 @@
                                                     <td>{{isset($a_chucnang[$k]) ? $a_chucnang[$k] : $k}}</td>
                                                     <td class="text-center">{!!$v['index'] == 1 ? '<i class="fa fa-check"></i>':''!!} </td>
                                                     <td class="text-center">{!!$v['congbo'] == 1 ? '<i class="fa fa-check"></i>':''!!} </td>
+                                                    <td class="text-center">{!!$v['API'] == 1 ? '<i class="fa fa-check"></i>':''!!} </td>
                                                     <td class="text-center">
-                                                        <button type="button" onclick="change('{{'['.$k_csdl.']['.$k_gr.']['.$k.']'}}', '{{$v['index']}}', '{{$v['congbo']}}', '{{isset($a_chucnang[$k]) ? $a_chucnang[$k_csdl] : $k}}')" class="btn btn-default btn-xs mbs" data-target="#edit-modal" data-toggle="modal">
+                                                        <button type="button" onclick="change('{{'['.$k_csdl.']['.$k_gr.']['.$k.']'}}', '{{$v['index']}}', '{{$v['congbo']}}','{{$v['API']}}', '{{isset($a_chucnang[$k]) ? $a_chucnang[$k_csdl] : $k}}')" class="btn btn-default btn-xs mbs" data-target="#edit-modal" data-toggle="modal">
                                                             <i class="fa fa-gear"></i></button>
                                                     </td>
                                                 </tr>
@@ -130,7 +137,7 @@
 
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-offset-2 col-md-4">
+                        <div class="col-md-4">
                             <label class="control-label">Quản lý</label>
                             {!!Form::select('index',array('0'=>'Vô hiệu', '1'=>'Sử dụng'), null, array('id' => 'index','class' => 'form-control'))!!}
                         </div>
@@ -138,6 +145,11 @@
                         <div class="col-md-4">
                             <label class="control-label">Công bố</label>
                             {!!Form::select('congbo',array('0'=>'Vô hiệu', '1'=>'Sử dụng'), null, array('id' => 'congbo','class' => 'form-control'))!!}
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="control-label">Kết nối API</label>
+                            {!!Form::select('API',array('0'=>'Vô hiệu', '1'=>'Sử dụng'), null, array('id' => 'API','class' => 'form-control'))!!}
                         </div>
                     </div>
                 </div>
@@ -205,11 +217,13 @@
             document.getElementById("chucnang_nhom").innerHTML ='Chức năng nhóm: ' + chucnang;
         }
 
-        function change(roles, index, congbo, chucnang){
+        function change(roles, index, congbo, API ,chucnang){
             $('#index').val(index).trigger('change');
             $('#index').attr('name','roles' + roles+'[index]');
             $('#congbo').val(congbo).trigger('change');
             $('#congbo').attr('name','roles' + roles+'[congbo]');
+            $('#API').val(API).trigger('change');
+            $('#API').attr('name','roles' + roles+'[API]');
             document.getElementById("chucnang").innerHTML ='Chức năng: ' + chucnang;
         }
     </script>

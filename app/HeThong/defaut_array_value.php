@@ -515,4 +515,23 @@ function getThoiDiem(){
 function getFileExtension(){
     return '.doc , .docx , .pdf , .ppt , .pptx , .xlsx , .xls , .csv , .txt, .jpg, .jpeg, .png, .rar, .zip';
 }
+
+function getPhanLoaiAPI(){
+    return [
+        'Header'=>'Header',
+        'Body'=>'Body',
+        'Security'=>'Security/Signature',
+    ];
+}
+
+function getKieuDuLieu(){
+    return [
+        'STRING'=>'STRING',
+        'DATE'=>'DATE',
+        'BASES64'=>'BASES64',
+        'OBJECT'=>'OBJECT',
+        'NUMBER'=>'NUMBER',
+        'BOOLEAN'=>'BOOLEAN',
+    ];
+}
 ?>

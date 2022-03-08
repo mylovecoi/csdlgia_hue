@@ -155,4 +155,25 @@ Route::group(['prefix'=>'vanphonghotro'],function (){
     Route::post('store','system\dsvanphongController@store');
     Route::post('delete','system\dsvanphongController@destroy');
 });
+
+//Thiết lập kết nôi API
+
+Route::group(['prefix'=>'KetNoiAPI'],function (){
+    Route::get('ThietLapChung','Api\APIController@ThietLapChung');
+    Route::post('LuuChung','Api\APIController@LuuChung');
+    Route::get('LayTLChung','Api\APIController@LayTLChung');
+    Route::post('XoaTLChung','Api\APIController@XoaTLChung');
+    //Chi tiết
+    Route::get('ThietLapChiTiet','Api\APIController@ThietLapChiTiet');
+    Route::get('HoSo','Api\APIController@ThietLapHoSo');
+    Route::post('LuuHoSo','Api\APIController@LuuHoSo');
+    Route::post('LuuHoSoChiTiet','Api\APIController@LuuHoSoChiTiet');
+    Route::get('LayHoSo','Api\APIController@LayHoSo');
+    Route::get('LayHoSoChiTiet','Api\APIController@LayHoSoChiTiet');
+    Route::post('XoaHoSo','Api\APIController@XoaHoSo');
+    Route::post('XoaHoSoChiTiet','Api\APIController@XoaHoSoChiTiet');
+
+    Route::post('MacDinh','Api\APIController@MacDinh');
+    Route::get('DanhSachKetNoi','Api\APIController@DanhSachKetNoi');
+});
 ?>

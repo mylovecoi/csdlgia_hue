@@ -13,6 +13,7 @@ class danhmucchucnang extends Model
         'capdo',
         'maso_goc',
         'menu',
-        'mota'
+        'mota',
+        'api',
     ];
 }

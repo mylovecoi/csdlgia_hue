@@ -23,6 +23,7 @@ class CreateDanhmucchucnangTable extends Migration
             $table->string('maso_goc')->nullable();
             $table->string('menu')->nullable();
             $table->text('mota')->nullable();
+            $table->boolean('api')->default(0);
             $table->timestamps();
         });
     }

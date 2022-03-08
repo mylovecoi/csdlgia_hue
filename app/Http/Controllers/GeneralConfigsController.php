@@ -119,8 +119,17 @@ class GeneralConfigsController extends Controller
                                 if (!is_array($v_gr)) {
                                     continue;
                                 }
+                                //tự thêm API vào do API mới đc thêm trc khi setting nên trong setting cũ chưa có (21/02/2022)
+                                //$gui[$k_csdl][$k_gr]['API'] = $setting[$k_csdl][$k_gr]['API'];
+                                //
+
                                 foreach ($v_gr as $k => $v) {
-                                    $gui[$k_csdl][$k_gr][$k] = $setting[$k_csdl][$k_gr][$k]?? $gui[$k_csdl][$k_gr][$k];
+                                    $gui[$k_csdl][$k_gr][$k] = $setting[$k_csdl][$k_gr][$k] ?? $gui[$k_csdl][$k_gr][$k];
+                                    if (is_array($v)) {
+                                        foreach ($v as $l => $m) {
+                                            $gui[$k_csdl][$k_gr][$k][$l] = $gui[$k_csdl][$k_gr][$k][$l] ?? $m;
+                                        }
+                                    }
                                 }
                             }
                         }

@@ -2524,35 +2524,35 @@ function getGiaoDien()
         'index' => '0', 'congbo' => '0',
         'dinhgia' => array(
             'index' => '0', 'congbo' => '0',
-            'giacldat' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),//giacacloaidat
-            'giadatduan' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),//giadatduan
-            'khunggiadat' => array('index' => '0', 'congbo' => '0', 'table' => 'khunggiadat', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'giadatpl' => array('index' => '0', 'congbo' => '0', 'table' => 'giadatphanloai', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'giadaugiadat' => array('index' => '0', 'congbo' => '0', 'table' => 'daugiadat', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'giadatthitruong' => array('index' => '0', 'congbo' => '0', 'table' => 'giadatthitruong', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'daugiadatts' => array('index' => '0', 'congbo' => '0', 'table' => 'daugiadatts', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'giathuetn' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'giathuedatnuoc' => array('index' => '0', 'congbo' => '0', 'table' => 'giathuedatnuoc', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'giarung' => array('index' => '0', 'congbo' => '0', 'table' => 'giarung', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'giathuemuanhaxh' => array('index' => '0', 'congbo' => '0', 'table' => 'giathuemuanhaxh', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'giathuenhacongvu' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),//giathuenhacongvu
-            'bannhataidinhcu' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'gianuocsh' => array('index' => '0', 'congbo' => '0', 'table' => 'gianuocsh', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'giathuetscong' => array('index' => '0', 'congbo' => '0', 'table' => 'giathuetscong', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'giathuetsdautu' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'giadvgddt' => array('index' => '0', 'congbo' => '0', 'table' => 'giadvgddt', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'giadvkcb' => array('index' => '0', 'congbo' => '0', 'table' => 'dvkcb', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'trogiatrocuoc' => array('index' => '0', 'congbo' => '0', 'table' => 'trogiatrocuoc', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'giaspdvci' => array('index' => '0', 'congbo' => '0', 'table' => 'giaspdvci', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'giahhdvcn' => array('index' => '0', 'congbo' => '0', 'table' => 'giahhdvcn', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'giacuocvanchuyen' => array('index' => '0', 'congbo' => '0', 'table' => 'giacuocvanchuyen', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'giaspdvcuthe' => array('index' => '0', 'congbo' => '0', 'table' => 'giaspdvcuthe', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'giaspdvtoida' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => 'giaspdvtoida','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'giaspdvkhunggia' => array('index' => '0', 'congbo' => '0', 'table' => 'giaspdvkhunggia', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
+            'giacldat' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),//giacacloaidat
+            'giadatduan' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),//giadatduan
+            'khunggiadat' => array('index' => '0', 'congbo' => '0', 'table' => 'khunggiadat', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'giadatpl' => array('index' => '0', 'congbo' => '0', 'table' => 'giadatphanloai', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'giadaugiadat' => array('index' => '0', 'congbo' => '0', 'table' => 'daugiadat', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'giadatthitruong' => array('index' => '0', 'congbo' => '0', 'table' => 'giadatthitruong', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'daugiadatts' => array('index' => '0', 'congbo' => '0', 'table' => 'daugiadatts', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'giathuetn' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'giathuedatnuoc' => array('index' => '0', 'congbo' => '0', 'table' => 'giathuedatnuoc', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'giarung' => array('index' => '0', 'congbo' => '0', 'table' => 'giarung', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'giathuemuanhaxh' => array('index' => '0', 'congbo' => '0', 'table' => 'giathuemuanhaxh', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'giathuenhacongvu' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),//giathuenhacongvu
+            'bannhataidinhcu' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'gianuocsh' => array('index' => '0', 'congbo' => '0', 'table' => 'gianuocsh', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'giathuetscong' => array('index' => '0', 'congbo' => '0', 'table' => 'giathuetscong', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'giathuetsdautu' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'giadvgddt' => array('index' => '0', 'congbo' => '0', 'table' => 'giadvgddt', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'giadvkcb' => array('index' => '0', 'congbo' => '0', 'table' => 'dvkcb', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'trogiatrocuoc' => array('index' => '0', 'congbo' => '0', 'table' => 'trogiatrocuoc', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'giaspdvci' => array('index' => '0', 'congbo' => '0', 'table' => 'giaspdvci', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'giahhdvcn' => array('index' => '0', 'congbo' => '0', 'table' => 'giahhdvcn', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'giacuocvanchuyen' => array('index' => '0', 'congbo' => '0', 'table' => 'giacuocvanchuyen', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'giaspdvcuthe' => array('index' => '0', 'congbo' => '0', 'table' => 'giaspdvcuthe', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'giaspdvtoida' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => 'giaspdvtoida','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'giaspdvkhunggia' => array('index' => '0', 'congbo' => '0', 'table' => 'giaspdvkhunggia', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
         ),
         'bog' => array(
             'index' => '0', 'congbo' => '0',
-            'bog' => array('index' => '0', 'congbo' => '0', 'table' => 'kkmhbog', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
+            'bog' => array('index' => '0', 'congbo' => '0', 'table' => 'kkmhbog', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
         ),
         /*'etanol' => array(
             'index' => '0', 'congbo' => '0',
@@ -2560,72 +2560,72 @@ function getGiaoDien()
         ),*/
         'hhdv' => array(
             'index' => '0', 'congbo' => '0',
-            'giahhdvk' => array('index' => '0', 'congbo' => '0', 'table' => 'giahhdvk', 'url' => 'giahhdvk','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'giathitruong' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),//giathitruong
-            'giavangngoaite' => array('index' => '0', 'congbo' => '0', 'table' => 'giavangngoaite', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
+            'giahhdvk' => array('index' => '0', 'congbo' => '0', 'table' => 'giahhdvk', 'url' => 'giahhdvk','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'giathitruong' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),//giathitruong
+            'giavangngoaite' => array('index' => '0', 'congbo' => '0', 'table' => 'giavangngoaite', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
         ),
         'philephi' => array(
             'index' => '0', 'congbo' => '0',
-            'gialephitruocba' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'gialephitruocbanha' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'giaphilephi' => array('index' => '0', 'congbo' => '0', 'table' => 'philephi', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'phichuyengia' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
+            'gialephitruocba' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'gialephitruocbanha' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'giaphilephi' => array('index' => '0', 'congbo' => '0', 'table' => 'philephi', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'phichuyengia' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
         ),
         'taisan' => array(
             'index' => '0', 'congbo' => '0',
-            'thanhlytaisan' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),//thanhlytaisan
-            'giabatdongsan' => array('index' => '0', 'congbo' => '0', 'table' => 'giagdbatdongsan', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'muataisan' => array('index' => '0', 'congbo' => '0', 'table' => 'muataisan', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'giagocvlxd' => array('index' => '0', 'congbo' => '0', 'table' => 'giagocvlxd', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'taisancong' => array('index' => '0', 'congbo' => '0', 'table' => 'giataisancong', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
+            'thanhlytaisan' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),//thanhlytaisan
+            'giabatdongsan' => array('index' => '0', 'congbo' => '0', 'table' => 'giagdbatdongsan', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'muataisan' => array('index' => '0', 'congbo' => '0', 'table' => 'muataisan', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'giagocvlxd' => array('index' => '0', 'congbo' => '0', 'table' => 'giagocvlxd', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'taisancong' => array('index' => '0', 'congbo' => '0', 'table' => 'giataisancong', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
         ),
         'kknygia' => array(
             'index' => '0', 'congbo' => '0',
-            'thongtinkknygia' => array('index' => '0', 'congbo' => '0', 'table' => 'ttdntd', 'url' => '/doanhnghiep/xetduyet','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),//xét duyệt thay đổi thông tin của đơn vị
-            'vlxd' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiavlxd', 'url' => 'xetduyetkkgiavlxd','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),
-            'xmtxd' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiaxmtxd', 'url' => 'xetduyetgiaxmtxd','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),
-            'dvhdtmck' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiadvhdtm', 'url' => 'xetduyetkkgiadvhdtm','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),
-            'than' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiathan', 'url' => 'xetduyetgiathan','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),
-            'tacn' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiatacn', 'url' => 'xetduyetgiatacn','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),
-            'giay' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiagiay', 'url' => 'xetduyetgiagiay','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),
-            'sach' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiasach', 'url' => 'xetduyetgiasach','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),
-            'etanol' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiaetanol', 'url' => 'xetduyetgiaetanol','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),
-            'dvcb' => array('index' => '0', 'congbo' => '0', 'table' => 'giadvcang', 'url' => 'xetduyetgiadvcang','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),
-            'oto' => array('index' => '0', 'congbo' => '0', 'table' => 'giaotonksx', 'url' => 'xetduyetgiaotonksx','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),
-            'xemay' => array('index' => '0', 'congbo' => '0', 'table' => 'giaxemaynksx', 'url' => 'xetduyetgiaxemaynksx','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),
-            'kcbtn' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiakcbtn', 'url' => 'xetduyetgiakcbtn','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),
-            'dvvtxk' => array('index' => '0', 'congbo' => '0', 'table' => 'giavtxk', 'url' => 'xetduyetkekhaigiavtxk','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),
-            'dvvtxb' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiavtxb', 'url' => 'xetduyetkekhaigiavtxb','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),
-            'dvvtxtx' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiavtxtx', 'url' => 'xetduyetkekhaigiavtxtx','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),
-            'dvvthk' => array('index' => '0', 'congbo' => '0', 'table' => 'giavtxk', 'url' => 'xetduyetkekhaigiavtxk','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),
-            'tpcnte6t' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgs', 'url' => 'xetduyetkkgiatpcnte6t','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),
-            'dvlt' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiadvlt', 'url' => 'xetduyetkkgiadvlt','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),
-            'dlbb' => array('index' => '0', 'congbo' => '0', 'table' => 'giadvdlbb', 'url' => 'xetduyetgiadvdlbb','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),
-            'tqkdl' => array('index' => '0', 'congbo' => '0', 'table' => 'giavetqkdl', 'url' => 'xetduyetgiavetqkdl','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),
-            'cahue' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiadvch', 'url' => 'xetduyetkkgiadvcahue','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),
-            'hocphilx' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiahplx', 'url' => 'xetduyetkkgiahplx','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),
-            'catsan' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiacatsan', 'url' => 'xetduyetkkgiacatsan','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),
-            'datsanlap' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiadatsanlap', 'url' => 'xetduyetkkgiadatsanlap','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),
-            'daxaydung' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiadaxaydung', 'url' => 'xetduyetkkgiadaxaydung','thoidiem'=>'ngaychuyen','trangthai'=>'HT'),
+            'thongtinkknygia' => array('index' => '0', 'congbo' => '0', 'table' => 'ttdntd', 'url' => '/doanhnghiep/xetduyet','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),//xét duyệt thay đổi thông tin của đơn vị
+            'vlxd' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiavlxd', 'url' => 'xetduyetkkgiavlxd','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),
+            'xmtxd' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiaxmtxd', 'url' => 'xetduyetgiaxmtxd','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),
+            'dvhdtmck' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiadvhdtm', 'url' => 'xetduyetkkgiadvhdtm','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),
+            'than' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiathan', 'url' => 'xetduyetgiathan','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),
+            'tacn' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiatacn', 'url' => 'xetduyetgiatacn','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),
+            'giay' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiagiay', 'url' => 'xetduyetgiagiay','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),
+            'sach' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiasach', 'url' => 'xetduyetgiasach','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),
+            'etanol' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiaetanol', 'url' => 'xetduyetgiaetanol','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),
+            'dvcb' => array('index' => '0', 'congbo' => '0', 'table' => 'giadvcang', 'url' => 'xetduyetgiadvcang','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),
+            'oto' => array('index' => '0', 'congbo' => '0', 'table' => 'giaotonksx', 'url' => 'xetduyetgiaotonksx','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),
+            'xemay' => array('index' => '0', 'congbo' => '0', 'table' => 'giaxemaynksx', 'url' => 'xetduyetgiaxemaynksx','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),
+            'kcbtn' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiakcbtn', 'url' => 'xetduyetgiakcbtn','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),
+            'dvvtxk' => array('index' => '0', 'congbo' => '0', 'table' => 'giavtxk', 'url' => 'xetduyetkekhaigiavtxk','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),
+            'dvvtxb' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiavtxb', 'url' => 'xetduyetkekhaigiavtxb','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),
+            'dvvtxtx' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiavtxtx', 'url' => 'xetduyetkekhaigiavtxtx','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),
+            'dvvthk' => array('index' => '0', 'congbo' => '0', 'table' => 'giavtxk', 'url' => 'xetduyetkekhaigiavtxk','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),
+            'tpcnte6t' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgs', 'url' => 'xetduyetkkgiatpcnte6t','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),
+            'dvlt' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiadvlt', 'url' => 'xetduyetkkgiadvlt','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),
+            'dlbb' => array('index' => '0', 'congbo' => '0', 'table' => 'giadvdlbb', 'url' => 'xetduyetgiadvdlbb','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),
+            'tqkdl' => array('index' => '0', 'congbo' => '0', 'table' => 'giavetqkdl', 'url' => 'xetduyetgiavetqkdl','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),
+            'cahue' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiadvch', 'url' => 'xetduyetkkgiadvcahue','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),
+            'hocphilx' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiahplx', 'url' => 'xetduyetkkgiahplx','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),
+            'catsan' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiacatsan', 'url' => 'xetduyetkkgiacatsan','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),
+            'datsanlap' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiadatsanlap', 'url' => 'xetduyetkkgiadatsanlap','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),
+            'daxaydung' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiadaxaydung', 'url' => 'xetduyetkkgiadaxaydung','thoidiem'=>'ngaychuyen','trangthai'=>'HT','API'=>'0',),
         ),
     );
     $gui['csdlthamdinhgia'] = array(
         'index' => '0', 'congbo' => '0',
         'thamdinhgia' => array(
             'index' => '0', 'congbo' => '0',
-            'dmhhthamdinhgia' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'dmdonvi' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'thamdinh' => array('index' => '0', 'congbo' => '0', 'table' => 'thamdinhgia', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'cungcapgia' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
+            'dmhhthamdinhgia' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'dmdonvi' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'thamdinh' => array('index' => '0', 'congbo' => '0', 'table' => 'thamdinhgia', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'cungcapgia' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
         ),
     );
     $gui['csdlvbqlnn'] = array(
         'index' => '0', 'congbo' => '0',
         'vbqlnn' => array(
             'index' => '0', 'congbo' => '0',
-            'vbgia' => array('index' => '0', 'congbo' => '0', 'table' => 'vanbanqlnn', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'chisogiatieudung' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'bcthvegia' => array('index' => '0', 'congbo' => '0', 'table' => 'bcthvegia', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
+            'vbgia' => array('index' => '0', 'congbo' => '0', 'table' => 'vanbanqlnn', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'chisogiatieudung' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'bcthvegia' => array('index' => '0', 'congbo' => '0', 'table' => 'bcthvegia', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
 
         ),
     );
@@ -2633,32 +2633,32 @@ function getGiaoDien()
         'index' => '0', 'congbo' => '0',
         'ttpvctqlnn' => array(
             'index' => '0', 'congbo' => '0',
-            'ttqlnn' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
+            'ttqlnn' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
         ),
     );
     $gui['thongke'] = array(
         'index' => '0', 'congbo' => '0',
         'thongkehethong' => array(
             'index' => '0', 'congbo' => '0',
-            'nnnhaplieu' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'nntonghop' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'dnnhaplieu' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
+            'nnnhaplieu' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'nntonghop' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'dnnhaplieu' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
             ),
     );
     $gui['hethong'] = array(
         'index' => '0', 'congbo' => '0',
         'hethong_pq' => array(
             'index' => '0', 'congbo' => '0',
-            'danhsachdiaban' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'danhsachxaphuong' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'danhsachdonvi' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'danhsachtaikhoan' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'ngaynghile' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'danhmucnganhkd' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'dangky' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'chucnang' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'thongtin' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
-            'api' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT'),
+            'danhsachdiaban' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'danhsachxaphuong' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'danhsachdonvi' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'danhsachtaikhoan' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'ngaynghile' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'danhmucnganhkd' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'dangky' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'chucnang' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'thongtin' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
+            'api' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '','thoidiem'=>'thoidiem','trangthai'=>'HT','API'=>'0',),
         ),
     );
     return $gui;
@@ -3102,6 +3102,100 @@ function getPhanQuyen()
     return $gui;
 }
 
+function getAPIThietLapMacDinh($maso)
+{
+    $MacDinh = [];
+    //Thiết lập chung về tham số API
+    $MacDinh['Header'] = [
+        ['stt' => '1', 'phanloai' => 'Header', 'tendong' => 'Version', 'mota' => 'Tên phiên bản XML truyền nhận dữ liệu', 'kieudulieu' => 'String', 'dinhdang' => '', 'dodai' => '250', 'batbuoc' => '1', 'macdinh' => '1.0', 'ghichu' => '',],
+        ['stt' => '2', 'phanloai' => 'Header', 'tendong' => 'Sender_Code', 'mota' => 'Mã nơi gửi, giá trị thay đổi qua các nút truyền dữ liệu.', 'kieudulieu' => 'String', 'dinhdang' => '', 'dodai' => '50', 'batbuoc' => '1', 'macdinh' => '', 'ghichu' => '',],
+        ['stt' => '3', 'phanloai' => 'Header', 'tendong' => 'Sender_Name', 'mota' => 'Tên nơi gửi, giá trị thay đổi qua các nút truyền dữ liệu.', 'kieudulieu' => 'String', 'dinhdang' => '', 'dodai' => '250', 'batbuoc' => '1', 'macdinh' => '', 'ghichu' => '',],
+        ['stt' => '4', 'phanloai' => 'Header', 'tendong' => 'Receiver_Code', 'mota' => 'Mã nơi nhận, giá trị thay đổi qua các nút truyền dữ liệu.', 'kieudulieu' => 'String', 'dinhdang' => '', 'dodai' => '50', 'batbuoc' => '1', 'macdinh' => '', 'ghichu' => '',],
+        ['stt' => '5', 'phanloai' => 'Header', 'tendong' => 'Receiver_Name', 'mota' => 'Tên nơi nhận, giá trị thay đổi qua các nút truyền dữ liệu.', 'kieudulieu' => 'String', 'dinhdang' => '', 'dodai' => '250', 'batbuoc' => '1', 'macdinh' => '', 'ghichu' => '',],
+        ['stt' => '6', 'phanloai' => 'Header', 'tendong' => 'Tran_Code', 'mota' => 'Mã loại dữ liệu trao đổi', 'kieudulieu' => 'String', 'dinhdang' => '', 'dodai' => '10', 'batbuoc' => '1', 'macdinh' => '', 'ghichu' => '',],
+        ['stt' => '7', 'phanloai' => 'Header', 'tendong' => 'Tran_Name', 'mota' => 'Tên loại dữ liệu trao đổi', 'kieudulieu' => 'String', 'dinhdang' => '', 'dodai' => '150', 'batbuoc' => '1', 'macdinh' => '', 'ghichu' => '',],
+        ['stt' => '8', 'phanloai' => 'Header', 'tendong' => 'Msg_ID', 'mota' => 'Mã gói tin. Mã gói tin sẽ thay đổi qua các nút truyền dữ liệu.', 'kieudulieu' => 'String', 'dinhdang' => '', 'dodai' => '50', 'batbuoc' => '1', 'macdinh' => '', 'ghichu' => '',],
+        ['stt' => '9', 'phanloai' => 'Header', 'tendong' => 'Msg_RefID', 'mota' => 'Mã gói tham chiếu. Đây là mã gói được sinh ra tại ứng dụng gốc qua các nút truyền nhận mã không thay đổi', 'kieudulieu' => 'String', 'dinhdang' => '', 'dodai' => '50', 'batbuoc' => '1', 'macdinh' => '', 'ghichu' => '',],
+        ['stt' => '10', 'phanloai' => 'Header', 'tendong' => 'Send_Date', 'mota' => 'Ngày gửi gói tin, giá trị Send Date thay đổi qua các nút truyền dữ liệu.', 'kieudulieu' => 'String', 'dinhdang' => 'DD/MM/YYYY HH24:MI:SS', 'dodai' => '19', 'batbuoc' => '1', 'macdinh' => '', 'ghichu' => '',],
+        ['stt' => '11', 'phanloai' => 'Header', 'tendong' => 'Original_Code', 'mota' => 'Mã gốc nơi gửi dữ liệu', 'kieudulieu' => 'String', 'dinhdang' => '', 'dodai' => '50', 'batbuoc' => '1', 'macdinh' => '', 'ghichu' => '',],
+        ['stt' => '12', 'phanloai' => 'Header', 'tendong' => 'Original_name', 'mota' => 'Tên gốc nơi gửi dữ liệu', 'kieudulieu' => 'String', 'dinhdang' => '', 'dodai' => '250', 'batbuoc' => '1', 'macdinh' => '', 'ghichu' => '',],
+        ['stt' => '13', 'phanloai' => 'Header', 'tendong' => 'Export_Date', 'mota' => 'Ngày đóng gói gói tin tại ứng dụng nguồn, khi gửi qua các nút truyền dữ liệu thì giá trị Export_Date không thay đổi', 'kieudulieu' => 'String', 'dinhdang' => 'DD/MM/YYYY HH24:MI:SS', 'dodai' => '19', 'batbuoc' => '1', 'macdinh' => '', 'ghichu' => '',],
+        ['stt' => '14', 'phanloai' => 'Header', 'tendong' => 'Notes', 'mota' => 'Trường hợp này phục vụ rẽ nhánh dữ liệu trong trường hợp cùng một mã loại dữ liệu được gửi cho nhiều nơi khác nhau nhưng thông tin chi tiết của gói tin không giống nhau. Trục sẽ sử dụng thông tin này để gửi đến đúng đích.', 'kieudulieu' => 'String', 'dinhdang' => '', 'dodai' => '5', 'batbuoc' => '0', 'macdinh' => '', 'ghichu' => '',],
+        ['stt' => '15', 'phanloai' => 'Header', 'tendong' => 'Tran_Num', 'mota' => 'Tổng số dòng trong phần body', 'kieudulieu' => 'String', 'dinhdang' => '', 'dodai' => '5', 'batbuoc' => '1', 'macdinh' => '', 'ghichu' => '',],
+        ['stt' => '16', 'phanloai' => 'Header', 'tendong' => 'Path', 'mota' => 'Đường dẫn của gói tin. Mỗi gói tin đi qua nút chuyển dữ liệu, nút đó điền thêm thông tin vào đường dẫn của gói tin này.', 'kieudulieu' => 'String', 'dinhdang' => '', 'dodai' => '50', 'batbuoc' => '1', 'macdinh' => '', 'ghichu' => '',],
+        ['stt' => '17', 'phanloai' => 'Header', 'tendong' => 'NumMsg_InGroup', 'mota' => 'Số lượng của gói tin tách ra, thành bao nhiêu gói tin nhỏ.', 'kieudulieu' => 'String', 'dinhdang' => '', 'dodai' => '3', 'batbuoc' => '1', 'macdinh' => '', 'ghichu' => 'Khi một gói tin có số lượng dòng lớn hơn 5000 phải tách thành các gói tin nhỏ hơn (gói lớn nhất có số dòng = 5000)',],
+        ['stt' => '18', 'phanloai' => 'Header', 'tendong' => 'SPARE1', 'mota' => 'Trường thông tin dự phòng. Hiện tại, dữ liệu xuất phát từ DMDC sử dụng để đưa thông tin từ user webservice được hệ thống DMDC cấp cho ứng dụng để trao đổi dữ liệu', 'kieudulieu' => 'String', 'dinhdang' => '', 'dodai' => '10', 'batbuoc' => '0', 'macdinh' => '', 'ghichu' => 'Hệ thống DMDC cung cấp qua văn bản đến các ứng dụng',],
+        ['stt' => '19', 'phanloai' => 'Header', 'tendong' => 'SPARE2', 'mota' => 'Trường thông tin dự phòng. Hiện tại, dữ liệu xuất phát từ DMDC sử dụng để đưa thông tin mật khẩu webservice được hệ thống DMDC cấp cho ứng dụng để trao đổi dữ liệu', 'kieudulieu' => 'String', 'dinhdang' => '', 'dodai' => '10', 'batbuoc' => '0', 'macdinh' => '', 'ghichu' => 'Hệ thống DMDC cung cấp qua văn bản đến các ứng dụng',],
+        ['stt' => '20', 'phanloai' => 'Header', 'tendong' => 'SPARE3', 'mota' => 'Trường thông tin dự phòng. Hiện tại dữ liệu xuất phát từ DMDC sử dụng để đưa thông tin giá trị quy định DMDC nhận dữ liệu hay cung cấp dữ liệu.', 'kieudulieu' => 'String', 'dinhdang' => '', 'dodai' => '10', 'batbuoc' => '0', 'macdinh' => '', 'ghichu' => '0: PUT (đẩy dữ liệu)1: GET (Nhận dữ liệu)',],
+        ['stt' => '21', 'phanloai' => 'Header', 'tendong' => 'Finish_Code', 'mota' => 'Dùng để phân biệt gói phản hồi đối soát dữ liệu', 'kieudulieu' => 'String', 'dinhdang' => '', 'dodai' => '50', 'batbuoc' => '0', 'macdinh' => '', 'ghichu' => '',],
+    ];
+
+    //Thiết lập Hồ sơ kê khai giá
+    $MacDinh['KeKhaiGia'] = [
+        //Hồ sơ kê khai
+        'HOSO' => [
+            ['tentruong' => 'plhs', 'macdinh' => '', 'dinhdang' => '', 'stt' => '1', 'tendong' => 'LOAI_HO_SO', 'kieudulieu' => 'NUMBER', 'dodai' => '1', 'batbuoc' => '1', 'ghichu' => 'NUMBER',],
+            ['tentruong' => 'NULL', 'macdinh' => '0', 'dinhdang' => '', 'stt' => '2', 'tendong' => 'LOAI_XNK', 'kieudulieu' => 'NUMBER', 'dodai' => '1', 'batbuoc' => '1', 'ghichu' => 'NUMBER',],
+            ['tentruong' => 'madv', 'macdinh' => '', 'dinhdang' => '', 'stt' => '3', 'tendong' => 'DOANH_NGHIEP_DKKK', 'kieudulieu' => 'STRING', 'dodai' => '100', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'socv', 'macdinh' => '', 'dinhdang' => '', 'stt' => '4', 'tendong' => 'SO_VAN_BAN', 'kieudulieu' => 'STRING', 'dodai' => '100', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'ngaynhap', 'macdinh' => '', 'dinhdang' => 'DD/MM/YY', 'stt' => '5', 'tendong' => 'NGAY_THUC_HIEN', 'kieudulieu' => 'STRING(DATE)', 'dodai' => '8', 'batbuoc' => '1', 'ghichu' => 'STRING(DATE)',],
+            ['tentruong' => 'ngayhieuluc', 'macdinh' => '', 'dinhdang' => 'DD/MM/YY', 'stt' => '6', 'tendong' => 'NGAY_BD_HIEU_LUC', 'kieudulieu' => 'STRING(DATE)', 'dodai' => '8', 'batbuoc' => '1', 'ghichu' => 'STRING(DATE)',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '7', 'tendong' => 'TY_GIA', 'kieudulieu' => 'NUMBER', 'dodai' => '(18,0)', 'batbuoc' => '0', 'ghichu' => 'NUMBER',],
+            ['tentruong' => 'NULL', 'macdinh' => 'GET_NGUOI_KY', 'dinhdang' => '', 'stt' => '8', 'tendong' => 'NGUOI_KY', 'kieudulieu' => 'STRING', 'dodai' => '500', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'ngaychuyen', 'macdinh' => '', 'dinhdang' => 'DD/MM/YY', 'stt' => '9', 'tendong' => 'NGAY_KY', 'kieudulieu' => 'STRING(DATE)', 'dodai' => '8', 'batbuoc' => '0', 'ghichu' => 'STRING(DATE)',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '10', 'tendong' => 'TRICH_YEU', 'kieudulieu' => 'STRING', 'dodai' => '4000', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '11', 'tendong' => 'QUOC_GIA_XNK', 'kieudulieu' => 'STRING', 'dodai' => '1000', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '12', 'tendong' => 'CHI_NHANH', 'kieudulieu' => 'STRING', 'dodai' => '1000', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '13', 'tendong' => 'KHO_HANG', 'kieudulieu' => 'STRING', 'dodai' => '1000', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '14', 'tendong' => 'TINH_THANH', 'kieudulieu' => 'STRING', 'dodai' => '1000', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '15', 'tendong' => 'DOI_TUONG_AP_DUNG', 'kieudulieu' => 'STRING', 'dodai' => '1000', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'mahinhthucthanhtoan', 'macdinh' => '', 'dinhdang' => '', 'stt' => '16', 'tendong' => 'HINH_THUC_THANH_TOAN', 'kieudulieu' => 'STRING', 'dodai' => '1000', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'DS_HHDV', 'macdinh' => '', 'dinhdang' => '', 'stt' => '17', 'tendong' => 'DS_HHDV_DKG', 'kieudulieu' => 'OBJECT', 'dodai' => '', 'batbuoc' => '1', 'ghichu' => 'OBJECT',],
+        ],
+        'CHITIET' => [
+            ['tentruong' => 'maloaigia', 'macdinh' => '1', 'dinhdang' => '', 'stt' => '1', 'tendong' => 'LOAI_GIA', 'kieudulieu' => 'STRING', 'dodai' => '3', 'batbuoc' => '1', 'ghichu' => 'STRING', 'tendong_goc' => 'DS_HHDV_DKG'],
+            ['tentruong' => 'NULL', 'macdinh' => 'MA_HHDV', 'dinhdang' => '', 'stt' => '2', 'tendong' => 'MA_HHDV', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING', 'tendong_goc' => 'DS_HHDV_DKG'],
+            ['tentruong' => 'dvt', 'macdinh' => '', 'dinhdang' => '', 'stt' => '3', 'tendong' => 'MA_DON_VI_TINH', 'kieudulieu' => 'STRING', 'dodai' => '10', 'batbuoc' => '1', 'ghichu' => 'STRING', 'tendong_goc' => 'DS_HHDV_DKG'],
+            ['tentruong' => 'giakk', 'macdinh' => '', 'dinhdang' => '', 'stt' => '4', 'tendong' => 'MUC_GIA_MOI', 'kieudulieu' => 'NUMBER', 'dodai' => '(18,0)', 'batbuoc' => '1', 'ghichu' => 'NUMBER', 'tendong_goc' => 'DS_HHDV_DKG'],
+            ['tentruong' => 'ghichu', 'macdinh' => '', 'dinhdang' => '', 'stt' => '5', 'tendong' => 'GHI_CHU', 'kieudulieu' => 'STRING', 'dodai' => '4000', 'batbuoc' => '', 'ghichu' => 'STRING', 'tendong_goc' => 'DS_HHDV_DKG'],
+        ],
+    ];
+
+    //Thiết lập Hồ sơ hàng hóa thị trường
+    $MacDinh['giahhdvk'] = [
+        'HOSO' => [
+            ['tentruong' => 'NULL', 'macdinh' => 'GET_DIABAN', 'dinhdang' => '', 'stt' => '1', 'tendong' => 'DIA_BAN', 'kieudulieu' => 'STRING', 'dodai' => '3', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '2', 'dinhdang' => '', 'stt' => '2', 'tendong' => 'NGUON_SO_LIEU', 'kieudulieu' => 'STRING', 'dodai' => '3', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '24', 'dinhdang' => '', 'stt' => '3', 'tendong' => 'DINH_KY', 'kieudulieu' => 'NUMBER', 'dodai' => '2', 'batbuoc' => '1', 'ghichu' => 'NUMBER',],
+            ['tentruong' => 'NULL', 'macdinh' => '1', 'dinhdang' => '', 'stt' => '4', 'tendong' => 'THOI_GIAN_BC_1', 'kieudulieu' => 'NUMBER', 'dodai' => '3', 'batbuoc' => '1', 'ghichu' => 'NUMBER',],
+            ['tentruong' => 'thang', 'macdinh' => '', 'dinhdang' => '', 'stt' => '5', 'tendong' => 'THOI_GIAN_BC_2', 'kieudulieu' => 'NUMBER', 'dodai' => '3', 'batbuoc' => '0', 'ghichu' => 'NUMBER',],
+            ['tentruong' => 'nam', 'macdinh' => '', 'dinhdang' => '', 'stt' => '6', 'tendong' => 'THOI_GIAN_BC_NAM', 'kieudulieu' => 'NUMBER', 'dodai' => '4', 'batbuoc' => '1', 'ghichu' => 'NUMBER',],
+            ['tentruong' => 'ipf1', 'macdinh' => '1', 'dinhdang' => '', 'stt' => '7', 'tendong' => 'FILE_DINH_KEM', 'kieudulieu' => 'STRING(BASES64)', 'dodai' => '', 'batbuoc' => '', 'ghichu' => 'STRING(BASES64)',],
+            ['tentruong' => 'DS_HHDV', 'macdinh' => '', 'dinhdang' => '', 'stt' => '8', 'tendong' => 'DS_HHDV_TT', 'kieudulieu' => 'OBJECT', 'dodai' => '', 'batbuoc' => '1', 'ghichu' => 'OBJECT',],
+        ],
+        'CHITIET' => [
+            ['tentruong' => 'maloaigia', 'macdinh' => '1', 'dinhdang' => '', 'stt' => '1', 'tendong' => 'LOAI_GIA', 'kieudulieu' => 'STRING', 'dodai' => '3', 'batbuoc' => '1', 'ghichu' => 'STRING', 'tendong_goc' => 'DS_HHDV_TT'],
+            ['tentruong' => 'mahhdv', 'macdinh' => '', 'dinhdang' => '', 'stt' => '2', 'tendong' => 'MA_HHDV', 'kieudulieu' => 'STRING', 'dodai' => '3', 'batbuoc' => '1', 'ghichu' => 'STRING', 'tendong_goc' => 'DS_HHDV_TT'],
+            ['tentruong' => 'NULL', 'macdinh' => 'GET_TEN_HHDV', 'dinhdang' => '', 'stt' => '3', 'tendong' => 'TEN_HANG_HOA_DICH_VU', 'kieudulieu' => 'STRING', 'dodai' => '1000', 'batbuoc' => '1', 'ghichu' => 'STRING', 'tendong_goc' => 'DS_HHDV_TT'],
+            ['tentruong' => 'NULL', 'macdinh' => 'GET_DVT_HHDV', 'dinhdang' => '', 'stt' => '4', 'tendong' => 'DON_VI_TINH', 'kieudulieu' => 'STRING', 'dodai' => '3', 'batbuoc' => '1', 'ghichu' => 'STRING', 'tendong_goc' => 'DS_HHDV_TT'],
+            ['tentruong' => 'gialk', 'macdinh' => '', 'dinhdang' => '', 'stt' => '5', 'tendong' => 'GIA_KY_TRUOC', 'kieudulieu' => 'NUMBER', 'dodai' => '(18,0)', 'batbuoc' => '0', 'ghichu' => 'NUMBER', 'tendong_goc' => 'DS_HHDV_TT'],
+            ['tentruong' => 'gia', 'macdinh' => '', 'dinhdang' => '', 'stt' => '6', 'tendong' => 'GIA_KY_NAY', 'kieudulieu' => 'NUMBER', 'dodai' => '(18,0)', 'batbuoc' => '1', 'ghichu' => 'NUMBER', 'tendong_goc' => 'DS_HHDV_TT'],
+            ['tentruong' => 'NULL', 'macdinh' => 'GET_NGUONTT', 'dinhdang' => '', 'stt' => '7', 'tendong' => 'NGUON_THONG_TIN', 'kieudulieu' => 'NUMBER', 'dodai' => '1', 'batbuoc' => '1', 'ghichu' => 'NUMBER', 'tendong_goc' => 'DS_HHDV_TT'],
+            ['tentruong' => 'ghichu', 'macdinh' => '', 'dinhdang' => '', 'stt' => '8', 'tendong' => 'GHI_CHU', 'kieudulieu' => 'STRING', 'dodai' => '4000', 'batbuoc' => '0', 'ghichu' => 'STRING', 'tendong_goc' => 'DS_HHDV_TT'],
+        ],
+    ];
+    //Kết quả
+    return $MacDinh[$maso] ?? [];
+}
+
+function getAPITenThietLap(){
+    return [
+        'Header'=>'Thiết lập hồ sơ chung',
+        'KeKhaiGia'=>'Thiết lập hồ sơ kê khai giá',
+        'giahhdvk'=>'Thiết lập hồ sơ giá hàng hóa thị trường',
+    ];
+}
+
 function getDayVn($date) {
     if($date != null || $date != '')
         $newday = date('d/m/Y',strtotime($date));
@@ -3416,8 +3510,8 @@ function chuanhoatruong($text)
 
 function getAddMap($diachi){
     $str = chuyenkhongdau($diachi);
-    $str = str_replace(' ','+',$str);
-    $geocode = file_get_contents('http://maps.google.com/maps/api/geocode/json?address='.$str.'&sensor=false');
+    $str = str_replace('','+',$str);
+    $geocode = file_get_contents('https://maps.google.com/maps/api/geocode/json?address='.$str.'&sensor=false');
     $output = json_decode($geocode);
     if($output->status == 'OK'){
         $kq = $output->results[0]->geometry->location->lat. ',' .$output->results[0]->geometry->location->lng;
@@ -3668,7 +3762,7 @@ function IntToRoman($number)
 
 function canGeneral($module = null, $action =null)
 {
-    return true;
+    return false;
     $model = \App\GeneralConfigs::first();
     if(isset($model) && $model->setting != '')
         $setting = json_decode($model->setting, true);
@@ -3687,7 +3781,7 @@ function canGeneral($module = null, $action =null)
 
 function canDvCc($module = null, $action = null)
 {
-    return true;
+    return false;
     $permission = !empty(session('ttdnvt')->dvcc) ? session('ttdnvt')->dvcc : getDvCcDefault('T');
     $permission = json_decode($permission, true);
 
@@ -3700,7 +3794,7 @@ function canDvCc($module = null, $action = null)
 }
 
 function canDV($perm=null,$module = null, $action = null){
-    return true;
+    return false;
     if($perm == ''){
         return false;
     }else {
@@ -3714,7 +3808,7 @@ function canDV($perm=null,$module = null, $action = null){
 
 
 function canKkGiaGr($manganh){
-    return true;
+    return false;
     if(session('admin')->level == 'T') {
         $checkXH = \App\Model\system\dmnganhnghekd\DmNganhKd::where('manganh',$manganh)
             ->where('theodoi','TD')
@@ -3747,7 +3841,7 @@ function canKkGiaGr($manganh){
 }
 
 function canKkGiaCt($manganh = null, $manghe = null){
-    return true;
+    return false;
 
     if(session('admin')->level == 'T' || session('admin')->sadmin == 'ssa') {
         $modelnghe = \App\Model\system\dmnganhnghekd\DmNgheKd::where('manganh',$manganh)
@@ -3926,7 +4020,7 @@ function getvbpl($str){
     $str = str_replace(',', '', $str);
     $str = str_replace('.', '', $str);
     $str = str_replace('/', '', $str);
-    $str = str_replace(' ', '', $str);
+    $str = str_replace('', '', $str);
     $str = chuyenkhongdau($str);
     return $str;
 }
