@@ -64,7 +64,7 @@ class APIController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['url'] = '/KetNoiAPI';
-            dd(\session('admin'));
+            //dd(\session('admin'));
             $per = getPhanQuyen();
             $setting = \session('admin')['setting'];
             if(isset($setting['hethong'])){
