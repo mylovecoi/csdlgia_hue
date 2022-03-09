@@ -16,8 +16,7 @@ class CreateChisogiatieudungTable extends Migration
         Schema::create('chisogiatieudung', function (Blueprint $table) {
             $table->increments('id');
             $table->string('mahs')->nullable();
-            $table->string('maxa')->nullable();
-            $table->string('mahuyen')->nullable();
+            $table->string('madv')->nullable();
             $table->string('thongtinbc')->nullable();
             $table->date('ngaybaocao')->nullable();
             $table->text('ghichu')->nullable();
@@ -33,6 +32,8 @@ class CreateChisogiatieudungTable extends Migration
             $table->string('ipf5')->nullable();
             $table->string('trangthai')->nullable();
             $table->string('congbo')->nullable();
+            $table->string('thang')->nullable();
+            $table->string('nam')->nullable();
             $table->timestamps();
         });
     }

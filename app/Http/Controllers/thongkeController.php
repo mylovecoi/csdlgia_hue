@@ -38,13 +38,16 @@ class thongkeController extends Controller
                 $m_diaban = dsdiaban::where('madiaban', session('admin')->madiaban)->get();
             }
             $a_diaban = array_column($m_diaban->toArray(), 'madiaban');
-            $m_donvi = dsdonvi::wherein('madiaban', $a_diaban)->take(500)->get();
+            $m_donvi = dsdonvi::wherein('madiaban', $a_diaban)->get();
+            //$m_donvi = dsdonvi::wherein('madiaban', $a_diaban)->where('chucnang', 'NHAPLIEU')->get();
             $a_donvi = array_column($m_donvi->toArray(), 'madv');
-            $m_taikhoan = Users::wherein('madv', $a_donvi)->take(1000)->where('chucnang', 'NHAPLIEU')->get();
+            $m_taikhoan = Users::wherein('madv', $a_donvi)->take(1000)->get();
 
             $inputs['thang'] = $inputs['thang'] ?? date('m');
             $inputs['nam'] = $inputs['nam'] ?? date('Y');
+            
             $inputs['username'] = $inputs['username'] ?? $m_taikhoan->first()->username;
+            
             $model = $m_taikhoan->where('username', $inputs['username'])->first();
             //dd($model);
             $per = getPhanQuyen();

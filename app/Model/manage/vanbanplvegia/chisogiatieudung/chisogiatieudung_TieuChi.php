@@ -1,17 +1,16 @@
 <?php
 
-namespace App;
+namespace App\Model\manage\vanbanplvegia\chisogiatieudung;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ChiSoGiaTieuDung extends Model
+class chisogiatieudung_TieuChi extends Model
 {
-    protected $table = 'chisogiatieudung';
+    protected $table = 'chisogiatieudung_TieuChi';
     protected $fillable = [
         'id',
         'mahs',
-        'maxa',
-        'mahuyen',
+        'madv',
         'thongtinbc',
         'ngaybaocao',
         'ghichu',

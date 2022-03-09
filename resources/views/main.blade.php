@@ -657,7 +657,9 @@ License: You must have a valid license purchased only from themeforest(the above
 
                 @include('includes.main.include.thongkenhaplieu')
 
+                <!-- 03.04.22 sử dụng hệ thống API theo TT93
                 @include('includes.main.mainAPI')
+                -->
                 <!--
                     1. Tài khoản SSA
                     2. Tài khoản quản trị hệ thống chucnang=QUANTRI

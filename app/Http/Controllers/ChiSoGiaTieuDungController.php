@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\ChiSoGiaTieuDung;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\manage\vanbanplvegia\chisogiatieudung\chisogiatieudung;
 use Illuminate\Support\Facades\Session;
 
 class ChiSoGiaTieuDungController extends Controller

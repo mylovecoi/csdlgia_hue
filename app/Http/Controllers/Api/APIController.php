@@ -96,7 +96,7 @@ class APIController extends Controller
             //dd($per);
             //lấy danh sách tài khoản
 
-            return view('system.KetNoiAPI.ThietLapChitiet')
+            return view('system.KetNoiAPI.ThietLapChucNang')
                 ->with('per', $per)
                 ->with('setting', $setting)
                 ->with('inputs', $inputs)

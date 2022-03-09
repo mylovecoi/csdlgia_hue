@@ -111,7 +111,7 @@ class UsersController extends Controller
             //Doanh nghiệp giữ nguyên level; Đơn vị HC lấy level theo địa bàn
             $ttuser->level = $ttuser->level == 'DN' ? $ttuser->level : $m_diaban->level;
         }else{
-            $ttuser->chucnang = array('SSA');
+            $ttuser->chucnang = array('SSA','NHAPLIEU','TONGHOP','QUANTRI');
         }
 
         //Lấy thông tin giao diện
