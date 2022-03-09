@@ -55,7 +55,7 @@
 @section('content')
 
     <h3 class="page-title text-uppercase">
-        Thiết lập hồ sơ chức năng kết nối api
+        Thiết lập hồ sơ chức năng kết nối API
     </h3>
     <!-- END PAGE HEADER-->
 
