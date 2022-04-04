@@ -52,13 +52,13 @@
                 <a href="{{url('/ChiSoCPI/DanhMuc')}}">Danh mục hàng hoá</a>
             </li>
             <li>
-                <a href="{{url('/ChiSoCPI/TieuChi')}}">Danh sách tiêu chí</a>
+                <a href="{{url('/ChiSoCPI/TieuChi/DanhSach')}}">Danh sách tiêu chí</a>
             </li>
             <li>
                 <a href="{{url('baocaochisogiatieudung')}}">Báo cáo chỉ số giá tiêu dùng</a>
             </li>
             <li>
-                <a href="{{url('/ChiSoCPI/DuBao')}}">Dự báo chỉ số giá tiêu dùng</a>
+                <a href="{{url('/ChiSoCPI/DuBao/KichBan')}}">Dự báo chỉ số giá tiêu dùng</a>
             </li>
         </ul>
     </li>

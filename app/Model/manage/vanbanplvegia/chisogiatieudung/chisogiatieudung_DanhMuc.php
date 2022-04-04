@@ -9,22 +9,11 @@ class chisogiatieudung_DanhMuc extends Model
     protected $table = 'chisogiatieudung_DanhMuc';
     protected $fillable = [
         'id',
-        'mahs',
-        'madv',
-        'thongtinbc',
-        'ngaybaocao',
-        'ghichu',
-        'ipt1',
-        'ipf1',
-        'ipt2',
-        'ipf2',
-        'ipt3',
-        'ipf3',
-        'ipt4',
-        'ipf4',
-        'ipt5',
-        'ipf5',
+        'masodanhmuc',
+        'noidung',
+        'tungay',
+        'denngay',
         'trangthai',
-        'congbo',
+        'ghichu',
     ];
 }
