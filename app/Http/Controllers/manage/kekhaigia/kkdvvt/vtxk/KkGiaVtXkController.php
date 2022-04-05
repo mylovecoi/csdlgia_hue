@@ -119,7 +119,7 @@ class KkGiaVtXkController extends Controller
             $model->madv = $inputs['madv'];
 
             $modellk = GiaVtXk::where('madv', $inputs['madv'])
-                ->where('trangthai', 'DD')
+                ->wherein('trangthai', ['DD', 'CB', 'HCB'])
                 ->orderby('ngayhieuluc', 'desc')->first();
 
             if ($modellk != null) {
@@ -380,7 +380,7 @@ class KkGiaVtXkController extends Controller
             $model->madv = $modeldn->madv;
 
             $modellk = GiaVtXk::where('madv', $inputs['madv'])
-                ->where('trangthai', 'DD')
+                ->wherein('trangthai', ['DD', 'CB', 'HCB'])
                 ->orderby('ngayhieuluc', 'desc')->first();
             //dd($inputs);
             if ($modellk != null) {

@@ -270,13 +270,13 @@ class KkGiaDvLtXdController extends Controller
     }
 
     public function getsohsnhan($mahuyen){
-        $idmax = KkGiaDvLt::where('trangthai', 'DD')
+        $idmax = KkGiaDvLt::wherein('trangthai', ['DD', 'CB', 'HCB'])
             //->where('mahuyen', $mahuyen)
             ->max('id');
         if (isset($idmax)) {
             $model = KkGiaDvLt::where('id',$idmax)
                 ->first();
-            $stt = $model->sohsnhan + 1;
+            $stt = getDbl($model->sohsnhan) + 1;
         } else
             $stt = 1;
         return $stt;

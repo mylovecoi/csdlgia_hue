@@ -87,7 +87,7 @@ class KkGiaDvLtController extends Controller
             $model->madv = $modelcskd->madv;
 
             $modellk = KkGiaDvLt::where('macskd', $inputs['macskd'])
-                ->where('trangthai', 'DD')
+                ->wherein('trangthai', ['DD', 'CB', 'HCB'])
                 ->orderby('ngayhieuluc', 'desc')->first();
             //dd($inputs);
             if ($modellk != null) {
@@ -155,7 +155,7 @@ class KkGiaDvLtController extends Controller
             $model->madv = $modelcskd->madv;
 
             $modellk = KkGiaDvLt::where('macskd', $inputs['macskd'])
-                ->where('trangthai', 'DD')
+                ->wherein('trangthai', ['DD', 'CB', 'HCB'])
                 ->orderby('ngayhieuluc', 'desc')->first();
             //dd($inputs);
             if ($modellk != null) {

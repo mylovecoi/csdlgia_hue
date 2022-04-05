@@ -102,7 +102,7 @@ class KkMhBogController extends Controller
             $model = KkMhBog::where('madv', $inputs['madv']);
             if ($inputs['nam'] != 'all')
                 $model = $model->whereYear('ngayhieuluc', $inputs['nam']);
-            //dd($m_bog);
+            //dd($model->get());
             return view('manage.bog.kekhai.index')
                 ->with('model', $model->get()->sortby('ngayhieuluc'))
                 ->with('inputs', $inputs)
@@ -134,15 +134,16 @@ class KkMhBogController extends Controller
             //DB::statement("DELETE FROM kkmhbogct WHERE mahs not in (SELECT mahs FROM kkmhbog where madv='" . $inputs['madv'] . "')");
 
             //lấy hồ sơ liền kề
-            $hslk = KkMhBog::where('trangthai', 'HT')
+            $hslk = KkMhBog::wherein('trangthai', ['HT', 'DD', 'CB', 'HCB'])
                 ->where('madv', $inputs['madv'])
                 ->where('manghe', $inputs['manghe'])
                 ->orderby('ngayhieuluc','desc')->first();
+                
             if($hslk != null){
                 $model->socvlk = $hslk->socv;
                 $model->ngaycvlk = $hslk->ngaynhap;
                 $m_ct = KkMhBogCt::where('mahs', $hslk->mahs)->get();
-                $a_ct = array();
+                $a_ct = array();                
                 foreach ($m_ct as $ct) {
                     $a_ct[] = ['tenhh' => $ct->tenhh,
                         'quycach' => $ct->quycach,
@@ -150,8 +151,8 @@ class KkMhBogController extends Controller
                         'gialk' => $ct->giakk,
                         'giakk' => $ct->giakk,
                         'ghichu' => $ct->ghichu,
-                        'madv' => $inputs['madv'],
-                        'mahs' => $inputs['mahs'],
+                        'madv' => $model->madv,
+                        'mahs' => $model->mahs,
                         'trangthai' => 'CXD',
                     ];
                 }
@@ -159,11 +160,11 @@ class KkMhBogController extends Controller
             }
             $a_pl = array_column(KkMhBogCt::all('plhh')->toArray(),'plhh','plhh');
             $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
-            //$model_ct = KkMhBogCt::where('mahs', $model->mahs)->get();
+            $model_ct = KkMhBogCt::where('mahs', $model->mahs)->get();
             $inputs['url'] = '/binhongia';
             return view('manage.bog.kekhai.create')
                 ->with('model', $model)
-                ->with('model_ct', nullValue())
+                ->with('model_ct', $model_ct)
                 ->with('m_nghe', $m_nghe)
                 ->with('inputs', $inputs)
                 ->with('m_dn', $m_dn)

@@ -460,14 +460,14 @@ class KkMhBogXdController extends Controller
     }
 
     public function getsohsnhan($mahuyen,$phanloai){
-        $idmax = KkMhBog::where('trangthai', 'DD')
+        $idmax = KkMhBog::wherein('trangthai', ['DD', 'CB', 'HCB'])
             ->where('mahuyen', $mahuyen)
             ->where('phanloai',$phanloai)
             ->max('id');
         if (isset($idmax)) {
             $model = KkMhBog::where('id',$idmax)
                 ->first();
-            $stt = $model->sohsnhan + 1;
+            $stt = getDbl($model->sohsnhan) + 1;
         } else
             $stt = 1;
         return $stt;

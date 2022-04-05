@@ -212,11 +212,11 @@ class GiaXeMayNkSxXdController extends Controller
     }
 
     public function getsohsnhan($macqcq){
-        $idmax = GiaXeMayNkSx::where('trangthai', 'DD')
+        $idmax = GiaXeMayNkSx::wherein('trangthai', ['DD', 'CB', 'HCB'])
             ->max('id');
         if (isset($idmax)) {
             $model = GiaXeMayNkSx::where('id',$idmax)->first();
-            $stt = $model->sohsnhan + 1;
+            $stt = getDbl($model->sohsnhan) + 1;
         } else
             $stt = 1;
         return $stt;

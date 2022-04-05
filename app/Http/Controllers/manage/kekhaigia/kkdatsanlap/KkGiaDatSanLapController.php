@@ -71,7 +71,7 @@ class KkGiaDatSanLapController extends Controller
             /*DB::statement("DELETE FROM kkgiavtxbct WHERE mahs not in (SELECT mahs FROM kkgiavtxb where madv='" . $inputs['madv'] . "')");*/
 
             $modellk = KkGiaDatSanLap::where('madv', $inputs['madv'])
-                ->where('trangthai', 'DD')
+                ->wherein('trangthai', ['DD', 'CB', 'HCB'])
                 ->orderby('ngayhieuluc', 'desc')->first();
 
             if ($modellk != null) {
@@ -86,7 +86,7 @@ class KkGiaDatSanLapController extends Controller
                         'tendvcu' => $ctdf->tendvcu,
                         'qccl' => $ctdf->qccl,
                         'dvt' => $ctdf->dvt,
-                        'gialk' => $ctdf->gialk,
+                        wherein('trangthai', ['DD', 'CB', 'HCB'])
                         'giakk' => $ctdf->giakk,
                     );
                 }

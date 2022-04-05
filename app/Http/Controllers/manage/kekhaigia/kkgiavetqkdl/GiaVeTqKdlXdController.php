@@ -168,13 +168,13 @@ class GiaVeTqKdlXdController extends Controller
     }
 
     public function getsohsnhan($mahuyen){
-        $idmax = GiaVeTqKdl::where('trangthai', 'DD')
+        $idmax = GiaVeTqKdl::wherein('trangthai', ['DD', 'CB', 'HCB'])
             ->where('mahuyen', $mahuyen)
             ->max('id');
         if (isset($idmax)) {
             $model = GiaVeTqKdl::where('id',$idmax)
                 ->first();
-            $stt = $model->sohsnhan + 1;
+            $stt = getDbl($model->sohsnhan) + 1;
         } else
             $stt = 1;
         return $stt;

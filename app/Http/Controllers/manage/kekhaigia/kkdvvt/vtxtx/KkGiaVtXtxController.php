@@ -120,7 +120,7 @@ class KkGiaVtXtxController extends Controller
             /*DB::statement("DELETE FROM kkgiavtxtxct WHERE mahs not in (SELECT mahs FROM kkgiavtxtx where madv='" . $inputs['madv'] . "')");*/
 
             $modellk = KkGiaVtXtx::where('madv', $inputs['madv'])
-                ->where('trangthai', 'DD')
+                ->wherein('trangthai', ['DD', 'CB', 'HCB'])
                 ->orderby('ngayhieuluc', 'desc')->first();
 
             if ($modellk != null) {
@@ -135,7 +135,7 @@ class KkGiaVtXtxController extends Controller
                         'tendvcu' => $ctdf->tendvcu,
                         'qccl' => $ctdf->qccl,
                         'dvt' => $ctdf->dvt,
-                        'gialk' => $ctdf->gialk,
+                        'gialk' => $ctdf->giakk,
                         'giakk' => $ctdf->giakk,
                         'sokm' => $ctdf->sokm,
                         'gialk1' => $ctdf->gialk1,
@@ -391,7 +391,7 @@ class KkGiaVtXtxController extends Controller
             $model->madv = $modeldn->madv;
 
             $modellk = KkGiaVtXtx::where('madv', $inputs['madv'])
-                ->where('trangthai', 'DD')
+                ->wherein('trangthai', ['DD', 'CB', 'HCB'])
                 ->orderby('ngayhieuluc', 'desc')->first();
             //dd($inputs);
             if ($modellk != null) {

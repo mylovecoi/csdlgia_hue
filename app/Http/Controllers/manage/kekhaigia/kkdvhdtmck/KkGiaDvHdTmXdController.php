@@ -215,11 +215,11 @@ class KkGiaDvHdTmXdController extends Controller
     }
 
     public function getsohsnhan($macqcq){
-        $idmax = KkGiaDvHdTm::where('trangthai', 'DD')
+        $idmax = KkGiaDvHdTm::wherein('trangthai', ['DD', 'CB', 'HCB'])
             ->max('id');
         if (isset($idmax)) {
             $model = KkGiaDvHdTm::where('id',$idmax)->first();
-            $stt = $model->sohsnhan + 1;
+            $stt = getDbl($model->sohsnhan) + 1;
         } else
             $stt = 1;
         return $stt;

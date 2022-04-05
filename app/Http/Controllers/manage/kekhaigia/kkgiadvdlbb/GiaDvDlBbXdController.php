@@ -168,13 +168,13 @@ class GiaDvDlBbXdController extends Controller
     }
 
     public function getsohsnhan($mahuyen){
-        $idmax = GiaDvDlBb::where('trangthai', 'DD')
+        $idmax = GiaDvDlBb::wherein('trangthai', ['DD', 'CB', 'HCB'])
             ->where('mahuyen', $mahuyen)
             ->max('id');
         if (isset($idmax)) {
             $model = GiaDvDlBb::where('id',$idmax)
                 ->first();
-            $stt = $model->sohsnhan + 1;
+            $stt = getDbl($model->sohsnhan) + 1;
         } else
             $stt = 1;
         return $stt;

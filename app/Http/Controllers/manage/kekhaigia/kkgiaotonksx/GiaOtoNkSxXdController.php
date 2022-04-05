@@ -212,11 +212,11 @@ class GiaOtoNkSxXdController extends Controller
     }
 
     public function getsohsnhan($macqcq){
-        $idmax = GiaOtoNkSx::where('trangthai', 'DD')
+        $idmax = GiaOtoNkSx::wherein('trangthai', ['DD', 'CB', 'HCB'])
             ->max('id');
         if (isset($idmax)) {
             $model = GiaOtoNkSx::where('id',$idmax)->first();
-            $stt = $model->sohsnhan + 1;
+            $stt = getDbl($model->sohsnhan) + 1;
         } else
             $stt = 1;
         return $stt;
