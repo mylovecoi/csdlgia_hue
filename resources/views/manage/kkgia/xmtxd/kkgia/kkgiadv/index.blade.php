@@ -26,11 +26,15 @@
             $('#madv').change(function() {
                 changeUrl();
             });
+
+            $('#trangthai').change(function() {
+                changeUrl();
+            });
         });
 
         function changeUrl() {
             var nam = $('#namhs').val();
-            var url = '/kekhaigiaxmtxd?&madv='+$('#madv').val()+'&nam='+nam ;
+            var url = '/kekhaigiaxmtxd?&madv='+$('#madv').val()+'&nam='+nam +'&trangthai='+$('#trangthai').val() ;
             window.location.href = url;
         }
 
@@ -162,6 +166,15 @@
                                             @endforeach
                                         </optgroup>
                                     @endforeach
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label style="font-weight: bold">Trạng thái</label>
+                                {!! Form::select('trangthai', getTenTrangThaiHoSoDN(true), $inputs['trangthai'], [
+                                    'id' => 'trangthai',
+                                    'class' => 'form-control select2me',
+                                ]) !!}
                                 </select>
                             </div>
                         </div>

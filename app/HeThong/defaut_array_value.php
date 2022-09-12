@@ -1,10 +1,11 @@
 <?php
 
-function PhanLoaiHSRung(){
+function PhanLoaiHSRung()
+{
     return array(
-        'Thuê môi trường'=>'Thuê môi trường',
-        'Khai thác'=>'Khai thác',
-        'Thanh lý'=>'Thanh lý',
+        'Thuê môi trường' => 'Thuê môi trường',
+        'Khai thác' => 'Khai thác',
+        'Thanh lý' => 'Thanh lý',
     );
 }
 
@@ -21,7 +22,8 @@ function NhomQuanLy()
 }
 
 
-function getLoaiXe(){
+function getLoaiXe()
+{
     $a_loaixe = array(
         'Xe 4 chỗ' => 'Xe 4 chỗ',
         'Xe 5 chỗ' => 'Xe 5 chỗ',
@@ -33,7 +35,7 @@ function getLoaiXe(){
         'Xe 47 chỗ' => 'Xe 47 chỗ',
         'Loại xe khác' => 'Loại xe khác'
     );
-    return $a_loaixe ;
+    return $a_loaixe;
 }
 
 //function getDiaDanhH()
@@ -51,7 +53,8 @@ function getLoaiXe(){
 //    return $options;
 //}
 
-function getDtapdungdvlt(){
+function getDtapdungdvlt()
+{
     $dtads = \App\DtAdDvLt::all();
 
     $options = array();
@@ -62,21 +65,23 @@ function getDtapdungdvlt(){
     return $options;
 }
 
-function getDvtDvLt(){
+function getDvtDvLt()
+{
     $dvt = array(
-        ''=>'--Chọn đơn vị tính--',
-        'Đồng/giường/ngày đêm'=>'Đồng/giường/ngày đêm',
-        'Đồng/phòng/ngày đêm'=>'Đồng/phòng/ngày đêm',
-        'Đồng/phòng/tuần'=> 'Đồng/phòng/tuần',
-        'Đồng/phòng/tháng'=> 'Đồng/phòng/tháng',
-        'Đồng/căn hộ/ngày đêm'=>'Đồng/căn hộ/ngày đêm',
-        'Đồng/căn hộ/tuần'=> 'Đồng/căn hộ/tuần' ,
-        'Đồng/căn hộ/tháng'=>'Đồng/căn hộ/tháng',
+        '' => '--Chọn đơn vị tính--',
+        'Đồng/giường/ngày đêm' => 'Đồng/giường/ngày đêm',
+        'Đồng/phòng/ngày đêm' => 'Đồng/phòng/ngày đêm',
+        'Đồng/phòng/tuần' => 'Đồng/phòng/tuần',
+        'Đồng/phòng/tháng' => 'Đồng/phòng/tháng',
+        'Đồng/căn hộ/ngày đêm' => 'Đồng/căn hộ/ngày đêm',
+        'Đồng/căn hộ/tuần' => 'Đồng/căn hộ/tuần',
+        'Đồng/căn hộ/tháng' => 'Đồng/căn hộ/tháng',
     );
     return $dvt;
 }
 
-function getLoaiVbQlNn($all = true){
+function getLoaiVbQlNn($all = true)
+{
     $vbqlnn = array(
         'luat' => 'Luật',
         'nghidinh' => 'Nghị định',
@@ -97,54 +102,62 @@ function getLoaiVbQlNn($all = true){
     return $vbqlnn;
 }
 
-function getThang($all = false){
-    $a_tl = array('01' => '01','02' => '02','03' => '03',
-        '04' => '04','05' => '05','06' => '06',
-        '07' => '07','08' => '08','09' => '09',
-        '10' => '10','11' => '11','12' => '12');
-    if($all)
-        return a_merge(array('all'=>'--Tất cả--'), $a_tl);
+function getThang($all = false)
+{
+    $a_tl = array(
+        '01' => '01', '02' => '02', '03' => '03',
+        '04' => '04', '05' => '05', '06' => '06',
+        '07' => '07', '08' => '08', '09' => '09',
+        '10' => '10', '11' => '11', '12' => '12'
+    );
+    if ($all)
+        return a_merge(array('all' => '--Tất cả--'), $a_tl);
     else
         return $a_tl;
 }
 
-function getPhanLoaiDonVi_DiaBan(){
+function getPhanLoaiDonVi_DiaBan()
+{
     return array(
-        'ADMIN'=>'Đơn vị tổng hợp toàn Tỉnh',
-        'T'=>'Đơn vị hành chính cấp Tỉnh',
-        'H'=>'Đơn vị hành chính cấp Huyện',
+        'ADMIN' => 'Đơn vị tổng hợp toàn Tỉnh',
+        'T' => 'Đơn vị hành chính cấp Tỉnh',
+        'H' => 'Đơn vị hành chính cấp Huyện',
     );
 }
 
-function getPhanLoaiDonVi(){
+function getPhanLoaiDonVi()
+{
     return array(
-        'TONGHOP'=>'Đơn vị tổng hợp dữ liệu',
-        'NHAPLIEU'=>'Đơn vị nhập liệu',
-        'QUANTRI'=>'Đơn vị quản trị hệ thống',
+        'TONGHOP' => 'Đơn vị tổng hợp dữ liệu',
+        'NHAPLIEU' => 'Đơn vị nhập liệu',
+        'QUANTRI' => 'Đơn vị quản trị hệ thống',
     );
 }
 
-function getHienTrang_NhaXH(){
+function getHienTrang_NhaXH()
+{
     return array(
-        'CHOTHUE'=>'Đang cho thuê',
+        'CHOTHUE' => 'Đang cho thuê',
         'DANGSD' => 'Đang sử dụng',
         'DABAN' => 'Đã bán',
         'CHUASD' => 'Chưa sử dụng',
     );
 }
 
-function getPhanLoai_NhaXH(){
+function getPhanLoai_NhaXH()
+{
     return array(
-        'NHAOXH'=>'Nhà ở xã hội',
+        'NHAOXH' => 'Nhà ở xã hội',
         'NHACV' => 'Nhà ở công vụ',
         'NHANN' => 'Nhà ở thuộc sở hữu nhà nước',
         'NHAK' => 'Nhà ở khác',
     );
 }
 
-function getPhanLoaiSPDVCI(){
+function getPhanLoaiSPDVCI()
+{
     return array(
-        'SANPHAM'=>'Sản phẩm',
+        'SANPHAM' => 'Sản phẩm',
         'DVCI' => 'Dịch vụ công ích',
         'DVSNC' => 'Dịch vụ sự nghiệp công',
         'HHDV' => 'Hàng hóa, dịch vụ',
@@ -152,9 +165,10 @@ function getPhanLoaiSPDVCI(){
     );
 }
 
-function getPhanLoaiTroGia(){
+function getPhanLoaiTroGia()
+{
     return array(
-        'NGANSACH'=>'Chi từ ngân sách địa phương và trung ương',
+        'NGANSACH' => 'Chi từ ngân sách địa phương và trung ương',
         'BANLE' => 'Mức giá hoặc khung giá bán lẻ',
         'KHOKHAN' => 'Cung ứng hàng hóa, dịch vụ thiết yếu phục vụ đồng bào miền núi, vùng sâu, xa và hải đảo',
         'KHAC' => 'Trợ giá, trợ cước khác',
@@ -164,75 +178,109 @@ function getPhanLoaiTroGia(){
 function getDiaBan_Level($level, $madiaban = null)
 {
     if (in_array($level, ['SSA', 'T', 'ADMIN'])) {
-        return array_column(App\Model\system\dsdiaban::wherein('level', ['T', 'H', 'ADMIN'])->get()->toarray(),
-            'tendiaban', 'madiaban');
+        return array_column(
+            App\Model\system\dsdiaban::wherein('level', ['T', 'H', 'ADMIN'])->get()->toarray(),
+            'tendiaban',
+            'madiaban'
+        );
     }
 
-    return array_column(App\Model\system\dsdiaban::where('madiaban', $madiaban)->get()->toarray(),
-        'tendiaban', 'madiaban');
+    return array_column(
+        App\Model\system\dsdiaban::where('madiaban', $madiaban)->get()->toarray(),
+        'tendiaban',
+        'madiaban'
+    );
 }
 
 //Lấy danh sách địa bàn thực tế tại đơn vị
 function getDiaBan_ApDung($level, $madiaban = null)
 {
-//    if (in_array($level, ['SSA', 'T', 'ADMIN'])) {
-//        return array_column(App\Model\system\dsdiaban::wherein('level', ['T', 'H'])->get()->toarray(),
-//            'tendiaban', 'madiaban');
-//    }
+    //    if (in_array($level, ['SSA', 'T', 'ADMIN'])) {
+    //        return array_column(App\Model\system\dsdiaban::wherein('level', ['T', 'H'])->get()->toarray(),
+    //            'tendiaban', 'madiaban');
+    //    }
     if (in_array($level, ['SSA', 'T', 'ADMIN'])) {
-        return array_column(App\Model\system\dsdiaban::wherein('level', ['ADMIN', 'H'])->get()->toarray(),
-            'tendiaban', 'madiaban');
+        return array_column(
+            App\Model\system\dsdiaban::wherein('level', ['ADMIN', 'H'])->get()->toarray(),
+            'tendiaban',
+            'madiaban'
+        );
     }
 
-    return array_column(App\Model\system\dsdiaban::where('madiaban', $madiaban)->get()->toarray(),
-        'tendiaban', 'madiaban');
+    return array_column(
+        App\Model\system\dsdiaban::where('madiaban', $madiaban)->get()->toarray(),
+        'tendiaban',
+        'madiaban'
+    );
 }
 
 //Lấy danh sách địa bàn có chức năng nhập liệu (X; H; T)
 function getDiaBan_NhapLieu($level, $madiaban = null, $all = true)
 {
-//    if (in_array($level, ['SSA', 'T', 'ADMIN'])) {
-//        return array_column(App\Model\system\dsdiaban::wherein('level', ['T', 'H'])->get()->toarray(),
-//            'tendiaban', 'madiaban');
-//    }
+    //    if (in_array($level, ['SSA', 'T', 'ADMIN'])) {
+    //        return array_column(App\Model\system\dsdiaban::wherein('level', ['T', 'H'])->get()->toarray(),
+    //            'tendiaban', 'madiaban');
+    //    }
     if (in_array($level, ['SSA'])) {
-        return array_column(App\Model\system\dsdiaban::wherein('level', ['T', 'H'])->get()->toarray(),
-            'tendiaban', 'madiaban');
+        return array_column(
+            App\Model\system\dsdiaban::wherein('level', ['T', 'H'])->get()->toarray(),
+            'tendiaban',
+            'madiaban'
+        );
     }
 
     if (in_array($level, ['T', 'ADMIN']) && $all == true) {
-        return array_column(App\Model\system\dsdiaban::wherein('level', ['T', 'H'])->get()->toarray(),
-            'tendiaban', 'madiaban');
+        return array_column(
+            App\Model\system\dsdiaban::wherein('level', ['T', 'H'])->get()->toarray(),
+            'tendiaban',
+            'madiaban'
+        );
     }
 
-    return array_column(App\Model\system\dsdiaban::where('madiaban', $madiaban)->get()->toarray(),
-        'tendiaban', 'madiaban');
+    return array_column(
+        App\Model\system\dsdiaban::where('madiaban', $madiaban)->get()->toarray(),
+        'tendiaban',
+        'madiaban'
+    );
 }
 
 //Lấy danh sách địa bàn các đơn vị xã huyện
 function getDiaBan_XaHuyen($level, $madiaban = null)
 {
     if (in_array($level, ['SSA', 'T', 'ADMIN'])) {
-        return array_column(App\Model\system\dsdiaban::wherein('level', ['X', 'H'])->get()->toarray(),
-            'tendiaban', 'madiaban');
+        return array_column(
+            App\Model\system\dsdiaban::wherein('level', ['X', 'H'])->get()->toarray(),
+            'tendiaban',
+            'madiaban'
+        );
     }
 
-    return array_column(App\Model\system\dsdiaban::where('madiaban', $madiaban)->get()->toarray(),
-        'tendiaban', 'madiaban');
+    return array_column(
+        App\Model\system\dsdiaban::where('madiaban', $madiaban)->get()->toarray(),
+        'tendiaban',
+        'madiaban'
+    );
 }
 
 //Lấy danh sách địa bàn theo level hệ thống
 function getDiaBan_HeThong($level, $madiaban = null)
 {
     if (in_array($level, ['SSA', 'ADMIN'])) {
-        return array_column(App\Model\system\dsdiaban::wherein('level', ['T', 'H', 'X'])->get()->toarray(),
-            'tendiaban', 'madiaban');
+        return array_column(
+            App\Model\system\dsdiaban::wherein('level', ['T', 'H', 'X'])->get()->toarray(),
+            'tendiaban',
+            'madiaban'
+        );
     }
 
-    return array_column(App\Model\system\dsdiaban::where('madiaban', $madiaban)->get()->toarray(),
-        'tendiaban', 'madiaban');
+    return array_column(
+        App\Model\system\dsdiaban::where('madiaban', $madiaban)->get()->toarray(),
+        'tendiaban',
+        'madiaban'
+    );
 }
-function getDonViNhapLieu($level, $linhvuc=null){
+function getDonViNhapLieu($level, $linhvuc = null)
+{
     if ($level == 'SSA' || $level == 'ADMIN') {
         //return App\Model\system\dsdonvi::where('chucnang', 'NHAPLIEU')->get();
         $m_donvi = App\Model\system\view_dsdiaban_donvi::all();
@@ -246,7 +294,8 @@ function getDonViNhapLieu($level, $linhvuc=null){
     if ($linhvuc != null) {
         foreach ($m_user as $user) {
             $per = json_decode($user->permission, true);
-            if (isset($per[$linhvuc]['hoso']['approve']) && $per[$linhvuc]['hoso']['approve'] == '1'
+            if (
+                isset($per[$linhvuc]['hoso']['approve']) && $per[$linhvuc]['hoso']['approve'] == '1'
                 && in_array('NHAPLIEU', explode(';', $user->chucnang))
                 && $ketqua->where('madv', $user->madv)->first() == null
             ) {
@@ -255,7 +304,8 @@ function getDonViNhapLieu($level, $linhvuc=null){
         }
     } else {
         foreach ($m_user as $user) {
-            if (in_array('NHAPLIEU', explode(';', $user->chucnang))
+            if (
+                in_array('NHAPLIEU', explode(';', $user->chucnang))
                 && $ketqua->where('madv', $user->madv)->first() == null
             ) {
                 $ketqua->add($m_donvi->where('madv', $user->madv)->first());
@@ -271,10 +321,10 @@ function getDonViNhapLieu($level, $linhvuc=null){
     }
 
     return $ketqua;
-
 }
 
-function getDoanhNghiepNhapLieu($level, $lvcc){
+function getDoanhNghiepNhapLieu($level, $lvcc)
+{
     if ($level == 'SSA') {
         return App\Model\system\company\Company::wherein('madv', function ($qr) use ($lvcc) {
             $qr->select('madv')->from('companylvcc')->where('manghe', $lvcc);
@@ -284,7 +334,8 @@ function getDoanhNghiepNhapLieu($level, $lvcc){
     }
 }
 
-function getDoanhNghiep($level, $madiaban = null){
+function getDoanhNghiep($level, $madiaban = null)
+{
     if ($level == 'SSA') {
         return App\Model\system\company\Company::take(1000)->get();
     } elseif (in_array($level, ['X', 'H', 'T'])) {
@@ -294,29 +345,34 @@ function getDoanhNghiep($level, $madiaban = null){
     }
 }
 
-function getDonViTimKiem($level, $madiaban = null, $linhvuc = null){
+function getDonViTimKiem($level, $madiaban = null, $linhvuc = null)
+{
     //Lấy danh sách đơn vị nhập liệu trên địa bàn
     if ($level == 'SSA') {
         $m_donvi = App\Model\system\view_dsdiaban_donvi::all();
-    }else{
+    } else {
         $m_donvi = App\Model\system\view_dsdiaban_donvi::where('madiaban', $madiaban)->get();
     }
     $ketqua = new Illuminate\Support\Collection();
-    $m_user = App\Users::wherein('madv',array_column($m_donvi->toarray(),'madv'))->get();
+    $m_user = App\Users::wherein('madv', array_column($m_donvi->toarray(), 'madv'))->get();
     //dd($m_user);
-    if($linhvuc != null){
+    if ($linhvuc != null) {
         foreach ($m_user as $user) {
             $per = json_decode($user->permission, true);
-            if (isset($per[$linhvuc]['hoso']['approve']) && $per[$linhvuc]['hoso']['approve'] == '1'
+            if (
+                isset($per[$linhvuc]['hoso']['approve']) && $per[$linhvuc]['hoso']['approve'] == '1'
                 && in_array('NHAPLIEU', explode(';', $user->chucnang))
-                && $ketqua->where('madv',$user->madv)->first() == null) {
+                && $ketqua->where('madv', $user->madv)->first() == null
+            ) {
                 $ketqua->add($m_donvi->where('madv', $user->madv)->first());
             }
         }
-    }else{
+    } else {
         foreach ($m_user as $user) {
-            if (in_array('NHAPLIEU', explode(';', $user->chucnang))
-                && $ketqua->where('madv',$user->madv)->first() == null) {
+            if (
+                in_array('NHAPLIEU', explode(';', $user->chucnang))
+                && $ketqua->where('madv', $user->madv)->first() == null
+            ) {
                 $ketqua->add($m_donvi->where('madv', $user->madv)->first());
             }
         }
@@ -326,30 +382,35 @@ function getDonViTimKiem($level, $madiaban = null, $linhvuc = null){
     return $ketqua;
 }
 
-function getDonViXetDuyet($level, $linhvuc = null){
+function getDonViXetDuyet($level, $linhvuc = null)
+{
     if ($level == 'SSA') {
         $m_donvi = App\Model\system\view_dsdiaban_donvi::all();
-    }else{
+    } else {
         $m_donvi = App\Model\system\view_dsdiaban_donvi::where('madv', session('admin')->madv)->get();
     }
     $ketqua = new Illuminate\Support\Collection();
-    $m_user = App\Users::wherein('madv',array_column($m_donvi->toarray(),'madv'))->get();
+    $m_user = App\Users::wherein('madv', array_column($m_donvi->toarray(), 'madv'))->get();
     //dd($m_user);
 
-    if($linhvuc != null){
+    if ($linhvuc != null) {
         foreach ($m_user as $user) {
             $per = json_decode($user->permission, true);
-            if (isset($per[$linhvuc]['hoso']['approve']) && $per[$linhvuc]['hoso']['approve'] == '1'
+            if (
+                isset($per[$linhvuc]['hoso']['approve']) && $per[$linhvuc]['hoso']['approve'] == '1'
                 && in_array('TONGHOP', explode(';', $user->chucnang))
-                && $ketqua->where('madv',$user->madv)->first() == null) {
+                && $ketqua->where('madv', $user->madv)->first() == null
+            ) {
                 $ketqua->add($m_donvi->where('madv', $user->madv)->first());
             }
         }
-    }else{
+    } else {
         foreach ($m_user as $user) {
             //$per = json_decode($user->permission, true);
-            if (in_array('TONGHOP', explode(';', $user->chucnang))
-                && $ketqua->where('madv',$user->madv)->first() == null) {
+            if (
+                in_array('TONGHOP', explode(';', $user->chucnang))
+                && $ketqua->where('madv', $user->madv)->first() == null
+            ) {
                 $ketqua->add($m_donvi->where('madv', $user->madv)->first());
             }
         }
@@ -363,33 +424,36 @@ function getDonViXetDuyet($level, $linhvuc = null){
  * nếu User nào có quyền trong lĩnh vực thì thêm đơn vị đó vào danh sách tổng hợp
  * riêng quyền SSA thì ko kiểm tra User (cho trường hợp gửi mà đơn vị đó ko phân quyền)
  * */
-function getDonViTongHop($linhvuc, $level, $madiaban = null){
+function getDonViTongHop($linhvuc, $level, $madiaban = null)
+{
     //mặc định luôn thêm đơn vị tổng hợp toàn tỉnh
     if ($level == 'SSA' || $level == 'ADMIN') {
         //lấy tất cả đơn vị
         //return App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')->where('level', '<>', 'ADMIN')->get();
         $m_donvi = App\Model\system\view_dsdiaban_donvi::all();
-    }elseif ($level == 'T') {
+    } elseif ($level == 'T') {
         //return App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')->wherein('level', ['T'])->get();
-        $m_donvi = App\Model\system\view_dsdiaban_donvi::wherein('level', ['T','ADMIN'])->get();
-    }else{
-//        $m_donvi = App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')
-//            ->where(function ($qr) use ($madiaban) {
-//                $qr->where('level', 'T')
-//                    ->orwhere('madiaban', $madiaban);
-//            })->get();
-        $m_donvi = App\Model\system\view_dsdiaban_donvi::wherein('level', ['T','ADMIN'])
-                    ->orwhere('madiaban', $madiaban)->get();
+        $m_donvi = App\Model\system\view_dsdiaban_donvi::wherein('level', ['T', 'ADMIN'])->get();
+    } else {
+        //        $m_donvi = App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')
+        //            ->where(function ($qr) use ($madiaban) {
+        //                $qr->where('level', 'T')
+        //                    ->orwhere('madiaban', $madiaban);
+        //            })->get();
+        $m_donvi = App\Model\system\view_dsdiaban_donvi::wherein('level', ['T', 'ADMIN'])
+            ->orwhere('madiaban', $madiaban)->get();
     }
 
     $ketqua = new Illuminate\Support\Collection();
-    $m_user = App\Users::wherein('madv',array_column($m_donvi->toarray(),'madv'))->get();
+    $m_user = App\Users::wherein('madv', array_column($m_donvi->toarray(), 'madv'))->get();
     //dd($m_user);
     foreach ($m_user as $user) {
         $per = json_decode($user->permission, true);
-        if (isset($per[$linhvuc]['hoso']['approve']) && $per[$linhvuc]['hoso']['approve'] == '1'
+        if (
+            isset($per[$linhvuc]['hoso']['approve']) && $per[$linhvuc]['hoso']['approve'] == '1'
             && in_array('TONGHOP', explode(';', $user->chucnang))
-            && $ketqua->where('madv',$user->madv)->first() == null) {
+            && $ketqua->where('madv', $user->madv)->first() == null
+        ) {
             $ketqua->add($m_donvi->where('madv', $user->madv)->first());
         }
     }
@@ -397,25 +461,26 @@ function getDonViTongHop($linhvuc, $level, $madiaban = null){
     return $ketqua;
 }
 
-function getDonViTongHop_dn($linhvuc, $level, $madiaban = null){
+function getDonViTongHop_dn($linhvuc, $level, $madiaban = null)
+{
     //return App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')->wherein('level', ['T', 'H'])->get();
-    switch($linhvuc){
-        case 'vtxtx':{
-            $linhvuc = 'dvvtxtx';
-            break;
-        }
-        case 'vtxk':{
-            $linhvuc = 'dvvtxk';
-            break;
-        }
-        case 'vtxb':{
-            $linhvuc = 'dvvtxb';
-            break;
-        }
-        case 'vthk':{
-            $linhvuc = 'dvvthk';
-            break;
-        }
+    switch ($linhvuc) {
+        case 'vtxtx': {
+                $linhvuc = 'dvvtxtx';
+                break;
+            }
+        case 'vtxk': {
+                $linhvuc = 'dvvtxk';
+                break;
+            }
+        case 'vtxb': {
+                $linhvuc = 'dvvtxb';
+                break;
+            }
+        case 'vthk': {
+                $linhvuc = 'dvvthk';
+                break;
+            }
         case 'tpcb':
         case 'tgtt':
         case 'dadtl':
@@ -426,51 +491,57 @@ function getDonViTongHop_dn($linhvuc, $level, $madiaban = null){
         case 'pdurenpk':
         case 'kdmhl':
         case 'dbl':
-        case 'xd':{
-            $linhvuc = 'bog';
-            break;
-        }
+        case 'xd': {
+                $linhvuc = 'bog';
+                break;
+            }
     }
     //dd($madiaban);
-    if($madiaban == null){
+    if ($madiaban == null) {
         $m_donvi = App\Model\system\view_dsdiaban_donvi::wherein('level', ['T', 'H'])->get();
-    }else{
+    } else {
         $m_donvi = App\Model\system\view_dsdiaban_donvi::wherein('level', ['T', 'H'])
             ->where('madiaban', $madiaban)->get();
     }
 
-    $m_user = App\Users::wherein('madv',array_column($m_donvi->toarray(),'madv'))->get();
+    $m_user = App\Users::wherein('madv', array_column($m_donvi->toarray(), 'madv'))->get();
     //dd($m_user);
     $ketqua = new Illuminate\Support\Collection();
 
-    foreach ($m_user as $user){
-        $per = json_decode($user->permission,true);
-        if(isset($per[$linhvuc]['hoso']['approve']) && $per[$linhvuc]['hoso']['approve'] == '1'
-            && in_array('TONGHOP',explode(';',$user->chucnang))
-            && $ketqua->where('madv',$user->madv)->first() == null){
-            $ketqua->add($m_donvi->where('madv',$user->madv)->first());
+    foreach ($m_user as $user) {
+        $per = json_decode($user->permission, true);
+        if (
+            isset($per[$linhvuc]['hoso']['approve']) && $per[$linhvuc]['hoso']['approve'] == '1'
+            && in_array('TONGHOP', explode(';', $user->chucnang))
+            && $ketqua->where('madv', $user->madv)->first() == null
+        ) {
+            $ketqua->add($m_donvi->where('madv', $user->madv)->first());
         }
     }
     //dd($ketqua);
     return $ketqua;
 }
 
-function getDonViCongBo(){
+function getDonViCongBo()
+{
     $m_donvi = App\Model\system\view_dsdiaban_donvi::wherein('level', ['ADMIN'])->get();
-    $m_user = App\Users::wherein('madv',array_column($m_donvi->toarray(),'madv'))->get();
+    $m_user = App\Users::wherein('madv', array_column($m_donvi->toarray(), 'madv'))->get();
     $ketqua = new Illuminate\Support\Collection();
 
-    foreach ($m_user as $user){
-        if(in_array('TONGHOP',explode(';',$user->chucnang))
-            && $ketqua->where('madv',$user->madv)->first() == null){
-            $ketqua->add($m_donvi->where('madv',$user->madv)->first());
+    foreach ($m_user as $user) {
+        if (
+            in_array('TONGHOP', explode(';', $user->chucnang))
+            && $ketqua->where('madv', $user->madv)->first() == null
+        ) {
+            $ketqua->add($m_donvi->where('madv', $user->madv)->first());
         }
     }
     //dd($ketqua);
     return $ketqua;
 }
 
-function getDiaBan_HoSo($m_diaban, $all = false){
+function getDiaBan_HoSo($m_diaban, $all = false)
+{
     $a_diaban = array_column($m_diaban->toarray(), 'tendiaban', 'madiaban');
     if ($all) {
         $a_kq = ['null' => '-- Chọn địa bàn --'];
@@ -482,56 +553,82 @@ function getDiaBan_HoSo($m_diaban, $all = false){
     return $a_diaban;
 }
 
-function getNam($all = false){
-    $a_tl = $all == true ? array('all'=>'--Tất cả--') : array();
+function getNam($all = false)
+{
+    $a_tl = $all == true ? array('all' => '--Tất cả--') : array();
     for ($i = date('Y') - 3; $i <= date('Y') + 1; $i++) {
         $a_tl[$i] = $i;
     }
     return $a_tl;
 }
 
-function getThoiDiem(){
+function getThoiDiem()
+{
     return [
-        'nam'=>'Cả năm',
-        'quy1'=>'Quý I',
-        'quy2'=>'Quý II',
-        'quy3'=>'Quý III',
-        'quy4'=>'Quý IV',
-        'thang01'=>'Tháng 01',
-        'thang02'=>'Tháng 02',
-        'thang03'=>'Tháng 03',
-        'thang04'=>'Tháng 04',
-        'thang05'=>'Tháng 05',
-        'thang06'=>'Tháng 06',
-        'thang07'=>'Tháng 07',
-        'thang08'=>'Tháng 08',
-        'thang09'=>'Tháng 09',
-        'thang10'=>'Tháng 10',
-        'thang11'=>'Tháng 11',
-        'thang12'=>'Tháng 12',
+        'nam' => 'Cả năm',
+        'quy1' => 'Quý I',
+        'quy2' => 'Quý II',
+        'quy3' => 'Quý III',
+        'quy4' => 'Quý IV',
+        'thang01' => 'Tháng 01',
+        'thang02' => 'Tháng 02',
+        'thang03' => 'Tháng 03',
+        'thang04' => 'Tháng 04',
+        'thang05' => 'Tháng 05',
+        'thang06' => 'Tháng 06',
+        'thang07' => 'Tháng 07',
+        'thang08' => 'Tháng 08',
+        'thang09' => 'Tháng 09',
+        'thang10' => 'Tháng 10',
+        'thang11' => 'Tháng 11',
+        'thang12' => 'Tháng 12',
     ];
 }
 
-function getFileExtension(){
+function getFileExtension()
+{
     return '.doc , .docx , .pdf , .ppt , .pptx , .xlsx , .xls , .csv , .txt, .jpg, .jpeg, .png, .rar, .zip';
 }
 
-function getPhanLoaiAPI(){
+function getPhanLoaiAPI()
+{
     return [
-        'Header'=>'Header',
-        'Body'=>'Body',
-        'Security'=>'Security/Signature',
+        'Header' => 'Header',
+        'Body' => 'Body',
+        'Security' => 'Security/Signature',
     ];
 }
 
-function getKieuDuLieu(){
+function getKieuDuLieu()
+{
     return [
-        'STRING'=>'STRING',
-        'DATE'=>'DATE',
-        'BASES64'=>'BASES64',
-        'OBJECT'=>'OBJECT',
-        'NUMBER'=>'NUMBER',
-        'BOOLEAN'=>'BOOLEAN',
+        'STRING' => 'STRING',
+        'DATE' => 'DATE',
+        'BASES64' => 'BASES64',
+        'OBJECT' => 'OBJECT',
+        'NUMBER' => 'NUMBER',
+        'BOOLEAN' => 'BOOLEAN',
     ];
 }
-?>
+
+function getTenTrangThaiHoSoDN($all = false)
+{
+    if ($all) {
+        return [
+            'ALL' => 'Tất cả',
+            'CC' => 'Chờ chuyển',
+            'CD' => 'Chờ duyệt',
+            'CN' => 'Chờ nhận',
+            'BTL' => 'Bị trả lại',            
+            'CB' => 'Đã duyệt',
+        ];
+    } else {
+        return [
+            'CC' => 'Chờ chuyển',
+            'CD' => 'Chờ duyệt',
+            'CN' => 'Chờ nhận',
+            'BTL' => 'Bị trả lại',
+            'CB' => 'Đã duyệt',
+        ];
+    }
+}

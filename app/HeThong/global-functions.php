@@ -3782,7 +3782,7 @@ function canGeneral($module = null, $action =null)
 function canDvCc($module = null, $action = null)
 {
     return false;
-    $permission = !empty(session('ttdnvt')->dvcc) ? session('ttdnvt')->dvcc : getDvCcDefault('T');
+    $permission = !empty(session('ttdnvt')->dvcc) ? session('ttdnvt')->dvcc : 'T';
     $permission = json_decode($permission, true);
 
     //check permission

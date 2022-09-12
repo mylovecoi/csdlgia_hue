@@ -5,30 +5,26 @@
 <script type="text/javascript" src="{{ url('js/form-wizard.js') }}"></script>
 <script type="text/javascript" src="{{ url('js/jquery.inputmask.bundle.min.js') }}"></script>
 <script>
-    $(function(){
+    $(function() {
         // Input Mask
-        if($.isFunction($.fn.inputmask))
-        {
-            $("[data-mask]").each(function(i, el)
-            {
+        if ($.isFunction($.fn.inputmask)) {
+            $("[data-mask]").each(function(i, el) {
                 var $this = $(el),
-                        mask = $this.data('mask').toString(),
-                        opts = {
-                            numericInput: attrDefault($this, 'numeric', false),
-                            radixPoint: attrDefault($this, 'radixPoint', ''),
-                            rightAlignNumerics: attrDefault($this, 'numericAlign', 'left') == 'right'
-                        },
-                        placeholder = attrDefault($this, 'placeholder', ''),
-                        is_regex = attrDefault($this, 'isRegex', '');
+                    mask = $this.data('mask').toString(),
+                    opts = {
+                        numericInput: attrDefault($this, 'numeric', false),
+                        radixPoint: attrDefault($this, 'radixPoint', ''),
+                        rightAlignNumerics: attrDefault($this, 'numericAlign', 'left') == 'right'
+                    },
+                    placeholder = attrDefault($this, 'placeholder', ''),
+                    is_regex = attrDefault($this, 'isRegex', '');
 
 
-                if(placeholder.length)
-                {
+                if (placeholder.length) {
                     opts[placeholder] = placeholder;
                 }
 
-                switch(mask.toLowerCase())
-                {
+                switch (mask.toLowerCase()) {
                     case "phone":
                         mask = "(999) 999-9999";
                         break;
@@ -40,12 +36,9 @@
 
                         mask = "999,999,999.99";
 
-                        if($this.data('mask').toLowerCase() == 'rcurrency')
-                        {
+                        if ($this.data('mask').toLowerCase() == 'rcurrency') {
                             mask += ' ' + sign;
-                        }
-                        else
-                        {
+                        } else {
                             mask = sign + ' ' + mask;
                         }
 
@@ -77,15 +70,14 @@
                     case "fdecimal":
                         mask = 'decimal';
                         $.extend(opts, {
-                            autoGroup		: true,
-                            groupSize		: 3,
-                            radixPoint		: attrDefault($this, 'rad', '.'),
-                            groupSeparator	: attrDefault($this, 'dec', ',')
+                            autoGroup: true,
+                            groupSize: 3,
+                            radixPoint: attrDefault($this, 'rad', '.'),
+                            groupSeparator: attrDefault($this, 'dec', ',')
                         });
                 }
 
-                if(is_regex)
-                {
+                if (is_regex) {
                     opts.regex = mask;
                     mask = 'Regex';
                 }
@@ -96,15 +88,14 @@
     });
 
     // Element Attribute Helper
-    function attrDefault($el, data_var, default_val)
-    {
-        if(typeof $el.data(data_var) != 'undefined')
-        {
+    function attrDefault($el, data_var, default_val) {
+        if (typeof $el.data(data_var) != 'undefined') {
             return $el.data(data_var);
         }
 
         return default_val;
     }
+
     function getdl(str) {
         if (str == '' || str == null) {
             return 0;
@@ -125,12 +116,12 @@
     }
 
     function dinhdangso(num, scale) {
-        if(!("" + num).includes("e")) {
-            return +(Math.round(num + "e+" + scale)  + "e-" + scale);
+        if (!("" + num).includes("e")) {
+            return +(Math.round(num + "e+" + scale) + "e-" + scale);
         } else {
             var arr = ("" + num).split("e");
             var sig = ""
-            if(+arr[1] + scale > 0) {
+            if (+arr[1] + scale > 0) {
                 sig = "+";
             }
             return +(Math.round(+arr[0] + "e" + sig + (+arr[1] + scale)) + "e-" + scale);

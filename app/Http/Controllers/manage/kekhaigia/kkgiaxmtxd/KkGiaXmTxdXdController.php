@@ -32,7 +32,7 @@ class KkGiaXmTxdXdController extends Controller
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $inputs['nam'] = $inputs['nam'] ?? date('Y');
-            $inputs['trangthai'] = $inputs['trangthai'] ?? 'CD';
+            
             //lấy mã dv để set level
             $inputs['level'] = $m_donvi->where('madv', $inputs['madv'])->first()->level ?? 'H';
             //gán lại thông tin về trường madv, thoidiem để truyền sang form index
@@ -95,8 +95,11 @@ class KkGiaXmTxdXdController extends Controller
                     break;
                 }
             }
-
-            /*dd($model);*/
+            $inputs['trangthai'] = $inputs['trangthai'] ?? 'ALL';
+            if ($inputs['trangthai'] != 'ALL') {
+                $model = $model->where('trangthai', $inputs['trangthai']);
+            }
+            // dd($model);
             return view('manage.kkgia.xmtxd.kkgia.xetduyet.index')
                 ->with('model', $model)
                 ->with('inputs', $inputs)

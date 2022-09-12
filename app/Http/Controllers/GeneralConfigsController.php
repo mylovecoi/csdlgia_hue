@@ -86,6 +86,13 @@ class GeneralConfigsController extends Controller
                     $ipf2->move(public_path() . '/data/huongdan/', $inputs['ipf2']);
                     session('admin')->ipf2 = $inputs['ipf2'];
                 }
+
+                if(isset($inputs['ipf3'])){
+                    $ipf3 = $request->file('ipf3');
+                    $inputs['ipf3'] = '&3.'.$ipf3->getClientOriginalName();
+                    $ipf3->move(public_path() . '/images/', $inputs['ipf3']);
+                    session('admin')->ipf3 = $inputs['ipf3'];
+                }
                 $model = GeneralConfigs::findOrFail($id);
                 $model->update($inputs);
 

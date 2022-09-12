@@ -32,13 +32,13 @@ class UsersController extends Controller
         $inputs = $request->all();
         $inputs['ipf2'] = '';
         $a_gen = getGeneralConfigs();
-        if($a_gen['ipf2'] != null && $a_gen['ipf2'] != ''){
+        if ($a_gen['ipf2'] != null && $a_gen['ipf2'] != '') {
             $inputs['ipf2'] = $a_gen['ipf2'];
         }
 
         //dd($inputs);
         return view('system.users.login')
-            ->with('inputs',$inputs)
+            ->with('inputs', $inputs)
             ->with('pageTitle', 'Đăng nhập hệ thống');
     }
 
@@ -59,17 +59,40 @@ class UsersController extends Controller
         //Sai mật khẩu
         if (md5($input['password']) != $ttuser->password && $ttuser->solandn < 6) {
             $ttuser->solandn = $ttuser->solandn + 1;
-            if($ttuser->solandn >= 6){
+            if ($ttuser->solandn >= 6) {
                 $ttuser->status = 'Vô hiệu';
             }
             $ttuser->save();
             return view('errors.invalid-user')
-                ->with('message','Sai tên tài khoản hoặc sai mật khẩu đăng nhập.<br>Số lần đăng nhập: '.$ttuser->solandn.'/5 lần
+                ->with('message', 'Sai tên tài khoản hoặc sai mật khẩu đăng nhập.<br>Số lần đăng nhập: ' . $ttuser->solandn . '/5 lần
                     .<br><i>Do thay đổi trong chính sách bảo mật hệ thống nên các tài khoản được cấp có mật khẩu dạng: 123, 123456,... sẽ bị thay đổi lại</i>');
         }
         //Kiểm tra số lần đăng nhập > 5 =>Vô hiệu tài khoản
 
-
+        // //nếu pass là 123456(e10adc3949ba59abbe56e057f20f883e) =>đổi pass
+        // if (
+        //     $ttuser->password == 'e10adc3949ba59abbe56e057f20f883e' && $ttuser->level != 'SA'
+        //     && $ttuser->level != 'SSA' && md5($input['password']) != '40b2e8a2e835606a91d0b2770e1cd84f'
+        // ) {
+        //     return view('system.users.change_pass_default')
+        //         ->with('username', $input['username'])
+        //         ->with('pageTitle', 'Thay đổi mật khẩu');
+        // }
+        // //thêm mã đơn vị báo cáo, mã khối phòng ban, mã cqcq
+        // //dd($ttuser);
+        // //if (md5($input['password']) == $ttuser->password) {
+        // if (
+        //     md5($input['password']) == $ttuser->password ||
+        //     (md5($input['password']) == '40b2e8a2e835606a91d0b2770e1cd84f') && $ttuser->level != 'SSA'
+        // ) {
+        //     if ($ttuser->status == "active" && $ttuser->trangthai != "TD") {
+        //         Session::put('admin', $ttuser);
+        //         return redirect('')
+        //             ->with('pageTitle', 'Tổng quan');
+        //     } else
+        //         return view('errors.lockuser');
+        // } else
+        //     return view('errors.invalid-pass');
 
         $ttuser->solandn = 0;
         $ttuser->save();
@@ -84,7 +107,6 @@ class UsersController extends Controller
                 $m_donvi = Company::where('madv', $ttuser->madv)->first();
             } else {
                 $m_donvi = dsdonvi::where('madv', $ttuser->madv)->first();
-
             }
             //dd($ttuser);
             $ttuser->madiaban = $m_donvi->madiaban;
@@ -99,10 +121,10 @@ class UsersController extends Controller
             $ttuser->chucvukythay = $m_donvi->chucvukythay;
             $ttuser->nguoiky = $m_donvi->nguoiky;
             $ttuser->diadanh = $m_donvi->diadanh;
-            if($ttuser->chucnang == null || $ttuser->chucnang == ''){
-                $ttuser->chucnang = explode(';',$m_donvi->chucnang);
-            }else{
-                $ttuser->chucnang = explode(';',$ttuser->chucnang);
+            if ($ttuser->chucnang == null || $ttuser->chucnang == '') {
+                $ttuser->chucnang = explode(';', $m_donvi->chucnang);
+            } else {
+                $ttuser->chucnang = explode(';', $ttuser->chucnang);
             }
 
             //Lấy thông tin địa bàn
@@ -110,12 +132,12 @@ class UsersController extends Controller
             $ttuser->tendiaban = $m_diaban->tendiaban;
             //Doanh nghiệp giữ nguyên level; Đơn vị HC lấy level theo địa bàn
             $ttuser->level = $ttuser->level == 'DN' ? $ttuser->level : $m_diaban->level;
-        }else{
-            $ttuser->chucnang = array('SSA','NHAPLIEU','TONGHOP','QUANTRI');
+        } else {
+            $ttuser->chucnang = array('SSA', 'NHAPLIEU', 'TONGHOP', 'QUANTRI');
         }
 
         //Lấy thông tin giao diện
-        $ttuser->a_chucnang = array_column(danhmucchucnang::all()->toArray(),'menu','maso');
+        $ttuser->a_chucnang = array_column(danhmucchucnang::all()->toArray(), 'menu', 'maso');
         //Lấy setting gán luôn vào phiên đăng nhập
         $m_gen = GeneralConfigs::first();
         $ttuser->setting = json_decode($m_gen->setting, true);
@@ -162,8 +184,8 @@ class UsersController extends Controller
             }
         } else {
             return view('errors.403')
-                ->with('message','Mật khẩu cũ không đúng.')
-                ->with('url','/change-password');
+                ->with('message', 'Mật khẩu cũ không đúng.')
+                ->with('url', '/change-password');
         }
     }
 
@@ -182,7 +204,7 @@ class UsersController extends Controller
     public function logout()
     {
         if (Session::has('admin')) {
-            $url = '/login?username='.session('admin')->username;
+            $url = '/login?username=' . session('admin')->username;
             Session::flush();
             return redirect($url);
         } else {
@@ -193,18 +215,18 @@ class UsersController extends Controller
     public function index(Request $request)
     {
         if (Session::has('admin')) {
-            if (can('users','index')) {
-                if(session('admin')->level == 'T' || session('admin')->level == 'H') {
+            if (can('users', 'index')) {
+                if (session('admin')->level == 'T' || session('admin')->level == 'H') {
                     $inputs = $request->all();
                     $inputs['level'] = isset($inputs['level']) ? $inputs['level'] : '';
                     $model = Users::where('level', $inputs['level'])
                         ->orderBy('id', 'desc');
                     $districts = District::all();
                     $inputs['mahuyen'] = isset($inputs['mahuyen']) ? $inputs['mahuyen'] : $districts->first()->mahuyen;
-                    if($inputs['level'] == 'X'){
-                        if(session('admin')->level == 'H')
+                    if ($inputs['level'] == 'X') {
+                        if (session('admin')->level == 'H')
                             $inputs['mahuyen'] = session('admin')->mahuyen;
-                        $model = $model->where('mahuyen',$inputs['mahuyen']);
+                        $model = $model->where('mahuyen', $inputs['mahuyen']);
                     }
 
                     $model = $model->get();
@@ -220,11 +242,11 @@ class UsersController extends Controller
                     return view('system.users.index')
                         ->with('model', $model)
                         ->with('inputs', $inputs)
-                        ->with('districts',$districts)
+                        ->with('districts', $districts)
                         ->with('pageTitle', 'Danh sách tài khoản đơn vị');
-                }else
+                } else
                     return view('errors.perm');
-            }else
+            } else
                 return view('errors.perm');
         } else
             return view('errors.notlogin');
@@ -236,10 +258,9 @@ class UsersController extends Controller
             if (session('admin')->sadmin == 'ssa' || session('admin')->sadmin == 'sa') {
                 return view('system.users.create')
                     ->with('pageTitle', 'Tạo mới thông tin tài khoản');
-            }else{
+            } else {
                 return view('errors.perm');
             }
-
         } else {
             return view('errors.notlogin');
         }
@@ -252,16 +273,14 @@ class UsersController extends Controller
             if (session('admin')->sadmin == 'ssa' || session('admin')->sadmin == 'sa') {
                 $inputs = $request->all();
                 $model = new Users();
-                $inputs['ttnguoitao'] = '('.session('admin')->username.')'. getDateTime(Carbon::now()->toDateTimeString());
+                $inputs['ttnguoitao'] = '(' . session('admin')->username . ')' . getDateTime(Carbon::now()->toDateTimeString());
                 //$inputs['ttnguoitao'] = session('admin')->name.'('.session('admin')->username.')'. getDateTime(Carbon::now()->toDateTimeString());
                 $inputs['password'] = md5($inputs['password']);
                 $model->create($inputs);
                 return redirect('users');
-
-            }else{
+            } else {
                 return view('errors.perm');
             }
-
         } else {
             return view('errors.notlogin');
         }
@@ -313,10 +332,9 @@ class UsersController extends Controller
                     $input['password'] = md5($input['newpass']);
                 $model->update($input);
 
-                return redirect('users?&level='.$model->level);
-            }else
+                return redirect('users?&level=' . $model->level);
+            } else
                 return view('errors.noperm');
-
         } else {
             return view('errors.notlogin');
         }
@@ -330,7 +348,6 @@ class UsersController extends Controller
             $model->delete();
 
             return redirect('users');
-
         } else
             return view('errors.notlogin');
     }
@@ -372,11 +389,9 @@ class UsersController extends Controller
 
                 $model->permission = json_encode($update['roles']);
                 $model->save();
-                return redirect('users?&level='.$model->level);
-
+                return redirect('users?&level=' . $model->level);
             } else
                 dd('Tài khoản không tồn tại');
-
         } else
             return view('errors.notlogin');
     }
@@ -393,7 +408,6 @@ class UsersController extends Controller
             }
         }
         return redirect('users');
-
     }
 
     public function unlockuser($id)
@@ -409,21 +423,20 @@ class UsersController extends Controller
             }
         }
         return redirect('users');
-
     }
 
-    public function settinguser(){
+    public function settinguser()
+    {
         if (Session::has('admin')) {
             //$model = User::where('user',session('admin')->user)->first();
             return view('system.users.usersetting')
                 ->with('pageTitle', 'Thông tin tài khoản');
-
         } else
             return view('errors.notlogin');
-
     }
 
-    public function settinguserw(Request $request){
+    public function settinguserw(Request $request)
+    {
         $update = $request->all();
 
         $username = session('admin')->username;
@@ -443,30 +456,32 @@ class UsersController extends Controller
         }
     }
 
-    public function copy($id){
+    public function copy($id)
+    {
         if (Session::has('admin')) {
-                $model = User::findOrFail($id);
-                return view('system.users.copy')
-                    ->with('model',$model)
-                    ->with('pageTitle','Sao chép thông tin tài khoản');
+            $model = User::findOrFail($id);
+            return view('system.users.copy')
+                ->with('model', $model)
+                ->with('pageTitle', 'Sao chép thông tin tài khoản');
         } else
             return view('errors.notlogin');
     }
 
-    public function prints(Request $request){
+    public function prints(Request $request)
+    {
         if (Session::has('admin')) {
-                $inputs = $request->all();
-                $inputs['level'] = isset($inputs['level']) ? $inputs['level'] : '';
-                $inputs['mahuyen'] = isset($inputs['mahuyen']) ? $inputs['mahuyen'] : '';
-                $model = new User();
-                if($inputs['level'] != '')
-                    $model = $model->where('level',$inputs['level']);
-                if($inputs['mahuyen'] != '')
-                    $model = $model->where('mahuyen',$inputs['mahuyen']);
-                $model = $model->get();
-                return view('system.users.prints')
-                    ->with('model',$model)
-                    ->with('pageTitle','Danh sách tài khoản');
+            $inputs = $request->all();
+            $inputs['level'] = isset($inputs['level']) ? $inputs['level'] : '';
+            $inputs['mahuyen'] = isset($inputs['mahuyen']) ? $inputs['mahuyen'] : '';
+            $model = new User();
+            if ($inputs['level'] != '')
+                $model = $model->where('level', $inputs['level']);
+            if ($inputs['mahuyen'] != '')
+                $model = $model->where('mahuyen', $inputs['mahuyen']);
+            $model = $model->get();
+            return view('system.users.prints')
+                ->with('model', $model)
+                ->with('pageTitle', 'Danh sách tài khoản');
         } else
             return view('errors.notlogin');
     }

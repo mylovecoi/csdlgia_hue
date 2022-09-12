@@ -274,7 +274,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Ngày nhập số công văn liền kề<span class="require">*</span></label>
-                                {!!Form::text('ngaycvlk',(isset($modelcb) ? date('d/m/Y',  strtotime($modelcb->ngaynhap)) : ''), array('id' => 'ngaycvlk','data-inputmask'=>"'alias': 'date'",'class' => 'form-control'))!!}
+                                {!! Form::input('date', 'ngaycvlk', $modelcb->ngaynhap != '' ? date('d/m/Y',  strtotime($modelcb->ngaynhap)) : '', array('id' => 'ngaycvlk', 'class' => 'form-control'))!!}
+                                {{-- {!!Form::text('ngaycvlk',(isset($modelcb) ? date('d/m/Y',  strtotime($modelcb->ngaynhap)) : ''), array('id' => 'ngaycvlk','data-inputmask'=>"'alias': 'date'",'class' => 'form-control'))!!} --}}
                             </div>
                         </div>
                     </div>
