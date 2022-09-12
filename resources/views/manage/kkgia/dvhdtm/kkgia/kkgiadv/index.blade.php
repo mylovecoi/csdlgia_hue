@@ -26,11 +26,14 @@
             $('#madv').change(function() {
                 changeUrl();
             });
+            $('#trangthai').change(function() {
+                changeUrl();
+            });
         });
 
         function changeUrl() {
             var nam = $('#namhs').val();
-            var url = '/kekhaigiadvhdtm?&madv='+$('#madv').val()+'&nam='+nam ;
+            var url = '/kekhaigiadvhdtm?&madv='+$('#madv').val()+'&nam='+nam + '&trangthai=' + $('#trangthai').val();
             window.location.href = url;
         }
 
@@ -161,6 +164,15 @@
                                     @endforeach
                                 </select>
                             </div>
+
+                            <div class="col-md-4">
+                                <label style="font-weight: bold">Trạng thái</label>
+                                {!! Form::select('trangthai', getTenTrangThaiHoSoDN(true), $inputs['trangthai'], [
+                                    'id' => 'trangthai',
+                                    'class' => 'form-control select2me',
+                                ]) !!}
+                                </select>
+                            </div>
                         </div>
                     </div>
 
@@ -186,26 +198,7 @@
                                 <td style="text-align: center" class="active">{{$tt->socv}}</td>
                                 <td style="text-align: center">{{$tt->socvlk}}</td>
                                 <td style="text-align: left">{{$a_donvi_th[$tt->macqcq]?? ''}}</td>
-                                @if($tt->trangthai == "CC")
-                                    <td align="center"><span class="badge badge-warning">Chờ chuyển</span></td>
-                                @elseif($tt->trangthai == 'CD')
-                                    <td align="center"><span class="badge badge-blue">Chờ duyệt</span>
-                                        <br>Thời gian chuyển:<br><b>{{getDateTime($tt->ngaychuyen)}}</b>
-                                    </td>
-                                @elseif($tt->trangthai == 'CN')
-                                    <td align="center"><span class="badge badge-warning">Chờ nhận</span>
-                                        <br>Thời gian chuyển:<br><b>{{getDateTime($tt->ngaychuyen)}}</b>
-                                    </td>
-                                @elseif($tt->trangthai == 'BTL')
-                                    <td align="center">
-                                        <span class="badge badge-danger">Bị trả lại</span><br>&nbsp;
-                                    </td>
-                                @else
-                                    <td align="center">
-                                        <span class="badge badge-success">Đã duyệt</span>
-                                        <br>Thời gian chuyển:<br><b>{{getDateTime($tt->ngaychuyen)}}</b>
-                                    </td>
-                                @endif
+                                @include('manage.kkgia._include.td_trangthai')
                                 <td>
                                     <a href="{{url('kekhaigiadvhdtm/prints?&mahs='.$tt->mahs)}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
                                     @if(canEdit($tt->trangthai))

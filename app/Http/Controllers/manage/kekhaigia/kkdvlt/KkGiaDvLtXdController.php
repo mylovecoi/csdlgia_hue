@@ -36,7 +36,6 @@ class KkGiaDvLtXdController extends Controller
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $inputs['nam'] = $inputs['nam'] ?? date('Y');
-            $inputs['trangthai'] = $inputs['trangthai'] ?? 'CD';
             //lấy mã dv để set level
             $inputs['level'] = $m_donvi->where('madv', $inputs['madv'])->first()->level ?? 'H';
             //dd($inputs);
@@ -128,6 +127,11 @@ class KkGiaDvLtXdController extends Controller
                 $val->trangthai = 'DONGTHOI';
                 $model->add($val);
             }
+
+            $inputs['trangthai'] = $inputs['trangthai'] ?? 'ALL';
+            if ($inputs['trangthai'] != 'ALL') {
+                    $model = $model->where('trangthai', $inputs['trangthai']);
+                }
             //dd($model);
             return view('manage.kkgia.dvlt.kkgia.xetduyet.index')
                 ->with('model', $model)

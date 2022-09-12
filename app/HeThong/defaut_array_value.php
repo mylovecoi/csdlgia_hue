@@ -620,7 +620,8 @@ function getTenTrangThaiHoSoDN($all = false)
             'CD' => 'Chờ duyệt',
             'CN' => 'Chờ nhận',
             'BTL' => 'Bị trả lại',            
-            'CB' => 'Đã duyệt',
+            'DD' => 'Đã duyệt',
+            'CB' => 'Đã công bố',
         ];
     } else {
         return [
@@ -628,7 +629,8 @@ function getTenTrangThaiHoSoDN($all = false)
             'CD' => 'Chờ duyệt',
             'CN' => 'Chờ nhận',
             'BTL' => 'Bị trả lại',
-            'CB' => 'Đã duyệt',
+            'DD' => 'Đã duyệt',
+            'CB' => 'Đã công bố',
         ];
     }
 }

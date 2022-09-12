@@ -30,10 +30,14 @@
             $('#macskd').change(function() {
                 changeUrl();
             });
+
+            $('#trangthai').change(function() {
+                changeUrl();
+            });
         });
         function changeUrl() {
             var nam = $('#namhs').val();
-            var url = '/kekhaigiadvlt?&madv='+$('#madv').val()+'&nam='+nam + '&macskd=' + $('#macskd').val();
+            var url = '/kekhaigiadvlt?&madv='+$('#madv').val()+'&nam='+nam + '&macskd=' + $('#macskd').val()+ '&trangthai=' + $('#trangthai').val();
             window.location.href = url;
         }
         function getId(id){
@@ -123,6 +127,15 @@
                                     <label style="font-weight: bold">Cơ sở kinh doanh</label>
                                     {!! Form::select('macskd',$a_cskd, $inputs['macskd'], array('id' => 'macskd','class' => 'form-control')) !!}
                                 </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label style="font-weight: bold">Trạng thái</label>
+                                {!! Form::select('trangthai', getTenTrangThaiHoSoDN(true), $inputs['trangthai'], [
+                                    'id' => 'trangthai',
+                                    'class' => 'form-control select2me',
+                                ]) !!}
+                                </select>
                             </div>
                         </div>
                     </div>

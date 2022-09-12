@@ -30,91 +30,95 @@ class KkGiaCatSanXdController extends Controller
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $inputs['nam'] = $inputs['nam'] ?? date('Y');
-            $inputs['trangthai'] = $inputs['trangthai'] ?? 'CD';
+
             //lấy mã dv để set level
             $inputs['level'] = $m_donvi->where('madv', $inputs['madv'])->first()->level ?? 'H';
             //gán lại thông tin về trường madv, thoidiem để truyền sang form index
             //xét macqcq để tìm đơn vị chuyển đến
-            $a_ttdv = array_column(Company::all()->toArray(),'tendn', 'madv');
-            $a_donvi_th = array_column($m_donvi->toarray(),'tendv','madv');
-            switch ($inputs['level']){
-                case 'H':{
-                    $model = KkGiaCatSan::where('madv_h', $inputs['madv']);
-                    if ($inputs['nam'] != 'all')
-                        $model = $model->whereYear('ngaychuyen_h', $inputs['nam']);
-                    $model = $model->get();
-                    $m_com = Company::wherein('madv', array_column($model->toarray(),'madv'))->get();
-                    $a_com = array_column($m_com->toarray(),'madiaban','madv');
-                    foreach ($model as $ct){
-                        $ct->madiaban = $a_com[$ct->madv] ?? null;
-                        $ct->tendv_ch = $a_ttdv[$ct->madv] ?? '';
-                        $ct->madv = $ct->madv_h;
-                        $ct->ngaychuyen = $ct->ngaychuyen_h;
-                        $ct->trangthai = $ct->trangthai_h;
-                        $ct->level = $inputs['level'];
+            $a_ttdv = array_column(Company::all()->toArray(), 'tendn', 'madv');
+            $a_donvi_th = array_column($m_donvi->toarray(), 'tendv', 'madv');
+            switch ($inputs['level']) {
+                case 'H': {
+                        $model = KkGiaCatSan::where('madv_h', $inputs['madv']);
+                        if ($inputs['nam'] != 'all')
+                            $model = $model->whereYear('ngaychuyen_h', $inputs['nam']);
+                        $model = $model->get();
+                        $m_com = Company::wherein('madv', array_column($model->toarray(), 'madv'))->get();
+                        $a_com = array_column($m_com->toarray(), 'madiaban', 'madv');
+                        foreach ($model as $ct) {
+                            $ct->madiaban = $a_com[$ct->madv] ?? null;
+                            $ct->tendv_ch = $a_ttdv[$ct->madv] ?? '';
+                            $ct->madv = $ct->madv_h;
+                            $ct->ngaychuyen = $ct->ngaychuyen_h;
+                            $ct->trangthai = $ct->trangthai_h;
+                            $ct->level = $inputs['level'];
+                        }
+                        break;
                     }
-                    break;
-                }
-                case 'T':{
-                    $model = KkGiaCatSan::where('madv_t', $inputs['madv']);
-                    if ($inputs['nam'] != 'all')
-                        $model = $model->whereYear('ngaychuyen_t', $inputs['nam']);
-                    $model = $model->get();
-                    $m_com = Company::wherein('madv', array_column($model->toarray(),'madv'))->get();
-                    $a_com = array_column($m_com->toarray(),'madiaban','madv');
-                    foreach ($model as $ct){
-                        $ct->madiaban = $a_com[$ct->madv] ?? null;
-                        $ct->tendv_ch = $a_ttdv[$ct->madv] ?? '';
-                        $ct->madv = $ct->madv_t;
-                        $ct->macqcq = $ct->macqcq_t;
-                        $ct->tencqcq = $a_donvi_th[$ct->macqcq] ?? '';
-                        $ct->ngaychuyen = $ct->ngaychuyen_t;
-                        $ct->trangthai = $ct->trangthai_t;
-                        $ct->level = $inputs['level'];
+                case 'T': {
+                        $model = KkGiaCatSan::where('madv_t', $inputs['madv']);
+                        if ($inputs['nam'] != 'all')
+                            $model = $model->whereYear('ngaychuyen_t', $inputs['nam']);
+                        $model = $model->get();
+                        $m_com = Company::wherein('madv', array_column($model->toarray(), 'madv'))->get();
+                        $a_com = array_column($m_com->toarray(), 'madiaban', 'madv');
+                        foreach ($model as $ct) {
+                            $ct->madiaban = $a_com[$ct->madv] ?? null;
+                            $ct->tendv_ch = $a_ttdv[$ct->madv] ?? '';
+                            $ct->madv = $ct->madv_t;
+                            $ct->macqcq = $ct->macqcq_t;
+                            $ct->tencqcq = $a_donvi_th[$ct->macqcq] ?? '';
+                            $ct->ngaychuyen = $ct->ngaychuyen_t;
+                            $ct->trangthai = $ct->trangthai_t;
+                            $ct->level = $inputs['level'];
+                        }
+                        break;
                     }
-                    break;
-                }
-                case 'ADMIN':{
-                    $model = KkGiaCatSan::where('madv_ad', $inputs['madv']);
-                    if ($inputs['nam'] != 'all')
-                        $model = $model->whereYear('ngaychuyen_ad', $inputs['nam']);
-                    $model = $model->get();
-                    $m_com = Company::wherein('madv', array_column($model->toarray(),'madv'))->get();
-                    $a_com = array_column($m_com->toarray(),'madiaban','madv');
-                    foreach ($model as $ct){
-                        $ct->madiaban = $a_com[$ct->madv] ?? null;
-                        $ct->tendv_ch = $a_ttdv[$ct->madv] ?? '';
-                        $ct->madv = $ct->madv_ad;
-                        $ct->tencqcq = $a_donvi_th[$ct->macqcq] ?? '';
-                        $ct->ngaychuyen = $ct->ngaychuyen_ad;
-                        $ct->trangthai = $ct->trangthai_ad;
-                        $ct->level = $inputs['level'];
+                case 'ADMIN': {
+                        $model = KkGiaCatSan::where('madv_ad', $inputs['madv']);
+                        if ($inputs['nam'] != 'all')
+                            $model = $model->whereYear('ngaychuyen_ad', $inputs['nam']);
+                        $model = $model->get();
+                        $m_com = Company::wherein('madv', array_column($model->toarray(), 'madv'))->get();
+                        $a_com = array_column($m_com->toarray(), 'madiaban', 'madv');
+                        foreach ($model as $ct) {
+                            $ct->madiaban = $a_com[$ct->madv] ?? null;
+                            $ct->tendv_ch = $a_ttdv[$ct->madv] ?? '';
+                            $ct->madv = $ct->madv_ad;
+                            $ct->tencqcq = $a_donvi_th[$ct->macqcq] ?? '';
+                            $ct->ngaychuyen = $ct->ngaychuyen_ad;
+                            $ct->trangthai = $ct->trangthai_ad;
+                            $ct->level = $inputs['level'];
+                        }
+                        break;
                     }
-                    break;
-                }
             }
 
-            /*dd($model);*/
+            if ($inputs['trangthai'] != 'ALL') {
+                $model = $model->where('trangthai', $inputs['trangthai']);
+            }
+
             return view('manage.kkgia.catsan.kkgia.xetduyet.index')
                 ->with('model', $model)
                 ->with('inputs', $inputs)
                 ->with('m_diaban', $m_diaban)
-                ->with('a_diaban', array_column($m_diaban->wherein('level', ['H','T','X'])->toarray(), 'tendiaban', 'madiaban'))
+                ->with('a_diaban', array_column($m_diaban->wherein('level', ['H', 'T', 'X'])->toarray(), 'tendiaban', 'madiaban'))
                 ->with('m_donvi', $m_donvi)
-                ->with('m_donvi_th', $m_donvi_th->where('madv','<>',$inputs['madv']))
-                ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
-                ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
+                ->with('m_donvi_th', $m_donvi_th->where('madv', '<>', $inputs['madv']))
+                ->with('a_donvi_th', array_column($m_donvi_th->toarray(), 'tendv', 'madv'))
+                ->with('a_diaban_th', array_column($m_donvi_th->toarray(), 'tendiaban', 'madiaban'))
                 ->with('pageTitle', 'Xét duyệt hồ sơ kê khai giá cát sạn');
         } else
             return view('errors.notlogin');
     }
 
-    public function ttdnkkcatsan(Request $request){
+    public function ttdnkkcatsan(Request $request)
+    {
         $result = array(
             'status' => 'fail',
             'message' => 'error',
         );
-        if(!Session::has('admin')) {
+        if (!Session::has('admin')) {
             $result = array(
                 'status' => 'fail',
                 'message' => 'permission denied',
@@ -123,14 +127,14 @@ class KkGiaCatSanXdController extends Controller
         }
         $inputs = $request->all();
 
-        if(isset($inputs['id'])){
+        if (isset($inputs['id'])) {
 
-            $modelhs = KkGiaCatSan::where('id',$inputs['id'])->first();
-            $modeldn = Company::where('madv',$modelhs->madv)->first();
+            $modelhs = KkGiaCatSan::where('id', $inputs['id'])->first();
+            $modeldn = Company::where('madv', $modelhs->madv)->first();
 
             $result['message'] = '<div class="form-group" id="ttdnkkdvgs"> ';
-            $result['message'] .= '<label style="color: blue"><b>'.$modeldn->tendn.'</b> Kê khai giá số công văn <b>'.$modelhs->socv.'</b> ngày áp dụng <b>'.getDayVn($modelhs->ngayhieuluc).'</b></b></label>';
-            $result['message'] .= '<label style="color: blue">Mã hồ sơ kê khai: <b>'.$modelhs->mahs.'</b></label>';
+            $result['message'] .= '<label style="color: blue"><b>' . $modeldn->tendn . '</b> Kê khai giá số công văn <b>' . $modelhs->socv . '</b> ngày áp dụng <b>' . getDayVn($modelhs->ngayhieuluc) . '</b></b></label>';
+            $result['message'] .= '<label style="color: blue">Mã hồ sơ kê khai: <b>' . $modelhs->mahs . '</b></label>';
             $result['message'] .= '</div>';
 
             $result['status'] = 'success';
@@ -138,7 +142,8 @@ class KkGiaCatSanXdController extends Controller
         die(json_encode($result));
     }
 
-    public function tralai(Request $request){
+    public function tralai(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             /*dd($inputs);*/
@@ -159,15 +164,14 @@ class KkGiaCatSanXdController extends Controller
                 $modeldn = Company::where('madv', $model->madv)->first();
                 $modeldv = dsdiaban::where('madiaban', $model->madiaban)->first();
                 $tg = getDateTime(Carbon::now()->toDateTimeString());
-                $contentdn = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã trả lại hồ sơ của doanh nghiệp. Số công văn: '.$model->socv.
-                    ' - Ngày áp dung: '.getDayVn($model->ngayhieuluc).'- Lý do: '.$inputs['lydo'].'!!!';
-                $contentht = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã trả lại hồ sơ của doanh nghiệp '.$modeldn->tendn.' - mã số thuế '.$modeldn->maxa.
-                    ' Số công văn: '.$model->socv.' - Ngày áp dung: '.getDayVn($model->ngayhieuluc).'- Lý do: '.$inputs['lydo'].'!!!';
-                $run = new SendMail($modeldn,$contentdn,$modeldv,$contentht);
+                $contentdn = 'Vào lúc: ' . $tg . ', hệ thống CSDL giá đã trả lại hồ sơ của doanh nghiệp. Số công văn: ' . $model->socv .
+                    ' - Ngày áp dung: ' . getDayVn($model->ngayhieuluc) . '- Lý do: ' . $inputs['lydo'] . '!!!';
+                $contentht = 'Vào lúc: ' . $tg . ', hệ thống CSDL giá đã trả lại hồ sơ của doanh nghiệp ' . $modeldn->tendn . ' - mã số thuế ' . $modeldn->maxa .
+                    ' Số công văn: ' . $model->socv . ' - Ngày áp dung: ' . getDayVn($model->ngayhieuluc) . '- Lý do: ' . $inputs['lydo'] . '!!!';
+                $run = new SendMail($modeldn, $contentdn, $modeldv, $contentht);
                 $run->handle();
             }
             return redirect('xetduyetkkgiacatsan?madv=' . $inputs['madvtralai']);
-
         } else
             return view('errors.notlogin');
     }
@@ -212,18 +216,20 @@ class KkGiaCatSanXdController extends Controller
         die(json_encode($result));
     }
 
-    public function getsohsnhan($macqcq){
+    public function getsohsnhan($macqcq)
+    {
         $idmax = KkGiaCatSan::wherein('trangthai', ['DD', 'CB', 'HCB'])
             ->max('id');
         if (isset($idmax)) {
-            $model = KkGiaCatSan::where('id',$idmax)->first();
+            $model = KkGiaCatSan::where('id', $idmax)->first();
             $stt = getDbl($model->sohsnhan) + 1;
         } else
             $stt = 1;
         return $stt;
     }
 
-    public function nhanhs(Request $request){
+    public function nhanhs(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             $id = $inputs['idnhanhs'];
@@ -245,23 +251,23 @@ class KkGiaCatSanXdController extends Controller
             $model->trangthai = 'DD';
             $model->sohsnhan = $inputs['sohsnhan'];
             $model->ngaynhan = $inputs['ngaynhan'];
-            $model->thoihan = getThXdHsDvLt($model->ngaychuyen,$inputs['ngaynhan']);
+            $model->thoihan = getThXdHsDvLt($model->ngaychuyen, $inputs['ngaynhan']);
             setDuyetHS($inputs['madv'], $model, ['trangthai' => 'DD', 'ngaynhan' => $inputs['ngaynhan'], 'lydo' => null]);
 
-            if($model->save()){
+            if ($model->save()) {
                 $modeldn = Company::where('madv', $model->madv)->first();
                 $modeldv = dsdiaban::where('madiaban', $model->madiaban)->first();
                 $tg = getDateTime(Carbon::now()->toDateTimeString());
                 $contentdn = 'Vào lúc: ' . $tg . ', hệ thống CSDL giá đã trả lại hồ sơ dịch vụ lưu trú của ' . $modeldn->tendn . ' . Số công văn: ' . $model->socv .
-                    ' - Ngày áp dung: ' . getDayVn($model->ngayhieuluc) ;
+                    ' - Ngày áp dung: ' . getDayVn($model->ngayhieuluc);
                 $contentht = 'Vào lúc: ' . $tg . ', hệ thống CSDL giá đã trả lại hồ sơ của doanh nghiệp ' . $modeldn->tendn . ' - mã số thuế ' . $modeldn->madv .
                     ' - Số công văn: ' . $model->socv . ' - Ngày áp dung: ' . getDayVn($model->ngayhieuluc);
                 $run = new SendMail($modeldn, $contentdn, $modeldv, $contentht);
                 $run->handle();
                 //dispatch($run);
             }
-            return redirect('xetduyetkkgiacatsan?madv='.$model->macqcq);
-        }else
+            return redirect('xetduyetkkgiacatsan?madv=' . $model->macqcq);
+        } else
             return view('errors.notlogin');
     }
 
@@ -293,7 +299,7 @@ class KkGiaCatSanXdController extends Controller
 
             //dd($model);
             $model->save();
-            return redirect('xetduyetkkgiacatsan?&madv='.$model->macqcq);
+            return redirect('xetduyetkkgiacatsan?&madv=' . $model->macqcq);
         } else
             return view('errors.notlogin');
     }
@@ -311,58 +317,62 @@ class KkGiaCatSanXdController extends Controller
                 'thoigian' => date('Y-m-d H:i:s'),
             );
             $model->lichsu = json_encode($a_lichsu);
-            setCongBoDN($model, ['trangthai' => $inputs['trangthai_ad'],
+            setCongBoDN($model, [
+                'trangthai' => $inputs['trangthai_ad'],
                 'congbo' => $inputs['trangthai_ad'] == 'CB' ? 'DACONGBO' : 'CHUACONGBO',
-                'ngaynhan' => date('Y-m-d H:i:s'),'madv'=>$model->madv_ad]);
+                'ngaynhan' => date('Y-m-d H:i:s'), 'madv' => $model->madv_ad
+            ]);
             $model->save();
             return redirect('xetduyetkkgiacatsan?madv=' . $model->madv_ad);
         } else
             return view('errors.notlogin');
     }
 
-    public function search(Request $request){
+    public function search(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
             $inputs['mota'] = isset($inputs['mota']) ? $inputs['mota'] : '';
-            $model = KkGiaCatSanCt::join('kkgiacatsan','kkgiacatsan.mahs','=','kkgiacatsanct.mahs')
-                ->join('company','company.madv','=','kkgiacatsan.madv')
-                ->select('kkgiacatsanct.*','company.tendn','kkgiacatsan.ngayhieuluc')
-                ->where('kkgiacatsan.trangthai','DD');
-            if($inputs['mota'] != '')
-                $model = $model->where('kkgiacatsanct.tendvcu','like','%'.$inputs['mota'].'%');
-            if($inputs['nam'] != 'all')
-                $model = $model->whereYear('kkgiacatsan.ngayhieuluc',$inputs['nam']);
+            $model = KkGiaCatSanCt::join('kkgiacatsan', 'kkgiacatsan.mahs', '=', 'kkgiacatsanct.mahs')
+                ->join('company', 'company.madv', '=', 'kkgiacatsan.madv')
+                ->select('kkgiacatsanct.*', 'company.tendn', 'kkgiacatsan.ngayhieuluc')
+                ->where('kkgiacatsan.trangthai', 'DD');
+            if ($inputs['mota'] != '')
+                $model = $model->where('kkgiacatsanct.tendvcu', 'like', '%' . $inputs['mota'] . '%');
+            if ($inputs['nam'] != 'all')
+                $model = $model->whereYear('kkgiacatsan.ngayhieuluc', $inputs['nam']);
             $model = $model->get();
             /*dd($model);*/
             return view('manage.kkgia.catsan.kkgia.timkiem.index')
-                ->with('model',$model)
-                ->with('inputs',$inputs)
-                ->with('pageTitle','Tìm kiếm thông tin kê khai giá cát sạn');
-        }else
+                ->with('model', $model)
+                ->with('inputs', $inputs)
+                ->with('pageTitle', 'Tìm kiếm thông tin kê khai giá cát sạn');
+        } else
             return view('errors.notlogin');
     }
 
-    public function printf(Request $request){
+    public function printf(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
             $inputs['mota'] = isset($inputs['mota']) ? $inputs['mota'] : '';
-            $model = KkGiaCatSanCt::join('kkgiacatsan','kkgiacatsan.mahs','=','kkgiacatsanct.mahs')
-                ->join('company','company.madv','=','kkgiacatsan.madv')
-                ->select('kkgiacatsanct.*','company.tendn','kkgiacatsan.ngayhieuluc')
-                ->where('kkgiacatsan.trangthai','DD');
-            if($inputs['mota'] != '')
-                $model = $model->where('kkgiacatsanct.tendvcu','like','%'.$inputs['mota'].'%');
-            if($inputs['nam'] != 'all')
-                $model = $model->whereYear('kkgiacatsan.ngayhieuluc',$inputs['nam']);
+            $model = KkGiaCatSanCt::join('kkgiacatsan', 'kkgiacatsan.mahs', '=', 'kkgiacatsanct.mahs')
+                ->join('company', 'company.madv', '=', 'kkgiacatsan.madv')
+                ->select('kkgiacatsanct.*', 'company.tendn', 'kkgiacatsan.ngayhieuluc')
+                ->where('kkgiacatsan.trangthai', 'DD');
+            if ($inputs['mota'] != '')
+                $model = $model->where('kkgiacatsanct.tendvcu', 'like', '%' . $inputs['mota'] . '%');
+            if ($inputs['nam'] != 'all')
+                $model = $model->whereYear('kkgiacatsan.ngayhieuluc', $inputs['nam']);
             $model = $model->get();
             /*dd($model);*/
             return view('manage.kkgia.catsan.kkgia.timkiem.printf')
-                ->with('model',$model)
-                ->with('inputs',$inputs)
-                ->with('pageTitle','Tìm kiếm thông tin kê khai giá cát sạn');
-        }else
+                ->with('model', $model)
+                ->with('inputs', $inputs)
+                ->with('pageTitle', 'Tìm kiếm thông tin kê khai giá cát sạn');
+        } else
             return view('errors.notlogin');
     }
 }

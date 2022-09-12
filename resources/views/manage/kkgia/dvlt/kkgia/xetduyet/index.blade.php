@@ -25,14 +25,21 @@
                 var namhs = '&nam='+ $('#nam').val();
 
                 var madv = '&madv=' + $('#madv').val();
-                var url = '/xetduyetkkgiadvlt?' + namhs + madv;
+                var url = '/xetduyetkkgiadvlt?' + namhs + madv+ '&trangthai=' + $('#trangthai').val();
                 window.location.href = url;
             });
 
             $('#madv').change(function() {
                 var namhs = '&nam='+ $('#nam').val();
                 var madv = '&madv=' + $('#madv').val();
-                var url = '/xetduyetkkgiadvlt?' + namhs + madv;
+                var url = '/xetduyetkkgiadvlt?' + namhs + madv+ '&trangthai=' + $('#trangthai').val();
+                window.location.href = url;
+            });
+
+            $('#trangthai').change(function() {
+                var namhs = '&nam='+ $('#nam').val();
+                var madv = '&madv=' + $('#madv').val();
+                var url = '/xetduyetkkgiadvlt?' + namhs + madv+ '&trangthai=' + $('#trangthai').val();
                 window.location.href = url;
             });
 
@@ -186,6 +193,14 @@
             </select>
         </div>
 
+        <div class="col-md-4">
+            <label style="font-weight: bold">Trạng thái</label>
+            {!! Form::select('trangthai', getTenTrangThaiHoSoDN(true), $inputs['trangthai'], [
+                'id' => 'trangthai',
+                'class' => 'form-control select2me',
+            ]) !!}
+            </select>
+        </div>
     </div>
 
     <!-- END PAGE HEADER-->

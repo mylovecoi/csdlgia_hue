@@ -41,7 +41,10 @@ class KkGiaDvHdTmController extends Controller
                 ->get();
 
             $m_donvi_th = getDonViTongHop_dn('dvhdtmck',session('admin')->level, session('admin')->madiaban);
-
+            $inputs['trangthai'] = $inputs['trangthai'] ?? 'ALL';
+            if ($inputs['trangthai'] != 'ALL') {
+                    $model = $model->where('trangthai', $inputs['trangthai']);
+                }
             return view('manage.kkgia.dvhdtm.kkgia.kkgiadv.index')
                 ->with('model', $model)
                 ->with('modeldn', $modeldn)
@@ -235,6 +238,12 @@ class KkGiaDvHdTmController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $model = KkGiaDvHdTm::where('mahs', $inputs['mahs'])->first();
+            if (KkGiaDvHdTm::where('madv', $model->madv)->where('trangthai', 'CD')->count() > 0) {
+                return view('errors.403')
+                    ->with('message', 'Doanh nghiệp đang có hồ sơ chờ nhận trên đơn vị chủ quản nên không thể chuyển hồ sơ.')
+                    ->with('url', '/kekhaigiadvhdtm?madv=' . $model->madv)
+                    ->with('pageTitle', 'Nhận dữ liệu từ file Excel');
+            }
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => 'CD',

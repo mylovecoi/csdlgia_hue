@@ -40,6 +40,10 @@ class KkGiaDatSanLapController extends Controller
                 ->orderBy('id', 'desc')
                 ->get();
 
+                $inputs['trangthai'] = $inputs['trangthai'] ?? 'ALL';
+                if ($inputs['trangthai'] != 'ALL') {
+                        $model = $model->where('trangthai', $inputs['trangthai']);
+                    }
             $m_donvi_th = getDonViTongHop_dn('datsanlap',session('admin')->level, session('admin')->madiaban);
 
             return view('manage.kkgia.datsanlap.kkgia.kkgiadv.index')
@@ -86,7 +90,6 @@ class KkGiaDatSanLapController extends Controller
                         'tendvcu' => $ctdf->tendvcu,
                         'qccl' => $ctdf->qccl,
                         'dvt' => $ctdf->dvt,
-                        wherein('trangthai', ['DD', 'CB', 'HCB'])
                         'giakk' => $ctdf->giakk,
                     );
                 }
@@ -235,6 +238,12 @@ class KkGiaDatSanLapController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $model = KkGiaDatSanLap::where('mahs', $inputs['mahs'])->first();
+            if (KkGiaDatSanLap::where('madv', $model->madv)->where('trangthai', 'CD')->count() > 0) {
+                return view('errors.403')
+                    ->with('message', 'Doanh nghiệp đang có hồ sơ chờ nhận trên đơn vị chủ quản nên không thể chuyển hồ sơ.')
+                    ->with('url', '/kekhaigiadatsanlap?madv=' . $model->madv)
+                    ->with('pageTitle', 'Nhận dữ liệu từ file Excel');
+            }
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => 'CD',

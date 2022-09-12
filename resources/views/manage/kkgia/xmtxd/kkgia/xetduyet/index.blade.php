@@ -267,20 +267,7 @@
                                                 {{ $tt->fax }}
                                             @endif
                                         </td>
-                                        @if ($tt->trangthai == 'CD')
-                                            <td align="center"><span class="badge badge-warning">Chờ duyệt</span>
-                                                <br>Thời gian chuyển:<br><b>{{ getDateTime($tt->ngaychuyen) }}</b>
-                                            </td>
-                                        @elseif($tt->trangthai == 'BTL')
-                                            <td align="center">
-                                                <span class="badge badge-danger">Bị trả lại</span><br>&nbsp;
-                                            </td>
-                                        @else
-                                            <td align="center">
-                                                <span class="badge badge-success">Đã duyệt</span>
-                                                <br>Thời gian chuyển:<br><b>{{ getDateTime($tt->ngaychuyen) }}</b>
-                                            </td>
-                                        @endif
+                                        @include('manage.kkgia._include.td_trangthai')
                                         <td>
                                             <a href="{{ url('kekhaigiaxmtxd/prints?&mahs=' . $tt->mahs) }}" target="_blank"
                                                 class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi
