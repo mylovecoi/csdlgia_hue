@@ -104,6 +104,7 @@
                             <th width="2%" style="text-align: center">STT</th>
                             <th style="text-align: center" width="10%">Ngày báo cáo</th>
                             <th style="text-align: center">Thông tin báo cáo</th>
+                            <th style="text-align: center">Thị trường điều tra</th>
                             <th style="text-align: center" width="10%">Trạng thái</th>
                             <th style="text-align: center" width="20%">Thao tác</th>
                         </tr>
@@ -114,6 +115,7 @@
                                 <td style="text-align: center">{{$key + 1}}</td>
                                 <td style="text-align: center">{{getDayVn($tt->ngaybaocao)}}</td>
                                 <td class="success">{{$tt->thongtinbc}}</td>
+                                <td class="success">Thành thị</td>
                                 <td style="text-align: center">
                                     @if($tt->trangthai == 'HT')
                                         <span class="badge badge-warning">Hoàn thành</span><br>

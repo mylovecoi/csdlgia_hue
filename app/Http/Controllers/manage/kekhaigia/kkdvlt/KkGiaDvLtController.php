@@ -25,24 +25,25 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class KkGiaDvLtController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['url'] = '/kekhaigiadvlt';
             $m_donvi = getDoanhNghiepNhapLieu(session('admin')->level, 'DVLT');
-            if(count($m_donvi) == 0){
+            if (count($m_donvi) == 0) {
                 return view('errors.noperm')
-                    ->with('url','')
-                    ->with('message','Hệ thống chưa có doanh nghiệp kê khai giá dịch vụ lưu trú.');
+                    ->with('url', '')
+                    ->with('message', 'Hệ thống chưa có doanh nghiệp kê khai giá dịch vụ lưu trú.');
             }
-            $m_diaban = dsdiaban::wherein('madiaban', array_column($m_donvi->toarray(),'madiaban'))->get();
+            $m_diaban = dsdiaban::wherein('madiaban', array_column($m_donvi->toarray(), 'madiaban'))->get();
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $modeldn = $m_donvi->where('madv', $inputs['madv'])->first();
-            $a_cskd = array_column( CsKdDvLt::where('madv', $inputs['madv'])->get()->toarray(),'tencskd','macskd');
-            if(count($a_cskd) == 0){
+            $a_cskd = array_column(CsKdDvLt::where('madv', $inputs['madv'])->get()->toarray(), 'tencskd', 'macskd');
+            if (count($a_cskd) == 0) {
                 return view('errors.noperm')
-                    ->with('url','/thongtincskd?madv='.$inputs['madv'])
-                    ->with('message','Doanh nghiệp chưa có cơ sở kinh doanh. Bạn cần tạo cơ sơ kinh doanh trước khi kê khai giá');
+                    ->with('url', '/thongtincskd?madv=' . $inputs['madv'])
+                    ->with('message', 'Doanh nghiệp chưa có cơ sở kinh doanh. Bạn cần tạo cơ sơ kinh doanh trước khi kê khai giá');
             }
             $inputs['macskd'] = $inputs['macskd'] ?? array_key_first($a_cskd);
 
@@ -54,11 +55,11 @@ class KkGiaDvLtController extends Controller
                 ->orderBy('id', 'desc')
                 ->get();
 
-            $m_donvi_th = getDonViTongHop_dn('dvlt',session('admin')->level, session('admin')->madiaban);
+            $m_donvi_th = getDonViTongHop_dn('dvlt', session('admin')->level, session('admin')->madiaban);
             $inputs['trangthai'] = $inputs['trangthai'] ?? 'ALL';
             if ($inputs['trangthai'] != 'ALL') {
-                    $model = $model->where('trangthai', $inputs['trangthai']);
-                }
+                $model = $model->where('trangthai', $inputs['trangthai']);
+            }
             return view('manage.kkgia.dvlt.kkgia.kkgiadv.index')
                 ->with('model', $model)
                 ->with('a_cskd', $a_cskd)
@@ -66,18 +67,19 @@ class KkGiaDvLtController extends Controller
                 ->with('inputs', $inputs)
                 ->with('m_donvi', $m_donvi)
                 ->with('m_donvi_th', $m_donvi_th)
-                ->with('a_diaban', array_column($m_diaban->toarray(),'tendiaban', 'madiaban'))
-                ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
-                ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
+                ->with('a_diaban', array_column($m_diaban->toarray(), 'tendiaban', 'madiaban'))
+                ->with('a_donvi_th', array_column($m_donvi_th->toarray(), 'tendv', 'madv'))
+                ->with('a_diaban_th', array_column($m_donvi_th->toarray(), 'tendiaban', 'madiaban'))
                 ->with('pageTitle', 'Danh sách hồ sơ kê khai dịch vụ lưu trú');
         } else
             return view('errors.notlogin');
     }
 
-    public function create(Request $request){
+    public function create(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $inputs['mahs'] = $inputs['macskd'].'_'.getdate()[0];
+            $inputs['mahs'] = $inputs['macskd'] . '_' . getdate()[0];
             $modelcskd = CsKdDvLt::where('macskd', $inputs['macskd'])->first();
             $modeldn = Company::where('madv', $modelcskd->madv)->first();
             //DB::statement("DELETE FROM kkgiadvltct WHERE macskd='" . $modelcskd->macskd . "' and mahs not in (SELECT mahs FROM kkgiadvlt where madv='" . $modelcskd->madv . "')");
@@ -122,30 +124,30 @@ class KkGiaDvLtController extends Controller
                 ->with('modelct', $modelct)
                 ->with('inputs', $inputs)
                 ->with('pageTitle', 'Kê khai giá dịch vụ lưu trú');
-
         } else
             return view('errors.notlogin');
     }
 
-    public function nhanexcel(Request $request){
+    public function nhanexcel(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             $m_cskd = CsKdDvLt::where('macskd', $inputs['macskd'])->first();
             $inputs['madv'] = $m_cskd->madv;
             $inputs['url'] = '/kekhaigiadvlt';
             return view('manage.kkgia._include.importexcel_cskd')
-                ->with('inputs',$inputs)
-                ->with('pageTitle','Nhận dữ liệu từ file Excel');
-
+                ->with('inputs', $inputs)
+                ->with('pageTitle', 'Nhận dữ liệu từ file Excel');
         } else
             return view('errors.notlogin');
     }
 
-    public function create_excel(Request $request){
+    public function create_excel(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             //dd($inputs);
-            $inputs['mahs'] = $inputs['macskd'].'_'.getdate()[0];
+            $inputs['mahs'] = $inputs['macskd'] . '_' . getdate()[0];
             $modelcskd = CsKdDvLt::where('macskd', $inputs['macskd'])->first();
             $modeldn = Company::where('madv', $modelcskd->madv)->first();
             //DB::statement("DELETE FROM kkgiadvltct WHERE macskd='" . $modelcskd->macskd . "' and mahs not in (SELECT mahs FROM kkgiadvlt where madv='" . $modelcskd->madv . "')");
@@ -174,16 +176,18 @@ class KkGiaDvLtController extends Controller
             Excel::load($path, function ($reader) use (&$data, $inputs) {
                 $obj = $reader->getExcel();
                 $sheet = $obj->getSheet(0);
-                $data = $sheet->toArray(null, true, true, true);// giữ lại tiêu đề A=>'val';
+                $data = $sheet->toArray(null, true, true, true); // giữ lại tiêu đề A=>'val';
             });
             //dd($data);
 
             $a_dm = array();
 
             for ($i = $inputs['tudong']; $i <= $inputs['dendong']; $i++) {
-                if(!isset($data[$i][$inputs['tenhhdv']]) || !isset($data[$i][$inputs['qccl']]) ||
+                if (
+                    !isset($data[$i][$inputs['tenhhdv']]) || !isset($data[$i][$inputs['qccl']]) ||
                     !isset($data[$i][$inputs['dvt']]) || !isset($data[$i][$inputs['mucgialk']]) ||
-                    !isset($data[$i][$inputs['mucgiakk']])){
+                    !isset($data[$i][$inputs['mucgiakk']])
+                ) {
                     continue;
                 }
                 $a_dm[] = array(
@@ -208,12 +212,12 @@ class KkGiaDvLtController extends Controller
                 ->with('modelct', $modelct)
                 ->with('inputs', $inputs)
                 ->with('pageTitle', 'Kê khai giá dịch vụ lưu trú');
-
         } else
             return view('errors.notlogin');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             $m_cskd = CsKdDvLt::where('macskd', $inputs['macskd'])->first();
@@ -233,32 +237,33 @@ class KkGiaDvLtController extends Controller
             return view('errors.notlogin');
     }
 
-    public function show(Request $request){
+    public function show(Request $request)
+    {
         if (Session::has('admin')) {
             $input = $request->all();
             $mahs = $input['mahs'];
-            $modelkk = KkGiaDvLt::where('mahs',$mahs)->first();
-            $modelcskd = CsKdDvLt::where('macskd',$modelkk->macskd)->first();
-            $modeldn = Company::where('madv',$modelcskd->madv)->first();
-            $modelkkct = KkGiaDvLtCt::where('mahs',$modelkk->mahs)->get();
+            $modelkk = KkGiaDvLt::where('mahs', $mahs)->first();
+            $modelcskd = CsKdDvLt::where('macskd', $modelkk->macskd)->first();
+            $modeldn = Company::where('madv', $modelcskd->madv)->first();
+            $modelkkct = KkGiaDvLtCt::where('mahs', $modelkk->mahs)->get();
             $modelcqcq = view_dsdiaban_donvi::where('madv', $modelkk->macqcq)->first();
 
             return view('manage.kkgia.dvlt.reports.print')
-                ->with('modelkk',$modelkk)
-                ->with('modeldn',$modeldn)
-                ->with('modelcskd',$modelcskd)
-                ->with('modelkkct',$modelkkct)
-                ->with('modelcqcq',$modelcqcq)
-                ->with('pageTitle','Kê khai giá dịch vụ lưu trú');
-
-        }else
+                ->with('modelkk', $modelkk)
+                ->with('modeldn', $modeldn)
+                ->with('modelcskd', $modelcskd)
+                ->with('modelkkct', $modelkkct)
+                ->with('modelcqcq', $modelcqcq)
+                ->with('pageTitle', 'Kê khai giá dịch vụ lưu trú');
+        } else
             return view('errors.notlogin');
     }
 
-    public function edit(Request $request){
+    public function edit(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = KkGiaDvLt::where('mahs',$inputs['mahs'])->first();
+            $model = KkGiaDvLt::where('mahs', $inputs['mahs'])->first();
 
             $modelcskd = CsKdDvLt::where('macskd', $model->macskd)->first();
             $modeldn = Company::where('madv', $modelcskd->madv)->first();
@@ -270,17 +275,17 @@ class KkGiaDvLtController extends Controller
                 ->with('modeldn', $modeldn)
                 ->with('modelct', $modelct)
                 ->with('pageTitle', 'Chỉnh sửa hồ sơ kê khai giá dịch vụ lưu trú');
-
         } else
             return view('errors.notlogin');
     }
 
-    public function ktchuyendvlt(Request $request){
+    public function ktchuyendvlt(Request $request)
+    {
         $result = array(
             'status' => 'fail',
             'message' => '"Ngày thực hiện mức giá kê khai không thể sử dụng được! Bạn cần chỉnh sửa lại thông tin trước khi chuyển", "Lỗi!!!"',
         );
-        if(!Session::has('admin')) {
+        if (!Session::has('admin')) {
             $result = array(
                 'status' => 'fail',
                 'message' => '"Bạn cần đăng nhập tài khoản để chuyển hồ so", "Lỗi!!!"',
@@ -289,19 +294,20 @@ class KkGiaDvLtController extends Controller
         }
         //dd($request);
         $inputs = $request->all();
-        $m_hs = KkGiaDvLt::where('mahs',$inputs['mahs'])->first();
-        if(KiemTraNgayApDung($m_hs->ngayhieuluc,'dvlt')){
+        $m_hs = KkGiaDvLt::where('mahs', $inputs['mahs'])->first();
+        if (KiemTraNgayApDung($m_hs->ngayhieuluc, 'dvlt')) {
             $result = array(
                 'status' => 'success',
                 'message' => 'Ngày áp dụng hợp lệ.',
             );
             die(json_encode($result));
-        }else{
+        } else {
             die(json_encode($result));
         }
     }
 
-    public function chuyen(Request $request){
+    public function chuyen(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             //dd($inputs);
@@ -321,7 +327,7 @@ class KkGiaDvLtController extends Controller
                 'macqcq' => $inputs['macqcq'],
                 'madv' => $model->madv
             );
-           //dd($inputs);
+            //dd($inputs);
             //$inputs['trangthai'] = 'CD';
             //$inputs['ngaychuyen'] = Carbon::now()->toDateTimeString();
             $model->lichsu = json_encode($a_lichsu);
@@ -362,13 +368,12 @@ class KkGiaDvLtController extends Controller
                 $run->handle();
             }
             return redirect('kekhaigiadvlt?&macskd=' . $model->macskd . '&madv=' . $model->madv);
-
-
         } else
             return view('errors.notlogin');
     }
 
-    public function showlydo(Request $request){
+    public function showlydo(Request $request)
+    {
         $inputs = $request->all();
         $model = KkGiaDvLt::where('mahs', $inputs['mahs'])->first();
         if ($model->madv_h == $inputs['madv']) {
@@ -383,7 +388,8 @@ class KkGiaDvLtController extends Controller
         die($model);
     }
 
-    public function delete(Request $request){
+    public function delete(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             $model = KkGiaDvLt::where('id', $inputs['iddelete'])->first();

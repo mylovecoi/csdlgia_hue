@@ -18,6 +18,8 @@ class chisogiatieudung_DanhMuc_ChiTiet extends Model
         'stt_bc',
         'dvt',
         'quyensogoc',
+        'quyensogoc_thanhthi',
+        'quyensogoc_nongthon',
         'baocao',
     ];
 }

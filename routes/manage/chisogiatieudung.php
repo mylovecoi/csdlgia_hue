@@ -10,6 +10,9 @@ Route::group(['prefix'=>'ChiSoCPI'],function (){
     Route::get('DanhMuc','manage\vanbanplvegia\chisogiatieudung\chisogiatieudung_DanhMucController@index');
     Route::post('DanhMuc','manage\vanbanplvegia\chisogiatieudung\chisogiatieudung_DanhMucController@store');
     Route::get('ChiTietDM','manage\vanbanplvegia\chisogiatieudung\chisogiatieudung_DanhMucController@ChiTiet');
+    Route::post('ChiTietDM','manage\vanbanplvegia\chisogiatieudung\chisogiatieudung_DanhMucController@LuuChiTiet');
+    Route::get('show_nhomdm','manage\vanbanplvegia\chisogiatieudung\chisogiatieudung_DanhMucController@show_nhomdm');
+    Route::get('show_hanghoa','manage\vanbanplvegia\chisogiatieudung\chisogiatieudung_DanhMucController@show_hanghoa');
 
     Route::group(['prefix'=>'TieuChi'],function (){
         Route::get('DanhSach','manage\vanbanplvegia\chisogiatieudung\chisogiatieudung_TieuChiController@index');
