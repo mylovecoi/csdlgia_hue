@@ -505,7 +505,7 @@ class getAPIController extends Controller
             }
             case 'Path':
             {
-                $kQ = $server['REDIRECT_URL'];
+                $kQ = $server['REDIRECT_URL'] ?? '';
                 break;
             }
             case 'NumMsg_InGroup':

@@ -22,17 +22,18 @@ use Illuminate\Support\Facades\File;
 
 class KkGiaVlXdController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['url'] = '/kekhaigiavlxd';
             $m_donvi = getDoanhNghiepNhapLieu(session('admin')->level, 'VLXD');
-            if(count($m_donvi) == 0){
+            if (count($m_donvi) == 0) {
                 return view('errors.noperm')
-                    ->with('url','')
-                    ->with('message','Hệ thống chưa có doanh nghiệp kê khai giá vật liệu xây dựng.');
+                    ->with('url', '')
+                    ->with('message', 'Hệ thống chưa có doanh nghiệp kê khai giá vật liệu xây dựng.');
             }
-            $m_diaban = dsdiaban::wherein('madiaban', array_column($m_donvi->toarray(),'madiaban'))->get();
+            $m_diaban = dsdiaban::wherein('madiaban', array_column($m_donvi->toarray(), 'madiaban'))->get();
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $modeldn = $m_donvi->where('madv', $inputs['madv'])->first();
 
@@ -41,8 +42,11 @@ class KkGiaVlXdController extends Controller
                 ->whereYear('ngaynhap', $inputs['nam'])
                 ->orderBy('id', 'desc')
                 ->get();
-
-            $m_donvi_th = getDonViTongHop_dn('vlxd',session('admin')->level, session('admin')->madiaban);
+            $inputs['trangthai'] = $inputs['trangthai'] ?? 'ALL';
+            if ($inputs['trangthai'] != 'ALL') {
+                $model = $model->where('trangthai', $inputs['trangthai']);
+            }
+            $m_donvi_th = getDonViTongHop_dn('vlxd', session('admin')->level, session('admin')->madiaban);
 
             return view('manage.kkgia.vlxd.kkgia.kkgiadv.index')
                 ->with('model', $model)
@@ -50,9 +54,9 @@ class KkGiaVlXdController extends Controller
                 ->with('inputs', $inputs)
                 ->with('m_donvi', $m_donvi)
                 ->with('m_donvi_th', $m_donvi_th)
-                ->with('a_diaban', array_column($m_diaban->toarray(),'tendiaban', 'madiaban'))
-                ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
-                ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
+                ->with('a_diaban', array_column($m_diaban->toarray(), 'tendiaban', 'madiaban'))
+                ->with('a_donvi_th', array_column($m_donvi_th->toarray(), 'tendv', 'madv'))
+                ->with('a_diaban_th', array_column($m_donvi_th->toarray(), 'tendiaban', 'madiaban'))
                 ->with('pageTitle', 'Danh sách hồ sơ kê khai giá vật liệu xây dựng.');
         } else
             return view('errors.notlogin');
@@ -96,7 +100,7 @@ class KkGiaVlXdController extends Controller
             }
 
             $modelct = KkGiaVlXdCt::where('mahs', $inputs['mahs'])->get();
-//            dd($model);
+            //            dd($model);
 
             return view('manage.kkgia.vlxd.kkgia.kkgiadv.edit')
                 ->with('model', $model)
@@ -104,12 +108,12 @@ class KkGiaVlXdController extends Controller
                 ->with('modelct', $modelct)
                 ->with('inputs', $inputs)
                 ->with('pageTitle', 'Kê khai giá vật liệu xây dựng thêm mới');
-
         } else
             return view('errors.notlogin');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['ngaynhap'] = getDateToDb($inputs['ngaynhap']);
@@ -122,36 +126,36 @@ class KkGiaVlXdController extends Controller
             } else {
                 $model->update($inputs);
             }
-            return redirect('kekhaigiavlxd?&madv='.$inputs['madv']);
-
-        }else
+            return redirect('kekhaigiavlxd?&madv=' . $inputs['madv']);
+        } else
             return view('errors.notlogin');
     }
 
-    public function show(Request $request){
+    public function show(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             $mahs = $inputs['mahs'];
-            $modelkk = KkGiaVlXd::where('mahs',$mahs)->first();
-            $modeldn = Company::where('madv',$modelkk->madv)->first();
-            $modelkkct = KkGiaVlXdCt::where('mahs',$modelkk->mahs)->get();
-//            dd($modelkkct);
+            $modelkk = KkGiaVlXd::where('mahs', $mahs)->first();
+            $modeldn = Company::where('madv', $modelkk->madv)->first();
+            $modelkkct = KkGiaVlXdCt::where('mahs', $modelkk->mahs)->get();
+            //            dd($modelkkct);
             $modelcqcq = view_dsdiaban_donvi::where('madv', $modelkk->macqcq)->first();
             return view('manage.kkgia.vlxd.reports.print')
-                ->with('modelkk',$modelkk)
-                ->with('modeldn',$modeldn)
-                ->with('modelkkct',$modelkkct)
-                ->with('modelcqcq',$modelcqcq)
-                ->with('pageTitle','Kê khai giá vật liệu xây dựng');
-
-        }else
+                ->with('modelkk', $modelkk)
+                ->with('modeldn', $modeldn)
+                ->with('modelkkct', $modelkkct)
+                ->with('modelcqcq', $modelcqcq)
+                ->with('pageTitle', 'Kê khai giá vật liệu xây dựng');
+        } else
             return view('errors.notlogin');
     }
 
-    public function edit(Request $request){
+    public function edit(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = KkGiaVlXd::where('mahs',$inputs['mahs'])->first();
+            $model = KkGiaVlXd::where('mahs', $inputs['mahs'])->first();
             $modeldn = Company::where('madv', $model->madv)->first();
             $modelct = KkGiaVlXdCt::where('mahs', $model->mahs)->get();
             return view('manage.kkgia.vlxd.kkgia.kkgiadv.edit')
@@ -163,7 +167,8 @@ class KkGiaVlXdController extends Controller
             return view('errors.notlogin');
     }
 
-    public function update(Request $request,$id){
+    public function update(Request $request, $id)
+    {
         if (Session::has('admin')) {
             if (session('admin')->level == 'DN' || session('admin')->level == 'T' || session('admin')->level == 'H'  || session('admin')->level == 'X') {
                 $inputs = $request->all();
@@ -175,44 +180,45 @@ class KkGiaVlXdController extends Controller
                         $inputs['ngaycvlk'] = getDateToDb($inputs['ngaycvlk']);
                     else
                         unset($inputs['ngaycvlk']);
-                    if($model->update($inputs)){
-                        $modelct = KkGiaVlXdCt::where('mahs',$inputs['mahs'])
+                    if ($model->update($inputs)) {
+                        $modelct = KkGiaVlXdCt::where('mahs', $inputs['mahs'])
                             ->update(['trangthai' => 'XD']);
                     }
                     return redirect('kekhaigiavlxd?&madv=' . $model->madv);
                 } else
                     return view('errors.perm');
-            }else
+            } else
                 return view('errors.perm');
-        }else
+        } else
             return view('errors.notlogin');
     }
 
-    public function delete(Request $request){
+    public function delete(Request $request)
+    {
         if (Session::has('admin')) {
             if (session('admin')->level == 'DN' || session('admin')->level == 'T' || session('admin')->level == 'H' || session('admin')->level == 'X') {
                 $inputs = $request->all();
-                $model = KkGiaVlXd::where('id',$inputs['iddelete'])
+                $model = KkGiaVlXd::where('id', $inputs['iddelete'])
                     ->first();
-                if($model->delete()){
-                    $modelct = KkGiaVlXdCt::where('mahs',$model->mahs)
+                if ($model->delete()) {
+                    $modelct = KkGiaVlXdCt::where('mahs', $model->mahs)
                         ->delete();
                 }
-                return redirect('kekhaigiavlxd?&madv='.$model->madv);
-            }else{
+                return redirect('kekhaigiavlxd?&madv=' . $model->madv);
+            } else {
                 return view('errors.perm');
             }
-
-        }else
+        } else
             return view('errors.notlogin');
     }
 
-    public function kiemtra(Request $request){
+    public function kiemtra(Request $request)
+    {
         $result = array(
             'status' => 'fail',
             'message' => '"Ngày thực hiện mức giá kê khai không thể sử dụng được! Bạn cần chỉnh sửa lại thông tin trước khi chuyển", "Lỗi!!!"',
         );
-        if(!Session::has('admin')) {
+        if (!Session::has('admin')) {
             $result = array(
                 'status' => 'fail',
                 'message' => '"Bạn cần đăng nhập tài khoản để chuyển hồ so", "Lỗi!!!"',
@@ -221,22 +227,29 @@ class KkGiaVlXdController extends Controller
         }
         //dd($request);
         $inputs = $request->all();
-        $m_hs = KkGiaVlXd::where('mahs',$inputs['mahs'])->first();
-        if(KiemTraNgayApDung($m_hs->ngayhieuluc,'vlxd')){
+        $m_hs = KkGiaVlXd::where('mahs', $inputs['mahs'])->first();
+        if (KiemTraNgayApDung($m_hs->ngayhieuluc, 'vlxd')) {
             $result = array(
                 'status' => 'success',
                 'message' => 'Ngày áp dụng hợp lệ.',
             );
             die(json_encode($result));
-        }else{
+        } else {
             die(json_encode($result));
         }
     }
 
-    public function chuyen(Request $request){
+    public function chuyen(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             $model = KkGiaVlXd::where('mahs', $inputs['mahs'])->first();
+            if (KkGiaVlXd::where('madv', $model->madv)->where('trangthai', 'CD')->count() > 0) {
+                return view('errors.403')
+                    ->with('message', 'Doanh nghiệp đang có hồ sơ chờ nhận trên đơn vị chủ quản nên không thể chuyển hồ sơ.')
+                    ->with('url', '/kekhaigiavlxd?madv=' . $model->madv)
+                    ->with('pageTitle', 'Nhận dữ liệu từ file Excel');
+            }
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => 'CD',
@@ -271,22 +284,21 @@ class KkGiaVlXdController extends Controller
                 $modeldv = dsdiaban::where('madiaban', $model->madiaban)->first();
 
                 $tg = getDateTime(Carbon::now()->toDateTimeString());
-                $contentdn = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã nhận được hồ sơ của doanh nghiệp. Số công văn: '.$model->socv.
-                    ' - Ngày áp dung: '.getDayVn($model->ngayhieuluc).'- Thông tin người nộp: '.$inputs['ttnguoinop'].'-Số điện thoại liên hệ: '.$inputs['dtll'].'!!!';
+                $contentdn = 'Vào lúc: ' . $tg . ', hệ thống CSDL giá đã nhận được hồ sơ của doanh nghiệp. Số công văn: ' . $model->socv .
+                    ' - Ngày áp dung: ' . getDayVn($model->ngayhieuluc) . '- Thông tin người nộp: ' . $inputs['ttnguoinop'] . '-Số điện thoại liên hệ: ' . $inputs['dtll'] . '!!!';
 
-                $contentht = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã nhận được hồ sơ của doanh nghiệp '.$modeldn->tendn.' - mã số thuế '.$modeldn->madv.
-                    ' Số công văn: '.$model->socv.' - Ngày áp dung: '.getDayVn($model->ngayhieuluc).'- Thông tin người nộp: '.$inputs['ttnguoinop'].'-Số điện thoại liên hệ: '.$inputs['dtll'].'!!!';
-                $run = new SendMail($modeldn,$contentdn,$modeldv,$contentht);
+                $contentht = 'Vào lúc: ' . $tg . ', hệ thống CSDL giá đã nhận được hồ sơ của doanh nghiệp ' . $modeldn->tendn . ' - mã số thuế ' . $modeldn->madv .
+                    ' Số công văn: ' . $model->socv . ' - Ngày áp dung: ' . getDayVn($model->ngayhieuluc) . '- Thông tin người nộp: ' . $inputs['ttnguoinop'] . '-Số điện thoại liên hệ: ' . $inputs['dtll'] . '!!!';
+                $run = new SendMail($modeldn, $contentdn, $modeldv, $contentht);
                 $run->handle();
             }
             return redirect('kekhaigiavlxd?madv=' . $model->madv);
-
-
         } else
             return view('errors.notlogin');
     }
 
-    public function showlydo(Request $request){
+    public function showlydo(Request $request)
+    {
         $inputs = $request->all();
         $model = KkGiaVlXd::where('mahs', $inputs['mahs'])->first();
         if ($model->madv_h == $inputs['madv']) {
@@ -301,23 +313,24 @@ class KkGiaVlXdController extends Controller
         die($model);
     }
 
-    public function nhanexcel(Request $request){
+    public function nhanexcel(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['url'] = '/kekhaigiavlxd';
             return view('manage.kkgia._include.importexcel')
-                ->with('inputs',$inputs)
-                ->with('pageTitle','Nhận dữ liệu từ file Excel');
-
+                ->with('inputs', $inputs)
+                ->with('pageTitle', 'Nhận dữ liệu từ file Excel');
         } else
             return view('errors.notlogin');
     }
 
-    public function create_excel(Request $request){
+    public function create_excel(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             //dd($inputs);
-            $inputs['mahs'] = $inputs['madv'].'_'.getdate()[0];
+            $inputs['mahs'] = $inputs['madv'] . '_' . getdate()[0];
             $modeldn = Company::where('madv', $inputs['madv'])->first();
 
             $model = new KkGiaVlXd();
@@ -343,16 +356,18 @@ class KkGiaVlXdController extends Controller
             Excel::load($path, function ($reader) use (&$data, $inputs) {
                 $obj = $reader->getExcel();
                 $sheet = $obj->getSheet(0);
-                $data = $sheet->toArray(null, true, true, true);// giữ lại tiêu đề A=>'val';
+                $data = $sheet->toArray(null, true, true, true); // giữ lại tiêu đề A=>'val';
             });
             //dd($data);
 
             $a_dm = array();
 
             for ($i = $inputs['tudong']; $i <= $inputs['dendong']; $i++) {
-                if(!isset($data[$i][$inputs['tenhhdv']]) || !isset($data[$i][$inputs['qccl']]) ||
+                if (
+                    !isset($data[$i][$inputs['tenhhdv']]) || !isset($data[$i][$inputs['qccl']]) ||
                     !isset($data[$i][$inputs['dvt']]) || !isset($data[$i][$inputs['mucgialk']]) ||
-                    !isset($data[$i][$inputs['mucgiakk']])){
+                    !isset($data[$i][$inputs['mucgiakk']])
+                ) {
                     continue;
                 }
                 $a_dm[] = array(
@@ -376,7 +391,6 @@ class KkGiaVlXdController extends Controller
                 ->with('modelct', $modelct)
                 ->with('inputs', $inputs)
                 ->with('pageTitle', 'Kê khai giá vật liệu xây dựng thêm mới');
-
         } else
             return view('errors.notlogin');
     }

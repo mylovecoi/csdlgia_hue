@@ -16,17 +16,18 @@ use Illuminate\Support\Facades\Session;
 
 class GiaXeMayNkSxController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['url'] = '/kekhaigiaxemaynksx';
             $m_donvi = getDoanhNghiepNhapLieu(session('admin')->level, 'XEMAY');
-            if(count($m_donvi) == 0){
+            if (count($m_donvi) == 0) {
                 return view('errors.noperm')
-                    ->with('url','')
-                    ->with('message','Hệ thống chưa có doanh nghiệp kê khai giá xe máy nhập khẩu, sản xuất trong nước.');
+                    ->with('url', '')
+                    ->with('message', 'Hệ thống chưa có doanh nghiệp kê khai giá xe máy nhập khẩu, sản xuất trong nước.');
             }
-            $m_diaban = dsdiaban::wherein('madiaban', array_column($m_donvi->toarray(),'madiaban'))->get();
+            $m_diaban = dsdiaban::wherein('madiaban', array_column($m_donvi->toarray(), 'madiaban'))->get();
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $modeldn = $m_donvi->where('madv', $inputs['madv'])->first();
 
@@ -35,8 +36,11 @@ class GiaXeMayNkSxController extends Controller
                 ->whereYear('ngaynhap', $inputs['nam'])
                 ->orderBy('id', 'desc')
                 ->get();
-
-            $m_donvi_th = getDonViTongHop_dn('xemay',session('admin')->level, session('admin')->madiaban);
+            $inputs['trangthai'] = $inputs['trangthai'] ?? 'ALL';
+            if ($inputs['trangthai'] != 'ALL') {
+                $model = $model->where('trangthai', $inputs['trangthai']);
+            }
+            $m_donvi_th = getDonViTongHop_dn('xemay', session('admin')->level, session('admin')->madiaban);
 
             return view('manage.kkgia.xemaynksx.kkgia.kkgiadv.index')
                 ->with('model', $model)
@@ -44,9 +48,9 @@ class GiaXeMayNkSxController extends Controller
                 ->with('inputs', $inputs)
                 ->with('m_donvi', $m_donvi)
                 ->with('m_donvi_th', $m_donvi_th)
-                ->with('a_diaban', array_column($m_diaban->toarray(),'tendiaban', 'madiaban'))
-                ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
-                ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
+                ->with('a_diaban', array_column($m_diaban->toarray(), 'tendiaban', 'madiaban'))
+                ->with('a_donvi_th', array_column($m_donvi_th->toarray(), 'tendv', 'madv'))
+                ->with('a_diaban_th', array_column($m_donvi_th->toarray(), 'tendiaban', 'madiaban'))
                 ->with('pageTitle', 'Danh sách hồ sơ kê khai giá xe máy nhập khẩu, sản xuất trong nước');
         } else
             return view('errors.notlogin');
@@ -90,7 +94,7 @@ class GiaXeMayNkSxController extends Controller
             }
 
             $modelct = GiaXeMayNkSxCt::where('mahs', $inputs['mahs'])->get();
-//            dd($model);
+            //            dd($model);
 
             return view('manage.kkgia.xemaynksx.kkgia.kkgiadv.edit')
                 ->with('model', $model)
@@ -98,12 +102,12 @@ class GiaXeMayNkSxController extends Controller
                 ->with('modelct', $modelct)
                 ->with('inputs', $inputs)
                 ->with('pageTitle', 'Kê khai giá xe máy nhập khẩu, sản xuất trong nước');
-
         } else
             return view('errors.notlogin');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['ngaynhap'] = getDateToDb($inputs['ngaynhap']);
@@ -116,36 +120,36 @@ class GiaXeMayNkSxController extends Controller
             } else {
                 $model->update($inputs);
             }
-            return redirect('kekhaigiaxemaynksx?&madv='.$inputs['madv']);
-
-        }else
+            return redirect('kekhaigiaxemaynksx?&madv=' . $inputs['madv']);
+        } else
             return view('errors.notlogin');
     }
 
-    public function show(Request $request){
+    public function show(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             $mahs = $inputs['mahs'];
-            $modelkk = GiaXeMayNkSx::where('mahs',$mahs)->first();
-            $modeldn = Company::where('madv',$modelkk->madv)->first();
-            $modelkkct = GiaXeMayNkSxCt::where('mahs',$modelkk->mahs)->get();
-//            dd($modelkkct);
+            $modelkk = GiaXeMayNkSx::where('mahs', $mahs)->first();
+            $modeldn = Company::where('madv', $modelkk->madv)->first();
+            $modelkkct = GiaXeMayNkSxCt::where('mahs', $modelkk->mahs)->get();
+            //            dd($modelkkct);
             $modelcqcq = view_dsdiaban_donvi::where('madv', $modelkk->macqcq)->first();
             return view('manage.kkgia.xemaynksx.reports.print')
-                ->with('modelkk',$modelkk)
-                ->with('modeldn',$modeldn)
-                ->with('modelkkct',$modelkkct)
-                ->with('modelcqcq',$modelcqcq)
-                ->with('pageTitle','Kê khai giá xe máy nhập khẩu, sản xuất trong nước');
-
-        }else
+                ->with('modelkk', $modelkk)
+                ->with('modeldn', $modeldn)
+                ->with('modelkkct', $modelkkct)
+                ->with('modelcqcq', $modelcqcq)
+                ->with('pageTitle', 'Kê khai giá xe máy nhập khẩu, sản xuất trong nước');
+        } else
             return view('errors.notlogin');
     }
 
-    public function edit(Request $request){
+    public function edit(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = GiaXeMayNkSx::where('mahs',$inputs['mahs'])->first();
+            $model = GiaXeMayNkSx::where('mahs', $inputs['mahs'])->first();
             $modeldn = Company::where('madv', $model->madv)->first();
             $modelct = GiaXeMayNkSxCt::where('mahs', $model->mahs)->get();
             return view('manage.kkgia.xemaynksx.kkgia.kkgiadv.edit')
@@ -157,7 +161,8 @@ class GiaXeMayNkSxController extends Controller
             return view('errors.notlogin');
     }
 
-    public function update(Request $request,$id){
+    public function update(Request $request, $id)
+    {
         if (Session::has('admin')) {
             if (session('admin')->level == 'DN' || session('admin')->level == 'T' || session('admin')->level == 'H'  || session('admin')->level == 'X') {
                 $inputs = $request->all();
@@ -169,44 +174,45 @@ class GiaXeMayNkSxController extends Controller
                         $inputs['ngaycvlk'] = getDateToDb($inputs['ngaycvlk']);
                     else
                         unset($inputs['ngaycvlk']);
-                    if($model->update($inputs)){
-                        $modelct = GiaXeMayNkSxCt::where('mahs',$inputs['mahs'])
+                    if ($model->update($inputs)) {
+                        $modelct = GiaXeMayNkSxCt::where('mahs', $inputs['mahs'])
                             ->update(['trangthai' => 'XD']);
                     }
                     return redirect('kekhaigiaxemaynksx?&madv=' . $model->madv);
                 } else
                     return view('errors.perm');
-            }else
+            } else
                 return view('errors.perm');
-        }else
+        } else
             return view('errors.notlogin');
     }
 
-    public function delete(Request $request){
+    public function delete(Request $request)
+    {
         if (Session::has('admin')) {
             if (session('admin')->level == 'DN' || session('admin')->level == 'T' || session('admin')->level == 'H' || session('admin')->level == 'X') {
                 $inputs = $request->all();
-                $model = GiaXeMayNkSx::where('id',$inputs['iddelete'])
+                $model = GiaXeMayNkSx::where('id', $inputs['iddelete'])
                     ->first();
-                if($model->delete()){
-                    $modelct = GiaXeMayNkSxCt::where('mahs',$model->mahs)
+                if ($model->delete()) {
+                    $modelct = GiaXeMayNkSxCt::where('mahs', $model->mahs)
                         ->delete();
                 }
-                return redirect('kekhaigiaxemaynksx?&madv='.$model->madv);
-            }else{
+                return redirect('kekhaigiaxemaynksx?&madv=' . $model->madv);
+            } else {
                 return view('errors.perm');
             }
-
-        }else
+        } else
             return view('errors.notlogin');
     }
 
-    public function kiemtra(Request $request){
+    public function kiemtra(Request $request)
+    {
         $result = array(
             'status' => 'fail',
             'message' => '"Ngày thực hiện mức giá kê khai không thể sử dụng được! Bạn cần chỉnh sửa lại thông tin trước khi chuyển", "Lỗi!!!"',
         );
-        if(!Session::has('admin')) {
+        if (!Session::has('admin')) {
             $result = array(
                 'status' => 'fail',
                 'message' => '"Bạn cần đăng nhập tài khoản để chuyển hồ so", "Lỗi!!!"',
@@ -215,22 +221,29 @@ class GiaXeMayNkSxController extends Controller
         }
         //dd($request);
         $inputs = $request->all();
-        $m_hs = GiaXeMayNkSx::where('mahs',$inputs['mahs'])->first();
-        if(KiemTraNgayApDung($m_hs->ngayhieuluc,'xemay')){
+        $m_hs = GiaXeMayNkSx::where('mahs', $inputs['mahs'])->first();
+        if (KiemTraNgayApDung($m_hs->ngayhieuluc, 'xemay')) {
             $result = array(
                 'status' => 'success',
                 'message' => 'Ngày áp dụng hợp lệ.',
             );
             die(json_encode($result));
-        }else{
+        } else {
             die(json_encode($result));
         }
     }
 
-    public function chuyen(Request $request){
+    public function chuyen(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             $model = GiaXeMayNkSx::where('mahs', $inputs['mahs'])->first();
+            if (GiaXeMayNkSx::where('madv', $model->madv)->where('trangthai', 'CD')->count() > 0) {
+                return view('errors.403')
+                    ->with('message', 'Doanh nghiệp đang có hồ sơ chờ nhận trên đơn vị chủ quản nên không thể chuyển hồ sơ.')
+                    ->with('url', '/kekhaigiaxemaynksx?madv=' . $model->madv)
+                    ->with('pageTitle', 'Nhận dữ liệu từ file Excel');
+            }
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => 'CD',
@@ -265,22 +278,21 @@ class GiaXeMayNkSxController extends Controller
                 $modeldv = dsdiaban::where('madiaban', $model->madiaban)->first();
 
                 $tg = getDateTime(Carbon::now()->toDateTimeString());
-                $contentdn = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã nhận được hồ sơ của doanh nghiệp. Số công văn: '.$model->socv.
-                    ' - Ngày áp dung: '.getDayVn($model->ngayhieuluc).'- Thông tin người nộp: '.$inputs['ttnguoinop'].'-Số điện thoại liên hệ: '.$inputs['dtll'].'!!!';
+                $contentdn = 'Vào lúc: ' . $tg . ', hệ thống CSDL giá đã nhận được hồ sơ của doanh nghiệp. Số công văn: ' . $model->socv .
+                    ' - Ngày áp dung: ' . getDayVn($model->ngayhieuluc) . '- Thông tin người nộp: ' . $inputs['ttnguoinop'] . '-Số điện thoại liên hệ: ' . $inputs['dtll'] . '!!!';
 
-                $contentht = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã nhận được hồ sơ của doanh nghiệp '.$modeldn->tendn.' - mã số thuế '.$modeldn->madv.
-                    ' Số công văn: '.$model->socv.' - Ngày áp dung: '.getDayVn($model->ngayhieuluc).'- Thông tin người nộp: '.$inputs['ttnguoinop'].'-Số điện thoại liên hệ: '.$inputs['dtll'].'!!!';
-                $run = new SendMail($modeldn,$contentdn,$modeldv,$contentht);
+                $contentht = 'Vào lúc: ' . $tg . ', hệ thống CSDL giá đã nhận được hồ sơ của doanh nghiệp ' . $modeldn->tendn . ' - mã số thuế ' . $modeldn->madv .
+                    ' Số công văn: ' . $model->socv . ' - Ngày áp dung: ' . getDayVn($model->ngayhieuluc) . '- Thông tin người nộp: ' . $inputs['ttnguoinop'] . '-Số điện thoại liên hệ: ' . $inputs['dtll'] . '!!!';
+                $run = new SendMail($modeldn, $contentdn, $modeldv, $contentht);
                 $run->handle();
             }
             return redirect('kekhaigiaxemaynksx?madv=' . $model->madv);
-
-
         } else
             return view('errors.notlogin');
     }
 
-    public function showlydo(Request $request){
+    public function showlydo(Request $request)
+    {
         $inputs = $request->all();
         $model = GiaXeMayNkSx::where('mahs', $inputs['mahs'])->first();
         if ($model->madv_h == $inputs['madv']) {

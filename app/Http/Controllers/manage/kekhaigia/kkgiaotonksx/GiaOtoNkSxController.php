@@ -16,17 +16,18 @@ use Illuminate\Support\Facades\Session;
 
 class GiaOtoNkSxController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['url'] = '/kekhaigiaotonksx';
             $m_donvi = getDoanhNghiepNhapLieu(session('admin')->level, 'OTO');
-            if(count($m_donvi) == 0){
+            if (count($m_donvi) == 0) {
                 return view('errors.noperm')
-                    ->with('url','')
-                    ->with('message','Hệ thống chưa có doanh nghiệp kê khai giá ô tô nhập khẩu, sản xuất trong nước.');
+                    ->with('url', '')
+                    ->with('message', 'Hệ thống chưa có doanh nghiệp kê khai giá ô tô nhập khẩu, sản xuất trong nước.');
             }
-            $m_diaban = dsdiaban::wherein('madiaban', array_column($m_donvi->toarray(),'madiaban'))->get();
+            $m_diaban = dsdiaban::wherein('madiaban', array_column($m_donvi->toarray(), 'madiaban'))->get();
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $modeldn = $m_donvi->where('madv', $inputs['madv'])->first();
 
@@ -35,8 +36,11 @@ class GiaOtoNkSxController extends Controller
                 ->whereYear('ngaynhap', $inputs['nam'])
                 ->orderBy('id', 'desc')
                 ->get();
-
-            $m_donvi_th = getDonViTongHop_dn('oto',session('admin')->level, session('admin')->madiaban);
+            $inputs['trangthai'] = $inputs['trangthai'] ?? 'ALL';
+            if ($inputs['trangthai'] != 'ALL') {
+                $model = $model->where('trangthai', $inputs['trangthai']);
+            }
+            $m_donvi_th = getDonViTongHop_dn('oto', session('admin')->level, session('admin')->madiaban);
 
             return view('manage.kkgia.otonksx.kkgia.kkgiadv.index')
                 ->with('model', $model)
@@ -44,9 +48,9 @@ class GiaOtoNkSxController extends Controller
                 ->with('inputs', $inputs)
                 ->with('m_donvi', $m_donvi)
                 ->with('m_donvi_th', $m_donvi_th)
-                ->with('a_diaban', array_column($m_diaban->toarray(),'tendiaban', 'madiaban'))
-                ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
-                ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
+                ->with('a_diaban', array_column($m_diaban->toarray(), 'tendiaban', 'madiaban'))
+                ->with('a_donvi_th', array_column($m_donvi_th->toarray(), 'tendv', 'madv'))
+                ->with('a_diaban_th', array_column($m_donvi_th->toarray(), 'tendiaban', 'madiaban'))
                 ->with('pageTitle', 'Danh sách hồ sơ kê khai giá ô tô nhập khẩu, sản xuất trong nước');
         } else
             return view('errors.notlogin');
@@ -90,7 +94,7 @@ class GiaOtoNkSxController extends Controller
             }
 
             $modelct = GiaOtoNkSxCt::where('mahs', $inputs['mahs'])->get();
-//            dd($model);
+            //            dd($model);
 
             return view('manage.kkgia.otonksx.kkgia.kkgiadv.edit')
                 ->with('model', $model)
@@ -98,12 +102,12 @@ class GiaOtoNkSxController extends Controller
                 ->with('modelct', $modelct)
                 ->with('inputs', $inputs)
                 ->with('pageTitle', 'Kê khai giá ô tô nhập khẩu, sản xuất trong nước');
-
         } else
             return view('errors.notlogin');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['ngaynhap'] = getDateToDb($inputs['ngaynhap']);
@@ -116,36 +120,36 @@ class GiaOtoNkSxController extends Controller
             } else {
                 $model->update($inputs);
             }
-            return redirect('kekhaigiaotonksx?&madv='.$inputs['madv']);
-
-        }else
+            return redirect('kekhaigiaotonksx?&madv=' . $inputs['madv']);
+        } else
             return view('errors.notlogin');
     }
 
-    public function show(Request $request){
+    public function show(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             $mahs = $inputs['mahs'];
-            $modelkk = GiaOtoNkSx::where('mahs',$mahs)->first();
-            $modeldn = Company::where('madv',$modelkk->madv)->first();
-            $modelkkct = GiaOtoNkSxCt::where('mahs',$modelkk->mahs)->get();
-//            dd($modelkkct);
+            $modelkk = GiaOtoNkSx::where('mahs', $mahs)->first();
+            $modeldn = Company::where('madv', $modelkk->madv)->first();
+            $modelkkct = GiaOtoNkSxCt::where('mahs', $modelkk->mahs)->get();
+            //            dd($modelkkct);
             $modelcqcq = view_dsdiaban_donvi::where('madv', $modelkk->macqcq)->first();
             return view('manage.kkgia.otonksx.reports.print')
-                ->with('modelkk',$modelkk)
-                ->with('modeldn',$modeldn)
-                ->with('modelkkct',$modelkkct)
-                ->with('modelcqcq',$modelcqcq)
-                ->with('pageTitle','Kê khai giá ô tô nhập khẩu, sản xuất trong nước');
-
-        }else
+                ->with('modelkk', $modelkk)
+                ->with('modeldn', $modeldn)
+                ->with('modelkkct', $modelkkct)
+                ->with('modelcqcq', $modelcqcq)
+                ->with('pageTitle', 'Kê khai giá ô tô nhập khẩu, sản xuất trong nước');
+        } else
             return view('errors.notlogin');
     }
 
-    public function edit(Request $request){
+    public function edit(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = GiaOtoNkSx::where('mahs',$inputs['mahs'])->first();
+            $model = GiaOtoNkSx::where('mahs', $inputs['mahs'])->first();
             $modeldn = Company::where('madv', $model->madv)->first();
             $modelct = GiaOtoNkSxCt::where('mahs', $model->mahs)->get();
             return view('manage.kkgia.otonksx.kkgia.kkgiadv.edit')
@@ -157,7 +161,8 @@ class GiaOtoNkSxController extends Controller
             return view('errors.notlogin');
     }
 
-    public function update(Request $request,$id){
+    public function update(Request $request, $id)
+    {
         if (Session::has('admin')) {
             if (session('admin')->level == 'DN' || session('admin')->level == 'T' || session('admin')->level == 'H'  || session('admin')->level == 'X') {
                 $inputs = $request->all();
@@ -169,44 +174,45 @@ class GiaOtoNkSxController extends Controller
                         $inputs['ngaycvlk'] = getDateToDb($inputs['ngaycvlk']);
                     else
                         unset($inputs['ngaycvlk']);
-                    if($model->update($inputs)){
-                        $modelct = GiaOtoNkSxCt::where('mahs',$inputs['mahs'])
+                    if ($model->update($inputs)) {
+                        $modelct = GiaOtoNkSxCt::where('mahs', $inputs['mahs'])
                             ->update(['trangthai' => 'XD']);
                     }
                     return redirect('kekhaigiaotonksx?&madv=' . $model->madv);
                 } else
                     return view('errors.perm');
-            }else
+            } else
                 return view('errors.perm');
-        }else
+        } else
             return view('errors.notlogin');
     }
 
-    public function delete(Request $request){
+    public function delete(Request $request)
+    {
         if (Session::has('admin')) {
             if (session('admin')->level == 'DN' || session('admin')->level == 'T' || session('admin')->level == 'H' || session('admin')->level == 'X') {
                 $inputs = $request->all();
-                $model = GiaOtoNkSx::where('id',$inputs['iddelete'])
+                $model = GiaOtoNkSx::where('id', $inputs['iddelete'])
                     ->first();
-                if($model->delete()){
-                    $modelct = GiaOtoNkSxCt::where('mahs',$model->mahs)
+                if ($model->delete()) {
+                    $modelct = GiaOtoNkSxCt::where('mahs', $model->mahs)
                         ->delete();
                 }
-                return redirect('kekhaigiaotonksx?&madv='.$model->madv);
-            }else{
+                return redirect('kekhaigiaotonksx?&madv=' . $model->madv);
+            } else {
                 return view('errors.perm');
             }
-
-        }else
+        } else
             return view('errors.notlogin');
     }
 
-    public function kiemtra(Request $request){
+    public function kiemtra(Request $request)
+    {
         $result = array(
             'status' => 'fail',
             'message' => '"Ngày thực hiện mức giá kê khai không thể sử dụng được! Bạn cần chỉnh sửa lại thông tin trước khi chuyển", "Lỗi!!!"',
         );
-        if(!Session::has('admin')) {
+        if (!Session::has('admin')) {
             $result = array(
                 'status' => 'fail',
                 'message' => '"Bạn cần đăng nhập tài khoản để chuyển hồ so", "Lỗi!!!"',
@@ -215,22 +221,29 @@ class GiaOtoNkSxController extends Controller
         }
         //dd($request);
         $inputs = $request->all();
-        $m_hs = GiaOtoNkSx::where('mahs',$inputs['mahs'])->first();
-        if(KiemTraNgayApDung($m_hs->ngayhieuluc,'oto')){
+        $m_hs = GiaOtoNkSx::where('mahs', $inputs['mahs'])->first();
+        if (KiemTraNgayApDung($m_hs->ngayhieuluc, 'oto')) {
             $result = array(
                 'status' => 'success',
                 'message' => 'Ngày áp dụng hợp lệ.',
             );
             die(json_encode($result));
-        }else{
+        } else {
             die(json_encode($result));
         }
     }
 
-    public function chuyen(Request $request){
+    public function chuyen(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             $model = GiaOtoNkSx::where('mahs', $inputs['mahs'])->first();
+            if (GiaOtoNkSx::where('madv', $model->madv)->where('trangthai', 'CD')->count() > 0) {
+                return view('errors.403')
+                    ->with('message', 'Doanh nghiệp đang có hồ sơ chờ nhận trên đơn vị chủ quản nên không thể chuyển hồ sơ.')
+                    ->with('url', '/kekhaigiaotonksx?madv=' . $model->madv)
+                    ->with('pageTitle', 'Nhận dữ liệu từ file Excel');
+            }
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => 'CD',
@@ -265,22 +278,21 @@ class GiaOtoNkSxController extends Controller
                 $modeldv = dsdiaban::where('madiaban', $model->madiaban)->first();
 
                 $tg = getDateTime(Carbon::now()->toDateTimeString());
-                $contentdn = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã nhận được hồ sơ của doanh nghiệp. Số công văn: '.$model->socv.
-                    ' - Ngày áp dung: '.getDayVn($model->ngayhieuluc).'- Thông tin người nộp: '.$inputs['ttnguoinop'].'-Số điện thoại liên hệ: '.$inputs['dtll'].'!!!';
+                $contentdn = 'Vào lúc: ' . $tg . ', hệ thống CSDL giá đã nhận được hồ sơ của doanh nghiệp. Số công văn: ' . $model->socv .
+                    ' - Ngày áp dung: ' . getDayVn($model->ngayhieuluc) . '- Thông tin người nộp: ' . $inputs['ttnguoinop'] . '-Số điện thoại liên hệ: ' . $inputs['dtll'] . '!!!';
 
-                $contentht = 'Vào lúc: '.$tg.', hệ thống CSDL giá đã nhận được hồ sơ của doanh nghiệp '.$modeldn->tendn.' - mã số thuế '.$modeldn->madv.
-                    ' Số công văn: '.$model->socv.' - Ngày áp dung: '.getDayVn($model->ngayhieuluc).'- Thông tin người nộp: '.$inputs['ttnguoinop'].'-Số điện thoại liên hệ: '.$inputs['dtll'].'!!!';
-                $run = new SendMail($modeldn,$contentdn,$modeldv,$contentht);
+                $contentht = 'Vào lúc: ' . $tg . ', hệ thống CSDL giá đã nhận được hồ sơ của doanh nghiệp ' . $modeldn->tendn . ' - mã số thuế ' . $modeldn->madv .
+                    ' Số công văn: ' . $model->socv . ' - Ngày áp dung: ' . getDayVn($model->ngayhieuluc) . '- Thông tin người nộp: ' . $inputs['ttnguoinop'] . '-Số điện thoại liên hệ: ' . $inputs['dtll'] . '!!!';
+                $run = new SendMail($modeldn, $contentdn, $modeldv, $contentht);
                 $run->handle();
             }
             return redirect('kekhaigiaotonksx?madv=' . $model->madv);
-
-
         } else
             return view('errors.notlogin');
     }
 
-    public function showlydo(Request $request){
+    public function showlydo(Request $request)
+    {
         $inputs = $request->all();
         $model = GiaOtoNkSx::where('mahs', $inputs['mahs'])->first();
         if ($model->madv_h == $inputs['madv']) {

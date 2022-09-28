@@ -108,6 +108,10 @@ class KkGiaVtXkXdController extends Controller
                     break;
                 }
             }
+            $inputs['trangthai'] = $inputs['trangthai'] ?? 'ALL';
+            if ($inputs['trangthai'] != 'ALL') {
+                $model = $model->where('trangthai', $inputs['trangthai']);
+            }
             //dd($model);
             return view('manage.kkgia.vtxk.kkgia.xetduyet.index')
                 ->with('model', $model)

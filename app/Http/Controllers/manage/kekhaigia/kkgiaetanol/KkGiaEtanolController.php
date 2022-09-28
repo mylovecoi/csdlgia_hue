@@ -88,6 +88,10 @@ class KkGiaEtanolController extends Controller
                 ->orderBy('id', 'desc')
                 ->get();
 
+                $inputs['trangthai'] = $inputs['trangthai'] ?? 'ALL';
+            if ($inputs['trangthai'] != 'ALL') {
+                $model = $model->where('trangthai', $inputs['trangthai']);
+            }
             $m_donvi_th = getDonViTongHop_dn('etanol',session('admin')->level, session('admin')->madiaban);
 
             return view('manage.kkgia.etanol.kkgia.kkgiadv.index')
@@ -285,6 +289,13 @@ class KkGiaEtanolController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $model = KkGiaEtanol::where('mahs', $inputs['mahs'])->first();
+            if (KkGiaEtanol::where('madv', $model->madv)->where('trangthai', 'CD')->count() > 0) {
+                return view('errors.403')
+                    ->with('message', 'Doanh nghiệp đang có hồ sơ chờ nhận trên đơn vị chủ quản nên không thể chuyển hồ sơ.')
+                    ->with('url', '/kekhaigiaetanol?madv=' . $model->madv)
+                    ->with('pageTitle', 'Nhận dữ liệu từ file Excel');
+            }
+			
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => 'CD',

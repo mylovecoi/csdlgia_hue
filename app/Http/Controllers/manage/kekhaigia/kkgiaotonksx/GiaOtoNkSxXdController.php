@@ -93,6 +93,10 @@ class GiaOtoNkSxXdController extends Controller
                 }
             }
 
+            $inputs['trangthai'] = $inputs['trangthai'] ?? 'ALL';
+            if ($inputs['trangthai'] != 'ALL') {
+                $model = $model->where('trangthai', $inputs['trangthai']);
+            }
             /*dd($model);*/
             return view('manage.kkgia.otonksx.kkgia.xetduyet.index')
                 ->with('model', $model)

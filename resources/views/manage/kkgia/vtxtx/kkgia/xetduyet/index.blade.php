@@ -24,14 +24,21 @@
             $('#nam').change(function() {
                 var namhs = '&nam=' + $('#nam').val();
                 var madv = '&madv=' + $('#madv').val();
-                var url = '/xetduyetkekhaigiavtxtx?'+namhs+madv;
+                var url = '/xetduyetkekhaigiavtxtx?'+namhs+madv+ '&trangthai=' + $('#trangthai').val();
                 window.location.href = url;
             });
 
             $('#madv').change(function() {
                 var namhs = '&nam=' + $('#nam').val();
                 var madv = '&madv=' + $('#madv').val();
-                var url = '/xetduyetkekhaigiavtxtx?'+namhs+madv;
+                var url = '/xetduyetkekhaigiavtxtx?'+namhs+madv+ '&trangthai=' + $('#trangthai').val();
+                window.location.href = url;
+            });
+
+            $('#trangthai').change(function() {
+                var namhs = '&nam=' + $('#nam').val();
+                var madv = '&madv=' + $('#madv').val();
+                var url = '/xetduyetkekhaigiavtxtx?'+namhs+madv+ '&trangthai=' + $('#trangthai').val();
                 window.location.href = url;
             });
 
@@ -204,6 +211,15 @@
                 @endforeach
             </select>
         </div>
+
+        <div class="col-md-4">
+            <label style="font-weight: bold">Trạng thái</label>
+            {!! Form::select('trangthai', getTenTrangThaiHoSoDN(true), $inputs['trangthai'], [
+                'id' => 'trangthai',
+                'class' => 'form-control select2me',
+            ]) !!}
+            </select>
+        </div>
     </div>
 
     <!-- END PAGE HEADER-->
@@ -237,20 +253,7 @@
                                     <td style="text-align: center" class="danger">{{$tt->socv}}</td>
                                     <td style="text-align: left">@if($tt->ttnguoinop != '')Họ và tên: {{$tt->ttnguoinop}}
                                         <br>Số điện thoại liên hệ: {{$tt->dtll}}<br>Số Fax: {{$tt->fax}}@endif</td>
-                                    @if($tt->trangthai == 'CD')
-                                        <td align="center"><span class="badge badge-warning">Chờ duyệt</span>
-                                            <br>Thời gian chuyển:<br><b>{{getDateTime($tt->ngaychuyen)}}</b>
-                                        </td>
-                                    @elseif($tt->trangthai == 'BTL')
-                                        <td align="center">
-                                            <span class="badge badge-danger">Bị trả lại</span><br>&nbsp;
-                                        </td>
-                                    @else
-                                        <td align="center">
-                                            <span class="badge badge-success">Đã duyệt</span>
-                                            <br>Thời gian chuyển:<br><b>{{getDateTime($tt->ngaychuyen)}}</b>
-                                        </td>
-                                    @endif
+                                        @include('manage.kkgia._include.td_trangthai')
                                     <td>
                                         <a href="{{url('kekhaigiavantaixetaxi/prints?&mahs='.$tt->mahs)}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
                                         @if($tt->level == 'ADMIN')
