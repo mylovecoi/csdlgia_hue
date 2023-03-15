@@ -44,5 +44,6 @@ class GiaThueDatNuoc extends Model
         'lydo_ad',
         'thongtin_ad',
         'trangthai_ad',
+        'mota',
     ];
 }
