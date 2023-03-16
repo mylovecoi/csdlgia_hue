@@ -88,9 +88,10 @@ class GiaRungController extends Controller
             $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
             //dd($a_diaban);
 
+            $modelct = GiaRungCt::where('id', -1)->get();
             return view('manage.dinhgia.giarung.kekhai.edit')
                 ->with('model', $model)
-                ->with('modelct', nullValue())
+                ->with('modelct', $modelct)
                 ->with('inputs', $inputs)
                 ->with('a_loairung', $a_loairung)
                 ->with('a_dvt', $a_dvt)

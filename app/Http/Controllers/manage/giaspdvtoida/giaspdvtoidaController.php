@@ -100,9 +100,11 @@ class giaspdvtoidaController extends Controller
             $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
             $a_diabanapdung = getDiaBan_ApDung(\session('admin')->level, \session('admin')->madiaban);
 
+            $modelct = giaspdvtoida_ct::where('id', -1)->get();
+
             return view('manage.dinhgia.giaspdvtoida.kekhai.edit')
                 ->with('model', $model)
-                ->with('modelct', nullValue())
+                ->with('modelct', $modelct)
                 ->with('a_diabanapdung', $a_diabanapdung)
                 ->with('a_phanloaidv', $a_phanloaidv)
                 ->with('a_dvt', $a_dvt)

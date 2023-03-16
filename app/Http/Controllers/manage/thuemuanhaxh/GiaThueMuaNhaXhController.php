@@ -156,9 +156,10 @@ class GiaThueMuaNhaXhController extends Controller
             $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
             //dd($a_diaban);
 
+            $modelct = GiaThueMuaNhaXhCt::where('id', -1)->get();
             return view('manage.dinhgia.giathuemuanhaxh.kekhai.edit')
                 ->with('model', $model)
-                ->with('modelct', nullValue())
+                ->with('modelct', $modelct)
                 ->with('inputs', $inputs)
                 ->with('a_dm', $a_dm)
                 ->with('a_dvt', $a_dvt)

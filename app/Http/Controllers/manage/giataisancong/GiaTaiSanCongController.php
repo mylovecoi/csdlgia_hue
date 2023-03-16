@@ -93,9 +93,10 @@ class GiaTaiSanCongController extends Controller
 //            $model->save();
             //dd($a_diaban);
 
+            $modelct = GiaTaiSanCongCt::where('id', -1)->get();
             return view('manage.dinhgia.giataisancong.kekhai.edit')
                 ->with('model', $model)
-                ->with('modelct', nullValue())
+                ->with('modelct', $modelct)
                 ->with('inputs', $inputs)
                 ->with('a_diaban', array_column($m_diaban->toarray(), 'tendiaban', 'madiaban'))
                 ->with('pageTitle', 'Thông tin hồ sơ');

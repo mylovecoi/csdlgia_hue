@@ -75,9 +75,11 @@ class giaspdvcutheController extends Controller
             $a_diabanapdung = getDiaBan_ApDung(\session('admin')->level, \session('admin')->madiaban);
             $a_phanloaidv = array_column(giaspdvcuthe_ct::get('phanloaidv')->toArray(),'phanloaidv','phanloaidv');
             $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
+
+            $modelct = giaspdvcuthe_ct::where('id', -1)->get();
             return view('manage.dinhgia.giaspdvcuthe.kekhai.edit')
                 ->with('model', $model)
-                ->with('modelct', nullValue())
+                ->with('modelct', $modelct)
                 ->with('a_diabanapdung', $a_diabanapdung)
                 ->with('a_phanloaidv', $a_phanloaidv)
                 ->with('a_dvt', $a_dvt)

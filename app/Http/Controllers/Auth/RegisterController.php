@@ -92,13 +92,13 @@ class RegisterController extends Controller
         //$m_donvi = getDonViXetDuyet(session('admin')->level);
         $m_donvi = view_dsdiaban_donvi::where('chucnang', 'TONGHOP')
             ->wherein('level', ['T', 'H', 'X'])->get();
-        $m_diaban = dsdiaban::wherein('level', ['T', 'H', 'X'])->get();
-
+        $m_diaban = dsdiaban::wherein('level', ['T', 'H', 'X'])->get();        
+        $modelct = CompanyLvCc::where('id', -1)->get();
         return view('system.registers.dangkytk.create')
             ->with('m_nganh', $m_nganh)
             ->with('m_nghe', $m_nghe)
             ->with('inputs',$inputs)
-            ->with('modelct',nullValue())
+            ->with('modelct', $modelct)
             ->with('m_diaban', $m_diaban)
             ->with('m_donvi', $m_donvi)
             ->with('pageTitle','Đăng ký tài khoản truy cập');

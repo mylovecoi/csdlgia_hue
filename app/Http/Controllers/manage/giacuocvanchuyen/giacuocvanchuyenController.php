@@ -71,9 +71,11 @@ class giacuocvanchuyenController extends Controller
             $model->trangthai = 'CHT';
             //$model->thoidiem = $inputs['thoidiem'];
             $a_diabanapdung = getDiaBan_ApDung(\session('admin')->level, \session('admin')->madiaban);
+
+            $modelct = giacuocvanchuyenct::where('id', -1)->get();
             return view('manage.dinhgia.giacuocvanchuyen.kekhai.edit')
                 ->with('model', $model)
-                ->with('modelct', nullValue())
+                ->with('modelct', $modelct)
                 ->with('a_diabanapdung', $a_diabanapdung)
                 ->with('inputs', $inputs)
                 ->with('pageTitle', 'Thông tin hồ sơ');
