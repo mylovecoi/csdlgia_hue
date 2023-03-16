@@ -22,54 +22,55 @@ use Illuminate\Support\Facades\Session;
 
 class KkMhBogController extends Controller
 {
-    public function ttdn(Request $request){
+    public function ttdn(Request $request)
+    {
         if (Session::has('admin')) {
 
             if (session('admin')->level == 'T' || session('admin')->level == 'H' || session('admin')->level == 'X') {
                 $inputs = $request->all();
-                $inputs['mh'] = DmNgheKd::where('manganh','BOG')
-                    ->where('manghe',$inputs['manghe'])
+                $inputs['mh'] = DmNgheKd::where('manganh', 'BOG')
+                    ->where('manghe', $inputs['manghe'])
                     ->first()->tennghe;
-                $modeldmnghe = DmNgheKd::where('manganh','BOG')
-                    ->where('manghe',$inputs['manghe'])
+                $modeldmnghe = DmNgheKd::where('manganh', 'BOG')
+                    ->where('manghe', $inputs['manghe'])
                     ->first();
-                if(session('admin')->level == 'T'){
-                    $modeldv = Town::where('mahuyen',$modeldmnghe->mahuyen)->get();
+                if (session('admin')->level == 'T') {
+                    $modeldv = Town::where('mahuyen', $modeldmnghe->mahuyen)->get();
                     $inputs['maxa'] = isset($inputs['maxa']) ? $inputs['maxa'] : $modeldv->first()->maxa;
-                }elseif(session('admin')->level == 'H'){
-                    if(session('admin')->mahuyen == $modeldmnghe->mahuyen){
-                        $modeldv = Town::where('mahuyen',$modeldmnghe->mahuyen)->get();
+                } elseif (session('admin')->level == 'H') {
+                    if (session('admin')->mahuyen == $modeldmnghe->mahuyen) {
+                        $modeldv = Town::where('mahuyen', $modeldmnghe->mahuyen)->get();
                         $inputs['maxa'] = isset($inputs['maxa']) ? $inputs['maxa'] : $modeldv->first()->maxa;
-                    }else
+                    } else
                         return view('errors.perm');
-                }else{
-                    if(session('admin')->mahuyen == $modeldmnghe->mahuyen){
-                        $modeldv = Town::where('mahuyen',$modeldmnghe->mahuyen)->get();
+                } else {
+                    if (session('admin')->mahuyen == $modeldmnghe->mahuyen) {
+                        $modeldv = Town::where('mahuyen', $modeldmnghe->mahuyen)->get();
                         $inputs['maxa'] = isset($inputs['maxa']) ? $inputs['maxa'] : session('admin')->maxa;
-                    }else
+                    } else
                         return view('errors.perm');
                 }
-                $model = Company::join('companylvcc','companylvcc.maxa','=','company.maxa')
-                    ->join('town','town.maxa','=','companylvcc.mahuyen')
-                    ->where('companylvcc.manghe',$inputs['manghe'])
-                    ->where('companylvcc.mahuyen',$inputs['maxa'])
-                    ->where('company.trangthai','Kích hoạt')
-                    ->select('company.*','town.tendv')
+                $model = Company::join('companylvcc', 'companylvcc.maxa', '=', 'company.maxa')
+                    ->join('town', 'town.maxa', '=', 'companylvcc.mahuyen')
+                    ->where('companylvcc.manghe', $inputs['manghe'])
+                    ->where('companylvcc.mahuyen', $inputs['maxa'])
+                    ->where('company.trangthai', 'Kích hoạt')
+                    ->select('company.*', 'town.tendv')
                     ->get();
 
-                $ttql = District::where('mahuyen',$modeldmnghe->mahuyen)
+                $ttql = District::where('mahuyen', $modeldmnghe->mahuyen)
                     ->first();
 
                 return view('manage.kkgia.dkg.kekhaimhbog.kekhai.ttdn')
                     ->with('model', $model)
-                    ->with('modeldv',$modeldv)
-                    ->with('ttql',$ttql)
-                    ->with('inputs',$inputs)
+                    ->with('modeldv', $modeldv)
+                    ->with('ttql', $ttql)
+                    ->with('inputs', $inputs)
                     ->with('pageTitle', 'Danh sách thông tin doanh nghiệp');
             } else {
                 return view('errors.perm');
             }
-        }else
+        } else
             return view('errors.notlogin');
     }
 
@@ -80,24 +81,25 @@ class KkMhBogController extends Controller
     - Load ngành nghề theo lĩnh vực đăng ký
     - Load đơn vị chủ quản để gửi hồ sơ
      */
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['url'] = '/binhongia';
             //$m_diaban = dsdiaban::wherein('madiaban', array_keys(getDiaBan_Level(session('admin')->level, session('admin')->madiaban)))->get();
             $m_donvi = getDoanhNghiep(session('admin')->level, session('admin')->madiaban);
-            $m_diaban = dsdiaban::wherein('madiaban', a_unique(array_column($m_donvi->toArray(),'madiaban')))->get();
-            $m_donvi_th = getDonViTongHop_dn('bog',session('admin')->level, session('admin')->madiaban);
+            $m_diaban = dsdiaban::wherein('madiaban', a_unique(array_column($m_donvi->toArray(), 'madiaban')))->get();
+            $m_donvi_th = getDonViTongHop_dn('bog', session('admin')->level, session('admin')->madiaban);
 
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_donvi->first()->madiaban;
             $inputs['nam'] = $inputs['nam'] ?? 'all';
             $m_bog = view_dmnganhnghe::where('manganh', 'BOG')->get();
             $m_lvkd = CompanyLvCc::where('madv', $inputs['madv'])
-                ->wherein('manghe',array_column($m_bog->toarray(),'manghe'))->get();
+                ->wherein('manghe', array_column($m_bog->toarray(), 'manghe'))->get();
             //dd($m_lvkd);
             //lấy danh mục nghề theo đơn vị đăng ký
-            $m_bog = $m_bog->wherein('manghe',array_column($m_lvkd->toarray(),'manghe'));
+            $m_bog = $m_bog->wherein('manghe', array_column($m_lvkd->toarray(), 'manghe'));
 
             $model = KkMhBog::where('madv', $inputs['madv']);
             if ($inputs['nam'] != 'all')
@@ -110,17 +112,17 @@ class KkMhBogController extends Controller
                 ->with('m_bog', $m_bog)
                 ->with('m_donvi', $m_donvi)
                 ->with('m_donvi_th', $m_donvi_th)
-                ->with('a_phanloai',  array('DK'=>'Đăng ký giá','KK'=>'Kê khai giá'))
-                ->with('a_nghe',array_column($m_bog->toarray(),'tennghe','manghe'))
-                ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
-                ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
+                ->with('a_phanloai',  array('DK' => 'Đăng ký giá', 'KK' => 'Kê khai giá'))
+                ->with('a_nghe', array_column($m_bog->toarray(), 'tennghe', 'manghe'))
+                ->with('a_donvi_th', array_column($m_donvi_th->toarray(), 'tendv', 'madv'))
+                ->with('a_diaban_th', array_column($m_donvi_th->toarray(), 'tendiaban', 'madiaban'))
                 ->with('pageTitle', 'Danh sách hồ sơ giá kê khai mặt hàng bình ổn giá');
-
-        }else
+        } else
             return view('errors.notlogin');
     }
 
-    public function create(Request $request){
+    public function create(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             $model = new KkMhBog();
@@ -137,15 +139,16 @@ class KkMhBogController extends Controller
             $hslk = KkMhBog::wherein('trangthai', ['HT', 'DD', 'CB', 'HCB'])
                 ->where('madv', $inputs['madv'])
                 ->where('manghe', $inputs['manghe'])
-                ->orderby('ngayhieuluc','desc')->first();
-                
-            if($hslk != null){
+                ->orderby('ngayhieuluc', 'desc')->first();
+
+            if ($hslk != null) {
                 $model->socvlk = $hslk->socv;
                 $model->ngaycvlk = $hslk->ngaynhap;
                 $m_ct = KkMhBogCt::where('mahs', $hslk->mahs)->get();
-                $a_ct = array();                
+                $a_ct = array();
                 foreach ($m_ct as $ct) {
-                    $a_ct[] = ['tenhh' => $ct->tenhh,
+                    $a_ct[] = [
+                        'tenhh' => $ct->tenhh,
                         'quycach' => $ct->quycach,
                         'dvt' => $ct->dvt,
                         'gialk' => $ct->giakk,
@@ -158,8 +161,8 @@ class KkMhBogController extends Controller
                 }
                 KkMhBogCt::insert($a_ct);
             }
-            $a_pl = array_column(KkMhBogCt::all('plhh')->toArray(),'plhh','plhh');
-            $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
+            $a_pl = array_column(KkMhBogCt::all('plhh')->toArray(), 'plhh', 'plhh');
+            $a_dvt = array_column(dmdvt::all()->toArray(), 'dvt', 'dvt');
             $model_ct = KkMhBogCt::where('mahs', $model->mahs)->get();
             $inputs['url'] = '/binhongia';
             return view('manage.bog.kekhai.create')
@@ -171,90 +174,95 @@ class KkMhBogController extends Controller
                 ->with('a_pl', $a_pl)
                 ->with('a_dvt', $a_dvt)
                 ->with('pageTitle', 'Giá kê khai mặt hàng BOG');
-
         }
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             //dd($inputs);
-//            $inputs['ngaynhap'] = getDateToDb($inputs['ngaynhap']);
-//            $inputs['ngayhieuluc'] = getDateToDb($inputs['ngayhieuluc']);
-//            $inputs['ngaycvlk']= getDateToDb($inputs['ngaycvlk']);
-            $model = KkMhBog::where('mahs',$inputs['mahs'])->first();
-            if($model == null){
+            //            $inputs['ngaynhap'] = getDateToDb($inputs['ngaynhap']);
+            //            $inputs['ngayhieuluc'] = getDateToDb($inputs['ngayhieuluc']);
+            //            $inputs['ngaycvlk']= getDateToDb($inputs['ngaycvlk']);
+            $model = KkMhBog::where('mahs', $inputs['mahs'])->first();
+            if ($model == null) {
                 $m_nghe = DmNgheKd::where('manghe', $inputs['manghe'])->first();
                 $inputs['phanloai'] = $m_nghe->phanloai;
                 $inputs['trangthai'] = 'CC';
                 KkMhBog::create($inputs);
-            }else{
+            } else {
                 $model->update($inputs);
             }
 
 
-//            if(isset($inputs['ipf1']) && $inputs['ipf1'] !='' ) {
-//                $ipf1 = $request->file('ipf1');
-//                $inputs['ipt1'] = $inputs['mahs'] .'1.'.$ipf1->getClientOriginalExtension();
-//                $ipf1->move(public_path() . '/data/kkdkg/', $inputs['ipt1']);
-//                $inputs['ipf1']= $inputs['ipt1'];
-//            }
+            //            if(isset($inputs['ipf1']) && $inputs['ipf1'] !='' ) {
+            //                $ipf1 = $request->file('ipf1');
+            //                $inputs['ipt1'] = $inputs['mahs'] .'1.'.$ipf1->getClientOriginalExtension();
+            //                $ipf1->move(public_path() . '/data/kkdkg/', $inputs['ipt1']);
+            //                $inputs['ipf1']= $inputs['ipt1'];
+            //            }
 
-            return redirect('binhongia/danhsach?madv='.$inputs['madv']);
-
-        }else
+            return redirect('binhongia/danhsach?madv=' . $inputs['madv']);
+        } else
             return view('errors.notlogin');
     }
 
     //kiểm tra phân loại hồ so để DKG=>56; KKG=>233
-    public function show(Request $request){
+    public function show(Request $request)
+    {
         if (Session::has('admin')) {
             $input = $request->all();
             $mahs = $input['mahs'];
-            $modelkk = KkMhBog::where('mahs',$mahs)->first();
+            $modelkk = KkMhBog::where('mahs', $mahs)->first();
             //dd($modelkk);
             //chưa gán lại số hồ sơ; thòi gian theo macqcq
-            $modeldn = Company::where('madv',$modelkk->madv)->first();
-            $modelkkct = KkMhBogCt::where('mahs',$modelkk->mahs)->get();
+            $modeldn = Company::where('madv', $modelkk->madv)->first();
+            $modelkkct = KkMhBogCt::where('mahs', $modelkk->mahs)->get();
             $modelcqcq = view_dsdiaban_donvi::where('madv', $modelkk->macqcq)->first();
-            $a_plhh = a_unique(array_column($modelkkct->toarray(),'plhh'));
+            $a_plhh = a_unique(array_column($modelkkct->toarray(), 'plhh'));
             foreach ($modelkkct as $ct) {
-                $ct->chenhlech = $ct->gialk > 0 ? $ct->giakk - $ct->gialk : 0;
-                $ct->phantram = $ct->giakk > 0 ? round(($ct->chenhlech / $ct->gialk) * 100, 2) : 0;
+                $ct->chenhlech = $ct->gialk > 0 ? getDbl($ct->giakk) - getDbl($ct->gialk) : 0;
+                if(getDbl($ct->gialk) == 0){
+                    $ct->phantram = 0;
+                }else{
+                    $ct->phantram = $ct->giakk > 0 ? round(($ct->chenhlech / $ct->gialk) * 100, 2) : 0;
+                }
+                
             }
             //dd(count($a_plhh));
-            if($modelkk->phanloai == 'DK'){
+            if ($modelkk->phanloai == 'DK') {
                 return view('manage.bog.baocao.print56')
-                    ->with('modelkk',$modelkk)
-                    ->with('modeldn',$modeldn)
-                    ->with('modelkkct',$modelkkct)
-                    ->with('modelcqcq',$modelcqcq)
-                    ->with('a_plhh',$a_plhh)
-                    ->with('pageTitle','Giá kê khai mặt hàng bình ổn giá');
+                    ->with('modelkk', $modelkk)
+                    ->with('modeldn', $modeldn)
+                    ->with('modelkkct', $modelkkct)
+                    ->with('modelcqcq', $modelcqcq)
+                    ->with('a_plhh', $a_plhh)
+                    ->with('pageTitle', 'Giá kê khai mặt hàng bình ổn giá');
             }
             return view('manage.bog.baocao.print')
-                ->with('modelkk',$modelkk)
-                ->with('modeldn',$modeldn)
-                ->with('modelkkct',$modelkkct)
-                ->with('modelcqcq',$modelcqcq)
-                ->with('a_plhh',$a_plhh)
-                ->with('pageTitle','Giá kê khai mặt hàng bình ổn giá');
-
-        }else
+                ->with('modelkk', $modelkk)
+                ->with('modeldn', $modeldn)
+                ->with('modelkkct', $modelkkct)
+                ->with('modelcqcq', $modelcqcq)
+                ->with('a_plhh', $a_plhh)
+                ->with('pageTitle', 'Giá kê khai mặt hàng bình ổn giá');
+        } else
             return view('errors.notlogin');
     }
 
-    public function edit(Request $request){
+    public function edit(Request $request)
+    {
         if (Session::has('admin')) {
             //Kiểm tra có thuộc sự quản lý hay k
             $inputs = $request->all();
-            $model = KkMhBog::where('mahs',$inputs['mahs'])->first();
-            $modelct = KkMhBogCt::where('mahs',$model->mahs)->orderby('plhh')->get();
+            $model = KkMhBog::where('mahs', $inputs['mahs'])->first();
+            $modelct = KkMhBogCt::where('mahs', $model->mahs)->orderby('plhh')->get();
             $m_nghe = DmNgheKd::where('manghe', $model->manghe)->first();
             $m_dn = Company::where('madv', $model->madv)->first();
             $inputs['url'] = '/binhongia';
-            $a_pl = array_column(KkMhBogCt::all('plhh')->toArray(),'plhh','plhh');
-            $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
+            $a_pl = array_column(KkMhBogCt::all('plhh')->toArray(), 'plhh', 'plhh');
+            $a_dvt = array_column(dmdvt::all()->toArray(), 'dvt', 'dvt');
             return view('manage.bog.kekhai.create')
                 ->with('model', $model)
                 ->with('model_ct', $modelct)
@@ -264,44 +272,46 @@ class KkMhBogController extends Controller
                 ->with('a_pl', $a_pl)
                 ->with('a_dvt', $a_dvt)
                 ->with('pageTitle', 'Chỉnh sửa hồ sơ giá kê khai mặt hàng BOG');
-        }else
+        } else
             return view('errors.notlogin');
     }
 
-    public function destroy(Request $request){
+    public function destroy(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = KkMhBog::where('mahs',$inputs['mahs'])->first();
-            if($model->delete()){
-                KkMhBogCt::where('mahs',$model->mahs)->delete();
+            $model = KkMhBog::where('mahs', $inputs['mahs'])->first();
+            if ($model->delete()) {
+                KkMhBogCt::where('mahs', $model->mahs)->delete();
             }
-            return redirect('binhongia/danhsach?madv='.$model->madv);
-        }else
+            return redirect('binhongia/danhsach?madv=' . $model->madv);
+        } else
             return view('errors.notlogin');
     }
 
-    public function timkiem(){
+    public function timkiem()
+    {
         if (Session::has('admin')) {
             //$inputs = $request->all();
             $inputs['url'] = '/binhongia';
             $m_donvi = getDoanhNghiep(session('admin')->level, session('admin')->madiaban);
-            $m_diaban = dsdiaban::wherein('madiaban', a_unique(array_column($m_donvi->toArray(),'madiaban')))->get();
+            $m_diaban = dsdiaban::wherein('madiaban', a_unique(array_column($m_donvi->toArray(), 'madiaban')))->get();
             $m_dm = view_dmnganhnghe::where('manganh', 'BOG')->get();
 
             //dd($m_bog);
             return view('manage.bog.timkiem.index')
                 ->with('inputs', $inputs)
                 ->with('m_diaban', $m_diaban)
-                ->with('a_dm', array_column($m_dm->toarray(),'tennghe','manghe'))
+                ->with('a_dm', array_column($m_dm->toarray(), 'tennghe', 'manghe'))
                 ->with('m_donvi', $m_donvi)
-                ->with('a_phanloai',  array('DK'=>'Đăng ký giá','KK'=>'Kê khai giá'))
+                ->with('a_phanloai',  array('DK' => 'Đăng ký giá', 'KK' => 'Kê khai giá'))
                 ->with('pageTitle', 'Tìm kiếm hồ sơ giá kê khai mặt hàng bình ổn giá');
-
-        }else
+        } else
             return view('errors.notlogin');
     }
 
-    public function ketquatk(Request $request){
+    public function ketquatk(Request $request)
+    {
         if (Session::has('admin')) {
             //Chỉ tìm kiếm hồ sơ do đơn vị nhập (các hồ sơ chuyển đơn vị cấp trên ko tính)
             //Lấy hết hồ sơ trên địa bàn rồi bắt đầu tìm kiểm
