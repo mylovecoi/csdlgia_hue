@@ -64,9 +64,11 @@ class DauGiaDatController extends Controller
             $model->mahs = getdate()[0];
             $a_diaban = getDiaBan_XaHuyen(session('admin')->level,session('admin')->madiaban);
             $a_xp = array_column(dsxaphuong::where('madiaban',$inputs['madiaban'])->get()->toarray(),'tenxp', 'maxp');
+            //model_ct
+            $modelct = DauGiaDatCt::where('id', -1)->get();
             return view('manage.dinhgia.giadaugiadat.kekhai.edit')
                 ->with('model', $model)
-                ->with('model_ct', nullValue())
+                ->with('model_ct', $modelct)
                 ->with('a_xp', $a_xp)
                 ->with('a_diaban', $a_diaban)
                 ->with('inputs', $inputs)
