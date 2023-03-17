@@ -17,5 +17,7 @@ class GiaDatPhanLoaiCt extends Model
         'giacuthe',
         'hesodc',
         'sapxep',
+        'diagioitu',
+        'diagioiden',
     ];
 }

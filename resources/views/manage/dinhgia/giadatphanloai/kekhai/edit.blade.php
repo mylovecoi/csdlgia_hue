@@ -59,6 +59,8 @@
                     mahs:$('#mahs').val(),
                     khuvuc: $('#khuvuc').val(),
                     vitri: $('#vitri').val(),
+                    diagioitu: $('#diagioitu').val(),
+                    diagioiden: $('#diagioiden').val(),
                     maloaidat: $('#maloaidat').val(),
                     banggiadat: $('#banggiadat').val(),
                     giacuthe:$('#giacuthe').val(),
@@ -238,6 +240,8 @@
                                         <th width="2%" style="text-align: center">STT</th>
                                         <th style="text-align: center">Tên đường, giới hạn, khu vực</th>
                                         <th style="text-align: center">Loại đất</th>
+                                        <th style="text-align: center">Địa giới - Từ</th>
+                                        <th style="text-align: center">Địa giới - Đến</th>
                                         <th style="text-align: center">Vị trí</th>
                                         <th style="text-align: center" width="8%">Giá đất<br>tại bảng giá</th>
                                         <th style="text-align: center" width="8%">Giá đất<br>cụ thể</th>
@@ -252,6 +256,8 @@
                                                 <td style="text-align: center">{{$i++}}</td>
                                                 <td class="active" style="font-weight: bold">{{$tt->khuvuc}}</td>
                                                 <td>{{$a_loaidat[$tt->maloaidat] ?? ''}}</td>
+                                                <td class="text-center">{{$tt->diagioitu}}</td>
+                                                <td class="text-center">{{$tt->diagioiden}}</td>
                                                 <td class="text-center">{{$tt->vitri}}</td>
                                                 <td style="text-align: right;">{{dinhdangsothapphan($tt->banggiadat,4)}}</td>
                                                 <td style="text-align: right;">{{dinhdangsothapphan($tt->giacuthe,4)}}</td>
@@ -331,6 +337,21 @@
                                     <i class="fa fa-list"></i></button>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Địa giới - Từ</label>
+                                {!!Form::text('diagioitu', null, array('id' => 'diagioitu','class' => 'form-control'))!!}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Địa giới - Đến</label>
+                                {!!Form::text('diagioiden', null, array('id' => 'diagioiden','class' => 'form-control'))!!}
+                            </div>
+                        </div>                        
                     </div>
 
                     <div class="row">
