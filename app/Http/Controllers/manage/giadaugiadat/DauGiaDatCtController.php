@@ -32,8 +32,8 @@ class DauGiaDatCtController extends Controller
         $result['message'] .= '<div class="form-group">';
         $result['message'] .= '<label class="control-label">Khu vực</label>';
         $result['message'] .= '<select name="khuvuc" id="khuvuc" class="form-control">';
-        foreach ($model as $ct){
-            $result['message'] .= '<option value="'.$ct->khuvuc.'">'.$ct->khuvuc.'</option>';
+        foreach ($model as $ct) {
+            $result['message'] .= '<option value="' . $ct->khuvuc . '">' . $ct->khuvuc . '</option>';
         }
         $result['message'] .= '</select>';
         $result['message'] .= '</div>';
@@ -43,8 +43,9 @@ class DauGiaDatCtController extends Controller
         die(json_encode($result));
     }
 
-    public function show(Request $request){
-        if(!Session::has('admin')) {
+    public function show(Request $request)
+    {
+        if (!Session::has('admin')) {
             $result = array(
                 'status' => 'fail',
                 'message' => 'permission denied',
@@ -57,12 +58,13 @@ class DauGiaDatCtController extends Controller
         die($model);
     }
 
-    public function destroy(Request $request){
+    public function destroy(Request $request)
+    {
         $result = array(
             'status' => 'fail',
             'message' => 'error',
         );
-        if(!Session::has('admin')) {
+        if (!Session::has('admin')) {
             $result = array(
                 'status' => 'fail',
                 'message' => 'permission denied',
@@ -70,8 +72,8 @@ class DauGiaDatCtController extends Controller
             die(json_encode($result));
         }
         $inputs = $request->all();
-        if(isset($inputs['id'])){
-            $modeladd = DauGiaDatCt::where('id',$inputs['id'])->first();
+        if (isset($inputs['id'])) {
+            $modeladd = DauGiaDatCt::where('id', $inputs['id'])->first();
             $modeladd->delete();
             $result = $this->return_html($inputs, $result);
         }
@@ -96,11 +98,11 @@ class DauGiaDatCtController extends Controller
         $inputs['giadaugia'] = getMoneyToDb($inputs['giadaugia']);
         $inputs['giakhoidiem'] = getMoneyToDb($inputs['giakhoidiem']);
         $inputs['dientich'] = getMoneyToDb($inputs['dientich']);
-        $m_chk = DauGiaDatCt::where('id',$inputs['id'])->first();
-        if($m_chk == null){
+        $m_chk = DauGiaDatCt::where('id', $inputs['id'])->first();
+        if ($m_chk == null) {
             unset($inputs['id']);
             DauGiaDatCt::create($inputs);
-        }else{
+        } else {
             $m_chk->update($inputs);
         }
 
@@ -121,7 +123,9 @@ class DauGiaDatCtController extends Controller
         $result['message'] .= '<th style="text-align: center">Số lô</th>';
         $result['message'] .= '<th style="text-align: center">Số thửa</th>';
         $result['message'] .= '<th style="text-align: center">Tờ bản đồ</th>';
-        $result['message'] .= '<th style="text-align: center">Khu vực</th>';
+        $result['message'] .= '<th style="text-align: center">Vị trí</th>';
+        $result['message'] .= '<th style="text-align: center">Địa giới Từ</th>';
+        $result['message'] .= '<th style="text-align: center">Địa giới Đến</th>';
         $result['message'] .= '<th style="text-align: center">Mô tả</th>';
         $result['message'] .= '<th style="text-align: center">Diên tích</th>';
         $result['message'] .= '<th style="text-align: center">ĐVT</th>';
@@ -140,7 +144,9 @@ class DauGiaDatCtController extends Controller
                 $result['message'] .= '<td>' . $ttbog->solo . '</td>';
                 $result['message'] .= '<td>' . $ttbog->sothua . '</td>';
                 $result['message'] .= '<td>' . $ttbog->sotobando . '</td>';
-                $result['message'] .= '<td>' . $ttbog->khuvuc . '</td>';
+                $result['message'] .= '<td>' . $ttbog->vitri . '</td>';
+                $result['message'] .= '<td>' . $ttbog->diagioitu . '</td>';
+                $result['message'] .= '<td>' . $ttbog->diagioiden . '</td>';
                 $result['message'] .= '<td>' . $ttbog->mota . '</td>';
                 $result['message'] .= '<td style="text-align: right;">' . dinhdangso($ttbog->dientich) . '</td>';
                 $result['message'] .= '<td>' . $ttbog->dvt . '</td>';

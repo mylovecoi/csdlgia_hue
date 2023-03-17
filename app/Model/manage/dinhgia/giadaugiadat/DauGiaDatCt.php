@@ -20,5 +20,8 @@ class DauGiaDatCt extends Model
         'sothua',
         'sotobando',
         'dvt',
+        'vitri',
+        'diagioitu',
+        'diagioiden'
     ];
 }
