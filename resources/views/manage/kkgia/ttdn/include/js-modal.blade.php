@@ -1,4 +1,12 @@
 <!--Model Create-->
+{!! Form::open([
+    'url' => '',
+    'id' => 'frm_ThemChiTiet',
+    'class' => 'form',
+    'files' => true,
+    'enctype' => 'multipart/form-data',
+]) !!}
+<input type="hidden" name="type" value="create">
 <div class="modal fade bs-modal-lg" id="modal-create" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -12,11 +20,11 @@
                         <div class="form-group">
                             <label class="control-label">Ngành - Nghề</label>
                             <select class="form-control select2me" name="manghe" id="manghe">
-                                @foreach($m_nganh as $nganh)
-                                    <optgroup label="{{$nganh->tennganh}}">
-                                        <?php $mode_ct = $m_nghe->where('manganh',$nganh->manganh); ?>
-                                        @foreach($mode_ct as $ct)
-                                            <option value="{{$ct->manghe}}">{{$ct->tennghe}}</option>
+                                @foreach ($m_nganh as $nganh)
+                                    <optgroup label="{{ $nganh->tennganh }}">
+                                        <?php $mode_ct = $m_nghe->where('manganh', $nganh->manganh); ?>
+                                        @foreach ($mode_ct as $ct)
+                                            <option value="{{ $ct->manghe }}">{{ $ct->tennghe }}</option>
                                         @endforeach
                                     </optgroup>
                                 @endforeach
@@ -36,7 +44,8 @@
 </div>
 
 <!--Modal Wide Width-->
-<div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-header">
@@ -55,27 +64,49 @@
 </div>
 
 <script>
-    function capnhatts(){
-        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    // function LuuCaNhan() {
+    //     var formData = new FormData($('#frm_ThemCaNhan')[0]);
+
+    //     $.ajax({
+    //         url: "{{ $inputs['url'] }}" + "ThemCaNhan",
+    //         method: "POST",
+    //         cache: false,
+    //         dataType: false,
+    //         processData: false,
+    //         contentType: false,
+    //         data: formData,
+    //         success: function(data) {
+    //             console.log(data);
+    //             if (data.status == 'success') {
+    //                 $('#dskhenthuongcanhan').replaceWith(data.message);
+    //                 TableManaged3.init();
+    //             }
+    //         }
+    //     })
+    //     $('#modal-create').modal("hide");
+    // }
+
+    function capnhatts() {
+        // var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        var formData = new FormData($('#frm_ThemChiTiet')[0]);
         $.ajax({
-            url: '/doanhnghiep/store_ct',
-            type: 'GET',
-            data: {
-                _token: CSRF_TOKEN,
-                manghe: $('#manghe').val(),
-                madv:$('#madv').val(),
-                type: $('#type').val()
-            },
+            url: '/doanhnghiep/ThemNganhNghe',
+            method: "POST",
+            cache: false,
+            dataType: false,
+            processData: false,
+            contentType: false,
+            data: formData,
             dataType: 'JSON',
-            success: function (data) {
-                if(data.status == 'success') {
+            success: function(data) {
+                if (data.status == 'success') {
                     toastr.success("Bổ xung thông tin thành công!");
                     $('#dsts').replaceWith(data.message);
                     jQuery(document).ready(function() {
                         TableManaged.init();
                     });
                     $('#modal-create').modal("hide");
-                }else {
+                } else {
                     toastr.error('Trùng lặp ngành nghề', "Lỗi!!!");
                     $('#modal-create').modal("hide");
                 }
@@ -83,8 +114,8 @@
         })
     }
 
-    function getid(id){
-        document.getElementById("iddelete").value=id;
+    function getid(id) {
+        document.getElementById("iddelete").value = id;
     }
 
     function deleteRow() {
@@ -98,11 +129,11 @@
                 madv: $('#madv').val()
             },
             dataType: 'JSON',
-            success: function (data) {
+            success: function(data) {
                 //if(data.status == 'success') {
                 toastr.success("Bạn đã xóa thông tin thành công!", "Thành công!");
                 $('#dsts').replaceWith(data.message);
-                jQuery(document).ready(function () {
+                jQuery(document).ready(function() {
                     TableManaged.init();
                 });
 

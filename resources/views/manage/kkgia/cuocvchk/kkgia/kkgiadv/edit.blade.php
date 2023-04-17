@@ -111,7 +111,7 @@
                 }
             })
         }
-        function editTtPh(id) {
+        function editTtPh(maso) {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             //alert(id);
             $.ajax({
@@ -119,7 +119,7 @@
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: id
+                    id: maso
                 },
                 dataType: 'JSON',
                 success: function (data) {

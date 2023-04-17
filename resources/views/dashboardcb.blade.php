@@ -16,14 +16,14 @@
         jQuery(document).ready(function() {
             TableManaged.init();
         });
-        function get_attack(id){
+        function get_attack(mahs){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 url: '/vanbanqlnnvegia/dinhkem',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: id
+                    mahs: mahs
                 },
                 dataType: 'JSON',
                 success: function (data) {
@@ -66,7 +66,7 @@
                                                 </div>
                                                 <div class="cont-col2">
                                                     <div class="desc" id="tentb" name="tentb">
-                                                        <button onclick="get_attack('{{$tt->id}}')"  style="color: #ff0000;border: none;background-color: #fafafa; text-align: left" data-target="#dinhkem-modal-confirm" data-toggle="modal">&nbsp;{{$tt->tieude}} &emsp; </button><br>
+                                                        <button onclick="get_attack('{{$tt->mahs}}')"  style="color: #ff0000;border: none;background-color: #fafafa; text-align: left" data-target="#dinhkem-modal-confirm" data-toggle="modal">&nbsp;{{$tt->tieude}} &emsp; </button><br>
                                                     </div>
                                                 </div>
                                             </div>

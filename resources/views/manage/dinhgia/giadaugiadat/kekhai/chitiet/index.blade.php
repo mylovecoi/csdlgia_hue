@@ -29,14 +29,14 @@
         function ClickCreate(){
             $('#frm_create').submit();
         }
-        function EditTt(id) {
+        function EditTt(maso) {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 url: 'thongtindaugiadatct/edit',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: id
+                    id: maso
                 },
                 dataType: 'JSON',
                 success: function (data) {

@@ -77,7 +77,7 @@
             })
         }
 
-        function editmhbog(id) {
+        function editmhbog(mahs) {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             //alert(id);
             $.ajax({
@@ -85,7 +85,7 @@
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: id
+                    mahs: mahs
                 },
                 dataType: 'JSON',
                 success: function (data) {
@@ -252,7 +252,7 @@
                                             <td style="text-align: right">{{dinhdangsothapphan($tt->giakk,2)}}</td>
                                             <td>{{$tt->ghichu}}</td>
                                             <td>
-                                                <button type="button" onclick="editmhbog({{$tt->id}});" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs">
+                                                <button type="button" onclick="editmhbog({{$tt->mahs}});" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs">
                                                     <i class="fa fa-edit"></i>&nbsp;Sửa</button>
                                                 {{--<button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editmhbog({{$tt->id}});"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</button>--}}
                                                 {{--<button type="button" data-target="#modal-nhapkhau" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editnhapkhau({{$tt->id}});"><i class="fa fa-edit"></i>&nbsp;Thuyết minh với MH nhập khẩu</button>--}}

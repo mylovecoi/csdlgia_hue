@@ -48,7 +48,7 @@
             document.getElementById("macskdcp").value=macskd;
         }
 
-        function confirmChuyen(id) {
+        function confirmChuyen(maso) {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             //alert(id);
             $.ajax({
@@ -56,7 +56,7 @@
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: id
+                    id: maso
                 },
                 dataType: 'JSON',
                 success: function (data) {
@@ -96,7 +96,7 @@
 
         }
 
-        function viewLyDo(id) {
+        function viewLyDo(maso) {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             //alert(id);
             $.ajax({
@@ -104,7 +104,7 @@
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: id
+                    id: maso
                 },
                 dataType: 'JSON',
                 success: function (data) {

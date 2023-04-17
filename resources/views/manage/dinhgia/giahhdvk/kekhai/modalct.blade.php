@@ -1,12 +1,12 @@
 <script>
-    function editItem(id) {
+    function editItem(maso) {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             url: '{{$inputs['url']}}' + '/edit_ct',
             type: 'GET',
             data: {
                 _token: CSRF_TOKEN,
-                id: id
+                id: maso
             },
             dataType: 'JSON',
             success: function (data) {

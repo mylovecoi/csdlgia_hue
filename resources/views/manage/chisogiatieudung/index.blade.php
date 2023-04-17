@@ -36,14 +36,14 @@
         function confirmCB(id){
             document.getElementById("idcongbo").value=id;
         }
-        function get_attack(id){
+        function get_attack(mahs){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 url: '/baocaochisogiatieudung/dinhkem',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: id
+                    mahs: mahs
                 },
                 dataType: 'JSON',
                 success: function (data) {
@@ -130,7 +130,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <button type="button" onclick="get_attack('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal"><i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
+                                    <button type="button" onclick="get_attack('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal"><i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
                                     @if($tt->trangthai == 'CHT' || $tt->trangthai == 'HHT')
                                         @if(chkPer('csdlvbqlnn','vbqlnn','chisogiatieudung','hoso', 'modify'))
                                             <a href="{{url('baocaochisogiatieudung/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>

@@ -54,14 +54,14 @@
         function confirmCB(id){
             document.getElementById("idcongbo").value=id;
         }
-        function get_attack(id){
+        function get_attack(maso){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 url: '/filethamdinhgia/dinhkem',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: id
+                    id: maso
                 },
                 dataType: 'JSON',
                 success: function (data) {

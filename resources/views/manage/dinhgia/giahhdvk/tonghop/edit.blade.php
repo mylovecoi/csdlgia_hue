@@ -23,61 +23,7 @@
     </script>
 
 
-    {{--<script>--}}
-        {{--function editItem(id) {--}}
-            {{--var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');--}}
-            {{--//alert(id);--}}
-            {{--$.ajax({--}}
-                {{--url: '/thgiahhdvkct/edit',--}}
-                {{--type: 'GET',--}}
-                {{--data: {--}}
-                    {{--_token: CSRF_TOKEN,--}}
-                    {{--id: id,--}}
-                {{--},--}}
-                {{--dataType: 'JSON',--}}
-                {{--success: function (data) {--}}
-                    {{--if(data.status == 'success') {--}}
-                        {{--$('#tttsedit').replaceWith(data.message);--}}
-                        {{--InputMask();--}}
-                    {{--}--}}
-                    {{--else--}}
-                        {{--toastr.error("Không thể chỉnh sửa thông tin hàng hóa dịch vụ!", "Lỗi!");--}}
-                {{--}--}}
-            {{--})--}}
-        {{--}--}}
-
-        {{--function updatets(){--}}
-            {{--//alert('vcl');--}}
-            {{--var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');--}}
-            {{--$.ajax({--}}
-                {{--url: '/thgiahhdvkct/update',--}}
-                {{--type: 'GET',--}}
-                {{--data: {--}}
-                    {{--_token: CSRF_TOKEN,--}}
-                    {{--id: $('input[name="idedit"]').val(),--}}
-                    {{--gia: $('input[name="giaedit"]').val(),--}}
-                    {{--gialk: $('input[name="gialkedit"]').val(),--}}
-                    {{--nguontt: $('input[name="nguonttedit"]').val(),--}}
-                    {{--ghichu: $('input[name="ghichuedit"]').val(),--}}
-                    {{--mahs: $('input[name="mahs"]').val(),--}}
-                {{--},--}}
-                {{--dataType: 'JSON',--}}
-                {{--success: function (data) {--}}
-                    {{--if(data.status == 'success') {--}}
-                        {{--toastr.success("Chỉnh sửa thông tin hàng hóa dịch vụ thành công", "Thành công!");--}}
-                        {{--$('#dsts').replaceWith(data.message);--}}
-                        {{--jQuery(document).ready(function() {--}}
-                            {{--TableManaged.init();--}}
-                        {{--});--}}
-                        {{--$('#modal-edit').modal("hide");--}}
-
-
-                    {{--}else--}}
-                        {{--toastr.error("Bạn cần kiểm tra lại thông tin vừa nhập!", "Lỗi!");--}}
-                {{--}--}}
-            {{--})--}}
-        {{--}--}}
-    {{--</script>--}}
+    
 @stop
 
 @section('content')

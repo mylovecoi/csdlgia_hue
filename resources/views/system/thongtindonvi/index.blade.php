@@ -7,14 +7,14 @@
 
 @section('custom-script')
 <script>
-    function edittt(id){
+    function edittt(mahs){
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             url: '/thongtindonvi/edit',
             type: 'GET',
             data: {
                 _token: CSRF_TOKEN,
-                id: id
+                mahs: mahs
             },
             dataType: 'JSON',
             success: function (data) {

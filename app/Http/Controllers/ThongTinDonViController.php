@@ -39,7 +39,7 @@ class ThongTinDonViController extends Controller
         }
 
         $inputs = $request->all();
-        $id = $inputs['id'];
+        $id = $inputs['mahs'];
         $model = Town::findOrFail($id);
 
         die($model);

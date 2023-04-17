@@ -39,30 +39,7 @@
             document.getElementById("macskdcp").value=macskd;
         }
 
-        function confirmChuyen(id) {
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            //alert(id);
-            $.ajax({
-                url: '/kkvchk/kiemtra',
-                type: 'GET',
-                data: {
-                    _token: CSRF_TOKEN,
-                    id: id
-                },
-                dataType: 'JSON',
-                success: function (data) {
-                    if(data.status != 'success') {
-                        toastr.error(data.message);
-                        $('#chuyen-modal').modal("hide");
-                    }else{
-                        $('#tthschuyen').replaceWith(data.message);
-                        document.getElementById("idchuyen").value =id;
-                    }
-                }
-            })
-
-
-        }
+       
         function confirmChuyenHSCham(id){
             document.getElementById("idchuyenhscham").value=id;
         }
@@ -87,25 +64,7 @@
 
         }
 
-        function viewLyDo(id) {
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            //alert(id);
-            $.ajax({
-                url: '/kkvchk/showlydo',
-                type: 'GET',
-                data: {
-                    _token: CSRF_TOKEN,
-                    id: id
-                },
-                dataType: 'JSON',
-                success: function (data) {
-                    if(data.status == 'success') {
-                        $('#showlydo').replaceWith(data.message);
-                    }
-                }
-            })
-        }
-
+        
 
     </script>
 @stop

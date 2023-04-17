@@ -135,7 +135,7 @@ class BanNhaTaiDinhCuController extends Controller
         }
 
         $inputs = $request->all();
-        $id = $inputs['id'];
+        $id = $inputs['mahs'];
         $model = BanNhaTaiDinhCu::findOrFail($id);
         $model->dateht = getDayVn($model->thoidiemht);
         $model->datekc = getDayVn($model->thoidiemkc);

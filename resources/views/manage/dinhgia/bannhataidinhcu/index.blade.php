@@ -49,14 +49,14 @@
             window.location.href = '/bannhataidinhcu';
         }
 
-        function edittt(id) {
+        function edittt(mahs) {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 url: 'bannhataidinhcu/edittt',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: id
+                    mahs: mahs
                 },
                 dataType: 'JSON',
                 success: function (data) {

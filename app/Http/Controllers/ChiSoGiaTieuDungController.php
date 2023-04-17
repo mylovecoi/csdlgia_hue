@@ -84,7 +84,7 @@ class ChiSoGiaTieuDungController extends Controller
 
         $inputs = $request->all();
 
-        $model = ChiSoGiaTieuDung::find($inputs['id']);
+        $model = ChiSoGiaTieuDung::where('mahs',$inputs['mahs'])->first();
 
         $result['message'] ='<div class="modal-body" id = "dinh_kem" >';
         if (isset($model->ipt1)) {

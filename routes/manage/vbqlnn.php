@@ -1,6 +1,7 @@
 <?php
 Route::resource('vanbanqlnnvegia','VanBanQlNnController');
 Route::post('vanbanqlnnvegia/delete','VanBanQlNnController@destroy');
+Route::get('vanbanqlnnvegia/dinhkem','VanBanQlNnController@show');
 
 Route::get('dmhanghoacpi/danhsach','dmhanghoa_cpiController@index');
 Route::get('dmhanghoacpi/addnhomhh','dmhanghoa_cpiController@addnhomhh');

@@ -42,7 +42,7 @@
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: id
+                    mahs: mahs
                 },
                 dataType: 'JSON',
                 success: function (data) {
@@ -122,7 +122,7 @@
                                 <td style="text-align: center">{{getDayVn($tt->ngaybanhanh)}}</td>
                                 <td style="text-align: center">{{getDayVn($tt->ngayapdung)}}</td>
                                 <td>
-                                    <button type="button" onclick="get_attack('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
+                                    <button type="button" onclick="get_attack('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
                                         <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
                                     @if(chkPer('csdlvbqlnn','vbqlnn','vbgia','hoso','modify'))
                                         <a href="{{url('vanbanqlnnvegia/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs">

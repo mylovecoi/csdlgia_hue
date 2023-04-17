@@ -21,12 +21,12 @@ class TtDnTdCtController extends Controller
 
         $check = TtDnTdCt::where('madv', $inputs['madv'])
             ->where('manghe', $inputs['manghe'])->first();
-        if($check == null) {
+        if ($check == null) {
             $inputs['trangthai'] = 'CXD';
             $modelkkgia = new TtDnTdCt();
             $modelkkgia->create($inputs);
 
-            $a_nghe = array_column(DmNgheKd::all()->toArray(),'tennghe','manghe');
+            $a_nghe = array_column(DmNgheKd::all()->toArray(), 'tennghe', 'manghe');
             $model = TtDnTdCt::where('madv', $inputs['madv'])->get();
 
             $result['message'] = '<div class="row" id="dsts">';
@@ -55,7 +55,7 @@ class TtDnTdCtController extends Controller
                 $result['message'] .= '</div>';
                 $result['status'] = 'success';
             }
-        }else{
+        } else {
             $result['message'] = '';
             $result['status'] = 'unsuccess';
         }
@@ -74,7 +74,7 @@ class TtDnTdCtController extends Controller
 
         $modelkkgia = TtDnTdCt::where('id', $inputs['id'])->delete();
 
-        $a_nghe = array_column(DmNgheKd::all()->toArray(),'tennghe','manghe');
+        $a_nghe = array_column(DmNgheKd::all()->toArray(), 'tennghe', 'manghe');
         $model = TtDnTdCt::where('madv', $inputs['madv'])->get();
 
         $result['message'] = '<div class="row" id="dsts">';
@@ -106,5 +106,4 @@ class TtDnTdCtController extends Controller
 
         die(json_encode($result));
     }
-
 }

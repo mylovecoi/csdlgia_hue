@@ -376,6 +376,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <div class="page-prefooter">
     <div class="container">
         <div class="row">
+            {{-- Lam cho địa danh hâu giang --}}
             <div class="col-md-2 footer-block" style="text-align: center">
                 <a href="https://tinnhiemmang.vn/danh-ba-tin-nhiem/csdlgiahaugianggovvn-1657872715" title="Chung nhan Tin Nhiem Mang" target="_blank">
                     <img src="https://tinnhiemmang.vn/handle_cert?id=csdlgia.haugiang.gov.vn" width="150px" height="auto" alt="Chung nhan Tin Nhiem Mang">

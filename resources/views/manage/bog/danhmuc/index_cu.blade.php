@@ -64,14 +64,14 @@
                 toastr.error(message,'Lỗi!.');
             }
         }
-        function ClickEdit(id){
+        function ClickEdit(mahs){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 url: 'dmmhbinhongia/edittt',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: id
+                    mahs: mahs
                 },
                 dataType: 'JSON',
                 success: function (data) {
@@ -149,7 +149,7 @@
                             @endif
                             <td>
                                 @if(can('dmbog','edit'))
-                                <button type="button" onclick="ClickEdit('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#modal-edit" data-toggle="modal"><i class="fa fa-edit"></i>&nbsp;Sửa</button>
+                                <button type="button" onclick="ClickEdit('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#modal-edit" data-toggle="modal"><i class="fa fa-edit"></i>&nbsp;Sửa</button>
                                 @endif
                             </td>
                         </tr>

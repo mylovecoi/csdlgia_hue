@@ -1,13 +1,13 @@
 <script>
 
-    function editnhapkhau(id){
+    function editnhapkhau(maso){
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     $.ajax({
         url: '/kkkgct/editnhapkhau',
         type: 'GET',
         data: {
             _token: CSRF_TOKEN,
-            id: id
+            id: maso
         },
         dataType: 'JSON',
         success: function (data) {

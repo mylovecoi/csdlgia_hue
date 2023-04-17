@@ -46,26 +46,7 @@
         function confirmDelete(id) {
             document.getElementById("iddelete").value=id;
         }
-        function get_attack(id){
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            $.ajax({
-                url: '/filethamdinhgia/dinhkem',
-                type: 'GET',
-                data: {
-                    _token: CSRF_TOKEN,
-                    id: id
-                },
-                dataType: 'JSON',
-                success: function (data) {
-                    if (data.status == 'success') {
-                        $('#dinh_kem').replaceWith(data.message);
-                    }
-                },
-                error: function (message) {
-                    toastr.error(message, 'Lỗi!');
-                }
-            });
-        }
+        
         function getIdCb(id) {
             document.getElementById("congbo_id").value=id;
         }

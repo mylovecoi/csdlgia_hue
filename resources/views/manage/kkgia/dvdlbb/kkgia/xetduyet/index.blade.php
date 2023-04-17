@@ -118,7 +118,7 @@
                 window.location.href = url;
             });
         });
-        function ClickTraLai(id) {
+        function ClickTraLai(maso) {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             //alert(id);
             $.ajax({
@@ -126,7 +126,7 @@
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: id
+                    id: maso
                 },
                 dataType: 'JSON',
                 success: function (data) {
@@ -152,7 +152,7 @@
             }
 
         }
-        function confirmNhanHs(id){
+        function confirmNhanHs(maso){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             //alert(id);
             $.ajax({
@@ -160,7 +160,7 @@
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: id
+                    id: maso
                 },
                 dataType: 'JSON',
                 success: function (data) {
@@ -230,7 +230,7 @@
             $('#frm_huyduyet').submit();
         }
 
-        function viewLyDo(id) {
+        function viewLyDo(maso) {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             //alert(id);
             $.ajax({
@@ -238,7 +238,7 @@
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: id
+                    id: maso
                 },
                 dataType: 'JSON',
                 success: function (data) {

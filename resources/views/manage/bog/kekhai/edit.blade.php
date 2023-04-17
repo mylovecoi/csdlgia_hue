@@ -78,7 +78,7 @@
             })
 
         }
-        function editmhbog(id) {
+        function editmhbog(mahs) {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             //alert(id);
             $.ajax({
@@ -86,7 +86,7 @@
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: id
+                    mahs: mahs
                 },
                 dataType: 'JSON',
                 success: function (data) {
@@ -250,7 +250,7 @@
                                                 <td style="text-align: center">{{$ct->thapdung}} tháng</td>
                                                 <td>{{$ct->ghichu}}</td>
                                                 <td>
-                                                    <button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editmhbog({{$ct->id}});"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</button>
+                                                    <button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editmhbog({{$ct->mahs}});"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</button>
                                                     <button type="button" data-target="#modal-delete" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="getid({{$ct->id}});" ><i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
                                                 </td>
 

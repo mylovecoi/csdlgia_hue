@@ -62,14 +62,14 @@
                 toastr.error(message,'Lỗi!.');
             }
         }
-        function ClickEdit(id){
+        function ClickEdit(maso){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 url: '/giarung/show_dm',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: id
+                    id: maso
                 },
                 dataType: 'JSON',
                 success: function (data) {

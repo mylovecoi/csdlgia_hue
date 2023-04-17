@@ -88,7 +88,7 @@ class VanBanQlNnController extends Controller
 
         $inputs = $request->all();
 
-        $model = VanBanQlNn::find($inputs['id']);
+        $model = VanBanQlNn::where('mahs',$inputs['mahs'])->first();
 
         $result['message'] ='<div class="modal-body" id = "dinh_kem" >';
         if (isset($model->ipt1)) {

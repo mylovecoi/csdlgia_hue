@@ -55,7 +55,7 @@ class KkMhBogCtController extends Controller
 
         $inputs = $request->all();
         $id = $inputs['id'];
-        $model = KkMhBogCt::findOrFail($id);
+        $model = KkMhBogCt::where('mahs',$inputs['mahs'])->first();
         die($model);
     }
 

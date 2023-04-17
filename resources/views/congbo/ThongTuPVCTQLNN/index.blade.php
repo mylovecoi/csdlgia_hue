@@ -57,14 +57,14 @@
                 window.location.href = url;
             });
         })
-        function get_attack(id){
+        function get_attack(mahs){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 url: '/ttpvctqlnn/dinhkem',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: id
+                    mahs: mahs
                 },
                 dataType: 'JSON',
                 success: function (data) {
@@ -153,7 +153,7 @@
                                                             <td>{{$tt->tieude}}</td>
                                                             <td style="text-align: center">{{getDayVn($tt->ngayapdung)}}</td>
                                                             <td>
-                                                                <button type="button" onclick="get_attack('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal"><i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
+                                                                <button type="button" onclick="get_attack('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal"><i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
                                                             </td>
                                                         </tr>
                                                     @endforeach
