@@ -22,12 +22,12 @@
     <h3>{{isset($message) ? $message : 'Thông tin này không thuộc phạm vi quản lý của bạn!'}} </h3>
     <p><a href='{{isset($url) ? url($url) : url('/') }}'>Bấm vào đây</a> để quay lại.</p></div>
 </div>
-<script src="{{ url('js/jquery-1.9.1.js') }}"></script>
-<script src="{{ url('js/jquery-migrate-1.2.1.min.js') }}"></script>
-<script src="{{ url('js/jquery-ui.js') }}"></script>
+{{-- <script src="{{ url('js/jquery-1.9.1.js') }}"></script> --}}
+{{-- <script src="{{ url('js/jquery-migrate-1.2.1.min.js') }}"></script> --}}
+{{-- <script src="{{ url('js/jquery-ui.js') }}"></script> --}}
 <!--loading bootstrap js-->
-<script src="{{ url('vendors/bootstrap/js/bootstrap.min.js') }}"></script>
-<script src="{{ url('vendors/bootstrap-hover-dropdown.js') }}"></script>
+{{-- <script src="{{ url('vendors/bootstrap/js/bootstrap.min.js') }}"></script> --}}
+{{-- <script src="{{ url('vendors/bootstrap-hover-dropdown.js') }}"></script> --}}
 <script src="{{ url('js/html5shiv.js') }}"></script>
 <script src="{{ url('js/respond.min.js') }}"></script>
 </body>
