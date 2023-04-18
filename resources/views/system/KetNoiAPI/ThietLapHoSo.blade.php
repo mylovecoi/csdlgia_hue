@@ -341,14 +341,14 @@
     </div>
 
     <script>
-        function getHoSo(id) {
+        function getHoSo(maso) {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 url: '/KetNoiAPI/LayHoSo',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: id,
+                    id: maso,
                 },
                 dataType: 'JSON',
                 success: function (data) {
@@ -368,14 +368,14 @@
                 }
             });
         }
-        function getHoSoChiTiet(id, magoc) {
+        function getHoSoChiTiet(maso, magoc) {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 url: '/KetNoiAPI/LayHoSoChiTiet',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: id,
+                    id: maso,
                 },
                 dataType: 'JSON',
                 success: function (data) {

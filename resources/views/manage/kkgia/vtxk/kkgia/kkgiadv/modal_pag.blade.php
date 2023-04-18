@@ -7,7 +7,7 @@
             type: 'GET',
             data: {
                 _token: CSRF_TOKEN,
-                id: id
+                id: maso
             },
             dataType: 'JSON',
             success: function (data) {

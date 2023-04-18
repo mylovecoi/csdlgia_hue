@@ -36,7 +36,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
     <link href="{{url('assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{url('assets/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet')}}" type="text/css"/>
-    <link href="{{url('assets/global/plugins/jqvmap/jqvmap/jqvmap.css')}}" rel="stylesheet" type="text/css"/>
+    {{-- <link href="{{url('assets/global/plugins/jqvmap/jqvmap/jqvmap.css')}}" rel="stylesheet" type="text/css"/> --}}
     <!-- END PAGE LEVEL PLUGIN STYLES -->
     <!-- BEGIN PAGE STYLES -->
     <link href="{{url('assets/admin/pages/css/tasks.css')}}" rel="stylesheet" type="text/css"/>
@@ -59,8 +59,10 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="{{url('assets/global/plugins/respond.min.js')}}"></script>
     <script src="{{url('assets/global/plugins/excanvas.min.js')}}"></script>
     <![endif]-->
+
     <script src="{{url('assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/jquery-migrate.min.js')}}" type="text/javascript"></script>
+    {{-- <script src="{{url('assets/global/plugins/jquery-migrate.min.js')}}" type="text/javascript"></script> --}}
+
     <!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
     <script src="{{url('assets/global/plugins/jquery-ui/jquery-ui.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>
@@ -81,16 +83,16 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="{{url('assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js')}}" type="text/javascript"></script> --}}
-    <script src="{{url('assets/global/plugins/flot/jquery.flot.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/flot/jquery.flot.resize.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/flot/jquery.flot.categories.min.js')}}" type="text/javascript"></script>
+    {{-- <script src="{{url('assets/global/plugins/flot/jquery.flot.min.js')}}" type="text/javascript"></script> --}}
+    {{-- <script src="{{url('assets/global/plugins/flot/jquery.flot.resize.min.js')}}" type="text/javascript"></script> --}}
+    {{-- <script src="{{url('assets/global/plugins/flot/jquery.flot.categories.min.js')}}" type="text/javascript"></script> --}}
     <script src="{{url('assets/global/plugins/jquery.pulsate.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap-daterangepicker/moment.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js')}}" type="text/javascript"></script>
     <!-- IMPORTANT! fullcalendar depends on jquery-ui.min.js for drag & drop support -->
     <script src="{{url('assets/global/plugins/fullcalendar/fullcalendar.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/jquery.sparkline.min.js')}}" type="text/javascript"></script>
+    {{-- <script src="{{url('assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js')}}" type="text/javascript"></script> --}}
+    {{-- <script src="{{url('assets/global/plugins/jquery.sparkline.min.js')}}" type="text/javascript"></script> --}}
     <script src="{{url('assets/global/plugins/bootstrap-toastr/toastr.min.js')}}"></script>
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN PAGE LEVEL SCRIPTS -->

@@ -31,14 +31,14 @@
         function ClickUpdate(){
             $("#frm_update").submit();
         }
-        function ClickEdit(id){
+        function ClickEdit(maso){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 url: 'dmttpvctqlnn/edit',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: id
+                    id: maso
                 },
                 dataType: 'JSON',
                 success: function (data) {

@@ -57,14 +57,14 @@
         function confirmHCB(id){
             document.getElementById("idhuycongbo").value=id;
         }
-        function get_attack(id){
+        function get_attack(maso){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 url: '/thongtinmuataisan/dinhkem',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    id: id
+                    id: maso
                 },
                 dataType: 'JSON',
                 success: function (data) {

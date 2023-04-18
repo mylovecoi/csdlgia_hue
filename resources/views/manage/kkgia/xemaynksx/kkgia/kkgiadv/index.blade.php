@@ -34,7 +34,7 @@
         function changeUrl() {
             var nam = $('#namhs').val();
             var url = '/kekhaigiaxemaynksx?&madv=' + $('#madv').val() + '&nam=' + nam + '&trangthai=' + $('#trangthai')
-            .val();
+                .val();
             window.location.href = url;
         }
 
@@ -44,78 +44,6 @@
 
         function ClickDelete() {
             $('#frm_delete').submit();
-        }
-
-        function confirmCopy(macskd) {
-            document.getElementById("macskdcp").value = macskd;
-        }
-
-        function confirmChuyen(id) {
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            //alert(id);
-            $.ajax({
-                url: '/kkxmnksx/kiemtra',
-                type: 'GET',
-                data: {
-                    _token: CSRF_TOKEN,
-                    id: id
-                },
-                dataType: 'JSON',
-                success: function(data) {
-                    if (data.status != 'success') {
-                        toastr.error(data.message);
-                        $('#chuyen-modal').modal("hide");
-                    } else {
-                        $('#tthschuyen').replaceWith(data.message);
-                        document.getElementById("idchuyen").value = id;
-                    }
-                }
-            })
-
-
-        }
-
-        function confirmChuyenHSCham(id) {
-            document.getElementById("idchuyenhscham").value = id;
-        }
-
-        function ClickChuyenHsCham() {
-            $('#frm_chuyenhscham').submit();
-        }
-
-        function ClickChuyen() {
-            if ($('#ttnguoinop').val() != '') {
-                var btn = document.getElementById('submitChuyen');
-                btn.disabled = true;
-                btn.innerText = 'Loading...';
-                toastr.success("Hồ sơ đã được chuyển!", "Thành công!");
-                $("#frm_chuyen").unbind('submit').submit();
-            } else {
-                toastr.error("Bạn cần nhập thông tin người chuyển", "Lỗi!!!");
-                $("#frm_chuyen").submit(function(e) {
-                    e.preventDefault();
-                });
-            }
-
-        }
-
-        function viewLyDo(id) {
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            //alert(id);
-            $.ajax({
-                url: '/kkxmnksx/showlydo',
-                type: 'GET',
-                data: {
-                    _token: CSRF_TOKEN,
-                    id: id
-                },
-                dataType: 'JSON',
-                success: function(data) {
-                    if (data.status == 'success') {
-                        $('#showlydo').replaceWith(data.message);
-                    }
-                }
-            })
         }
     </script>
 @stop
