@@ -7,7 +7,7 @@
     <!--Loading bootstrap css-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700&subset=vietnamese' rel='stylesheet' type='text/css'>
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,700,300">
-    <link type="text/css" rel="stylesheet" href="{{ url('vendors/jquery-ui-1.10.3.custom/css/ui-lightness/jquery-ui-1.10.3.custom.css')}}">
+    {{-- <link type="text/css" rel="stylesheet" href="{{ url('vendors/jquery-ui-1.10.3.custom/css/ui-lightness/jquery-ui-1.10.3.custom.css')}}"> --}}
     <link rel="stylesheet" href="{{ url('vendors/font-awesome/css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{ url('vendors/bootstrap/css/bootstrap.min.css')}}">
     <!--Loading style vendors-->
