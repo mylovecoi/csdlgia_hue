@@ -177,13 +177,13 @@ License: You must have a valid license purchased only from themeforest(the above
 		);
 	});
 </script>
-<script>
+{{-- <script>
 	$("#password").keydown(function(event){
 		if(event.keyCode == 13){
 			$("#login_button").click();
 		}
 	});
-</script>
+</script> --}}
 <script type="text/javascript">
 	function validatePassword(){
 

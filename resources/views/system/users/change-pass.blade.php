@@ -72,17 +72,17 @@
             var password = $("#current-password").val();
             var newpassword = $("#newpassword").val();
             var newpassword2 = $("#newpassword2").val();
-            var patte = new RegExp("^(?=.*[A-Za-z@$!%*?&])(?=.*\\d)[A-Za-z@$!%*?&\\d]{6,}");//6 ký tự, 1 số, 1 chữ cái hoặc 1 ký tự đặc biệt
+            //var patte = new RegExp("^(?=.*[A-Za-z@$!%*?&])(?=.*\\d)[A-Za-z@$!%*?&\\d]{6,}");//6 ký tự, 1 số, 1 chữ cái hoặc 1 ký tự đặc biệt
 
             if( password == '' || password == null){
                 str = str + '\t Mật khẩu cũ không được bỏ trống \n';
                 chk = false;
             }
 
-            if(patte.test(newpassword) == false){
-                str = str + '\t Mật khẩu mới cần thỏa mãn: độ dài tối thiểu 06 ký tự; ít nhất 01 chữ số; ít nhất 01 chữ cái hoặc ký tự đặc biệt. \n';
-                chk = false;
-            }
+            // if(patte.test(newpassword) == false){
+            //     str = str + '\t Mật khẩu mới cần thỏa mãn: độ dài tối thiểu 06 ký tự; ít nhất 01 chữ số; ít nhất 01 chữ cái hoặc ký tự đặc biệt. \n';
+            //     chk = false;
+            // }
 
             if( newpassword != newpassword2){
                 str = str + '\t Mật khẩu mới không trùng nhau \n';
@@ -97,22 +97,7 @@
             }
             else{
                 $("#form-changepass").unbind('submit').submit();
-            }
-
-            // var validator = $("#form-changepass").validate({
-            //     rules: {
-            //         email: {required:true, email: true},
-            //         newpassword :{required:true, validator: "[a-zA-Z0-9._%-]{2,4}", },
-            //         newpassword2:{
-            //             equalTo: "#newpassword"
-            //         }
-            //     },
-            //     messages: {
-            //         email :" Địa chỉ email không hợp lệ.",
-            //         newpassword :" Nhập mật khẩu mới không hợp lệ.",
-            //         newpassword2 :" Nhập lại mật khẩu mới không chính xác"
-            //     }
-            // });
+            }            
         }
     </script>
     <script>
