@@ -330,7 +330,12 @@ function getDoanhNghiepNhapLieu($level, $lvcc)
             $qr->select('madv')->from('companylvcc')->where('manghe', $lvcc);
         })->get();
     } else {
-        return App\Model\system\company\Company::where('madv', session('admin')->madv)->get();
+        if (in_array('TONGHOP', session('admin')->chucnang)) {
+            return App\Model\system\company\Company::wherein('madv', function ($qr) use ($lvcc) {
+                $qr->select('madv')->from('companylvcc')->where('manghe', $lvcc);
+            })->get();
+        } else
+            return App\Model\system\company\Company::where('madv', session('admin')->madv)->get();
     }
 }
 
@@ -619,7 +624,7 @@ function getTenTrangThaiHoSoDN($all = false)
             'CC' => 'Chờ chuyển',
             'CD' => 'Chờ duyệt',
             'CN' => 'Chờ nhận',
-            'BTL' => 'Bị trả lại',            
+            'BTL' => 'Bị trả lại',
             'DD' => 'Đã duyệt',
             'CB' => 'Đã công bố',
         ];
