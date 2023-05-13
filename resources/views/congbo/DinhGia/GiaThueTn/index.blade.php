@@ -20,7 +20,7 @@
             $('#manhom').change(function() {
                 var manhom = '&manhom='+ $('#manhom').val();
                 var url = '/cbgiathuetainguyen?' + manhom;
-                window.location.href = url;
+                window.location = validURL(url);
             });
         });
     </script>

@@ -1,25 +1,28 @@
 @extends('maincongbo')
 
 @section('custom-style-cb')
-    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/select2/select2.css')}}"/>
+    <link rel="stylesheet" type="text/css"
+        href="{{ url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url('assets/global/plugins/select2/select2.css') }}" />
     <!-- END THEME STYLES -->
 @stop
 
 @section('custom-script-cb')
-    <script type="text/javascript" src="{{url('assets/global/plugins/select2/select2.min.js')}}"></script>
-    <script type="text/javascript" src="{{url('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js')}}"></script>
-    <script type="text/javascript" src="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
+    <script type="text/javascript" src="{{ url('assets/global/plugins/select2/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js') }}">
+    </script>
+    <script type="text/javascript"
+        src="{{ url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
     <!-- END PAGE LEVEL PLUGINS -->
-    <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
+    <script src="{{ url('assets/admin/pages/scripts/table-managed.js') }}"></script>
     <script>
         jQuery(document).ready(function() {
             TableManaged.init();
 
             function changeUrl() {
-                var current_path_url = '{{$inputs['url']}}' + '/?';
+                var current_path_url = '{{ $inputs['url'] }}' + '/?';
                 var url = current_path_url + 'nam=' + $('#nam').val();
-                window.location.href = url;
+                window.location = validURL(url);
             }
             $('#nam').change(function() {
                 changeUrl();
@@ -35,7 +38,8 @@
                 <div class="portlet box">
                     <div class="portlet-title">
                         <div class="caption text-uppercase">
-                            <span class="caption-subject theme-font bold uppercase">{{session('congbo')['chucnang']['giaspdvci'] ?? 'Giá sản phẩm, dịch vụ công ích,... đặt hàng'}}</span>
+                            <span
+                                class="caption-subject theme-font bold uppercase">{{ session('congbo')['chucnang']['giaspdvci'] ?? 'Giá sản phẩm, dịch vụ công ích,... đặt hàng' }}</span>
                         </div>
                     </div>
 
@@ -43,47 +47,49 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <label style="font-weight: bold">Năm</label>
-                                {!! Form::select('nam', getNam(true), $inputs['nam'], array('id' => 'nam', 'class' => 'form-control'))!!}
+                                {!! Form::select('nam', getNam(true), $inputs['nam'], ['id' => 'nam', 'class' => 'form-control']) !!}
                             </div>
                         </div>
                         <hr>
 
                         <table id="sample_3" class="table table-striped table-bordered table-hover">
                             <thead>
-                            <tr>
-                                <th width="2%" style="text-align: center">STT</th>
-                                {{--<th style="text-align: center">Đơn vị nhập</th>--}}
-                                <th style="text-align: center">Thời điểm</th>
-                                <th style="text-align: center">Tên sản phẩm, dịch vụ</th>
-                                <th style="text-align: center">Thông tin hồ sơ</th>
-                                <th style="text-align: center">Đơn giá</th>
-                            </tr>
+                                <tr>
+                                    <th width="2%" style="text-align: center">STT</th>
+                                    {{-- <th style="text-align: center">Đơn vị nhập</th> --}}
+                                    <th style="text-align: center">Thời điểm</th>
+                                    <th style="text-align: center">Tên sản phẩm, dịch vụ</th>
+                                    <th style="text-align: center">Thông tin hồ sơ</th>
+                                    <th style="text-align: center">Đơn giá</th>
+                                </tr>
                             </thead>
 
                             <tbody>
-                                <?php $i=1; ?>
-                                @foreach($model_dk as $key=>$tt)
+                                <?php $i = 1; ?>
+                                @foreach ($model_dk as $key => $tt)
                                     <tr>
-                                        <td style="text-align: center">{{$i++}}</td>
-                                        {{--                                        <td>{{$a_donvi[$tt->madv] ?? ''}}</td>--}}
-                                        <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
+                                        <td style="text-align: center">{{ $i++ }}</td>
+                                        {{--                                        <td>{{$a_donvi[$tt->madv] ?? ''}}</td> --}}
+                                        <td style="text-align: center">{{ getDayVn($tt->thoidiem) }}</td>
                                         <td>
-                                            <button type="button" onclick="get_attack('{{$tt->mahs}}','giaspdvci')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
+                                            <button type="button" onclick="get_attack('{{ $tt->mahs }}','giaspdvci')"
+                                                class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm"
+                                                data-toggle="modal">
                                                 <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp đính kèm</button>
                                         </td>
-                                        <td>{{$tt->ttqd}}</td>
-                                        <td style="text-align: center">{{dinhdangso($tt->dongia)}}</td>
+                                        <td>{{ $tt->ttqd }}</td>
+                                        <td style="text-align: center">{{ dinhdangso($tt->dongia) }}</td>
                                     </tr>
                                 @endforeach
 
-                                @foreach($model as $key=>$tt)
+                                @foreach ($model as $key => $tt)
                                     <tr>
-                                        <td style="text-align: center">{{$i++}}</td>
-{{--                                        <td>{{$a_donvi[$tt->madv] ?? ''}}</td>--}}
-                                        <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
-                                        <td>{{$a_ts[$tt->maspdv] ?? ''}}</td>
-                                        <td>{{$tt->ttqd}}</td>
-                                        <td style="text-align: center">{{dinhdangso($tt->dongia)}}</td>
+                                        <td style="text-align: center">{{ $i++ }}</td>
+                                        {{--                                        <td>{{$a_donvi[$tt->madv] ?? ''}}</td> --}}
+                                        <td style="text-align: center">{{ getDayVn($tt->thoidiem) }}</td>
+                                        <td>{{ $a_ts[$tt->maspdv] ?? '' }}</td>
+                                        <td>{{ $tt->ttqd }}</td>
+                                        <td style="text-align: center">{{ dinhdangso($tt->dongia) }}</td>
                                     </tr>
                                 @endforeach
 

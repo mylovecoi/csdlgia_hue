@@ -26,7 +26,7 @@
             $('#nam').change(function() {
                 var namhs = '&nam=' + $('#nam').val();
                 var url = '/cbphilephi?' + namhs;
-                window.location.href = url;
+                window.location = validURL(url);
             });
         });
     </script>

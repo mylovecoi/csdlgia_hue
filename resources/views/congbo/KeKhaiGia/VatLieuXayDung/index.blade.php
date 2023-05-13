@@ -29,7 +29,7 @@
                 var nam = $('#namhs').val();
                 var url = '/cbkkgiavlxd?nam='+nam;
 
-                window.location.href = url;
+                window.location = validURL(url);
             });
 
         });

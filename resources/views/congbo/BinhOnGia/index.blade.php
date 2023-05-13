@@ -19,7 +19,7 @@
             function changeUrl() {
                 var current_path_url = '{{$inputs['url']}}' + '/?';
                 var url = current_path_url + 'nam=' + $('#nam').val() + '&manghe=' + $('#manghe').val();
-                window.location.href = url;
+                window.location = validURL(url);
             }
             $('#nam').change(function() {
                 changeUrl();

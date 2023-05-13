@@ -13,11 +13,7 @@
     <script type="text/javascript" src="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
     <!-- END PAGE LEVEL PLUGINS -->
     <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
-    <script>
-        jQuery(document).ready(function() {
-            TableManaged.init();
-        });
-    </script>
+    
     <script>
         jQuery(document).ready(function() {
             TableManaged.init();
@@ -30,7 +26,7 @@
                 var tieude = '&tieude=' +$('#tieude').val();
                 var paginate = '&paginate=' +$('#paginate').val();
                 var url = 'cbttqlnn?'  + phanloai + loaivb + tieude +  paginate;
-                window.location.href = url;
+                window.location = validURL(url);
             });
             $('#loaivb').change(function() {
                 var phanloai = '&phanloai=' +$('#phanloai').val();
@@ -38,7 +34,7 @@
                 var tieude = '&tieude=' +$('#tieude').val();
                 var paginate = '&paginate=' +$('#paginate').val();
                 var url = 'cbttqlnn?'  + phanloai + loaivb + tieude +  paginate;
-                window.location.href = url;
+                window.location = validURL(url);
             });
             $('#tieude').change(function() {
                 var phanloai = '&phanloai=' +$('#phanloai').val();
@@ -46,7 +42,7 @@
                 var tieude = '&tieude=' +$('#tieude').val();
                 var paginate = '&paginate=' +$('#paginate').val();
                 var url = 'cbttqlnn?'  + phanloai + loaivb + tieude +  paginate;
-                window.location.href = url;
+                window.location = validURL(url);
             });
             $('#paginate').change(function() {
                 var phanloai = '&phanloai=' +$('#phanloai').val();
@@ -54,7 +50,7 @@
                 var tieude = '&tieude=' +$('#tieude').val();
                 var paginate = '&paginate=' +$('#paginate').val();
                 var url = 'cbttqlnn?'  + phanloai + loaivb + tieude +  paginate;
-                window.location.href = url;
+                window.location = validURL(url);
             });
         })
         function get_attack(mahs){

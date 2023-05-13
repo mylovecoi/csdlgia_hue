@@ -27,13 +27,13 @@
             $('#nam').change(function() {
                 var namhs = $('#nam').val();
                 var url = '/cbkkgiadvhdtm?'+namhs;
-                window.location.href = url;
+                window.location = validURL(url);
             });
             $('#ten').change(function() {
                 var namhs = 'nam='+ $('#nam').val();
                 var ten = '&ten=' + $('#ten').val();
                 var url = '/cbkkgiadvhdtm?'+namhs + ten;
-                window.location.href = url;
+                window.location = validURL(url);
             });
 
         });

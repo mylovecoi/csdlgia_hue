@@ -4510,8 +4510,19 @@ function setTraLai($macqcq, $hoso, $a_tralai)
 
 function setCongBo($hoso, $a_congbo){
     $hoso->trangthai_ad = $a_congbo['trangthai'];
+   
     $hoso->congbo = $a_congbo['congbo'];
 }
 
+function chkUrls($html){
+    return $result = preg_replace(
+        '%\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/)))%s',
+        '<a href="$1">$1</a>',
+        $html
+    );
+}
 
-?>
+function chkPass ($pass){
+
+    return $pass;
+}

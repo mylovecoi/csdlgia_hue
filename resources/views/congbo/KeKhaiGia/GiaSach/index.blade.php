@@ -27,13 +27,13 @@
             $('#nam').change(function() {
                 var namhs = $('#nam').val();
                 var url = '/cbgiasach?'+namhs;
-                window.location.href = url;
+                window.location = validURL(url);
             });
             $('#tthhdv').change(function() {
                 var namhs = '&nam='+ $('#nam').val();
                 var tthhdv = '&tthhdv=' + $('#tthhdv').val();
                 var url = '/cbgiasach?'+namhs + tthhdv;
-                window.location.href = url;
+                window.location = validURL(url);
             });
 
         });

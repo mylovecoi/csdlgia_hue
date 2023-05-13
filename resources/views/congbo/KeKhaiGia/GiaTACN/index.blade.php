@@ -33,7 +33,7 @@
             var namhs = '&nam=' + $('#nam').val();
             var ten = '&madv=' + $('#madv').val();
             var url = url + '?' + namhs + ten;
-            window.location.href = url;
+            window.location = validURL(url);
         }
     </script>
 @stop
