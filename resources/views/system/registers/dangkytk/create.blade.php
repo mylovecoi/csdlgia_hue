@@ -186,7 +186,6 @@ License: You must have a valid license purchased only from themeforest(the above
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            {{--                        <label class="control-label">Địa danh</label> --}}
                             <label class="control-label">Địa danh</label>
                             {!! Form::text('diadanh', null, ['id' => 'diadanh', 'class' => 'form-control required']) !!}
                         </div>
@@ -211,14 +210,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                 onchange="chkFile(this)" />
                         </div>
                     </div>
-
-                    {{--                <div class="col-md-6"> --}}
-                    {{--                    <div class="form-group"> --}}
-                    {{--                        <label class="control-label">Giấy đăng ký kinh doanh</label> --}}
-                    {{--                        <input name="tailieu" id="tailieu" type="file" /> --}}
-                    {{--                        --}}{{-- <input name="tailieu" id="tailieu" type="file" class="required"> --}}
-                    {{--                    </div> --}}
-                    {{--                </div> --}}
                 </div>
 
                 <p style="color: #000000">Thông tin dịch vụ kê khai</p>
@@ -277,7 +268,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="form-group">
                             <label class="control-label">Mật khẩu</label>
                             {{--                        {!!Form::password('password', null, array('id' => 'password','class' => 'form-control required','password'))!!} --}}
-                            {{ Form::password('password', ['id' => 'password', 'class' => 'form-control required', 'pattern' => '[a-z]{6,}']) }}
+                            {{ Form::password('password', ['id' => 'password', 'class' => 'form-control required']) }}
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -375,12 +366,14 @@ License: You must have a valid license purchased only from themeforest(the above
             var str = '';
             var password = $("#password").val();
             var rpassword = $("#rpassword").val();
-            // var patte = new RegExp("^(?=.*[A-Za-z@$!%*?&])(?=.*\\d)[A-Za-z@$!%*?&\\d]{6,}");//6 ký tự, 1 số, 1 chữ cái hoặc 1 ký tự đặc biệt
+            var patte = new RegExp(
+            "^(?=.*[A-Za-z@$!%*?&])(?=.*\\d)[A-Za-z@$!%*?&\\d]{6,}"); //6 ký tự, 1 số, 1 chữ cái hoặc 1 ký tự đặc biệt
 
-            // if(patte.test(password) == false){
-            //     str = str + '\n - Mật khẩu mới cần thỏa mãn: độ dài tối thiểu 06 ký tự; ít nhất 01 chữ số; ít nhất 01 chữ cái hoặc ký tự đặc biệt. \n';
-            //     chk = false;
-            // }
+            if (patte.test(password) == false) {
+                str = str +
+                    '\n - Mật khẩu mới cần thỏa mãn: độ dài tối thiểu 06 ký tự; ít nhất 01 chữ số; ít nhất 01 chữ cái hoặc ký tự đặc biệt. \n';
+                chk = false;
+            }
 
             if (password != rpassword) {
                 str = str + '\n - Mật khẩu mới không trùng nhau \n';
@@ -396,152 +389,10 @@ License: You must have a valid license purchased only from themeforest(the above
             } else {
                 $("#register_create").unbind('submit').submit();
             }
-
-            $('#register_create').validate({
-                errorElement: 'span', //default input error message container
-                errorClass: 'help-block', // default input error message class
-                focusInvalid: false, // do not focus the last invalid input
-                ignore: "",
-                rules: {
-                    tendn: {
-                        required: true
-                    },
-                    madv: {
-                        required: true
-                    },
-                    email: {
-                        required: true,
-                        email: true
-                    },
-                    address: {
-                        required: true
-                    },
-                    city: {
-                        required: true
-                    },
-                    country: {
-                        required: true
-                    },
-
-                    username: {
-                        required: true
-                    },
-                    // password: {
-                    //     required: true,
-                    //     minlength: 6,
-                    //     regex: "[a-zA-Z0-9._%-]{6,}",
-                    //     // pattern: new RegExp("^(?=.*[A-Za-z@$!%*?&])(?=.*\\d)[A-Za-z@$!%*?&\\d]{6,}"),
-                    // },
-                    // rpassword: {
-                    //     equalTo: "#password"
-                    // }
-
-                },
-
-                messages: { // custom messages for radio buttons and checkboxes
-                    tendn: "Nhập thông tin về doanh nghiệp!!!",
-                    madv: "Nhập thông tin mã số thuế!!!",
-                    diachi: "Nhập thông tin địa chỉ!!!",
-                    email: "Nhập thông tin email!!!",
-                    noidknopthue: "Nhập thông tin nơi đăng ký nộp thuế!!!",
-                    tailieu: "Bạn cần chia sẻ giấy chứng nhận đăng ký kinh doanh!!!",
-                    username: "Nhập username đăng ký!!!",
-                    password: " Nhập mật khẩu!!!",
-                    mahuyen: "Nhập thông tin cơ quan quản lý",
-                    rpassword: " Nhập lại mật khẩu không chính xác!!!!"
-                },
-
-                invalidHandler: function(event, validator) { //display error alert on form submit
-
-                },
-
-                highlight: function(element) { // hightlight error inputs
-                    $(element)
-                        .closest('.form-group').addClass('has-error'); // set error class to the control group
-                },
-
-                success: function(label) {
-                    label.closest('.form-group').removeClass('has-error');
-                    label.remove();
-                },
-
-                errorPlacement: function(error, element) {
-                    if (element.attr("name") == "tnc") { // insert checkbox errors after the container
-                        error.insertAfter($('#register_tnc_error'));
-                    } else if (element.closest('.input-icon').size() === 1) {
-                        error.insertAfter(element.closest('.input-icon'));
-                    } else {
-                        error.insertAfter(element);
-                    }
-                },
-
-                submitHandler: function(form) {
-                    form.submit();
-                    var btn = document.getElementById('submitform');
-                    btn.disabled = true;
-                    btn.innerText = 'Loading...'
-                }
-            });
         }
     </script>
-    <script>
-        function ClickCreate() {
-            var str = '';
-            var ok = true;
-
-            if (!$('#tendn').val()) {
-                str += '  - Tên doanh nghiệp \n';
-                $('#tendn').parent().addClass('has-error');
-                ok = false;
-            }
-            if (!$('#madv').val()) {
-                str += '  - Mã số thuế \n';
-                $('#madv').parent().addClass('has-error');
-                ok = false;
-            }
-            if (!$('#diachi').val()) {
-                str += '  - Địa chỉ \n';
-                $('#diachi').parent().addClass('has-error');
-                ok = false;
-            }
-            if (!$('#email').val()) {
-                str += '  - Email \n';
-                $('#email').parent().addClass('has-error');
-                ok = false;
-            }
-            if (!$('#diadanh').val()) {
-                str += '  - Địa danh \n';
-                $('#diadanh').parent().addClass('has-error');
-                ok = false;
-            }
-            if (!$('#username').val()) {
-                str += '  - Username \n';
-                $('#username').parent().addClass('has-error');
-                ok = false;
-            }
-            if (!$('#password').val()) {
-                str += '  - Password \n';
-                $('#password').parent().addClass('has-error');
-                ok = false;
-            }
-
-
-            if (ok == false) {
-                //alert('Các trường: \n' + str + 'Không được để trống');
-                toastr.error('Thông tin: \n' + str + 'Không được để trống', 'Lỗi!.');
-                $("#register_create").submit(function(e) {
-                    e.preventDefault();
-                });
-            } else {
-                $("#register_create").unbind('submit').submit();
-                var btn = document.getElementById('submitform');
-                btn.disabled = true;
-                btn.innerText = 'Loading...'
-            }
-        }
-    </script>
-    @include('system.company.include.js-modal')
     @include('includes.script.create-header-scripts')
+    @include('system.company.include.js-modal')
 </body>
 <!-- END BODY -->
 

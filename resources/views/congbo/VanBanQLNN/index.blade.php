@@ -19,38 +19,12 @@
     <script>
         jQuery(document).ready(function() {
             TableManaged.init();
-        });
 
-        $(function() {
-            $('#phanloai').change(function() {
-                var phanloai = '&phanloai=' + $('#phanloai').val();
-                var loaivb = '&loaivb=' + $('#loaivb').val();
-                var tieude = '&tieude=' + $('#tieude').val();
-                var paginate = '&paginate=' + $('#paginate').val();
-                var url = 'cbvbqlnn?' + phanloai + loaivb + tieude + paginate;
-                window.location = validURL(url);
-            });
-            $('#loaivb').change(function() {
-                var phanloai = '&phanloai=' + $('#phanloai').val();
-                var loaivb = '&loaivb=' + $('#loaivb').val();
-                var tieude = '&tieude=' + $('#tieude').val();
-                var paginate = '&paginate=' + $('#paginate').val();
-                var url = 'cbvbqlnn?' + phanloai + loaivb + tieude + paginate;
-                window.location = validURL(url);
-            });
-            $('#tieude').change(function() {
-                var phanloai = '&phanloai=' + $('#phanloai').val();
-                var loaivb = '&loaivb=' + $('#loaivb').val();
-                var tieude = '&tieude=' + $('#tieude').val();
-                var paginate = '&paginate=' + $('#paginate').val();
-                var url = 'cbvbqlnn?' + phanloai + loaivb + tieude + paginate;
-                window.location = validURL(url);
-            });
-            $('#paginate').change(function() {
-                var phanloai = '&phanloai=' + $('#phanloai').val();
-                var loaivb = '&loaivb=' + $('#loaivb').val();
-                var tieude = '&tieude=' + $('#tieude').val();
-                var paginate = '&paginate=' + $('#paginate').val();
+            $('#phanloai, #loaivb, #tieude, #paginate').change(function() {
+                var phanloai = '&phanloai=' + escapeHtml($('#phanloai').val());
+                var loaivb = '&loaivb=' + escapeHtml($('#loaivb').val());
+                var tieude = '&tieude=' + escapeHtml($('#tieude').val());
+                var paginate = '&paginate=' + escapeHtml($('#paginate').val());
                 var url = 'cbvbqlnn?' + phanloai + loaivb + tieude + paginate;
                 window.location = validURL(url);
             });

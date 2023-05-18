@@ -19,20 +19,16 @@
         jQuery(document).ready(function() {
             TableManaged.init();
 
-            function changeUrl() {
-                var current_path_url = '{{ $inputs['url'] }}' + '?';
-                //var url = current_path_url + 'nam=' + $('#nam').val() + '&madiaban=' + $('#madiaban').val();
-                var url = current_path_url + 'nam=' + $('#nam').val();
-                window.location = validURL(url);
-            }
-
-            $('#nam').change(function() {
-                changeUrl();
-            });
-            $('#madiaban').change(function() {
+            $('#nam, #madiaban').change(function() {
                 changeUrl();
             });
         });
+
+        function changeUrl() {
+            var current_path_url = '{{ $inputs['url'] }}' + '?';
+            var url = current_path_url + 'nam=' + escapeHtml($('#nam').val());
+            window.location = validURL(url);
+        }
     </script>
 @stop
 
@@ -53,7 +49,8 @@
                                 <option value="all">--Tất cả các năm--</option>
                                 @for ($i = date('Y') - 2; $i <= date('Y'); $i++)
                                     <option value="{{ $i . '-' . ($i + 1) }}"
-                                        {{ $i . '-' . ($i + 1) == $inputs['nam'] ? 'selected' : '' }}>{{ $i . '-' . ($i + 1) }}
+                                        {{ $i . '-' . ($i + 1) == $inputs['nam'] ? 'selected' : '' }}>
+                                        {{ $i . '-' . ($i + 1) }}
                                     </option>
                                 @endfor
                             </select>
@@ -96,7 +93,8 @@
                                 <td style="text-align: center">{{ $i++ }}</td>
                                 <td style="text-align: center"><b>{{ $tt->nam }}</b></td>
                                 <td style="text-align: left" class="active">{{ $tt->tenspdv }}</td>
-                                <td style="text-align: right;font-weight: bold">{{ dinhdangsothapphan($tt->giadv, 2) }}</td>
+                                <td style="text-align: right;font-weight: bold">{{ dinhdangsothapphan($tt->giadv, 2) }}
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

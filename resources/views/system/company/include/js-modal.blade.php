@@ -101,12 +101,12 @@
     function get_dvtonghop() {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
-            type: 'GET',
-            url: '/ajax/get_dvtonghop_diaban',
-            data: {
-                _token: CSRF_TOKEN,
-                madiaban: $('#diabankinhdoanh').val(),
-                manghe: $('#manghe').val()
+                type: 'GET',
+                url: '/ajax/get_dvtonghop_diaban',
+                data: {
+                    _token: CSRF_TOKEN,
+                    madiaban: escapeHtml($('#diabankinhdoanh').val()),
+                    manghe: escapeHtml$('#manghe').val())
             },
             dataType: 'JSON',
             success: function(data) {
@@ -123,11 +123,7 @@
         });
     }
 
-    $('#manghe').change(function() {
-        get_dvtonghop();
-    });
-
-    $('#diabankinhdoanh').change(function() {
+    $('#manghe, #diabankinhdoanh').change(function() {
         get_dvtonghop();
     });
 
@@ -138,7 +134,7 @@
             url: '/ajax/checkmasothue',
             data: {
                 _token: CSRF_TOKEN,
-                madv: $(this).val()
+                madv: escapeHtml($(this).val())
             },
             dataType: 'JSON',
             success: function(data) {
@@ -162,7 +158,7 @@
             url: '/ajax/checkuser',
             data: {
                 _token: CSRF_TOKEN,
-                username: $(this).val()
+                username: escapeHtml($(this).val())
             },
             dataType: 'JSON',
             success: function(data) {
@@ -191,7 +187,7 @@
             $('#modal-create').modal("show");
         }
 
-    }    
+    }
 
     function capnhatts() {
         // var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -226,8 +222,8 @@
             type: 'GET',
             data: {
                 _token: CSRF_TOKEN,
-                manghe: manghe,
-                mahs: $('#mahs').val()
+                manghe: escapeHtml(manghe),
+                mahs: escapeHtml($('#mahs').val())
             },
             dataType: 'JSON',
             success: function(data) {
@@ -250,7 +246,7 @@
             type: 'GET',
             data: {
                 _token: CSRF_TOKEN,
-                id: $('input[name="iddelete"]').val()
+                id: escapeHtml($('input[name="iddelete"]').val())
             },
             dataType: 'JSON',
             success: function(data) {

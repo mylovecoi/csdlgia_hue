@@ -2,36 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Company;
-use App\CsKdDvLt;
-use App\DmDvQl;
-use App\dmvitridat;
-use App\DnDvGs;
-use App\DnDvLt;
-use App\DnDvLtReg;
-use App\DonViDvVt;
-use App\DonViDvVtReg;
+
 use App\GeneralConfigs;
-use App\KkDvVtKhac;
-use App\KkDvVtXb;
-use App\KkDvVtXk;
-use App\KkDvVtXtx;
-use App\KkGDvGs;
-use App\KkGDvLt;
-use App\KkGDvTaCn;
 use App\Model\system\dmnganhnghekd\DmNgheKd;
-use App\TtDn;
-use App\TtQd;
 use App\Users;
 use App\VanBanQlNn;
 use App\ViewPage;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
-use phpDocumentor\Reflection\DocBlock\Description;
 
 class HomeController extends Controller
 {

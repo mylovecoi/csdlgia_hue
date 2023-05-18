@@ -21,26 +21,17 @@
             TableManaged.init();
             $(":input").inputmask();
 
-            function changeUrl() {
-                var current_path_url = '{{ $inputs['url'] }}' + '?';
-                var url = current_path_url + 'nam=' + $('#nam').val() + '&madiaban=' + $('#madiaban').val() +
-                    '&maxp=' + $('#maxp').val() + '&maloaidat=' + $('#maloaidat').val();
-                window.location = validURL(url);
-            }
-
-            $('#nam').change(function() {
-                changeUrl();
-            });
-            $('#madiaban').change(function() {
-                changeUrl();
-            });
-            $('#maxp').change(function() {
-                changeUrl();
-            });
-            $('#maloaidat').change(function() {
+            $('#nam, #madiaban, #maxp, #maloaidat').change(function() {
                 changeUrl();
             });
         });
+        function changeUrl() {
+                var current_path_url = '{{ $inputs['url'] }}' + '?';
+                var url = current_path_url + 'nam=' + escapeHtml($('#nam').val()) + '&madiaban=' + escapeHtml($(
+                        '#madiaban').val()) +
+                    '&maxp=' + escapeHtml($('#maxp').val()) + '&maloaidat=' + escapeHtml($('#maloaidat').val());
+                window.location = validURL(url);
+            }
     </script>
 @stop
 
@@ -110,7 +101,8 @@
                                     <td style="text-align: left;"><b>{{ $a_loaidat[$tt->maloaidat] ?? '' }}</b></td>
                                     <td style="text-align: left;"><b>{{ $a_xp[$tt->maxp] ?? '' }}</b></td>
                                     <td style="text-align: left" class="active">{{ $tt->khuvuc }}</td>
-                                    <td style="text-align: left">{{ 'Từ: ' . $tt->diemdau . '. Đến: ' . $tt->diemcuoi }}</td>
+                                    <td style="text-align: left">{{ 'Từ: ' . $tt->diemdau . '. Đến: ' . $tt->diemcuoi }}
+                                    </td>
                                     <td style="text-align: center">{{ dinhdangsothapphan($tt->giavt1, 2) }}</td>
                                     <td style="text-align: center">{{ dinhdangsothapphan($tt->giavt2, 2) }}</td>
                                     <td style="text-align: center">{{ dinhdangsothapphan($tt->giavt3, 2) }}</td>

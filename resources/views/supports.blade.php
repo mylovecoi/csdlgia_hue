@@ -15,7 +15,7 @@
 			<!--p>Số điện thoại công ty: <b>024 3634 3951</b></p-->
 			<p style="color: #ec4844">Do các thay đổi trong chính sách bảo mật hệ thống. Các mật khẩu yếu nên thay đổi lại để tránh việc bị ăn cắp tài khoản. Mật khẩu mới nên đảm bảo các
 				yếu tố: tối thiểu 06 ký tự, ít nhất có 01 chữ số, ít nhất 01 chữ cái hoặc ký tự đặc biệt.</p>
-			<p>Phụ trách khối kỹ thuật:<b> Phó giám đốc:  Trần Ngọc Hiếu </b>- tel: <b>096 8206844</b></p>
+			<p>Phụ trách khối kỹ thuật:<b> Phó giám đốc:  Trần Ngọc Hiếu </b>- Số điện thoại: <b>096 8206844</b></p>
 		</div>
 	</div>
 </div>

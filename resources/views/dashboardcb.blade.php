@@ -23,7 +23,7 @@
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    mahs: mahs
+                    mahs: escapeHtml(mahs)
                 },
                 dataType: 'JSON',
                 success: function (data) {

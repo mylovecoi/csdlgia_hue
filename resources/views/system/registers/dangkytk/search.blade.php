@@ -23,6 +23,8 @@ License: You must have a valid license purchased only from themeforest(the above
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' www.googletagmanager.com connect.facebook.net www.googleadservices.com www.google-analytics.com googleads.g.doubleclick.net onesignal.com tpc.googlesyndication.com;">
+    
     <meta content="" name="description" />
     <meta content="" name="author" />
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
@@ -49,6 +51,94 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- END THEME STYLES -->
     <!--link rel="shortcut icon" href="favicon.ico"/-->
     <link rel="shortcut icon" href="{{ url('images/LIFESOFT.png') }}" type="image/x-icon">
+    <script>
+        $(function() {
+            // Input Mask
+            if ($.isFunction($.fn.inputmask)) {
+                $("[data-mask]").each(function(i, el) {
+                    var $this = $(el),
+                        mask = $this.data('mask').toString(),
+                        opts = {
+                            numericInput: attrDefault($this, 'numeric', false),
+                            radixPoint: attrDefault($this, 'radixPoint', ''),
+                            rightAlignNumerics: attrDefault($this, 'numericAlign', 'left') == 'right'
+                        },
+                        placeholder = attrDefault($this, 'placeholder', ''),
+                        is_regex = attrDefault($this, 'isRegex', '');
+
+
+                    if (placeholder.length) {
+                        opts[placeholder] = placeholder;
+                    }
+
+                    switch (mask.toLowerCase()) {
+                        case "phone":
+                            mask = "(999) 999-9999";
+                            break;
+
+                        case "currency":
+                        case "rcurrency":
+
+                            var sign = attrDefault($this, 'sign', '$');;
+
+                            mask = "999,999,999.99";
+
+                            if ($this.data('mask').toLowerCase() == 'rcurrency') {
+                                mask += ' ' + sign;
+                            } else {
+                                mask = sign + ' ' + mask;
+                            }
+
+                            opts.numericInput = true;
+                            opts.rightAlignNumerics = false;
+                            opts.radixPoint = '.';
+                            break;
+
+                        case "password":
+                            mask = 'Regex';
+                            opts.regex = "[a-zA-Z0-9._%-]{8,30}";
+                            break;
+
+                        case "email":
+                            mask = 'Regex';
+                            opts.regex = "[a-zA-Z0-9._%-]+@[a-zA-Z0-9-]+\\.[a-zA-Z]{2,4}";
+                            break;
+
+                        case "user":
+                            mask = 'Regex';
+                            opts.regex = "[a-zA-Z0-9._%-]+@[a-zA-Z0-9-]+\\.[a-zA-Z]{2,15}";
+                            break;
+
+                        case "username":
+                            mask = 'Regex';
+                            opts.regex = "[a-zA-Z0-9._-]{1,15}";
+                            break;
+
+                        case "inputText":
+                            mask = 'Regex';
+                            opts.regex = "[a-zA-Z0-9._-]";
+                            break;
+
+                        case "fdecimal":
+                            mask = 'decimal';
+                            $.extend(opts, {
+                                autoGroup: true,
+                                groupSize: 3,
+                                radixPoint: attrDefault($this, 'rad', '.'),
+                                groupSeparator: attrDefault($this, 'dec', ',')
+                            });
+                    }
+
+                    if (is_regex) {
+                        opts.regex = mask;
+                        mask = 'Regex';
+                    }
+
+                    $this.inputmask(mask, opts);
+                });
+            }
+        });
+    </script>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -82,14 +172,14 @@ License: You must have a valid license purchased only from themeforest(the above
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="control-label">Mã số thuế của doanh nghiệp</label>
-                        {!! Form::text('madv', null, ['id' => 'madv', 'class' => 'form-control required']) !!}
+                        {!! Form::text('madv', null, ['id' => 'madv', 'class' => 'form-control', 'data-mask'=>'inputText','required']) !!}
                     </div>
                 </div>
             </div>
             <div class="form-actions">
                 <a href="{{ url('') }}" class="btn default">
                     <i class="m-icon-swapleft"></i> Quay lại </a>
-                <button type="submit" class="btn blue pull-right" onclick="validatePassword()">
+                <button type="submit" class="btn blue pull-right">
                     Đồng ý <i class="m-icon-swapright m-icon-white"></i>
                 </button>
             </div>
@@ -150,26 +240,6 @@ License: You must have a valid license purchased only from themeforest(the above
                 duration: 8000
             });
         });
-    </script>
-    {{-- <script>
-	$("#password").keydown(function(event){
-		if(event.keyCode == 13){
-			$("#login_button").click();
-		}
-	});
-</script> --}}
-    <script type="text/javascript">
-        function validatePassword() {
-
-            var validator = $("#form-seachregister").validate({
-                rules: {
-                    ten: "required"
-                },
-                messages: {
-                    ten: "Chưa nhập mã số thuế!!!"
-                }
-            });
-        }
     </script>
 </body>
 <!-- END BODY -->

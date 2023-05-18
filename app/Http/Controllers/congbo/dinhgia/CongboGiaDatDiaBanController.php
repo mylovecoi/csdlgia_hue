@@ -58,13 +58,6 @@ class CongboGiaDatDiaBanController extends Controller
             //->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
             ->with('pageTitle', 'Thông tin hồ sơ giá đất');
 
-        return view('congbo.DinhGia.GiaDatDiaBan.index')
-                ->with('model',$model)
-                ->with('inputs',$inputs)
-                ->with('diabans',$diabans)
-                ->with('loaidats',$loaidats)
-                ->with('pageTitle','Thông tin gia đất theo địa bàn');
-
         //} else
         //      return view('errors.notlogin');
     }

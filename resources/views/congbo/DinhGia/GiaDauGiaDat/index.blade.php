@@ -18,17 +18,16 @@
     <script>
         jQuery(document).ready(function() {
             TableManaged.init();
-
-            function changeUrl() {
-                var current_path_url = '{{ $inputs['url'] }}' + '/?';
-                var url = current_path_url + 'nam=' + $('#nam').val();                
-                window.location = validURL(url);
-            }
-
             $('#nam').change(function() {
                 changeUrl();
             });
         });
+
+        function changeUrl() {
+            var current_path_url = '{{ $inputs['url'] }}' + '/?';
+            var url = current_path_url + 'nam=' + escapeHtml($('#nam').val());
+            window.location = validURL(url);
+        }
     </script>
 @stop
 

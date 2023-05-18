@@ -22,16 +22,14 @@
 
             function changeUrl() {
                 var current_path_url = '{{ $inputs['url'] }}' + '?';
-                var url = current_path_url + 'nam=' + $('#nam').val() + '&madiaban=' + $('#madiaban').val();
+                var url = current_path_url + 'nam=' + escapeHtml($('#nam').val()) + '&madiaban=' + escapeHtml($(
+                    '#madiaban').val());
                 window.location = validURL(url);
             }
 
-            $('#nam').change(function() {
+            $('#nam, #madiaban').change(function() {
                 changeUrl();
-            });
-            $('#madiaban').change(function() {
-                changeUrl();
-            });
+            });            
         });
     </script>
 @stop

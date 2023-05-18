@@ -5,6 +5,7 @@ namespace App\Http\Controllers\congbo\taphuan;
 use App\Users;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Collection;
 
 class DanhSachUserTapHuanController extends Controller
 {
@@ -15,7 +16,7 @@ class DanhSachUserTapHuanController extends Controller
 //        $model = Users::where('status','Kích hoạt')
 //            ->where('level',$inputs['level'])
 //            ->get();
-        $model = nullValue();
+        $model = new Collection();
         return view('congbo.taphuan.index')
             ->with('model',$model)
             ->with('inputs',$inputs)

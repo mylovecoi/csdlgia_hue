@@ -21,7 +21,7 @@
 
             function changeUrl() {
                 var current_path_url = '{{ $inputs['url'] }}' + '/?';
-                var url = current_path_url + 'nam=' + $('#nam').val();
+                var url = current_path_url + 'nam=' + escapeHtml($('#nam').val());
                 window.location = validURL(url);
             }
             $('#nam').change(function() {
