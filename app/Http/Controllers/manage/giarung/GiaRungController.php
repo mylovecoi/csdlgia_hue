@@ -33,6 +33,12 @@ class GiaRungController extends Controller
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             $m_donvi = getDonViNhapLieu(session('admin')->level,'giarung');
+            if (count($m_donvi) == null) {
+                $message = 'Chưa có đơn vị nào được phân quyền nhập liệu cho chức năng: ' . session('admin')['a_chucnang']['giarung']
+                    . '. Bạn cần liên hệ người quản trị để phần quyền nhập liệu cho đơn vị.';
+                return  view('errors.403')
+                    ->with('message', $message);
+            }
             $m_donvi_th = getDonViTongHop('giarung',\session('admin')->level, \session('admin')->madiaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
@@ -109,6 +115,12 @@ class GiaRungController extends Controller
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             $m_donvi = getDonViNhapLieu(session('admin')->level,'giarung');
+            if (count($m_donvi) == null) {
+                $message = 'Chưa có đơn vị nào được phân quyền nhập liệu cho chức năng: ' . session('admin')['a_chucnang']['giarung']
+                    . '. Bạn cần liên hệ người quản trị để phần quyền nhập liệu cho đơn vị.';
+                return  view('errors.403')
+                    ->with('message', $message);
+            }
             $loairungs = DmGiaRung::all();
             return view('manage.dinhgia.giarung.importexcel')
                 ->with('m_diaban',$m_diaban)
@@ -194,6 +206,12 @@ class GiaRungController extends Controller
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             //$m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             $m_donvi = getDonViNhapLieu(session('admin')->level,'giarung');
+            if (count($m_donvi) == null) {
+                $message = 'Chưa có đơn vị nào được phân quyền nhập liệu cho chức năng: ' . session('admin')['a_chucnang']['giarung']
+                    . '. Bạn cần liên hệ người quản trị để phần quyền nhập liệu cho đơn vị.';
+                return  view('errors.403')
+                    ->with('message', $message);
+            }
             $model = GiaRung::where('mahs',$inputs['mahs'])->first();
             $modelct = GiaRungCt::where('mahs',$model->mahs)->get();
             $inputs['url'] = '/giarung';

@@ -31,6 +31,12 @@ class BcThVeGiaController extends Controller
             $inputs = $request->all();
             $modeldm = BcThVeGiaDm::where('phanloai', $inputs['phanloai'])->first();
             $m_donvi = getDonViNhapLieu(session('admin')->level, 'bcthvegia');
+            if (count($m_donvi) == null) {
+                $message = 'Chưa có đơn vị nào được phân quyền nhập liệu cho chức năng: ' . session('admin')['a_chucnang']['bcthvegia']
+                    . '. Bạn cần liên hệ người quản trị để phần quyền nhập liệu cho đơn vị.';
+                return  view('errors.403')
+                    ->with('message', $message);
+            }
             return view('manage.vanbanqlnn.baocaoth.ttqd.create')
                 ->with('inputs', $inputs)
                 ->with('modeldm', $modeldm)
@@ -149,6 +155,12 @@ class BcThVeGiaController extends Controller
             $modeldm = BcThVeGiaDm::where('phanloai',$model->phanloai)
                 ->first();
             $m_donvi = getDonViNhapLieu(session('admin')->level, 'bcthvegia');
+            if (count($m_donvi) == null) {
+                $message = 'Chưa có đơn vị nào được phân quyền nhập liệu cho chức năng: ' . session('admin')['a_chucnang']['bcthvegia']
+                    . '. Bạn cần liên hệ người quản trị để phần quyền nhập liệu cho đơn vị.';
+                return  view('errors.403')
+                    ->with('message', $message);
+            }
             return view('manage.vanbanqlnn.baocaoth.ttqd.edit')
                 ->with('model', $model)
                 ->with('modeldm',$modeldm)

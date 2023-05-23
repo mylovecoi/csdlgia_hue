@@ -29,6 +29,12 @@ class VanBanQlNnController extends Controller
     public function create(){
         if (Session::has('admin')) {
             $m_donvi = getDonViNhapLieu(session('admin')->level,'vbgia');
+            if (count($m_donvi) == null) {
+                $message = 'Chưa có đơn vị nào được phân quyền nhập liệu cho chức năng: ' . session('admin')['a_chucnang']['vbgia']
+                    . '. Bạn cần liên hệ người quản trị để phần quyền nhập liệu cho đơn vị.';
+                return  view('errors.403')
+                    ->with('message', $message);
+            }
             return view('manage.vanbanqlnn.qlnnvegia.create')
                 ->with('a_donvi',array_column($m_donvi->toArray(),'tendv','madv'))
                 ->with('pageTitle', 'Văn bản quản lý nhà nước về giá thêm mới');
@@ -140,6 +146,12 @@ class VanBanQlNnController extends Controller
         if (Session::has('admin')) {
             $model = VanBanQlNn::findOrFail($id);
             $m_donvi = getDonViNhapLieu(session('admin')->level,'vbgia');
+            if (count($m_donvi) == null) {
+                $message = 'Chưa có đơn vị nào được phân quyền nhập liệu cho chức năng: ' . session('admin')['a_chucnang']['vbgia']
+                    . '. Bạn cần liên hệ người quản trị để phần quyền nhập liệu cho đơn vị.';
+                return  view('errors.403')
+                    ->with('message', $message);
+            }
             return view('manage.vanbanqlnn.qlnnvegia.edit')
                 ->with('model', $model)
                 ->with('a_donvi',array_column($m_donvi->toArray(),'tendv','madv'))

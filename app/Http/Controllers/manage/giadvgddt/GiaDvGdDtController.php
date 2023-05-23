@@ -30,6 +30,12 @@ class GiaDvGdDtController extends Controller
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             $m_donvi = getDonViNhapLieu(session('admin')->level,'giadvgddt');
+            if (count($m_donvi) == null) {
+                $message = 'Chưa có đơn vị nào được phân quyền nhập liệu cho chức năng: ' . session('admin')['a_chucnang']['giadvgddt']
+                    . '. Bạn cần liên hệ người quản trị để phần quyền nhập liệu cho đơn vị.';
+                return  view('errors.403')
+                    ->with('message', $message);
+            }
             $m_donvi_th = getDonViTongHop('giadvgddt',\session('admin')->level, \session('admin')->madiaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
@@ -105,6 +111,12 @@ class GiaDvGdDtController extends Controller
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             $m_donvi = getDonViNhapLieu(session('admin')->level,'giadvgddt');
+            if (count($m_donvi) == null) {
+                $message = 'Chưa có đơn vị nào được phân quyền nhập liệu cho chức năng: ' . session('admin')['a_chucnang']['giadvgddt']
+                    . '. Bạn cần liên hệ người quản trị để phần quyền nhập liệu cho đơn vị.';
+                return  view('errors.403')
+                    ->with('message', $message);
+            }
             $modelct = GiaDvGdDtCt::where('mahs',$model->mahs)->get();
             $a_dm = array_column(giadvgddtdm::all()->toArray(),'tenspdv','maspdv');
             return view('manage.dinhgia.giadvgddt.kekhai.edit')
@@ -132,6 +144,12 @@ class GiaDvGdDtController extends Controller
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             $m_donvi = getDonViNhapLieu(session('admin')->level,'giadvgddt');
+            if (count($m_donvi) == null) {
+                $message = 'Chưa có đơn vị nào được phân quyền nhập liệu cho chức năng: ' . session('admin')['a_chucnang']['giadvgddt']
+                    . '. Bạn cần liên hệ người quản trị để phần quyền nhập liệu cho đơn vị.';
+                return  view('errors.403')
+                    ->with('message', $message);
+            }
             $model = GiaDvGdDt::where('mahs',$inputs['mahs'])->first();
             $modelct = GiaDvGdDtCt::where('mahs',$model->mahs)->get();
             $inputs['url'] = '/giadvgddt';

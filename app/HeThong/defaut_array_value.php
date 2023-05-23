@@ -313,12 +313,12 @@ function getDonViNhapLieu($level, $linhvuc = null)
         }
     }
     //dd($ketqua);
-    if ($linhvuc != null && count($ketqua) == 0) {
-        $message = 'Chưa có đơn vị nào được phân quyền nhập liệu cho chức năng: ' . session('admin')['a_chucnang'][$linhvuc]
-            . '. Bạn cần liên hệ người quản trị để phần quyền nhập liệu cho đơn vị.';
-        return view('errors.403')
-            ->with('message', $message);
-    }
+    // if ($linhvuc != null && count($ketqua) == 0) {
+    //     $message = 'Chưa có đơn vị nào được phân quyền nhập liệu cho chức năng: ' . session('admin')['a_chucnang'][$linhvuc]
+    //         . '. Bạn cần liên hệ người quản trị để phần quyền nhập liệu cho đơn vị.';
+    //     return  view('errors.403')
+    //         ->with('message', $message);
+    // }
 
     return $ketqua;
 }

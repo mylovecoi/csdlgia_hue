@@ -26,6 +26,12 @@ class giadatthitruongController extends Controller
             //lấy địa bàn
             $a_diaban = getDiaBan_XaHuyen(session('admin')->level,session('admin')->madiaban);
             $m_donvi = getDonViNhapLieu(session('admin')->level,'giadatthitruong');
+            if (count($m_donvi) == null) {
+                $message = 'Chưa có đơn vị nào được phân quyền nhập liệu cho chức năng: ' . session('admin')['a_chucnang']['giadatthitruong']
+                    . '. Bạn cần liên hệ người quản trị để phần quyền nhập liệu cho đơn vị.';
+                return  view('errors.403')
+                    ->with('message', $message);
+            }
             $m_donvi_th = getDonViTongHop('giadatthitruong',\session('admin')->level, \session('admin')->madiaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? array_key_first($a_diaban);
             $inputs['madv'] = $m_donvi->first()->madv;
@@ -111,45 +117,7 @@ class giadatthitruongController extends Controller
             return view('errors.notlogin');
     }
 
-    public function show($id){
-        if(Session::has('admin')){
-            $model = giadatthitruong::findOrFail($id);
-            $modelct = giadatthitruongct::where('mahs',$model->mahs)
-                ->get();
-            $modeldb = DiaBanHd::where('level','H')
-                ->where('district',$model->mahuyen)
-                ->first();
-            $modelxa = DiaBanHd::where('level','X')
-                ->where('town',$model->maxa)
-                ->first();
-
-            if(session('admin')->level == 'T'){
-                $inputs['dvcaptren'] = getGeneralConfigs()['tendvcqhienthi'];
-                $inputs['dv'] = getGeneralConfigs()['tendvhienthi'];
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }elseif(session('admin')->level == 'H'){
-                $modeldv = District::where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }else{
-                $modeldv = Town::where('maxa',session('admin')->maxa)
-                    ->where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }
-            return view('manage.dinhgia.giadatthitruong.kekhai.show')
-                ->with('model',$model)
-                ->with('modelct',$modelct)
-                ->with('modeldb',$modeldb)
-                ->with('modelxa',$modelxa)
-                ->with('inputs',$inputs)
-                ->with('pageTitle','Hồ sơ đấu giá đất');
-        }else
-            return view('errors.notlogin');
-    }
-
+   
     public function destroy(Request $request){
         if(Session::has('admin')){
             $inputs = $request->all();
@@ -186,63 +154,7 @@ class giadatthitruongController extends Controller
             return view('errors.notlogin');
     }
 
-    public function ketxuat_cu(Request $request){
-        if(Session::has('admin')){
-            $inputs = $request->all();
-            $inputs['tenduan'] = isset($inputs['tenduan']) ? $inputs['tenduan'] : '';
-            $inputs['mahuyen'] = isset($inputs['mahuyen']) ? $inputs['mahuyen'] : 'all';
-            $inputs['maxa'] = isset($inputs['maxa']) ? $inputs['maxa'] : 'all';
-            $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
-            $huyens = DiaBanHd::where('level','H')
-                ->get();
-            $model = new DauGiaDat();
-            if($inputs['nam'] != 'all')
-                $model = $model->whereYear('thoidiem',$inputs['nam']);
-            if($inputs['mahuyen'] != 'all') {
-                $model = $model->where('mahuyen', $inputs['mahuyen']);
-            }
-            if($inputs['maxa'] != 'all')
-                $model = $model->where('maxa', $inputs['maxa']);
-            if($inputs['tenduan'] != '')
-                $model = $model->where('tenduan','like', '%'.$inputs['tenduan'].'%');
-            $model = $model->get();
-            $array = '';
-            foreach($model as $tt){
-                $tenxa = DiaBanHd::where('level','X')
-                    ->where('town',$tt->maxa)
-                    ->first();
-                $tt->tenxa = $tenxa->diaban;
-                $array = $array.$tt->mahs.',';
-            }
-            $modelct = giadatthitruongCt::whereIn('mahs',explode(',',$array))
-                ->get();
-
-            if(session('admin')->level == 'T'){
-                $inputs['dvcaptren'] = getGeneralConfigs()['tendvcqhienthi'];
-                $inputs['dv'] = getGeneralConfigs()['tendvhienthi'];
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }elseif(session('admin')->level == 'H'){
-                $modeldv = District::where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }else{
-                $modeldv = Town::where('maxa',session('admin')->maxa)
-                    ->where('mahuyen',session('admin')->mahuyen)->first();
-                $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                $inputs['dv'] = $modeldv->tendvhienthi;
-                $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-            }
-            return view('manage.dinhgia.giadatthitruong.reports.print')
-                ->with('model',$model)
-                ->with('modelct',$modelct)
-                ->with('inputs',$inputs)
-                ->with('huyens',$huyens)
-                ->with('pageTitle','Thông tin hồ sơ đấu giá đất');
-        }else
-            return view('errors.notlogin');
-    }
-
+    
     public function chuyenhs(Request $request)
     {
         //Lấy thông tin đơn vị tiếp nhận để kiểm tra level

@@ -19,6 +19,12 @@ class giadatthitruongBcController extends Controller
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             $m_donvi = getDonViNhapLieu(session('admin')->level,'giadatthitruong');
+            if (count($m_donvi) == null) {
+                $message = 'Chưa có đơn vị nào được phân quyền nhập liệu cho chức năng: ' . session('admin')['a_chucnang']['giadatthitruong']
+                    . '. Bạn cần liên hệ người quản trị để phần quyền nhập liệu cho đơn vị.';
+                return  view('errors.403')
+                    ->with('message', $message);
+            }
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             //dd($inputs);
             return view('manage.dinhgia.giadatthitruong.reports.index')

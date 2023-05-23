@@ -35,6 +35,12 @@ class ThueTaiNguyenController extends Controller
 
 //            $m_donvi = view_dsdiaban_donvi::where('madiaban', $inputs['madiaban'])->where('chucnang', 'NHAPLIEU')->get();
             $m_donvi = getDonViNhapLieu(session('admin')->level,'giathuetn');
+            if (count($m_donvi) == null) {
+                $message = 'Chưa có đơn vị nào được phân quyền nhập liệu cho chức năng: ' . session('admin')['a_chucnang']['giathuetn']
+                    . '. Bạn cần liên hệ người quản trị để phần quyền nhập liệu cho đơn vị.';
+                return  view('errors.403')
+                    ->with('message', $message);
+            }
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             //dd($m_donvi);
             $a_nhom = array_column(NhomThueTn::where('theodoi', 'TD')->get()->toarray(), 'tennhom','manhom');

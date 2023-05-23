@@ -27,6 +27,7 @@ class ReportsHhDvKController extends Controller
             $a_nhomhhdv = array_column(NhomHhDvK::all()->toArray(), 'tentt', 'matt');
             $inputs['matt'] = $inputs['matt'] ?? array_key_first($a_nhomhhdv);
             $a_nhaplieu = array_column(getDonViNhapLieu(session('admin')->level, 'giahhdvk')->toArray(), 'tendv', 'madv');
+            
             $a_tonghop = array_column(getDonViTongHop('giahhdvk', \session('admin')->level, \session('admin')->madiaban)->toArray(), 'tendv', 'madv');
 //            dd($a_tonghop);
             $m_hoso = ThGiaHhDvK::where('matt', $inputs['matt'])->get();

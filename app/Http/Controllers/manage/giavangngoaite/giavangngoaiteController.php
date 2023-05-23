@@ -26,8 +26,14 @@ class giavangngoaiteController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['url'] = '/giavangngoaite';
-            $m_donvi = getDonViNhapLieu(session('admin')->level);
-            $m_donvi_th = getDonViTongHop('giavangngoaite',\session('admin')->level, \session('admin')->madiaban);
+            $m_donvi = getDonViNhapLieu(session('admin')->level, 'giavangngoaite');
+            if (count($m_donvi) == null) {
+                $message = 'Chưa có đơn vị nào được phân quyền nhập liệu cho chức năng: ' . (session('admin')['a_chucnang']['giavangngoaite'] ?? 'giavangngoaite')
+                    . '. Bạn cần liên hệ người quản trị để phần quyền nhập liệu cho đơn vị.';
+                return  view('errors.403')
+                    ->with('message', $message);
+            }
+            $m_donvi_th = getDonViTongHop('giavangngoaite', \session('admin')->level, \session('admin')->madiaban);
             //$inputs['madiaban'] = $inputs['madiaban'] ?? array_key_first($a_diaban);
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $inputs['nam'] = $inputs['nam'] ?? date('Y');
@@ -43,11 +49,11 @@ class giavangngoaiteController extends Controller
                 ->with('inputs', $inputs)
                 //->with('m_diaban', $m_diaban)
                 //->with('a_diaban', $a_diaban)
-                ->with('a_dv', array_column($m_donvi->toarray(),'tendv','madv'))
+                ->with('a_dv', array_column($m_donvi->toarray(), 'tendv', 'madv'))
                 ->with('m_donvi_th', $m_donvi_th)
-                ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
-                ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
-                ->with('pageTitle','Thông tin hồ sơ giá hàng hóa, dịch vụ khác');
+                ->with('a_donvi_th', array_column($m_donvi_th->toarray(), 'tendv', 'madv'))
+                ->with('a_diaban_th', array_column($m_donvi_th->toarray(), 'tendiaban', 'madiaban'))
+                ->with('pageTitle', 'Thông tin hồ sơ giá hàng hóa, dịch vụ khác');
         } else
             return view('errors.notlogin');
     }
@@ -96,76 +102,79 @@ class giavangngoaiteController extends Controller
                 ->with('modelct', $modelct)
                 ->with('inputs', $inputs)
                 ->with('pageTitle', 'Thông tin hồ sơ');
-
         } else
             return view('errors.notlogin');
     }
 
-    public function store(Request $request){
-        if(Session::has('admin')){
+    public function store(Request $request)
+    {
+        if (Session::has('admin')) {
             $inputs = $request->all();
             //dd($inputs);
             $inputs['thoidiem'] = getDateToDb($inputs['thoidiem']);
-            $model = giavangngoaite::where('mahs',$inputs['mahs'])->first();
-            if($model == null){
+            $model = giavangngoaite::where('mahs', $inputs['mahs'])->first();
+            if ($model == null) {
                 $inputs['trangthai'] = 'CHT';
                 giavangngoaite::create($inputs);
-            }else{
+            } else {
                 $model->update($inputs);
             }
             return redirect('giavangngoaite/danhsach');
-        }else
+        } else
             return view('errors.notlogin');
     }
 
-    public function show(Request $request){
-        if(Session::has('admin')){
+    public function show(Request $request)
+    {
+        if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = giavangngoaite::where('mahs',$inputs['mahs'])->first();
-            $modelct = view_giavangngoaite::where('mahs',$model->mahs)->get();
+            $model = giavangngoaite::where('mahs', $inputs['mahs'])->first();
+            $modelct = view_giavangngoaite::where('mahs', $model->mahs)->get();
 
             $a_diaban = array_column(dsdiaban::where('madiaban', $model->madiaban)->get()->toarray(), 'tendiaban', 'madiaban');
             $a_tt = array_column(NhomHhDvK::where('matt', $model->matt)->get()->toarray(), 'tentt', 'matt');
             $a_dm = array_column(DmHhDvK::where('matt', $model->matt)->get()->toarray(), 'tenhhdv', 'mahhdv');
-            $m_dv = dsdonvi::where('madv',$model->madv)->first();
+            $m_dv = dsdonvi::where('madv', $model->madv)->first();
             return view('manage.dinhgia.giavangngoaite.reports.prints')
-                ->with('model',$model)
-                ->with('modelct',$modelct)
-                ->with('m_dv',$m_dv)
+                ->with('model', $model)
+                ->with('modelct', $modelct)
+                ->with('m_dv', $m_dv)
                 ->with('a_diaban', $a_diaban)
                 ->with('a_tt', $a_tt)
                 ->with('a_dm', $a_dm)
-                ->with('inputs',$inputs)
+                ->with('inputs', $inputs)
                 ->with('pageTitle', 'Kê khai giá hàng hóa dịch vụ chi tiết');
-        }else
+        } else
             return view('errors.notlogin');
     }
 
-    public function edit(Request $request){
-        if(Session::has('admin')){
+    public function edit(Request $request)
+    {
+        if (Session::has('admin')) {
             $inputs = $request->all();
             //dd($inputs);
             $inputs['url'] = '/giavangngoaite';
             $model = giavangngoaite::where('mahs', $inputs['mahs'])->first();
             $inputs['act'] = in_array($model->trangthai, ['CHT', 'HHT']) ? 'true' : $inputs['act']; //do có trường hợp đc gọi từ thêm mới
             $modelct = giavangngoaiteCt::where('mahs', $model->mahs)->get();
-           return view('manage.dinhgia.giavangngoaite.kekhai.edit')
+            return view('manage.dinhgia.giavangngoaite.kekhai.edit')
                 ->with('model', $model)
                 ->with('modelct', $modelct)
                 ->with('inputs', $inputs)
                 ->with('pageTitle', 'Thông tin hồ sơ');
-        }else
+        } else
             return view('errors.notlogin');
     }
 
-    public function destroy(Request $request){
-        if(Session::has('admin')){
+    public function destroy(Request $request)
+    {
+        if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = giavangngoaite::where('mahs',$inputs['mahs'])->first();
-            giavangngoaiteCt::where('mahs',$model->mahs)->delete();
+            $model = giavangngoaite::where('mahs', $inputs['mahs'])->first();
+            giavangngoaiteCt::where('mahs', $model->mahs)->delete();
             $model->delete();
             return redirect('giavangngoaite/danhsach');
-        }else
+        } else
             return view('errors.notlogin');
     }
 
@@ -223,7 +232,7 @@ class giavangngoaiteController extends Controller
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
 
             $m_donvi = getDonViXetDuyet(session('admin')->level);
-            $m_donvi_th = getDonViTongHop('giavangngoaite',\session('admin')->level, \session('admin')->madiaban);
+            $m_donvi_th = getDonViTongHop('giavangngoaite', \session('admin')->level, \session('admin')->madiaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $inputs['nam'] = $inputs['nam'] ?? 'all';
@@ -231,61 +240,64 @@ class giavangngoaiteController extends Controller
             //dd($inputs);
             //gán lại thông tin về trường madv, thoidiem để truyền sang form index
             //xét macqcq để tìm đơn vị chuyển đến
-            $a_ttdv = array_column(view_dsdiaban_donvi::wherein('madiaban', array_keys($a_diaban))->get()->toarray(),
-                'tendv', 'madv');
+            $a_ttdv = array_column(
+                view_dsdiaban_donvi::wherein('madiaban', array_keys($a_diaban))->get()->toarray(),
+                'tendv',
+                'madv'
+            );
 
-            switch ($inputs['level']){
-                case 'H':{
-                    $model = giavangngoaite::where('madv_h', $inputs['madv']);
-                    if ($inputs['nam'] != 'all')
-                        $model = $model->whereYear('thoidiem_h', $inputs['nam']);
-                    $model = $model->get();
-                    foreach ($model as $ct){
-                        $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
-                        $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
-                        $ct->madv = $ct->madv_h;
-                        $ct->macqcq = $ct->macqcq_h;
-                        $ct->tencqcq = $a_ttdv[$ct->macqcq] ?? '';
-                        $ct->thoidiem_ch = $ct->thoidiem_h;
-                        $ct->trangthai = $ct->trangthai_h;
-                        $ct->level = $inputs['level'];
+            switch ($inputs['level']) {
+                case 'H': {
+                        $model = giavangngoaite::where('madv_h', $inputs['madv']);
+                        if ($inputs['nam'] != 'all')
+                            $model = $model->whereYear('thoidiem_h', $inputs['nam']);
+                        $model = $model->get();
+                        foreach ($model as $ct) {
+                            $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct);
+                            $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
+                            $ct->madv = $ct->madv_h;
+                            $ct->macqcq = $ct->macqcq_h;
+                            $ct->tencqcq = $a_ttdv[$ct->macqcq] ?? '';
+                            $ct->thoidiem_ch = $ct->thoidiem_h;
+                            $ct->trangthai = $ct->trangthai_h;
+                            $ct->level = $inputs['level'];
+                        }
+                        break;
                     }
-                    break;
-                }
-                case 'T':{
-                    $model = giavangngoaite::where('madv_t', $inputs['madv']);
-                    if ($inputs['nam'] != 'all')
-                        $model = $model->whereYear('thoidiem_t', $inputs['nam']);
-                    $model = $model->get();
-                    foreach ($model as $ct){
-                        $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
-                        $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
-                        $ct->madv = $ct->madv_t;
-                        $ct->macqcq = $ct->macqcq_t;
-                        $ct->tencqcq = $a_ttdv[$ct->macqcq] ?? '';
-                        $ct->thoidiem_ch = $ct->thoidiem_t;
-                        $ct->trangthai = $ct->trangthai_t;
-                        $ct->level = $inputs['level'];
+                case 'T': {
+                        $model = giavangngoaite::where('madv_t', $inputs['madv']);
+                        if ($inputs['nam'] != 'all')
+                            $model = $model->whereYear('thoidiem_t', $inputs['nam']);
+                        $model = $model->get();
+                        foreach ($model as $ct) {
+                            $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct);
+                            $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
+                            $ct->madv = $ct->madv_t;
+                            $ct->macqcq = $ct->macqcq_t;
+                            $ct->tencqcq = $a_ttdv[$ct->macqcq] ?? '';
+                            $ct->thoidiem_ch = $ct->thoidiem_t;
+                            $ct->trangthai = $ct->trangthai_t;
+                            $ct->level = $inputs['level'];
+                        }
+                        break;
                     }
-                    break;
-                }
-                case 'ADMIN':{
-                    $model = giavangngoaite::where('madv_ad', $inputs['madv']);
-                    if ($inputs['nam'] != 'all')
-                        $model = $model->whereYear('thoidiem_ad', $inputs['nam']);
-                    $model = $model->get();
-                    foreach ($model as $ct){
-                        $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
-                        $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
-                        $ct->madv = $ct->madv_ad;
-                        $ct->macqcq = $ct->macqcq_ad;
-                        $ct->tencqcq = $a_ttdv[$ct->macqcq] ?? '';
-                        $ct->thoidiem_ch = $ct->thoidiem_ad;
-                        $ct->trangthai = $ct->trangthai_ad;
-                        $ct->level = $inputs['level'];
+                case 'ADMIN': {
+                        $model = giavangngoaite::where('madv_ad', $inputs['madv']);
+                        if ($inputs['nam'] != 'all')
+                            $model = $model->whereYear('thoidiem_ad', $inputs['nam']);
+                        $model = $model->get();
+                        foreach ($model as $ct) {
+                            $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct);
+                            $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
+                            $ct->madv = $ct->madv_ad;
+                            $ct->macqcq = $ct->macqcq_ad;
+                            $ct->tencqcq = $a_ttdv[$ct->macqcq] ?? '';
+                            $ct->thoidiem_ch = $ct->thoidiem_ad;
+                            $ct->trangthai = $ct->trangthai_ad;
+                            $ct->level = $inputs['level'];
+                        }
+                        break;
                     }
-                    break;
-                }
             }
             //dd($model);
             return view('manage.dinhgia.giavangngoaite.xetduyet.index')
@@ -294,9 +306,9 @@ class giavangngoaiteController extends Controller
                 ->with('m_diaban', $m_diaban)
                 ->with('a_diaban', array_column($m_diaban->where('level', 'H')->toarray(), 'tendiaban', 'madiaban'))
                 ->with('m_donvi', $m_donvi)
-                ->with('m_donvi_th', $m_donvi_th->where('madv','<>',$inputs['madv']))
-                ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
-                ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
+                ->with('m_donvi_th', $m_donvi_th->where('madv', '<>', $inputs['madv']))
+                ->with('a_donvi_th', array_column($m_donvi_th->toarray(), 'tendv', 'madv'))
+                ->with('a_diaban_th', array_column($m_donvi_th->toarray(), 'tendiaban', 'madiaban'))
                 ->with('pageTitle', 'Thông tin hồ sơ');
         } else
             return view('errors.notlogin');
@@ -335,7 +347,8 @@ class giavangngoaiteController extends Controller
             return view('errors.notlogin');
     }
 
-    public function tralai(Request $request){
+    public function tralai(Request $request)
+    {
         //Truyền vào mahs và macqcq
         if (Session::has('admin')) {
             $inputs = $request->all();
@@ -370,8 +383,10 @@ class giavangngoaiteController extends Controller
                 'thoigian' => date('Y-m-d H:i:s'),
             );
             $model->lichsu = json_encode($a_lichsu);
-            setCongBo($model, ['trangthai' => $inputs['trangthai_ad'],
-                'congbo' => $inputs['trangthai_ad'] == 'CB' ? 'DACONGBO' : 'CHUACONGBO']);
+            setCongBo($model, [
+                'trangthai' => $inputs['trangthai_ad'],
+                'congbo' => $inputs['trangthai_ad'] == 'CB' ? 'DACONGBO' : 'CHUACONGBO'
+            ]);
             $model->save();
             return redirect('giavangngoaite/xetduyet?madv=' . $model->madv_ad);
         } else
@@ -379,64 +394,65 @@ class giavangngoaiteController extends Controller
     }
     //</editor-fold>
 
-    public function timkiem(){
-        if(Session::has('admin')){
+    public function timkiem()
+    {
+        if (Session::has('admin')) {
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
             //dd($m_diaban);
-            $a_dm = array_column(NhomHhDvK::all()->toArray(),'tentt','matt');
+            $a_dm = array_column(NhomHhDvK::all()->toArray(), 'tentt', 'matt');
             $inputs['url'] = '/giavangngoaite';
             return view('manage.dinhgia.giavangngoaite.timkiem.index')
-                ->with('m_diaban',$m_diaban)
-                ->with('m_donvi',$m_donvi)
-                ->with('a_dm',$a_dm)
-                ->with('inputs',$inputs)
-                ->with('pageTitle','Tìm kiếm thông tin hồ sơ');
-        }else
+                ->with('m_diaban', $m_diaban)
+                ->with('m_donvi', $m_donvi)
+                ->with('a_dm', $a_dm)
+                ->with('inputs', $inputs)
+                ->with('pageTitle', 'Tìm kiếm thông tin hồ sơ');
+        } else
             return view('errors.notlogin');
     }
 
-    public function ketquatk(Request $request){
-        if(Session::has('admin')){
+    public function ketquatk(Request $request)
+    {
+        if (Session::has('admin')) {
             //Chỉ tìm kiếm hồ sơ do đơn vị nhập (các hồ sơ chuyển đơn vị cấp trên ko tính)
             //Lấy hết hồ sơ trên địa bàn rồi bắt đầu tìm kiểm
             $inputs = $request->all();
             $m_donvi = getDonViTimKiem(session('admin')->level, \session('admin')->madiaban);
-            $model = view_giavangngoaite::wherein('madv',array_column($m_donvi->toarray(),'madv'));
+            $model = view_giavangngoaite::wherein('madv', array_column($m_donvi->toarray(), 'madv'));
             //dd($model);
 
-            if($inputs['madv'] != 'all'){
-                $model = $model->where('madv',$inputs['madv']);
+            if ($inputs['madv'] != 'all') {
+                $model = $model->where('madv', $inputs['madv']);
             }
-            if($inputs['madoituong'] != 'all') {
+            if ($inputs['madoituong'] != 'all') {
                 $model = $model->where('madoituong', getTimkiemLike($inputs['madoituong']));
             }
 
-            if(getDayVn($inputs['thoidiem_tu']) != ''){
-                $model = $model->where('thoidiem','>=',$inputs['thoidiem_tu']);
+            if (getDayVn($inputs['thoidiem_tu']) != '') {
+                $model = $model->where('thoidiem', '>=', $inputs['thoidiem_tu']);
             }
 
-            if(getDayVn($inputs['thoidiem_den']) != ''){
-                $model = $model->where('thoidiem','<=',$inputs['thoidiem_den']);
+            if (getDayVn($inputs['thoidiem_den']) != '') {
+                $model = $model->where('thoidiem', '<=', $inputs['thoidiem_den']);
             }
 
-            $model = $model->where('gia','>=',chkDbl($inputs['giatri_tu']));
-            if(chkDbl($inputs['giatri_den']) > 0){
-                $model = $model->where('gia','<=',chkDbl($inputs['giatri_den']));
+            $model = $model->where('gia', '>=', chkDbl($inputs['giatri_tu']));
+            if (chkDbl($inputs['giatri_den']) > 0) {
+                $model = $model->where('gia', '<=', chkDbl($inputs['giatri_den']));
             }
             //dd($model);
-            $a_dm = array_column(NhomHhDvK::all()->toArray(),'tentt','matt');
+            $a_dm = array_column(NhomHhDvK::all()->toArray(), 'tentt', 'matt');
             $inputs['url'] = '/giavangngoaite';
             return view('manage.dinhgia.giavangngoaite.timkiem.result')
-                ->with('model',$model->get())
-                ->with('a_dm',$a_dm)
-                ->with('inputs',$inputs)
-                ->with('a_diaban',array_column($m_donvi->toarray(),'tendiaban','madiaban'))
-                ->with('a_donvi',array_column($m_donvi->toarray(),'tendv','madv'))
-                ->with('pageTitle','Tìm kiếm thông tin hồ sơ');
-        }else
+                ->with('model', $model->get())
+                ->with('a_dm', $a_dm)
+                ->with('inputs', $inputs)
+                ->with('a_diaban', array_column($m_donvi->toarray(), 'tendiaban', 'madiaban'))
+                ->with('a_donvi', array_column($m_donvi->toarray(), 'tendv', 'madv'))
+                ->with('pageTitle', 'Tìm kiếm thông tin hồ sơ');
+        } else
             return view('errors.notlogin');
     }
-
 }
