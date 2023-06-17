@@ -6,6 +6,7 @@
     'files' => true,
     'enctype' => 'multipart/form-data',
 ]) !!}
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="modal fade bs-modal-lg" id="modal-create" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -101,12 +102,12 @@
     function get_dvtonghop() {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
-                type: 'GET',
-                url: '/ajax/get_dvtonghop_diaban',
-                data: {
-                    _token: CSRF_TOKEN,
-                    madiaban: escapeHtml($('#diabankinhdoanh').val()),
-                    manghe: escapeHtml$('#manghe').val())
+            type: 'GET',
+            url: '/ajax/get_dvtonghop_diaban',
+            data: {
+                _token: CSRF_TOKEN,
+                madiaban: escapeHtml($('#diabankinhdoanh').val()),
+                manghe: escapeHtml$('#manghe').val()
             },
             dataType: 'JSON',
             success: function(data) {
@@ -185,15 +186,43 @@
         //         $('#mahs').val(mahs + '_' + $('#madv').val());
         //     }
         //     $('#modal-create').modal("show");
-        // }
+        // }        
         $('#modal-create').modal("show");
 
     }
 
     function capnhatts() {
-        // var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        var formData = new FormData($('#frm_ThemChiTiet')[0]);
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        var formData = new FormData($('#frm_ThemLVKD')[0]);
+        // alert($('#manghe').val());
+        $.ajax({
+            url: '{{ $inputs['url'] }}' + '/addLVKD',
+            method: "GET",           
+            data: {
+                _token: CSRF_TOKEN,
+                macqcq: $('#macqcq').val(),
+                manghe: $('#manghe').val(),
+                diabankinhdoanh: $('#diabankinhdoanh').val(),
+                mahs: $('#mahs').val()
+            },
+            dataType: 'JSON',
+            success: function(data) {
+                if (data.status == 'success') {
+                    toastr.success("Bổ xung thông tin thành công!");
+                    $('#dsts').replaceWith(data.message);
+                    jQuery(document).ready(function() {
+                        // TableManaged.init();
+                    });
+                    $('#modal-create').modal("hide");
+                }
+            }
+        })
+    }
 
+    function capnhatts1() {
+        //  var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        var formData = new FormData($('#frm_ThemLVKD')[0]);
+        alert(formData);
         $.ajax({
             url: '{{ $inputs['url'] }}' + '/addLVKD',
             method: "POST",

@@ -29,6 +29,7 @@ Route::group(['prefix' => 'doanhnghiep'], function () {
 
     // Route::get('get_dvql', 'system\company\CompanyLvCcController@getdvql');
     Route::get('getLVKD', 'system\company\CompanyLvCcController@edit');
+    Route::post('addLVKD', 'system\company\CompanyLvCcController@store');
     Route::get('addLVKD', 'system\company\CompanyLvCcController@store');
     Route::get('delLVKD', 'system\company\CompanyLvCcController@delete');
 

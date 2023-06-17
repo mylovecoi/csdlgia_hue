@@ -50,8 +50,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- END THEME STYLES -->
     <!--link rel="shortcut icon" href="favicon.ico"/-->
     <link rel="shortcut icon" href="{{ url('images/LIFESOFT.png') }}" type="image/x-icon">
-    <link rel="stylesheet" type="text/css"
-        href="{{ url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url('assets/global/plugins/select2/select2.css') }}" />
     <link type="text/css" rel="stylesheet" href="{{ url('vendors/bootstrap-datepicker/css/datepicker.css') }}">
     <style>
@@ -216,9 +215,9 @@ License: You must have a valid license purchased only from themeforest(the above
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <button type="button" data-toggle="modal" class="btn btn-default">
+                            <button type="button" onclick="add_lvkd()" data-toggle="modal" class="btn btn-default">
                                 <i class="fa fa-plus"></i>&nbsp;Thêm lĩnh vực kinh doanh</button>
-                                {{-- <button type="button" onclick="add_lvkd()" data-toggle="modal" class="btn btn-default">
+                            {{-- <button type="button" onclick="add_lvkd()" data-toggle="modal" class="btn btn-default">
                                     <i class="fa fa-plus"></i>&nbsp;Thêm lĩnh vực kinh doanh</button> --}}
                         </div>
                     </div>
@@ -333,13 +332,13 @@ License: You must have a valid license purchased only from themeforest(the above
 
     {{-- <script type="text/javascript" src="{{url('assets/global/plugins/jquery-validation/js/jquery.validate.min.js')}}"></script> --}}
     <script type="text/javascript" src="{{ url('assets/global/plugins/select2/select2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js') }}">
+    {{-- <script type="text/javascript" src="{{ url('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js') }}"> --}}
     </script>
     <script type="text/javascript"
-        src="{{ url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
+        {{-- src="{{ url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script> --}}
     <!-- END PAGE LEVEL PLUGINS -->
-    <script src="{{ url('assets/admin/pages/scripts/table-managed.js') }}"></script>
-    <script src="{{ url('minhtran/jquery.inputmask.bundle.min.js') }}"></script>
+    {{-- <script src="{{ url('assets/admin/pages/scripts/table-managed.js') }}"></script> --}}
+    // <script src="{{ url('minhtran/jquery.inputmask.bundle.min.js') }}"></script>
 
     @include('includes.crumbs.scrip_chkFileExtension')
     <script>
@@ -357,7 +356,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 fade: 1000,
                 duration: 8000
             });
-            TableManaged.init();
+            // TableManaged.init();
             $(":input").inputmask();
         });
     </script>
@@ -369,7 +368,7 @@ License: You must have a valid license purchased only from themeforest(the above
             var password = $("#password").val();
             var rpassword = $("#rpassword").val();
             var patte = new RegExp(
-            "^(?=.*[A-Za-z@$!%*?&])(?=.*\\d)[A-Za-z@$!%*?&\\d]{6,}"); //6 ký tự, 1 số, 1 chữ cái hoặc 1 ký tự đặc biệt
+                "^(?=.*[A-Za-z@$!%*?&])(?=.*\\d)[A-Za-z@$!%*?&\\d]{6,}"); //6 ký tự, 1 số, 1 chữ cái hoặc 1 ký tự đặc biệt
 
             if (patte.test(password) == false) {
                 str = str +

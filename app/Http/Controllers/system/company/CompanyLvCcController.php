@@ -71,6 +71,7 @@ class CompanyLvCcController extends Controller
 
     public function store(Request $request){
         $inputs = $request->all();
+        
         $model = CompanyLvCc::where('mahs',$inputs['mahs'])->where('manghe',$inputs['manghe'])->first();
         if ($model == null) {
             //$inputs['maspdv'] = getdate()[0];
