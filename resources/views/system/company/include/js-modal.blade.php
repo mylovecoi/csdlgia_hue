@@ -176,16 +176,17 @@
     });
 
     function add_lvkd() {
-        if ($('#madv').val() == '' || $('#madv').val() == null) {
-            toastr.error('Mã số thuế không được bỏ trống.', 'Lỗi mã số thuế');
-            $('#madv').focus();
-        } else {
-            var mahs = $('#mahs').val();
-            if (mahs == '{{ $inputs['mahs'] }}') { //tạo lại mã hồ sơ do có trường hợp trùng thời gian
-                $('#mahs').val(mahs + '_' + $('#madv').val());
-            }
-            $('#modal-create').modal("show");
-        }
+        // if ($('#madv').val() == '' || $('#madv').val() == null) {
+        //     toastr.error('Mã số thuế không được bỏ trống.', 'Lỗi mã số thuế');
+        //     $('#madv').focus();
+        // } else {
+        //     var mahs = $('#mahs').val();
+        //     if (mahs == '{{ $inputs['mahs'] }}') { //tạo lại mã hồ sơ do có trường hợp trùng thời gian
+        //         $('#mahs').val(mahs + '_' + $('#madv').val());
+        //     }
+        //     $('#modal-create').modal("show");
+        // }
+        $('#modal-create').modal("show");
 
     }
 
