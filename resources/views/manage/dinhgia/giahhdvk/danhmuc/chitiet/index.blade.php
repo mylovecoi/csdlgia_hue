@@ -119,7 +119,7 @@
                                 @if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'danhmuc', 'modify'))
                                     <button type="button" onclick="ClickEdit('{{$tt->mahhdv}}')" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
                                         <i class="fa fa-edit"></i>&nbsp;Sửa</button>
-                                    <button type="button" onclick="getId('{{$tt->mahhdv}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal" style="margin: 2px">
+                                    <button type="button" onclick="getId('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal" style="margin: 2px">
                                         <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
                                 @endif
                             </td>

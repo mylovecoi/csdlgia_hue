@@ -91,7 +91,8 @@ class DmHhDvKController extends Controller
         if(Session::has('admin')){
             $inputs=$request->all();
             //dd($inputs);
-            $model = DmHhDvK::where('mahhdv',$inputs['mahhdv'])->first();
+            $model = DmHhDvK::where('id',$inputs['mahhdv'])->first();
+            //dd($model);
             $model->delete();
             return redirect('/giahhdvk/danhmuc/detail?matt='.$model->matt);
         }else
