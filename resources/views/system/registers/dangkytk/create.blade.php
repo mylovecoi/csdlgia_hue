@@ -216,8 +216,10 @@ License: You must have a valid license purchased only from themeforest(the above
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <button type="button" onclick="add_lvkd()" data-toggle="modal" class="btn btn-default">
-                                <i class="fa fa-plus"></i>&nbsp;Thêm lĩnh vực kinh doanh</button> &nbsp;
+                            <button type="button" data-toggle="modal" class="btn btn-default">
+                                <i class="fa fa-plus"></i>&nbsp;Thêm lĩnh vực kinh doanh</button>
+                                {{-- <button type="button" onclick="add_lvkd()" data-toggle="modal" class="btn btn-default">
+                                    <i class="fa fa-plus"></i>&nbsp;Thêm lĩnh vực kinh doanh</button> --}}
                         </div>
                     </div>
                 </div>
