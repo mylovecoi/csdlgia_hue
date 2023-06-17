@@ -99,6 +99,12 @@
 </div>
 
 <script>
+    function escapeHtml(string) {
+        return String(string).replace(/[&<>"'`=\/]/g, function(s) {
+            return entityMap[s];
+        });
+    }
+
     function get_dvtonghop() {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
@@ -197,7 +203,7 @@
         // alert($('#manghe').val());
         $.ajax({
             url: '{{ $inputs['url'] }}' + '/addLVKD',
-            method: "GET",           
+            method: "GET",
             data: {
                 _token: CSRF_TOKEN,
                 macqcq: $('#macqcq').val(),
