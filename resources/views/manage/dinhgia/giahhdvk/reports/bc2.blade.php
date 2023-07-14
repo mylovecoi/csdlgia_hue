@@ -1,7 +1,7 @@
 @extends('reports.main_rps')
 
 @section('content')
-<table width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:0 auto 20px; text-align: center;">
+<table id="data_header" width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:0 auto 20px; text-align: center;">
     <tr>
         <td width="40%" style="vertical-align: top;">
             <span style="text-transform: uppercase">{{session('admin')->tendvhienthi}}</span><br>
@@ -20,10 +20,15 @@
         <td>Số: ..............</td>
         <td style="text-align: right"><i style="margin-right: 25%;">{{session('admin')->diadanh}}, {{getNt2Bc($m_hoso->ngaybc ?? '')}}</i></td>
     </tr>
+    <tr style="text-align: center; font-weight: bold; font-size: 16px;">
+        <td colspan="2">BẢNG GIÁ THỊ TRƯỜNG THÁNG {{$m_hoso->thang ?? '.....'}} NĂM {{$m_hoso->nam ?? '.....'}}</td>
+    </tr>
+    <tr style="font-style: italic; text-align: center">
+        <td colspan="2">(Ban hành kèm theo Thông tư số 116/2018/TT-BTC ngày 28/11/2018 của Bộ Tài Chính quy định chế độ báo cáo giá thị trường)</td>
+    </tr>
 </table>
-<p style="text-align: center; font-weight: bold; font-size: 16px;">BẢNG GIÁ THỊ TRƯỜNG THÁNG {{$m_hoso->thang ?? '.....'}} NĂM {{$m_hoso->nam ?? '.....'}}</p>
-<p style="font-style: italic; text-align: center">(Ban hành kèm theo Thông tư số 116/2018/TT-BTC ngày 28/11/2018 của Bộ Tài Chính quy định chế độ báo cáo giá thị trường)</p>
-<table cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;" id="data">
+
+<table cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;" id="data_body">
     <thead>
         <tr>
             <th width="2%" style="text-align: center">STT</th>
@@ -88,7 +93,7 @@
 
     </tbody>
 </table>
-<table width="96%" border="0" cellspacing="0" height cellpadding="0" style="margin: 20px auto;text-align: center; height:200px">
+<table id="data_footer" width="96%" border="0" cellspacing="0" height cellpadding="0" style="margin: 20px auto;text-align: center; height:200px">
     <tr>
         <td width="40%" style="text-align: left; vertical-align: top;">
             <span style="font-weight: bold;font-style: italic">Nơi nhận:</span><br>
