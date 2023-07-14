@@ -313,7 +313,7 @@ class dstaikhoanController extends Controller
             foreach ($per as $k1=>$v1){
                 if(!is_array($v1)){
                     $per[$k1] = isset($a_per[$k1]) ? '1' : '0';
-                }else{
+                }else{                    
                     foreach ($v1 as $k2=>$v2){
                         $per[$k1][$k2] = isset($a_per[$k1][$k2]) ? '1' : '0';
                     }
@@ -321,7 +321,7 @@ class dstaikhoanController extends Controller
             }
 
             $per_user[$inputs['maso']] = $per;
-            //dd($inputs);
+            //dd($per);
             $model->permission = json_encode($per_user);
             $model->save();
             return redirect('/taikhoan/perm?username='.$inputs['username']);
