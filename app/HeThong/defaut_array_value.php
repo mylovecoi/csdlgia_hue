@@ -639,3 +639,14 @@ function getTenTrangThaiHoSoDN($all = false)
         ];
     }
 }
+
+function getPhanLoaiKetNoi()
+{
+    $dvt = array(
+        'KHONGKETNOI' => 'Không kết nối',
+        'TAIKHOAN' => 'Kết nối qua tài khoản',
+        'TOKEN' => 'Kết nối chuỗi token',
+        
+    );
+    return $dvt;
+}

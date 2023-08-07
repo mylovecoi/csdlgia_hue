@@ -163,6 +163,9 @@ Route::group(['prefix'=>'KetNoiAPI'],function (){
     Route::post('LuuChung','Api\APIController@LuuChung');
     Route::get('LayTLChung','Api\APIController@LayTLChung');
     Route::post('XoaTLChung','Api\APIController@XoaTLChung');
+    Route::post('LinkKetNoi','Api\APIController@LinkKetNoi');
+    Route::get('getLink','Api\APIController@getLink');
+    
     //Chi tiết
     Route::get('ThietLapChiTiet','Api\APIController@ThietLapChiTiet');
     Route::get('HoSo','Api\APIController@ThietLapHoSo');
@@ -176,4 +179,3 @@ Route::group(['prefix'=>'KetNoiAPI'],function (){
     Route::post('MacDinh','Api\APIController@MacDinh');
     Route::get('DanhSachKetNoi','Api\APIController@DanhSachKetNoi');
 });
-?>

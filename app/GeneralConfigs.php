@@ -31,6 +31,15 @@ class GeneralConfigs extends Model
         'ipf3',
         'ipf4',
         'ipf5',
-        'sudungemail'
+        'sudungemail',
+        'phanloaiketnoi',
+        'matkhauketnoi',
+        'taikhoanketnoi',
+        'hienthongbao',
+        'noidungthongbao',
+        'hienchungchimang',
+        'noidungchungchimang',
+        'hienanhdau',
+        'linkAPIXacthuc',
     ];
 }
