@@ -95,7 +95,7 @@
                             <th rowspan="2">Nội dung CSDL địa phương</th>
                             <th colspan="2">Danh mục</th>
                             <th colspan="3">Hồ sơ</th>
-                            <th colspan="2">Khác</th>
+                            <th colspan="3">Khác</th>
                             <th rowspan="2" width="7%">Thao</br>tác</th>
                         </tr>
                         <tr>
@@ -108,6 +108,7 @@
 
                             <th width="5%">Tổng</br>hợp</th>
                             <th width="5%">Thông</br>tin</br>DN</th>
+                            <th width="5%">API</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -116,6 +117,7 @@
                             <tr style="font-weight: bold;" class="success">
                                 <td class="text-left" style="text-transform: uppercase;">{{toAlpha($i++)}}</td>
                                 <td class="{{(!isset($per[$k1]['index']) || $per[$k1]['index'] == '0') ? 'text-line-through' : ''}}">{{$a_chucnang[$k1] ?? $k1}}</td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -134,6 +136,7 @@
                                 <tr  style="font-style: italic;font-weight: bold;" class="info">
                                     <td class="text-center">{{romanNumerals($j++)}}</td>
                                     <td class="{{(!isset($per[$k2]['index']) || $per[$k2]['index'] == '0') ? 'text-line-through' : ''}}">{{$a_chucnang[$k2] ?? $k2}}</td>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -199,6 +202,13 @@
                                         <td class="text-center">
                                             @if(isset($per[$k3]['khac']['company']))
                                                 {!!  $per[$k3]['khac']['company'] == 1 ? '<i class="fa fa-check"></i>':'' !!}
+                                            @else
+                                                <i class="fa fa-ban"></i>
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            @if(isset($per[$k3]['khac']['api']))
+                                                {!!  $per[$k3]['khac']['api'] == 1 ? '<i class="fa fa-check"></i>':'' !!}
                                             @else
                                                 <i class="fa fa-ban"></i>
                                             @endif
@@ -305,6 +315,14 @@
                                     <input type="checkbox" id="khac_tonghop" name="khac_tonghop" class="md-check">
                                     <label for="khac_tonghop">
                                         <span></span><span class="check"></span><span class="box"></span>Tổng hợp</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="md-checkbox">
+                                    <input type="checkbox" id="khac_api" name="khac_api" class="md-check">
+                                    <label for="khac_api">
+                                        <span></span><span class="check"></span><span class="box"></span>API liên kết CSDL quốc gia</label>
                                 </div>
                             </div>
                         </div>

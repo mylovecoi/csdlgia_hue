@@ -122,6 +122,7 @@ class APIController extends Controller
             $model = KetNoiAPI_HoSo::where('maso', $inputs['maso'])->orderby('stt')->get();
             $model_ct = KetNoiAPI_HoSo_ChiTiet::where('maso', $inputs['maso'])->orderby('stt')->get();
             $inputs['stt'] = count($model) + 1;
+            //dd($model_ct);
             return view('system.KetNoiAPI.ThietLapHoSo')
                 ->with('model', $model)
                 ->with('model_ct', $model_ct)

@@ -84,13 +84,13 @@ class getAPIController extends Controller
         $this->getHoSo($m_HoSo, $m_HoSoChiTiet, $inputs['maso'], $TaiKhoan->madv);
         //
         $a_Body = [];
-        $i=1;
+        $i = 1;
         foreach ($m_HoSo as $HoSo) {
             $i++;
             $a_HoSo = [];
             foreach ($HoSoAPI as $TenDong) {
                 //xử lý mảng chi tiết trc
-                if (substr($TenDong->tendong,0,3) =='DS_') {
+                if (substr($TenDong->tendong, 0, 3) == 'DS_') {
                     $a_HSChiTiet = array();
                     foreach ($m_HoSoChiTiet as $HSChiTiet) {
                         $i++;
@@ -124,7 +124,7 @@ class getAPIController extends Controller
         $inputs['i'] = $i;
         $a_Header = [];
         foreach ($ThongDiepChungAPI as $ThongDiep) {
-            $a_Header[$ThongDiep->tendong] = $this->getThongDiep($ThongDiep->tendong,$ThongDiep->macdinh, $inputs, $server);
+            $a_Header[$ThongDiep->tendong] = $this->getThongDiep($ThongDiep->tendong, $ThongDiep->macdinh, $inputs, $server);
         }
 
         $a_API['Header'] = $a_Header;
@@ -133,407 +133,358 @@ class getAPIController extends Controller
         return response()->json($a_API, Response::HTTP_OK);
     }
 
-    function getHoSo(&$HoSo, &$HoSoChiTiet,$maso,$madv)
+    function getHoSo(&$HoSo, &$HoSoChiTiet, $maso, $madv)
     {
         switch ($maso) {
-            case 'giahhdvk':
-            {
-                $HoSo = GiaHhDvK::where('madv', $madv)->orwhere('madv_h', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = GiaHhDvKCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'vlxd':
-            {
-                $HoSo = KkGiaVlXd::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
+            case 'giahhdvk': {
+                    $HoSo = GiaHhDvK::where('madv', $madv)->orwhere('madv_h', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = GiaHhDvKCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'vlxd': {
+                    $HoSo = KkGiaVlXd::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
 
-                $HoSoChiTiet = KkGiaVlXdCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'xmtxd':
-            {
-                $HoSo = KkGiaXmTxd::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = KkGiaXmTxdCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'dvhdtmck':
-            {
-                $HoSo = KkGiaDvHdTm::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = KkGiaDvHdTmCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'than':
-            {
-                $HoSo = KkGiaThan::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = KkGiaThanCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'tacn':
-            {
-                $HoSo = KkGiaTaCn::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = KkGiaTaCnCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'giay':
-            {
-                $HoSo = KkGiaGiay::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = KkGiaGiayCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'sach':
-            {
-                $HoSo = KkGiaSach::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = KkGiaSachCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'etanol':
-            {
-                $HoSo = KkGiaEtanol::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = KkGiaEtanolCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'dvcb':
-            {
-                $HoSo = GiaDvCang::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = GiaDvCangCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'oto':
-            {
-                $HoSo = GiaOtoNkSx::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = GiaOtoNkSxCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'xemay':
-            {
-                $HoSo = GiaXeMayNkSx::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = GiaXeMayNkSxCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'kcbtn':
-            {
-                $HoSo = KkGiaKcbTn::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = KkGiaKcbTnCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'dvvtxk':
-            {
-                $HoSo = GiaVtXk::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = GiaVtXkCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'dvvtxb':
-            {
-                $HoSo = KkGiaVtXb::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = KkGiaVtXbCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'dvvtxtx':
-            {
-                $HoSo = KkGiaVtXtx::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = KkGiaVtXtxCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'dvvthk':
-            {
-                $HoSo = GiaVtXk::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = GiaVtXkCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'tpcnte6t':
-            {
-                $HoSo = KkGs::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = KkGsCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'dvlt':
-            {
-                $HoSo = KkGiaDvLt::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = KkGiaDvLtCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'dlbb':
-            {
-                $HoSo = GiaDvDlBb::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = GiaDvDlBbCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'tqkdl':
-            {
-                $HoSo = GiaVeTqKdl::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = GiaVeTqKdlCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'cahue':
-            {
-                $HoSo = KkGiaDvCh::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = KkGiaDvChCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'hocphilx':
-            {
-                $HoSo = KkGiaHpLx::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = KkGiaHpLxCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'catsan':
-            {
-                $HoSo = KkGiaCatSan::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = KkGiaCatSanCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'datsanlap':
-            {
-                $HoSo = KkGiaDatSanLap::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = KkGiaDatSanLapCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'daxaydung':
-            {
-                $HoSo = KkGiaDaXayDung::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = KkGiaDaXayDungCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
+                        $HoSoChiTiet = KkGiaVlXdCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'xmtxd': {
+                    $HoSo = KkGiaXmTxd::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = KkGiaXmTxdCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'dvhdtmck': {
+                    $HoSo = KkGiaDvHdTm::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = KkGiaDvHdTmCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'than': {
+                    $HoSo = KkGiaThan::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = KkGiaThanCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'tacn': {
+                    $HoSo = KkGiaTaCn::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = KkGiaTaCnCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'giay': {
+                    $HoSo = KkGiaGiay::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = KkGiaGiayCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'sach': {
+                    $HoSo = KkGiaSach::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = KkGiaSachCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'etanol': {
+                    $HoSo = KkGiaEtanol::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = KkGiaEtanolCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'dvcb': {
+                    $HoSo = GiaDvCang::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = GiaDvCangCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'oto': {
+                    $HoSo = GiaOtoNkSx::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = GiaOtoNkSxCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'xemay': {
+                    $HoSo = GiaXeMayNkSx::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = GiaXeMayNkSxCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'kcbtn': {
+                    $HoSo = KkGiaKcbTn::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = KkGiaKcbTnCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'dvvtxk': {
+                    $HoSo = GiaVtXk::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = GiaVtXkCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'dvvtxb': {
+                    $HoSo = KkGiaVtXb::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = KkGiaVtXbCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'dvvtxtx': {
+                    $HoSo = KkGiaVtXtx::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = KkGiaVtXtxCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'dvvthk': {
+                    $HoSo = GiaVtXk::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = GiaVtXkCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'tpcnte6t': {
+                    $HoSo = KkGs::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = KkGsCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'dvlt': {
+                    $HoSo = KkGiaDvLt::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = KkGiaDvLtCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'dlbb': {
+                    $HoSo = GiaDvDlBb::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = GiaDvDlBbCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'tqkdl': {
+                    $HoSo = GiaVeTqKdl::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = GiaVeTqKdlCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'cahue': {
+                    $HoSo = KkGiaDvCh::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = KkGiaDvChCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'hocphilx': {
+                    $HoSo = KkGiaHpLx::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = KkGiaHpLxCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'catsan': {
+                    $HoSo = KkGiaCatSan::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = KkGiaCatSanCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'datsanlap': {
+                    $HoSo = KkGiaDatSanLap::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = KkGiaDatSanLapCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'daxaydung': {
+                    $HoSo = KkGiaDaXayDung::where('madv_t', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = KkGiaDaXayDungCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
 
-            case 'giaphilephi':
-            {
-                $HoSo = PhiLePhi::where('madv', $madv)->orwhere('madv_h', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = PhiLePhiCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
-            case 'giathuetn':
-            {
-                $HoSo = ThueTaiNguyen::where('madv', $madv)->orwhere('madv_h', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
-                if(count($HoSo) == 0)
-                    $HoSoChiTiet = null;
-                else
-                $HoSoChiTiet = ThueTaiNguyenCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                break;
-            }
+            case 'giaphilephi': {
+                    $HoSo = PhiLePhi::where('madv', $madv)->orwhere('madv_h', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = PhiLePhiCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'giathuetn': {
+                    $HoSo = ThueTaiNguyen::where('madv', $madv)->orwhere('madv_h', $madv)->orwhere('madv_h', $madv)->orwhere('madv_ad', $madv)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = ThueTaiNguyenCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
         }
-
     }
 
-    function getMacDinh($giatri, $HoSo, $HoSoChiTiet = null){
+    function getMacDinh($giatri, $HoSo, $HoSoChiTiet = null)
+    {
         //dd($HoSo);
         $kQ = $giatri;
         switch ($giatri) {
             case 'GET_DIABAN': {
-                $kQ = '93';//để mặc định Hậu Giang
-                break;
-            }
+                    $kQ = '93'; //để mặc định Hậu Giang
+                    break;
+                }
             case 'MA_HHDV': {
-                $kQ = chuanhoachuoi($HoSoChiTiet->tendvcu);
-                break;
-            }
+                    $kQ = chuanhoachuoi($HoSoChiTiet->tendvcu);
+                    break;
+                }
             case 'GET_MA_HHDV': {
 
-                break;
-            }
+                    break;
+                }
             case 'GET_TEN_HHDV': {
-                $HangHoa = DmHhDvK::where('mahhdv',$HoSoChiTiet->mahhdv)->first();
-                $kQ = $HangHoa->tenhhdv ?? '';
-                break;
-            }
+                    $HangHoa = DmHhDvK::where('mahhdv', $HoSoChiTiet->mahhdv)->first();
+                    $kQ = $HangHoa->tenhhdv ?? '';
+                    break;
+                }
             case 'GET_DVT_HHDV': {
-                $HangHoa = DmHhDvK::where('mahhdv',$HoSoChiTiet->mahhdv)->first();
-                $kQ = $HangHoa->dvt ?? '';
-                break;
-            }
+                    $HangHoa = DmHhDvK::where('mahhdv', $HoSoChiTiet->mahhdv)->first();
+                    $kQ = $HangHoa->dvt ?? '';
+                    break;
+                }
             case 'GET_NGUONTT': {
-                $kQ = '2';//sau làm hàm
-                break;
-            }
+                    $kQ = '2'; //sau làm hàm
+                    break;
+                }
         }
         return $kQ;
     }
 
-    function getThongDiep($tendong,$macdinh,$giatri,$server)
+    function getThongDiep($tendong, $macdinh, $giatri, $server)
     {
         $kQ = $macdinh;
         switch ($tendong) {
-            case 'Sender_Code':
-            {
-                $kQ = $giatri['maso'];
-                break;
-            }
-            case 'Sender_Name':
-            {
-                $ChucNang = danhmucchucnang::where('maso',$giatri['maso'])->first();
-                $kQ = $ChucNang->menu ?? $giatri['maso'];
-                break;
-            }
-            case 'Receiver_Code':
-            {
+            case 'Sender_Code': {
+                    $kQ = $giatri['maso'];
+                    break;
+                }
+            case 'Sender_Name': {
+                    $ChucNang = danhmucchucnang::where('maso', $giatri['maso'])->first();
+                    $kQ = $ChucNang->menu ?? $giatri['maso'];
+                    break;
+                }
+            case 'Receiver_Code': {
 
-                break;
-            }
-            case 'Receiver_Name':
-            {
+                    break;
+                }
+            case 'Receiver_Name': {
 
-                break;
-            }
-            case 'Tran_Code':
-            {
-                $kQ = 'JSON';
-                break;
-            }
-            case 'Tran_Name':
-            {
-                $kQ = 'JSON';
-                break;
-            }
-            case 'Msg_ID':
-            {
-                $kQ = $server['REDIRECT_STATUS'];
-                break;
-            }
-            case 'Msg_RefID':
-            {
-                $kQ = $server['REDIRECT_STATUS'];
-                break;
-            }
-            case 'Send_Date':
-            {
-                $kQ = date('Y-m-d H:i:s');
-                break;
-            }
-            case 'Original_Code':
-            {
-                $kQ = '93';//Hậu Giang
-                break;
-            }
-            case 'Original_name':
-            {
-                $kQ = getGeneralConfigs()['diadanh'] ?? '';
-                break;
-            }
-            case 'Export_Date':
-            {
-                $kQ = date('Y-m-d H:i:s');
-                break;
-            }
-            case 'Notes':
-            {
+                    break;
+                }
+            case 'Tran_Code': {
+                    $kQ = 'JSON';
+                    break;
+                }
+            case 'Tran_Name': {
+                    $kQ = 'JSON';
+                    break;
+                }
+            case 'Msg_ID': {
+                    $kQ = $server['REDIRECT_STATUS'];
+                    break;
+                }
+            case 'Msg_RefID': {
+                    $kQ = $server['REDIRECT_STATUS'];
+                    break;
+                }
+            case 'Send_Date': {
+                    $kQ = date('Y-m-d H:i:s');
+                    break;
+                }
+            case 'Original_Code': {
+                    $kQ = '93'; //Hậu Giang
+                    break;
+                }
+            case 'Original_name': {
+                    $kQ = getGeneralConfigs()['diadanh'] ?? '';
+                    break;
+                }
+            case 'Export_Date': {
+                    $kQ = date('Y-m-d H:i:s');
+                    break;
+                }
+            case 'Notes': {
 
-                break;
-            }
-            case 'Tran_Num':
-            {
-                $kQ = $giatri['i'];
-                break;
-            }
-            case 'Path':
-            {
-                $kQ = $server['REDIRECT_URL'] ?? '';
-                break;
-            }
-            case 'NumMsg_InGroup':
-            {
+                    break;
+                }
+            case 'Tran_Num': {
+                    $kQ = $giatri['i'];
+                    break;
+                }
+            case 'Path': {
+                    $kQ = $server['REDIRECT_URL'] ?? '';
+                    break;
+                }
+            case 'NumMsg_InGroup': {
 
-                break;
-            }
-            case 'SPARE1':
-            {
+                    break;
+                }
+            case 'SPARE1': {
 
-                break;
-            }
-            case 'SPARE2':
-            {
+                    break;
+                }
+            case 'SPARE2': {
 
-                break;
-            }
-            case 'SPARE3':
-            {
+                    break;
+                }
+            case 'SPARE3': {
 
-                break;
-            }
-            case 'Finish_Code':
-            {
+                    break;
+                }
+            case 'Finish_Code': {
 
-                break;
-            }
-
+                    break;
+                }
         }
         return $kQ;
     }

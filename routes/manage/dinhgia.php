@@ -272,6 +272,8 @@ Route::group(['prefix'=>'giathuetn'], function (){
     Route::post('thuetainguyen/export','manage\thuetn\ThueTaiNguyenController@export');
     Route::get('baocao','manage\thuetn\ReportsThueTnController@index');
     Route::post('bc1','manage\thuetn\ReportsThueTnController@Bc1');
+    //Kết nối CSDL
+    Route::post('truyenHoSo','manage\thuetn\ThueTaiNguyenController@truyenHoSo');
 });
 
 //DV Khám chữa bệnh

@@ -147,6 +147,16 @@ class UsersController extends Controller
         $ttuser->ipf3 = $m_gen->ipf3;
         $ttuser->ipf4 = $m_gen->ipf4;
         $ttuser->ipf5 = $m_gen->ipf5;
+        $ttuser->phanloaiketnoi = $m_gen->phanloaiketnoi;
+        $ttuser->matkhauketnoi = $m_gen->matkhauketnoi;
+        $ttuser->taikhoanketnoi = $m_gen->taikhoanketnoi;
+        $ttuser->hienthongbao = $m_gen->hienthongbao;
+        $ttuser->noidungthongbao = $m_gen->noidungthongbao;
+        $ttuser->hienchungchimang = $m_gen->hienchungchimang;
+        $ttuser->noidungchungchimang = $m_gen->noidungchungchimang;
+        $ttuser->linkAPIXacthuc = $m_gen->linkAPIXacthuc;
+        //thông tin kết nôi
+
         //dd($ttuser);
         Session::put('admin', $ttuser);
         //dd(session('admin'));

@@ -646,7 +646,14 @@ function getPhanLoaiKetNoi()
         'KHONGKETNOI' => 'Không kết nối',
         'TAIKHOAN' => 'Kết nối qua tài khoản',
         'TOKEN' => 'Kết nối chuỗi token',
-        
+
     );
     return $dvt;
+}
+
+function getDuongDanThuMuc($machucnang)
+{
+    $a_kq = [];
+    $a_kq['giathuetn'] = "data/giathuetn/";
+    return $a_kq[$machucnang] ?? '';
 }

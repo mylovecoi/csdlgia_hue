@@ -444,6 +444,15 @@ class dstaikhoanController extends Controller
                 $result['message'] .= '</div>';
                 $result['message'] .= '</div>';
             }
+            if(isset($per['khac']['api'])){
+                $result['message'] .= '<div class="col-md-3">';
+                $result['message'] .= '<div class="md-checkbox">';
+                $result['message'] .= '<input type="checkbox" id="khac_api" name="'.$inputs['maso'].'[khac][api]" class="md-check" '.(isset($per['khac']['api']) && $per['khac']['api'] == 1 ? 'checked':'').' >';
+                $result['message'] .= '<label for="khac_api">';
+                $result['message'] .= '<span></span><span class="check"></span><span class="box"></span>API kết nối CSDL quốc gia</label>';
+                $result['message'] .= '</div>';
+                $result['message'] .= '</div>';
+            }
             $result['message'] .= '</div>';
             $result['message'] .= '</div>';
         }
