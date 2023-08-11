@@ -426,6 +426,8 @@ Route::group(['prefix'=>'giahhdvk'], function (){
     Route::get('dinhkem','GiaHhDvKController@show_dk');
     Route::get('nhanexcel','GiaHhDvKController@nhanexcel');
     Route::post('import_excel','GiaHhDvKController@import_excel');
+    //Truyền dữ liệu
+    
 });
 
 //Giá vàng, ngoại tệ (theo dõi theo ngày)

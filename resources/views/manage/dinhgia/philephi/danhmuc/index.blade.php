@@ -76,6 +76,36 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <div class="actions">
+                        @if (chkPer('csdlmucgiahhdv', 'philephi', 'giaphilephi', 'khac', 'api') &&
+                                session('admin')->phanloaiketnoi != 'KHONGKETNOI')
+                            <div class="btn-group btn-group-solid">
+                                <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <i class="fa fa-cog"></i> Truyền lên CSDLQG <i class="fa fa-angle-down"></i>
+                                </button>
+
+                                <ul class="dropdown-menu" style="position: static">
+                                    <li>
+                                        <a href="{{ url('/KetNoiAPI/HoSo?maso=dmgiaphilephi') }}" style="border: none;"
+                                            target="_blank" class="btn btn-default">
+                                            <i class="fa fa-caret-right"></i> Thiết lập thông điệp</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('/KetNoiAPI/XemHoSo?maso=dmgiaphilephi&mahs=null') }}"
+                                            style="border: none;" target="_blank" class="btn btn-default">
+                                            <i class="fa fa-caret-right"></i> Xem trước thông điệp</a>
+                                    </li>
+
+                                    <li>
+                                        <button type="button" style="border: none;"
+                                            onclick="ketnoiapi(null,'dmgiaphilephi', '{{ $inputs['url'] . '/danhmuc/' }}')"
+                                            class="btn btn-default" data-target="#ketnoiapi-modal" data-toggle="modal">
+                                            <i class="fa fa-caret-right"></i>&nbsp;Truyền dữ liệu
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        @endif
                         @if(chkPer('csdlmucgiahhdv','philephi', 'giaphilephi','danhmuc','modify'))
                             <button type="button" onclick="new_hs()" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
                                 <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
@@ -220,4 +250,5 @@
     </div>
 
     @include('includes.script.inputmask-ajax-scripts')
+    @include('manage.include.form.modal_ketnoi_api')
 @stop

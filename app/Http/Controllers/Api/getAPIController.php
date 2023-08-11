@@ -68,6 +68,7 @@ use Illuminate\Http\Response;
 
 class getAPIController extends Controller
 {
+    
     public function getAPI(Request $request)
     {
         $server = $request->server();

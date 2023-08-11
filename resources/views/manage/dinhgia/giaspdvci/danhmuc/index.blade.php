@@ -1,8 +1,9 @@
 @extends('main')
 
 @section('custom-style')
-    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/select2/select2.css')}}"/>
+    <link rel="stylesheet" type="text/css"
+        href="{{ url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url('assets/global/plugins/select2/select2.css') }}" />
     <!-- END THEME STYLES -->
 @stop
 
@@ -10,33 +11,37 @@
 @section('custom-script')
     <!-- BEGIN PAGE LEVEL PLUGINS -->
 
-    <script type="text/javascript" src="{{url('assets/global/plugins/select2/select2.min.js')}}"></script>
-    <script type="text/javascript" src="{{url('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js')}}"></script>
-    <script type="text/javascript" src="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
+    <script type="text/javascript" src="{{ url('assets/global/plugins/select2/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js') }}">
+    </script>
+    <script type="text/javascript"
+        src="{{ url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
     <!-- END PAGE LEVEL PLUGINS -->
-    <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
+    <script src="{{ url('assets/admin/pages/scripts/table-managed.js') }}"></script>
     <script>
         jQuery(document).ready(function() {
             TableManaged.init();
         });
-        function getId(maso){
+
+        function getId(maso) {
             $('#frm_delete').find("[id='maspdv']").val(maso);
         }
-        function ClickDelete(){
+
+        function ClickDelete() {
             $('#frm_delete').submit();
         }
 
-        function ClickEdit(maso){
+        function ClickEdit(maso) {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: '{{$inputs['url']}}' + '/show_dm',
+                url: '{{ $inputs['url'] }}' + '/show_dm',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
                     maspdv: maso
                 },
                 dataType: 'JSON',
-                success: function (data) {
+                success: function(data) {
                     var form = $('#frm_create');
                     form.find("[name='maspdv']").val(data.maspdv);
                     form.find("[name='tenspdv']").val(data.tenspdv);
@@ -44,11 +49,12 @@
                     form.find("[name='mota']").val(data.mota);
                     form.find("[name='phanloai']").val(data.phanloai).trigger('change');
                 },
-                error: function (message) {
+                error: function(message) {
                     toastr.error(message, 'Lỗi!');
                 }
             });
         }
+
         function new_hs() {
             var form = $('#frm_create');
             //Nhà xã hội cho thuê
@@ -67,9 +73,40 @@
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box">
                 <div class="portlet-title">
-                    <div class="actions">
-                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvci', 'danhmuc','modify'))
-                            <button type="button" onclick="new_hs()" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
+                    <div class="actions">                        
+                        @if (chkPer('csdlmucgiahhdv', 'dinhgia', 'giaspdvci', 'khac', 'api') &&
+                                session('admin')->phanloaiketnoi != 'KHONGKETNOI')
+                            <div class="btn-group btn-group-solid">
+                                <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <i class="fa fa-cog"></i> Truyền lên CSDLQG <i class="fa fa-angle-down"></i>
+                                </button>
+
+                                <ul class="dropdown-menu" style="position: static">
+                                    <li>
+                                        <a href="{{ url('/KetNoiAPI/HoSo?maso=dmgiaspdvci') }}" style="border: none;"
+                                            target="_blank" class="btn btn-default">
+                                            <i class="fa fa-caret-right"></i> Thiết lập thông điệp</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('/KetNoiAPI/XemHoSo?maso=dmgiaspdvci&mahs=null') }}"
+                                            style="border: none;" target="_blank" class="btn btn-default">
+                                            <i class="fa fa-caret-right"></i> Xem trước thông điệp</a>
+                                    </li>
+
+                                    <li>
+                                        <button type="button" style="border: none;"
+                                            onclick="ketnoiapi(null,'dmgiaspdvci', '{{ $inputs['url'] . '/danhmuc/' }}')"
+                                            class="btn btn-default" data-target="#ketnoiapi-modal" data-toggle="modal">
+                                            <i class="fa fa-caret-right"></i>&nbsp;Truyền dữ liệu
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        @endif
+                        @if (chkPer('csdlmucgiahhdv', 'dinhgia', 'giaspdvci', 'danhmuc', 'modify'))
+                            <button type="button" onclick="new_hs()" class="btn btn-default btn-xs mbs"
+                                data-target="#modal-create" data-toggle="modal">
                                 <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
                         @endif
                     </div>
@@ -79,33 +116,37 @@
 
                     <table class="table table-striped table-bordered table-hover" id="sample_3">
                         <thead>
-                        <tr>
-                            <th width="2%" style="text-align: center">STT</th>
-                            <th style="text-align: center">Tên sản phẩm</th>
-                            <th style="text-align: center">Phân loại</th>
-                            <th style="text-align: center">ĐVT</th>
-                            <th style="text-align: center">Mô tả</th>
-                            <th width="15%" style="text-align: center">Thao tác</th>
-                        </tr>
+                            <tr>
+                                <th width="2%" style="text-align: center">STT</th>
+                                <th style="text-align: center">Tên sản phẩm</th>
+                                <th style="text-align: center">Phân loại</th>
+                                <th style="text-align: center">ĐVT</th>
+                                <th style="text-align: center">Mô tả</th>
+                                <th width="15%" style="text-align: center">Thao tác</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @foreach($model as $key=>$tt)
-                            <tr class="odd gradeX">
-                                <td style="text-align: center">{{$key + 1}}</td>
-                                <td class="success">{{$tt->tenspdv}}</td>
-                                <td>{{$a_phanloai[$tt->phanloai] ?? ''}}</td>
-                                <td>{{$tt->dvt}}</td>
-                                <td>{{$tt->mota}}</td>
-                                <td>
-                                    @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvci', 'danhmuc','modify'))
-                                        <button type="button" onclick="ClickEdit('{{$tt->maspdv}}')" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
-                                            <i class="fa fa-edit"></i>&nbsp;Sửa</button>
-                                        <button type="button" onclick="getId('{{$tt->maspdv}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal" style="margin: 2px">
-                                            <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
-                                    @endif
-                                </td>
-                            </tr>
-                        @endforeach
+                            @foreach ($model as $key => $tt)
+                                <tr class="odd gradeX">
+                                    <td style="text-align: center">{{ $key + 1 }}</td>
+                                    <td class="success">{{ $tt->tenspdv }}</td>
+                                    <td>{{ $a_phanloai[$tt->phanloai] ?? '' }}</td>
+                                    <td>{{ $tt->dvt }}</td>
+                                    <td>{{ $tt->mota }}</td>
+                                    <td>
+                                        @if (chkPer('csdlmucgiahhdv', 'dinhgia', 'giaspdvci', 'danhmuc', 'modify'))
+                                            <button type="button" onclick="ClickEdit('{{ $tt->maspdv }}')"
+                                                class="btn btn-default btn-xs mbs" data-target="#modal-create"
+                                                data-toggle="modal">
+                                                <i class="fa fa-edit"></i>&nbsp;Sửa</button>
+                                            <button type="button" onclick="getId('{{ $tt->maspdv }}')"
+                                                class="btn btn-default btn-xs mbs" data-target="#delete-modal"
+                                                data-toggle="modal" style="margin: 2px">
+                                                <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
 
@@ -117,10 +158,11 @@
     <!-- BEGIN DASHBOARD STATS -->
 
     <!-- END DASHBOARD STATS -->
-    <div class="modal fade" id="modal-create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modal-create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url'=>$inputs['url'].'/danhmuc', 'method'=>'post','id' => 'frm_create'])!!}
+                {!! Form::open(['url' => $inputs['url'] . '/danhmuc', 'method' => 'post', 'id' => 'frm_create']) !!}
                 <input type="hidden" name="maspdv" />
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -155,7 +197,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Phân loại sản phẩm</label>
-                                {!!Form::select('phanloai', $a_phanloai, null, array('id' => 'phanloai','class' => 'form-control'))!!}
+                                {!! Form::select('phanloai', $a_phanloai, null, ['id' => 'phanloai', 'class' => 'form-control']) !!}
                             </div>
                         </div>
                     </div>
@@ -171,10 +213,11 @@
         <!-- /.modal-dialog -->
     </div>
 
-    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url'=>$inputs['url'].'/delete_dm','id' => 'frm_delete'])!!}
+                {!! Form::open(['url' => $inputs['url'] . '/delete_dm', 'id' => 'frm_delete']) !!}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Đồng ý xóa?</h4>
@@ -193,4 +236,5 @@
 
     @include('manage.include.form.modal_dvt')
     @include('includes.script.create-header-scripts')
+    @include('manage.include.form.modal_ketnoi_api')
 @stop

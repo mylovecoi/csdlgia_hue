@@ -1,7 +1,8 @@
 <div id="ketnoiapi-modal" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
-    {!! Form::open(['url' => $inputs['url'] . '/truyenHoSo', 'id' => 'frm_ketnoiapi']) !!}
+    {!! Form::open(['url' => '/KetNoiAPI/TruyenHoSo', 'id' => 'frm_ketnoiapi']) !!}
     <input type="hidden" name="mahs" />
     <input type="hidden" name="chucnang" />
+    <input type="hidden" name="url" />
 
     <div class="modal-dialog">
         <div class="modal-content">
@@ -78,9 +79,10 @@
     {!! Form::close() !!}
 </div>
 <script>
-    function ketnoiapi(mahs, chucnang) {
+    function ketnoiapi(mahs, chucnang, url) {
         $('#frm_ketnoiapi').find('[name="mahs"]').val(mahs);
         $('#frm_ketnoiapi').find('[name="chucnang"]').val(chucnang);
+        $('#frm_ketnoiapi').find('[name="url"]').val(url);
         //Làm js lấy link kết nôi (viết dùng chung)
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         //alert(id);

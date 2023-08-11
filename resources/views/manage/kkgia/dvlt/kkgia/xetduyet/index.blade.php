@@ -270,6 +270,39 @@
                                                 <i class="fa fa-check"></i> Chuyển công bố</button>
                                         @endif
                                     @endif
+                                    @if (chkPer('csdlmucgiahhdv', 'hhdv', 'giahhdvk', 'khac', 'api') && session('admin')->phanloaiketnoi != 'KHONGKETNOI')
+                                            <div class="btn-group btn-group-solid">
+                                                <button type="button" class="btn btn-default dropdown-toggle btn-xs"
+                                                    data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-cog"></i> Truyền lên CSDLQG <i
+                                                        class="fa fa-angle-down"></i>
+                                                </button>
+
+                                                <ul class="dropdown-menu" style="position: static">
+                                                    <li>
+                                                        <a href="{{ url('/KetNoiAPI/HoSo?maso=dvlt') }}"
+                                                            style="border: none;" target="_blank" class="btn btn-default">
+                                                            <i class="fa fa-caret-right"></i> Thiết lập thông điệp</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{ url('/KetNoiAPI/XemHoSo?maso=dvlt&mahs=' . $tt->mahs) }}"
+                                                            style="border: none;" target="_blank" class="btn btn-default">
+                                                            <i class="fa fa-caret-right"></i> Xem trước thông điệp</a>
+                                                    </li>
+
+                                                    <li>
+                                                        <button type="button" style="border: none;"
+                                                            onclick="ketnoiapi('{{ $tt->mahs }}','dvlt', '{{ $inputs['url'] . '/xetduyetkkgiadvlt/' }}')"
+                                                            class="btn btn-default" data-target="#ketnoiapi-modal"
+                                                            data-toggle="modal">
+                                                            <i class="fa fa-caret-right"></i>&nbsp;Truyền dữ liệu
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        @endif
+										
+										
                                         <!--a href="{{url('ke_khai_dich_vu_luu_tru/'.$tt->mahs.'/history')}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Lịch sử</a-->
                                 </td>
                             </tr>
@@ -390,6 +423,7 @@
         </div>
     </div>
 
+    @include('manage.include.form.modal_ketnoi_api')
     @include('manage.include.form.modal_congbo')
     @include('manage.include.form.modal_approve_xd')
     @include('includes.script.create-header-scripts')

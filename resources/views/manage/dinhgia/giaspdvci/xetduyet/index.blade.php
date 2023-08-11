@@ -1,25 +1,28 @@
 @extends('main')
 
 @section('custom-style')
-    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/select2/select2.css')}}"/>
+    <link rel="stylesheet" type="text/css"
+        href="{{ url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url('assets/global/plugins/select2/select2.css') }}" />
 @stop
 
 
 @section('custom-script')
     <!-- BEGIN PAGE LEVEL PLUGINS -->
 
-    <script type="text/javascript" src="{{url('assets/global/plugins/select2/select2.min.js')}}"></script>
-    <script type="text/javascript" src="{{url('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js')}}"></script>
-    <script type="text/javascript" src="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
+    <script type="text/javascript" src="{{ url('assets/global/plugins/select2/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js') }}">
+    </script>
+    <script type="text/javascript"
+        src="{{ url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
     <!-- END PAGE LEVEL PLUGINS -->
-    <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
+    <script src="{{ url('assets/admin/pages/scripts/table-managed.js') }}"></script>
     <script>
         jQuery(document).ready(function() {
             TableManaged.init();
 
             function changeUrl() {
-                var current_path_url = '{{$inputs['url']}}' +'/xetduyet?';
+                var current_path_url = '{{ $inputs['url'] }}' + '/xetduyet?';
                 var url = current_path_url + 'nam=' + $('#nam').val() + '&madv=' + $('#madv').val();
                 window.location.href = url;
             }
@@ -27,7 +30,7 @@
             $('#nam').change(function() {
                 changeUrl();
             });
-            $('#madv').change(function () {
+            $('#madv').change(function() {
                 changeUrl();
             });
         });
@@ -36,7 +39,8 @@
 
 @section('content')
     <h3 class="page-title">
-        Hồ sơ <small> giá sản phẩm, dịch vụ công ích, dịch vụ sự nghiệp công và hàng hóa, dịch vụ được địa phương đặt hàng, giao kế hoạch sản xuất, kinh doanh
+        Hồ sơ <small> giá sản phẩm, dịch vụ công ích, dịch vụ sự nghiệp công và hàng hóa, dịch vụ được địa phương đặt hàng,
+            giao kế hoạch sản xuất, kinh doanh
         </small>
     </h3>
 
@@ -49,7 +53,8 @@
                     <div class="caption">
                     </div>
                     <div class="actions">
-                        <a href="{{url($inputs['url'].'/prints?madv='.$inputs['madv'].'&nam='. $inputs['nam'])}}" class="btn btn-default btn-sm" target="_blank">
+                        <a href="{{ url($inputs['url'] . '/prints?madv=' . $inputs['madv'] . '&nam=' . $inputs['nam']) }}"
+                            class="btn btn-default btn-sm" target="_blank">
                             <i class="fa fa-print"></i> In danh sách</a>
                     </div>
                 </div>
@@ -59,17 +64,18 @@
                         <div class="form-group">
                             <div class="col-md-2">
                                 <label style="font-weight: bold">Năm</label>
-                                {!! Form::select('nam', getNam(true), $inputs['nam'], array('id' => 'nam', 'class' => 'form-control'))!!}
+                                {!! Form::select('nam', getNam(true), $inputs['nam'], ['id' => 'nam', 'class' => 'form-control']) !!}
                             </div>
 
                             <div class="col-md-4">
                                 <label style="font-weight: bold">Đơn vị</label>
                                 <select class="form-control select2me" id="madv">
-                                    @foreach($m_diaban as $diaban)
-                                        <optgroup label="{{$diaban->tendiaban}}">
-                                            <?php $donvi = $m_donvi->where('madiaban',$diaban->madiaban); ?>
-                                            @foreach($donvi as $ct)
-                                                <option {{$ct->madv == $inputs['madv'] ? "selected":""}} value="{{$ct->madv}}">{{$ct->tendv}}</option>
+                                    @foreach ($m_diaban as $diaban)
+                                        <optgroup label="{{ $diaban->tendiaban }}">
+                                            <?php $donvi = $m_donvi->where('madiaban', $diaban->madiaban); ?>
+                                            @foreach ($donvi as $ct)
+                                                <option {{ $ct->madv == $inputs['madv'] ? 'selected' : '' }}
+                                                    value="{{ $ct->madv }}">{{ $ct->tendv }}</option>
                                             @endforeach
                                         </optgroup>
                                     @endforeach
@@ -92,50 +98,100 @@
                         </thead>
 
                         <tbody>
-                            @foreach($model as $key=>$tt)
+                            @foreach ($model as $key => $tt)
                                 <tr>
-                                    <td style="text-align: center">{{$key + 1}}</td>
-                                    <td style="text-align: left">{{$tt->tendv_ch}}</td>
-                                    <td style="text-align: center">{{$a_diaban[$tt->madiaban] ?? ''}}</td>
-                                    <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
-                                    <td style="text-align: left">{{$tt->ttqd}}</td>
+                                    <td style="text-align: center">{{ $key + 1 }}</td>
+                                    <td style="text-align: left">{{ $tt->tendv_ch }}</td>
+                                    <td style="text-align: center">{{ $a_diaban[$tt->madiaban] ?? '' }}</td>
+                                    <td style="text-align: center">{{ getDayVn($tt->thoidiem) }}</td>
+                                    <td style="text-align: left">{{ $tt->ttqd }}</td>
                                     @include('manage.include.form.td_trangthai')
-                                    <td style="text-align: left">{{$tt->tencqcq}}</td>
+                                    <td style="text-align: left">{{ $tt->tencqcq }}</td>
                                     <td>
-                                        <a href="{{url($inputs['url'].'/modify?mahs='.$tt->mahs.'&act=false')}}" class="btn btn-default btn-xs mbs" target="_blank">
+                                        <a href="{{ url($inputs['url'] . '/modify?mahs=' . $tt->mahs . '&act=false') }}"
+                                            class="btn btn-default btn-xs mbs" target="_blank">
                                             <i class="fa fa-eye"></i>&nbsp;Chi tiết</a>
                                         <!--
-                                        Xem xét bổ sung madv_ad, trangthai_ad,
-                                        Tùy level mà chức năng nút chuyển lại khác nhau
-                                        Đơn vị tiếp nhận có tổng hợp Toàn tỉnh
-                                        ADMIN-> Công bố
-                                        T->
-                                        H->Hoàn thành (có đơn
+                                                Xem xét bổ sung madv_ad, trangthai_ad,
+                                                Tùy level mà chức năng nút chuyển lại khác nhau
+                                                Đơn vị tiếp nhận có tổng hợp Toàn tỉnh
+                                                ADMIN-> Công bố
+                                                T->
+                                                H->Hoàn thành (có đơn
 
-                                        -->
-                                        @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvci', 'hoso', 'approve'))
-                                            @if($tt->level == 'ADMIN')
-                                                @if($tt->trangthai == 'CB')
-                                                    <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','{{$inputs['url'].'/congbo'}}', 'HCB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
+                                                -->
+                                        @if (chkPer('csdlmucgiahhdv', 'dinhgia', 'giaspdvci', 'hoso', 'approve'))
+                                            @if ($tt->level == 'ADMIN')
+                                                @if ($tt->trangthai == 'CB')
+                                                    <button type="button"
+                                                        onclick="confirmCongbo('{{ $tt->mahs }}','{{ $inputs['url'] . '/congbo' }}', 'HCB')"
+                                                        class="btn btn-default btn-xs mbs" data-target="#congbo-modal"
+                                                        data-toggle="modal">
                                                         <i class="fa fa-times"></i>&nbsp;Hủy công bố</button>
                                                 @else
-                                                    <button type="button" onclick="confirmCongbo('{{$tt->mahs}}','{{$inputs['url'].'/congbo'}}', 'CB')" class="btn btn-default btn-xs mbs" data-target="#congbo-modal" data-toggle="modal">
+                                                    <button type="button"
+                                                        onclick="confirmCongbo('{{ $tt->mahs }}','{{ $inputs['url'] . '/congbo' }}', 'CB')"
+                                                        class="btn btn-default btn-xs mbs" data-target="#congbo-modal"
+                                                        data-toggle="modal">
                                                         <i class="fa fa-send"></i>&nbsp;Công bố</button>
 
-                                                    <button type="button" onclick="confirmTraLai('{{$tt->mahs}}','{{$inputs['url'].'/tralai'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#tralai-modal-confirm" data-toggle="modal">
+                                                    <button type="button"
+                                                        onclick="confirmTraLai('{{ $tt->mahs }}','{{ $inputs['url'] . '/tralai' }}', '{{ $tt->madv }}')"
+                                                        class="btn btn-default btn-xs mbs"
+                                                        data-target="#tralai-modal-confirm" data-toggle="modal">
                                                         <i class="fa fa-times"></i> Trả lại</button>
                                                 @endif
                                             @else
-                                                @if(in_array($tt->trangthai, ['HHT', 'CHT']))
-                                                    <button type="button" onclick="confirmChuyenXD('{{$tt->mahs}}','{{$inputs['url'].'/chuyenxd'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#chuyenxd-modal-confirm" data-toggle="modal">
+                                                @if (in_array($tt->trangthai, ['HHT', 'CHT']))
+                                                    <button type="button"
+                                                        onclick="confirmChuyenXD('{{ $tt->mahs }}','{{ $inputs['url'] . '/chuyenxd' }}', '{{ $tt->madv }}')"
+                                                        class="btn btn-default btn-xs mbs"
+                                                        data-target="#chuyenxd-modal-confirm" data-toggle="modal">
                                                         <i class="fa fa-check"></i> Hoàn thành</button>
 
-                                                    <button type="button" onclick="confirmTraLai('{{$tt->mahs}}','{{$inputs['url'].'/tralai'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#tralai-modal-confirm" data-toggle="modal">
+                                                    <button type="button"
+                                                        onclick="confirmTraLai('{{ $tt->mahs }}','{{ $inputs['url'] . '/tralai' }}', '{{ $tt->madv }}')"
+                                                        class="btn btn-default btn-xs mbs"
+                                                        data-target="#tralai-modal-confirm" data-toggle="modal">
                                                         <i class="fa fa-times"></i> Trả lại</button>
                                                 @endif
                                             @endif
                                         @endif
-                                        <button type="button" onclick="get_attack('{{$tt->mahs}}')" class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm" data-toggle="modal">
+                                        @if (chkPer('csdlmucgiahhdv', 'dinhgia', 'giaspdvci', 'khac', 'api') &&
+                                                session('admin')->phanloaiketnoi != 'KHONGKETNOI')
+                                            <div class="btn-group btn-group-solid">
+                                                <button type="button" class="btn btn-default dropdown-toggle btn-xs"
+                                                    data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-cog"></i> Truyền lên CSDLQG <i
+                                                        class="fa fa-angle-down"></i>
+                                                </button>
+
+                                                <ul class="dropdown-menu" style="position: static">
+                                                    <li>
+                                                        <a href="{{ url('/KetNoiAPI/HoSo?maso=giaspdvci') }}"
+                                                            style="border: none;" target="_blank" class="btn btn-default">
+                                                            <i class="fa fa-caret-right"></i> Thiết lập thông điệp</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{ url('/KetNoiAPI/XemHoSo?maso=giaspdvci&mahs=' . $tt->mahs) }}"
+                                                            style="border: none;" target="_blank" class="btn btn-default">
+                                                            <i class="fa fa-caret-right"></i> Xem trước thông điệp</a>
+                                                    </li>
+
+                                                    <li>
+                                                        <button type="button" style="border: none;"
+                                                            onclick="ketnoiapi({{ $tt->mahs }},'giaspdvci', '{{ $inputs['url'] . '/tonghop/' }}')"
+                                                            class="btn btn-default" data-target="#ketnoiapi-modal"
+                                                            data-toggle="modal">
+                                                            <i class="fa fa-caret-right"></i>&nbsp;Truyền dữ liệu
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        @endif
+                                        <button type="button" onclick="get_attack('{{ $tt->mahs }}')"
+                                            class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm"
+                                            data-toggle="modal">
                                             <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp</button>
                                     </td>
                                 </tr>
@@ -146,11 +202,13 @@
                 </div>
                 <!-- END EXAMPLE TABLE PORTLET-->
 
-        </div>
-        <!-- BEGIN DASHBOARD STATS -->
-        <!-- END DASHBOARD STATS -->
+            </div>
+            <!-- BEGIN DASHBOARD STATS -->
+            <!-- END DASHBOARD STATS -->
         </div>
     </div>
+    
+    @include('manage.include.form.modal_ketnoi_api')
     @include('manage.include.form.modal_congbo')
     @include('manage.include.form.modal_approve_xd')
     @include('manage.include.form.modal_unapprove_xd')

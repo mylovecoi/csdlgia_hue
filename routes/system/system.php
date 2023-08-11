@@ -178,4 +178,8 @@ Route::group(['prefix'=>'KetNoiAPI'],function (){
 
     Route::post('MacDinh','Api\APIController@MacDinh');
     Route::get('DanhSachKetNoi','Api\APIController@DanhSachKetNoi');
+    
+    //Truyền hồ sơ
+    Route::post('TruyenHoSo','_dungchung\KetNoiCSDLQuocGiaController@send_post');
+    Route::get('XemHoSo','_dungchung\KetNoiCSDLQuocGiaController@XemHoSo');
 });

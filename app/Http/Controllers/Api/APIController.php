@@ -210,12 +210,14 @@ class APIController extends Controller
             KetNoiAPI_HoSo::where('maso', $inputs['maso'])->delete();
             KetNoiAPI_HoSo_ChiTiet::where('maso', $inputs['maso'])->delete();
             $a_chucnang = getAPIThietLapMacDinh($inputs['machucnang']);
+            //dd($a_chucnang);
             foreach ($a_chucnang['HOSO'] as $chucnang) {
                 KetNoiAPI_HoSo::create(a_merge(['maso' => $inputs['maso']], $chucnang));
             }
-            foreach ($a_chucnang['CHITIET'] as $chucnang) {
-                KetNoiAPI_HoSo_ChiTiet::create(a_merge(['maso' => $inputs['maso']], $chucnang));
-            }
+            if (isset($a_chucnang['CHITIET']))
+                foreach ($a_chucnang['CHITIET'] as $chucnang) {
+                    KetNoiAPI_HoSo_ChiTiet::create(a_merge(['maso' => $inputs['maso']], $chucnang));
+                }
             return  redirect('/KetNoiAPI/HoSo?maso=' . $inputs['maso']);
         }
     }

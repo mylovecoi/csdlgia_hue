@@ -57,7 +57,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Danh mục nhóm <small>&nbsp;hàng hóa dịch vụ </small>
+        Danh mục nhóm <small>&nbsp;hàng hóa dịch vụ 123</small>
     </h3>
     <!-- END PAGE HEADER-->
     <div class="row">
@@ -106,6 +106,39 @@
                                 @if($tt->theodoi == 'TD')
                                     <a href="{{url($inputs['url'].'/danhmuc/detail?matt='.$tt->matt)}}" class="btn btn-default btn-xs mbs">
                                         <i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
+                                        @if (chkPer('csdlmucgiahhdv', 'hhdv', 'giahhdvk', 'khac', 'api') && session('admin')->phanloaiketnoi != 'KHONGKETNOI')
+                                            <div class="btn-group btn-group-solid">
+                                                <button type="button" class="btn btn-default dropdown-toggle btn-xs"
+                                                    data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-cog"></i> Truyền lên CSDLQG <i
+                                                        class="fa fa-angle-down"></i>
+                                                </button>
+
+                                                <ul class="dropdown-menu" style="position: static">
+                                                    <li>
+                                                        <a href="{{ url('/KetNoiAPI/HoSo?maso=dmgiahhdvk') }}"
+                                                            style="border: none;" target="_blank" class="btn btn-default">
+                                                            <i class="fa fa-caret-right"></i> Thiết lập thông điệp</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{ url('/KetNoiAPI/XemHoSo?maso=dmgiahhdvk&mahs=' . $tt->matt) }}"
+                                                            style="border: none;" target="_blank" class="btn btn-default">
+                                                            <i class="fa fa-caret-right"></i> Xem trước thông điệp</a>
+                                                    </li>
+
+                                                    <li>
+                                                        <button type="button" style="border: none;"
+                                                            onclick="ketnoiapi('{{ $tt->matt }}','dmgiahhdvk', '{{ $inputs['url'] . '/danhmuc/' }}')"
+                                                            class="btn btn-default" data-target="#ketnoiapi-modal"
+                                                            data-toggle="modal">
+                                                            <i class="fa fa-caret-right"></i>&nbsp;Truyền dữ liệu
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        @endif
+										
+	
                                 @endif
                             </td>
                         </tr>
@@ -185,4 +218,6 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+
+    @include('manage.include.form.modal_ketnoi_api')
 @stop

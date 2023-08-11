@@ -7,10 +7,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
 use App\DmHhDvK;
+use App\DmHhDvK_DonVi;
+use App\DmPhiLePhi;
 use App\GiaHhDvK;
 use App\GiaHhDvKCt;
+use App\Model\API\KetNoiAPI_DanhSach;
 use App\Model\API\KetNoiAPI_HoSo;
 use App\Model\API\KetNoiAPI_HoSo_ChiTiet;
+use App\Model\manage\dinhgia\giaspdvci\GiaSpDvCi;
+use App\Model\manage\dinhgia\giaspdvci\GiaSpDvCiCt;
+use App\Model\manage\dinhgia\giaspdvci\giaspdvcidm;
+use App\Model\manage\dinhgia\thuetn\DmThueTn;
 use App\Model\manage\dinhgia\thuetn\ThueTaiNguyen;
 use App\Model\manage\dinhgia\thuetn\ThueTaiNguyenCt;
 use App\Model\manage\kekhaigia\kkcatsan\KkGiaCatSan;
@@ -64,12 +71,104 @@ use App\Model\manage\kekhaigia\kkhplx\KkGiaHpLxCt;
 use App\Model\system\danhmucchucnang;
 use App\PhiLePhi;
 use App\PhiLePhiCt;
+use App\ThGiaHhDvK;
+use App\ThGiaHhDvKCt;
 use Illuminate\Support\Facades\Http;
 
 class KetNoiCSDLQuocGiaController extends Controller
 {
-    public function send_post($inputs)
+    public function XemHoSo(Request $request)
     {
+        // if (!Session::has('admin'))
+        //     return view('errors.notlogin');
+        $inputs = $request->all();
+        //dd($inputs);
+        //Xử lý thông tin hồ sơ
+        $HoSoAPI = KetNoiAPI_HoSo::where('maso', $inputs['maso'])->get();
+        $HoSoChiTietAPI = KetNoiAPI_HoSo_ChiTiet::where('maso', $inputs['maso'])->get();
+        if ($HoSoAPI->count() == 0) {
+            return array(
+                'error_code' => '-1',
+                'result' => null,
+                'message' => 'Hồ sơ chưa được thiết lập các trường dữ liệu. Bạn hãy thiết lập hệ thống API cho chức năng này.',
+            );
+        }
+        $m_HoSo = null;
+        $m_HoSoChiTiet = null;
+        $this->getHoSo($m_HoSo, $m_HoSoChiTiet, $inputs['maso'], $inputs['mahs']);
+
+        $a_Body = [];
+        //dd($m_HoSoChiTiet);
+        foreach ($m_HoSo as $HoSo) {
+            $i = 0;
+            $a_HoSo = [];
+            //File đính kèm cho hồ sơ kê khai giá thị trường
+            if ($HoSo->ipf1 != '' && $HoSoAPI->wherein('tendong', ['FILE_DINH_KEM_WORD', 'FILE_DINH_KEM_PDF'])->count() > 0) {
+                $path = public_path(getDuongDanThuMuc($inputs['maso'])) . $HoSo->ipf1;
+                $type = pathinfo($path, PATHINFO_EXTENSION);
+                switch ($type) {
+                    case 'doc':
+                    case 'docx': {
+                            $data = file_get_contents($path);
+                            $base64 =  base64_encode($data);
+                            $a_HoSo['FILE_DINH_KEM_WORD'] = $base64;
+                            break;
+                        }
+                    case 'pdf': {
+                            $data = file_get_contents($path);
+                            $base64 =  base64_encode($data);
+                            $a_HoSo['FILE_DINH_KEM_PDF'] = $base64;
+                            break;
+                        }
+                }
+            }
+
+            foreach ($HoSoAPI as $TenDong) {
+                //xử lý mảng chi tiết trc
+                if (substr($TenDong->tendong, 0, 3) == 'DS_') {
+                    $a_HSChiTiet = array();
+                    foreach ($m_HoSoChiTiet as $HSChiTiet) {
+                        $i++;
+                        $a_ChiTiet = array();
+                        foreach ($HoSoChiTietAPI->where('tendong_goc',$TenDong->tendong) as $Dong) {
+                            $tenTruongCT = $Dong->tentruong;
+                            if ($tenTruongCT == 'NULL') {
+                                $a_ChiTiet[$Dong->tendong] = $this->getMacDinh($Dong->macdinh, $HoSo, $HSChiTiet);
+                            } else {
+                                $a_ChiTiet[$Dong->tendong] = $HSChiTiet->$tenTruongCT;
+                            }
+                            //dd($a_ChiTiet);
+                        }
+                        $a_HSChiTiet[$i] = $a_ChiTiet;
+                    }
+                    //dd($a_HSChiTiet);
+                    $a_HoSo[$TenDong->tendong] = $a_HSChiTiet;
+                    continue;
+                }
+                //Xử lý các trường còn lại
+                $tenTruong = $TenDong->tentruong;
+
+                if ($tenTruong == 'NULL') {
+                    $a_HoSo[$TenDong->tendong] = $this->getMacDinh($TenDong->macdinh, $HoSo);
+                } else {
+                    $a_HoSo[$TenDong->tendong] = $HoSo->$tenTruong;
+                }
+            }
+            $a_Body[] = $a_HoSo;
+        }
+        if (in_array(substr($inputs['maso'], 0, 2), ['dm', 'ds']))
+            return json_encode($a_Body ?? null);
+        else
+            return json_encode($a_Body[0] ?? null);
+    }
+
+    public function send_post(Request $request)
+    {
+        if (!Session::has('admin'))
+            return view('errors.notlogin');
+
+        $inputs = $request->all();
+        //dd($inputs);
         $result = array(
             'error_code' => '-1',
             'result' => null,
@@ -84,6 +183,7 @@ class KetNoiCSDLQuocGiaController extends Controller
             $a_Header['value'] = $inputs['token_ketnoi'];
         } else {
             /* Ví dụ đã chạy
+
             $curl = curl_init();
             curl_setopt_array($curl, array(
                 CURLOPT_RETURNTRANSFER => 1,
@@ -100,6 +200,18 @@ class KetNoiCSDLQuocGiaController extends Controller
             */
             $token_xacthuc = '';
             /* Chờ xem kiểu trả về của LGSP tỉnh
+
+            https://api.ngsp.gov.vn/token
+            2.1.5	Dữ liệu mẫu
+            {
+                "access_token": "d32ed548-e44c-350c-b047-c10f829064fb",
+                "scope": "am_application_scope default",
+                "token_type": "Bearer",
+                "expires_in": 3600
+            }
+
+
+
             $curl = curl_init();
             curl_setopt_array($curl, array(
                 CURLOPT_RETURNTRANSFER => 1,
@@ -124,11 +236,9 @@ class KetNoiCSDLQuocGiaController extends Controller
         $HoSoAPI = KetNoiAPI_HoSo::where('maso', $inputs['chucnang'])->get();
         $HoSoChiTietAPI = KetNoiAPI_HoSo_ChiTiet::where('maso', $inputs['chucnang'])->get();
         if ($HoSoAPI->count() == 0) {
-            return array(
-                'error_code' => '-1',
-                'result' => null,
-                'message' => 'Hồ sơ chưa được thiết lập các trường dữ liệu. Bạn hãy thiết lập hệ thống API cho chức năng này.',
-            );
+            return view('errors.403')
+                ->with('message', 'Hồ sơ chưa được thiết lập các trường dữ liệu. Bạn hãy thiết lập hệ thống API cho chức năng này.')
+                ->with('url', $inputs['url']);
         }
         $m_HoSo = null;
         $m_HoSoChiTiet = null;
@@ -159,6 +269,22 @@ class KetNoiCSDLQuocGiaController extends Controller
                 }
             }
 
+            //File đính kèm cho hồ sơ kê khai giá dịch vụ công ích, ...
+            if ($HoSo->ipf1 != '' && $HoSoAPI->wherein('tendong', ['FILE_DINH_KEM',])->count() > 0) {
+                $path = public_path(getDuongDanThuMuc($inputs['chucnang'])) . $HoSo->ipf1;
+                $type = pathinfo($path, PATHINFO_EXTENSION);
+                switch ($type) {
+                    case 'doc':
+                    case 'docx':
+                    case 'pdf': {
+                            $data = file_get_contents($path);
+                            $base64 =  base64_encode($data);
+                            $a_HoSo['FILE_DINH_KEM'] = $base64;
+                            break;
+                        }
+                }
+            }
+
             foreach ($HoSoAPI as $TenDong) {
                 //xử lý mảng chi tiết trc
                 if (substr($TenDong->tendong, 0, 3) == 'DS_') {
@@ -166,7 +292,7 @@ class KetNoiCSDLQuocGiaController extends Controller
                     foreach ($m_HoSoChiTiet as $HSChiTiet) {
                         $i++;
                         $a_ChiTiet = array();
-                        foreach ($HoSoChiTietAPI as $Dong) {
+                        foreach ($HoSoChiTietAPI->where('tendong_goc',$TenDong->tendong) as $Dong) {
                             $tenTruongCT = $Dong->tentruong;
                             if ($tenTruongCT == 'NULL') {
                                 $a_ChiTiet[$Dong->tendong] = $this->getMacDinh($Dong->macdinh, $HoSo, $HSChiTiet);
@@ -197,32 +323,60 @@ class KetNoiCSDLQuocGiaController extends Controller
         $curl = curl_init($inputs['linkTruyenPost']);
 
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($a_Body[0]));
+        if (in_array(substr($inputs['chucnang'], 0, 2), ['dm', 'ds']))
+            curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($a_Body ?? null));
+        else
+            curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($a_Body[0] ?? null));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $a_Header);
 
-        $result = curl_exec($curl);        
+        $result = curl_exec($curl);
+
         curl_close($curl);
-        if($result==false){
-            return array(
+        if ($result == false) {
+            $result =  array(
                 'error_code' => '-1',
                 'result' => null,
                 'message' => 'Đường dẫn kết nối API không tồn tại.',
             );
         }
-        
-        return $result;
+        //dd($result);
+        //Lưu lại link API
+        KetNoiAPI_DanhSach::where('maso', $inputs['chucnang'])->update(['linkTruyenPost' => $inputs['linkTruyenPost']]);
+        //Trường hợp mã trả lại từ sever là string html
+        if (!is_array($result)) {
+            return view('errors.html_entity_decode')
+                ->with('result', $result);
+        }
+
+        if ($result['error_code'] == '-1') {
+            return view('errors.403')
+                ->with('message', $result['message'])
+                ->with('url', $inputs['url']);
+        } else {
+            return view('errors.success')
+                ->with('message', $result['message'])
+                ->with('url', $inputs['url']);
+        }
     }
 
     function getHoSo(&$HoSo, &$HoSoChiTiet, $ChucNang, $mahs)
     {
         switch ($ChucNang) {
+                // case 'giahhdvk': {
+                //         $HoSo = GiaHhDvK::where('mahs', $mahs)->get();
+                //         if (count($HoSo) == 0)
+                //             $HoSoChiTiet = null;
+                //         else
+                //             $HoSoChiTiet = GiaHhDvKCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                //         break;
+                //     }
             case 'giahhdvk': {
-                    $HoSo = GiaHhDvK::where('mahs', $mahs)->get();
+                    $HoSo = ThGiaHhDvK::where('mahs', $mahs)->get();
                     if (count($HoSo) == 0)
                         $HoSoChiTiet = null;
                     else
-                        $HoSoChiTiet = GiaHhDvKCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                        $HoSoChiTiet = ThGiaHhDvKCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
                     break;
                 }
             case 'vlxd': {
@@ -453,6 +607,34 @@ class KetNoiCSDLQuocGiaController extends Controller
                         $ct->mathuetn .= $ct->cap5 != '' ? ('.' . $ct->cap5) : '';
                     }
 
+                    break;
+                }
+            case 'dmgiahhdvk': {
+                    $HoSo = DmHhDvK::where('matt', $mahs)->get();
+                    $HoSoChiTiet = null;
+                    break;
+                }
+            case 'dmgiathuetn': {
+                    $HoSo = DmThueTn::where('manhom', $mahs)->get();
+                    $HoSoChiTiet = null;
+                    break;
+                }
+            case 'dmgiaspdvci': {
+                    $HoSo = giaspdvcidm::all();
+                    $HoSoChiTiet = null;
+                    break;
+                }
+            case 'giaspdvci': {
+                    $HoSo = GiaSpDvCi::where('mahs', $mahs)->get();
+                    if (count($HoSo) == 0)
+                        $HoSoChiTiet = null;
+                    else
+                        $HoSoChiTiet = GiaSpDvCiCt::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    break;
+                }
+            case 'dmgiaphilephi': {
+                    $HoSo = DmPhiLePhi::all();
+                    $HoSoChiTiet = null;
                     break;
                 }
         }

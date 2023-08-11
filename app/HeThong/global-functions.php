@@ -3217,30 +3217,76 @@ function getAPIThietLapMacDinh($maso)
     $MacDinh['KeKhaiGia'] = [
         //Hồ sơ kê khai
         'HOSO' => [
-            ['tentruong' => 'plhs', 'macdinh' => '', 'dinhdang' => '', 'stt' => '1', 'tendong' => 'LOAI_HO_SO', 'kieudulieu' => 'NUMBER', 'dodai' => '1', 'batbuoc' => '1', 'ghichu' => 'NUMBER',],
-            ['tentruong' => 'NULL', 'macdinh' => '0', 'dinhdang' => '', 'stt' => '2', 'tendong' => 'LOAI_XNK', 'kieudulieu' => 'NUMBER', 'dodai' => '1', 'batbuoc' => '1', 'ghichu' => 'NUMBER',],
-            ['tentruong' => 'madv', 'macdinh' => '', 'dinhdang' => '', 'stt' => '3', 'tendong' => 'DOANH_NGHIEP_DKKK', 'kieudulieu' => 'STRING', 'dodai' => '100', 'batbuoc' => '1', 'ghichu' => 'STRING',],
-            ['tentruong' => 'socv', 'macdinh' => '', 'dinhdang' => '', 'stt' => '4', 'tendong' => 'SO_VAN_BAN', 'kieudulieu' => 'STRING', 'dodai' => '100', 'batbuoc' => '0', 'ghichu' => 'STRING',],
-            ['tentruong' => 'ngaynhap', 'macdinh' => '', 'dinhdang' => 'DD/MM/YY', 'stt' => '5', 'tendong' => 'NGAY_THUC_HIEN', 'kieudulieu' => 'STRING(DATE)', 'dodai' => '8', 'batbuoc' => '1', 'ghichu' => 'STRING(DATE)',],
-            ['tentruong' => 'ngayhieuluc', 'macdinh' => '', 'dinhdang' => 'DD/MM/YY', 'stt' => '6', 'tendong' => 'NGAY_BD_HIEU_LUC', 'kieudulieu' => 'STRING(DATE)', 'dodai' => '8', 'batbuoc' => '1', 'ghichu' => 'STRING(DATE)',],
-            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '7', 'tendong' => 'TY_GIA', 'kieudulieu' => 'NUMBER', 'dodai' => '(18,0)', 'batbuoc' => '0', 'ghichu' => 'NUMBER',],
-            ['tentruong' => 'NULL', 'macdinh' => 'GET_NGUOI_KY', 'dinhdang' => '', 'stt' => '8', 'tendong' => 'NGUOI_KY', 'kieudulieu' => 'STRING', 'dodai' => '500', 'batbuoc' => '0', 'ghichu' => 'STRING',],
-            ['tentruong' => 'ngaychuyen', 'macdinh' => '', 'dinhdang' => 'DD/MM/YY', 'stt' => '9', 'tendong' => 'NGAY_KY', 'kieudulieu' => 'STRING(DATE)', 'dodai' => '8', 'batbuoc' => '0', 'ghichu' => 'STRING(DATE)',],
-            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '10', 'tendong' => 'TRICH_YEU', 'kieudulieu' => 'STRING', 'dodai' => '4000', 'batbuoc' => '0', 'ghichu' => 'STRING',],
-            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '11', 'tendong' => 'QUOC_GIA_XNK', 'kieudulieu' => 'STRING', 'dodai' => '1000', 'batbuoc' => '0', 'ghichu' => 'STRING',],
-            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '12', 'tendong' => 'CHI_NHANH', 'kieudulieu' => 'STRING', 'dodai' => '1000', 'batbuoc' => '0', 'ghichu' => 'STRING',],
-            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '13', 'tendong' => 'KHO_HANG', 'kieudulieu' => 'STRING', 'dodai' => '1000', 'batbuoc' => '0', 'ghichu' => 'STRING',],
-            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '14', 'tendong' => 'TINH_THANH', 'kieudulieu' => 'STRING', 'dodai' => '1000', 'batbuoc' => '0', 'ghichu' => 'STRING',],
-            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '15', 'tendong' => 'DOI_TUONG_AP_DUNG', 'kieudulieu' => 'STRING', 'dodai' => '1000', 'batbuoc' => '0', 'ghichu' => 'STRING',],
-            ['tentruong' => 'mahinhthucthanhtoan', 'macdinh' => '', 'dinhdang' => '', 'stt' => '16', 'tendong' => 'HINH_THUC_THANH_TOAN', 'kieudulieu' => 'STRING', 'dodai' => '1000', 'batbuoc' => '0', 'ghichu' => 'STRING',],
-            ['tentruong' => 'DS_HHDV', 'macdinh' => '', 'dinhdang' => '', 'stt' => '17', 'tendong' => 'DS_HHDV_DKG', 'kieudulieu' => 'OBJECT', 'dodai' => '', 'batbuoc' => '1', 'ghichu' => 'OBJECT',],
+            ['tentruong' => 'NULL', 'macdinh' => 'GET_DIABAN', 'dinhdang' => '', 'stt' => '1', 'tendong' => 'DIA_BAN', 'kieudulieu' => 'STRING', 'dodai' => '3', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '2', 'dinhdang' => '', 'stt' => '2', 'tendong' => 'MAU_BIEU', 'kieudulieu' => 'STRING', 'dodai' => '3', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'plhs', 'macdinh' => '', 'dinhdang' => '', 'stt' => '3', 'tendong' => 'LOAI_HO_SO', 'kieudulieu' => 'NUMBER', 'dodai' => '1', 'batbuoc' => '1', 'ghichu' => 'NUMBER',],
+            ['tentruong' => 'NULL', 'macdinh' => '0', 'dinhdang' => '', 'stt' => '4', 'tendong' => 'LOAI_XNK', 'kieudulieu' => 'NUMBER', 'dodai' => '1', 'batbuoc' => '1', 'ghichu' => 'NUMBER',],
+            ['tentruong' => 'madv', 'macdinh' => '', 'dinhdang' => '', 'stt' => '5', 'tendong' => 'DOANH_NGHIEP_DKKK', 'kieudulieu' => 'STRING', 'dodai' => '100', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'socv', 'macdinh' => '', 'dinhdang' => '', 'stt' => '6', 'tendong' => 'SO_VAN_BAN', 'kieudulieu' => 'STRING', 'dodai' => '100', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'ngaynhap', 'macdinh' => '', 'dinhdang' => 'DD/MM/YY', 'stt' => '7', 'tendong' => 'NGAY_THUC_HIEN', 'kieudulieu' => 'STRING(DATE)', 'dodai' => '8', 'batbuoc' => '1', 'ghichu' => 'STRING(DATE)',],
+            ['tentruong' => 'ngayhieuluc', 'macdinh' => '', 'dinhdang' => 'DD/MM/YY', 'stt' => '8', 'tendong' => 'NGAY_BD_HIEU_LUC', 'kieudulieu' => 'STRING(DATE)', 'dodai' => '8', 'batbuoc' => '1', 'ghichu' => 'STRING(DATE)',],
+            ['tentruong' => 'madv', 'macdinh' => '', 'dinhdang' => '', 'stt' => '9', 'tendong' => 'DONVI_TTSL', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '10', 'tendong' => 'QUOC_GIA_XNK', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '11', 'tendong' => 'CHI_NHANH', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '12', 'tendong' => 'KHO_HANG', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '13', 'tendong' => 'TINH_THANH', 'kieudulieu' => 'STRING', 'dodai' => '1000', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '14', 'tendong' => 'DOI_TUONG_AP_DUNG', 'kieudulieu' => 'STRING', 'dodai' => '1000', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '12', 'tendong' => 'TY_GIA', 'kieudulieu' => 'NUMBER', 'dodai' => '(18,0)', 'batbuoc' => '0', 'ghichu' => 'NUMBER',],
+            ['tentruong' => 'NULL', 'macdinh' => 'GET_NGUOI_KY', 'dinhdang' => '', 'stt' => '16', 'tendong' => 'NGUOI_KY', 'kieudulieu' => 'STRING', 'dodai' => '500', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'ngaychuyen', 'macdinh' => '', 'dinhdang' => 'DD/MM/YY', 'stt' => '17', 'tendong' => 'NGAY_KY', 'kieudulieu' => 'STRING(DATE)', 'dodai' => '8', 'batbuoc' => '0', 'ghichu' => 'STRING(DATE)',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '18', 'tendong' => 'TRICH_YEU', 'kieudulieu' => 'STRING', 'dodai' => '4000', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '19', 'tendong' => 'PHAN_TICH_NGUYEN_NHAN', 'kieudulieu' => 'STRING', 'dodai' => '4000', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'mahinhthucthanhtoan', 'macdinh' => '', 'dinhdang' => '', 'stt' => '20', 'tendong' => 'HINH_THUC_THANH_TOAN', 'kieudulieu' => 'STRING', 'dodai' => '1000', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '21', 'tendong' => 'NGUOI_TAO', 'kieudulieu' => 'STRING', 'dodai' => '1000', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => 'DD/MM/YY', 'stt' => '22', 'tendong' => 'NGAY_TAO', 'kieudulieu' => 'STRING(DATE)', 'dodai' => '8', 'batbuoc' => '0', 'ghichu' => 'STRING(DATE)',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '23', 'tendong' => 'NGUOI_DUYET', 'kieudulieu' => 'STRING', 'dodai' => '1000', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => 'DD/MM/YY', 'stt' => '24', 'tendong' => 'NGAY_DUYET', 'kieudulieu' => 'STRING(DATE)', 'dodai' => '8', 'batbuoc' => '0', 'ghichu' => 'STRING(DATE)',],
+            ['tentruong' => 'DS_HHDV', 'macdinh' => '', 'dinhdang' => '', 'stt' => '25', 'tendong' => 'DS_HHDV_DKG', 'kieudulieu' => 'OBJECT', 'dodai' => '', 'batbuoc' => '1', 'ghichu' => 'OBJECT',],
+            ['tentruong' => 'DS_FILE_DINH_KEM', 'macdinh' => '', 'dinhdang' => '', 'stt' => '26', 'tendong' => 'DS_FILE_DINH_KEM', 'kieudulieu' => 'OBJECT', 'dodai' => '', 'batbuoc' => '1', 'ghichu' => 'OBJECT',],
         ],
         'CHITIET' => [
+            //Danh sách hàng hoá
             ['tentruong' => 'maloaigia', 'macdinh' => '1', 'dinhdang' => '', 'stt' => '1', 'tendong' => 'LOAI_GIA', 'kieudulieu' => 'STRING', 'dodai' => '3', 'batbuoc' => '1', 'ghichu' => 'STRING', 'tendong_goc' => 'DS_HHDV_DKG'],
             ['tentruong' => 'NULL', 'macdinh' => 'MA_HHDV', 'dinhdang' => '', 'stt' => '2', 'tendong' => 'MA_HHDV', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING', 'tendong_goc' => 'DS_HHDV_DKG'],
-            ['tentruong' => 'dvt', 'macdinh' => '', 'dinhdang' => '', 'stt' => '3', 'tendong' => 'MA_DON_VI_TINH', 'kieudulieu' => 'STRING', 'dodai' => '10', 'batbuoc' => '1', 'ghichu' => 'STRING', 'tendong_goc' => 'DS_HHDV_DKG'],
+            ['tentruong' => 'gialk', 'macdinh' => '', 'dinhdang' => '', 'stt' => '3', 'tendong' => 'MUC_GIA_CU', 'kieudulieu' => 'NUMBER', 'dodai' => '(18,0)', 'batbuoc' => '1', 'ghichu' => 'NUMBER', 'tendong_goc' => 'DS_HHDV_DKG'],
             ['tentruong' => 'giakk', 'macdinh' => '', 'dinhdang' => '', 'stt' => '4', 'tendong' => 'MUC_GIA_MOI', 'kieudulieu' => 'NUMBER', 'dodai' => '(18,0)', 'batbuoc' => '1', 'ghichu' => 'NUMBER', 'tendong_goc' => 'DS_HHDV_DKG'],
-            ['tentruong' => 'ghichu', 'macdinh' => '', 'dinhdang' => '', 'stt' => '5', 'tendong' => 'GHI_CHU', 'kieudulieu' => 'STRING', 'dodai' => '4000', 'batbuoc' => '', 'ghichu' => 'STRING', 'tendong_goc' => 'DS_HHDV_DKG'],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '5', 'tendong' => 'MUC_TANG_GIAM', 'kieudulieu' => 'NUMBER', 'dodai' => '(18,0)', 'batbuoc' => '1', 'ghichu' => 'NUMBER', 'tendong_goc' => 'DS_HHDV_DKG'],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '6', 'tendong' => 'TY_LE', 'kieudulieu' => 'NUMBER', 'dodai' => '(18,0)', 'batbuoc' => '1', 'ghichu' => 'NUMBER', 'tendong_goc' => 'DS_HHDV_DKG'],
+            ['tentruong' => 'ghichu', 'macdinh' => '', 'dinhdang' => '', 'stt' => '7', 'tendong' => 'GHI_CHU', 'kieudulieu' => 'STRING', 'dodai' => '4000', 'batbuoc' => '', 'ghichu' => 'STRING', 'tendong_goc' => 'DS_HHDV_DKG'],
+            //Danh sách file đính kem
+            ['tentruong' => 'giakk', 'macdinh' => '11', 'dinhdang' => '', 'stt' => '1', 'tendong' => 'MA_LOAI_FILE', 'kieudulieu' => 'NUMBER', 'dodai' => '(18,1)', 'batbuoc' => '1', 'ghichu' => 'NUMBER', 'tendong_goc' => 'DS_FILE_DINH_KEM'],
+            ['tentruong' => 'ipf1', 'macdinh' => '', 'dinhdang' => '', 'stt' => '2', 'tendong' => 'TEN_FILE', 'kieudulieu' => 'STRING', 'dodai' => '100', 'batbuoc' => '', 'ghichu' => 'STRING', 'tendong_goc' => 'DS_FILE_DINH_KEM'],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '3', 'tendong' => 'FILE_DINH_KEM', 'kieudulieu' => 'STRING(BASES64)', 'dodai' => '', 'batbuoc' => '', 'ghichu' => 'STRING', 'tendong_goc' => 'DS_FILE_DINH_KEM'],
+
+        ],
+    ];
+
+    //Thiết lập Danh sách doanh nghiệp kê khai giá
+    $MacDinh['dsdoanhnghiep'] = [
+        'HOSO' => [
+            ['tentruong' => 'NULL', 'macdinh' => 'GET_DIABAN', 'dinhdang' => '', 'stt' => '1', 'tendong' => 'DIA_BAN', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'tendn', 'macdinh' => '', 'dinhdang' => '', 'stt' => '2', 'tendong' => 'TEN_DOANH_NGHIEP', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'madv', 'macdinh' => '', 'dinhdang' => '', 'stt' => '3', 'tendong' => 'MA_SO_THUE', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'diachi', 'macdinh' => '', 'dinhdang' => '', 'stt' => '4', 'tendong' => 'DIA_CHI', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '2', 'dinhdang' => '', 'stt' => '5', 'tendong' => 'LOAI_DN_KINH_DOANH', 'kieudulieu' => 'NUMBER', 'dodai' => '', 'batbuoc' => '1', 'ghichu' => 'NUMBER',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '6', 'tendong' => 'DON_VI_DKKK_GIA', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'ghichu', 'macdinh' => '', 'dinhdang' => '', 'stt' => '7', 'tendong' => 'GHI_CHU', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+        ],
+    ];
+
+    //Thiết lập Danh mục hàng hóa, dịch vụ kê khai giá 
+    //2023.08.10 Chưa có chức năng danh mục
+    $MacDinh['dmhanghoakkg'] = [
+        'HOSO' => [
+            ['tentruong' => 'NULL', 'macdinh' => 'GET_DIABAN', 'dinhdang' => '', 'stt' => '1', 'tendong' => 'DIA_BAN', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'madv', 'macdinh' => '', 'dinhdang' => '', 'stt' => '2', 'tendong' => 'MA_SO_THUE', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'mahhdv', 'macdinh' => '', 'dinhdang' => '', 'stt' => '3', 'tendong' => 'MA_HHDV', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'mahhdv', 'macdinh' => '', 'dinhdang' => '', 'stt' => '4', 'tendong' => 'TEN_THI_TRUONG_HHDV', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '2', 'dinhdang' => '', 'stt' => '5', 'tendong' => 'LOAI_DKKK', 'kieudulieu' => 'NUMBER', 'dodai' => '', 'batbuoc' => '1', 'ghichu' => 'NUMBER',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '6', 'tendong' => 'MA_HANG_HOA_DICH_VU', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'dvt', 'macdinh' => '', 'dinhdang' => '', 'stt' => '7', 'tendong' => 'DON_VI_TINH', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'quycach', 'macdinh' => '', 'dinhdang' => '', 'stt' => '8', 'tendong' => 'QUY_CACH', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'ghichu', 'macdinh' => '', 'dinhdang' => '', 'stt' => '9', 'tendong' => 'GHI_CHU', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '0', 'ghichu' => 'STRING',],
         ],
     ];
 
@@ -3253,8 +3299,11 @@ function getAPIThietLapMacDinh($maso)
             ['tentruong' => 'NULL', 'macdinh' => '1', 'dinhdang' => '', 'stt' => '4', 'tendong' => 'THOI_GIAN_BC_1', 'kieudulieu' => 'NUMBER', 'dodai' => '3', 'batbuoc' => '1', 'ghichu' => 'NUMBER',],
             ['tentruong' => 'thang', 'macdinh' => '', 'dinhdang' => '', 'stt' => '5', 'tendong' => 'THOI_GIAN_BC_2', 'kieudulieu' => 'NUMBER', 'dodai' => '3', 'batbuoc' => '0', 'ghichu' => 'NUMBER',],
             ['tentruong' => 'nam', 'macdinh' => '', 'dinhdang' => '', 'stt' => '6', 'tendong' => 'THOI_GIAN_BC_NAM', 'kieudulieu' => 'NUMBER', 'dodai' => '4', 'batbuoc' => '1', 'ghichu' => 'NUMBER',],
-            ['tentruong' => 'ipf1', 'macdinh' => '1', 'dinhdang' => '', 'stt' => '7', 'tendong' => 'FILE_DINH_KEM', 'kieudulieu' => 'STRING(BASES64)', 'dodai' => '', 'batbuoc' => '', 'ghichu' => 'STRING(BASES64)',],
-            ['tentruong' => 'DS_HHDV', 'macdinh' => '', 'dinhdang' => '', 'stt' => '8', 'tendong' => 'DS_HHDV_TT', 'kieudulieu' => 'OBJECT', 'dodai' => '', 'batbuoc' => '1', 'ghichu' => 'OBJECT',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '7', 'tendong' => 'FILE_DINH_KEM_WORD', 'kieudulieu' => 'STRING(BASES64)', 'dodai' => '', 'batbuoc' => '', 'ghichu' => 'STRING(BASES64)',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '8', 'tendong' => 'FILE_DINH_KEM_PDF', 'kieudulieu' => 'STRING(BASES64)', 'dodai' => '', 'batbuoc' => '', 'ghichu' => 'STRING(BASES64)',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '9', 'tendong' => 'NGUOI_TAO', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '10', 'tendong' => 'NGUOI_DUYET', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '', 'ghichu' => 'STRING',],
+            ['tentruong' => 'DS_HHDV', 'macdinh' => '', 'dinhdang' => '', 'stt' => '11', 'tendong' => 'DS_HHDV_TT', 'kieudulieu' => 'OBJECT', 'dodai' => '', 'batbuoc' => '1', 'ghichu' => 'OBJECT',],
         ],
         'CHITIET' => [
             ['tentruong' => 'maloaigia', 'macdinh' => '1', 'dinhdang' => '', 'stt' => '1', 'tendong' => 'LOAI_GIA', 'kieudulieu' => 'STRING', 'dodai' => '3', 'batbuoc' => '1', 'ghichu' => 'STRING', 'tendong_goc' => 'DS_HHDV_TT'],
@@ -3290,6 +3339,94 @@ function getAPIThietLapMacDinh($maso)
         ],
     ];
 
+    //Thiết lập DANH MỤC GIÁ HÀNG HOÁ THỊ TRƯỜNG
+    $MacDinh['dmgiahhdvk'] = [
+        'HOSO' => [
+            ['tentruong' => 'NULL', 'macdinh' => 'GET_DIABAN', 'dinhdang' => '', 'stt' => '1', 'tendong' => 'DIA_BAN', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'manhom', 'macdinh' => '', 'dinhdang' => '', 'stt' => '2', 'tendong' => 'NHOM_HHDV', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'mahhdv', 'macdinh' => '', 'dinhdang' => '', 'stt' => '3', 'tendong' => 'MA_HHDV', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => '', 'macdinh' => '1', 'dinhdang' => '', 'stt' => '4', 'tendong' => 'MA_HHDV_TINH_THANH', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'tenhhdv', 'macdinh' => '', 'dinhdang' => '', 'stt' => '5', 'tendong' => 'TEN_HHDV_TINH_THANH', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'dacdiemkt', 'macdinh' => '', 'dinhdang' => '', 'stt' => '6', 'tendong' => 'DAC_DIEM_KY_THUAT', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'dvt', 'macdinh' => '', 'dinhdang' => '', 'stt' => '7', 'tendong' => 'DON_VI_TINH', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '8', 'tendong' => 'NGUOI_TAO', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '', 'ghichu' => 'STRING',],
+        ],
+    ];
+
+    //Thiết lập DANH MỤC GIÁ THUẾ TÀI NGUYÊN
+    $MacDinh['dmgiathuetn'] = [
+        'HOSO' => [
+            ['tentruong' => 'NULL', 'macdinh' => 'GET_DIABAN', 'dinhdang' => '', 'stt' => '1', 'tendong' => 'DIA_BAN', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'mathuetn', 'macdinh' => '', 'dinhdang' => '', 'stt' => '2', 'tendong' => 'MA_TAI_NGUYEN', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'ten', 'macdinh' => '', 'dinhdang' => '', 'stt' => '3', 'tendong' => 'TEN_TAI_NGUYEN', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'level', 'macdinh' => '1', 'dinhdang' => '', 'stt' => '4', 'tendong' => 'CAP_TAI_NGUYEN', 'kieudulieu' => 'NUMBER', 'dodai' => '1', 'batbuoc' => '1', 'ghichu' => 'NUMBER',],
+            ['tentruong' => 'dvt', 'macdinh' => '', 'dinhdang' => '', 'stt' => '5', 'tendong' => 'DON_VI_TINH', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '', 'ghichu' => 'STRING',],
+            ['tentruong' => 'mathuetn_goc', 'macdinh' => '', 'dinhdang' => '', 'stt' => '6', 'tendong' => 'MA_TAI_NGUYEN_TINH_CHA', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'mathuetn', 'macdinh' => '', 'dinhdang' => '', 'stt' => '7', 'tendong' => 'TAI_NGUYEN_BTC', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '0', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '8', 'tendong' => 'NGUOI_TAO', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '', 'ghichu' => 'STRING',],
+        ],
+    ];
+
+    //Thiết lập Danh mục dịch vụ thu gom rác thải (dịch vụ công ích)
+    $MacDinh['dmgiaspdvci'] = [
+        'HOSO' => [
+            ['tentruong' => 'NULL', 'macdinh' => 'GET_DIABAN', 'dinhdang' => '', 'stt' => '1', 'tendong' => 'DIA_BAN', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'maspdv', 'macdinh' => '', 'dinhdang' => '', 'stt' => '2', 'tendong' => 'MA_DV_VCTG', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'tenspdv', 'macdinh' => '', 'dinhdang' => '', 'stt' => '3', 'tendong' => 'TEN_DV_VCTG', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'mota', 'macdinh' => '1', 'dinhdang' => '', 'stt' => '4', 'tendong' => 'MO_TA', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'dvt', 'macdinh' => '', 'dinhdang' => '', 'stt' => '5', 'tendong' => 'DON_VI_TINH', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '6', 'tendong' => 'NGUOI_TAO', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '', 'ghichu' => 'STRING',],
+        ],
+    ];
+
+    //Thiết lập Hồ sơ giá dịch vụ thu gom rác thải (dịch vụ công ích)
+    $MacDinh['giaspdvci'] = [
+        'HOSO' => [
+            ['tentruong' => 'NULL', 'macdinh' => 'GET_DIABAN', 'dinhdang' => '', 'stt' => '1', 'tendong' => 'DIA_BAN', 'kieudulieu' => 'STRING', 'dodai' => '3', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '2', 'tendong' => 'DONVI_TTSL', 'kieudulieu' => 'STRING', 'dodai' => '3', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '3', 'tendong' => 'NGUON_SO_LIEU', 'kieudulieu' => 'STRING', 'dodai' => '3', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'soqd', 'macdinh' => '', 'dinhdang' => '', 'stt' => '4', 'tendong' => 'SO_VAN_BAN', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'thoidiem', 'macdinh' => '', 'dinhdang' => '', 'stt' => '5', 'tendong' => 'NGAY_THUC_HIEN', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'thoidiem', 'macdinh' => '', 'dinhdang' => '', 'stt' => '6', 'tendong' => 'NGAY_BD_HIEU_LUC', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '7', 'tendong' => 'NGAY_KT_HIEU_LUC', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '8', 'tendong' => 'NGUOI_TAO', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '9', 'tendong' => 'NGUOI_DUYET', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '82001', 'dinhdang' => '', 'stt' => '10', 'tendong' => 'MA_BM', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '11', 'tendong' => 'FILE_SO_LIEU', 'kieudulieu' => 'STRING(BASES64)', 'dodai' => '', 'batbuoc' => '', 'ghichu' => 'STRING(BASES64)',],
+            ['tentruong' => 'ipf1', 'macdinh' => '', 'dinhdang' => '', 'stt' => '12', 'tendong' => 'TEN_FILE', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+        ],
+    ];
+
+    //Thiết lập Danh mục Danh mục đối tượng tính lệ phí trước bạ
+    $MacDinh['dmgiaphilephi'] = [
+        'HOSO' => [
+            ['tentruong' => 'NULL', 'macdinh' => 'GET_DIABAN', 'dinhdang' => '', 'stt' => '1', 'tendong' => 'DIA_BAN', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'manhom', 'macdinh' => '', 'dinhdang' => '', 'stt' => '2', 'tendong' => 'MA_DOI_TUONG', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'tennhom', 'macdinh' => '', 'dinhdang' => '', 'stt' => '3', 'tendong' => 'TEN_DOI_TUONG', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '1', 'dinhdang' => '', 'stt' => '4', 'tendong' => 'MO_TA', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '5', 'tendong' => 'DON_VI_TINH', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '6', 'tendong' => 'NGUOI_TAO', 'kieudulieu' => 'STRING', 'dodai' => '', 'batbuoc' => '', 'ghichu' => 'STRING',],
+        ],
+    ];
+
+    //Thiết lập Hồ sơ giá tính lệ phí trước bạ 
+    $MacDinh['giaphilephi'] = [
+        'HOSO' => [
+            ['tentruong' => 'NULL', 'macdinh' => 'GET_DIABAN', 'dinhdang' => '', 'stt' => '1', 'tendong' => 'DIA_BAN', 'kieudulieu' => 'STRING', 'dodai' => '3', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '2', 'tendong' => 'DONVI_TTSL', 'kieudulieu' => 'STRING', 'dodai' => '3', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '3', 'tendong' => 'NGUON_SO_LIEU', 'kieudulieu' => 'STRING', 'dodai' => '3', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'soqd', 'macdinh' => '', 'dinhdang' => '', 'stt' => '4', 'tendong' => 'SO_VAN_BAN', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'thoidiem', 'macdinh' => '', 'dinhdang' => '', 'stt' => '5', 'tendong' => 'NGAY_THUC_HIEN', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'thoidiem', 'macdinh' => '', 'dinhdang' => '', 'stt' => '6', 'tendong' => 'NGAY_BD_HIEU_LUC', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '7', 'tendong' => 'NGAY_KT_HIEU_LUC', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '8', 'tendong' => 'NGUOI_TAO', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '9', 'tendong' => 'NGUOI_DUYET', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '82001', 'dinhdang' => '', 'stt' => '10', 'tendong' => 'MA_BM', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+            ['tentruong' => 'NULL', 'macdinh' => '', 'dinhdang' => '', 'stt' => '11', 'tendong' => 'FILE_SO_LIEU', 'kieudulieu' => 'STRING(BASES64)', 'dodai' => '', 'batbuoc' => '', 'ghichu' => 'STRING(BASES64)',],
+            ['tentruong' => 'ipf1', 'macdinh' => '', 'dinhdang' => '', 'stt' => '12', 'tendong' => 'TEN_FILE', 'kieudulieu' => 'STRING', 'dodai' => '50', 'batbuoc' => '1', 'ghichu' => 'STRING',],
+        ],
+    ];
+
     //Kết quả
     return $MacDinh[$maso] ?? [];
 }
@@ -3298,9 +3435,18 @@ function getAPITenThietLap()
 {
     return [
         'Header' => 'Thiết lập hồ sơ chung',
+        'dsdoanhnghiep' => 'Thiết lập Danh sách doanh nghiệp kê khai giá',
+        'dmhanghoakkg' => 'Thiết lập Danh mục hàng hóa, dịch vụ kê khai giá',
         'KeKhaiGia' => 'Thiết lập hồ sơ kê khai giá',
+        'dmgiahhdvk' => 'Thiết lập danh mục hàng hoá thị trường',
         'giahhdvk' => 'Thiết lập hồ sơ giá hàng hóa thị trường',
+        'dmgiathuetn' => 'Thiết lập danh mục thuế tài nguyên',
         'giathuetn' => 'Thiết lập hồ sơ giá tính thuế tài nguyên',
+        'dmgiaspdvci' => 'Thiết lập Danh mục dịch vụ thu gom rác thải (dịch vụ công ích)',
+        'giaspdvci' => 'Thiết lập Hồ sơ giá dịch vụ thu gom rác thải (dịch vụ công ích)',
+        'dmgiaphilephi' => 'Thiết lập Danh mục Danh mục đối tượng tính lệ phí trước bạ',
+        'giaphilephi' => 'Thiết lập Hồ sơ giá tính lệ phí trước bạ ',
+        // ''=>'',
     ];
 }
 

@@ -602,21 +602,5 @@ class ThueTaiNguyenController extends Controller
                 ->with('pageTitle', 'Tìm kiếm thông tin hồ sơ');
         } else
             return view('errors.notlogin');
-    }   
-    
-    public function truyenHoSo(Request $request)
-    {        
-        if (Session::has('admin')) {
-            $inputs = $request->all();            
-            $_dungchung = new KetNoiCSDLQuocGiaController();
-            $result = $_dungchung->send_post($inputs);
-            if($result['error_code'] == '-1'){
-                return view('errors.403')
-                    ->with('message', $result['message'])
-                    ->with('url','/giathuetn/xetduyet');
-            }
-            dd($result);
-        } else
-            return view('errors.notlogin');
-    }
+    }    
 }
