@@ -228,6 +228,7 @@ Route::group(['prefix'=>'giarung'], function (){
 
 //Thuế tài nguyên
 Route::group(['prefix'=>'giathuetn'], function (){
+    
     Route::get('danhmuc','manage\thuetn\NhomThueTnController@index');
     Route::post('nhomdm','manage\thuetn\NhomThueTnController@store');
     Route::get('show_nhomdm','manage\thuetn\NhomThueTnController@show_nhomdm');
@@ -241,6 +242,7 @@ Route::group(['prefix'=>'giathuetn'], function (){
     Route::post('theodoi','manage\thuetn\DmThueTnController@theodoi');
 
     Route::get('thuetainguyen/nhandulieutuexcel','manage\thuetn\ThueTaiNguyenController@nhandulieutuexcel');
+    
     Route::get('danhsach','manage\thuetn\ThueTaiNguyenController@index');
     Route::get('new','manage\thuetn\ThueTaiNguyenController@create');
     Route::get('edit_ct','manage\thuetn\ThueTaiNguyenCtController@edit');
@@ -274,6 +276,9 @@ Route::group(['prefix'=>'giathuetn'], function (){
     Route::post('bc1','manage\thuetn\ReportsThueTnController@Bc1');
     //Kết nối CSDL
     Route::post('truyenHoSo','manage\thuetn\ThueTaiNguyenController@truyenHoSo');
+
+    Route::get('nhanhosocsdlqg','manage\thuetn\ThueTaiNguyenController@nhanhoso');
+    Route::get('innhanhosocsdlqg','manage\thuetn\ThueTaiNguyenController@innhanhosocsdlqg');
 });
 
 //DV Khám chữa bệnh

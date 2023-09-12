@@ -174,9 +174,31 @@
                             </div> --}}
                         </div>
 
+                        {{-- <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Tự động truyền dữ liệu </label>
+                                    {!! Form::select('linkAPIXacthuc',['1'=>'Truyền số liệu thủ công','2'=>'Tự động truyền số liệu theo tháng','3'=>'Tự động truyền số liệu theo quý','4'=>'Tự động truyền số liệu khi công bố',], null, ['id' => 'linkAPIXacthuc', 'class' => 'form-control']) !!}
+                                </div>
+                            </div>
+                        </div> --}}
+                        <hr>
+                        <h4>Thiết lập khác</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">File quy chế sử dụng phần mềm: </label>
+                                    @if (isset($model->ipf4))
+                                        <a href="{{ url('/data/huongdan/' . $model->ipf4) }}"
+                                            target="_blank">{{ $model->ipf4 }}</a>
+                                    @endif
+                                    <input name="ipf4" id="ipf4" type="file">
+                                </div>
+                            </div>                           
+                        </div>
                         @if (session('admin')->level == 'SSA')
-                            <hr>
-                            <h4>Thiết lập khác</h4>
+                            
+                            
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">

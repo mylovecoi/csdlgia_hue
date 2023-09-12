@@ -514,6 +514,12 @@
                             @endif
 
                             @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
+                            <!-- 30.08.2023 Làm hồ sơ thầu -->
+                            <li>
+                                <a href="{{url('/giathuetn/nhanhosocsdlqg')}}">
+                                    Nhận hồ sơ từ CSDL quốc gia
+                                </a>
+                            </li>
                                 <li>
                                     <a href="{{url('/giathuetn/xetduyet')}}">
                                         Xét duyệt hồ sơ

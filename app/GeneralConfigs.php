@@ -41,5 +41,6 @@ class GeneralConfigs extends Model
         'noidungchungchimang',
         'hienanhdau',
         'linkAPIXacthuc',
+        'linkquyche',
     ];
 }

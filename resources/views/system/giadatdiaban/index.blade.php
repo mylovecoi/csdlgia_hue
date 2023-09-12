@@ -1,8 +1,9 @@
 @extends('main')
 
 @section('custom-style')
-    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/select2/select2.css')}}"/>
+    <link rel="stylesheet" type="text/css"
+        href="{{ url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url('assets/global/plugins/select2/select2.css') }}" />
     <!-- END THEME STYLES -->
 @stop
 
@@ -10,22 +11,25 @@
 @section('custom-script')
     <!-- BEGIN PAGE LEVEL PLUGINS -->
 
-    <script type="text/javascript" src="{{url('assets/global/plugins/select2/select2.min.js')}}"></script>
-    <script type="text/javascript" src="{{url('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js')}}"></script>
-    <script type="text/javascript" src="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
+    <script type="text/javascript" src="{{ url('assets/global/plugins/select2/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js') }}">
+    </script>
+    <script type="text/javascript"
+        src="{{ url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
     <!-- END PAGE LEVEL PLUGINS -->
-    <script src="{{url('assets/admin/pages/scripts/table-managed.js')}}"></script>
-    <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>
+    <script src="{{ url('assets/admin/pages/scripts/table-managed.js') }}"></script>
+    <script src="{{ url('minhtran/jquery.inputmask.bundle.min.js') }}"></script>
 
     <script>
         jQuery(document).ready(function() {
             TableManaged.init();
         });
 
-        function getId(id){
-            document.getElementById("iddelete").value=id;
+        function getId(id) {
+            document.getElementById("iddelete").value = id;
         }
-        function ClickDelete(){
+
+        function ClickDelete() {
             $('#frm_delete').submit();
         }
 
@@ -53,8 +57,9 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <div class="actions">
-                        @if(chkPer('hethong', 'hethong_pq', 'ngaynghile', 'danhmuc',' modify'))
-                            <button type="button" onclick="new_hs()" class="btn btn-default btn-xs mbs" data-target="#modify-modal" data-toggle="modal">
+                        @if (chkPer('hethong', 'hethong_pq', 'ngaynghile', 'danhmuc', ' modify'))
+                            <button type="button" onclick="new_hs()" class="btn btn-default btn-xs mbs"
+                                data-target="#modify-modal" data-toggle="modal">
                                 <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
                         @endif
                     </div>
@@ -70,22 +75,27 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($model as $key=>$tt)
-                        <tr class="odd gradeX">
-                            <td style="text-align: center">{{$key + 1}}</td>
-                            <td class="active" >{{$tt->maloaidat}}</td>
-                            <td class="active" >{{$tt->loaidat}}</td>
+                            @foreach ($model as $key => $tt)
+                                <tr class="odd gradeX">
+                                    <td style="text-align: center">{{ $key + 1 }}</td>
+                                    <td class="active">{{ $tt->maloaidat }}</td>
+                                    <td class="active">{{ $tt->loaidat }}</td>
 
-                            <td>
-                                @if(chkPer('hethong', 'hethong_pq', 'ngaynghile', 'danhmuc',' modify'))
-                                    <button type="button" onclick="edit('{{$tt->maloaidat}}','{{$tt->loaidat}}')" class="btn btn-default btn-xs mbs" data-target="#modify-modal" data-toggle="modal">
-                                        <i class="fa fa-edit"></i>&nbsp;Sửa</button>
-                                    <button type="button" onclick="getId('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#modal-delete" data-toggle="modal">
-                                        <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
-                                @endif
-                            </td>
-                        </tr>
-                        @endforeach
+                                    <td>
+                                        @if (chkPer('hethong', 'hethong_pq', 'ngaynghile', 'danhmuc', ' modify'))
+                                            <button type="button"
+                                                onclick="edit('{{ $tt->maloaidat }}','{{ $tt->loaidat }}')"
+                                                class="btn btn-default btn-xs mbs" data-target="#modify-modal"
+                                                data-toggle="modal">
+                                                <i class="fa fa-edit"></i>&nbsp;Sửa</button>
+                                            <button type="button" onclick="getId('{{ $tt->id }}')"
+                                                class="btn btn-default btn-xs mbs" data-target="#modal-delete"
+                                                data-toggle="modal">
+                                                <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -100,7 +110,7 @@
     <div class="clearfix"></div>
 
     <!--Modal thông tin chi tiết -->
-    {!! Form::open(['url'=>'dmloaidat/modify','id' => 'frm_modify'])!!}
+    {!! Form::open(['url' => 'dmloaidat/modify', 'id' => 'frm_modify']) !!}
     <div id="modify-modal" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -113,14 +123,14 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <label class="control-label">Mã số</label>
-                                {!!Form::text('maloaidat', null, array('id' => 'maloaidat','class' => 'form-control'))!!}
+                                {!! Form::text('maloaidat', null, ['id' => 'maloaidat', 'class' => 'form-control']) !!}
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-12">
                                 <label class="control-label">Tên địa bàn<span class="require">*</span></label>
-                                {!!Form::text('loaidat', null, array('id' => 'loaidat','class' => 'form-control', 'required'=>'required'))!!}
+                                {!! Form::text('loaidat', null, ['id' => 'loaidat', 'class' => 'form-control', 'required' => 'required']) !!}
                             </div>
                         </div>
 
@@ -128,17 +138,19 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
-                    <button type="submit" id="submit" name="submit" value="submit" class="btn btn-primary">Đồng ý</button>
+                    <button type="submit" id="submit" name="submit" value="submit" class="btn btn-primary">Đồng
+                        ý</button>
                 </div>
             </div>
         </div>
     </div>
     {!! Form::close() !!}
 
-    <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url'=>'dmloaidat/delete','id' => 'frm_delete'])!!}
+                {!! Form::open(['url' => 'dmloaidat/delete', 'id' => 'frm_delete']) !!}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Đồng ý xóa?</h4>
@@ -154,5 +166,5 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
-        @include('includes.script.inputmask-ajax-scripts')
+    @include('includes.script.inputmask-ajax-scripts')
 @stop

@@ -14,6 +14,7 @@ use App\Model\view\view_giathuetn;
 use App\Town;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\system\dsdonvi;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\File;
@@ -603,4 +604,62 @@ class ThueTaiNguyenController extends Controller
         } else
             return view('errors.notlogin');
     }    
+
+    //Xây dựng các chức năng nhận hồ sơ từ pm csdl quốc gia
+    public function nhanhoso(Request $request)
+    {
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['url'] = '/giathuetn';
+            //lấy địa bàn
+            //$a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
+            //$a_diaban = getDiaBan_NhapLieu(session('admin')->level, session('admin')->madiaban);
+            $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
+            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
+            $m_donvi_th = getDonViTongHop('giathuetn', \session('admin')->level, \session('admin')->madiaban);
+            //            $inputs['madiaban'] = $inputs['madiaban'] ?? array_key_first($a_diaban);
+            //$inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
+            $inputs['nam'] = $inputs['nam'] ?? 'all';
+
+            //            $m_donvi = view_dsdiaban_donvi::where('madiaban', $inputs['madiaban'])->where('chucnang', 'NHAPLIEU')->get();
+            $m_donvi = getDonViNhapLieu(session('admin')->level, 'giathuetn');
+            if (count($m_donvi) == null) {
+                $message = 'Chưa có đơn vị nào được phân quyền nhập liệu cho chức năng: ' . session('admin')['a_chucnang']['giathuetn']
+                    . '. Bạn cần liên hệ người quản trị để phần quyền nhập liệu cho đơn vị.';
+                return  view('errors.403')
+                    ->with('message', $message);
+            }
+            $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
+            //dd($m_donvi);
+            $a_nhom = array_column(NhomThueTn::where('theodoi', 'TD')->get()->toarray(), 'tennhom', 'manhom');
+            //lấy thông tin đơn vị
+            $model = ThueTaiNguyen::where('madv', $inputs['madv']);
+            if ($inputs['nam'] != 'all')
+                $model = $model->whereYear('thoidiem', $inputs['nam']);
+            //dd($model->get());
+            return view('manage.dinhgia.thuetn.nhanhoso.index')
+                ->with('model', $model->get())
+                ->with('inputs', $inputs)
+                ->with('m_diaban', $m_diaban)
+                ->with('m_donvi', $m_donvi)
+                ->with('a_nhom', $a_nhom)
+                ->with('a_diaban', $a_diaban)
+                ->with('a_dv', array_column($m_donvi->toarray(), 'tendv', 'madv'))
+                ->with('m_donvi_th', $m_donvi_th)
+                ->with('a_donvi_th', array_column($m_donvi_th->toarray(), 'tendv', 'madv'))
+                ->with('a_diaban_th', array_column($m_donvi_th->toarray(), 'tendiaban', 'madiaban'))
+                ->with('pageTitle', 'Thông tin giá thuế tài nguyên');
+        } else
+            return view('errors.notlogin');
+    }
+
+    public function innhanhosocsdlqg(Request $request){
+        $inputs = $request->all();
+        $m_donvi = dsdonvi::where('madv', '1605321545')->first();;
+        $model = ThueTaiNguyen::where('madv', '1605321545')->get();
+        return view('manage.dinhgia.thuetn.nhanhoso.BC1')
+                ->with('model', $model)
+                ->with('m_donvi', $m_donvi)
+                ->with('pageTitle', 'Thông tin giá thuế tài nguyên');
+    }
 }
