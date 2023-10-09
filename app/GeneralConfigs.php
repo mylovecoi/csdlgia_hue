@@ -42,5 +42,7 @@ class GeneralConfigs extends Model
         'hienanhdau',
         'linkAPIXacthuc',
         'linkquyche',
+        'accesskey',
+        'secretkey',
     ];
 }

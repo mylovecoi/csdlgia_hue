@@ -22,7 +22,7 @@
             <!-- BEGIN VALIDATION STATES-->
             <div class="portlet box blue">
                 <!--div class="portlet-title">
-                                                        </div-->
+                                                            </div-->
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
                     {!! Form::model($model, [
@@ -165,7 +165,18 @@
                                 </div>
                                 <!-- /input-group -->
                             </div>
-
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Mã AccessKey: </label>
+                                    {!! Form::text('accesskey', null, ['id' => 'accesskey', 'class' => 'form-control']) !!}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Mã SecretKey: </label>
+                                    {!! Form::text('secretkey', null, ['id' => 'secretkey', 'class' => 'form-control']) !!}
+                                </div>
+                            </div>
                             {{-- <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="control-label">Mật khẩu : </label>
@@ -194,11 +205,9 @@
                                     @endif
                                     <input name="ipf4" id="ipf4" type="file">
                                 </div>
-                            </div>                           
+                            </div>
                         </div>
                         @if (session('admin')->level == 'SSA')
-                            
-                            
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -281,53 +290,53 @@
                             </div>
                         @endif
                         <!--div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label class="control-label">Thời hạn trả hồ sơ lưu trú<span class="require">*</span></label>
-                                                                            {!! Form::text('thoihanlt', null, [
-                                                                                'id' => 'thoihanlt',
-                                                                                'class' => 'form-control',
-                                                                                'data-mask' => 'fdecimal',
-                                                                                'style' => 'text-align: right',
-                                                                            ]) !!}
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Thời hạn trả hồ sơ lưu trú<span class="require">*</span></label>
+                                                                                {!! Form::text('thoihanlt', null, [
+                                                                                    'id' => 'thoihanlt',
+                                                                                    'class' => 'form-control',
+                                                                                    'data-mask' => 'fdecimal',
+                                                                                    'style' => 'text-align: right',
+                                                                                ]) !!}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Thời hạn trả hồ sơ vận tải<span class="require">*</span></label>
+                                                                                {!! Form::text('thoihanvt', null, [
+                                                                                    'id' => 'thoihanvt',
+                                                                                    'class' => 'form-control',
+                                                                                    'data-mask' => 'fdecimal',
+                                                                                    'style' => 'text-align: right',
+                                                                                ]) !!}
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label class="control-label">Thời hạn trả hồ sơ vận tải<span class="require">*</span></label>
-                                                                            {!! Form::text('thoihanvt', null, [
-                                                                                'id' => 'thoihanvt',
-                                                                                'class' => 'form-control',
-                                                                                'data-mask' => 'fdecimal',
-                                                                                'style' => 'text-align: right',
-                                                                            ]) !!}
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Thời hạn trả hồ sơ giá sữa<span class="require">*</span></label>
+                                                                                {!! Form::text('thoihangs', null, [
+                                                                                    'id' => 'thoihangs',
+                                                                                    'class' => 'form-control',
+                                                                                    'data-mask' => 'fdecimal',
+                                                                                    'style' => 'text-align: right',
+                                                                                ]) !!}
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label class="control-label">Thời hạn trả hồ sơ giá sữa<span class="require">*</span></label>
-                                                                            {!! Form::text('thoihangs', null, [
-                                                                                'id' => 'thoihangs',
-                                                                                'class' => 'form-control',
-                                                                                'data-mask' => 'fdecimal',
-                                                                                'style' => 'text-align: right',
-                                                                            ]) !!}
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Thời hạn trả hồ sơ thức ăn chăn nuôi<span class="require">*</span></label>
+                                                                                {!! Form::text('thoihantacn', null, [
+                                                                                    'id' => 'thoihantacn',
+                                                                                    'class' => 'form-control',
+                                                                                    'data-mask' => 'fdecimal',
+                                                                                    'style' => 'text-align: right',
+                                                                                ]) !!}
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label class="control-label">Thời hạn trả hồ sơ thức ăn chăn nuôi<span class="require">*</span></label>
-                                                                            {!! Form::text('thoihantacn', null, [
-                                                                                'id' => 'thoihantacn',
-                                                                                'class' => 'form-control',
-                                                                                'data-mask' => 'fdecimal',
-                                                                                'style' => 'text-align: right',
-                                                                            ]) !!}
-                                                                        </div>
-                                                                    </div>
-                                                                </div-->
+                                                                    </div-->
                     </div>
 
                     <!-- END FORM-->
@@ -355,12 +364,19 @@
         }
 
         function setPhanLoaiKetNoi(obj) {
+
             if (obj.value == 'TAIKHOAN') {
                 $('#taikhoanketnoi').prop('disabled', false);
                 $('#matkhauketnoi').prop('disabled', false);
+
+                $('#accesskey').prop('disabled', true);
+                $('#secretkey').prop('disabled', true);
             } else {
                 $('#taikhoanketnoi').prop('disabled', true);
                 $('#matkhauketnoi').prop('disabled', true);
+
+                $('#accesskey').prop('disabled', false);
+                $('#secretkey').prop('disabled', false);
             }
         }
 
@@ -381,9 +397,13 @@
             if (phanloaiketnoi == 'TAIKHOAN') {
                 $('#taikhoanketnoi').prop('disabled', false);
                 $('#matkhauketnoi').prop('disabled', false);
+                $('#accesskey').prop('disabled', true);
+                $('#secretkey').prop('disabled', true);
             } else {
                 $('#taikhoanketnoi').prop('disabled', true);
                 $('#matkhauketnoi').prop('disabled', true);
+                $('#accesskey').prop('disabled', false);
+                $('#secretkey').prop('disabled', false);
             }
         });
     </script>

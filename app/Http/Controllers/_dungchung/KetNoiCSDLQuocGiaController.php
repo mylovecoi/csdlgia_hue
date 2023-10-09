@@ -130,7 +130,7 @@ class KetNoiCSDLQuocGiaController extends Controller
                     foreach ($m_HoSoChiTiet as $HSChiTiet) {
                         $i++;
                         $a_ChiTiet = array();
-                        foreach ($HoSoChiTietAPI->where('tendong_goc',$TenDong->tendong) as $Dong) {
+                        foreach ($HoSoChiTietAPI->where('tendong_goc', $TenDong->tendong) as $Dong) {
                             $tenTruongCT = $Dong->tentruong;
                             if ($tenTruongCT == 'NULL') {
                                 $a_ChiTiet[$Dong->tendong] = $this->getMacDinh($Dong->macdinh, $HoSo, $HSChiTiet);
@@ -179,10 +179,32 @@ class KetNoiCSDLQuocGiaController extends Controller
             'key' => 'Authorization',
             'value' => ''
         ];
-        if (session('admin')->phanloaiketnoi == 'TOKEN') {
+        if (session('admin')->phanloaiketnoi == 'CHUOIKETNOI') {
             $a_Header['value'] = $inputs['token_ketnoi'];
-        } else {
+        } else {            
+            $curl = curl_init($inputs['linkAPIXacthuc']);
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_HEADER, true);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            //
+            $a_headers = [];
+            $a_headers[] = 'Content-Type: application/x-www-form-urlencoded';
+            $a_headers[] = 'Authorization: Basic ' . base64_encode($inputs['accesskey'] . ':' . $inputs['secretkey']);
+            //dd($a_headers);
+            curl_setopt($curl, CURLOPT_HTTPHEADER, $a_headers);           
+            $result = curl_exec($curl);
+            curl_close($curl);
+            dd($result);
+          
             /* Ví dụ đã chạy
+$request->addHeader("Authorization: Bearer $jwt");
+
+Authorization: Giá trị “Basic Base64.encodeBase64(consumerkey + ":" + consumersecret)”
+Ví dụ: 
+“Basic MU56THpqdElvclBTNmhhcEtXSENlTmhnZkxrYTprSG02WUZhTm0xVGp1S0FmQmZDc19aU1pPc3dh”
+
 
             $curl = curl_init();
             curl_setopt_array($curl, array(
@@ -292,7 +314,7 @@ class KetNoiCSDLQuocGiaController extends Controller
                     foreach ($m_HoSoChiTiet as $HSChiTiet) {
                         $i++;
                         $a_ChiTiet = array();
-                        foreach ($HoSoChiTietAPI->where('tendong_goc',$TenDong->tendong) as $Dong) {
+                        foreach ($HoSoChiTietAPI->where('tendong_goc', $TenDong->tendong) as $Dong) {
                             $tenTruongCT = $Dong->tentruong;
                             if ($tenTruongCT == 'NULL') {
                                 $a_ChiTiet[$Dong->tendong] = $this->getMacDinh($Dong->macdinh, $HoSo, $HSChiTiet);

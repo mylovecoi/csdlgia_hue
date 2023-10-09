@@ -49,6 +49,9 @@ class ReportsHhDvKController extends Controller
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
+            if (!isset($inputs['madv'])) {
+                return view('errors.nodata');
+            }
             //            $a_diaban = getDiaBan_NhapLieu(\session('admin')->level, session('admin')->madiaban);
             //            dd($inputs);
             $a_hs = GiaHhDvK::where('matt', $inputs['matt'])
@@ -119,7 +122,7 @@ class ReportsHhDvKController extends Controller
     public function bc2(Request $request)
     {
         if (Session::has('admin')) {
-            $inputs = $request->all();
+            $inputs = $request->all();            
             $model = DmHhDvK::where('matt', $inputs['matt'])
                 ->where('theodoi', 'TD')
                 ->orderby('mahhdv')

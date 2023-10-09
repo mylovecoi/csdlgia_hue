@@ -223,7 +223,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     </li>
                     @if (session('admin')->ipf4 != '')
                         <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">                           
-                            <a href="{{ url('/data/huongdan/' . $model->ipf4) }}" class="dropdown-toggle" target="_blank">
+                            <a href="{{ url('/data/huongdan/' . session('admin')->ipf4) }}" class="dropdown-toggle" target="_blank">
                                 <i class="fa fa-cloud"></i>
                                 <span class="badge badge-warning">Quy chế</span>
                             </a>

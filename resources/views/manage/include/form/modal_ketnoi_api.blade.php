@@ -12,53 +12,81 @@
                     gia </h4>
             </div>
             <div class="modal-body">
-                @if (session('admin')->phanloaiketnoi == 'TAIKHOAN')
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">Link API xác thực đăng nhập <span
-                                        class="require">*</span></label>
-                                {!! Form::text('linkAPIXacthuc', session('admin')->linkAPIXacthuc, ['class' => 'form-control', 'required']) !!}
-                            </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Link API xác thực<span class="require">*</span>:</label>
+                            {!! Form::text('linkAPIXacthuc', session('admin')->linkAPIXacthuc, ['class' => 'form-control', 'required']) !!}
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">Tài khoản đăng nhập <span class="require">*</span> </label>
-                                {!! Form::text('taikhoanketnoi', session('admin')->taikhoanketnoi, [
-                                    'id' => 'taikhoanketnoi',
-                                    'class' => 'form-control',
-                                    'required',
-                                ]) !!}
+                </div>
+                @switch(session('admin')->phanloaiketnoi)
+                    @case('TAIKHOAN')
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Tài khoản đăng nhập <span class="require">*</span> </label>
+                                    {!! Form::text('taikhoanketnoi', session('admin')->taikhoanketnoi, [
+                                        'id' => 'taikhoanketnoi',
+                                        'class' => 'form-control',
+                                        'required',
+                                    ]) !!}
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-6">
-                            <div class="input-group">
-                                <label class="control-label">Mật khẩu <span class="require">*</span> </label>
-                                <input id="matkhauketnoi" value="{{ session('admin')->taikhoanketnoi }}"
-                                    class="form-control" required name="matkhauketnoi" type="password" />
-                                <span class="input-group-btn">
-                                    <button style="margin-top: 25px" onclick="AnHienMatKhau('matkhauketnoi')"
-                                        class="btn blue" type="button"><i class="fa fa-eye"></i></button>
-                                </span>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <label class="control-label">Mật khẩu <span class="require">*</span> </label>
+                                    <input id="matkhauketnoi" value="{{ session('admin')->taikhoanketnoi }}"
+                                        class="form-control" required name="matkhauketnoi" type="password" />
+                                    <span class="input-group-btn">
+                                        <button style="margin-top: 25px" onclick="AnHienMatKhau('matkhauketnoi')"
+                                            class="btn blue" type="button"><i class="fa fa-eye"></i></button>
+                                    </span>
+                                </div>
+                                <!-- /input-group -->
                             </div>
-                            <!-- /input-group -->
-                        </div>
 
-                    </div>
-                @else
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">Chuỗi xác thực đăng nhập <span
-                                        class="require">*</span></label>
-                                {!! Form::text('token_ketnoi', null, ['class' => 'form-control', 'required']) !!}
+                        </div>
+                    @break
+
+                    @case('TOKEN')
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Mã AccessKey<span class="require">*</span>: </label>
+                                    {!! Form::text('accesskey', session('admin')->accesskey, [
+                                        'class' => 'form-control',
+                                        'required',
+                                    ]) !!}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endif
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Mã SecretKey<span class="require">*</span>: </label>
+                                    {!! Form::text('secretkey', session('admin')->secretkey, [
+                                        'class' => 'form-control',
+                                        'required',
+                                    ]) !!}
+                                </div>
+                            </div>
+                        </div>
+                    @break
+
+                    @case('CHUOIKETNOI')
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Chuỗi xác thực đăng nhập <span class="require">*</span></label>
+                                    {!! Form::text('token_ketnoi', null, ['class' => 'form-control', 'required']) !!}
+                                </div>
+                            </div>
+                        </div>
+                    @break
+                @endswitch
+
 
                 <div class="row">
                     <div class="col-md-12">
@@ -94,7 +122,7 @@
                 maso: chucnang
             },
             dataType: 'JSON',
-            success: function (data) {
+            success: function(data) {
                 console.log(data);
                 $('#frm_ketnoiapi').find("[name='linkTruyenPost']").val(data.linkTruyenPost);
             }

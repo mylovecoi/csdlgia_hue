@@ -5416,6 +5416,7 @@ class ComposerStaticInitd7de3fb6aaadd474bf447891cb3bef8d
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
         'UpdateChisogiatieudungDanhMucChiTiet1709Table' => __DIR__ . '/../..' . '/database/migrations/2022_09_17_102743_update_chisogiatieudung__danh_muc__chi_tiet_1709_table.php',
         'UpdateGeneral030823Table' => __DIR__ . '/../..' . '/database/migrations/2023_08_03_163732_update_general_030823_table.php',
+        'UpdateGeneralAccesstokenTable' => __DIR__ . '/../..' . '/database/migrations/2023_10_06_154704_update_general_accesstoken_table.php',
         'UpdateGeneralConfigs1209Table' => __DIR__ . '/../..' . '/database/migrations/2022_09_12_083827_update_general_configs_1209_table.php',
         'UpdateGiadatdaugiaCt170323Table' => __DIR__ . '/../..' . '/database/migrations/2023_03_17_161524_update_giadatdaugia_ct_170323_table.php',
         'UpdateGiadatphanloaiCt170323Table' => __DIR__ . '/../..' . '/database/migrations/2023_03_17_145055_update_giadatphanloai_ct_170323_table.php',

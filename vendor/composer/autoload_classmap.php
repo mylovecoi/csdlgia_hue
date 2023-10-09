@@ -4998,6 +4998,7 @@ return array(
     'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => $vendorDir . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
     'UpdateChisogiatieudungDanhMucChiTiet1709Table' => $baseDir . '/database/migrations/2022_09_17_102743_update_chisogiatieudung__danh_muc__chi_tiet_1709_table.php',
     'UpdateGeneral030823Table' => $baseDir . '/database/migrations/2023_08_03_163732_update_general_030823_table.php',
+    'UpdateGeneralAccesstokenTable' => $baseDir . '/database/migrations/2023_10_06_154704_update_general_accesstoken_table.php',
     'UpdateGeneralConfigs1209Table' => $baseDir . '/database/migrations/2022_09_12_083827_update_general_configs_1209_table.php',
     'UpdateGiadatdaugiaCt170323Table' => $baseDir . '/database/migrations/2023_03_17_161524_update_giadatdaugia_ct_170323_table.php',
     'UpdateGiadatphanloaiCt170323Table' => $baseDir . '/database/migrations/2023_03_17_145055_update_giadatphanloai_ct_170323_table.php',

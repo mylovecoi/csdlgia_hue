@@ -155,6 +155,8 @@ class UsersController extends Controller
         $ttuser->hienchungchimang = $m_gen->hienchungchimang;
         $ttuser->noidungchungchimang = $m_gen->noidungchungchimang;
         $ttuser->linkAPIXacthuc = $m_gen->linkAPIXacthuc;
+        $ttuser->accesskey = $m_gen->accesskey;
+        $ttuser->secretkey = $m_gen->secretkey;
         //thông tin kết nôi
 
         //dd($ttuser);
