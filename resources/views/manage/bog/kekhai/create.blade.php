@@ -85,7 +85,7 @@
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    mahs: mahs
+                    id: mahs
                 },
                 dataType: 'JSON',
                 success: function (data) {
@@ -252,7 +252,7 @@
                                             <td style="text-align: right">{{dinhdangsothapphan($tt->giakk,2)}}</td>
                                             <td>{{$tt->ghichu}}</td>
                                             <td>
-                                                <button type="button" onclick="editmhbog({{$tt->mahs}});" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs">
+                                                <button type="button" onclick="editmhbog({{$tt->id}});" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs">
                                                     <i class="fa fa-edit"></i>&nbsp;Sửa</button>
                                                 {{--<button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editmhbog({{$tt->id}});"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</button>--}}
                                                 {{--<button type="button" data-target="#modal-nhapkhau" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editnhapkhau({{$tt->id}});"><i class="fa fa-edit"></i>&nbsp;Thuyết minh với MH nhập khẩu</button>--}}
@@ -374,6 +374,26 @@
         <!-- /.modal-dialog -->
     </div>
     {!! Form::close() !!}
+
+    <!--Model Edit-->
+    <div class="modal fade bs-modal-lg" id="modal-edit" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Chỉnh sửa thông tin mặt hàng</h4>
+                </div>
+                <div class="modal-body" id="ttmhbogedit">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default">Thoát</button>
+                    <button type="button" class="btn btn-primary" onclick="updatemhbog()">Cập nhật</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 
     <!--Model Delete-->
     <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true">
