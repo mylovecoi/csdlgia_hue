@@ -17,17 +17,33 @@
         jQuery(document).ready(function() {
             TableManaged.init();
 
-            function changeUrl() {
+            // function changeUrl() {
+            //     var current_path_url = '{{$inputs['url']}}' + '/danhsach?';
+            //     var url = current_path_url + 'nam=' + $('#nam').val() + '&madv=' + $('#madv').val();
+            //     window.location.href = url;
+            // }
+
+            // $('#nam').change(function() {
+            //     changeUrl();
+            // });
+            // $('#madv').change(function () {
+            //     changeUrl();
+            // });
+        });
+
+        $(function(){
+            $('#madiaban').change(function() {
                 var current_path_url = '{{$inputs['url']}}' + '/danhsach?';
-                var url = current_path_url + 'nam=' + $('#nam').val() + '&madv=' + $('#madv').val();
+                var nam = '&nam='+$('#nam').val();
+                var madiaban = '&madiaban='+$('#madiaban').val();
+                var url = current_path_url+nam+madiaban;
                 window.location.href = url;
-            }
+            });
 
             $('#nam').change(function() {
-                changeUrl();
-            });
-            $('#madv').change(function () {
-                changeUrl();
+                var nam = '&nam='+$('#nam').val();
+                var url = '{{$inputs['url']}}' + '/danhsach?'+nam;
+                window.location.href = url;
             });
         });
     </script>

@@ -17,17 +17,33 @@
         jQuery(document).ready(function() {
             TableManaged.init();
 
-            function changeUrl() {
+            // function changeUrl() {
+            //     var current_path_url = '{{$inputs['url']}}' + '/danhsach?';
+            //     var url = current_path_url + 'nam=' + $('#nam').val() + '&madiaban=' + $('#madiaban').val();
+            //     window.location.href = url;
+            // }
+
+            // $('#nam').change(function() {
+            //     changeUrl();
+            // });
+            // $('#madiaban').change(function () {
+            //     changeUrl();
+            // });
+        });
+
+        $(function(){
+            $('#madiaban').change(function() {
                 var current_path_url = '{{$inputs['url']}}' + '/danhsach?';
-                var url = current_path_url + 'nam=' + $('#nam').val() + '&madiaban=' + $('#madiaban').val();
+                var nam = '&nam='+$('#nam').val();
+                var madiaban = '&madiaban='+$('#madiaban').val();
+                var url = current_path_url+nam+madiaban;
                 window.location.href = url;
-            }
+            });
 
             $('#nam').change(function() {
-                changeUrl();
-            });
-            $('#madiaban').change(function () {
-                changeUrl();
+                var nam = '&nam='+$('#nam').val();
+                var url = '{{$inputs['url']}}' + '/danhsach?'+nam;
+                window.location.href = url;
             });
         });
     </script>
@@ -66,7 +82,7 @@
                             </div>
 
                             <div class="col-md-4">
-                                <label style="font-weight: bold">Địa bàn</label>
+                                <label style="font-weight: bold">Địa bàn test</label>
                                 {!!Form::select('madiaban', $a_diaban, $inputs['madiaban'], array('id' => 'madiaban','class' => 'form-control select2me'))!!}
                             </div>
                         </div>
