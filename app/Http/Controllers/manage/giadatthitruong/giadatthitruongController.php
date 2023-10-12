@@ -71,6 +71,7 @@ class giadatthitruongController extends Controller
             $a_xp = array_column(dsxaphuong::where('madiaban',$inputs['madiaban'])->get()->toarray(),'tenxp', 'maxp');
 
             $modelct = giadatthitruongct::where('id', -1)->get();
+            //dd($modelct);
             return view('manage.dinhgia.giadatthitruong.kekhai.edit')
                 ->with('model', $model)
                 ->with('modelct', $modelct)

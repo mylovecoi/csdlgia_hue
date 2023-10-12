@@ -295,7 +295,7 @@
                                     </thead>
                                     <tbody>
                                     <?php $i = 1; ?>
-                                    @foreach($model_ct as $key=>$tt)
+                                    @foreach($modelct as $key=>$tt)
                                         <tr class="odd gradeX">
                                             <td style="text-align: center">{{$i++}}</td>
                                             <td class="active">{{$tt->tenkhudat}}</td>
