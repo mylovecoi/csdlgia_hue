@@ -39,6 +39,34 @@
             });
 
         });
+
+        function confirmNhanHs(mahs) {
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            //alert(id);
+            $.ajax({
+                url: '/xetduyetkkgiavlxd/ttnhanhs',
+                type: 'GET',
+                data: {
+                    _token: CSRF_TOKEN,
+                    mahs: mahs
+                },
+                dataType: 'JSON',
+                success: function(data) {
+                    if (data.status == 'success') {
+                        $('#ttnhanhs').replaceWith(data.message);
+                        //InputMask();
+                    } else
+                        toastr.error("Không thể chỉnh sửa thông tin nhận hồ sơ giá !", "Lỗi!");
+                }
+            })
+        }
+
+        function ClickNhanHs() {
+            $('#frm_nhanhs').submit();
+            var btn = document.getElementById('submitNhanHs');
+            btn.disabled = true;
+            btn.innerText = 'Loading...';
+        }
     </script>
 @stop
 
@@ -236,11 +264,9 @@
                     </div>
                     <div class="modal-body" id="ttnhanhs">
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn blue" onclick="ClickNhanHs()" id="submitNhanHs">Đồng
-                            ý</button>
+                        <button type="submit" class="btn blue" onclick="ClickNhanHs()" id="submitNhanHs">Đồng ý</button>
                     </div>
                     {!! Form::close() !!}
                 </div>

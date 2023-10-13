@@ -226,6 +226,7 @@ class KkGiaVlXdXdController extends Controller
     public function nhanhs(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
+            // dd($inputs['idnhanhs']);
             $id = $inputs['idnhanhs'];
             $model = KkGiaVlXd::findOrFail($id);
             $inputs['madv'] = $model->macqcq;
