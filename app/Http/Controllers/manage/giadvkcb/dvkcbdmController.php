@@ -116,7 +116,7 @@ class dvkcbdmController extends Controller
             foreach (array_chunk($a_dm, 100) as $dm){
                 dvkcbdm::insert($dm);
             }
-            return redirect('giathuetn/danhmuc/detail?manhom='.$inputs['manhom']);
+            return redirect('giadvkcb/danhmuc/detail?manhom='.$inputs['manhom']);
         }else
             return view('errors.notlogin');
     }
