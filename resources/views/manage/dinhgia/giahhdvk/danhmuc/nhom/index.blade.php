@@ -57,7 +57,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Danh mục nhóm <small>&nbsp;hàng hóa dịch vụ 123</small>
+        Danh mục nhóm <small>&nbsp;hàng hóa dịch vụ</small>
     </h3>
     <!-- END PAGE HEADER-->
     <div class="row">

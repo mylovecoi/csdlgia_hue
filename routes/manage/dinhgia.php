@@ -383,6 +383,8 @@ Route::group(['prefix'=>'giahhdvk'], function (){
     Route::get('show_nhomdm','NhomHhDvKController@show_nhomdm');
     Route::post('delete_nhomdm','NhomHhDvKController@destroy');
     Route::get('danhmuc/detail','DmHhDvKController@index');
+    Route::get('danhmuc/detail/nhanexcel','DmHhDvKController@nhanexcel');
+    Route::post('danhmuc/detail/create_excel','DmHhDvKController@create_excel');
     Route::post('dm','DmHhDvKController@store');
     Route::post('delete_dm','DmHhDvKController@destroy');
     Route::get('show_dm','DmHhDvKController@edit');

@@ -80,7 +80,14 @@
                         @if(chkPer('csdlmucgiahhdv','hhdv', 'giahhdvk', 'danhmuc', 'modify'))
                             <button type="button" onclick="new_hs()" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
                                 <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
+
+                            
                         @endif
+                        
+                        <a href="{{ url('giahhdvk/danhmuc/detail/nhanexcel?matt=' . $inputs['matt']) }}"
+                            class="btn btn-default btn-sm">
+                            <i class="fa fa-file-excel-o"></i> Nhận dữ liệu</a>
+
                         <a href="{{url($inputs['url'].'/danhmuc')}}" class="btn btn-default btn-xs mbs">
                             <i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                     </div>
