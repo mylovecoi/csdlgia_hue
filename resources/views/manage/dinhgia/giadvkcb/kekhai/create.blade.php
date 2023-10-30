@@ -148,7 +148,8 @@
                                         <th style="text-align: center">Mã dịch vụ</th>
                                         <th style="text-align: center">Tên dịch vụ</th>
                                         <th style="text-align: center">Đơn vị tính</th>
-                                        <th style="text-align: center" width="10%">Giá dịch vụ</th>
+                                        <th style="text-align: center" width="10%">Giá tối thiểu</th>
+                                        <th style="text-align: center" width="10%">Giá tối đa</th>
                                         <th style="text-align: center" width="15%">Thao tác</th>
                                     </tr>
                                     </thead>
@@ -160,7 +161,8 @@
                                                 <td style="text-align: center">{{$tt->madv}}</td>
                                                 <td class="active" style="font-weight: bold">{{$tt->tendichvu}}</td>
                                                 <td style="text-align: center">{{$tt->dvt}}</td>
-                                                <td style="text-align: right;font-weight: bold">{{$tt->dvt!= '' ? number_format($tt->giadv) : ''}}</td>
+                                                <td style="text-align: right;font-weight: bold">{{$tt->dvt!= '' ? number_format($tt->giatoithieu) : ''}}</td>
+                                                <td style="text-align: right;font-weight: bold">{{$tt->dvt!= '' ? number_format($tt->giatoida) : ''}}</td>
                                                 <td>
                                                     @if($tt->dvt != '')
                                                         <button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem({{$tt->id}})"><i class="fa fa-edit"></i>&nbsp;Kê khai</button>

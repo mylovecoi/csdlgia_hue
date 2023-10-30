@@ -64,6 +64,7 @@ class CongboKeKhaiGiaController extends Controller
         //dd($a_doanhnghiep);
         $m_hoso = new Collection();
         $m_hoso_ct = new Collection();
+        // dd($inputs['madv']);
         if (count($a_bang) > 0) {
             $m_hoso = DB::table($a_bang[$inputs['phanloai']])
                 ->where('madv', $inputs['madv'])

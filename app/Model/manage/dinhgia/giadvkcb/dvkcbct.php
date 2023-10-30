@@ -15,6 +15,8 @@ class dvkcbct extends Model
         'tenspdv',
         'dvt',
         'giadv',
+        'giatoithieu',
+        'giatoida',
         'ghichu',
     ];
 }

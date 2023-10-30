@@ -17,5 +17,8 @@ class DvKcbCt extends Model
         'gc',
         'sapxep',
         'giadv',
+        'giatoida',
+        'giatoithieu',
+        'ghichu',
     ];
 }

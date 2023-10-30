@@ -19,6 +19,8 @@ class CreateDvkcbctTable extends Migration
             $table->string('maspdv')->nullable();
             $table->string('dvt')->nullable();
             $table->double('giadv')->default(0);
+            $table->double('giatoithieu')->default(0);
+            $table->double('giatoida')->default(0);
             $table->string('ghichu')->nullable();
             $table->timestamps();
         });

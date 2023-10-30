@@ -251,7 +251,10 @@ class GiaHhDvKController extends Controller
                     //để hàm round() để chương trình tự hiểu đó là số
                 }
                 //dd($a_dm);
-                GiaHhDvKCt::insert($a_dm);
+                foreach (array_chunk($a_dm , 100) as $dm){
+                    GiaHhDvKCt::insert($dm);
+                }
+                // GiaHhDvKCt::insert($a_dm);
                 $modelct = GiaHhDvKCt::where('mahs', $model->mahs)->get();
                 $a_diaban = array_column(dsdiaban::where('madiaban', $inputs['madiaban'])->get()->toarray(), 'tendiaban', 'madiaban');
                 $a_tt = array_column(NhomHhDvK::where('matt', $inputs['mattbc'])->get()->toarray(), 'tentt', 'matt');
