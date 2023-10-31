@@ -64,8 +64,9 @@ class dvkcbctController extends Controller
             $result['message'] .= '<th style="text-align: center">Mã dịch vụ</th>';
             $result['message'] .= '<th style="text-align: center">Tên sản phẩm, dịch vụ</th>';
             $result['message'] .= '<th style="text-align: center" width="5%">Đơn <br>vị<br> tính</th>';
-            $result['message'] .= '<th style="text-align: center" width="10%" >Giá tối thiểu</th>';
-            $result['message'] .= '<th style="text-align: center" width="10%" >Giá tối đa</th>';
+            $result['message'] .= '<th style="text-align: center" width="10%">Giá tối thiểu</th>';
+            $result['message'] .= '<th style="text-align: center" width="10%">Giá tối đa</th>';
+            $result['message'] .= '<th style="text-align: center" width="20%">Ghi chú</th>';
             $result['message'] .= '<th style="text-align: center" width="10%">Thao tác</th>';
             $result['message'] .= '</tr>';
             $result['message'] .= '</thead>';
@@ -80,6 +81,7 @@ class dvkcbctController extends Controller
                     // $result['message'] .= '<td style="text-align: right;font-weight: bold">'. dinhdangsothapphan($tents->giadv,5).'</td>';
                     $result['message'] .= '<td style="text-align: right;font-weight: bold">'. dinhdangsothapphan($tents->giatoithieu,5).'</td>';
                     $result['message'] .= '<td style="text-align: right;font-weight: bold">'. dinhdangsothapphan($tents->giatoida,5).'</td>';
+                    $result['message'] .= '<td>'.$tents->ghichu.'</td>';
                     $result['message'] .= '<td>';
                     $result['message'] .= '<button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem(' . $tents->id . ');"><i class="fa fa-edit"></i>&nbsp;Nhập giá</button>';
                     $result['message'] .= '</td>';

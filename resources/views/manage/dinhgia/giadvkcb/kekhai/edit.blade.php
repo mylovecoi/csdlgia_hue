@@ -219,6 +219,7 @@
                                         <th style="text-align: center">Đơn vị tính</th>
                                         <th style="text-align: center" width="10%">Đơn giá tối thiểu</th>
                                         <th style="text-align: center" width="10%">Đơn giá tối đa</th>
+                                        <th style="text-align: center" width="20%">Ghi chú</th>
                                         <th style="text-align: center" width="10%">Thao tác</th>
                                     </tr>
                                     </thead>
@@ -232,6 +233,7 @@
                                             {{-- <td style="text-align: right;font-weight: bold">{{number_format($tt->giadv)}}</td> --}}
                                             <td style="text-align: right;font-weight: bold">{{number_format($tt->giatoithieu)}}</td>
                                             <td style="text-align: right;font-weight: bold">{{number_format($tt->giatoida)}}</td>
+                                            <td>{{$tt->ghichu}}</td>
                                             <td>
                                                 @if(in_array($model->trangthai, ['CHT', 'HHT']))
                                                     <button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem({{$tt->id}})">

@@ -65,6 +65,15 @@
                         </div>
 
                         <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label class="control-label">Ghi chú</label>
+                                    {!!Form::textarea('ghichu',null, array('class' => 'form-control', 'rows'=>'2'))!!}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">File đính kèm</label>
@@ -80,7 +89,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <button type="button" data-target="#modal-modify" data-toggle="modal" class="btn btn-success btn-xs" onclick="clearForm()">
-                                        <i class="fa fa-plus"></i>&nbsp;Thêm sản phẩm, dịch vụ</button>                                &nbsp;
+                                        <i class="fa fa-plus"></i>&nbsp;Thêm sản phẩm, dịch vụ</button>&nbsp;
                                 </div>
                             </div>
                         </div>
@@ -123,14 +132,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <label class="control-label">Ghi chú</label>
-                                    {!!Form::textarea('ghichu',null, array('class' => 'form-control', 'rows'=>'2'))!!}
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

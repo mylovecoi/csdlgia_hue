@@ -158,6 +158,7 @@
                                         <th style="text-align: center">Đơn<br> vị<br> tính</th>
                                         <th style="text-align: center" width="10%">Giá kỳ trước</th>
                                         <th style="text-align: center" width="10%">Giá kỳ này</th>
+                                        <th style="text-align: center" width="20%">Ghi chú</th>
                                         <th style="text-align: center" width="15%">Thao tác</th>
                                     </tr>
                                     </thead>
@@ -171,6 +172,7 @@
                                             <td style="text-align: center">{{$tt->dvt}}</td>
                                             <td style="text-align: right;font-weight: bold">{{dinhdangsothapphan($tt->gialk,2)}}</td>
                                             <td style="text-align: right;font-weight: bold">{{dinhdangsothapphan($tt->gia,2)}}</td>
+                                            <td>{{$tt->ghichu}}</td>
                                             <td>
                                                 @if(in_array($model->trangthai, ['CHT', 'HHT']))
                                                     <button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem({{$tt->id}})">
