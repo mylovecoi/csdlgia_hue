@@ -65,7 +65,8 @@ class giaspdvcutheController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['url'] = '/giaspdvcuthe';
-            $inputs['act'] = $inputs['act'] ?? 'true';
+            // $inputs['act'] = $inputs['act'] ?? 'true';
+            $inputs['act'] = 'true';
             //dd($inputs);
             $model = new giaspdvcuthe();
             $model->mahs = $inputs['madv'] . '_' . getdate()[0];

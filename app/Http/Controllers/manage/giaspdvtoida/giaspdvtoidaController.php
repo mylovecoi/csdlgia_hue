@@ -94,7 +94,8 @@ class giaspdvtoidaController extends Controller
         if(Session::has('admin')){
             $inputs = $request->all();
             $inputs['url'] = '/giaspdvtoida';
-            $inputs['act'] = $inputs['act'] ?? 'true';
+            // $inputs['act'] = $inputs['act'] ?? 'true';
+            $inputs['act'] = 'true';
 
             $model = new giaspdvtoida();
             $model->mahs = $inputs['madv'] . '_' . getdate()[0];

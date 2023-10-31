@@ -93,7 +93,8 @@ class giaspdvkhunggiaController extends Controller
         if(Session::has('admin')){
             $inputs = $request->all();
             $inputs['url'] = '/giaspdvkhunggia';
-            $inputs['act'] = $inputs['act'] ?? 'true';
+            // $inputs['act'] = $inputs['act'] ?? 'true';
+            $inputs['act'] = 'true';
 
             $model = new giaspdvkhunggia();
             $model->mahs = $inputs['madv'] . '_' . getdate()[0];
