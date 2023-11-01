@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Model\API\DvKcb;
+use App\Model\Api\DvKcb;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;

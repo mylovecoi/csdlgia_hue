@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Model\API\GiaThueDatNuoc;
+use App\Model\Api\GiaThueDatNuoc;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 

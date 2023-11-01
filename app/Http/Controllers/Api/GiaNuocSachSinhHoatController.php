@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Resources;
-use App\Model\API\GiaNuocSachSinhHoat;
+use App\Model\Api\GiaNuocSachSinhHoat;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;

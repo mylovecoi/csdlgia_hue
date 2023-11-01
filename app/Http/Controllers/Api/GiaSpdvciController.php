@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Model\API\GiaSpdvci;
+use App\Model\Api\GiaSpdvci;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 

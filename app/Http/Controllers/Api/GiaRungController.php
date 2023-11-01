@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Model\Api\giadatphanloai;
-use App\Model\API\GiaRung;
+use App\Model\Api\GiaRung;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;

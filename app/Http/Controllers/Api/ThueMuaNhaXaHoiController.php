@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Model\API\ThueMuaNhaXaHoi;
+use App\Model\Api\ThueMuaNhaXaHoi;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 

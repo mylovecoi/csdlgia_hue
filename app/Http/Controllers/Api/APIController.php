@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 
-use App\Model\API\KetNoiAPI;
-use App\Model\API\KetNoiAPI_HoSo;
-use App\Model\API\KetNoiAPI_HoSo_ChiTiet;
+use App\Model\Api\KetNoiAPI;
+use App\Model\Api\KetNoiAPI_HoSo;
+use App\Model\Api\KetNoiAPI_HoSo_ChiTiet;
 use App\Model\system\danhmucchucnang;
 use App\Users;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\API\KetNoiAPI_DanhSach;
+use App\Model\Api\KetNoiAPI_DanhSach;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Session;
 

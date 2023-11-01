@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Model\API\GiaThueTSCong;
+use App\Model\Api\GiaThueTSCong;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
