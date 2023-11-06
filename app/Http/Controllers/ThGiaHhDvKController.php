@@ -417,7 +417,10 @@ class ThGiaHhDvKController extends Controller
                     'gialk' => round(getDoubleToDb($ct->gialk), 0),
                 ];
             }
-            GiaHhDvKCt::insert($a_dm);
+            foreach (array_chunk($a_dm , 100) as $dm){
+                GiaHhDvKCt::insert($dm);
+            }
+            // GiaHhDvKCt::insert($a_dm);
             $model->save();
             return view('errors.success')
                 ->with('message', 'Tạo mới hồ sơ kê khai từ số liệu tổng hợp thành công.')
