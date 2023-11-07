@@ -104,11 +104,11 @@ class KkGiaDvLtController extends Controller
                 foreach ($modellkct as $ctdf) {
                     $a_dm[] = array(
                         'mahs' => $inputs['mahs'],
-                        'tenhhdv' => $ctdf->tenhhdv,
+                        'tendvcu' => $ctdf->tendvcu,
                         'qccl' => $ctdf->qccl,
                         'dvt' => $ctdf->dvt,
-                        'mucgialk' => $ctdf->mucgiakk,
-                        'mucgiakk' => $ctdf->mucgiakk,
+                        'gialk' => $ctdf->gialk,
+                        'giakk' => $ctdf->giakk,
                         'macskd' => $inputs['macskd'],
                     );
                 }
@@ -184,19 +184,19 @@ class KkGiaDvLtController extends Controller
 
             for ($i = $inputs['tudong']; $i <= $inputs['dendong']; $i++) {
                 if (
-                    !isset($data[$i][$inputs['tenhhdv']]) || !isset($data[$i][$inputs['qccl']]) ||
-                    !isset($data[$i][$inputs['dvt']]) || !isset($data[$i][$inputs['mucgialk']]) ||
-                    !isset($data[$i][$inputs['mucgiakk']])
+                    !isset($data[$i][$inputs['tendvcu']]) || !isset($data[$i][$inputs['qccl']]) ||
+                    !isset($data[$i][$inputs['dvt']]) || !isset($data[$i][$inputs['gialk']]) ||
+                    !isset($data[$i][$inputs['giakk']])
                 ) {
                     continue;
                 }
                 $a_dm[] = array(
                     'mahs' => $inputs['mahs'],
-                    'tenhhdv' => $data[$i][$inputs['tenhhdv']] ?? '',
+                    'tendvcu' => $data[$i][$inputs['tendvcu']] ?? '',
                     'qccl' => $data[$i][$inputs['qccl']] ?? '',
                     'dvt' => $data[$i][$inputs['dvt']] ?? '',
-                    'mucgialk' => $data[$i][$inputs['mucgialk']] ?? '',
-                    'mucgiakk' => $data[$i][$inputs['mucgiakk']] ?? '',
+                    'gialk' => $data[$i][$inputs['gialk']] ?? '',
+                    'giakk' => $data[$i][$inputs['giakk']] ?? '',
                     'macskd' => $inputs['macskd'],
                 );
             }

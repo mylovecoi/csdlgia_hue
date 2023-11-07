@@ -24,9 +24,11 @@ class KkGiaDvLtCtController extends Controller
         }
 
         $inputs = $request->all();
-        if(isset($inputs['tenhhdv'])){
-            $inputs['mucgialk'] = getMoneyToDb($inputs['mucgialk']);
-            $inputs['mucgiakk'] = getMoneyToDb($inputs['mucgiakk']);
+        if(isset($inputs['tendvcu'])){
+            // $inputs['mucgialk'] = getMoneyToDb($inputs['mucgialk']);
+            // $inputs['mucgiakk'] = getMoneyToDb($inputs['mucgiakk']);
+            $inputs['gialk'] = getMoneyToDb($inputs['gialk']);
+            $inputs['giakk'] = getMoneyToDb($inputs['giakk']);
             $inputs['trangthai'] = 'CXD';
             $modelkkgia = new KkGiaDvLtCt();
             $modelkkgia->create($inputs);
@@ -56,11 +58,11 @@ class KkGiaDvLtCtController extends Controller
                 foreach($model as $key=>$ttphong){
                     $result['message'] .= '<tr id="'.$ttphong->id.'">';
                     $result['message'] .= '<td style="text-align: center">'.($key +1).'</td>';
-                    $result['message'] .= '<td class="success">'.$ttphong->tenhhdv.'</td>';
+                    $result['message'] .= '<td class="success">'.$ttphong->tendvcu.'</td>';
                     $result['message'] .= '<td class="active">'.$ttphong->qccl.'</td>';
                     $result['message'] .= '<td style="text-align: center">'.$ttphong->dvt.'</td>';
-                    $result['message'] .= '<td style="text-align: right;font-weight: bold">'.number_format($ttphong->mucgialk).'</td>';
-                    $result['message'] .= '<td style="text-align: right;font-weight: bold">'.number_format($ttphong->mucgiakk).'</td>';
+                    $result['message'] .= '<td style="text-align: right;font-weight: bold">'.number_format($ttphong->gialk).'</td>';
+                    $result['message'] .= '<td style="text-align: right;font-weight: bold">'.number_format($ttphong->giakk).'</td>';
                     $result['message'] .= '<td style="text-align: left">'.$ttphong->ghichu.'</td>';
                     $result['message'] .= '<td>'.
                         '<button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editTtPh('.$ttphong->id.')"><i class="fa fa-edit"></i>&nbsp;Sửa</button>'.
@@ -104,7 +106,7 @@ class KkGiaDvLtCtController extends Controller
             $result['message'] .= '<div class="row">';
             $result['message'] .= '<div class="col-md-12">';
             $result['message'] .= '<div class="form-group"><label for="selGender" class="control-label"><b>Tên hàng hóa dịch vụ</b><span class="require">*</span></label>';
-            $result['message'] .= '<div><input type="text" name="tenhhdvedit" id="tenhhdvedit" class="form-control" value="'.$model->tenhhdv.'"></div>';
+            $result['message'] .= '<div><input type="text" name="tendvcuedit" id="tendvcudvedit" class="form-control" value="'.$model->tendvcu.'"></div>';
             $result['message'] .= '</div>';
             $result['message'] .= '</div>';
             $result['message'] .= '</div>';
@@ -129,12 +131,12 @@ class KkGiaDvLtCtController extends Controller
             $result['message'] .= '<div class="row">';
             $result['message'] .= '<div class="col-md-6">';
             $result['message'] .= '<div class="form-group"><label for="selGender" class="control-label"><b>Mức giá liền kề</b><span class="require">*</span></label>';
-            $result['message'] .= '<div><input type="text" name="mucgialkedit" id="mucgialkedit" class="form-control" data-mask="fdecimal" style="text-align: right;font-weight: bold" value="'.$model->mucgialk.'"></div>';
+            $result['message'] .= '<div><input type="text" name="gialkedit" id="gialkedit" class="form-control" data-mask="fdecimal" style="text-align: right;font-weight: bold" value="'.$model->gialk.'"></div>';
             $result['message'] .= '</div>';
             $result['message'] .= '</div>';
             $result['message'] .= '<div class="col-md-6">';
             $result['message'] .= '<div class="form-group"><label for="selGender" class="control-label"><b>Mức giá kê khai</b><span class="require">*</span></label>';
-            $result['message'] .= '<div><input type="text" name="mucgiakkedit" id="mucgiakkedit" class="form-control" data-mask="fdecimal" style="text-align: right;font-weight: bold" value="'.$model->mucgiakk.'"></div>';
+            $result['message'] .= '<div><input type="text" name="giakkedit" id="giakkedit" class="form-control" data-mask="fdecimal" style="text-align: right;font-weight: bold" value="'.$model->giakk.'"></div>';
             $result['message'] .= '</div>';
             $result['message'] .= '</div>';
             $result['message'] .= '</div>';
@@ -169,9 +171,9 @@ class KkGiaDvLtCtController extends Controller
         }
 
         $inputs = $request->all();
-        if(isset($inputs['tenhhdv'])){
-            $inputs['mucgialk'] = getMoneyToDb($inputs['mucgialk']);
-            $inputs['mucgiakk'] = getMoneyToDb($inputs['mucgiakk']);
+        if(isset($inputs['tendvcu'])){
+            $inputs['gialk'] = getMoneyToDb($inputs['gialk']);
+            $inputs['giakk'] = getMoneyToDb($inputs['giakk']);
             $modelkkgia = KkGiaDvLtCt::where('id',$inputs['id'])->first();
             $modelkkgia->update($inputs);
 
@@ -200,11 +202,11 @@ class KkGiaDvLtCtController extends Controller
                 foreach($model as $key=>$ttphong){
                     $result['message'] .= '<tr id="'.$ttphong->id.'">';
                     $result['message'] .= '<td style="text-align: center">'.($key +1).'</td>';
-                    $result['message'] .= '<td class="success">'.$ttphong->tenhhdv.'</td>';
+                    $result['message'] .= '<td class="success">'.$ttphong->tendvcu.'</td>';
                     $result['message'] .= '<td class="active">'.$ttphong->qccl.'</td>';
                     $result['message'] .= '<td style="text-align: center">'.$ttphong->dvt.'</td>';
-                    $result['message'] .= '<td style="text-align: right;font-weight: bold">'.number_format($ttphong->mucgialk).'</td>';
-                    $result['message'] .= '<td style="text-align: right;font-weight: bold">'.number_format($ttphong->mucgiakk).'</td>';
+                    $result['message'] .= '<td style="text-align: right;font-weight: bold">'.number_format($ttphong->gialk).'</td>';
+                    $result['message'] .= '<td style="text-align: right;font-weight: bold">'.number_format($ttphong->giakk).'</td>';
                     $result['message'] .= '<td style="text-align: left">'.$ttphong->ghichu.'</td>';
                     $result['message'] .= '<td>'.
                         '<button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editTtPh('.$ttphong->id.')"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa thông tin</button>'.
@@ -267,11 +269,11 @@ class KkGiaDvLtCtController extends Controller
                 foreach($model as $key=>$ttphong){
                     $result['message'] .= '<tr id="'.$ttphong->id.'">';
                     $result['message'] .= '<td style="text-align: center">'.($key +1).'</td>';
-                    $result['message'] .= '<td class="success">'.$ttphong->tenhhdv.'</td>';
+                    $result['message'] .= '<td class="success">'.$ttphong->tendvcu.'</td>';
                     $result['message'] .= '<td class="active">'.$ttphong->qccl.'</td>';
                     $result['message'] .= '<td style="text-align: center">'.$ttphong->dvt.'</td>';
-                    $result['message'] .= '<td style="text-align: right;font-weight: bold">'.number_format($ttphong->mucgialk).'</td>';
-                    $result['message'] .= '<td style="text-align: right;font-weight: bold">'.number_format($ttphong->mucgiakk).'</td>';
+                    $result['message'] .= '<td style="text-align: right;font-weight: bold">'.number_format($ttphong->gialk).'</td>';
+                    $result['message'] .= '<td style="text-align: right;font-weight: bold">'.number_format($ttphong->giakk).'</td>';
                     $result['message'] .= '<td style="text-align: left">'.$ttphong->ghichu.'</td>';
                     $result['message'] .= '<td>'.
                         '<button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editTtPh('.$ttphong->id.')"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa thông tin</button>'.

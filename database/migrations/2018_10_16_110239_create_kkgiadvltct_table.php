@@ -18,10 +18,13 @@ class CreateKkgiadvltctTable extends Migration
             $table->string('mahs')->nullable();
             $table->string('macskd')->nullable();
             $table->text('tenhhdv')->nullable();
+            $table->text('tendvcu')->nullable();
             $table->text('qccl')->nullable();
             $table->string('dvt')->nullable();
             $table->string('mucgialk')->nullable();
             $table->string('mucgiakk')->nullable();
+            $table->string('gialk')->nullable();
+            $table->string('giakk')->nullable();
             $table->string('trangthai')->nullable();
             $table->text('ghichu')->nullable();
             $table->timestamps();

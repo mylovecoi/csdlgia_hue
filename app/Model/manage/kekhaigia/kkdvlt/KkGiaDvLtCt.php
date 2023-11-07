@@ -12,10 +12,13 @@ class KkGiaDvLtCt extends Model
         'mahs',
         'macskd',
         'tenhhdv',
+        'tendvcu',
         'qccl',
         'dvt',
         'mucgialk',
+        'gialk',
         'mucgiakk',
+        'giakk',
         'trangthai',
         'ghichu',
     ];

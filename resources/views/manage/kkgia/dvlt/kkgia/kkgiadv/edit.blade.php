@@ -47,11 +47,11 @@
     </script>
     <script>
         function clearForm(){
-            $('#tenhhdv').val('');
+            $('#tendvcu').val('');
             $('#qccl').val('');
             $('#dvt').val('');
-            $('#mucgialk').val('0');
-            $('#mucgiakk').val('0');
+            $('#gialk').val('0');
+            $('#giakk').val('0');
             $('#ghichu').val('');
             document.getElementById('btn-comp').disabled = false;
         }
@@ -62,9 +62,9 @@
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    tenhhdv: $('#tenhhdv').val(),
-                    mucgialk: $('#mucgialk').val(),
-                    mucgiakk: $('#mucgiakk').val(),
+                    tendvcu: $('#tendvcu').val(),
+                    gialk: $('#gialk').val(),
+                    giakk: $('#giakk').val(),
                     qccl: $('#qccl').val(),
                     dvt: $('#dvt').val(),
                     ghichu: $('#ghichu').val(),
@@ -115,9 +115,9 @@
                 data: {
                     _token: CSRF_TOKEN,
                     id: $('#idedit').val(),
-                    tenhhdv: $('#tenhhdvedit').val(),
-                    mucgialk: $('#mucgialkedit').val(),
-                    mucgiakk: $('#mucgiakkedit').val(),
+                    tendvcu: $('#tendvcuedit').val(),
+                    gialk: $('#gialkedit').val(),
+                    giakk: $('#giakkedit').val(),
                     qccl: $('#qccledit').val(),
                     dvt: $('#dvtedit').val(),
                     ghichu: $('#ghichuedit').val(),
@@ -286,11 +286,11 @@
                                 @foreach($modelct as $key=>$tt)
                                     <tr>
                                         <td style="text-align: center">{{$key+1}}</td>
-                                        <td class="success">{{$tt->tenhhdv}}</td>
+                                        <td class="success">{{$tt->tendvcu}}</td>
                                         <td class="active">{{$tt->qccl}}</td>
                                         <td>{{$tt->dvt}}</td>
-                                        <td style="text-align: right;font-weight: bold">{{number_format($tt->mucgialk)}}</td>
-                                        <td style="text-align: right;font-weight: bold">{{number_format($tt->mucgiakk)}}</td>
+                                        <td style="text-align: right;font-weight: bold">{{number_format($tt->gialk)}}</td>
+                                        <td style="text-align: right;font-weight: bold">{{number_format($tt->giakk)}}</td>
                                         <td>{{$tt->ghichu}}</td>
                                         <td>
                                             <button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editTtPh({{$tt->id}})"><i class="fa fa-edit"></i>&nbsp;Sửa</button>
@@ -346,7 +346,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group"><label for="selGender" class="control-label"><b>Tên hàng hóa dịch vụ</b><span class="require">*</span></label>
-                                <div><input type="text" name="tenhhdv" id="tenhhdv" class="form-control"></div>
+                                <div><input type="text" name="tendvcu" id="tendvcu" class="form-control"></div>
                             </div>
                         </div>
                     </div>
@@ -368,12 +368,12 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group"><label for="selGender" class="control-label"><b>Mức giá liền kề</b><span class="require">*</span></label>
-                                <div><input type="text" name="mucgialk" id="mucgialk" class="form-control" data-mask="fdecimal" style="text-align: right;font-weight: bold"></div>
+                                <div><input type="text" name="gialk" id="gialk" class="form-control" data-mask="fdecimal" style="text-align: right;font-weight: bold"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group"><label for="selGender" class="control-label"><b>Mức giá kê khai</b><span class="require">*</span></label>
-                                <div><input type="text" name="mucgiakk" id="mucgiakk" class="form-control" data-mask="fdecimal" style="text-align: right;font-weight: bold"></div>
+                                <div><input type="text" name="giakk" id="giakk" class="form-control" data-mask="fdecimal" style="text-align: right;font-weight: bold"></div>
                             </div>
                         </div>
                     </div>
