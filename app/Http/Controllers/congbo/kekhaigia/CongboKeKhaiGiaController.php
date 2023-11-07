@@ -140,12 +140,13 @@ class CongboKeKhaiGiaController extends Controller
         if (count($a_bang) > 0) {
             $m_hoso = DB::table($a_bang[$inputs['phanloai']])
                 ->where('madv', $inputs['madv'])
-                ->where('trangthai', 'HT')
+                ->where('trangthai', 'DD')
+                ->where('congbo', 'DACONGBO')
                 ->orderby('ngaychuyen', 'desc')
                 ->first();
 
             if ($m_hoso != null) {
-                $m_hoso_ct = DB::table($a_bang[$inputs['phanloai'] . 'ct'])->where('mahs', $m_hoso->mahs)->get();
+                $m_hoso_ct = DB::table($a_bang[$inputs['phanloai']]. 'ct')->where('mahs', $m_hoso->mahs)->get();
             }
         }
         //dd($inputs);
