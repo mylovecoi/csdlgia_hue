@@ -65,18 +65,21 @@ class CongboKeKhaiGiaController extends Controller
         $m_hoso = new Collection();
         $m_hoso_ct = new Collection();
         // dd($inputs['madv']);
+        // dd($a_bang[$inputs['phanloai']]);
         if (count($a_bang) > 0) {
             $m_hoso = DB::table($a_bang[$inputs['phanloai']])
                 ->where('madv', $inputs['madv'])
-                ->where('trangthai', 'HT')
+                ->where('trangthai', 'DD')
+                ->where('congbo', 'DACONGBO')
                 ->orderby('ngaychuyen', 'desc')
                 ->first();
-
+            // dd($m_hoso);
             if ($m_hoso != null) {
-                $m_hoso_ct = DB::table($a_bang[$inputs['phanloai'] . 'ct'])->where('mahs', $m_hoso->mahs)->get();
+                $m_hoso_ct = DB::table($a_bang[$inputs['phanloai']]. 'ct')->where('mahs', $m_hoso->mahs)->get();
+                // dd($m_hoso_ct);
             }
         }
-        //dd($inputs);
+        // dd($inputs);
         return view('congbo.KeKhaiGia._include.doanhnghiep')
             ->with('model', $m_hoso_ct)
             ->with('m_hoso', $m_hoso)
