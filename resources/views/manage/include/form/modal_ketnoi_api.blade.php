@@ -80,7 +80,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="control-label">Chuỗi xác thực đăng nhập <span class="require">*</span></label>
-                                    {!! Form::text('token_ketnoi', null, ['class' => 'form-control', 'required']) !!}
+                                    {!! Form::text('token_ketnoi', session('admin')->token_xacthuc, ['class' => 'form-control', 'required']) !!}
                                 </div>
                             </div>
                         </div>
