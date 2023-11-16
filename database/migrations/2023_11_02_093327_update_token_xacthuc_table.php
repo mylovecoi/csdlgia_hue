@@ -14,7 +14,7 @@ class UpdateTokenXacthucTable extends Migration
     public function up()
     {
         Schema::table('general_configs', function (Blueprint $table) {            
-            $table->string('token_xacthuc')->nullable();        
+            $table->string('token_xacthuc')->nullable();//        
         });
     }
 

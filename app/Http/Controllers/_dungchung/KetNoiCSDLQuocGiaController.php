@@ -178,21 +178,42 @@ class KetNoiCSDLQuocGiaController extends Controller
         $string_bear = '';
         switch (session('admin')->phanloaiketnoi) {
             case 'CHUOIKETNOI': {
-
                 $curl = curl_init();
-                    curl_setopt_array($curl, array(
-                        CURLOPT_URL => $inputs['linkAPIXacthuc'],
-                        CURLOPT_RETURNTRANSFER => true,
-                        CURLOPT_TIMEOUT => 0,
-                        CURLOPT_POST => true,
-                        CURLOPT_POSTFIELDS => http_build_query($data)
-                    ));
-                    // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-                    //curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-                    curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-                    
 
-                ///
+                curl_setopt_array($curl, array(
+                  CURLOPT_URL => 'https://lgsp.haugiang.gov.vn/csdl_gia_token',
+                  CURLOPT_RETURNTRANSFER => true,
+                  CURLOPT_ENCODING => '',
+                  CURLOPT_MAXREDIRS => 10,
+                  CURLOPT_TIMEOUT => 0,
+                  CURLOPT_FOLLOWLOCATION => true,
+                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                  CURLOPT_CUSTOMREQUEST => 'POST',
+                  CURLOPT_POSTFIELDS => 'grant_type=client_credentials',
+                  CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/x-www-form-urlencoded',
+                    'lgspaccesstoken: ewoiQWNjZXNzS2V5IjoiQlRDVFJNQkJUQUpCSklORUJMQlIiLAoiU2VjcmV0S2V5IjoiQWNIT0JNWUNUU0dIYUFBU1dSTVlCQktjYlpRS0ZYIiwKIkFwcE5hbWUiOiJDU0RMX0dJQV9TVEMiLAoiUGFydG5lckNvZGUiOiIwLjAuSDMwIiwKIlBhcnRuZXJDb2RlQ3VzIjoiMC4wLkgzMCIKfQ=='
+                  ),
+                ));
+
+                    $response = curl_exec($curl);
+                    $errno = curl_errno($curl);
+
+                    curl_close($curl);
+                    dd($response);
+
+                    // $curl = curl_init();
+                    // curl_setopt_array($curl, array(
+                    //     CURLOPT_URL => 'https://www.google.com/',
+                    //     CURLOPT_RETURNTRANSFER => true,
+                    //     CURLOPT_SSL_VERIFYPEER => true,
+                    //     CURLOPT_CUSTOMREQUEST => 'GET'
+                    // ));
+                    // $response = curl_exec($curl);
+                    // dd($response);
+                    // print_r($response);
+
+
 
                     // //Lấy _token để truyền dữ liệu
                     // $curl = curl_init($inputs['linkAPIXacthuc']);
@@ -226,17 +247,18 @@ class KetNoiCSDLQuocGiaController extends Controller
                         CURLOPT_RETURNTRANSFER => true,
                         CURLOPT_TIMEOUT => 0,
                         CURLOPT_POST => true,
+                        CURLOPT_SSL_VERIFYPEER => false,
                         CURLOPT_POSTFIELDS => http_build_query($data)
                     ));
                     // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
                     //curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
                     curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-                    //dd($curl);
+                    dd($headers);
                     $response = curl_exec($curl);
                     $errno = curl_errno($curl);
 
                     curl_close($curl);
-                    // dd($response);
+                    dd($response);
                     dd($errno);
                     break;
                 }
