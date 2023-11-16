@@ -74,6 +74,7 @@ use App\PhiLePhiCt;
 use App\ThGiaHhDvK;
 use App\ThGiaHhDvKCt;
 use Illuminate\Support\Facades\Http;
+use GuzzleHttp\Client;
 
 class KetNoiCSDLQuocGiaController extends Controller
 {
@@ -178,28 +179,34 @@ class KetNoiCSDLQuocGiaController extends Controller
         $string_bear = '';
         switch (session('admin')->phanloaiketnoi) {
             case 'CHUOIKETNOI': {
-                $curl = curl_init();
+                    $client = new  Client();
+                    $headers = ['Content-Type' => 'application/x-www-form-urlencoded', 'lgspaccesstoken' => 'ewoiQWNjZXNzS2V5IjoiQlRDVFJNQkJUQUpCSklORUJMQlIiLAoiU2VjcmV0S2V5IjoiQWNIT0JNWUNUU0dIYUFBU1dSTVlCQktjYlpRS0ZYIiwKIkFwcE5hbWUiOiJDU0RMX0dJQV9TVEMiLAoiUGFydG5lckNvZGUiOiIwLjAuSDMwIiwKIlBhcnRuZXJDb2RlQ3VzIjoiMC4wLkgzMCIKfQ=='];
+                    $body = array('grant_type' => 'client_credentials');
+                    $Nbody = json_encode($body);
+                    $response = $client->post('https://123.30.159.54/csdl_gia_token', $headers, $Nbody, );
+                    dd($response->getStatusCode());
 
-                curl_setopt_array($curl, array(
-                  CURLOPT_URL => 'https://lgsp.haugiang.gov.vn/csdl_gia_token',
-                  CURLOPT_RETURNTRANSFER => true,
-                  CURLOPT_ENCODING => '',
-                  CURLOPT_MAXREDIRS => 10,
-                  CURLOPT_TIMEOUT => 0,
-                  CURLOPT_FOLLOWLOCATION => true,
-                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                  CURLOPT_CUSTOMREQUEST => 'POST',
-                  CURLOPT_POSTFIELDS => 'grant_type=client_credentials',
-                  CURLOPT_HTTPHEADER => array(
-                    'Content-Type: application/x-www-form-urlencoded',
-                    'lgspaccesstoken: ewoiQWNjZXNzS2V5IjoiQlRDVFJNQkJUQUpCSklORUJMQlIiLAoiU2VjcmV0S2V5IjoiQWNIT0JNWUNUU0dIYUFBU1dSTVlCQktjYlpRS0ZYIiwKIkFwcE5hbWUiOiJDU0RMX0dJQV9TVEMiLAoiUGFydG5lckNvZGUiOiIwLjAuSDMwIiwKIlBhcnRuZXJDb2RlQ3VzIjoiMC4wLkgzMCIKfQ=='
-                  ),
-                ));
+                    $curl = curl_init();
+                    curl_setopt_array($curl, array(
+                        CURLOPT_URL => 'https://lgsp.haugiang.gov.vn/csdl_gia_token',
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_ENCODING => '',
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 0,
+                        CURLOPT_FOLLOWLOCATION => true,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => 'POST',
+                        CURLOPT_POSTFIELDS => 'grant_type=client_credentials',
+                        CURLOPT_HTTPHEADER => array(
+                            'Content-Type: application/json',
+                            'lgspaccesstoken: ewoiQWNjZXNzS2V5IjoiQlRDVFJNQkJUQUpCSklORUJMQlIiLAoiU2VjcmV0S2V5IjoiQWNIT0JNWUNUU0dIYUFBU1dSTVlCQktjYlpRS0ZYIiwKIkFwcE5hbWUiOiJDU0RMX0dJQV9TVEMiLAoiUGFydG5lckNvZGUiOiIwLjAuSDMwIiwKIlBhcnRuZXJDb2RlQ3VzIjoiMC4wLkgzMCIKfQ=='
+                        ),
+                    ));
 
                     $response = curl_exec($curl);
                     $errno = curl_errno($curl);
-
                     curl_close($curl);
+                    //print_r($response);
                     dd($response);
 
                     // $curl = curl_init();
