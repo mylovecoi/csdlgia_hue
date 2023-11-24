@@ -131,9 +131,9 @@ class KkGiaVlXdXdController extends Controller
             $result['message'] = '<div class="form-group" id="ttdnkkdvgs"> ';
             $result['message'] .= '<label style="color: blue"><b>'.$modeldn->tendn.'</b> Kê khai giá số công văn <b>'.$modelhs->socv.'</b> ngày áp dụng <b>'.getDayVn($modelhs->ngayhieuluc).'</b></b></label>';
             $result['message'] .= '<label style="color: blue">Mã hồ sơ kê khai: <b>'.$modelhs->mahs.'</b></label>';
-            $result['message'] .= '</div>';
             $result['message'] .= '<input type="" id="idnhanhs" name="idnhanhs" value="' . $modelhs->id . '">';
             $result['message'] .= '<input type="" id="madvtralai" name="madvtralai" value="' . $modelhs->madv . '">';
+            $result['message'] .= '</div>';
 
             $result['status'] = 'success';
         }
@@ -143,7 +143,9 @@ class KkGiaVlXdXdController extends Controller
     public function tralai(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            dd($inputs['idtralai']);
+            // dd($inputs['idtralai']);
+            // dd($inputs['madvtralai']);
+            // dd($inputs['lydo']);
             $inputs['macqcq'] = 'BTL';
             $model = KkGiaVlXd::where('id', $inputs['idtralai'])->first();
             // dd($model);

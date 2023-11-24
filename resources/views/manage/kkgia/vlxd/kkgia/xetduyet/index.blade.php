@@ -68,39 +68,48 @@
             btn.innerText = 'Loading...';
         }
 
-        function ClickTraLai(maso, madv) {
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            // alert(maso);
-            // alert(maso2);
-            $.ajax({
-                url: '/ttdnvlxd',
-                type: 'GET',
-                data: {
-                    _token: CSRF_TOKEN,
-                    id: maso,
-                    // madv: maso2,
-                },
-                dataType: 'JSON',
-                success: function (data) {
-                    if (data.status == 'success') {
-                        $('#ttdnkkdvgs').replaceWith(data.message);
-                        document.getElementById("idtralai").value = id;
-                        document.getElementById("madvtralai").value = madv;
-                    }
-                }
-            })
+        // function ClickTraLai(maso, madv) {
+        //     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        //     //            alert(id);
+        //     //            alert(madv);
+        //     $.ajax({
+        //         url: '/ttdnvlxd',
+        //         type: 'GET',
+        //         data: {
+        //             _token: CSRF_TOKEN,
+        //             id: maso,
+        //         },
+        //         dataType: 'JSON',
+        //         success: function(data) {
+        //             $('#ttdnkkdvgs').find("[id='idtralai']").val(maso);
+        //             $('#ttdnkkdvgs').find("[id='madvtralai']").val(madv);
+        //             if (data.status == 'success') {
+        //                 $('#ttdnkkdvgs').replaceWith(data.message);
+        //                 // document.getElementById("idtralai").value = id;
+        //                 // document.getElementById("madvtralai").value = madv;
+        //             }
+        //         }
+        //     })
+        // }
+
+        function ClickTraLai(maso, url, madv) {
+            $('#frm_tralai').attr('action', url);
+            $('#frm_tralai').find("[id='idtralai']").val(maso);
+            $('#frm_tralai').find("[id='madvtralai']").val(madv);
         }
 
-        function confirmTraLai(){
-            if($('#lydo').val() != ''){
+        function confirmTraLai(id, madv) {
+            if ($('#lydo').val() != '') {
                 var btn = document.getElementById('submitTraLai');
                 btn.disabled = true;
                 btn.innerText = 'Loading...';
                 toastr.success("Hồ sơ đã được trả lại!", "Thành công!");
+                // $('#frm_tralai').find("[id='mahs']").val(mahs);
+                // $('#frm_tralai').find("[id='madv']").val(madv);
                 $("#frm_tralai").unbind('submit').submit();
-            }else{
+            } else {
                 toastr.error("Bạn cần nhập lý do trả lại hồ sơ", "Lỗi!!!");
-                $("#frm_tralai").submit(function (e) {
+                $("#frm_tralai").submit(function(e) {
                     e.preventDefault();
                 });
             }
@@ -213,7 +222,7 @@
                                                         <i class="fa fa-send"></i>&nbsp;Công bố</button>
 
                                                     <button type="button"
-                                                        onclick="ClickTraLai('{{ $tt->id }}','{{ $tt->madv }}')"
+                                                        onclick="ClickTraLai('{{ $tt->id }}','{{$inputs['url'].'/tralai'}}','{{ $tt->madv }}')"
                                                         class="btn btn-default btn-xs mbs" data-target="#tralai-modal"
                                                         data-toggle="modal">
                                                         <i class="fa fa-reply"></i>&nbsp;Trả lại</button>
@@ -228,7 +237,7 @@
 
                                                 @if (in_array($tt->trangthai, ['CD', 'DD', 'BTL']))
                                                     <button type="button"
-                                                        onclick="ClickTraLai('{{ $tt->id }}','{{ $tt->madv }}')"
+                                                        onclick="ClickTraLai('{{ $tt->id }}','{{$inputs['url'].'/tralai'}}','{{ $tt->madv }}')"
                                                         class="btn btn-default btn-xs mbs" data-target="#tralai-modal"
                                                         data-toggle="modal"><i class="fa fa-reply"></i>&nbsp;
                                                         Trả lại</button>
@@ -262,7 +271,7 @@
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    {!! Form::open(['url' => 'xetduyetkkgiavlxd/tralai', 'id' => 'frm_tralai']) !!}
+                    {!! Form::open(['url' => '', 'id' => 'frm_tralai']) !!}
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                         <h4 class="modal-title">Đồng ý trả lại hồ sơ?</h4>
