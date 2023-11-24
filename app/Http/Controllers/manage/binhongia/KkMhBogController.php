@@ -257,7 +257,8 @@ class KkMhBogController extends Controller
             //Kiểm tra có thuộc sự quản lý hay k
             $inputs = $request->all();
             $model = KkMhBog::where('mahs', $inputs['mahs'])->first();
-            $modelct = KkMhBogCt::where('mahs', $model->mahs)->orderby('plhh')->get();
+            // $modelct = KkMhBogCt::where('mahs', $model->mahs)->orderby('plhh')->get();
+            $modelct = KkMhBogCt::where('mahs', $model->mahs)->get();
             $m_nghe = DmNgheKd::where('manghe', $model->manghe)->first();
             $m_dn = Company::where('madv', $model->madv)->first();
             $inputs['url'] = '/binhongia';

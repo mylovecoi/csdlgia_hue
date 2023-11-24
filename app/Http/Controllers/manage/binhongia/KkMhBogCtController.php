@@ -39,7 +39,9 @@ class KkMhBogCtController extends Controller
             KkMhBogCt::create($inputs);
         }
 
-        $model = KkMhBogCt::where('mahs', $inputs['mahs'])->orderby('plhh')->get();
+        // $model = KkMhBogCt::where('mahs', $inputs['mahs'])->orderby('plhh')->get();
+        $model = KkMhBogCt::where('mahs', $inputs['mahs'])->get();
+
         $result = $this->return_html($model);
         die(json_encode($result));
     }
