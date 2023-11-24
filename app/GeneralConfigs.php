@@ -44,5 +44,6 @@ class GeneralConfigs extends Model
         'linkquyche',
         'accesskey',
         'secretkey',
+        'token_xacthuc',
     ];
 }

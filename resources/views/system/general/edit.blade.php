@@ -185,6 +185,15 @@
                             </div> --}}
                         </div>
 
+                         <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Mã xác thực:</label>
+                                    {!! Form::textarea('token_xacthuc', null, ['id' => 'token_xacthuc', 'class' => 'form-control', 'rows'=>'2']) !!}
+                                </div>
+                            </div>
+                        </div>
+
                         {{-- <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
