@@ -67,6 +67,45 @@
             btn.disabled = true;
             btn.innerText = 'Loading...';
         }
+
+        function ClickTraLai(maso, madv) {
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            // alert(maso);
+            // alert(maso2);
+            $.ajax({
+                url: '/ttdnvlxd',
+                type: 'GET',
+                data: {
+                    _token: CSRF_TOKEN,
+                    id: maso,
+                    // madv: maso2,
+                },
+                dataType: 'JSON',
+                success: function (data) {
+                    if (data.status == 'success') {
+                        $('#ttdnkkdvgs').replaceWith(data.message);
+                        document.getElementById("idtralai").value = id;
+                        document.getElementById("madvtralai").value = madv;
+                    }
+                }
+            })
+        }
+
+        function confirmTraLai(){
+            if($('#lydo').val() != ''){
+                var btn = document.getElementById('submitTraLai');
+                btn.disabled = true;
+                btn.innerText = 'Loading...';
+                toastr.success("Hồ sơ đã được trả lại!", "Thành công!");
+                $("#frm_tralai").unbind('submit').submit();
+            }else{
+                toastr.error("Bạn cần nhập lý do trả lại hồ sơ", "Lỗi!!!");
+                $("#frm_tralai").submit(function (e) {
+                    e.preventDefault();
+                });
+            }
+
+        }
     </script>
 @stop
 
@@ -235,15 +274,13 @@
                             <label><b>Lý do trả lại</b></label>
                             <textarea id="lydo" class="form-control" name="lydo" cols="30" rows="8"></textarea>
                         </div>
-                        <input type="hidden" name="idtralai" id="idtralai">
-                        <input type="hidden" name="madvtralai" id="madvtralai">
+                        <input type="" name="idtralai" id="idtralai">
+                        <input type="" name="madvtralai" id="madvtralai">
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn blue" onclick="confirmTraLai()" id="submitTraLai">Đồng
-                            ý</button>
-
+                        <button type="submit" class="btn blue" onclick="confirmTraLai()" id="submitTraLai">Đồng ý</button>
                     </div>
                     {!! Form::close() !!}
                 </div>

@@ -132,6 +132,8 @@ class KkGiaVlXdXdController extends Controller
             $result['message'] .= '<label style="color: blue"><b>'.$modeldn->tendn.'</b> Kê khai giá số công văn <b>'.$modelhs->socv.'</b> ngày áp dụng <b>'.getDayVn($modelhs->ngayhieuluc).'</b></b></label>';
             $result['message'] .= '<label style="color: blue">Mã hồ sơ kê khai: <b>'.$modelhs->mahs.'</b></label>';
             $result['message'] .= '</div>';
+            $result['message'] .= '<input type="" id="idnhanhs" name="idnhanhs" value="' . $modelhs->id . '">';
+            $result['message'] .= '<input type="" id="madvtralai" name="madvtralai" value="' . $modelhs->madv . '">';
 
             $result['status'] = 'success';
         }
@@ -141,9 +143,10 @@ class KkGiaVlXdXdController extends Controller
     public function tralai(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            /*dd($inputs);*/
+            dd($inputs['idtralai']);
             $inputs['macqcq'] = 'BTL';
             $model = KkGiaVlXd::where('id', $inputs['idtralai'])->first();
+            // dd($model);
             $a_lichsu = json_decode($model->lichsu, true);;
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => 'BTL',
@@ -154,6 +157,7 @@ class KkGiaVlXdXdController extends Controller
                 'lydo' => $inputs['lydo'],
             );
             $model->lichsu = json_encode($a_lichsu);
+
             setTraLaiDN($inputs['madvtralai'], $model, ['macqcq' => null, 'trangthai' => 'BTL', 'lydo' => $inputs['lydo']]);
             if ($model->save()) {
                 $modeldn = Company::where('madv', $model->madv)->first();

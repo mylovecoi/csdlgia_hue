@@ -348,8 +348,8 @@
                             <label><b>Lý do trả lại</b></label>
                             <textarea id="lydo" class="form-control" name="lydo" cols="30" rows="8"></textarea>
                         </div>
-                        <input type="hidden" name="idtralai" id="idtralai">
-                        <input type="hidden" name="madvtralai" id="madvtralai">
+                        <input type="" name="idtralai" id="idtralai">
+                        <input type="" name="madvtralai" id="madvtralai">
                     </div>
 
                     <div class="modal-footer">

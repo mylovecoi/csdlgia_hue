@@ -116,12 +116,12 @@ class KkGiaVlXdCtController extends Controller
             $result['message'] .= '<div class="row">';
             $result['message'] .= '<div class="col-md-6">';
             $result['message'] .= '<div class="form-group"><label for="selGender" class="control-label"><b>Giá kê khai hiện hành</b><span class="require">*</span></label>';
-            $result['message'] .= '<div><input type="text" style="text-align: right" id="gialkedit" name="gialkedit" class="form-control" data-mask="fdecimal" value="'.$model->gialk.'"></div>';
+            $result['message'] .= '<div><input type="text" style="text-align: right;font-weight: bold" id="gialkedit" name="gialkedit" class="form-control" data-mask="fdecimal" value="'.number_format($model->gialk).'"></div>';
             $result['message'] .= '</div>';
             $result['message'] .= '</div>';
             $result['message'] .= '<div class="col-md-6">';
             $result['message'] .= '<div class="form-group"><label for="selGender" class="control-label"><b>Giá kê khai mới</b><span class="require">*</span></label>';
-            $result['message'] .= '<div><input type="text" style="text-align: right" id="giakkedit" name="giakkedit" class="form-control" data-mask="fdecimal" value="'.$model->giakk.'"></div>';
+            $result['message'] .= '<div><input type="text" style="text-align: right;font-weight: bold" id="giakkedit" name="giakkedit" class="form-control" data-mask="fdecimal" value="'.number_format($model->giakk).'"></div>';
             $result['message'] .= '</div>';
             $result['message'] .= '</div>';
             $result['message'] .= '</div>';
