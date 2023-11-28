@@ -85,6 +85,12 @@
                                                         {!!Form::text('mucgiakk', 'F', array('id' => 'mucgiakk','class' => 'form-control','required'))!!}
                                                     </div>
                                                 </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Ghi chú<span class="require">*</span></label>
+                                                        {!!Form::text('ghichu', 'H', array('id' => 'ghichu','class' => 'form-control','required'))!!}
+                                                    </div>
+                                                </div>
 
 
                                             </div>

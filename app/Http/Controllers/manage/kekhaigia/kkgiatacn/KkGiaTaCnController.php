@@ -416,7 +416,7 @@ class KkGiaTaCnController extends Controller
                 if (
                     !isset($data[$i][$inputs['tenhhdv']]) || !isset($data[$i][$inputs['qccl']]) ||
                     !isset($data[$i][$inputs['dvt']]) || !isset($data[$i][$inputs['mucgialk']]) ||
-                    !isset($data[$i][$inputs['mucgiakk']])
+                    !isset($data[$i][$inputs['mucgiakk']]) || !isset($data[$i][$inputs['ghichu']])
                 ) {
                     continue;
                 }
@@ -427,6 +427,7 @@ class KkGiaTaCnController extends Controller
                     'dvt' => $data[$i][$inputs['dvt']] ?? '',
                     'gialk' => $data[$i][$inputs['mucgialk']] ?? '',
                     'giakk' => $data[$i][$inputs['mucgiakk']] ?? '',
+                    'ghichu' => $data[$i][$inputs['ghichu']] ?? '',
                     'madv' => $inputs['madv'],
                 );
             }
