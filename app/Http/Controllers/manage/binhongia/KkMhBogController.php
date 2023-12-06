@@ -159,7 +159,10 @@ class KkMhBogController extends Controller
                         'trangthai' => 'CXD',
                     ];
                 }
-                KkMhBogCt::insert($a_ct);
+                foreach (array_chunk($a_ct , 100) as $dm){
+                    KkMhBogCt::insert($dm);
+                }
+                // KkMhBogCt::insert($a_ct);
             }
             $a_pl = array_column(KkMhBogCt::all('plhh')->toArray(), 'plhh', 'plhh');
             $a_dvt = array_column(dmdvt::all()->toArray(), 'dvt', 'dvt');
