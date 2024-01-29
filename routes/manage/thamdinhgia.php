@@ -10,11 +10,13 @@ Route::group(['prefix'=>'thamdinhgia'],function () {
     Route::get('danhmuc','DmNhomHangHoaController@index');
     Route::post('danhmuc', 'DmNhomHangHoaController@store');
     Route::get('show_dm', 'DmNhomHangHoaController@show');
+    Route::post('del_dm', 'DmNhomHangHoaController@destroy');
     Route::get('epExcel','DmNhomHangHoaController@epExcel');
 
     Route::get('danhmuc/detail','DmHangHoaController@index');
     Route::post('danhmuc/detail','DmHangHoaController@store');
     Route::get('show_dm_ct', 'DmHangHoaController@show');
+    Route::post('delete_dm','DmHangHoaController@destroy');
     //Hồ sơ thẩm định
     Route::get('danhsach', 'ThamDinhGiaController@index');
     Route::get('new', 'ThamDinhGiaController@create');

@@ -447,6 +447,7 @@ class ThueTaiNguyenController extends Controller
                     }
             }
             //dd(session('admin'));
+            // dd(array_column($m_donvi_th->toarray(), 'tendiaban', 'madiaban'));
             $a_tt = array_column(NhomThueTn::all()->toArray(), 'tennhom', 'manhom');
             return view('manage.dinhgia.thuetn.xetduyet.index')
                 ->with('model', $model)

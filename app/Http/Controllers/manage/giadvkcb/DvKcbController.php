@@ -90,7 +90,7 @@ class DvKcbController extends Controller
             $m_lk = DvKcb::where('trangthai', 'HT')
                 ->where('manhom', $inputs['manhom'])
                 ->where('madv', $inputs['madv'])
-                ->orderby('thoidiem', 'desc')->first();
+                ->orderby('thoidiem', 'desc')->first(); 
             if ($m_lk != null) {
                 $model->soqdlk = $m_lk->soqd;
                 $model->thoidiemlk = $m_lk->thoidiemlk;

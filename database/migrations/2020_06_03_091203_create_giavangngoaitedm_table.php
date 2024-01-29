@@ -20,6 +20,8 @@ class CreateGiavangngoaitedmTable extends Migration
             $table->string('dacdiemkt')->nullable();
             $table->string('xuatxu')->nullable();
             $table->string('dvt')->nullable();
+            $table->double('gia')->nullable();
+            $table->string('loaigia')->nullable();
             $table->string('theodoi')->nullable();
             $table->timestamps();
         });

@@ -31,7 +31,7 @@
             <th style="text-align: center" >Tên hàng hóa<br>dịch vụ</th>
             <th style="text-align: center" >Đặc điểm<br>kỹ thuật</th>
             <th style="text-align: center" >Đơn vị<br>tính</th>
-            <th style="text-align: center" >Giá trung<br>bình</th>
+            <th style="text-align: center" >Giá kê<br>khai</th>
             <th style="text-align: center" width="10%" >Ghi chú</th>
         </tr>
         <tr style="font-size: 10px">

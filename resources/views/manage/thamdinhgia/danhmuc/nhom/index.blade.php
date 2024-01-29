@@ -19,7 +19,7 @@
         jQuery(document).ready(function() {
             TableManaged.init();
         });
-        function getId(maso){
+        function getId(manhom){
             $('#frm_delete').find("[id='manhom']").val(manhom);
         }
         function ClickDelete(){
@@ -104,8 +104,8 @@
                                 @if(chkPer('csdlthamdinhgia','thamdinhgia', 'dmhhthamdinhgia', 'danhmuc', 'modify'))
                                     <button type="button" onclick="ClickEdit('{{$tt->manhom}}')" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
                                         <i class="fa fa-edit"></i>&nbsp;Sửa</button>
-{{--                                    <button type="button" onclick="getId('{{$tt->maso}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal" style="margin: 2px">--}}
-{{--                                        <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>--}}
+                                   <button type="button" onclick="getId('{{$tt->manhom}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal" style="margin: 2px">
+                                       <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
                                 @endif
                                 @if($tt->theodoi == 'TD')
                                     <a href="{{url($inputs['url'].'/danhmuc/detail?&manhom='.$tt->manhom)}}" class="btn btn-default btn-xs mbs">
@@ -183,6 +183,26 @@
                 </div>
                 {!! Form::close() !!}
 
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                {!! Form::open(['url'=>$inputs['url'].'/del_dm','id' => 'frm_delete'])!!}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Đồng ý xóa?</h4>
+                </div>
+                <input type="hidden" name="manhom" id="manhom">
+                <div class="modal-footer">
+                    <button type="submit" class="btn blue" onclick="ClickDelete()">Đồng ý</button>
+                    <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
+                </div>
+                {!! Form::close() !!}
             </div>
             <!-- /.modal-content -->
         </div>

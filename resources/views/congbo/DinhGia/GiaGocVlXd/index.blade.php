@@ -35,7 +35,7 @@
 @section('content-cb')
     <div class=" col-sm-12">
         <h3 class="page-title">
-            Thông tin giá dịch dịch vụ khám chữa bệnh
+            Thông tin giá gốc vật liệu xây dựng
         </h3>
         <div class="portlet box">
             <div class="portlet-title"></div>
@@ -61,10 +61,11 @@
                             <th style="text-align: center" width="2%">STT</th>
                             <th style="text-align: center" width="5%">Thời điểm</th>
                             {{--                        <th style="text-align: center">Địa bàn</th> --}}
-                            <th style="text-align: center">Bệnh viện</th>
-                            <th style="text-align: center">Mô tả</th>
+                            <th style="text-align: center">Tên hàng hóa dịch vụ	</th>
+                            <th style="text-align: center">Quy cách chất lượng</th>
                             <th style="text-align: center">Đơn vị tính</th>
-                            <th style="text-align: center">Đơn giá</th>
+                            <th style="text-align: center">Giá gốc</th>
+                            {{-- <th style="text-align: center">Loại giá</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -74,7 +75,6 @@
                                 <td style="text-align: center">{{ $i++ }}</td>
                                 <td><b>{{ getDayVn($tt->thoidiem) }}</b></td>
                                 <td></td>
-                                {{--                                <td><a target = "_blank" href = "{{url('/data/giadvkcb/'.$tt->ipf1) }}">Tải file đính kèm</a ></td> --}}
                                 <td>
                                     <button type="button" onclick="get_attack('{{ $tt->mahs }}','giadvkcb')"
                                         class="btn btn-default btn-xs mbs" data-target="#dinhkem-modal-confirm"
@@ -82,18 +82,19 @@
                                         <i class="fa fa-cloud-download"></i>&nbsp;Tải tệp đính kèm</button>
                                 </td>
                                 <td></td>
-                                <td style="text-align: center">{{ dinhdangsothapphan($tt->dongia, 2) }}</td>
+                                <td style="text-align: center">{{ dinhdangsothapphan($tt->gia, 2) }}</td>
+                                {{-- <td style="text-align: left">{{$tt->loaigia}}</td> --}}
                             </tr>
                         @endforeach
                         @foreach ($model as $key => $tt)
                             <tr>
                                 <td style="text-align: center">{{ $i++ }}</td>
                                 <td><b>{{ getDayVn($tt->thoidiem) }}</b></td>
-                                {{--                                <td><b>{{$tt->madiaban}}</b></td> --}}
-                                <td style="text-align: left;"><b>{{ $tt->tenbv }}</b></td>
-                                <td style="text-align: left" class="active">{{ $tt->tenspdv }}</td>
+                                <td class="active" style="font-weight: bold">{{$tt->tenhhdv}}</td>
+                                <td style="text-align: left">{{$tt->qccl}}</td>
                                 <td style="text-align: center">{{ $tt->dvt }}</td>
-                                <td style="text-align: center">{{ dinhdangsothapphan($tt->dongia, 2) }}</td>
+                                <td style="text-align: center">{{ dinhdangsothapphan($tt->giagoc, 2) }}</td>
+                                {{-- <td style="text-align: left">{{$tt->loaigia}}</td> --}}
                             </tr>
                         @endforeach
                     </tbody>

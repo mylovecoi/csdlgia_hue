@@ -169,6 +169,7 @@
                                     <li><a href="{{ url('cbgiaspdvci') }}">{{ session('congbo')['chucnang']['giaspdvci'] ?? 'Giá sản phẩm, dịch vụ công ích,... đặt hàng' }} </a></li>
                                     <li><a href="{{ url('cbgiadvgiaoducdaotao') }}">{{ session('congbo')['chucnang']['giadvgddt'] ?? 'Giá dịch vụ GD-ĐT' }}</a></li>
                                     <li><a href="{{ url('cbdichvukcb') }}">{{ session('congbo')['chucnang']['giadvkcb'] ?? 'Giá dịch vụ KCB' }}</a></li>
+                                    <li><a href="{{ url('cbgiavang') }}">{{ session('congbo')['chucnang']['giavangngoaite'] ?? 'Giá vàng ngoại tệ' }}</a></li>
                                 </ul>
                             </li>
 
@@ -186,7 +187,9 @@
                                     <li><a href="{{ url('cbgiathuenhacongvu') }}">{{ session('congbo')['chucnang']['giathuenhacongvu'] ?? 'Giá thuê nhà công vụ' }}</a></li>
                                     {{--                                    <li><a class="text-uppercase" href="{{url('cbbannhataidinhcu')}}">{{session('congbo')['chucnang']['bannhataidinhcu'] ?? 'Giá bán nhà tái định cư'}} </a></li> --}}
                                     <li><a href="{{ url('cbgiadatdiaban') }}">{{ session('congbo')['chucnang']['giacldat'] ?? 'Giá đất theo địa bàn' }} </a></li>
-                                    <li><a href="{{ url('cbgiadaugiadat') }}">{{ session('congbo')['chucnang']['giadaugiadat'] ?? 'Giá đấu giá đất' }}</a></li>
+                                    <li><a href="{{ url('cbgiadaugiadat') }}">{{ session('congbo')['chucnang']['giadaugiadat'] ?? 'Giá trúng đấu giá đất' }}</a></li>
+                                    <li><a href="{{ url('cbgiahhdvk') }}">{{ session('congbo')['chucnang']['giahhdvk'] ?? 'Giá HH-DV khác' }}</a></li>
+                                    <li><a href="{{ url('cbgiagocvlxd') }}">{{ session('congbo')['chucnang']['giagocvlxd'] ?? 'Giá gốc vật liệu xây dựng' }}</a></li>
                                 </ul>
                             </li>
                             <!-- Chon năm; chon phân loại mặt hàng -->

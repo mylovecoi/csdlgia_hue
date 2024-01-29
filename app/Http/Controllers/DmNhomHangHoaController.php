@@ -63,6 +63,18 @@ class DmNhomHangHoaController extends Controller
         die($model);
     }
 
+    public function destroy(Request $request){
+        if(Session::has('admin')){
+            $inputs=$request->all();
+            //dd($inputs);
+            $model = DmNhomHangHoa::where('manhom',$inputs['manhom'])->first();
+            //dd($model);
+            $model->delete();
+            return redirect('/thamdinhgia/danhmuc/');
+        }else
+            return view('errors.notlogin');
+    }
+    
     function epExcel(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();

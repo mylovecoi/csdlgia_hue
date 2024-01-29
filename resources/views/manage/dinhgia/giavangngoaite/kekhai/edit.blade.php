@@ -76,6 +76,7 @@
                                         <th style="text-align: center">Đặc điểm kỹ thuật</th>
                                         <th style="text-align: center">Đơn<br> vị<br> tính</th>
                                         <th style="text-align: center" width="10%">Giá kê khai</th>
+                                        <th style="text-align: center">Loại giá</th>
                                         <th style="text-align: center" width="15%">Thao tác</th>
                                     </tr>
                                     </thead>
@@ -88,6 +89,7 @@
                                             <td style="text-align: left">{{$tt->dacdiemkt}}</td>
                                             <td style="text-align: center">{{$tt->dvt}}</td>
                                             <td style="text-align: right;font-weight: bold">{{number_format($tt->gia)}}</td>
+                                            <td style="text-align: left">{{$tt->loaigia}}</td>
                                             <td>
                                                 @if(in_array($model->trangthai, ['CHT', 'HHT']))
                                                     <button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem({{$tt->id}})">

@@ -45,6 +45,8 @@
                     form.find("[name='dacdiemkt']").val(data.dacdiemkt);
                     form.find("[name='dvt']").val(data.dvt).trigger('change');
                     //form.find("[name='theodoi']").val(data.theodoi).trigger('change');
+                    form.find("[name='gia']").val(data.gia);
+                    form.find("[name='loaigia']").val(data.loaigia);
 
                 },
                 error: function (message) {
@@ -57,6 +59,8 @@
             form.find("[name='mahhdv']").val(null);
             form.find("[name='tenhhdv']").val(null);
             form.find("[name='dacdiemkt']").val(null);
+            form.find("[name='gia']").val(null);
+            form.find("[name='loaigia']").val(null);
             //form.find("[name='mahhdv']").prop('readonly', false);
         }
     </script>
@@ -91,6 +95,8 @@
                             <th style="text-align: center">Tên hàng hóa, dịch vụ</th>
                             <th style="text-align: center">Đặc điểm kỹ thuật</th>
                             <th style="text-align: center">Đơn vị<br>tính</th>
+                            <th style="text-align: center">Giá</th>
+                            <th style="text-align: center">Loại giá</th>
 {{--                            <th style="text-align: center">Theo dõi</th>--}}
                             <th style="text-align: center" width="15%">Thao tác</th>
                         </tr>
@@ -103,6 +109,8 @@
                             <td class="success" style="font-weight: bold">{{$tt->tenhhdv}}</td>
                             <td>{{$tt->dacdiemkt}}</td>
                             <td style="text-align: center">{{$tt->dvt}}</td>
+                            <td style="text-align: right">{{number_format($tt->gia)}}</td>
+                            <td>{{$tt->loaigia}}</td>
 {{--                            <td style="text-align: center">--}}
 {{--                                @if($tt->theodoi == 'KTD')--}}
 {{--                                    <span class="badge badge-active">Không theo dõi</span>--}}
@@ -177,6 +185,22 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Giá</label>
+                                <input type="text" name="gia" id="gia" class="form-control" data-mask="fdecimal" style="text-align: right;font-weight: bold">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Loại giá</label>
+                                <input type="text" name="loaigia" id="loaigia" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn blue">Đồng ý</button>

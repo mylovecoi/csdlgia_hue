@@ -19,6 +19,9 @@ Route::get('cbgiadvgiaoducdaotao','congbo\dinhgia\CongboGiaDvGiaoDucDaoTaoContro
 Route::get('cbdichvukcb','congbo\dinhgia\CongboGiaDvKhamChuaBenhController@index');
 Route::get('cbgialephitruocba','congbo\gialephi\CongboGiaLePhiTruocBaController@index');
 Route::get('cbphilephi','congbo\philephi\CongboPhiLePhiController@index');
+Route::get('cbgiavang','congbo\dinhgia\CongboGiaVangController@index');
+Route::get('cbgiahhdvk','congbo\dinhgia\CongboGiaHhDvkController@index');
+Route::get('cbgiagocvlxd','congbo\dinhgia\CongboGiaGocVlXdController@index');
 
 //Kê khai giá
     //phần I

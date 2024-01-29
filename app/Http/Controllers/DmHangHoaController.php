@@ -68,4 +68,16 @@ class DmHangHoaController extends Controller
         $model = DmHangHoa::where('mahanghoa',$inputs['mahanghoa'])->first();
         die($model);
     }
+
+    public function destroy(Request $request){
+        if(Session::has('admin')){
+            $inputs=$request->all();
+            //dd($inputs);
+            $model = DmHangHoa::where('manhom',$inputs['manhom'])->where('mahanghoa',$inputs['mahanghoa'])->first();
+            //dd($model);
+            $model->delete();
+            return redirect('/thamdinhgia/danhmuc/detail?&manhom='.$inputs['manhom']);
+        }else
+            return view('errors.notlogin');
+    }
 }

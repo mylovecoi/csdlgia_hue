@@ -91,7 +91,8 @@ class giavangngoaiteController extends Controller
                     'tenhhdv' => $dm->tenhhdv,
                     'dacdiemkt' => $dm->dacdiemkt,
                     'dvt' => $dm->dvt,
-                    'gia' => 0,
+                    'gia' => $dm->gia,
+                    'loaigia' => $dm->loaigia,
                 ];
             }
 
@@ -299,7 +300,7 @@ class giavangngoaiteController extends Controller
                         break;
                     }
             }
-            //dd($model);
+            // dd(array_column($m_donvi_th->toarray(), 'tendiaban', 'madiaban'));
             return view('manage.dinhgia.giavangngoaite.xetduyet.index')
                 ->with('model', $model->sortby('thoidiem'))
                 ->with('inputs', $inputs)

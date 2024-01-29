@@ -277,7 +277,8 @@
         </div>
         {!! Form::close() !!}
     </div>
-    <!--Modal Hủy Hoàn thành-->
+
+    <!--Modal Công bố-->
     <div id="congbo-modal-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
         {!! Form::open(['url'=>'lephitruocba/congbo','id' => 'frm_congbo'])!!}
         <div class="modal-dialog">

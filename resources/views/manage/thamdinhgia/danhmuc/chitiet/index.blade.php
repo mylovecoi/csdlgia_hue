@@ -45,6 +45,16 @@
                 }
             });
         }
+
+        function getId(mahh, manhom){
+            $('#frm_delete').find("[id='mahanghoa']").val(mahh);
+            $('#frm_delete').find("[id='manhom']").val(manhom);
+        }
+
+        function ClickDelete(){
+            $('#frm_delete').submit();
+        }
+        
         function new_hs() {
             var form = $('#frm_create');
             form.find("[name='trangthai']").val('ADD');
@@ -112,6 +122,8 @@
                             <td>
                                 <button type="button" onclick="ClickEdit('{{$tt->mahanghoa}}')" class="btn btn-default btn-xs mbs" data-target="#modal-create" data-toggle="modal">
                                     <i class="fa fa-edit"></i>&nbsp;Sửa</button>
+                                <button type="button" onclick="getId('{{$tt->mahanghoa}}','{{ $tt->manhom }}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal" style="margin: 2px">
+                                    <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
                             </td>
                         </tr>
                         @endforeach
@@ -194,6 +206,27 @@
                 <input type="hidden" name="trangthai" id="trangthai" >
                 <div class="modal-footer">
                     <button type="submit" class="btn blue" onclick="ClickCreate()">Đồng ý</button>
+                    <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
+                </div>
+                {!! Form::close() !!}
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                {!! Form::open(['url'=>$inputs['url'].'/delete_dm','id' => 'frm_delete'])!!}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Đồng ý xóa?</h4>
+                </div>
+                <input type="hidden" name="mahanghoa" id="mahanghoa">
+                <input type="hidden" name="manhom" id="manhom">
+                <div class="modal-footer">
+                    <button type="submit" class="btn blue" onclick="ClickDelete()">Đồng ý</button>
                     <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
                 </div>
                 {!! Form::close() !!}

@@ -84,9 +84,9 @@
                             
                         @endif
                         
-                        {{-- <a href="{{ url('giahhdvk/danhmuc/detail/nhanexcel?matt=' . $inputs['matt']) }}"
+                        <a href="{{ url('giahhdvk/danhmuc/detail/nhanexcel?matt=' . $inputs['matt']) }}"
                             class="btn btn-default btn-sm">
-                            <i class="fa fa-file-excel-o"></i> Nhận dữ liệu</a> --}}
+                            <i class="fa fa-file-excel-o"></i> Nhận dữ liệu</a>
 
                         <a href="{{url($inputs['url'].'/danhmuc')}}" class="btn btn-default btn-xs mbs">
                             <i class="fa fa-reply"></i>&nbsp;Quay lại</a>

@@ -13,6 +13,8 @@ class giavangngoaitedm extends Model
         'tenhhdv',
         'dacdiemkt',
         'dvt',
+        'gia',
+        'loaigia',
         'xuatxu',
         'theodoi'
     ];
