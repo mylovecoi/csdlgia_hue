@@ -177,7 +177,7 @@ class GiaHhDvKController extends Controller
                         ];
                         //để hàm round() để chương trình tự hiểu đó là số
                     }
-                    dd($a_dm);
+                    // dd($a_dm);
                     GiaHhDvKCt::insert($a_dm);
                     $modelct = GiaHhDvKCt::where('mahs', $model->mahs)->get();
                     $a_diaban = array_column(dsdiaban::where('madiaban', $inputs['madiaban'])->get()->toarray(), 'tendiaban', 'madiaban');
