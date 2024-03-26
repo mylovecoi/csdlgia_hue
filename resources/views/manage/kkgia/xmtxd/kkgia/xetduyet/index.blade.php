@@ -74,6 +74,30 @@
             btn.disabled = true;
             btn.innerText = 'Loading...';
         }
+
+        function ClickTraLai(maso, url, madv) {
+            $('#frm_tralai').attr('action', url);
+            $('#frm_tralai').find("[id='idtralai']").val(maso);
+            $('#frm_tralai').find("[id='madvtralai']").val(madv);
+        }
+
+        function confirmTraLai(id, madv) {
+            if ($('#lydo').val() != '') {
+                var btn = document.getElementById('submitTraLai');
+                btn.disabled = true;
+                btn.innerText = 'Loading...';
+                toastr.success("Hồ sơ đã được trả lại!", "Thành công!");
+                // $('#frm_tralai').find("[id='mahs']").val(mahs);
+                // $('#frm_tralai').find("[id='madv']").val(madv);
+                $("#frm_tralai").unbind('submit').submit();
+            } else {
+                toastr.error("Bạn cần nhập lý do trả lại hồ sơ", "Lỗi!!!");
+                $("#frm_tralai").submit(function(e) {
+                    e.preventDefault();
+                });
+            }
+
+        }
     </script>
 @stop
 
@@ -194,9 +218,16 @@
                                                         Nhận hồ sơ</button>
                                                 @endif
 
-                                                @if (in_array($tt->trangthai, ['CD', 'DD', 'BTL']))
+                                                {{-- @if (in_array($tt->trangthai, ['CD', 'DD', 'BTL']))
                                                     <button type="button"
                                                         onclick="ClickTraLai('{{ $tt->id }}','{{ $tt->madv }}')"
+                                                        class="btn btn-default btn-xs mbs" data-target="#tralai-modal"
+                                                        data-toggle="modal"><i class="fa fa-reply"></i>&nbsp;
+                                                        Trả lại</button>
+                                                @endif --}}
+                                                @if (in_array($tt->trangthai, ['CD', 'DD', 'BTL']))
+                                                    <button type="button"
+                                                        onclick="ClickTraLai('{{ $tt->id }}','{{$inputs['url'].'/tralai'}}','{{ $tt->madv }}')"
                                                         class="btn btn-default btn-xs mbs" data-target="#tralai-modal"
                                                         data-toggle="modal"><i class="fa fa-reply"></i>&nbsp;
                                                         Trả lại</button>
@@ -230,7 +261,7 @@
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    {!! Form::open(['url' => 'xetduyetgiaxmtxd/tralai', 'id' => 'frm_tralai']) !!}
+                    {!! Form::open(['url' => '', 'id' => 'frm_tralai']) !!}
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                         <h4 class="modal-title">Đồng ý trả lại hồ sơ?</h4>
@@ -242,14 +273,13 @@
                             <label><b>Lý do trả lại</b></label>
                             <textarea id="lydo" class="form-control" name="lydo" cols="30" rows="8"></textarea>
                         </div>
-                        <input type="hidden" name="idtralai" id="idtralai">
-                        <input type="hidden" name="madvtralai" id="madvtralai">
+                        <input type="" name="idtralai" id="idtralai">
+                        <input type="" name="madvtralai" id="madvtralai">
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn blue" onclick="confirmTraLai()" id="submitTraLai">Đồng
-                            ý</button>
+                        <button type="submit" class="btn blue" onclick="confirmTraLai()" id="submitTraLai">Đồng ý</button>
 
                     </div>
                     {!! Form::close() !!}
