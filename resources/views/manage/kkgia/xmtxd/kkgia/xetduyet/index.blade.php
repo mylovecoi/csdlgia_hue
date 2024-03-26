@@ -51,7 +51,7 @@
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             //alert(id);
             $.ajax({
-                url: '/xetduyetkkgiaxmtxd/ttnhanhs',
+                url: '/xetduyetgiaxmtxd/ttnhanhs',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -271,11 +271,9 @@
                     </div>
                     <div class="modal-body" id="ttnhanhs">
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn blue" onclick="ClickNhanHs()" id="submitNhanHs">Đồng
-                            ý</button>
+                        <button type="submit" class="btn blue" onclick="ClickNhanHs()" id="submitNhanHs">Đồng ý</button>
                     </div>
                     {!! Form::close() !!}
                 </div>
@@ -283,6 +281,7 @@
             </div>
             <!-- /.modal-dialog -->
         </div>
+
         <!--Model nhận hs edit-->
         <div class="modal fade" id="nhanhsedit-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
             aria-hidden="true">
@@ -306,6 +305,7 @@
             </div>
             <!-- /.modal-dialog -->
         </div>
+
         <!--Model huỷ duyệt-->
         <div class="modal fade" id="huyduyet-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
             aria-hidden="true">
@@ -335,6 +335,7 @@
                 <!-- /.modal-dialog -->
             </div>
         </div>
+
         <!--Model lý do-->
         <div class="modal fade" id="lydo-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
             aria-hidden="true">
