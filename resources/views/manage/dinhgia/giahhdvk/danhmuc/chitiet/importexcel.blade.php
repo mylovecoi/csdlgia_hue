@@ -52,39 +52,33 @@
                                     <!-- BEGIN PORTLET-->
                                     <div class="portlet-body" style="display: block;">
                                         <div class="form-body">
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label class="control-label">Mã nhóm<span class="require">*</span></label>
-                                                        {!!Form::text('manhom', 'B', array('id' => 'manhom','class' => 'form-control','required'))!!}
-                                                    </div>
-                                                </div>
+                                            <div class="row">                                               
 
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label class="control-label">Mã hàng hóa<span class="require">*</span></label>
-                                                        {!!Form::text('mahhdv', 'C', array('id' => 'mahhdv','class' => 'form-control','required'))!!}
+                                                        {!!Form::text('mahhdv', 'B', array('id' => 'mahhdv','class' => 'form-control','required'))!!}
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label class="control-label">Tên hàng hóa dịch vụ<span class="require">*</span></label>
-                                                        {!!Form::text('tenhhdv', 'D', array('id' => 'tenhhdv','class' => 'form-control','required'))!!}
+                                                        {!!Form::text('tenhhdv', 'C', array('id' => 'tenhhdv','class' => 'form-control','required'))!!}
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label class="control-label">Đặc điểm kinh tế, kĩ thuật<span class="require">*</span></label>
-                                                        {!!Form::text('dacdiemkt', 'E', array('id' => 'dacdiemkt','class' => 'form-control','required'))!!}
+                                                        {!!Form::text('dacdiemkt', 'D', array('id' => 'dacdiemkt','class' => 'form-control','required'))!!}
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label class="control-label">Đơn vị tính<span class="require">*</span></label>
-                                                        {!!Form::text('dvt', 'F', array('id' => 'dvt','class' => 'form-control','required'))!!}
+                                                        {!!Form::text('dvt', 'E', array('id' => 'dvt','class' => 'form-control','required'))!!}
                                                     </div>
                                                 </div>
                                             </div>
@@ -123,7 +117,7 @@
                 </div>
             </div>
             <div class="col-md-12" style="text-align: center">
-                <a href="{{url($inputs['url'])}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                <a href="{{url($inputs['url'].'?matt='.$inputs['matt'])}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                 <button type="reset" class="btn default"><i class="fa fa-refresh"></i> Tải lại</button>
                 <button type="submit" class="btn green" onclick="ClickCreate()" id="submitform" name="submitform"><i class="fa fa-plus"></i> Nhận dữ liệu</button>
             </div>

@@ -46,14 +46,12 @@ class NhomHhDvKController extends Controller
             //            $m_donvi = view_dsdiaban_donvi::wherein('madiaban', array_keys($a_diaban))->where('chucnang', 'NHAPLIEU')->get();
 
             $inputs['madiaban'] = $inputs['madiaban'] ?? array_key_first($a_diaban);
-            //$m_donvi = $m_donvi->whereIn('madiban',$a_diaban);
-            //dd($m_donvi);
-            $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
-
+            $m_donvi = $m_donvi->wherein('madiaban', array_column($m_diaban->toarray(), 'madiaban'));           
+            $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;            
             $model = DmHhDvK_DonVi::where('madv', $inputs['madv'])
                 ->where('matt', $inputs['matt'])->orderby('mahhdv')->get();
             $m_hanghoa = DmHhDvK::where('matt', $inputs['matt'])->wherenotin('mahhdv', array_column($model->toarray(), 'mahhdv'))->get();
-
+            // dd($inputs);
             //dd($m_donvi->toArray());
             return view('manage.dinhgia.giahhdvk.danhmuc.donvi.index')
                 ->with('model', $model)

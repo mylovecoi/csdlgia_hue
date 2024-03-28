@@ -194,6 +194,24 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Mã địa bàn</label>
+                                    {!! Form::text('madiaban', null, ['class' => 'form-control']) !!}
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Mã đơn vị thu thập</label>
+                                    {!! Form::text('madonvithuthap', null, ['class' => 'form-control']) !!}
+                                </div>
+                            </div>
+
+                            
+                        </div>
+
                         {{-- <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">

@@ -118,11 +118,23 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">File đính kèm</label>
+                                    <label class="control-label">File đính kèm (Word)</label>
                                     @if($model->ipf1 != '')
                                         <a href="{{url('/data/giahhdvk/'.$model->ipf1)}}" target="_blank">{{$model->ipf1}}</a>
                                     @endif
                                     <input name="ipf1" id="ipf1" type="file">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">File đính kèm (PDF)</label>
+                                    @if($model->ipf2 != '')
+                                        <a href="{{url('/data/giahhdvk/'.$model->ipf2)}}" target="_blank">{{$model->ipf2}}</a>
+                                    @endif
+                                    <input name="ipf2" id="ipf2" type="file">
                                 </div>
                             </div>
                         </div>
@@ -169,7 +181,7 @@
                                             <td style="text-align: center">{{$tt->mahhdv}}</td>
                                             <td class="active" style="font-weight: bold">{{$a_dm[$tt->mahhdv] ?? ''}}</td>
                                             <td style="text-align: left">{{$tt->dacdiemkt}}</td>
-                                            <td style="text-align: center">{{$tt->dvt}}</td>
+                                            <td style="text-align: center">{{$a_dvt[$tt->dvt] ?? $tt->dvt}}</td>
                                             <td style="text-align: right;font-weight: bold">{{dinhdangsothapphan($tt->gialk,2)}}</td>
                                             <td style="text-align: right;font-weight: bold">{{dinhdangsothapphan($tt->gia,2)}}</td>
                                             <td>{{$tt->ghichu}}</td>

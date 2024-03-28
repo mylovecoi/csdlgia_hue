@@ -17,6 +17,7 @@ use App\NhomHhDvK;
 use App\Town;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\system\dmdvt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
@@ -259,6 +260,7 @@ class GiaHhDvKController extends Controller
                 $a_diaban = array_column(dsdiaban::where('madiaban', $inputs['madiaban'])->get()->toarray(), 'tendiaban', 'madiaban');
                 $a_tt = array_column(NhomHhDvK::where('matt', $inputs['mattbc'])->get()->toarray(), 'tentt', 'matt');
                 $a_dm = array_column(DmHhDvK::where('matt', $inputs['mattbc'])->get()->toarray(), 'tenhhdv', 'mahhdv');
+                $a_dvt = array_column(dmdvt::all()->toArray(), 'dvt', 'madvt');
                 return view('manage.dinhgia.giahhdvk.kekhai.edit')
                     ->with('model', $model)
                     ->with('modelct', $modelct)
@@ -282,6 +284,13 @@ class GiaHhDvKController extends Controller
                 $name = $inputs['mahs'] . '&1.' . $ipf1->getClientOriginalName();
                 $ipf1->move(public_path() . '/data/giahhdvk/', $name);
                 $inputs['ipf1'] = $name;
+            }
+
+            if (isset($inputs['ipf2'])) {
+                $ipf2 = $request->file('ipf2');
+                $name = $inputs['mahs'] . '&2.' . $ipf2->getClientOriginalName();
+                $ipf2->move(public_path() . '/data/giahhdvk/', $name);
+                $inputs['ipf2'] = $name;
             }
             //dd($inputs);
             $inputs['thoidiem'] = getDateToDb($inputs['thoidiem']);
@@ -316,6 +325,13 @@ class GiaHhDvKController extends Controller
             $result['message'] .= '</div ></div ></div >';
         }
 
+        if (isset($model->ipf2)) {
+            $result['message'] .= '<div class="row" ><div class="col-md-6" ><div class="form-group" >';
+            $result['message'] .= '<label class="control-label" > File đính kèm 1 </label >';
+            $result['message'] .= '<p ><a target = "_blank" href = "' . url('/data/giahhdvk/' . $model->ipf2) . '">' . $model->ipf2 . '</a ></p >';
+            $result['message'] .= '</div ></div ></div >';
+        }
+
         $result['status'] = 'success';
 
         die(json_encode($result));
@@ -336,6 +352,7 @@ class GiaHhDvKController extends Controller
             foreach ($modelct as $ct) {
                 $ct->manhom = $a_dmhhdv[$ct->mahhdv] ?? '';
             }
+            $a_dvt = array_column(dmdvt::all()->toArray(), 'dvt', 'madvt');
             return view('manage.dinhgia.giahhdvk.reports.prints')
                 ->with('model', $model)
                 ->with('modelct', $modelct)
@@ -361,12 +378,14 @@ class GiaHhDvKController extends Controller
             $a_diaban = array_column(dsdiaban::where('madiaban', $model->madiaban)->get()->toarray(), 'tendiaban', 'madiaban');
             $a_tt = array_column(NhomHhDvK::where('matt', $model->matt)->get()->toarray(), 'tentt', 'matt');
             $a_dm = array_column(DmHhDvK::where('matt', $model->matt)->get()->toarray(), 'tenhhdv', 'mahhdv');
+            $a_dvt = array_column(dmdvt::all()->toArray(), 'dvt', 'madvt');
             return view('manage.dinhgia.giahhdvk.kekhai.edit')
                 ->with('model', $model)
                 ->with('modelct', $modelct)
                 ->with('a_diaban', $a_diaban)
                 ->with('a_tt', $a_tt)
                 ->with('a_dm', $a_dm)
+                ->with('a_dvt', $a_dvt)
                 ->with('inputs', $inputs)
                 ->with('pageTitle', 'Thông tin giá hàng hóa dịch vụ thêm mới');
         } else

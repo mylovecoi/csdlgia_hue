@@ -18,6 +18,8 @@ use App\Town;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\manage\dinhgia\phichuyengia\dmphichuyengia;
+use App\ThamDinhGiaCtDf;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;

@@ -329,4 +329,5 @@
 
     @include('manage.include.form.modal_del_hs')
     @include('manage.include.form.modal_ketnoi_api')
+    
 @stop

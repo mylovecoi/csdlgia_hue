@@ -422,6 +422,7 @@ Route::group(['prefix'=>'giahhdvk'], function (){
     Route::post('tonghop/update_ct','ThGiaHhDvKCtController@update');
     Route::post('tonghop/delete','ThGiaHhDvKController@destroy');
     Route::post('tonghop/taohoso','ThGiaHhDvKController@create_hoso');
+    Route::post('tonghop/import_excel','ThGiaHhDvKController@import_excel');
 //
     Route::get('tonghop/exportXML','ThGiaHhDvKController@exportXML');
     Route::get('tonghop/exportEx','ThGiaHhDvKController@exportEx');

@@ -36,7 +36,7 @@
     <div class="row center">
         <div class="col-md-12 center">
             <!-- BEGIN VALIDATION STATES-->
-            {!! Form::model($model, ['method' => 'post', 'url'=>$inputs['url'].'/tonghop/store', 'class'=>'horizontal-form','id'=>'update_tonghopgiahhdvk']) !!}
+            {!! Form::model($model, ['method' => 'post', 'url'=>$inputs['url'].'/tonghop/store', 'class'=>'horizontal-form','id'=>'update_tonghopgiahhdvk', 'files'=>'true']) !!}
             <meta name="csrf-token" content="{{ csrf_token() }}" />
             <div class="portlet box blue">
                 <div class="portlet-body form">
@@ -98,11 +98,58 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">File đính kèm (Word)</label>
+                                    @if($model->ipf_word != '')
+                                        <a href="{{url('/data/giahhdvk/'.$model->ipf_word)}}" target="_blank">{{$model->ipf_word}}</a>
+                                    @endif
+                                    <input name="ipf_word" id="ipf_word" type="file" accept=".doc,.docx">
+                                </div>
+                            </div>
+                       
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">File đính kèm (PDF)</label>
+                                    @if($model->ipf_pdf != '')
+                                        <a href="{{url('/data/giahhdvk/'.$model->ipf_pdf)}}" target="_blank">{{$model->ipf_pdf}}</a>
+                                    @endif
+                                    <input name="ipf_pdf" id="ipf_pdf" type="file" accept=".pdf">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">File đính kèm (Excel)</label>
+                                    @if($model->ipf_excel != '')
+                                        <a href="{{url('/data/giahhdvk/'.$model->ipf_excel)}}" target="_blank">{{$model->ipf_excel}}</a>
+                                    @endif
+                                    <input name="ipf_excel" id="ipf_excel" type="file" accept=".xls,.xlsx">
+                                </div>
+                            </div>
+                        </div>
+
                         <input type="hidden" name="mahs" id="mahs" value="{{$model->mahs}}">
                         <input type="hidden" name="matt" id="matt" value="{{$model->matt}}">
                         <input type="hidden" name="thang" id="thang" value="{{$model->thang}}">
                         <input type="hidden" name="nam" id="nam" value="{{$model->nam}}">
 
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <a href="{{url('/data/download/filemau/FileExcelMauGiaThiTruong116.xls')}}" target="_blank" class="btn btn-success btn-xs mbs"><i class="fa fa-file-excel-o"></i>&nbsp;Tải file mẫu</a> 
+                                    &nbsp;
+                                    <button type="button" onclick="setValExl()" class="btn btn-success btn-xs mbs" data-target="#modal-importexcel" data-toggle="modal">
+                                        <i class="fa fa-file-excel-o"></i>&nbsp;Nhận dữ liệu</button>
+                                
+                                   
+                                </div>
+                            </div>                           
+                        </div>
+                        
                         <div class="row" id="dsts">
                             <div class="col-md-12">
                                 <table class="table table-striped table-bordered table-hover" id="sample_4">

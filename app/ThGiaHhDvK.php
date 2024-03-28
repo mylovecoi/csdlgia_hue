@@ -22,5 +22,11 @@ class ThGiaHhDvK extends Model
         'congbo',
         'trangthai',
         'mahstonghop',
+        'ipf_word',
+        'ipf_word_base64',
+        'ipf_pdf',
+        'ipf_pdf_base64',
+        'ipf_excel',
+        'ipf_excel_base64',
     ];
 }

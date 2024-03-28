@@ -158,7 +158,7 @@
                                                 <td style="text-align: center">{{$tt->mahhdv}}</td>
                                                 <td class="active" style="font-weight: bold">{{$tt->tenhhdv}}</td>
                                                 <td style="text-align: left">{{$tt->dacdiemkt}}</td>
-                                                <td style="text-align: center">{{$tt->dvt}}</td>
+                                                <td style="text-align: center">{{$a_dvt[$tt->dvt] ?? $tt->dvt}}</td>
                                                 <td style="text-align: right;font-weight: bold">{{number_format($tt->gialk)}}</td>
                                                 <td style="text-align: right;font-weight: bold">{{number_format($tt->gia)}}</td>
                                                 <td>

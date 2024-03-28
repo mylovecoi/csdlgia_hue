@@ -11,6 +11,8 @@
             dataType: 'JSON',
             success: function (data) {
                 $('#mahhdv').val(data.mahhdv).trigger('change');
+                $('#nguontt').val(data.nguontt).trigger('change');
+                $('#loaigia').val(data.loaigia).trigger('change');
                 //$('#tenhhdv').val(data.tenhhdv);
                 $('#gialk').val(data.gialk);
                 $('#gia').val(data.gia);
@@ -105,11 +107,11 @@
                         <div class="form-group">
                             <label class="control-label">Nguồn thông tin</label>
                             <select class="form-control" id="nguontt" name="nguontt">
-                                <option value="Do trục tiếp điều tra, thu thập">Do trục tiếp điều tra, thu thập</option>
+                                <option value="Do trực tiếp điều tra, thu thập">Do trực tiếp điều tra, thu thập</option>
                                 <option value="Hợp đồng mua tin">Hợp đồng mua tin</option>
-                                <option value="Do cơ quan/đơn vị quản lý nhà nước có liên quan cung cấp/báo cáo theo quy định">Do cơ quan/đơn vị quản lý nhà nước có liên quan cung cấp/báo cáo theo quy định</option>
-                                <option value="Từ thống kê đăng ký giá, kê khai giá, thông báo giá của doanh nghiệp">Từ thống kê đăng ký giá, kê khai giá, thông báo giá của doanh nghiệp</option>
-                                <option value="Các nguồn thông tin khác">Các nguồn thông tin khác</option>
+                                <option value="Do cơ quan/đơn vị quản lý nhà nước có liên quan cung cấp/báo cáo theo quy định">Do cơ quan/đơn vị quản lý nhà nước có liên quan cung cấp/báo cáo theo quy định</option>
+                                <option value="Từ thống kê đăng ký giá, kê khai giá, thông báo giá của doanh nghiệp">Từ thống kê đăng ký giá, kê khai giá, thông báo giá của doanh nghiệp</option>
+                                <option value="Các nguồn thông tin khác">Các nguồn thông tin khác</option>
                             </select>
                         </div>
                     </div>
@@ -133,3 +135,95 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+
+<div class="modal fade" id="modal-importexcel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Nhận dữ liệu từ file excel</h4>
+            </div>
+            {!! Form::open(['url'=>$inputs['url'].'/tonghop/import_excel', 'method'=>'post' , 'files'=>true, 'id' => 'frm_importexcel','enctype'=>'multipart/form-data','files'=>true]) !!}
+            <!-- Gán các trường giá trị để cho các trường hợp chưa lưu hồ sơ -->
+            <input type="hidden" name="mahs" value="{{$model->mahs}}">            
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Mã hàng hóa<span class="require">*</span></label>
+                            {!!Form::text('mahhdv', 'B', array('id' => 'mahhdv','class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Loại giá<span class="require">*</span></label>
+                            {!!Form::text('loaigia', 'F', array('id' => 'loaigia','class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Giá liền kề<span class="require">*</span></label>
+                            {!!Form::text('gialk', 'G', array('id' => 'gialk','class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Giá kê khai<span class="require">*</span></label>
+                            {!!Form::text('gia', 'H', array('id' => 'gia','class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Nguồn thông tin<span class="require">*</span></label>
+                            {!!Form::text('nguontt', 'K', array('id' => 'nguontt','class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Từ dòng<span class="require">*</span></label>
+                            {!!Form::text('tudong', '4', array('id' => 'tudong','class' => 'form-control required','data-mask'=>'fdecimal'))!!}
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Đến dòng</label>
+                            {!!Form::text('dendong', '300', array('id' => 'dendong','class' => 'form-control','data-mask'=>'fdecimal'))!!}
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">File dữ liệu mẫu<span class="require">*</span></label>
+                            <input id="fexcel" name="fexcel" type="file"  accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn blue" id="submitimex">Đồng ý</button>
+                <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
+            </div>
+            {!! Form::close() !!}
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<script>
+    function setValExl() {
+        var form = $('#frm_importexcel');
+        form.find("[name='soqd']").val($('#soqd').val());
+        form.find("[name='thoidiem']").val($('#thoidiem').val());
+        form.find("[name='soqdlk']").val($('#soqdlk').val());
+        form.find("[name='thoidiemlk']").val($('#thoidiemlk').val());
+    }
+    </script>

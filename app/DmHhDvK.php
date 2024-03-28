@@ -19,158 +19,202 @@ class DmHhDvK extends Model
         'theodoi'
     ];
     /*
-     INSERT INTO "dmhhdvk" ("matt", "mahhdv", "tenhhdv", "dacdiemkt", "xuatxu", "dvt", "theodoi", "created_at", "updated_at") VALUES
-(N'1588994567', N'01.0001',N'Thóc, gạo tẻ thường',N'Khang dân hoặc tương đương', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'01.0002',N'Gạo tẻ ngon',N'Tám thơm hoặc tương đương', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'01.0003',N'Thịt lợn hơi (Thịt heo hơi)',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'01.0004',N'Thịt lợn nạc thăn (Thịt heo nạc thăn)',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'01.0005',N'Thịt bò thăn',N'Loại 1 hoặc phổ biến', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'01.0006',N'Thịt bò bắp',N'Bắp hoa hoặc bắp lõi, loại 200 – 300 gram/ cái', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'01.0007',N'Gà ta',N'Còn sống, loại 1,5 – 2kg /1 con hoặc phổ biến', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'01.0008',N'Gà công nghiệp',N'Làm sẵn, nguyên con, bỏ lòng, loại 1,5 – 2kg /1 con hoặc phổ biến', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'01.0009',N'Giò lụa',N'Loại 1 kg', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'01.0010',N'Cá quả (cá lóc)',N'Loại  2 con/1 kg hoặc phổ biến', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'01.0011',N'Cá chép',N'Loại  2 con/1 kg hoặc phổ biến', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'01.0012',N'Tôm rảo, tôm nuôi nước ngọt',N'Loại 40-45 con/kg', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'01.0013',N'Bắp cải trắng',N'Loại to vừa khoảng 0,5-1kg/bắp', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'01.0014',N'Cải xanh',N'Cải ngọt hoặc cải cay theo mùa', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'01.0015',N'Bí xanh',N'Quả từ 1-2 kg hoặc phổ biến', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'01.0016',N'Cà chua',N'Quả to vừa, 8-10 quả/kg', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'01.0017',N'Muối hạt',N'Gói 01 kg', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'01.0018',N'Dầu thực vật',N'Chai 01 lít', NULL,N'đ/lít',N'TD', NULL, NULL),
-(N'1588994567', N'01.0019',N'Đường trắng kết tinh, nội',N'Gói 01 kg', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'01.0020',N'Sữa bột dùng cho trẻ em dưới 06 tuổi',N'Ghi rõ quy cách', NULL,N'đ/kg',N'TD', NULL, NULL),
+    insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0001',N'Thóc, gạo tẻ thường ',N' Khang dân hoặc tương đương ',N'DVT347','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0002',N'Gạo tẻ ngon',N'Tám thơm hoặc tương đương ',N'DVT347','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0003',N'Thịt lợn hơi (Thịt heo hơi)',N' ',N'DVT347','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0004',N'Thịt lợn nạc thăn (Thịt heo nạc thăn)',N' ',N'DVT347','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0005',N'Thịt bò thăn',N' ',N'DVT347','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0006',N'Thịt bò bắp',N'Bắp hoa hoặc bắp lõi, loại 200 – 300 gram/ cái ',N'DVT347','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0007',N'Gà ta',N'Còn sống, loại 1,5 – 2kg /1 con hoặc phổ biến ',N'DVT347','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0008',N'Gà công nghiệp ',N'Làm sẵn, nguyên con, bỏ lòng, loại 1,5 – 2kg /1 con hoặc phổ biến ',N'DVT347','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0009',N'Giò lụa',N'Loại 1 kg ',N'DVT347','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0010',N'Cá quả (cá lóc)',N'Loại  2 con/1 kg hoặc phổ biến ',N'DVT347','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0011',N'Cá chép ',N'Loại  2 con/1 kg hoặc phổ biến ',N'DVT347','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0012',N'Tôm rảo, tôm nuôi nước ngọt ',N'Loại 40-45 con/kg ',N'DVT347','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0013',N'Bắp cải trắng ',N'Loại to vừa khoảng 0,5-1kg/bắp ',N'DVT347','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0014',N'Cải xanh',N'Cải ngọt hoặc cải cay theo mùa ',N'DVT347','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0015',N'Bí xanh',N'Quả từ 1-2 kg hoặc phổ biến ',N'DVT347','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0016',N'Cà chua ',N'Quả to vừa, 8-10 quả/kg ',N'DVT347','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0017',N'Muối hạt',N'Gói 01 kg ',N'DVT347','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0018',N'Dầu thực vật',N'Chai 01 lít ',N'DVT257','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0019',N'Đường trắng kết tinh, nội',N'Gói 01 kg ',N'DVT347','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0020',N'Sữa bột dùng cho trẻ em dưới 06 tuổi',N' ',N'DVT687','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0021',N'Gạo nếp thường (hạt tròn, địa phương)',N' ',N'DVT347','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0022',N'Thịt lợn mông sấn (heo đùi)',N' ',N'DVT347','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0023',N'Thịt lợn ba chỉ (heo ba rọi), loại ba chỉ',N' ',N'DVT347','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0024',N'Gà ta làm sẵn nguyên con, bỏ lòng',N' ',N'DVT347','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0025',N'Vịt còn sống, loại 1-1,5kg/con',N' ',N'DVT347','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0026',N'Vịt làm sẵn, nguyên con, bỏ lòng',N' ',N'DVT347','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0027',N'Trứng gà ta không đóng gói, bán rời',N' ',N'DVT527','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('01.0028',N'Trứng vịt, loại vừa',N' ',N'DVT527','TD','01');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0001',N'Giống lúa Khang dân đột biến, cấp NC',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0002',N'Giống lúa Bắc thơm số 7, cấp NC',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0003',N'Giống lúa Hương thơm số 1, cấp NC',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0004',N'Giống lúa Nếp 87, cấp NC',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0005',N'Giống lúa Nếp 97, cấp NC',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0006',N'Giống lúa Thiên ưu 8, cấp XN1',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0007',N'Giống lúa RVT, cấp XN1',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0008',N'Giống lúa Đài thơm 8, cấp XN1',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0009',N'Giống lúa OM6976',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0010',N'Giống lúa Khang dân 18',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0011',N'Giống lúa ĐB6',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0012',N'Giống lúa T10',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0013',N'Giống lúa Q5',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0014',N'Giống lúa Xi23',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0015',N'Giống lúa ĐV 108 ',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0016',N'Giống lúa HN6',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0017',N'Giống lúa OM4900',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0018',N'Giống lúa OM6162',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0019',N'Giống lúa VND95-20',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0020',N'Giống lúa khác phổ biến',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0021',N'Giống ngô HN88, cấp F1',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0022',N'Giống ngô SSC2095, cấp F1',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0023',N'Giống ngô LVN10, cấp F1',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0024',N'Giống ngô SSC586',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0025',N'Giống ngô HN68',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0026',N'Giống ngô B21',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0027',N'Giống ngô B9698',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0028',N'Giống ngô LVN4 F1',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0029',N'Giống ngô VN2 ',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0030',N'Giống ngô MX10, ',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0031',N'Giống ngô LVN61',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0032',N'Giống ngô CP333',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0033',N'Giống ngô MX2',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0034',N'Giống ngô MX4',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0035',N'Giống ngô khác phổ biến ',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0036',N'Hạt giống Bắp cải Nhật Bản, cấp F1',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0037',N'Hạt giống Dưa chuột Thái Lan, cấp F1',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0038',N'Hạt giống Bí xanh sặt Việt Nam, cấp xác nhận',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0039',N'Hạt giống Khổ qua lai VG Trung Quốc, cấp F1',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0040',N'Hạt giống Bí ngô mật số 08 Trung Quốc, cấp F1',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0041',N'Hạt giống Xà lách Hải Phòng, cấp xác nhận',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0042',N'Hạt giống Cải bẹ Đại Bình Phổ 818 Trung Quốc, cấp xác nhận',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0043',N'Hạt giống Cải bẹ Mào gà GRQ09, cấp xác nhận',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0044',N'Hạt giống Cải mơ Hoàng Mai GRQ, cấp xác nhận',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0045',N'Hạt giống Cải ngọt Quảng Phủ Trung Quốc, cấp xác nhận',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0046',N'Hạt giống Cải xanh lùn Thanh Giang Trung Quốc, cấp xác nhận',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0047',N'Hạt giống Cải củ lá ngắn số 13 Trung Quốc, cấp xác nhận',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0048',N'Hạt giống Đậu đũa cao sản số 5 Trung Quốc, cấp xác nhận',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0049',N'Hạt giống Đậu Tứ quý số 1 Trung Quốc, cấp xác nhận',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0050',N'Vac-xin Lở mồm long móng',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0051',N'Vac-xin Tai xanh (PRRS)',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0052',N'Vac-xin tụ huyết trùng',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0053',N'Vac-xin dịch tả lợn',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0054',N'Vac-xin cúm gia cầm',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0055',N'Vac-xin dịch tả vịt',N' ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0056',N'Thuốc thú y',N'Chứa các hoạt chất: Ampicillin, Amoxicillin; Colistin; Florfenicol; Tylosin; Doxycyclin; Gentamycine; Spiramycin; Oxytetracyline; Kanammycin; Streptomycin; Lincomycin; Celphalexin; Flumequin. ',N'DVT397','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0057',N'Thuốc trừ sâu',N'Chứa hoạt chất Fenobucarb; Pymethrozin; Dinotefuran; Ethofenprox ; Buprofezin ; Imidacloprid ; Fipronil. ',N'DVT1827','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0058',N'Thuốc trừ bệnh',N'Chứa hoạt chất: Isoprothiolane; Tricyclazole; Kasugamycin; Fenoxanil; Fosetyl-aluminium; Metalaxy; Mancozeb; Zined . ',N'DVT1827','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0059',N'Thuốc trừ cỏ',N'Chứa hoạt chất: Glyphosate; Pretilachlor; Quinclorac; Ametryn. ',N'DVT1827','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0060',N'Phân đạm urê ',N'Có hàm lượng Nitơ (N) tổng số ≥ 46%; ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('02.0061',N'Phân NPK',N'Có tổng hàm lượng các chất dinh dưỡng Nitơ tổng số (Nts), lân hữu hiệu (P2O5hh), kali hữu hiệu (K2Ohh) ≥ 18%. ',N'DVT347','TD','02');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('03.0001',N'Nước khoáng ',N'Chai nhựa 500ml ',N'DVT397','TD','03');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('03.0002',N'Rượu vang nội',N'Chai 750ml ',N'DVT1305','TD','03');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('03.0003',N'Nước giải khát có ga',N'Thùng 24 lon 330ml loại phổ biến ',N'DVT367','TD','03');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('03.0004',N'Bia lon',N'Thùng 24 lon 330ml loại phổ biến ',N'DVT367','TD','03');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('03.0005',N'Bia chai Hà Nội/Sài gòn',N' ',N'DVT357','TD','03');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('03.0006',N'Thuốc lá 555 (Việt Nam sản xuất)',N' ',N'DVT417','TD','03');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('04.0001',N'Xi măng ',N'PCB30 bao 50kg ',N'DVT417','TD','04');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('04.0002',N'Thép xây dựng',N'Ghi rõ quy cách ',N'DVT347','TD','04');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('04.0003',N'Cát xây',N'Mua rời dưới 2m3/lần, tại nơi cung ứng (không phải nơi khai thác) ',N'DVT607','TD','04');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('04.0004',N'Cát vàng',N'Mua rời dưới 2m3/lần, tại nơi cung ứng (không phải nơi khai thác) ',N'DVT607','TD','04');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('04.0005',N'Cát đen đổ nền',N'Mua rời dưới 2m3/lần, tại nơi cung ứng (không phải nơi khai thác) ',N'DVT607','TD','04');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('04.0006',N'Gạch xây',N'Gạch ống 2 lỗ, cỡ rộng 10 x dài 22, loại 1, mua rời tại nơi cung ứng hoặc tương đương ',N'DVT617','TD','04');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('04.0007',N'Ống nhựa',N'Phi 90 loại 1 ',N'DVT427','TD','04');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('04.0008',N'Gas đun',N'Loại bình 12kg (không kể tiền bình) ',N'DVT1300','TD','04');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('04.0009',N'Nước sạch sinh hoạt',N'Ghi rõ tên doanh nghiệp cung cấp, địa bàn cung cấp ',N'DVT607','TD','04');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('04.0010',N'Gạch xây, gạch đặc lò gia công, mua rời tại nơi cung ứng',N' ',N'DVT617','TD','04');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('04.0011',N'Ống nhựa phi 20',N' ',N'DVT427','TD','04');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('04.0012',N'Ngói lợp loại 22viên/m2, loại 1, mua lẻ dưới 10m2',N' ',N'DVT617','TD','04');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('04.0013',N'Sơn tường trong nhà ghi rõ nhãn hiệu (NIPPON-VATAX....), thùng 18lít, mua cả thùng',N' ',N'DVT1847','TD','04');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('04.0014',N'Sơn tường ngoài nhà, ghi rõ nhãn hiệu (NIPPON, Dulux...), thùng 18lít, mua cả thùng',N' ',N'DVT1847','TD','04');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('04.0015',N'Công lao động phổ thông (thợ phụ nề)',N' ',N'DVT627','TD','04');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('04.0016',N'Dầu hỏa',N' ',N'DVT1827','TD','04');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('04.0017',N'Than tổ ong cỡ vừa',N' ',N'DVT617','TD','04');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('05.0001',N'Thuốc tim mạch',N'Hoạt chất Amlodipin 10 mg hoặc Hoạt chất Atorvastatin 10mg hoặc Hoạt chất Nifedipin 20mg ',N'DVT2815','TD','05');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('05.0002',N'Thuốc chống nhiễm, điều trị ký sinh trùng',N'Hoạt chất Cefuroxim 500mg hoặc Hoạt chất Amoxicilin  500mg ',N'DVT2815','TD','05');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('05.0003',N'Thuốc dị ứng và các trường hợp quá mẫn cảm',N'Hoạt chất Cinnarizin 25mg hoặc Hoạt chất Fexofenadin 60mg ',N'DVT2815','TD','05');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('05.0004',N'Thuốc giảm đau, hạ sốt, chống viêm không steroid và thuốc điều trị gut và các bệnh xương',N'Hoạt chất Paracetamol 500mg hoặc Hoạt chất Alpha Chymotrypsin 4.2mg ',N'DVT2815','TD','05');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('05.0005',N'Thuốc tác dụng trên đường hô hấp',N'Hoạt chất N-acetylcystein 200mg ',N'DVT2815','TD','05');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('05.0006',N'Thuốc vitamin và khoáng chất',N'Vitamin B1 hoặc B6 hoặc B12 ',N'DVT2815','TD','05');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('05.0007',N'Thuốc đường tiêu hóa',N'Hoạt chất Omeprazone 20 mg hoặc Hoạt chất Domperdone 10 mg ',N'DVT2815','TD','05');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('05.0008',N'Hóc môn và các thuốc tác động vào hệ nội tiết',N'Hoạt chất Methyl Prednisolon 4mg hoặc Hoạt chất Gliclazid 30 mg hoặc Hoạt chất Metformin 500mg ',N'DVT2815','TD','05');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('05.0009',N'Thuốc khác',N'Hoạt chất Sulfamethoxazol 400mg ',N'DVT2815','TD','05');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0001',N'Khám bệnh',N'Giá dịch vụ khám bệnh, chữa bệnh không thuộc phạm vi thanh toán của Quỹ bảo hiểm y tế trong các cơ sở khám bệnh, chữa bệnh của Nhà nước ',N'DVT2791','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0002',N'Ngày giường điều trị nội trú nội khoa, loại 1',N'Giá dịch vụ khám bệnh, chữa bệnh không thuộc phạm vi thanh toán của Quỹ bảo hiểm y tế trong các cơ sở khám bệnh, chữa bệnh của Nhà nước ',N'DVT1317','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0003',N'Siêu âm',N'Giá dịch vụ khám bệnh, chữa bệnh không thuộc phạm vi thanh toán của Quỹ bảo hiểm y tế trong các cơ sở khám bệnh, chữa bệnh của Nhà nước ',N'DVT2791','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0004',N'X-quang số hóa 1 phim',N'Giá dịch vụ khám bệnh, chữa bệnh không thuộc phạm vi thanh toán của Quỹ bảo hiểm y tế trong các cơ sở khám bệnh, chữa bệnh của Nhà nước ',N'DVT2791','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0005',N'Xét nghiệm tế bào cặn nước tiểu hoặc cặn Adis',N'Giá dịch vụ khám bệnh, chữa bệnh không thuộc phạm vi thanh toán của Quỹ bảo hiểm y tế trong các cơ sở khám bệnh, chữa bệnh của Nhà nước ',N'DVT2791','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0006',N'Điện tâm đồ',N'Giá dịch vụ khám bệnh, chữa bệnh không thuộc phạm vi thanh toán của Quỹ bảo hiểm y tế trong các cơ sở khám bệnh, chữa bệnh của Nhà nước ',N'DVT2791','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0007',N'Nội soi thực quản-dạ dày- tá tràng ống mềm không sinh thiết',N'Giá dịch vụ khám bệnh, chữa bệnh không thuộc phạm vi thanh toán của Quỹ bảo hiểm y tế trong các cơ sở khám bệnh, chữa bệnh của Nhà nước ',N'DVT2791','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0008',N'Hàn composite cổ răng',N'Giá dịch vụ khám bệnh, chữa bệnh không thuộc phạm vi thanh toán của Quỹ bảo hiểm y tế trong các cơ sở khám bệnh, chữa bệnh của Nhà nước ',N'DVT2791','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0009',N'Châm cứu (có kim dài)',N'Giá dịch vụ khám bệnh, chữa bệnh không thuộc phạm vi thanh toán của Quỹ bảo hiểm y tế trong các cơ sở khám bệnh, chữa bệnh của Nhà nước ',N'DVT2791','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0010',N'Khám bệnh',N'Giá dịch vụ khám bệnh, chữa bệnh theo yêu cầu tại cơ sở khám bệnh, chữa bệnh của Nhà nước ',N'DVT2791','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0011',N'Ngày giường điều trị nội trú nội khoa, loại 1',N'Giá dịch vụ khám bệnh, chữa bệnh theo yêu cầu tại cơ sở khám bệnh, chữa bệnh của Nhà nước ',N'DVT1317','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0012',N'Siêu âm',N'Giá dịch vụ khám bệnh, chữa bệnh theo yêu cầu tại cơ sở khám bệnh, chữa bệnh của Nhà nước ',N'DVT2791','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0013',N'X-quang số hóa 1 phim',N'Giá dịch vụ khám bệnh, chữa bệnh theo yêu cầu tại cơ sở khám bệnh, chữa bệnh của Nhà nước ',N'DVT2791','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0014',N'Xét nghiệm tế bào cặn nước tiểu hoặc cặn Adis',N'Giá dịch vụ khám bệnh, chữa bệnh theo yêu cầu tại cơ sở khám bệnh, chữa bệnh của Nhà nước ',N'DVT2791','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0015',N'Điện tâm đồ',N'Giá dịch vụ khám bệnh, chữa bệnh theo yêu cầu tại cơ sở khám bệnh, chữa bệnh của Nhà nước ',N'DVT2791','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0016',N'Nội soi thực quản-dạ dày- tá tràng ống mềm không sinh thiết',N'Giá dịch vụ khám bệnh, chữa bệnh theo yêu cầu tại cơ sở khám bệnh, chữa bệnh của Nhà nước ',N'DVT2791','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0017',N'Hàn composite cổ răng',N'Giá dịch vụ khám bệnh, chữa bệnh theo yêu cầu tại cơ sở khám bệnh, chữa bệnh của Nhà nước ',N'DVT2791','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0018',N'Châm cứu (có kim dài)',N'Giá dịch vụ khám bệnh, chữa bệnh theo yêu cầu tại cơ sở khám bệnh, chữa bệnh của Nhà nước ',N'DVT2791','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0019',N'Khám bệnh',N'Giá dịch vụ khám bệnh, chữa bệnh  tại cơ sở khám bệnh, chữa bệnh tư nhân. ',N'DVT2791','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0020',N'Ngày giường điều trị nội trú nội khoa, loại 1',N'Giá dịch vụ khám bệnh, chữa bệnh  tại cơ sở khám bệnh, chữa bệnh tư nhân. ',N'DVT1317','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0021',N'Siêu âm',N'Giá dịch vụ khám bệnh, chữa bệnh  tại cơ sở khám bệnh, chữa bệnh tư nhân. ',N'DVT2791','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0022',N'X-quang số hóa 1 phim',N'Giá dịch vụ khám bệnh, chữa bệnh  tại cơ sở khám bệnh, chữa bệnh tư nhân. ',N'DVT2791','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0023',N'Xét nghiệm tế bào cặn nước tiểu hoặc cặn Adis',N'Giá dịch vụ khám bệnh, chữa bệnh  tại cơ sở khám bệnh, chữa bệnh tư nhân. ',N'DVT2791','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0024',N'Điện tâm đồ',N'Giá dịch vụ khám bệnh, chữa bệnh  tại cơ sở khám bệnh, chữa bệnh tư nhân. ',N'DVT2791','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0025',N'Nội soi thực quản-dạ dày- tá tràng ống mềm không sinh thiết',N'Giá dịch vụ khám bệnh, chữa bệnh  tại cơ sở khám bệnh, chữa bệnh tư nhân. ',N'DVT2791','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0026',N'Hàn composite cổ răng',N'Giá dịch vụ khám bệnh, chữa bệnh  tại cơ sở khám bệnh, chữa bệnh tư nhân. ',N'DVT2791','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('06.0027',N'Châm cứu (có kim dài)',N'Giá dịch vụ khám bệnh, chữa bệnh  tại cơ sở khám bệnh, chữa bệnh tư nhân. ',N'DVT2791','TD','06');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('07.0001',N'Trông giữ xe máy',N' ',N'DVT2791','TD','07');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('07.0002',N'Trông giữ ô tô',N' ',N'DVT2791','TD','07');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('07.0003',N'Giá cước ô tô đi đường dài ',N' Chọn 1 tuyến phổ biến, xe đường dài máy lạnh ',N'DVT457','TD','07');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('07.0004',N'Giá cước xe buýt công cộng',N' Đi trong nội tỉnh, dưới 30km ',N'DVT767','TD','07');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('07.0005',N'Giá cước taxi ',N' Lấy giá 10km đầu, loại xe 4 chỗ  ',N'DVT457','TD','07');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('07.0006',N'Xăng E5 Ron 92',N' ',N'DVT1827','TD','07');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('07.0007',N'Xăng Ron 95',N' ',N'DVT1827','TD','07');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('07.0008',N'Dầu Diezel',N' ',N'DVT1827','TD','07');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('07.0009',N'Xe ô tô 4 chỗ hãng TOYOTA mới, ghi rõ năm sản xuất',N' ',N'DVT407','TD','07');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('07.0010',N'Xe máy HONDA, LD, nhãn Wave RS, 1 lOcc',N' ',N'DVT407','TD','07');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('07.0011',N'Xe máy ga, nhãn Lead 125cc Honda',N' ',N'DVT407','TD','07');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('07.0012',N'Xe đạp điện (hiệu hãng, xuất xứ...)',N' ',N'DVT407','TD','07');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('07.0013',N'Ắc quy ô tô hiệu Bosch hoặc tương đương',N' ',N'DVT407','TD','07');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('07.0014',N'Dầu xe máy, can nhựa 0,75ml, hiệu SHELL',N' ',N'DVT1827','TD','07');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('07.0015',N'Bảo dưỡng toàn bộ xe máy, chỉ tính công thợ',N' ',N'DVT2771','TD','07');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('08.0001',N'Dịch vụ giáo dục trường mầm non công lập',N' ',N'DVT717','TD','08');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('08.0002',N'Dịch vụ giáo dục trường trung học cơ sở công lập (lớp 8)',N' ',N'DVT717','TD','08');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('08.0003',N'Dịch vụ giáo dục trường trung học phổ thông công lập (lớp 11)',N' ',N'DVT717','TD','08');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('08.0004',N'Dịch vụ giáo dục đào tạo nghề công lập',N' ',N'DVT2792','TD','08');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('08.0005',N'Dịch vụ giáo dục đào tạo trung cấp, trường thuộc cấp Bộ quản lý',N' ',N'DVT2792','TD','08');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('08.0006',N'Dịch vụ giáo dục đào tạo cao đẳng công lập',N' ',N'DVT2792','TD','08');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('08.0008',N'Dịch vụ giáo dục đào tạo đại học công lập hoặc tương đương đại học công lập',N' ',N'DVT2792','TD','08');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('08.0009',N'Vở (tập) ô ly học sinh (ghi rõ số trang)',N' ',N'DVT2771','TD','08');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('08.0010',N'Giấy trắng ram, khổ A4, Bãi Bằng',N' ',N'DVT1322','TD','08');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('08.0011',N'Bút bi Thiên Long, một màu',N' ',N'DVT407','TD','08');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('09.0001',N'Du lịch trọn gói trong nước ',N' Cho 1 người chuyến 2 ngày 1 đêm (từ đâu, đến đâu...) ',N'DVT1318','TD','09');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('09.0002',N'Phòng khách sạn 3 sao hoặc tương đương',N' Hai giường đơn hoặc 1 giường đôi, có tivi, điêu hòa nước nóng, điện thoại cố định, vệ sinh khép kín,Wifí ',N'DVT1319','TD','09');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('09.0003',N'Phòng nhà khách tư nhân',N' 1 giường, điều hoà, nước nóng-lạnh, phòng vệ sinh khép kín ',N'DVT1319','TD','09');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('09.0004',N'Phí thuê bao truyền hình cáp (của TH địa phương)',N' ',N'DVT717','TD','09');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('09.0005',N'Phí thuê bao Internet hàng tháng (giá của TH địa phương)',N' ',N'DVT717','TD','09');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('09.0006',N'Vé bơi lội (người lớn)',N' ',N'DVT877','TD','09');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('09.0007',N'Thuê sân đá bóng theo giờ',N' ',N'DVT877','TD','09');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('09.0008',N'Thuê sân chơi tennis theo giờ không bao gồm dịch vụ nhặt bóng',N' ',N'DVT877','TD','09');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('09.0009',N'Vé xem phim tại rạp, loại bình thường, ghế hạng A',N' ',N'DVT767','TD','09');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('09.0010',N'Du lịch trọn gói đi Thái Lan hoặc tương đương, cho 1 người chuyến 4 ngày 3 đêm.',N' ',N'DVT1318','TD','09');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('10.0001',N'Vàng 99,99%',N' Kiểu nhẫn tròn 1 chỉ ',N'DVT1398','TD','10');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('10.0002',N'Đô la Mỹ',N' Loại tờ 100USD ',N'DVT487','TD','10');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('11.0001',N'Máy điều hòa nhiệt độ, lấy một nhãn hiệu ........, 1 chiều 9000 PTU, Model...........,hàng VN lắp, phụ kiện TQ, không kể công lắp và phụ kiện lắp máy vào nhà',N' ',N'DVT407','TD','11');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('11.0002',N'Tủ lạnh 2 cửa, 150lít-200 lít, ghi rõ nhãn hiệu Samsung, LG, Toshiba, Model...',N' ',N'DVT407','TD','11');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('11.0003',N'Máy giặt lồng đứng 7kg, tự động, (ghi rõ Model, nhãn hiệu)',N' ',N'DVT407','TD','11');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('11.0004',N'Máy giặt lồng ngang 7kg, tự động, (ghi rõ Model, nhãn hiệu)',N' ',N'DVT407','TD','11');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('11.0005',N'Máy bơm nước gia đình, (ghi rõ Model, nhãn hiệu, công suất...)',N' ',N'DVT407','TD','11');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('11.0006',N'Nồi cơm điện (Model, nhãn hiệu, dung tích, xuất xứ...)',N' ',N'DVT407','TD','11');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('11.0007',N'Lò vi sóng, (Model, nhãn hiệu, công suất, dung tích,, xuất xứ...)',N' ',N'DVT407','TD','11');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('12.0001',N'Máy điện thoại cố định loại thường, (hiệu, model, xuất xứ....)',N' ',N'DVT407','TD','12');
+insert into dmhhdvk (mahhdv, tenhhdv, dacdiemkt,dvt, theodoi, manhom) values('12.0002',N'Máy ảnh kỹ thuật số, (nhãn hiệu, quy cách, xuất xứ...)',N' ',N'DVT407','TD','12');
 
-(N'1588994567', N'02.0001',N'Giống lúa Khang dân đột biến, cấp NC',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0002',N'Giống lúa Bắc thơm số 7, cấp NC',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0003',N'Giống lúa Hương thơm số 1, cấp NC',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0004',N'Giống lúa Nếp 87, cấp NC',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0005',N'Giống lúa Nếp 97, cấp NC',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0006',N'Giống lúa Thiên ưu 8, cấp XN1',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0007',N'Giống lúa RVT, cấp XN1',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0008',N'Giống lúa Đài thơm 8, cấp XN1',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0009',N'Giống lúa OM6976',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0010',N'Giống lúa Khang dân 18',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0011',N'Giống lúa ĐB6',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0012',N'Giống lúa T10',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0013',N'Giống lúa Q5',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0014',N'Giống lúa Xi23',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0015',N'Giống lúa ĐV 108 ',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0016',N'Giống lúa HN6',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0017',N'Giống lúa OM4900',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0018',N'Giống lúa OM6162',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0019',N'Giống lúa VND95-20',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0020',N'Giống lúa khác phổ biến',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0022',N'Giống ngô HN88, cấp F1',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0023',N'Giống ngô SSC2095, cấp F1',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0024',N'Giống ngô LVN10, cấp F1',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0025',N'Giống ngô SSC586',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0026',N'Giống ngô HN68',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0027',N'Giống ngô B21',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0028',N'Giống ngô B9698',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0029',N'Giống ngô LVN4 F1',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0030',N'Giống ngô VN2 ',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0031',N'Giống ngô MX10, ',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0032',N'Giống ngô LVN61',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0033',N'Giống ngô CP333',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0034',N'Giống ngô MX2',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0035',N'Giống ngô MX4',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0036',N'Giống ngô khác phổ biến ',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0037',N'Hạt giống Bắp cải Nhật Bản, cấp F1',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0038',N'Hạt giống Dưa chuột Thái Lan, cấp F1',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0039',N'Hạt giống Bí xanh sặt Việt Nam, cấp xác nhận',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0040',N'Hạt giống Khổ qua lai VG Trung Quốc, cấp F1',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0041',N'Hạt giống Bí ngô mật số 08 Trung Quốc, cấp F1',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0042',N'Hạt giống Xà lách Hải Phòng, cấp xác nhận',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0043',N'Hạt giống Cải bẹ Đại Bình Phổ 818 Trung Quốc, cấp xác nhận',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0044',N'Hạt giống Cải bẹ Mào gà GRQ09, cấp xác nhận',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0045',N'Hạt giống Cải mơ Hoàng Mai GRQ, cấp xác nhận',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0046',N'Hạt giống Cải ngọt Quảng Phủ Trung Quốc, cấp xác nhận',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0047',N'Hạt giống Cải xanh lùn Thanh Giang Trung Quốc, cấp xác nhận',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0048',N'Hạt giống Cải củ lá ngắn số 13 Trung Quốc, cấp xác nhận',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0049',N'Hạt giống Đậu đũa cao sản số 5 Trung Quốc, cấp xác nhận',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0050',N'Hạt giống Đậu Tứ quý số 1 Trung Quốc, cấp xác nhận',N'', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'02.0051',N'Vac-xin Lở mồm long móng',N'', NULL,N'Đồng/liều',N'TD', NULL, NULL),
-(N'1588994567', N'02.0052',N'Vac-xin Tai xanh (PRRS)',N'', NULL,N'Đồng/liều',N'TD', NULL, NULL),
-(N'1588994567', N'02.0053',N'Vac-xin tụ huyết trùng',N'', NULL,N'Đồng/liều',N'TD', NULL, NULL),
-(N'1588994567', N'02.0054',N'Vac-xin dịch tả lợn',N'', NULL,N'Đồng/liều',N'TD', NULL, NULL),
-(N'1588994567', N'02.0055',N'Vac-xin cúm gia cầm',N'', NULL,N'Đồng/liều',N'TD', NULL, NULL),
-(N'1588994567', N'02.0056',N'Vac-xin dịch tả vịt',N'', NULL,N'Đồng/liều',N'TD', NULL, NULL),
-(N'1588994567', N'02.0057',N'Thuốc thú ý ',N'Chứa các hoạt chất: Ampicillin, Amoxicillin; Colistin; Florfenicol; Tylosin; Doxycyclin; Gentamycine; Spiramycin; Oxytetracyline; Kanammycin; Streptomycin; Lincomycin; Celphalexin; Flumequin.', NULL,N'đ/lít, kg, liều, chai, gói, can, lọ, bao',N'TD', NULL, NULL),
-(N'1588994567', N'02.0058',N'Thuốc trừ sâu',N'Chứa hoạt chất Fenobucarb; Pymethrozin; Dinotefuran; Ethofenprox ; Buprofezin ; Imidacloprid ; Fipronil.', NULL,N'đ/lít, kg, liều, chai, gói, can, lọ, bao',N'TD', NULL, NULL),
-(N'1588994567', N'02.0059',N'Thuốc trừ bệnh',N'Chứa hoạt chất: Isoprothiolane; Tricyclazole; Kasugamycin; Fenoxanil; Fosetyl-aluminium; Metalaxy; Mancozeb; Zined .', NULL,N'đ/lít, kg, liều, chai, gói, can, lọ, bao',N'TD', NULL, NULL),
-(N'1588994567', N'02.0060',N'Thuốc trừ cỏ',N'Chứa hoạt chất: Glyphosate; Pretilachlor; Quinclorac; Ametryn.', NULL,N'đ/lít, kg, liều, chai, gói, can, lọ, bao',N'TD', NULL, NULL),
-(N'1588994567', N'02.0061',N'Phân đạm urê ',N'Có hàm lượng Nitơ (N) tổng số ≥ 46%;', NULL,N'đ/kg, gói, bao',N'TD', NULL, NULL),
-(N'1588994567', N'02.0062',N'Phân NPK',N'Có tổng hàm lượng các chất dinh dưỡng Nitơ tổng số (Nts), lân hữu hiệu (P2O5hh), kali hữu hiệu (K2Ohh) ≥ 18%.', NULL,N'đ/kg, gói, bao',N'TD', NULL, NULL),
 
-(N'1588994567', N'03.0001',N'Nước khoáng Lavie',N'Chai nhựa 500ml', NULL,N'đ/chai',N'TD', NULL, NULL),
-(N'1588994567', N'03.0002',N'Rượu vang Đà Lạt',N'Chai 750ml', NULL,N'đ/chai',N'TD', NULL, NULL),
-(N'1588994567', N'03.0003',N'Nước giải khát có ga coca-cola.',N'Thùng 24 lon 330ml loại phổ biến', NULL,N'đ/thùng 24 lon',N'TD', NULL, NULL),
-(N'1588994567', N'03.0004',N'Bia lon Sài Gòn',N'Thùng 24 lon 330ml loại phổ biến', NULL,N'đ/thùng 24 lon',N'TD', NULL, NULL),
-(N'1588994567', N'04.0001',N'Xi măng PCB30 – Cao Bằng',N'PCB30 bao 50kg', NULL,N'đ/bao',N'TD', NULL, NULL),
-(N'1588994567', N'04.0002',N'Thép xây dựng',N'Ghi rõ quy cách', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'04.0003',N'Cát xây',N'Mua rời dưới 2m3/lần, tại nơi cung ứng (không phải nơi khai thác)', NULL,N'đ/m3',N'TD', NULL, NULL),
-(N'1588994567', N'04.0004',N'Cát vàng',N'Mua rời dưới 2m3/lần, tại nơi cung ứng (không phải nơi khai thác)', NULL,N'đ/m3',N'TD', NULL, NULL),
-(N'1588994567', N'04.0005',N'Cát đen đổ nền',N'Mua rời dưới 2m3/lần, tại nơi cung ứng (không phải nơi khai thác)', NULL,N'đ/m3',N'TD', NULL, NULL),
-(N'1588994567', N'04.0006',N'Gạch xây',N'Gạch ống 2 lỗ, cỡ rộng 10 x dài 22, loại 1, mua rời tại nơi cung ứng hoặc tương đương', NULL,N'đ/viên',N'TD', NULL, NULL),
-(N'1588994567', N'04.0007',N'Ống nhựa',N'Phi 90 loại 1', NULL,N'đ/m',N'TD', NULL, NULL),
-(N'1588994567', N'04.0008',N'Gas đun',N'Loại bình 12kg (không kể tiền bình)', NULL,N'đ/kg',N'TD', NULL, NULL),
-(N'1588994567', N'04.0009',N'Nước sạch sinh hoạt',N'Ghi rõ tên doanh nghiệp cung cấp, địa bàn cung cấp', NULL,N'đ/m3',N'TD', NULL, NULL),
-(N'1588994567',N'05.0001',N'Thuốc tim mạch',N'Hoạt chất Amlodipin 10 mg hoặc Hoạt chất Atorvastatin 10mg hoặc Hoạt chất Nifedipin 20mg.', NULL,N'đ/đơn vị đóng gói nhỏ nhất',N'TD', NULL, NULL),
-(N'1588994567',N'05.0002',N'Thuốc chống nhiễm, điều trị ký sinh trùng',N'Hoạt chất Cefuroxim 500mg hoặc Hoạt chất Amoxicilin  500mg', NULL,N'đ/đơn vị đóng gói nhỏ nhất',N'TD', NULL, NULL),
-(N'1588994567',N'05.0003',N'Thuốc dị ứng và các trường hợp quá mẫn cảm',N'Hoạt chất Cinnarizin 25mg hoặc Hoạt chất Fexofenadin 60mg', NULL,N'đ/đơn vị đóng gói nhỏ nhất',N'TD', NULL, NULL),
-(N'1588994567',N'05.0004',N'Thuốc giảm đau, hạ sốt, chống viêm không steroid và thuốc điều trị gut và các bệnh xương',N'Hoạt chất Paracetamol 500mg hoặc Hoạt chất Alpha Chymotrypsin 4.2mg', NULL,N'đ/đơn vị đóng gói nhỏ nhất',N'TD', NULL, NULL),
-(N'1588994567',N'05.0005',N'Thuốc tác dụng trên đường hô hấp',N'Hoạt chất N-acetylcystein 200mg', NULL,N'đ/đơn vị đóng gói nhỏ nhất',N'TD', NULL, NULL),
-(N'1588994567',N'05.0006',N'Thuốc vitamin và khoáng chất',N'Vitamin B1 hoặc B6 hoặc B12', NULL,N'đ/đơn vị đóng gói nhỏ nhất',N'TD', NULL, NULL),
-(N'1588994567',N'05.0007',N'Thuốc đường tiêu hóa',N'Hoạt chất Omeprazone 20 mg hoặc Hoạt chất Domperdone 10 mg', NULL,N'đ/đơn vị đóng gói nhỏ nhất',N'TD', NULL, NULL),
-(N'1588994567',N'05.0008',N'Hóc môn và các thuốc tác động vào hệ nội tiết',N'Hoạt chất Methyl Prednisolon 4mg hoặc Hoạt chất Gliclazid 30 mg hoặc Hoạt chất Metformin 500mg', NULL,N'đ/đơn vị đóng gói nhỏ nhất',N'TD', NULL, NULL),
-(N'1588994567',N'05.0009',N'Thuốc khác',N'Hoạt chất Sulfamethoxazol 400mg', NULL,N'đ/đơn vị đóng gói nhỏ nhất',N'TD', NULL, NULL),
-(N'1588994567',N'06.0001',N'Khám bệnh',N'Giá dịch vụ khám bệnh, chữa bệnh không thuộc phạm vi thanh toán của Quỹ bảo hiểm y tế trong các cơ sở khám bệnh, chữa bệnh của Nhà nước', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'06.0002',N'Ngày giường điều trị nội trú nội khoa, loại 1',N'Giá dịch vụ khám bệnh, chữa bệnh không thuộc phạm vi thanh toán của Quỹ bảo hiểm y tế trong các cơ sở khám bệnh, chữa bệnh của Nhà nước', NULL,N'đ/ngày',N'TD', NULL, NULL),
-(N'1588994567',N'06.0003',N'Siêu âm',N'Giá dịch vụ khám bệnh, chữa bệnh không thuộc phạm vi thanh toán của Quỹ bảo hiểm y tế trong các cơ sở khám bệnh, chữa bệnh của Nhà nước', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'06.0004',N'X-quang số hóa 1 phim',N'Giá dịch vụ khám bệnh, chữa bệnh không thuộc phạm vi thanh toán của Quỹ bảo hiểm y tế trong các cơ sở khám bệnh, chữa bệnh của Nhà nước', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'06.0005',N'Xét nghiệm tế bào cặn nước tiểu hoặc cặn Adis',N'Giá dịch vụ khám bệnh, chữa bệnh không thuộc phạm vi thanh toán của Quỹ bảo hiểm y tế trong các cơ sở khám bệnh, chữa bệnh của Nhà nước', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'06.0006',N'Điện tâm đồ',N'Giá dịch vụ khám bệnh, chữa bệnh không thuộc phạm vi thanh toán của Quỹ bảo hiểm y tế trong các cơ sở khám bệnh, chữa bệnh của Nhà nước', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'06.0007',N'Nội soi thực quản-dạ dày- tá tràng ống mềm không sinh thiết',N'Giá dịch vụ khám bệnh, chữa bệnh không thuộc phạm vi thanh toán của Quỹ bảo hiểm y tế trong các cơ sở khám bệnh, chữa bệnh của Nhà nước', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'06.0008',N'Hàn composite cổ răng',N'Giá dịch vụ khám bệnh, chữa bệnh không thuộc phạm vi thanh toán của Quỹ bảo hiểm y tế trong các cơ sở khám bệnh, chữa bệnh của Nhà nước', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'06.0009',N'Châm cứu (có kim dài)',N'Giá dịch vụ khám bệnh, chữa bệnh không thuộc phạm vi thanh toán của Quỹ bảo hiểm y tế trong các cơ sở khám bệnh, chữa bệnh của Nhà nước', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'06.0010',N'Khám bệnh',N'Giá dịch vụ khám bệnh, chữa bệnh theo yêu cầu tại cơ sở khám bệnh, chữa bệnh của Nhà nước', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'06.0011',N'Ngày giường điều trị nội trú nội khoa, loại 1',N'Giá dịch vụ khám bệnh, chữa bệnh theo yêu cầu tại cơ sở khám bệnh, chữa bệnh của Nhà nước', NULL,N'đ/ngày',N'TD', NULL, NULL),
-(N'1588994567',N'06.0012',N'Siêu âm',N'Giá dịch vụ khám bệnh, chữa bệnh theo yêu cầu tại cơ sở khám bệnh, chữa bệnh của Nhà nước', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'06.0013',N'X-quang số hóa 1 phim',N'Giá dịch vụ khám bệnh, chữa bệnh theo yêu cầu tại cơ sở khám bệnh, chữa bệnh của Nhà nước', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'06.0014',N'Xét nghiệm tế bào cặn nước tiểu hoặc cặn Adis',N'Giá dịch vụ khám bệnh, chữa bệnh theo yêu cầu tại cơ sở khám bệnh, chữa bệnh của Nhà nước', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'06.0015',N'Điện tâm đồ',N'Giá dịch vụ khám bệnh, chữa bệnh theo yêu cầu tại cơ sở khám bệnh, chữa bệnh của Nhà nước', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'06.0016',N'Nội soi thực quản-dạ dày- tá tràng ống mềm không sinh thiết',N'Giá dịch vụ khám bệnh, chữa bệnh theo yêu cầu tại cơ sở khám bệnh, chữa bệnh của Nhà nước', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'06.0017',N'Hàn composite cổ răng',N'Giá dịch vụ khám bệnh, chữa bệnh theo yêu cầu tại cơ sở khám bệnh, chữa bệnh của Nhà nước', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'06.0018',N'Châm cứu (có kim dài)',N'Giá dịch vụ khám bệnh, chữa bệnh theo yêu cầu tại cơ sở khám bệnh, chữa bệnh của Nhà nước', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'06.0019',N'Khám bệnh',N'Giá dịch vụ khám bệnh, chữa bệnh  tại cơ sở khám bệnh, chữa bệnh tư nhân.', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'06.0020',N'Ngày giường điều trị nội trú nội khoa, loại 1',N'Giá dịch vụ khám bệnh, chữa bệnh  tại cơ sở khám bệnh, chữa bệnh tư nhân.', NULL,N'đ/ngày',N'TD', NULL, NULL),
-(N'1588994567',N'06.0021',N'Siêu âm',N'Giá dịch vụ khám bệnh, chữa bệnh  tại cơ sở khám bệnh, chữa bệnh tư nhân.', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'06.0022',N'X-quang số hóa 1 phim',N'Giá dịch vụ khám bệnh, chữa bệnh  tại cơ sở khám bệnh, chữa bệnh tư nhân.', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'06.0023',N'Xét nghiệm tế bào cặn nước tiểu hoặc cặn Adis',N'Giá dịch vụ khám bệnh, chữa bệnh  tại cơ sở khám bệnh, chữa bệnh tư nhân.', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'06.0024',N'Điện tâm đồ',N'Giá dịch vụ khám bệnh, chữa bệnh  tại cơ sở khám bệnh, chữa bệnh tư nhân.', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'06.0025',N'Nội soi thực quản-dạ dày- tá tràng ống mềm không sinh thiết',N'Giá dịch vụ khám bệnh, chữa bệnh  tại cơ sở khám bệnh, chữa bệnh tư nhân.', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'06.0026',N'Hàn composite cổ răng',N'Giá dịch vụ khám bệnh, chữa bệnh  tại cơ sở khám bệnh, chữa bệnh tư nhân.', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'06.0027',N'Châm cứu (có kim dài)',N'Giá dịch vụ khám bệnh, chữa bệnh  tại cơ sở khám bệnh, chữa bệnh tư nhân.', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'07.0001',N'Trông giữ xe máy',N'', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'07.0002',N'Trông giữ ô tô',N'', NULL,N'đ/lượt',N'TD', NULL, NULL),
-(N'1588994567',N'07.0003',N'Giá cước ô tô đi đường dài',N'Chọn 1 tuyến phổ biến, xe đường dài máy lạnh', NULL,N'đ/vé',N'TD', NULL, NULL),
-(N'1588994567',N'07.0004',N'Giá cước xe buýt công cộng',N'Đi trong nội tỉnh, dưới 30km', NULL,N'đ/vé',N'TD', NULL, NULL),
-(N'1588994567',N'07.0005',N'Giá cước taxi',N'Lấy giá 10km đầu, loại xe 4 chỗ', NULL,N'đ/km',N'TD', NULL, NULL),
-(N'1588994567',N'07.0006',N'Xăng E5 Ron 92',N'', NULL,N'đ/lít',N'TD', NULL, NULL),
-(N'1588994567',N'07.0007',N'Xăng Ron 95',N'', NULL,N'đ/lít',N'TD', NULL, NULL),
-(N'1588994567',N'07.0008',N'Dầu Diezel',N'', NULL,N'đ/lít',N'TD', NULL, NULL),
-(N'1588994567',N'08.0001',N'Dịch vụ giáo dục trường mầm non công lập',N'Trường chuẩn quốc gia 3-10', NULL,N'Đồng/tháng',N'TD', NULL, NULL),
-(N'1588994567',N'08.0002',N'Dịch vụ giáo dục trường trung học cơ sở công lập (lớp 8)',N'Trường thuộc các phường trừ phường Hợp giang', NULL,N'Đồng/tháng',N'TD', NULL, NULL),
-(N'1588994567',N'08.0003',N'Dịch vụ giáo dục trường trung học phổ thông công lập (lớp 11)',N'Ttrường trung học phổ thông công lập', NULL,N'Đồng/tháng',N'TD', NULL, NULL),
-(N'1588994567',N'08.0004',N'Dịch vụ giáo dục đào tạo nghề công lập',N'Trình độ trung cấp nghề', NULL,N'Đồng/tháng hoặc đồng/tín chỉ',N'TD', NULL, NULL),
-(N'1588994567',N'08.0005',N'Dịch vụ giáo dục đào tạo trung cấp, trường thuộc cấp Bộ quản lý',N'Khoa học xã hội, kinh tế, luật, nông , lâm, thủy sản', NULL,N'Đồng/tháng hoặc đồng/tín chỉ',N'TD', NULL, NULL),
-(N'1588994567',N'08.0006',N'Dịch vụ giáo dục đào tạo cao đẳng công lập',N'Khoa học xã hội, kinh tế, luật, nông , lâm, thủy sản', NULL,N'Đồng/tháng hoặc đồng/tín chỉ',N'TD', NULL, NULL),
-(N'1588994567',N'08.0008',N'Dịch vụ giáo dục đào tạo đại học công lập hoặc tương đương đại học công lập',N'Ghi rõ tên trường, ngành nghề đào tạo', NULL,N'Đồng/tháng hoặc đồng/tín chỉ',N'TD', NULL, NULL),
-(N'1588994567',N'09.0001',N'Du lịch trọn gói trong nước',N'Du lịch trọn gói trong nước cho 1 người chuyến 2 ngày 1 đêm (từ Hà Nội, đến Thác Bản Giốc)', NULL,N'đ/người/ chuyến',N'TD', NULL, NULL),
-(N'1588994567',N'09.0002',N'Phòng khách sạn 3 sao hoặc tương đương',N'Hai giường đơn hoặc 1 giường đôi, có tivi, điêu hòa nước nóng, điện thoại cố định, vệ sinh khép kín,Wifí', NULL,N'đ/ngày-đêm',N'TD', NULL, NULL),
-(N'1588994567',N'09.0003',N'Phòng nhà khách tư nhân',N'1 giường, điều hoà, nước nóng-lạnh, phòng vệ sinh khép kín', NULL,N'đ/ngày-đêm',N'TD', NULL, NULL),
-(N'1588994567',N'10.0001',N'Vàng 99,99%',N'Kiểu nhẫn tròn 1 chỉ', NULL,N'1000 đ/chỉ',N'TD', NULL, NULL),
-(N'1588994567',N'10.0002',N'Đô la Mỹ',N'Loại tờ 100USD', NULL,N'đ/USD',N'TD', NULL, NULL);
+update [dmhhdvk] set matt = '1588994567' where id> 0;
      **/
 }

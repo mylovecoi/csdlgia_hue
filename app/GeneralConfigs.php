@@ -45,5 +45,7 @@ class GeneralConfigs extends Model
         'accesskey',
         'secretkey',
         'token_xacthuc',
+        'madiaban',
+        'madonvithuthap',
     ];
 }

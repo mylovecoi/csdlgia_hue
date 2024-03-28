@@ -8,41 +8,41 @@ use App\Model\system\dmdvt;
 use App\NhomHhDvK;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Imports\ColectionImport;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\File;
 
 class DmHhDvKController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['url'] = '/giahhdvk';
-            $modelnhom = NhomHhDvK::where('matt',$inputs['matt'])->first();
-            $model = DmHhDvK::where('matt',$inputs['matt'])->orderby('mahhdv')->get();
-            $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','dvt');
-            $a_dm = array_column(DmNhomHangHoa::where('phanloai','GIAHHDVK')->get()->toArray(),'tennhom','manhom');
+            $modelnhom = NhomHhDvK::where('matt', $inputs['matt'])->first();
+            $model = DmHhDvK::where('matt', $inputs['matt'])->orderby('mahhdv')->get();
+            $a_dvt = array_column(dmdvt::all()->toArray(), 'dvt', 'madvt');
+            $a_dm = array_column(DmNhomHangHoa::where('phanloai', 'GIAHHDVK')->get()->toArray(), 'tennhom', 'manhom');
 
-            if($modelnhom->theodoi == 'KTD'){
+            if ($modelnhom->theodoi == 'KTD') {
                 return view('errors.duplicate')
                     ->with('message', 'Nhóm danh mục hàng hóa dịch vụ đang tạm ngưng theo dõi.')
                     ->with('url', '/giahhdvk/danhmuc');
             }
-            $a_nhomhh = [''=>'-- Chọn nhóm hàng hóa, dịch vụ --'];
-            foreach ($a_dm as $key=>$val) {
+            $a_nhomhh = ['' => '-- Chọn nhóm hàng hóa, dịch vụ --'];
+            foreach ($a_dm as $key => $val) {
                 $a_nhomhh[$key] = $val;
             }
             return view('manage.dinhgia.giahhdvk.danhmuc.chitiet.index')
-                ->with('model',$model)
-                ->with('a_dvt',$a_dvt)
-                ->with('a_nhomhh',$a_nhomhh)
-                ->with('inputs',$inputs)
-                ->with('modelnhom',$modelnhom)
-                ->with('pageTitle','Thông tin chi tiết hàng hóa dịch vụ');
-
-        }else
+                ->with('model', $model)
+                ->with('a_dvt', $a_dvt)
+                ->with('a_nhomhh', $a_nhomhh)
+                ->with('inputs', $inputs)
+                ->with('modelnhom', $modelnhom)
+                ->with('pageTitle', 'Thông tin chi tiết hàng hóa dịch vụ');
+        } else
             return view('errors.notlogin');
-
     }
 
     public function store(Request $request)
@@ -75,7 +75,8 @@ class DmHhDvKController extends Controller
             return view('errors.notlogin');
     }
 
-    public function edit(Request $request){
+    public function edit(Request $request)
+    {
         if (!Session::has('admin')) {
             $result = array(
                 'status' => 'fail',
@@ -85,19 +86,20 @@ class DmHhDvKController extends Controller
         }
 
         $inputs = $request->all();
-        $model = DmHhDvK::where('mahhdv',$inputs['mahhdv'])->first();
+        $model = DmHhDvK::where('mahhdv', $inputs['mahhdv'])->first();
         die($model);
     }
 
-    public function destroy(Request $request){
-        if(Session::has('admin')){
-            $inputs=$request->all();
+    public function destroy(Request $request)
+    {
+        if (Session::has('admin')) {
+            $inputs = $request->all();
             //dd($inputs);
-            $model = DmHhDvK::where('id',$inputs['mahhdv'])->first();
+            $model = DmHhDvK::where('id', $inputs['mahhdv'])->first();
             //dd($model);
             $model->delete();
-            return redirect('/giahhdvk/danhmuc/detail?matt='.$model->matt);
-        }else
+            return redirect('/giahhdvk/danhmuc/detail?matt=' . $model->matt);
+        } else
             return view('errors.notlogin');
     }
 
@@ -117,51 +119,40 @@ class DmHhDvKController extends Controller
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $inputs['url'] = '/giahhdvk/danhmuc/detail';
-            $modelnhom = NhomHhDvK::where('matt',$inputs['matt'])->first();
-            $filename = $inputs['matt'] . '_' . getdate()[0];
-            $request->file('fexcel')->move(public_path() . '/data/uploads/excels/', $filename . '.xls');
-            $path = public_path() . '/data/uploads/excels/' . $filename . '.xls';
-            $data = [];
 
-            Excel::load($path, function ($reader) use (&$data, $inputs) {
-                $obj = $reader->getExcel();
-                $sheet = $obj->getSheet(0);
-                $data = $sheet->toArray(null, true, true, true); // giữ lại tiêu đề A=>'val';
-            });
-            //dd($data);
+            $inputs["mahhdv"] = ord(strtoupper($inputs["mahhdv"])) - 65;
+            $inputs["tenhhdv"] = ord(strtoupper($inputs["tenhhdv"])) - 65;
+            $inputs["dacdiemkt"] = ord(strtoupper($inputs["dacdiemkt"])) - 65;
+            $inputs["dvt"] = ord(strtoupper($inputs["dvt"])) - 65;
 
+            $file = $request->file('fexcel');
+
+            $dataObj = new ColectionImport();
+            $theArray = Excel::toArray($dataObj, $file);
+            $data = $theArray[0]; //Mặc định lấy Sheet 1            
+            //Gán lại dòng
+            $inputs['dendong'] = $inputs['dendong'] < count($data) ? count($data) : $inputs['dendong'];
             $a_dm = array();
-
-            for ($i = $inputs['tudong']; $i <= $inputs['dendong']; $i++) {
-                if (
-                    !isset($data[$i][$inputs['mahhdv']]) || !isset($data[$i][$inputs['tenhhdv']]) ||
-                    !isset($data[$i][$inputs['dacdiemkt']]) || !isset($data[$i][$inputs['dvt']])
-                ) {
-                    continue;
+            $dmdvt = array_column(dmdvt::all()->toArray(),'madvt','dvt');
+           
+            for ($i = $inputs['tudong'] - 1; $i <= ($inputs['dendong']); $i++) {
+                //dd($data[$i]);
+                if (!isset($data[$i][$inputs['mahhdv']])) {
+                    continue; //Mã hàng hoá rỗng => thoát
                 }
+                
                 $a_dm[] = array(
                     'matt' => $inputs['matt'],
-                    'manhom' => $data[$i][$inputs['manhom']] ?? '',
                     'mahhdv' => $data[$i][$inputs['mahhdv']] ?? '',
                     'tenhhdv' => $data[$i][$inputs['tenhhdv']] ?? '',
                     'dacdiemkt' => $data[$i][$inputs['dacdiemkt']] ?? '',
-                    'dvt' => $data[$i][$inputs['dvt']] ?? '',
+                    'dvt' =>$dmdvt[$data[$i][$inputs['dvt']] ?? ''] ?? '',
                     'theodoi' => 'TD',
                 );
             }
+            ///dd($a_dm);
             DmHhDvK::insert($a_dm);
-            File::Delete($path);
-
-            // $model = DmHhDvK::where('matt', $inputs['matt'])->orderby('mahhdv')->get();
-
             return redirect('/giahhdvk/danhmuc/detail?matt=' . $inputs['matt']);
-
-            // return view('manage.dinhgia.giahhdvk.danhmuc.chitiet.index')
-            //     ->with('model',$model)
-            //     ->with('inputs',$inputs)
-            //     ->with('modelnhom',$modelnhom)
-            //     ->with('pageTitle', 'Thông tin chi tiết hàng hóa dịch vụ');
         } else
             return view('errors.notlogin');
     }

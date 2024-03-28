@@ -4460,8 +4460,9 @@ function dinhdangsothapphan($number, $decimals = 0)
 
 function chkDbl($obj)
 {
-    $obj = str_replace(',', '', $obj);
-    $obj = str_replace('%', '', $obj);
+    $obj = preg_replace('/[^0-9,.]/', '', $obj);
+    // Chuyển đổi chuỗi thành số
+    $obj = floatval(str_replace(',', '', $obj));
     if (is_numeric($obj)) {
         return $obj;
     } else {
