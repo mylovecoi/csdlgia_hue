@@ -666,7 +666,7 @@ class ThGiaHhDvKController extends Controller
             //Gán lại dòng
             $inputs['dendong'] = $inputs['dendong'] < count($data) ? count($data) : $inputs['dendong'];
             
-            for ($i = $inputs['tudong']; $i <= ($inputs['dendong']); $i++) {
+            for ($i = $inputs['tudong']-1; $i <= ($inputs['dendong']); $i++) {
                 //dd($data[$i]);
                 if (!isset($data[$i][$inputs['mahhdv']])) {
                     continue; //Mã hàng hoá rỗng => thoát

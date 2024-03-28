@@ -608,8 +608,8 @@ class KetNoiCSDLQuocGiaController extends Controller
                     if (count($HoSo) == 0)
                         $HoSoChiTiet = null;
                     else
-                        // $HoSoChiTiet = view_thgiahhdvk::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
-                    $HoSoChiTiet = view_thgiahhdvk::where('mahs', array_column($HoSo->toarray(), 'mahs'))->take(20)->get();
+                        $HoSoChiTiet = view_thgiahhdvk::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                    // $HoSoChiTiet = view_thgiahhdvk::where('mahs', array_column($HoSo->toarray(), 'mahs'))->take(20)->get();
                     break;
                 }
             case 'vlxd': {
