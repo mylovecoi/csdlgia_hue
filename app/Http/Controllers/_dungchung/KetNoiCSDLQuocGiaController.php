@@ -558,7 +558,7 @@ class KetNoiCSDLQuocGiaController extends Controller
             'lgspaccesstoken: ' . $inputs['token_ketnoi'],
             'Authorization: ' . $string_bear
         ];
-        dd(json_encode(['data'=>json_encode([$a_Body[0]])]));
+        //dd(json_encode(['data'=>json_encode([$a_Body[0]])]));
          //File::put(public_path(). '/data/chuyentubase64/TT116.docx' , base64_decode($a_Body[0]['FILE_DINH_KEM_PDF']));        
          //dd($a_Body[0]['FILE_DINH_KEM_PDF']);
 
