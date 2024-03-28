@@ -283,8 +283,8 @@
                             <label><b>Lý do trả lại</b></label>
                             <textarea id="lydo" class="form-control" name="lydo" cols="30" rows="8"></textarea>
                         </div>
-                        <input type="" name="idtralai" id="idtralai">
-                        <input type="" name="madvtralai" id="madvtralai">
+                        <input type="hidden" name="idtralai" id="idtralai">
+                        <input type="hidden" name="madvtralai" id="madvtralai">
                     </div>
 
                     <div class="modal-footer">
@@ -320,6 +320,7 @@
             </div>
             <!-- /.modal-dialog -->
         </div>
+
         <!--Model nhận hs edit-->
         <div class="modal fade" id="nhanhsedit-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
             aria-hidden="true">
@@ -343,6 +344,7 @@
             </div>
             <!-- /.modal-dialog -->
         </div>
+
         <!--Model huỷ duyệt-->
         <div class="modal fade" id="huyduyet-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
             aria-hidden="true">
@@ -372,6 +374,7 @@
                 <!-- /.modal-dialog -->
             </div>
         </div>
+
         <!--Model lý do-->
         <div class="modal fade" id="lydo-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
             aria-hidden="true">

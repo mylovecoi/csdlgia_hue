@@ -45,7 +45,59 @@
                 window.location.href = url;
             });
 
-        });        
+        });  
+        
+        function confirmNhanHs(mahs) {
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            //alert(id);
+            $.ajax({
+                url: '/xetduyetgiaxmtxd/ttnhanhs',
+                type: 'GET',
+                data: {
+                    _token: CSRF_TOKEN,
+                    mahs: mahs
+                },
+                dataType: 'JSON',
+                success: function(data) {
+                    if (data.status == 'success') {
+                        $('#ttnhanhs').replaceWith(data.message);
+                        //InputMask();
+                    } else
+                        toastr.error("Không thể chỉnh sửa thông tin nhận hồ sơ giá !", "Lỗi!");
+                }
+            })
+        }
+
+        function ClickNhanHs() {
+            $('#frm_nhanhs').submit();
+            var btn = document.getElementById('submitNhanHs');
+            btn.disabled = true;
+            btn.innerText = 'Loading...';
+        }
+
+        function ClickTraLai(maso, url, madv) {
+            $('#frm_tralai').attr('action', url);
+            $('#frm_tralai').find("[id='idtralai']").val(maso);
+            $('#frm_tralai').find("[id='madvtralai']").val(madv);
+        }
+
+        function confirmTraLai(id, madv) {
+            if ($('#lydo').val() != '') {
+                var btn = document.getElementById('submitTraLai');
+                btn.disabled = true;
+                btn.innerText = 'Loading...';
+                toastr.success("Hồ sơ đã được trả lại!", "Thành công!");
+                // $('#frm_tralai').find("[id='mahs']").val(mahs);
+                // $('#frm_tralai').find("[id='madv']").val(madv);
+                $("#frm_tralai").unbind('submit').submit();
+            } else {
+                toastr.error("Bạn cần nhập lý do trả lại hồ sơ", "Lỗi!!!");
+                $("#frm_tralai").submit(function(e) {
+                    e.preventDefault();
+                });
+            }
+
+        }
     </script>
 @stop
 
@@ -166,9 +218,16 @@
                                                         Nhận hồ sơ</button>
                                                 @endif
 
-                                                @if (in_array($tt->trangthai, ['CD', 'DD', 'BTL']))
+                                                {{-- @if (in_array($tt->trangthai, ['CD', 'DD', 'BTL']))
                                                     <button type="button"
                                                         onclick="ClickTraLai('{{ $tt->id }}','{{ $tt->madv }}')"
+                                                        class="btn btn-default btn-xs mbs" data-target="#tralai-modal"
+                                                        data-toggle="modal"><i class="fa fa-reply"></i>&nbsp;
+                                                        Trả lại</button>
+                                                @endif --}}
+                                                @if (in_array($tt->trangthai, ['CD', 'DD', 'BTL']))
+                                                    <button type="button"
+                                                        onclick="ClickTraLai('{{ $tt->id }}','{{$inputs['url'].'/tralai'}}','{{ $tt->madv }}')"
                                                         class="btn btn-default btn-xs mbs" data-target="#tralai-modal"
                                                         data-toggle="modal"><i class="fa fa-reply"></i>&nbsp;
                                                         Trả lại</button>
@@ -202,7 +261,7 @@
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    {!! Form::open(['url' => 'xetduyetgiaxmtxd/tralai', 'id' => 'frm_tralai']) !!}
+                    {!! Form::open(['url' => '', 'id' => 'frm_tralai']) !!}
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                         <h4 class="modal-title">Đồng ý trả lại hồ sơ?</h4>
@@ -220,8 +279,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn blue" onclick="confirmTraLai()" id="submitTraLai">Đồng
-                            ý</button>
+                        <button type="submit" class="btn blue" onclick="confirmTraLai()" id="submitTraLai">Đồng ý</button>
 
                     </div>
                     {!! Form::close() !!}
@@ -243,11 +301,9 @@
                     </div>
                     <div class="modal-body" id="ttnhanhs">
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn blue" onclick="ClickNhanHs()" id="submitNhanHs">Đồng
-                            ý</button>
+                        <button type="submit" class="btn blue" onclick="ClickNhanHs()" id="submitNhanHs">Đồng ý</button>
                     </div>
                     {!! Form::close() !!}
                 </div>
@@ -255,6 +311,7 @@
             </div>
             <!-- /.modal-dialog -->
         </div>
+
         <!--Model nhận hs edit-->
         <div class="modal fade" id="nhanhsedit-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
             aria-hidden="true">
@@ -278,6 +335,7 @@
             </div>
             <!-- /.modal-dialog -->
         </div>
+
         <!--Model huỷ duyệt-->
         <div class="modal fade" id="huyduyet-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
             aria-hidden="true">
@@ -307,6 +365,7 @@
                 <!-- /.modal-dialog -->
             </div>
         </div>
+
         <!--Model lý do-->
         <div class="modal fade" id="lydo-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
             aria-hidden="true">
