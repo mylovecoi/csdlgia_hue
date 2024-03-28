@@ -439,7 +439,7 @@ class KetNoiCSDLQuocGiaController extends Controller
 
                     $response = curl_exec($curl);
                     $errno = curl_errno($curl);
-                    // dd($errno);
+                     dd($response);
                     if ($errno == 0 && json_decode($response) != null) { //Ko có lỗi                        
                         curl_close($curl);
                         $string_bear .= json_decode($response)->access_token;
@@ -558,13 +558,13 @@ class KetNoiCSDLQuocGiaController extends Controller
             'lgspaccesstoken: ' . $inputs['token_ketnoi'],
             'Authorization: ' . $string_bear
         ];
-        //  dd(json_encode(['data'=>json_encode([$a_Body[0]])]));
+          dd(json_encode(['data'=>[$a_Body[0]]]));
          //File::put(public_path(). '/data/chuyentubase64/TT116.docx' , base64_decode($a_Body[0]['FILE_DINH_KEM_PDF']));        
          //dd($a_Body[0]['FILE_DINH_KEM_PDF']);
 
         $curl = curl_init($inputs['linkTruyenPost']);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");        
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode(['data'=>json_encode([$a_Body[0]])]));//cho Content-Type: application/json
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode(['data'=>[$a_Body[0]]]));//cho Content-Type: application/json
         //curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query(['data'=>$a_Body[0]]));// 'Content-Type: application/x-www-form-urlencoded',
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $a_Header);
