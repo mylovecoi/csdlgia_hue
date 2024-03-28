@@ -439,7 +439,7 @@ class KetNoiCSDLQuocGiaController extends Controller
 
                     $response = curl_exec($curl);
                     $errno = curl_errno($curl);
-                     dd($response);
+                     dd($errno);
                     if ($errno == 0 && json_decode($response) != null) { //Ko có lỗi                        
                         curl_close($curl);
                         $string_bear .= json_decode($response)->access_token;
