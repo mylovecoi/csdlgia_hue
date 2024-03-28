@@ -677,7 +677,7 @@ class ThGiaHhDvKController extends Controller
                     $chitiet->gia = chkDbl($data[$i][$inputs['gia']]);
                     $chitiet->gialk = chkDbl($data[$i][$inputs['gialk']]);
                     $chitiet->nguontt = $data[$i][$inputs['nguontt']];
-                    //dd($data[$i][$inputs['gia']]);
+                    //dd($chitiet);
                     $chitiet->save();
                 }
             }

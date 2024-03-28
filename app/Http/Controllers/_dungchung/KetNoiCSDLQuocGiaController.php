@@ -104,27 +104,7 @@ class KetNoiCSDLQuocGiaController extends Controller
         $a_Body = [];
         //dd($m_HoSoChiTiet);
         foreach ($m_HoSo as $HoSo) {
-            $a_HoSo = [];
-            //File đính kèm cho hồ sơ kê khai giá thị trường
-            // if ($HoSo->ipf1 != '' && $HoSoAPI->wherein('tendong', ['FILE_DINH_KEM_WORD', 'FILE_DINH_KEM_PDF'])->count() > 0) {
-            //     $path = public_path(getDuongDanThuMuc($inputs['chucnang'])) . $HoSo->ipf1;
-            //     $type = pathinfo($path, PATHINFO_EXTENSION);
-            //     switch ($type) {
-            //         case 'doc':
-            //         case 'docx': {
-            //                 $data = file_get_contents($path);
-            //                 $base64 =  base64_encode($data);
-            //                 $a_HoSo['FILE_DINH_KEM_WORD'] = $base64;
-            //                 break;
-            //             }
-            //         case 'pdf': {
-            //                 $data = file_get_contents($path);
-            //                 $base64 =  base64_encode($data);
-            //                 $a_HoSo['FILE_DINH_KEM_PDF'] = $base64;
-            //                 break;
-            //             }
-            //     }
-            // }
+            $a_HoSo = [];           
 
             //File đính kèm cho hồ sơ kê khai giá dịch vụ công ích, ...
             if ($HoSo->ipf1 != '' && $HoSoAPI->wherein('tendong', ['FILE_DINH_KEM',])->count() > 0) {
@@ -149,6 +129,7 @@ class KetNoiCSDLQuocGiaController extends Controller
                     foreach ($m_HoSoChiTiet as $HSChiTiet) {
                         $a_ChiTiet = array();
                         foreach ($HoSoChiTietAPI->where('tendong_goc', $TenDong->tendong) as $Dong) {
+                            //dd($Dong);
                             $tenTruongCT = $Dong->tentruong;
                             if ($tenTruongCT == 'NULL') {
                                 $a_ChiTiet[$Dong->tendong] = $this->getMacDinh($Dong->macdinh, $HoSo, $HSChiTiet);
@@ -158,10 +139,30 @@ class KetNoiCSDLQuocGiaController extends Controller
                                 if ($giatri == '' && $Dong->macdinh != '') {
                                     $giatri = $Dong->macdinh;
                                 }
-                                //gán giá trị
+                                //gán giá trị          
+
                                 $a_ChiTiet[$Dong->tendong] = $giatri;
                             }
-                            //dd($a_ChiTiet);
+                            //Gán lại kiểu dữ liệu
+                            //Xử lý riêng cho giahhdvk
+                            if ($Dong->tendong == 'LOAI_GIA') {
+                                $a_ChiTiet[$Dong->tendong]=$this->getLOAI_GIA($a_ChiTiet[$Dong->tendong]);
+                            }
+
+                            if ($Dong->tendong == 'NGUON_THONG_TIN') {                               
+                                $a_ChiTiet[$Dong->tendong]= $this->getNGUON_THONG_TIN($a_ChiTiet[$Dong->tendong]);
+                            }
+
+                            switch ($Dong->kieudulieu) {
+                                case "NUMBER": {
+                                        $a_ChiTiet[$Dong->tendong] = (float)chkDbl($a_ChiTiet[$Dong->tendong]);
+                                        break;
+                                    }
+                                default: {
+                                        $a_ChiTiet[$Dong->tendong] = isset($a_ChiTiet[$Dong->tendong]) ? $a_ChiTiet[$Dong->tendong] : "";
+                                    }
+                            }
+                            
                         }
                         $a_HSChiTiet[] = $a_ChiTiet;
                     }
@@ -184,13 +185,22 @@ class KetNoiCSDLQuocGiaController extends Controller
                     //gán giá trị
                     $a_HoSo[$TenDong->tendong] = $giatri;
                 }
+                //Kiểm tra kiểu dữ liệu                                
+                switch ($TenDong->kieudulieu) {
+                    case "NUMBER": {
+                            $a_HoSo[$TenDong->tendong] = (float)chkDbl($a_HoSo[$TenDong->tendong]);
+                            break;
+                        }
+                    default: {
+                            $a_HoSo[$TenDong->tendong] = isset($a_HoSo[$TenDong->tendong]) ? $a_HoSo[$TenDong->tendong] : "";
+                        }
+                }
             }
             $a_Body[] = $a_HoSo;
         }
-        if (in_array(substr($inputs['maso'], 0, 2), ['dm', 'ds']))
-            return json_encode($a_Body ?? null);
-        else
-            return json_encode($a_Body[0] ?? null);
+
+        //if (in_array(substr($inputs['maso'], 0, 2), ['dm', 'ds']))           
+        return json_encode(["data" => $a_Body]);
     }
 
     /*
@@ -354,7 +364,7 @@ class KetNoiCSDLQuocGiaController extends Controller
             'lgspaccesstoken: ' . $inputs['token_ketnoi'],
             'Authorization: ' . $string_bear
         ];
-        dd(json_encode(['data'=>$a_Body[0]]));
+        dd(json_encode(['data' => $a_Body[0]]));
 
         $curl = curl_init($inputs['linkTruyenPost']);
 
@@ -468,27 +478,6 @@ class KetNoiCSDLQuocGiaController extends Controller
 
         foreach ($m_HoSo as $HoSo) {
             $a_HoSo = [];
-            //File đính kèm cho hồ sơ kê khai giá thị trường
-            // if ($HoSo->ipf1 != '' && $HoSoAPI->wherein('tendong', ['FILE_DINH_KEM_WORD', 'FILE_DINH_KEM_PDF'])->count() > 0) {
-            //     $path = public_path(getDuongDanThuMuc($inputs['chucnang'])) . $HoSo->ipf1;
-            //     $type = pathinfo($path, PATHINFO_EXTENSION);
-            //     switch ($type) {
-            //         case 'doc':
-            //         case 'docx': {
-            //                 $data = file_get_contents($path);
-            //                 $base64 =  base64_encode($data);
-            //                 $a_HoSo['FILE_DINH_KEM_WORD'] = $base64;
-            //                 break;
-            //             }
-            //         case 'pdf': {
-            //                 $data = file_get_contents($path);
-            //                 $base64 =  base64_encode($data);
-            //                 $a_HoSo['FILE_DINH_KEM_PDF'] = $base64;
-            //                 break;
-            //             }
-            //     }
-            // }
-
             //File đính kèm cho hồ sơ kê khai giá dịch vụ công ích, ...
             if ($HoSo->ipf1 != '' && $HoSoAPI->wherein('tendong', ['FILE_DINH_KEM',])->count() > 0) {
                 $path = public_path(getDuongDanThuMuc($inputs['chucnang'])) . $HoSo->ipf1;
@@ -524,7 +513,25 @@ class KetNoiCSDLQuocGiaController extends Controller
                                 //gán giá trị
                                 $a_ChiTiet[$Dong->tendong] = $giatri;
                             }
-                            //dd($a_ChiTiet);
+                             //Xử lý riêng cho giahhdvk
+                             if ($Dong->tendong == 'LOAI_GIA') {                               
+                                $a_ChiTiet[$Dong->tendong]=$this->getLOAI_GIA($a_ChiTiet[$Dong->tendong]);
+                            }
+
+                            if ($Dong->tendong == 'NGUON_THONG_TIN') {                                
+                                $a_ChiTiet[$Dong->tendong]= $this->getNGUON_THONG_TIN($a_ChiTiet[$Dong->tendong]);
+                            }
+
+                            //Gán lại kiểu dữ liệu
+                            switch ($Dong->kieudulieu) {
+                                case "NUMBER": {
+                                        $a_ChiTiet[$Dong->tendong] = (float)chkDbl($a_ChiTiet[$Dong->tendong]);
+                                        break;
+                                    }
+                                default: {
+                                        $a_ChiTiet[$Dong->tendong] = isset($a_ChiTiet[$Dong->tendong]) ? $a_ChiTiet[$Dong->tendong] : "";
+                                    }
+                            }
                         }
                         $a_HSChiTiet[] = $a_ChiTiet;
                     }
@@ -547,8 +554,18 @@ class KetNoiCSDLQuocGiaController extends Controller
                     //gán giá trị
                     $a_HoSo[$TenDong->tendong] = $giatri;
                 }
+                //Kiểm tra kiểu dữ liệu                                
+                switch ($TenDong->kieudulieu) {
+                    case "NUMBER": {
+                            $a_HoSo[$TenDong->tendong] = (float)chkDbl($a_HoSo[$TenDong->tendong]);
+                            break;
+                        }
+                    default: {
+                            $a_HoSo[$TenDong->tendong] = isset($a_HoSo[$TenDong->tendong]) ? $a_HoSo[$TenDong->tendong] : "";
+                        }
+                }
             }
-            $a_Body[] = $a_HoSo;
+            $a_Body = $a_HoSo;
         }
 
         //Truyền số liệu
@@ -558,13 +575,13 @@ class KetNoiCSDLQuocGiaController extends Controller
             'lgspaccesstoken: ' . $inputs['token_ketnoi'],
             'Authorization: ' . $string_bear
         ];
-        //dd(json_encode(['data'=>json_encode([$a_Body[0]])]));
-         //File::put(public_path(). '/data/chuyentubase64/TT116.docx' , base64_decode($a_Body[0]['FILE_DINH_KEM_PDF']));        
-         //dd($a_Body[0]['FILE_DINH_KEM_PDF']);
+        //dd(json_encode(["data" => $a_Body]));        
+        //File::put(public_path(). '/data/chuyentubase64/TT116.docx' , base64_decode($a_Body[0]['FILE_DINH_KEM_PDF']));        
+        //dd($a_Body[0]['FILE_DINH_KEM_PDF']);
 
         $curl = curl_init($inputs['linkTruyenPost']);
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");        
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode(['data'=>json_encode([$a_Body[0]])]));//cho Content-Type: application/json
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode(["data" => $a_Body])); //cho Content-Type: application/json
         //curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query(['data'=>$a_Body[0]]));// 'Content-Type: application/x-www-form-urlencoded',
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $a_Header);
@@ -879,6 +896,24 @@ class KetNoiCSDLQuocGiaController extends Controller
         }
     }
 
+    function getLOAI_GIA($giatri)
+    {       
+        $aKQ = ["Giá bán buôn" => "LG10", "Giá bán lẻ" => "LG5"];        
+        return $aKQ[$giatri] ?? "LG5";
+    }
+
+    function getNGUON_THONG_TIN($giatri)
+    {
+        $aKQ = [
+            "Do trực tiếp điều tra, thu thập" => 1,
+            "Do cơ quan/đơn vị quản lý nhà nước có liên quan cung cấp/báo cáo theo quy định" => 2,
+            "Từ thống kê đăng ký giá, kê khai giá, thông báo giá của doanh nghiệp" => 3,
+            "Hợp đồng mua tin" => 4,
+            "Các nguồn thông tin khác" => 5,
+        ];
+        return $aKQ[$giatri] ?? 2;
+    }
+
     function getMacDinh($giatri, $HoSo, $HoSoChiTiet = null)
     {
         //dd($HoSo);
@@ -889,6 +924,15 @@ class KetNoiCSDLQuocGiaController extends Controller
                     break;
                 }
             case 'GET_NGUONTT': {
+                    $kQ = session('admin')->madonvithuthap;
+                    break;
+                }
+            case 'GET_LOAIGIA': {
+
+                    $kQ = session('admin')->madonvithuthap;
+                    break;
+                }
+            case 'GET_SOLIEU': {
                     $kQ = session('admin')->madonvithuthap;
                     break;
                 }
