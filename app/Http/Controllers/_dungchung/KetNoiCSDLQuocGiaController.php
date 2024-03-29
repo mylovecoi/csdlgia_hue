@@ -926,7 +926,7 @@ class KetNoiCSDLQuocGiaController extends Controller
         $kQ = $giatri;
         switch ($giatri) {
             case 'GET_DIABAN': {
-                    $kQ = session('admin')->madiaban;
+                    $kQ = session('admin')->madiaban_ketnoi;
                     break;
                 }
             case 'GET_NGUONTT': {

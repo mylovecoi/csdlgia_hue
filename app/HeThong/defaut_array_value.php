@@ -510,7 +510,7 @@ function getDonViTongHop_dn($linhvuc, $level, $madiaban = null)
     }
 
     $m_user = App\Users::wherein('madv', array_column($m_donvi->toarray(), 'madv'))->get();
-    //dd($m_user);
+   
     $ketqua = new Illuminate\Support\Collection();
 
     foreach ($m_user as $user) {

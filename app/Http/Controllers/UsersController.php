@@ -158,7 +158,7 @@ class UsersController extends Controller
         $ttuser->accesskey = $m_gen->accesskey;
         $ttuser->token_xacthuc = $m_gen->token_xacthuc;
         //thông tin kết nôi
-        $ttuser->madiaban = $m_gen->madiaban;
+        $ttuser->madiaban_ketnoi = $m_gen->madiaban;
         $ttuser->madonvithuthap = $m_gen->madonvithuthap;
         //dd($ttuser);
         Session::put('admin', $ttuser);
