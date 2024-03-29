@@ -104,7 +104,7 @@ class KetNoiCSDLQuocGiaController extends Controller
         $a_Body = [];
         //dd($m_HoSoChiTiet);
         foreach ($m_HoSo as $HoSo) {
-            $a_HoSo = [];           
+            $a_HoSo = [];
 
             //File đính kèm cho hồ sơ kê khai giá dịch vụ công ích, ...
             if ($HoSo->ipf1 != '' && $HoSoAPI->wherein('tendong', ['FILE_DINH_KEM',])->count() > 0) {
@@ -146,11 +146,11 @@ class KetNoiCSDLQuocGiaController extends Controller
                             //Gán lại kiểu dữ liệu
                             //Xử lý riêng cho giahhdvk
                             if ($Dong->tendong == 'LOAI_GIA') {
-                                $a_ChiTiet[$Dong->tendong]=$this->getLOAI_GIA($a_ChiTiet[$Dong->tendong]);
+                                $a_ChiTiet[$Dong->tendong] = $this->getLOAI_GIA($a_ChiTiet[$Dong->tendong]);
                             }
 
-                            if ($Dong->tendong == 'NGUON_THONG_TIN') {                               
-                                $a_ChiTiet[$Dong->tendong]= $this->getNGUON_THONG_TIN($a_ChiTiet[$Dong->tendong]);
+                            if ($Dong->tendong == 'NGUON_THONG_TIN') {
+                                $a_ChiTiet[$Dong->tendong] = $this->getNGUON_THONG_TIN($a_ChiTiet[$Dong->tendong]);
                             }
 
                             switch ($Dong->kieudulieu) {
@@ -162,7 +162,6 @@ class KetNoiCSDLQuocGiaController extends Controller
                                         $a_ChiTiet[$Dong->tendong] = isset($a_ChiTiet[$Dong->tendong]) ? $a_ChiTiet[$Dong->tendong] : "";
                                     }
                             }
-                            
                         }
                         $a_HSChiTiet[] = $a_ChiTiet;
                     }
@@ -200,7 +199,7 @@ class KetNoiCSDLQuocGiaController extends Controller
         }
 
         //if (in_array(substr($inputs['maso'], 0, 2), ['dm', 'ds']))           
-        return json_encode(["data" => $a_Body]);
+        return json_encode(["data" => $a_Body], JSON_UNESCAPED_UNICODE);
     }
 
     /*
@@ -513,13 +512,13 @@ class KetNoiCSDLQuocGiaController extends Controller
                                 //gán giá trị
                                 $a_ChiTiet[$Dong->tendong] = $giatri;
                             }
-                             //Xử lý riêng cho giahhdvk
-                             if ($Dong->tendong == 'LOAI_GIA') {                               
-                                $a_ChiTiet[$Dong->tendong]=$this->getLOAI_GIA($a_ChiTiet[$Dong->tendong]);
+                            //Xử lý riêng cho giahhdvk
+                            if ($Dong->tendong == 'LOAI_GIA') {
+                                $a_ChiTiet[$Dong->tendong] = $this->getLOAI_GIA($a_ChiTiet[$Dong->tendong]);
                             }
 
-                            if ($Dong->tendong == 'NGUON_THONG_TIN') {                                
-                                $a_ChiTiet[$Dong->tendong]= $this->getNGUON_THONG_TIN($a_ChiTiet[$Dong->tendong]);
+                            if ($Dong->tendong == 'NGUON_THONG_TIN') {
+                                $a_ChiTiet[$Dong->tendong] = $this->getNGUON_THONG_TIN($a_ChiTiet[$Dong->tendong]);
                             }
 
                             //Gán lại kiểu dữ liệu
@@ -586,7 +585,7 @@ class KetNoiCSDLQuocGiaController extends Controller
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $a_Header);
         $result = curl_exec($curl);
-
+        $errno = curl_errno($curl);
         curl_close($curl);
         // dd($result);
         if ($result == false) {
@@ -598,22 +597,29 @@ class KetNoiCSDLQuocGiaController extends Controller
         }
         //Lưu lại link API
         KetNoiAPI_DanhSach::where('maso', $inputs['chucnang'])->update(['linkTruyenPost' => $inputs['linkTruyenPost']]);
-        $result = json_decode($result);
-
-        //Trường hợp mã trả lại từ sever là string html
-        // if (!is_array($result)) {
-        //     return view('errors.html_entity_decode')
-        //         ->with('result', $result);
-        // }
-
-        if ($result->error_code == '-1') {
+       
+        if ($errno > 0) {
             return view('errors.403')
-                ->with('message', $result->message)
+                ->with('message', "Lỗi kêt nối đến trục LGSP (Mã lỗi: " . $errno . ")")
                 ->with('url', $inputs['url']);
         } else {
-            return view('errors.success')
-                ->with('message', $result->message)
-                ->with('url', $inputs['url']);
+            //Trường hợp mã trả lại từ sever là string html
+            if (!is_array($result)) {
+                return view('errors.html_entity_decode')
+                    ->with('result', $result);
+            }
+
+            $result = json_decode($result);
+            if ($result->error_code == '-1') {
+                return view('errors.403')
+                    ->with('message', $result->message)
+                    ->with('url', $inputs['url']);
+            } else {
+
+                return view('errors.success')
+                    ->with('message', $result->message)
+                    ->with('url', $inputs['url']);
+            }
         }
     }
 
@@ -897,8 +903,8 @@ class KetNoiCSDLQuocGiaController extends Controller
     }
 
     function getLOAI_GIA($giatri)
-    {       
-        $aKQ = ["Giá bán buôn" => "LG10", "Giá bán lẻ" => "LG5"];        
+    {
+        $aKQ = ["Giá bán buôn" => "LG10", "Giá bán lẻ" => "LG5"];
         return $aKQ[$giatri] ?? "LG5";
     }
 

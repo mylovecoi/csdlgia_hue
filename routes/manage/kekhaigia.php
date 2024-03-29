@@ -12,6 +12,7 @@ Route::group(['prefix' => 'doanhnghiep'], function () {
     Route::get('chuyenhs', 'system\company\CompanyController@ttdnchuyen');
 
     Route::get('ThemNganhNghe', [TtDnTdCtController::class,'store']);
+    Route::post('ThemNganhNghe', [TtDnTdCtController::class,'store']);
     Route::get('delete_ct', 'manage\kekhaigia\TtDnTdCtController@delete');
 
     Route::get('xetduyet', 'system\company\CompanyController@xetduyet');

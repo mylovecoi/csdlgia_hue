@@ -7,6 +7,7 @@
     'enctype' => 'multipart/form-data',
 ]) !!}
 <input type="hidden" name="type" value="create">
+<input type="hidden" name="madv" value="{{ $model->madv }}">
 <div class="modal fade bs-modal-lg" id="modal-create" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -64,28 +65,6 @@
 </div>
 
 <script>
-    // function LuuCaNhan() {
-    //     var formData = new FormData($('#frm_ThemCaNhan')[0]);
-
-    //     $.ajax({
-    //         url: "{{ $inputs['url'] }}" + "ThemCaNhan",
-    //         method: "POST",
-    //         cache: false,
-    //         dataType: false,
-    //         processData: false,
-    //         contentType: false,
-    //         data: formData,
-    //         success: function(data) {
-    //             console.log(data);
-    //             if (data.status == 'success') {
-    //                 $('#dskhenthuongcanhan').replaceWith(data.message);
-    //                 TableManaged3.init();
-    //             }
-    //         }
-    //     })
-    //     $('#modal-create').modal("hide");
-    // }
-
     function capnhatts() {
         // var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         var formData = new FormData($('#frm_ThemChiTiet')[0]);
