@@ -222,8 +222,9 @@ License: You must have a valid license purchased only from themeforest(the above
                         </ul>
                     </li>
                     @if (session('admin')->ipf4 != '')
-                        <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">                           
-                            <a href="{{ url('/data/huongdan/' . session('admin')->ipf4) }}" class="dropdown-toggle" target="_blank">
+                        <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                            <a href="{{ url('/data/huongdan/' . session('admin')->ipf4) }}" class="dropdown-toggle"
+                                target="_blank">
                                 <i class="fa fa-cloud"></i>
                                 <span class="badge badge-warning">Quy chế</span>
                             </a>
@@ -245,7 +246,8 @@ License: You must have a valid license purchased only from themeforest(the above
                             </li>
                             @if (session('admin')->ipf1 != '')
                                 <li>
-                                    <a href="{{ url('/data/huongdan/' . session('admin')->ipf1) }}" target="_blank">Tài
+                                    <a href="{{ url('/data/huongdan/' . session('admin')->ipf1) }}"
+                                        target="_blank">Tài
                                         liệu hướng dẫn</a>
                                 </li>
                             @endif
@@ -346,7 +348,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </li>
 
                                 <li>
-                                    <a href="{{ url('/binhongia/danhsach?madv=' . session('admin')->madv) }}">Thông tin
+                                    <a href="{{ url('/binhongia/danhsach?madv=' . session('admin')->madv) }}">Thông
+                                        tin
                                         hồ sơ</a>
                                 </li>
                             </ul>
@@ -848,14 +851,16 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </a>
                                     <ul class="sub-menu">
                                         @if (chkPer('hethong', 'hethong_pq', 'ngaynghile'))
-                                            <li><a href="{{ url('thongtinngaynghile') }}">Thông tin ngày nghỉ lễ</a>
-                                            </li>
+                                            <li><a href="{{ url('thongtinngaynghile') }}">Thông tin ngày nghỉ lễ</a></li>
                                             <li><a href="{{ url('dmloaidat') }}">Danh mục loại đất</a></li>
                                         @endif
 
                                         @if (chkPer('hethong', 'hethong_pq', 'danhmucnganhkd'))
                                             <li><a href="{{ url('/dmnganhnghe/danhsach') }}">Danh mục ngành nghề kinh
                                                     doanh</a> </li>
+                                        @endif
+                                        @if (chkPer('hethong', 'hethong_pq', 'danhmucdvt'))
+                                            <li><a href="{{ url('/dmdvt/danhsach') }}">Danh mục đơn vị tính</a> </li>
                                         @endif
                                     </ul>
                                 </li>

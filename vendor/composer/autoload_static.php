@@ -5437,6 +5437,7 @@ class ComposerStaticInitd7de3fb6aaadd474bf447891cb3bef8d
         'UpdateGiadatdaugiaCt170323Table' => __DIR__ . '/../..' . '/database/migrations/2023_03_17_161524_update_giadatdaugia_ct_170323_table.php',
         'UpdateGiadatphanloaiCt170323Table' => __DIR__ . '/../..' . '/database/migrations/2023_03_17_145055_update_giadatphanloai_ct_170323_table.php',
         'UpdateGiathuedatmatnuoc1503Table' => __DIR__ . '/../..' . '/database/migrations/2023_03_15_090621_update_giathuedatmatnuoc_1503_table.php',
+        'UpdateGiavangngoaitectThemgiaban240402' => __DIR__ . '/../..' . '/database/migrations/2024_04_02_095059_update_giavangngoaitect_themgiaban_240402.php',
         'UpdateHelper\\ComposerPlugin' => __DIR__ . '/..' . '/kylekatarnls/update-helper/src/UpdateHelper/ComposerPlugin.php',
         'UpdateHelper\\NotUpdateInterfaceInstanceException' => __DIR__ . '/..' . '/kylekatarnls/update-helper/src/UpdateHelper/NotUpdateInterfaceInstanceException.php',
         'UpdateHelper\\UpdateHelper' => __DIR__ . '/..' . '/kylekatarnls/update-helper/src/UpdateHelper/UpdateHelper.php',

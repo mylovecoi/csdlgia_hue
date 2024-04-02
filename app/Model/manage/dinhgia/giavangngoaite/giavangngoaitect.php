@@ -16,7 +16,9 @@ class giavangngoaitect extends Model
         'dvt',
         'xuatxu',
         'gialk',
-        'gia',
+        'gia',//Giá mua
+        'giabanlk',
+        'giaban',//Giá bán
         'loaigia',
         'nguontt',
         'ghichu',

@@ -2655,6 +2655,7 @@ function getGiaoDien()
             'danhsachtaikhoan' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
             'ngaynghile' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
             'danhmucnganhkd' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
+            'danhmucdvt' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
             'dangky' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
             'chucnang' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
             'thongtin' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
@@ -3159,6 +3160,11 @@ function getPhanQuyen()
     );
 
     $gui['danhmucnganhkd'] = array(
+        'index' => '0',
+        'danhmuc' => array('index' => '0', 'modify' => '0'),
+    );
+
+    $gui['danhmucdvt'] = array(
         'index' => '0',
         'danhmuc' => array('index' => '0', 'modify' => '0'),
     );

@@ -3,12 +3,10 @@
 @section('custom-style')
     <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/select2/select2.css')}}"/>
-    <link type="text/css" rel="stylesheet" href="{{ url('vendors/bootstrap-datepicker/css/datepicker.css') }}">
 @stop
 
 
 @section('custom-script')
-    <script type="text/javascript" src="{{url('assets/global/plugins/jquery-validation/js/jquery.validate.min.js')}}"></script>
     <script type="text/javascript" src="{{url('assets/global/plugins/select2/select2.min.js')}}"></script>
     <script type="text/javascript" src="{{url('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js')}}"></script>
     <script type="text/javascript" src="{{url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
@@ -29,7 +27,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Hồ sơ giá hàng hóa dịch vụ<small> chỉnh sửa</small>
+        Hồ sơ giá vàng, ngoại tệ<small> chỉnh sửa</small>
     </h3>
     <!-- END PAGE HEADER-->
 <hr>
@@ -75,7 +73,8 @@
                                         <th style="text-align: center">Tên hàng hóa dịch vụ</th>
                                         <th style="text-align: center">Đặc điểm kỹ thuật</th>
                                         <th style="text-align: center">Đơn<br> vị<br> tính</th>
-                                        <th style="text-align: center" width="10%">Giá kê khai</th>
+                                        <th style="text-align: center" width="10%">Giá mua</th>
+                                        <th style="text-align: center" width="10%">Giá bán</th>
                                         <th style="text-align: center">Loại giá</th>
                                         <th style="text-align: center" width="15%">Thao tác</th>
                                     </tr>
@@ -89,6 +88,7 @@
                                             <td style="text-align: left">{{$tt->dacdiemkt}}</td>
                                             <td style="text-align: center">{{$tt->dvt}}</td>
                                             <td style="text-align: right;font-weight: bold">{{number_format($tt->gia)}}</td>
+                                            <td style="text-align: right;font-weight: bold">{{number_format($tt->giaban)}}</td>
                                             <td style="text-align: left">{{$tt->loaigia}}</td>
                                             <td>
                                                 @if(in_array($model->trangthai, ['CHT', 'HHT']))
@@ -141,6 +141,7 @@
                 success: function (data) {
                     $('#tenhhdv').val(data.tenhhdv);
                     $('#gia').val(data.gia);
+                    $('#giaban').val(data.giaban);
                     $('#ghichu').val(data.ghichu);
                     $('#nguontt').val(data.nguontt);
                     $('#loaigia').val(data.loaigia);
@@ -153,39 +154,36 @@
             });
         }
 
-        function updatets(){
-            //alert('vcl');
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        function updatets(){           
+            var formData = new FormData($('#frm_chitiet')[0]);
             $.ajax({
                 url: '{{$inputs['url']}}' + '/update_ct',
-                type: 'post',
-                data: {
-                    _token: CSRF_TOKEN,
-                    id: $('#id').val(),
-                    gia: $('#gia').val(),
-                    loaigia: $('#loaigia').val(),
-                    nguontt: $('#nguontt').val(),
-                    ghichu: $('#ghichu').val(),
-                    mahs: $('#mahs').val(),
-                },
-                dataType: 'JSON',
-                success: function (data) {
-                    if(data.status == 'success') {
+                method: "POST",
+                cache: false,
+                dataType: false,
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function(data) {
+                    if(data.status == 'success') {                        
                         toastr.success("Chỉnh sửa thông tin hàng hóa dịch vụ thành công", "Thành công!");
                         $('#dsts').replaceWith(data.message);
                         jQuery(document).ready(function() {
                             TableManaged.init();
                         });
                         $('#modal-edit').modal("hide");
-
-
                     }else
                         toastr.error("Bạn cần kiểm tra lại thông tin vừa nhập!", "Lỗi!");
                 }
-            })
-        }
+            });
+            $('#modal-edit').modal("hide");
+        }            
     </script>
-
+{!! Form::open([
+    'url' => '',
+    'id' => 'frm_chitiet',
+    'class' => 'form',
+]) !!}
     <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -194,11 +192,12 @@
                     <h4 class="modal-title">Kê khai giá thị trường </h4>
                 </div>
                 <div class="modal-body">
+                    <input type="hidden" name="mahs" value="{{$model->mahs}}" />
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label">Tên hàng hóa </label>
-                                {!!Form::text('tenhhdv', null, array('id' => 'tenhhdv','class' => 'form-control select2me', 'disabled'=>'disabled'))!!}
+                                {!!Form::text('tenhhdv', null, array('id' => 'tenhhdv','class' => 'form-control', 'disabled'=>'disabled'))!!}
                             </div>
                         </div>
                     </div>
@@ -218,11 +217,16 @@
                     </div>
 
                     <div class="row">
-
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">Giá kê khai</label>
+                                <label class="control-label">Giá mua</label>
                                 <input type="text" name="gia" id="gia" class="form-control" data-mask="fdecimal" style="text-align: right; font-weight: bold">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Giá bán</label>
+                                <input type="text" name="giaban" id="giaban" class="form-control" data-mask="fdecimal" style="text-align: right; font-weight: bold">
                             </div>
                         </div>
                     </div>
@@ -232,7 +236,7 @@
                             <div class="form-group">
                                 <label class="control-label">Nguồn thông tin</label>
                                 <select class="form-control" id="nguontt" name="nguontt">
-                                    <option value="Do trục tiếp điều tra, thu thập">Do trục tiếp điều tra, thu thập</option>
+                                    <option value="Do trực tiếp điều tra, thu thập">Do trục tiếp điều tra, thu thập</option>
                                     <option value="Hợp đồng mua tin">Hợp đồng mua tin</option>
                                     <option value="Do cơ quan/đơn vị quản lý nhà nước có liên quan cung cấp/báo cáo theo quy định">Do cơ quan/đơn vị quản lý nhà nước có liên quan cung cấp/báo cáo theo quy định</option>
                                     <option value="Từ thống kê đăng ký giá, kê khai giá, thông báo giá của doanh nghiệp">Từ thống kê đăng ký giá, kê khai giá, thông báo giá của doanh nghiệp</option>
@@ -261,7 +265,7 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
-
+    {!! Form::close() !!}
     <script type="text/javascript">
         function validateForm(){
             var validator = $("#update_giahhdvkhac").validate({

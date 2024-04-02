@@ -32,27 +32,25 @@ class giavangngoaitectController extends Controller
     }
 
     public function update(Request $request){
+        $result = array(
+            'status' => 'fail',
+            'message' => 'permission denied',
+        );
 
-        if(!Session::has('admin')) {
-            $result = array(
-                'status' => 'fail',
-                'message' => 'permission denied',
-            );
-            die(json_encode($result));
+        if(!Session::has('admin')) {            
+            return response()->json($result);
         }
-        //dd($request);
         $inputs = $request->all();
+        
+        //dd($request);
         if(isset($inputs['id'])){
-            $modelupdate = giavangngoaitect::where('id',$inputs['id'])->first();
-//            $inputs['gialk'] = getDoubleToDb($inputs['gialk']);
+            $modelupdate = giavangngoaitect::where('id',$inputs['id'])->first();            
             $inputs['gia'] = getDoubleToDb($inputs['gia']);
+            $inputs['giaban'] = getDoubleToDb($inputs['giaban']);
             $modelupdate->update($inputs);
-
             $result = $this->return_html($inputs);
-
         }
-
-        die(json_encode($result));
+        return response()->json($result);
     }
 
     /**
@@ -60,7 +58,7 @@ class giavangngoaitectController extends Controller
      * @param array $result
      * @return array
      */
-    public function return_html(array $inputs): array
+    public function return_html(array $inputs)
     {
         $result = array(
             'status' => 'success',
@@ -79,8 +77,9 @@ class giavangngoaitectController extends Controller
         $result['message'] .= '<th style="text-align: center">Tên hàng hóa dịch vụ</th>';
         $result['message'] .= '<th style="text-align: center">Đặc điểm kỹ thuật</th>';
         $result['message'] .= '<th style="text-align: center">Đơn <br>vị<br> tính</th>';
-        $result['message'] .= '<th style="text-align: center" width="10%">Giá kê khai</th>';
-        $result['message'] .= '<th style="text-align: center" width="15%">Thao tác</th>';
+        $result['message'] .= '<th style="text-align: center" width="10%">Giá mua</th>';
+        $result['message'] .= '<th style="text-align: center" width="10%">Giá bán</th>';
+        $result['message'] .= '<th style="text-align: center" width="10%">Thao tác</th>';
         $result['message'] .= '</tr>';
         $result['message'] .= '</thead>';
         $result['message'] .= '<tbody id="ttts">';
@@ -93,6 +92,7 @@ class giavangngoaitectController extends Controller
                 $result['message'] .= '<td>' . $tents->dacdiemkt . '</td>';
                 $result['message'] .= '<td style="text-align: center">' . $tents->dvt . '</td>';
                 $result['message'] .= '<td style="text-align: right;font-weight: bold">' . number_format($tents->gia) . '</td>';
+                $result['message'] .= '<td style="text-align: right;font-weight: bold">' . number_format($tents->giaban) . '</td>';
                 $result['message'] .= '<td>';
                 $result['message'] .= '<button type="button" data-target="#modal-edit" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem(' . $tents->id . ');"><i class="fa fa-edit"></i>&nbsp;Nhập giá</button>';
                 $result['message'] .= '</td>';

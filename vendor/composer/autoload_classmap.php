@@ -4953,6 +4953,7 @@ return array(
     'UpdateGiadatdaugiaCt170323Table' => $baseDir . '/database/migrations/2023_03_17_161524_update_giadatdaugia_ct_170323_table.php',
     'UpdateGiadatphanloaiCt170323Table' => $baseDir . '/database/migrations/2023_03_17_145055_update_giadatphanloai_ct_170323_table.php',
     'UpdateGiathuedatmatnuoc1503Table' => $baseDir . '/database/migrations/2023_03_15_090621_update_giathuedatmatnuoc_1503_table.php',
+    'UpdateGiavangngoaitectThemgiaban240402' => $baseDir . '/database/migrations/2024_04_02_095059_update_giavangngoaitect_themgiaban_240402.php',
     'UpdateHelper\\ComposerPlugin' => $vendorDir . '/kylekatarnls/update-helper/src/UpdateHelper/ComposerPlugin.php',
     'UpdateHelper\\NotUpdateInterfaceInstanceException' => $vendorDir . '/kylekatarnls/update-helper/src/UpdateHelper/NotUpdateInterfaceInstanceException.php',
     'UpdateHelper\\UpdateHelper' => $vendorDir . '/kylekatarnls/update-helper/src/UpdateHelper/UpdateHelper.php',

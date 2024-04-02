@@ -19,10 +19,19 @@ Route::group(['prefix'=>'xaphuong'], function(){
 Route::group(['prefix'=>'donvi'], function(){
     Route::get('danhsach', 'system\dsdonviController@index');
     Route::get('create', 'system\dsdonviController@create');
-    Route::post('store', 'system\dsdonviController@store');
-    Route::get('modify', 'system\dsdonviController@modify');
+    //Route::post('store', 'system\dsdonviController@store');
+    //Route::get('modify', 'system\dsdonviController@modify');
     Route::post('update', 'system\dsdonviController@update');
     Route::post('delete','system\dsdonviController@delete');
+});
+
+Route::group(['prefix'=>'dmdvt'], function(){
+    Route::get('danhsach', 'system\dmdvtController@index');
+    Route::get('create', 'system\dmdvtController@create');
+    Route::post('store', 'system\dmdvtController@store');
+    Route::get('modify', 'system\dmdvtController@modify');
+    Route::post('update', 'system\dmdvtController@update');
+    Route::post('delete','system\dmdvtController@delete');
 });
 
 Route::group(['prefix'=>'nhomtaikhoan'],function(){

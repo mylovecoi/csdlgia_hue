@@ -140,7 +140,7 @@ class DmHhDvKController extends Controller
                 if (!isset($data[$i][$inputs['mahhdv']])) {
                     continue; //Mã hàng hoá rỗng => thoát
                 }
-                
+                $manhom = explode(".", $data[$i][$inputs['mahhdv']]);
                 $a_dm[] = array(
                     'matt' => $inputs['matt'],
                     'mahhdv' => $data[$i][$inputs['mahhdv']] ?? '',
@@ -148,6 +148,7 @@ class DmHhDvKController extends Controller
                     'dacdiemkt' => $data[$i][$inputs['dacdiemkt']] ?? '',
                     'dvt' =>$dmdvt[$data[$i][$inputs['dvt']] ?? ''] ?? '',
                     'theodoi' => 'TD',
+                    'manhom' => $manhom[0],
                 );
             }
             ///dd($a_dm);

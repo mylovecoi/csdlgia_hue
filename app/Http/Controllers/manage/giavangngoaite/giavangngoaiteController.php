@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\manage\giavangngoaite;
 
-
+use App\DmHhDvK;
 use App\Model\manage\dinhgia\giavangngoaite\giavangngoaite;
 use App\Model\manage\dinhgia\giavangngoaite\giavangngoaitect;
 use App\Model\manage\dinhgia\giavangngoaite\giavangngoaitedm;
@@ -11,6 +11,8 @@ use App\Model\system\dsdonvi;
 use App\Model\system\view_dsdiaban_donvi;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\view\view_giavangngoaite;
+use App\NhomHhDvK;
 use Illuminate\Support\Facades\Session;
 
 class giavangngoaiteController extends Controller
@@ -92,6 +94,7 @@ class giavangngoaiteController extends Controller
                     'dacdiemkt' => $dm->dacdiemkt,
                     'dvt' => $dm->dvt,
                     'gia' => $dm->gia,
+                    'giaban' => $dm->gia,
                     'loaigia' => $dm->loaigia,
                 ];
             }

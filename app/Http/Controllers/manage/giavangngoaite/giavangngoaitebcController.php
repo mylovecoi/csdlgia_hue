@@ -33,7 +33,7 @@ class giavangngoaitebcController extends Controller
     public function bc1(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $m_hoso = giavangngoaite::wherebetween('thoidiem',[$inputs['ngaytu'],$inputs['ngayden']])->get();
+            $m_hoso = giavangngoaite::wherebetween('thoidiem',[$inputs['ngaytu'],$inputs['ngayden']])->orderby('thoidiem')->get();
             $m_hoso_ct = giavangngoaitect::wherein('mahs',array_column($m_hoso->toarray(),'mahs'))->get();
             $model = giavangngoaitedm::all();
             $col = count($m_hoso);
@@ -44,7 +44,10 @@ class giavangngoaitebcController extends Controller
             foreach ($model as $dm){
                 foreach ($m_hoso_ct->where('mahhdv',$dm->mahhdv) as $ct){
                     $maso = $ct->mahs;
-                    $dm->$maso = $ct->gia;
+                    $mamua = $maso.'_mua';
+                    $maban = $maso.'_ban';
+                    $dm->$mamua = $ct->gia;
+                    $dm->$maban = $ct->giaban;
                 }
             }
 
