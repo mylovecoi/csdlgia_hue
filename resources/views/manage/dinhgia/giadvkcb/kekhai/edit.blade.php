@@ -44,7 +44,7 @@
                     $('#giatoida').val(data.giatoida);
                     $('#ghichu').val(data.ghichu);
                     $('#id').val(data.id);
-                    // InputMask();
+                    InputMask();
                 }
             })
         }
