@@ -2,18 +2,9 @@
 
 namespace App\Http\Controllers\congbo;
 
-use App\GiaThueTsCong;
-use App\Model\manage\dinhgia\giaspdvci\giaspdvcidm;
-use App\Model\manage\dinhgia\GiaTaiSanCongDm;
-use App\Model\manage\dinhgia\giathuemuanhaxh\dmnhaxh;
 use App\Model\system\company\Company;
-use App\Model\system\view_dsdiaban_donvi;
 use App\Model\view\view_binhongia;
 use App\Model\view\view_dmnganhnghe;
-use App\Model\view\view_giaspdvci;
-use App\Model\view\view_giathuetscong;
-use App\Model\view\view_trogiatrocuoc;
-use App\Town;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 

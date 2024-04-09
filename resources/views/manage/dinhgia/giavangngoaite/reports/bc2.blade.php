@@ -53,7 +53,7 @@
                 <td>{{$tt->tenhhdv}}</td>
                 <td>{{$tt->dacdiemkt}}</td>
                 <td style="text-align: center">{{$tt->dvt}}</td>
-                <td style="text-align: right;">{{dinhdangsothapphan($tt->gia,5)}}</td>
+                <td style="text-align: right;">{{dinhdangso($tt->gia)}}</td>
                 <td>{{$tt->ghichu}}</td>
             </tr>
         @endforeach

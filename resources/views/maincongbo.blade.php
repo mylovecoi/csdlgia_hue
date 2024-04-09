@@ -198,6 +198,7 @@
 
                             <li><a href="{{ url('cbgialephitruocba') }}"><i class="icon-folder"></i>&nbsp;{{ session('congbo')['chucnang']['gialephitruocba'] ?? 'Giá lệ phí trước bạ' }}</a></li>
                             <li><a href="{{ url('cbphilephi') }}"><i class="icon-folder"></i>&nbsp;{{ session('congbo')['chucnang']['giaphilephi'] ?? 'Phí, lệ phí' }}</a></li>
+                            <li><a href="{{ url('cbgiavangngoaite') }}"><i class="icon-folder"></i>&nbsp;{{ session('congbo')['chucnang']['giavangngoaite'] ?? 'Giá vàng, ngoại tệ' }}</a></li>
                         </ul>
                     </li>
 @endif

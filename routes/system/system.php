@@ -32,6 +32,8 @@ Route::group(['prefix'=>'dmdvt'], function(){
     Route::get('modify', 'system\dmdvtController@modify');
     Route::post('update', 'system\dmdvtController@update');
     Route::post('delete','system\dmdvtController@delete');
+    Route::post('delete_all','system\dmdvtController@delete_all');
+    Route::post('nhanexcel','system\dmdvtController@create_excel');
 });
 
 Route::group(['prefix'=>'nhomtaikhoan'],function(){

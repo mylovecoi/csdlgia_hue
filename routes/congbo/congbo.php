@@ -61,4 +61,6 @@ Route::get('cbvbqlnn','congbo\vanbanqlnn\CongboVanBanQLNNController@index');
 
 //Văn bản phục vụ công tác quản lý nhà nước
 Route::get('cbttqlnn','congbo\ttqlnn\ThongTuPVCTQLNNController@index');
+//Văn bản phục vụ công tác quản lý nhà nước
+Route::get('cbgiavangngoaite','congbo\CongBoController@cbgiavangngoaite');
 ?>

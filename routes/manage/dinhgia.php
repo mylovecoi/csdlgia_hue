@@ -450,6 +450,7 @@ Route::group(['prefix'=>'giavangngoaite'], function (){
     Route::post('update_ct','manage\giavangngoaite\giavangngoaitectController@update');
     //hồ sơ
     Route::get('danhsach','manage\giavangngoaite\giavangngoaiteController@index');
+    Route::get('show','manage\giavangngoaite\giavangngoaiteController@show');
     Route::get('new','manage\giavangngoaite\giavangngoaiteController@create');
     Route::post('store','manage\giavangngoaite\giavangngoaiteController@store');
     Route::post('delete','manage\giavangngoaite\giavangngoaiteController@destroy');

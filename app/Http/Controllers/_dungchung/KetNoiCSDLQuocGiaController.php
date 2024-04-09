@@ -564,7 +564,7 @@ class KetNoiCSDLQuocGiaController extends Controller
                         }
                 }
             }
-            $a_Body = $a_HoSo;
+            $a_Body[] = $a_HoSo;
         }
 
         //Truyền số liệu
@@ -574,7 +574,8 @@ class KetNoiCSDLQuocGiaController extends Controller
             'lgspaccesstoken: ' . $inputs['token_ketnoi'],
             'Authorization: ' . $string_bear
         ];
-        //dd(json_encode(["data" => $a_Body]));        
+
+        return json_encode(["data" => $a_Body], JSON_UNESCAPED_UNICODE);       
         //File::put(public_path(). '/data/chuyentubase64/TT116.docx' , base64_decode($a_Body[0]['FILE_DINH_KEM_PDF']));        
         //dd($a_Body[0]['FILE_DINH_KEM_PDF']);
 
@@ -588,16 +589,16 @@ class KetNoiCSDLQuocGiaController extends Controller
         $errno = curl_errno($curl);
         curl_close($curl);
         // dd($result);
-        if ($result == false) {
-            $result = json_encode(array(
-                'error_code' => '-1',
-                'result' => null,
-                'message' => 'Đường dẫn kết nối API không tồn tại.',
-            ));
-        }
+        // if ($result == false) {
+        //     $result = json_encode(array(
+        //         'error_code' => '-1',
+        //         'result' => null,
+        //         'message' => 'Đường dẫn kết nối API không tồn tại.',
+        //     ));
+        // }
         //Lưu lại link API
         KetNoiAPI_DanhSach::where('maso', $inputs['chucnang'])->update(['linkTruyenPost' => $inputs['linkTruyenPost']]);
-       
+
         if ($errno > 0) {
             return view('errors.403')
                 ->with('message', "Lỗi kêt nối đến trục LGSP (Mã lỗi: " . $errno . ")")
@@ -610,6 +611,7 @@ class KetNoiCSDLQuocGiaController extends Controller
             }
 
             $result = json_decode($result);
+            dd($result);
             if ($result->error_code == '-1') {
                 return view('errors.403')
                     ->with('message', $result->message)
