@@ -87,15 +87,15 @@ class DvKcbController extends Controller
             $model->manhom = $inputs['manhom'];
             $model->trangthai  = 'CHT';
 
-            $m_lk = DvKcb::where('trangthai', 'HT')
-                ->where('manhom', $inputs['manhom'])
-                ->where('madv', $inputs['madv'])
-                ->orderby('thoidiem', 'desc')->first(); 
-            if ($m_lk != null) {
-                $model->soqdlk = $m_lk->soqd;
-                $model->thoidiemlk = $m_lk->thoidiemlk;
-                $a_ctlk = array_column(DvKcbCt::where('mahs', $m_lk->mahs)->get()->toarray(),'giadv', 'madichvu');
-            }
+            // $m_lk = DvKcb::where('trangthai', 'HT')
+            //     ->where('manhom', $inputs['manhom'])
+            //     ->where('madv', $inputs['madv'])
+            //     ->orderby('thoidiem', 'desc')->first(); 
+            // if ($m_lk != null) {
+            //     $model->soqdlk = $m_lk->soqd;
+            //     $model->thoidiemlk = $m_lk->thoidiemlk;
+            //     $a_ctlk = array_column(DvKcbCt::where('mahs', $m_lk->mahs)->get()->toarray(),'giadv', 'madichvu');
+            // }
             //dd($a_ctlk);
             $a_dm = [];
             foreach ($modeldm as $dm) {
@@ -106,7 +106,9 @@ class DvKcbController extends Controller
                     'madichvu' => $dm->madichvu,
                     'tenspdv' => $dm->tenspdv,
                     'dvt' => $dm->dvt,
-                    'giadv' => isset($a_ctlk[$dm->madichvu]) && getDoubleToDb($a_ctlk[$dm->madichvu]) > 0 ? getDoubleToDb($a_ctlk[$dm->madichvu]) : 0,
+                    // 'giadv' => isset($a_ctlk[$dm->madichvu]) && getDoubleToDb($a_ctlk[$dm->madichvu]) > 0 ? getDoubleToDb($a_ctlk[$dm->madichvu]) : 0,
+                    // 'giatoida' => isset($a_ctlk[$dm->madichvu]) && getDoubleToDb($a_ctlk[$dm->madichvu]) > 0 ? getDoubleToDb($a_ctlk[$dm->madichvu]) : 0,
+                    // 'giatoithieu' => isset($a_ctlk[$dm->madichvu]) && getDoubleToDb($a_ctlk[$dm->madichvu]) > 0 ? getDoubleToDb($a_ctlk[$dm->madichvu]) : 0,
                 ];
             }
             //dd($a_dm);

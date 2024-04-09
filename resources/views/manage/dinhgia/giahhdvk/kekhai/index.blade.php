@@ -67,8 +67,8 @@
                             <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal-filemau">
                                 <i class="fa fa-cloud-download"></i> Xuất dữ liệu</button>
 
-{{--                            <a href="{{url($inputs['url'].'/nhanexcel?&madiaban='. $inputs['madiaban'])}}" class="btn btn-default btn-sm">--}}
-{{--                                <i class="fa fa-file-excel-o"></i>&nbsp;Nhận dữ liệu</a>--}}
+                           <a href="{{url($inputs['url'].'/nhanexcel?&madiaban='. $inputs['madiaban'])}}" class="btn btn-default btn-sm">
+                               <i class="fa fa-file-excel-o"></i>&nbsp;Nhận dữ liệu</a>
                         @endif
                     </div>
 
