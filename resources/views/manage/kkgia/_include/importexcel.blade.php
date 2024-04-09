@@ -42,8 +42,7 @@
                 <div class="portlet-body form">
                     <!-- BEGIN FORM -->
                     {!! Form::open(['url'=>$inputs['url'].'/create_excel', 'method'=>'post' , 'files'=>true, 'id' => 'create_hscb','enctype'=>'multipart/form-data']) !!}
-
-                    <input type="hidden" name="madv" value="{{$inputs['madv']}}">
+                        <input type="hidden" name="madv" value="{{$inputs['madv']}}">
 {{--                    <input type="hidden" name="macskd" value="{{$inputs['macskd']}}">--}}
                         <div class="form-body">
                             <!-- Thông tin chung-->
@@ -56,39 +55,39 @@
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label class="control-label">Tên hàng hóa dịch vụ<span class="require">*</span></label>
-                                                        {!!Form::text('tenhhdv', 'B', array('id' => 'tenhhdv','class' => 'form-control','required'))!!}
+                                                        {!!Form::text('tenhhdv', 'B', ['id' => 'tenhhdv','class' => 'form-control','required'])!!}
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label class="control-label">Quy cách chất lượng<span class="require">*</span></label>
-                                                        {!!Form::text('qccl', 'C', array('id' => 'qccl','class' => 'form-control','required'))!!}
+                                                        {!!Form::text('qccl', 'C', ['id' => 'qccl','class' => 'form-control','required'])!!}
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label class="control-label">Đơn vị tính<span class="require">*</span></label>
-                                                        {!!Form::text('dvt', 'D', array('id' => 'dvt','class' => 'form-control','required'))!!}
+                                                        {!!Form::text('dvt', 'D', ['id' => 'dvt','class' => 'form-control','required'])!!}
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label class="control-label">Mức giá liền kề<span class="require">*</span></label>
-                                                        {!!Form::text('mucgialk', 'E', array('id' => 'mucgialk','class' => 'form-control','required'))!!}
+                                                        {!!Form::text('mucgialk', 'E', ['id' => 'mucgialk','class' => 'form-control','required'])!!}
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label class="control-label">Mức giá kê khai<span class="require">*</span></label>
-                                                        {!!Form::text('mucgiakk', 'F', array('id' => 'mucgiakk','class' => 'form-control','required'))!!}
+                                                        {!!Form::text('mucgiakk', 'F', ['id' => 'mucgiakk','class' => 'form-control','required'])!!}
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label class="control-label">Ghi chú<span class="require">*</span></label>
-                                                        {!!Form::text('ghichu', 'H', array('id' => 'ghichu','class' => 'form-control','required'))!!}
+                                                        {!!Form::text('ghichu', 'H', ['id' => 'ghichu','class' => 'form-control','required'])!!}
                                                     </div>
                                                 </div>
 
@@ -99,17 +98,26 @@
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label class="control-label">Nhận từ dòng<span class="require">*</span></label>
-                                                        {!!Form::text('tudong', '4', array('id' => 'tudong','class' => 'form-control','required','data-mask'=>'fdecimal'))!!}
+                                                        {!! Form::text('tudong', '4', [
+                                                            'id' => 'tudong',
+                                                            'class' => 'form-control',
+                                                            'required',
+                                                            'data-mask' => 'fdecimal',
+                                                        ]) !!}
                                                     </div>
                                                 </div>
-
+                        
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label class="control-label">Nhận đến dòng</label>
-                                                        {!!Form::text('dendong', '111', array('id' => 'dendong','class' => 'form-control','required','data-mask'=>'fdecimal'))!!}
+                                                        {!! Form::text('dendong', '200', [
+                                                            'id' => 'dendong',
+                                                            'class' => 'form-control',
+                                                            'required',
+                                                            'data-mask' => 'fdecimal',
+                                                        ]) !!}
                                                     </div>
                                                 </div>
-
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="control-label">File dữ liệu<span class="require">*</span></label>
