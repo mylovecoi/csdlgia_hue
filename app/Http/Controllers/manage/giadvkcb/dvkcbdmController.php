@@ -135,7 +135,6 @@ class dvkcbdmController extends Controller
             $theArray = Excel::toArray($dataObj, $file);
             $data = $theArray[0]; //Mặc định lấy Sheet 1            
             //Gán lại dòng
-            //dd($data);
             $inputs['dendong'] = $inputs['dendong'] < count($data) ? count($data) : $inputs['dendong'];
             $a_dm = array();
 
@@ -153,7 +152,6 @@ class dvkcbdmController extends Controller
                 );
             }
             //dd($a_dm);
-            // dvkcbdm::insert($a_dm);
             foreach (array_chunk($a_dm, 100) as $dm){
                 dvkcbdm::insert($dm);
             }
