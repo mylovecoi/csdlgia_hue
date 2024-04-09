@@ -387,6 +387,7 @@ Route::group(['prefix'=>'giahhdvk'], function (){
     Route::post('danhmuc/detail/create_excel','DmHhDvKController@create_excel');
     Route::post('dm','DmHhDvKController@store');
     Route::post('delete_dm','DmHhDvKController@destroy');
+    Route::post('delete_all','DmHhDvKController@destroy_all');
     Route::get('show_dm','DmHhDvKController@edit');
     //Danh mục hàng hóa theo đơn vị
     Route::get('dmdonvi','NhomHhDvKController@index_donvi');

@@ -69,6 +69,7 @@ use App\Model\manage\kekhaigia\kkgiay\KkGiaGiayCt;
 use App\Model\manage\kekhaigia\kkhplx\KkGiaHpLx;
 use App\Model\manage\kekhaigia\kkhplx\KkGiaHpLxCt;
 use App\Model\system\danhmucchucnang;
+use App\Model\system\dmdvt;
 use App\Model\view\view_thgiahhdvk;
 use App\PhiLePhi;
 use App\PhiLePhiCt;
@@ -144,14 +145,6 @@ class KetNoiCSDLQuocGiaController extends Controller
                                 $a_ChiTiet[$Dong->tendong] = $giatri;
                             }
                             //Gán lại kiểu dữ liệu
-                            //Xử lý riêng cho giahhdvk
-                            if ($Dong->tendong == 'LOAI_GIA') {
-                                $a_ChiTiet[$Dong->tendong] = $this->getLOAI_GIA($a_ChiTiet[$Dong->tendong]);
-                            }
-
-                            if ($Dong->tendong == 'NGUON_THONG_TIN') {
-                                $a_ChiTiet[$Dong->tendong] = $this->getNGUON_THONG_TIN($a_ChiTiet[$Dong->tendong]);
-                            }
 
                             switch ($Dong->kieudulieu) {
                                 case "NUMBER": {
@@ -512,14 +505,6 @@ class KetNoiCSDLQuocGiaController extends Controller
                                 //gán giá trị
                                 $a_ChiTiet[$Dong->tendong] = $giatri;
                             }
-                            //Xử lý riêng cho giahhdvk
-                            if ($Dong->tendong == 'LOAI_GIA') {
-                                $a_ChiTiet[$Dong->tendong] = $this->getLOAI_GIA($a_ChiTiet[$Dong->tendong]);
-                            }
-
-                            if ($Dong->tendong == 'NGUON_THONG_TIN') {
-                                $a_ChiTiet[$Dong->tendong] = $this->getNGUON_THONG_TIN($a_ChiTiet[$Dong->tendong]);
-                            }
 
                             //Gán lại kiểu dữ liệu
                             switch ($Dong->kieudulieu) {
@@ -575,7 +560,7 @@ class KetNoiCSDLQuocGiaController extends Controller
             'Authorization: ' . $string_bear
         ];
 
-        return json_encode(["data" => $a_Body], JSON_UNESCAPED_UNICODE);       
+        return json_encode(["data" => $a_Body], JSON_UNESCAPED_UNICODE);
         //File::put(public_path(). '/data/chuyentubase64/TT116.docx' , base64_decode($a_Body[0]['FILE_DINH_KEM_PDF']));        
         //dd($a_Body[0]['FILE_DINH_KEM_PDF']);
 
@@ -611,7 +596,6 @@ class KetNoiCSDLQuocGiaController extends Controller
             }
 
             $result = json_decode($result);
-            dd($result);
             if ($result->error_code == '-1') {
                 return view('errors.403')
                     ->with('message', $result->message)
@@ -632,8 +616,15 @@ class KetNoiCSDLQuocGiaController extends Controller
                     $HoSo = ThGiaHhDvK::where('mahs', $mahs)->get();
                     if (count($HoSo) == 0)
                         $HoSoChiTiet = null;
-                    else
+                    else {
                         $HoSoChiTiet = view_thgiahhdvk::where('mahs', array_column($HoSo->toarray(), 'mahs'))->get();
+                        $a_dvt = array_column(dmdvt::all()->toArray(),  'madvt', 'dvt');
+                        foreach ($HoSoChiTiet as $ct) {
+                            $ct->dvt = $a_dvt[$ct->dvt] ?? $ct->dvt;
+                            $ct->loaigia = $this->getLOAI_GIA($ct->loaigia);
+                            $ct->nguontt = $this->getNGUON_THONG_TIN($ct->nguontt);
+                        }
+                    }
                     // $HoSoChiTiet = view_thgiahhdvk::where('mahs', array_column($HoSo->toarray(), 'mahs'))->take(20)->get();
                     break;
                 }
@@ -875,6 +866,11 @@ class KetNoiCSDLQuocGiaController extends Controller
                 }
             case 'dmgiahhdvk': {
                     $HoSo = DmHhDvK::where('matt', $mahs)->get();
+                    $a_dvt = array_column(dmdvt::all()->toArray(),  'madvt', 'dvt');
+                    foreach ($HoSo as $ct) {
+                        $ct->dvt = $a_dvt[$ct->dvt] ?? $ct->dvt;
+                        $ct->manhom = (string)intval($ct->manhom);
+                    }
                     $HoSoChiTiet = null;
                     break;
                 }
@@ -906,8 +902,8 @@ class KetNoiCSDLQuocGiaController extends Controller
 
     function getLOAI_GIA($giatri)
     {
-        $aKQ = ["Giá bán buôn" => "LG10", "Giá bán lẻ" => "LG5"];
-        return $aKQ[$giatri] ?? "LG5";
+        $aKQ = ["Giá bán buôn" => 10, "Giá bán lẻ" => 5];
+        return $aKQ[$giatri] ?? 5;
     }
 
     function getNGUON_THONG_TIN($giatri)

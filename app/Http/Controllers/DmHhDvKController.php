@@ -22,9 +22,10 @@ class DmHhDvKController extends Controller
             $inputs['url'] = '/giahhdvk';
             $modelnhom = NhomHhDvK::where('matt', $inputs['matt'])->first();
             $model = DmHhDvK::where('matt', $inputs['matt'])->orderby('mahhdv')->get();
-            $a_dvt = array_column(dmdvt::all()->toArray(), 'dvt', 'madvt');
+            $a_dvt = array_column(dmdvt::all()->toArray(),  'madvt', 'dvt');
+            $a_dmdvt = array_column(dmdvt::all()->toArray(),  'dvt', 'dvt');
             $a_dm = array_column(DmNhomHangHoa::where('phanloai', 'GIAHHDVK')->get()->toArray(), 'tennhom', 'manhom');
-
+            
             if ($modelnhom->theodoi == 'KTD') {
                 return view('errors.duplicate')
                     ->with('message', 'Nhóm danh mục hàng hóa dịch vụ đang tạm ngưng theo dõi.')
@@ -37,6 +38,7 @@ class DmHhDvKController extends Controller
             return view('manage.dinhgia.giahhdvk.danhmuc.chitiet.index')
                 ->with('model', $model)
                 ->with('a_dvt', $a_dvt)
+                ->with('a_dmdvt', $a_dmdvt)
                 ->with('a_nhomhh', $a_nhomhh)
                 ->with('inputs', $inputs)
                 ->with('modelnhom', $modelnhom)
@@ -103,6 +105,17 @@ class DmHhDvKController extends Controller
             return view('errors.notlogin');
     }
 
+    public function destroy_all(Request $request)
+    {
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            //dd($inputs);
+            DmHhDvK::where('matt', $inputs['matt'])->delete();
+            return redirect('/giahhdvk/danhmuc/detail?matt=' . $inputs['matt']);
+        } else
+            return view('errors.notlogin');
+    }
+
     public function nhanexcel(Request $request)
     {
         if (Session::has('admin')) {
@@ -133,8 +146,8 @@ class DmHhDvKController extends Controller
             //Gán lại dòng
             $inputs['dendong'] = $inputs['dendong'] < count($data) ? count($data) : $inputs['dendong'];
             $a_dm = array();
-            $dmdvt = array_column(dmdvt::all()->toArray(),'madvt','dvt');
-           
+            //$dmdvt = array_column(dmdvt::all()->toArray(), 'madvt', 'dvt');
+
             for ($i = $inputs['tudong'] - 1; $i <= ($inputs['dendong']); $i++) {
                 //dd($data[$i]);
                 if (!isset($data[$i][$inputs['mahhdv']])) {
@@ -143,10 +156,10 @@ class DmHhDvKController extends Controller
                 $manhom = explode(".", $data[$i][$inputs['mahhdv']]);
                 $a_dm[] = array(
                     'matt' => $inputs['matt'],
-                    'mahhdv' => $data[$i][$inputs['mahhdv']] ?? '',
+                    'mahhdv' => trim($data[$i][$inputs['mahhdv']] ?? ''),
                     'tenhhdv' => $data[$i][$inputs['tenhhdv']] ?? '',
                     'dacdiemkt' => $data[$i][$inputs['dacdiemkt']] ?? '',
-                    'dvt' =>$dmdvt[$data[$i][$inputs['dvt']] ?? ''] ?? '',
+                    'dvt' => trim($data[$i][$inputs['dvt']] ?? ''),
                     'theodoi' => 'TD',
                     'manhom' => $manhom[0],
                 );
