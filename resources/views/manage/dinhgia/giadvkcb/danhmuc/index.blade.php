@@ -195,7 +195,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Nhận dữ liệu từ file excel</h4>
                 </div>
-                {!! Form::open(['url'=>$inputs['url'].'/importexcel', 'method'=>'post' , 'files'=>true, 'id' => 'frm_importexcel','enctype'=>'multipart/form-data','files'=>true]) !!}
+                {!! Form::open(['url'=>$inputs['url'].'/importexcel', 'method'=>'post' , 'files'=>true, 'id' => 'frm_importexcel','enctype'=>'multipart/form-data']) !!}
                 <input type="hidden" name="manhom" value="{{$inputs['manhom']}}" />
                 <div class="modal-body">
 
@@ -203,45 +203,56 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Mã dịch vụ<span class="require">*</span></label>
-                                <input type="text" name="imex_madichvu" id="imex_madichvu" class="form-control" value="B">
+                                {!! Form::text('imex_madichvu', 'B', ['class' => 'form-control', 'required']) !!}
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Tên dịch vụ<span class="require">*</span></label>
-                                <input type="text" name="imex_tenspdv" id="imex_tenspdv" class="form-control" value="C">
+                                {!! Form::text('imex_tenspdv', 'C', ['class' => 'form-control', 'required']) !!}
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Đơn vị tính<span class="require">*</span></label>
-                                <input type="text" name="imex_dvt" id="imex_dvt" class="form-control" value="D">
+                                {!! Form::text('imex_dvt', 'D', ['class' => 'form-control', 'required']) !!}
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Phân loại<span class="require">*</span></label>
-                                <input type="text" name="imex_phanloai" id="imex_phanloai" class="form-control" value="E">
+                                {!! Form::text('imex_phanloai', 'E', ['class' => 'form-control', 'required']) !!}
                             </div>
                         </div>
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="control-label">Từ dòng<span class="require">*</span></label>
-                                {!!Form::text('tudong', '5', array('id' => 'tudong','class' => 'form-control required','data-mask'=>'fdecimal'))!!}
+                                <label class="control-label">Nhận từ dòng<span class="require">*</span></label>
+                                {!! Form::text('tudong', '4', [
+                                    'id' => 'tudong',
+                                    'class' => 'form-control',
+                                    'required',
+                                    'data-mask' => 'fdecimal',
+                                ]) !!}
                             </div>
                         </div>
-                        <!--/span-->
+
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="control-label">Đến dòng</label>
-                                {!!Form::text('dendong', '111', array('id' => 'dendong','class' => 'form-control','data-mask'=>'fdecimal'))!!}
+                                <label class="control-label">Nhận đến dòng</label>
+                                {!! Form::text('dendong', '200', [
+                                    'id' => 'dendong',
+                                    'class' => 'form-control',
+                                    'required',
+                                    'data-mask' => 'fdecimal',
+                                ]) !!}
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">Theo dõi<span class="require">*</span></label>
-                                <input id="fexcel" name="fexcel" type="file"  accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                <label class="control-label">File dữ liệu<span class="require">*</span></label>
+                                <input id="fexcel" name="fexcel" type="file"  
+                                accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
                             </div>
                         </div>
                     </div>
