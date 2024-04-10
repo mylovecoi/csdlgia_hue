@@ -226,6 +226,7 @@
                         </div>
                     </div>
                     <input type="hidden" id="madiaban" name="madiaban" value="{{$inputs['madiaban']}}">
+                    <input type="hidden" id="mahs" name="mahs" value="">
                     <input type="hidden" id="act" name="act" value="true">
                 </div>
 

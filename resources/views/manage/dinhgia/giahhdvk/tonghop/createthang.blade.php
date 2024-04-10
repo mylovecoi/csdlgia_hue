@@ -221,8 +221,6 @@
         }
     </script>
 
-
-
     <!--Modal Edit-->
     <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">

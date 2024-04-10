@@ -203,6 +203,7 @@ class GiaHhDvKController extends Controller
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
+            // dd($inputs);
             $inputs['url'] = '/giahhdvk';
             //dd($inputs);
             if (isset($inputs['mattbc']) && isset($inputs['madiaban'])) {
@@ -223,7 +224,12 @@ class GiaHhDvKController extends Controller
                     $a_ctlk = array_column(GiaHhDvKCt::where('mahs', $m_lk->mahs)->get()->toarray(), 'gia', 'mahhdv');
                 }
                 //dd($a_ctlk);
-                $model->mahs = $inputs['madiaban'] . '_' . getdate()[0];
+                if($inputs['mahs'] != null || $inputs['mahs'] != ""){
+                    $model->mahs = $inputs['mahs'];
+                }else{
+                    $model->mahs = $inputs['madiaban'] . '_' . getdate()[0];
+                }
+                
                 $model->matt = $inputs['mattbc'];
                 $model->madiaban = $inputs['madiaban'];
                 $model->madv = $inputs['madv'];

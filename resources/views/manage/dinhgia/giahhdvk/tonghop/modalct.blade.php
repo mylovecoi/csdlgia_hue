@@ -13,7 +13,6 @@
                 $('#mahhdv').val(data.mahhdv).trigger('change');
                 $('#nguontt').val(data.nguontt).trigger('change');
                 $('#loaigia').val(data.loaigia).trigger('change');
-                //$('#tenhhdv').val(data.tenhhdv);
                 $('#gialk').val(data.gialk);
                 $('#gia').val(data.gia);
                 $('#ghichu').val(data.ghichu);
@@ -26,9 +25,7 @@
     }
 
     function updatets(){
-        //alert('vcl');
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-//        alert(CSRF_TOKEN);
         $.ajax({
             url: '{{$inputs['url']}}' + '/tonghop/update_ct',
             type: 'post',
@@ -40,7 +37,6 @@
                 gialk: $('#gialk').val(),
                 gia: $('#gia').val(),
                 ghichu: $('#ghichu').val(),
-                //mahs: $('#mahs').val(),
             },
             dataType: 'JSON',
             success: function (data) {

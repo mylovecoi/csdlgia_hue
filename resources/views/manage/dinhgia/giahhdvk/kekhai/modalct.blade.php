@@ -181,6 +181,13 @@
 
                     <div class="col-md-4">
                         <div class="form-group">
+                            <label class="control-label">Loại giá<span class="require">*</span></label>
+                            {!!Form::text('loaigia', 'G', array('id' => 'loaigia','class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
                             <label class="control-label">Giá liền kề<span class="require">*</span></label>
                             {!!Form::text('gialk', 'H', array('id' => 'gialk','class' => 'form-control required'))!!}
                         </div>
@@ -190,6 +197,13 @@
                         <div class="form-group">
                             <label class="control-label">Giá kê khai<span class="require">*</span></label>
                             {!!Form::text('gia', 'I', array('id' => 'gia','class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Nguồn thông tin<span class="require">*</span></label>
+                            {!!Form::text('nguontt', 'L', array('id' => 'nguontt','class' => 'form-control required'))!!}
                         </div>
                     </div>
                 </div>
@@ -205,14 +219,14 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label">Đến dòng</label>
-                            {!!Form::text('dendong', '500', array('id' => 'dendong','class' => 'form-control','data-mask'=>'fdecimal'))!!}
+                            {!!Form::text('dendong', '300', array('id' => 'dendong','class' => 'form-control','data-mask'=>'fdecimal'))!!}
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label">Theo dõi<span class="require">*</span></label>
-                            <input id="fexcel" name="fexcel" type="file"  accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                            <label class="control-label">File dữ liệu mẫu<span class="require">*</span></label>
+                            <input id="fexcel" name="fexcel" type="file"  accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required>
                         </div>
                     </div>
                 </div>
