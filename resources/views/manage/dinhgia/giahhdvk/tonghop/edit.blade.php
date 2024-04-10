@@ -140,7 +140,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <a href="{{url('/data/download/filemau/FileExcelMauGiaThiTruong116.xls')}}" target="_blank" class="btn btn-success btn-xs mbs"><i class="fa fa-file-excel-o"></i>&nbsp;Tải file mẫu</a> 
+                                    <a href="{{url('/data/download/filemau/FileExcelGiaThiTruong116.xls')}}" target="_blank" class="btn btn-success btn-xs mbs"><i class="fa fa-file-excel-o"></i>&nbsp;Tải file mẫu</a> 
                                     &nbsp;
                                     <button type="button" onclick="setValExl()" class="btn btn-success btn-xs mbs" data-target="#modal-importexcel" data-toggle="modal">
                                         <i class="fa fa-file-excel-o"></i>&nbsp;Nhận dữ liệu</button>

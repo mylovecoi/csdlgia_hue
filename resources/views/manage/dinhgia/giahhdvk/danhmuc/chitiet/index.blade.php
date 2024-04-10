@@ -87,13 +87,17 @@
                                 data-target="#modal-create" data-toggle="modal">
                                 <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
                         @endif
-                        <a href="{{ url('/data/download/filemau/FileExcelMauGiaThiTruong116.xls') }}" target="_blank"
+                        <a href="{{ url('/data/download/filemau/FileExcelGiaThiTruong116.xls') }}" target="_blank"
                             class="btn btn-success btn-xs mbs"><i class="fa fa-file-excel-o"></i>&nbsp;Tải file mẫu</a>
 
                         <a href="{{ url('giahhdvk/danhmuc/detail/nhanexcel?matt=' . $inputs['matt']) }}"
                             class="btn btn-default btn-sm">
                             <i class="fa fa-file-excel-o"></i> Nhận dữ liệu</a>
 
+                        <button type="button" class="btn btn-default btn-xs" data-target="#delete-all-modal"
+                            data-toggle="modal">
+
+                            <i class="fa fa-file-excel-o"></i> Xoá tất cả danh mục</button>
                         <a href="{{ url($inputs['url'] . '/danhmuc') }}" class="btn btn-default btn-xs mbs">
                             <i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                     </div>
@@ -120,14 +124,7 @@
                                         <td>{{ $tt->mahhdv }}</td>
                                         <td class="success" style="font-weight: bold">{{ $tt->tenhhdv }}</td>
                                         <td>{{ $tt->dacdiemkt }}</td>
-                                        <td style="text-align: center">{{ $a_dvt[$tt->dvt] ?? $tt->dvt }}</td>
-                                        {{--                            <td style="text-align: center"> --}}
-                                        {{--                                @if ($tt->theodoi == 'KTD') --}}
-                                        {{--                                    <span class="badge badge-active">Không theo dõi</span> --}}
-                                        {{--                                @else --}}
-                                        {{--                                    <span class="badge badge-success">Theo dõi</span> --}}
-                                        {{--                                @endif --}}
-                                        {{--                            </td> --}}
+                                        <td style="text-align: center">{{ $tt->dvt }}({{$a_dvt[$tt->dvt] ?? ''}})</td>
                                         <td>
                                             @if (chkPer('csdlmucgiahhdv', 'hhdv', 'giahhdvk', 'danhmuc', 'modify'))
                                                 <button type="button" onclick="ClickEdit('{{ $tt->mahhdv }}')"
@@ -205,7 +202,11 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                @include('manage.include.form.input_dvt')
+                                <label class="form-control-label">Đơn vị tính</label>
+                                {!! Form::select('dvt', $a_dmdvt, null, [
+                                    'id' => 'dvt',
+                                    'class' => 'form-control select2me',
+                                ]) !!}
                             </div>
                         </div>
                     </div>
@@ -243,6 +244,28 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+
+    <div class="modal fade" id="delete-all-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                {!! Form::open(['url' => $inputs['url'] . '/delete_all', 'id' => 'frm_delete_all']) !!}
+                <input type="hidden" name="matt" value="{{$inputs['matt']}}">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Đồng ý xóa tất cả danh mục hàng hoá?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn blue">Đồng ý</button>
+                    <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
+                </div>
+                {!! Form::close() !!}
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
 
     @include('manage.include.form.modal_dvt')
 @stop
