@@ -122,15 +122,15 @@ class GiaHhDvKCtController extends Controller
             $inputs["gialk"] = ord(strtoupper($inputs["gialk"])) - 65;
             $inputs["gia"] = ord(strtoupper($inputs["gia"])) - 65;
             $inputs["nguontt"] = ord(strtoupper($inputs["nguontt"])) - 65;
-            
+
             $file = $request->file('fexcel');
 
             $dataObj = new ColectionImport();
             $theArray = Excel::toArray($dataObj, $file);
-            $data = $theArray[0];//Mặc định lấy Sheet 1            
+            $data = $theArray[0];//Mặc định lấy Sheet 1
             //Gán lại dòng
             $inputs['dendong'] = $inputs['dendong'] < count($data) ? count($data) : $inputs['dendong'];
-            
+
             for ($i = $inputs['tudong']-1; $i <= ($inputs['dendong']); $i++) {
                 //dd($data[$i]);
                 if (!isset($data[$i][$inputs['mahhdv']])) {
@@ -147,7 +147,8 @@ class GiaHhDvKCtController extends Controller
                 }
             }
 
-            return redirect('/giahhdvk/new?madv=' . $inputs['madv'].'&mattbc='.$inputs['matt'].'&thang='.$inputs['thang'].'&nam='.$inputs['nam'].'&madiaban='.$inputs['madiaban'].'&act=true'.'&mahs='.$inputs['mahs']);
+            return redirect('/giahhdvk/new?madv=' . $inputs['madv'].'&mattbc='.$inputs['matt'].'&thang='.$inputs['thang'].'&nam='.$inputs['nam'].'&madiaban='.$inputs['madiaban'].'&act=true');
+            // return redirect('/giahhdvk/new?madv=' . $inputs['madv'].'&mattbc='.$inputs['matt'].'&thang='.$inputs['thang'].'&nam='.$inputs['nam'].'&madiaban='.$inputs['madiaban'].'&act=true'.'&mahs='.$inputs['mahs']);
         } else
             return view('errors.notlogin');
     }
