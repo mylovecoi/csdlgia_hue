@@ -89,10 +89,11 @@
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giadvkcb', 'hoso', 'modify'))
                             <button type="button" onclick="new_hs('{{$inputs['madv']}}')" class="btn btn-default btn-xs mbs" data-target="#create-modal-confirm" data-toggle="modal">
                                 <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
-                           <a href="{{url($inputs['url'].'/nhandulieutuexcel?madv='.$inputs['madv'])}}" class="btn btn-default btn-sm">
+                           <a href="{{url($inputs['url'].'/nhanexcel?madv='.$inputs['madv'])}}" class="btn btn-default btn-sm">
                                <i class="fa fa-file-excel-o"></i> Nhận dữ liệu</a>
                         @endif
-
+                        {{-- <a href="{{url($inputs['url'].'/nhandulieutuexcel?madv='.$inputs['madv'])}}" class="btn btn-default btn-sm">
+                            <i class="fa fa-file-excel-o"></i> Nhận dữ liệu</a> --}}
                         <a href="{{url($inputs['url'].'/prints?&nam='.$inputs['nam'].'&madv='.$inputs['madv'])}}" class="btn btn-default btn-sm" target="_blank">
                             <i class="fa fa-print"></i> In</a>
                     </div>

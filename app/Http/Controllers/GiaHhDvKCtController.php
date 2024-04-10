@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ColectionImport;
 
 class GiaHhDvKCtController extends Controller
 {
@@ -114,30 +115,54 @@ class GiaHhDvKCtController extends Controller
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
+            $inputs["mahhdv"] = ord(strtoupper($inputs["mahhdv"])) - 65;
+            $inputs["gialk"] = ord(strtoupper($inputs["gialk"])) - 65;
+            $inputs["gia"] = ord(strtoupper($inputs["gia"])) - 65;
+
             $inputs['url'] = '/giahhdvk';
             $inputs['act'] = 'true';
-            $filename = $inputs['madv'] . '_' . getdate()[0];
-            //dd($inputs);
-            $request->file('fexcel')->move(public_path() . '/data/uploads/excels/', $filename . '.xls');
-            $path = public_path() . '/data/uploads/excels/' . $filename . '.xls';
-            $data = [];
 
-            Excel::load($path, function ($reader) use (&$data, $inputs) {
-                $obj = $reader->getExcel();
-                $sheet = $obj->getSheet(0);
-                $data = $sheet->toArray(null, true, true, true);// giữ lại tiêu đề A=>'val';
-            });
+            // $filename = $inputs['madv'] . '_' . getdate()[0];
+            // $request->file('fexcel')->move(public_path() . '/data/uploads/excels/', $filename . '.xls');
+            // $path = public_path() . '/data/uploads/excels/' . $filename . '.xls';
+            // $data = [];
+
+            // Excel::load($path, function ($reader) use (&$data, $inputs) {
+            //     $obj = $reader->getExcel();
+            //     $sheet = $obj->getSheet(0);
+            //     $data = $sheet->toArray(null, true, true, true);// giữ lại tiêu đề A=>'val';
+            // });
+            // $a_data = array();
+            // $inputs['dendong'] = $inputs['dendong'] > count($data) ? count($data) : $inputs['dendong'];
+            // for ($i = $inputs['tudong']; $i <= $inputs['dendong']; $i++) {
+            //     if($data[$i][$inputs['mahhdv']] == ''){
+            //         continue;
+            //     }
+            //     $a_data[$data[$i][$inputs['mahhdv']]] = array(
+            //         'gialk' => (isset($data[$i][$inputs['gialk']]) && $data[$i][$inputs['gialk']] != '' ? chkDbl($data[$i][$inputs['gialk']]) : 0),
+            //         'gia' => (isset($data[$i][$inputs['gia']]) && $data[$i][$inputs['gia']] != '' ? chkDbl($data[$i][$inputs['gia']]) : 0),
+            //     );
+            // }
+
+            $file = $request->file('fexcel');
+
+            $dataObj = new ColectionImport();
+            $theArray = Excel::toArray($dataObj, $file);
+            $data = $theArray[0]; 
+
+            $inputs['dendong'] = $inputs['dendong'] < count($data) ? count($data) : $inputs['dendong'];
             $a_data = array();
-            $inputs['dendong'] = $inputs['dendong'] > count($data) ? count($data) : $inputs['dendong'];
-            for ($i = $inputs['tudong']; $i <= $inputs['dendong']; $i++) {
-                if($data[$i][$inputs['mahhdv']] == ''){
-                    continue;
-                }
-                $a_data[$data[$i][$inputs['mahhdv']]] = array(
-                    'gialk' => (isset($data[$i][$inputs['gialk']]) && $data[$i][$inputs['gialk']] != '' ? chkDbl($data[$i][$inputs['gialk']]) : 0),
-                    'gia' => (isset($data[$i][$inputs['gia']]) && $data[$i][$inputs['gia']] != '' ? chkDbl($data[$i][$inputs['gia']]) : 0),
+
+            for ($i = $inputs['tudong'] - 1; $i <= ($inputs['dendong']); $i++) {
+
+                $a_data[] = array(
+                    'mahs' => $inputs['mahs'],
+                    'mahhdv' => trim($data[$i][$inputs['mahhdv']] ?? ''),
+                    'gialk' => trim($data[$i][$inputs['gialk']] ?? ''),
+                    'gia' => trim($data[$i][$inputs['gia']] ?? ''),
                 );
             }
+
             $modelct = GiaHhDvKCt::where('mahs', $inputs['mahs'])->get();
             foreach ($modelct as $key=>$val){
                 if(isset($a_data[$val->mahhdv])){
@@ -146,7 +171,7 @@ class GiaHhDvKCtController extends Controller
                     $val->save();
                 }
             }
-            File::Delete($path);
+            // File::Delete($path);
             $model = GiaHhDvK::where('mahs', $inputs['mahs'])->first();
             if($model == null) {
                 $model = new GiaHhDvK();

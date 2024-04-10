@@ -42,7 +42,7 @@
             <div class="portlet box blue">
                 <div class="portlet-body form">
                     <!-- BEGIN FORM -->
-                    {!! Form::open(['url'=>'/dichvukcb/importexcel', 'method'=>'post' , 'files'=>true, 'id' => 'create_hscb','enctype'=>'multipart/form-data']) !!}
+                    {!! Form::open(['url'=>'/giadvkcb/create_excel', 'method'=>'post' , 'files'=>true, 'id' => 'create_hscb','enctype'=>'multipart/form-data']) !!}
                         <meta name="csrf-token" content="{{ csrf_token() }}" />
                         <div class="form-body">
                             <!-- Thông tin chung-->
@@ -52,57 +52,58 @@
                                         <div class="portlet-body" style="display: block;">
                                             <div class="form-body">
                                                 <div class="row">
-                                                    <div class="col-md-3">
+                                                    {{-- <div class="col-md-3">
                                                         <div class="form-group">
                                                         <label>Địa bàn</label>
-                                                        <select class="form-control" name="district" id="district">
-                                                            @foreach($districts as $district)
-                                                                <option value="{{$district->district}}">{{$district->diaban}}</option>
-                                                            @endforeach
-                                                        </select>
+                                                            <select class="form-control" name="district" id="district">
+                                                                @foreach($dsdonvi as $dv)
+                                                                    <option value="{{$dv->madv}}">{{$dv->tendv}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div> --}}
+                                                    <input name="madv" value="{{$inputs['madv']}}">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label>Mã dịch vụ</label>
+                                                            {!!Form::text('madichvu', 'B', array('id' => 'madichvu','class' => 'form-control required'))!!}
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group">
-                                                            <label>Thời điểm</label>
-                                                            {!!Form::text('thoidiem', 'A', array('id' => 'thoidiem','class' => 'form-control required'))!!}
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Tên bệnh viện<span class="require">*</span></label>
-                                                            {!!Form::text('tenbv', 'B', array('id' => 'tenbv','class' => 'form-control required'))!!}
+                                                            <label class="control-label">Tên dịch vụ<span class="require">*</span></label>
+                                                            {!!Form::text('tenspdv', 'C', array('id' => 'tenspdv','class' => 'form-control required'))!!}
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-3">
                                                         <div class="form-group">
-                                                            <label class="control-label">Mô tả<span class="require">*</span></label>
-                                                            {!!Form::text('mota', 'C', array('id' => 'mota','class' => 'form-control required'))!!}
+                                                            <label class="control-label">Giá tối thiểu<span class="require">*</span></label>
+                                                            {!!Form::text('giatoithieu', 'D', array('id' => 'giatoithieu','class' => 'form-control required'))!!}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Giá tối đa<span class="require">*</span></label>
+                                                            {!!Form::text('giatoida', 'E', array('id' => 'giatoida','class' => 'form-control required'))!!}
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label class="control-label">Đơn vị tính<span class="require">*</span></label>
-                                                            {!!Form::text('dvt', 'D', array('id' => 'dvt','class' => 'form-control required'))!!}
+                                                            {!!Form::text('dvt', 'M', array('id' => 'dvt','class' => 'form-control required'))!!}
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group">
-                                                            <label class="control-label">Đơn giá<span class="require">*</span></label>
-                                                            {!!Form::text('dongia', 'E', array('id' => 'dongia','class' => 'form-control required'))!!}
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="form-group">
-                                                            <label class="control-label">Thông tin quyết định<span class="require">*</span></label>
-                                                            {!!Form::text('ttqd', 'F', array('id' => 'ttqd','class' => 'form-control required'))!!}
+                                                            <label class="control-label">Phân loại<span class="require">*</span></label>
+                                                            {!!Form::text('phanloai', 'N', array('id' => 'phanloai','class' => 'form-control required'))!!}
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label class="control-label">Ghi chú<span class="require">*</span></label>
-                                                            {!!Form::text('ghichu', 'G', array('id' => 'ghichu','class' => 'form-control required'))!!}
+                                                            {!!Form::text('ghichu', 'F', array('id' => 'ghichu','class' => 'form-control required'))!!}
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
@@ -135,7 +136,7 @@
                 </div>
             </div>
             <div class="col-md-12" style="text-align: center">
-                <a href="{{url('dichvukcb')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                <a href="{{url('giadvkcb/danhsach')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                 <button type="reset" class="btn default"><i class="fa fa-refresh"></i> Tải lại</button>
                 <button type="submit" class="btn green" onclick="ClickCreate()" id="submitform" name="submitform"><i class="fa fa-plus"></i> Nhận dữ liệu</button>
             </div>
@@ -146,71 +147,73 @@
 
     <script>
         function ClickCreate(){
-            var str = '';
-            var ok = true;
+            btn.disabled = true;
+            btn.innerText = 'Loading...'
+            // var str = '';
+            // var ok = true;
 
-            if (!$('#thoidiem').val()) {
-                str += '  - Thời điểm \n';
-                $('#thoidiem').parent().addClass('has-error');
-                ok = false;
-            }
+            // if (!$('#thoidiem').val()) {
+            //     str += '  - Thời điểm \n';
+            //     $('#thoidiem').parent().addClass('has-error');
+            //     ok = false;
+            // }
 
-            if (!$('#tenbv').val()) {
-                str += '  - Tên bệnh viện \n';
-                $('#tenbv').parent().addClass('has-error');
-                ok = false;
-            }
+            // if (!$('#tenbv').val()) {
+            //     str += '  - Tên bệnh viện \n';
+            //     $('#tenbv').parent().addClass('has-error');
+            //     ok = false;
+            // }
 
-            if (!$('#mota').val()) {
-                str += '  - Mô tả \n';
-                $('#mota').parent().addClass('has-error');
-                ok = false;
-            }
+            // if (!$('#mota').val()) {
+            //     str += '  - Mô tả \n';
+            //     $('#mota').parent().addClass('has-error');
+            //     ok = false;
+            // }
 
-            if (!$('#dongia').val()) {
-                str += '  - Đơn giá \n';
-                $('#dongia').parent().addClass('has-error');
-                ok = false;
-            }
+            // if (!$('#dongia').val()) {
+            //     str += '  - Đơn giá \n';
+            //     $('#dongia').parent().addClass('has-error');
+            //     ok = false;
+            // }
 
-            if (!$('#dvt').val()) {
-                str += '  - Đơn vị tính\n';
-                $('#dvt').parent().addClass('has-error');
-                ok = false;
-            }
+            // if (!$('#dvt').val()) {
+            //     str += '  - Đơn vị tính\n';
+            //     $('#dvt').parent().addClass('has-error');
+            //     ok = false;
+            // }
 
 
-            if (!$('#tudong').val()) {
-                str += '  - Dòng bắt đầu nhận dữ liệu \n';
-                $('#tudong').parent().addClass('has-error');
-                ok = false;
-            }
+            // if (!$('#tudong').val()) {
+            //     str += '  - Dòng bắt đầu nhận dữ liệu \n';
+            //     $('#tudong').parent().addClass('has-error');
+            //     ok = false;
+            // }
 
-            if (!$('#dendong').val()) {
-                str += '  - Đến dòng dữ liệu \n';
-                $('#dendong').parent().addClass('has-error');
-                ok = false;
-            }
+            // if (!$('#dendong').val()) {
+            //     str += '  - Đến dòng dữ liệu \n';
+            //     $('#dendong').parent().addClass('has-error');
+            //     ok = false;
+            // }
 
-            if (!$('#fexcel').val()) {
-                str += '  - File Excel \n';
-                $('#fexcel').parent().addClass('has-error');
-                ok = false;
-            }
+            // if (!$('#fexcel').val()) {
+            //     str += '  - File Excel \n';
+            //     $('#fexcel').parent().addClass('has-error');
+            //     ok = false;
+            // }
 
-            if (ok == false) {
-                //alert('Các trường: \n' + str + 'Không được để trống');
-                toastr.error('Thông tin: \n' + str + 'Không được để trống','Lỗi!.');
-                $("form").submit(function (e) {
-                    e.preventDefault();
-                });
-            }
-            else {
-                $("form").unbind('submit').submit();
-                var btn = document.getElementById('submitform');
-                btn.disabled = true;
-                btn.innerText = 'Loading...'
-            }
+            // if (ok == false) {
+            //     //alert('Các trường: \n' + str + 'Không được để trống');
+            //     toastr.error('Thông tin: \n' + str + 'Không được để trống','Lỗi!.');
+            //     $("form").submit(function (e) {
+            //         e.preventDefault();
+            //     });
+            // }
+            // else {
+            //     $("form").unbind('submit').submit();
+            //     var btn = document.getElementById('submitform');
+            //     btn.disabled = true;
+            //     btn.innerText = 'Loading...'
+            // }
         }
 
     </script>

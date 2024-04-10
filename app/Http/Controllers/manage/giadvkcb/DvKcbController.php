@@ -19,6 +19,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\File;
+use App\Imports\ColectionImport;
 
 
 class DvKcbController extends Controller
@@ -309,50 +310,103 @@ class DvKcbController extends Controller
             return view('errors.notlogin');
     }
 
-    public function nhandulieutuexcel(){
+    public function nhanexcel(Request $request){
         if (Session::has('admin')) {
-            $districts = DiaBanHd::where('level','H')
-                ->get();
-            return view('manage.dinhgia.dvkcb.importexcel')
-                ->with('districts',$districts)
+            $inputs = $request->all();
+            // $dsdonvi = dsdonvi::where('madv', $inputs['madv'])
+            //     ->get();
+                // dd($districts);
+            return view('manage.dinhgia.giadvkcb.importexcel')
+                ->with('inputs', $inputs)
                 ->with('pageTitle','Nhận dữ liệu giá dịch vụ khám chữa bệnh từ file Excel');
 
         } else
             return view('errors.notlogin');
     }
 
-    public function importexcel(Request $request){
+    public function create_excel(Request $request){
         if(Session::has('admin')){
-            $inputs=$request->all();
-            $inputs['tudong'] = getMoneyToDb($inputs['tudong']);
-            $inputs['dendong'] = getMoneyToDb($inputs['dendong']);
-            $filename = $inputs['district'] . '_' . getdate()[0];
-            $request->file('fexcel')->move(public_path() . '/data/uploads/excels/', $filename . '.xls');
-            $path = public_path() . '/data/uploads/excels/' . $filename . '.xls';
-            $data = [];
+            $inputs = $request->all();
+            $inputs['url'] = '/giadvkcb';
+            $inputs['act'] = 'true';
+            $inputs["madichvu"] = ord(strtoupper($inputs["madichvu"])) - 65;
+            $inputs["tenspdv"] = ord(strtoupper($inputs["tenspdv"])) - 65;
+            $inputs["giatoithieu"] = ord(strtoupper($inputs["giatoithieu"])) - 65;
+            $inputs["giatoida"] = ord(strtoupper($inputs["giatoida"])) - 65;
+            $inputs["dvt"] = ord(strtoupper($inputs["dvt"])) - 65;
+            $inputs["phanloai"] = ord(strtoupper($inputs["phanloai"])) - 65;
+            $inputs["ghichu"] = ord(strtoupper($inputs["ghichu"])) - 65;
+            $inputs['mahs'] = getdate()[0];
+            $m_dv = dsdonvi::where('madv', $inputs['madv'])->first();
+            $model = new DvKcb();
+            $model->mahs = $inputs['mahs'];
+            $model->madv = $inputs['madv'];
+            $model->thoidiem = date('Y-m-d');
+            $model->trangthai = 'CHT';
+            
+            $a_tt = array_column(NhomDvKcb::get()->toarray(), 'tennhom', 'manhom');
+            $a_diaban = array_column(dsdiaban::where('madiaban', $m_dv->madiaban)->get()->toarray(), 'tendiaban', 'madiaban');
 
-            Excel::load($path, function ($reader) use (&$data, $inputs) {
-                $obj = $reader->getExcel();
-                $sheet = $obj->getSheet(0);
-                $data = $sheet->toArray(null, true, true, true);// giữ lại tiêu đề A=>'val';
-            });
+            // $filename = $inputs['district'] . '_' . getdate()[0];
+            // $request->file('fexcel')->move(public_path() . '/data/uploads/excels/', $filename . '.xls');
+            // $path = public_path() . '/data/uploads/excels/' . $filename . '.xls';
+            // $data = [];
 
-            for ($i = $inputs['tudong']; $i <= $inputs['dendong']; $i++) {
+            // Excel::load($path, function ($reader) use (&$data, $inputs) {
+            //     $obj = $reader->getExcel();
+            //     $sheet = $obj->getSheet(0);
+            //     $data = $sheet->toArray(null, true, true, true);// giữ lại tiêu đề A=>'val';
+            // });
 
-                $modelctnew = new DvKcb();
-                $modelctnew->district = $inputs['district'];
-                $modelctnew->thoidiem = getDateToDb($data[$i][$inputs['thoidiem']]);
-                $modelctnew->tenbv = $data[$i][$inputs['tenbv']];
-                $modelctnew->mota = $data[$i][$inputs['mota']];
-                $modelctnew->dongia = (isset($data[$i][$inputs['dongia']]) && $data[$i][$inputs['dongia']] != '' ? chkDbl($data[$i][$inputs['dongia']]) : 0);
-                $modelctnew->dvt = $data[$i][$inputs['dvt']];
-                $modelctnew->ttqd = $data[$i][$inputs['ttqd']];
-                $modelctnew->ghichu = $data[$i][$inputs['ghichu']];
-                $modelctnew->trangthai = 'CHT';
-                $modelctnew->save();
+            // for ($i = $inputs['tudong']; $i <= $inputs['dendong']; $i++) {
+
+            //     $modelctnew = new DvKcb();
+            //     $modelctnew->district = $inputs['district'];
+            //     $modelctnew->thoidiem = getDateToDb($data[$i][$inputs['thoidiem']]);
+            //     $modelctnew->tenbv = $data[$i][$inputs['tenbv']];
+            //     $modelctnew->mota = $data[$i][$inputs['mota']];
+            //     $modelctnew->dongia = (isset($data[$i][$inputs['dongia']]) && $data[$i][$inputs['dongia']] != '' ? chkDbl($data[$i][$inputs['dongia']]) : 0);
+            //     $modelctnew->dvt = $data[$i][$inputs['dvt']];
+            //     $modelctnew->ttqd = $data[$i][$inputs['ttqd']];
+            //     $modelctnew->ghichu = $data[$i][$inputs['ghichu']];
+            //     $modelctnew->trangthai = 'CHT';
+            //     $modelctnew->save();
+            // }
+            // File::Delete($path);
+            $file = $request->file('fexcel');
+
+            $dataObj = new ColectionImport();
+            $theArray = Excel::toArray($dataObj, $file);
+            $data = $theArray[0]; 
+
+            $inputs['dendong'] = $inputs['dendong'] < count($data) ? count($data) : $inputs['dendong'];
+            $a_dm = array();
+
+            for ($i = $inputs['tudong'] - 1; $i <= ($inputs['dendong']); $i++) {
+
+                $a_dm[] = array(
+                    'mahs' => $inputs['mahs'],
+                    'madichvu' => trim($data[$i][$inputs['madichvu']] ?? ''),
+                    'tenspdv' => trim($data[$i][$inputs['tenspdv']] ?? ''),
+                    'giatoithieu' => trim($data[$i][$inputs['giatoithieu']] ?? ''),
+                    'giatoida' => trim($data[$i][$inputs['giatoida']] ?? ''),
+                    'dvt' => trim($data[$i][$inputs['dvt']] ?? ''),
+                    'phanloai' => trim($data[$i][$inputs['phanloai']] ?? ''),
+                    'ghichu' => trim($data[$i][$inputs['ghichu']] ?? ''),
+                );
             }
-            File::Delete($path);
-            return redirect('dichvukcb?&district='.$inputs['district']);
+            foreach (array_chunk($a_dm, 100) as $dm){
+                DvKcbCt::insert($dm);
+            }
+            $modelct = DvKcbCt::where('mahs', $inputs['mahs'])->get();
+            return view('manage.dinhgia.giadvkcb.kekhai.edit')
+                ->with('modelct', $modelct)
+                ->with('model', $model)
+                ->with('a_diaban', $a_diaban)
+                ->with('a_tt', $a_tt)
+                ->with('inputs', $inputs)
+                ->with('pageTitle', 'Hồ sơ giá dịch vụ khám chữa bệnh');
+                
         }else
             return view('errors.notlogin');
     }

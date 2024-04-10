@@ -152,8 +152,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">File đính kèm</label>
-                                    @if($model->ipf1 != '')
+                                    <label class="control-label">File đính kèm</label>@if($model->ipf1 != '')
                                         <a href="{{url('/data/giadvkcb/'.$model->ipf1)}}" target="_blank">{{$model->ipf1}}</a>
                                     @endif
                                     <input name="ipf1" id="ipf1" type="file">
@@ -205,6 +204,16 @@
                             </div>
                         </div>
 
+                        {{-- @if(in_array($model->trangthai, ['CHT', 'HHT']))
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        &nbsp;<button type="button" onclick="setValExl()" class="btn btn-success btn-xs mbs" data-target="#modal-importexcel" data-toggle="modal">
+                                            <i class="fa fa-file-excel-o"></i>&nbsp;Nhận dữ liệu</button>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif --}}
                         <input type="hidden" name="mahs" id="mahs" value="{{$model->mahs}}">
                         <input type="hidden" name="madv" id="madv" value="{{$model->madv}}">
 
@@ -368,4 +377,5 @@
     </div>
     @include('includes.script.inputmask-ajax-scripts')
     @include('includes.script.create-header-scripts')
+    {{-- @include('manage.dinhgia.giadvkcb.kekhai.modalct') --}}
 @stop

@@ -304,6 +304,9 @@ Route::group(['prefix'=>'giadvkcb'], function (){
     Route::post('modify','manage\giadvkcb\DvKcbController@store');
     Route::post('delete','manage\giadvkcb\DvKcbController@destroy');
 
+    Route::get('nhanexcel','manage\giadvkcb\DvKcbController@nhanexcel');
+    Route::post('create_excel','manage\giadvkcb\DvKcbController@create_excel');
+
     Route::post('chuyenhs','manage\giadvkcb\DvKcbController@chuyenhs');
     Route::get('prints','manage\giadvkcb\DvKcbController@ketxuat');
     Route::get('dinhkem','manage\giadvkcb\DvKcbController@show_dk');
