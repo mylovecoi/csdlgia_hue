@@ -62,7 +62,7 @@
                                                             </select>
                                                         </div>
                                                     </div> --}}
-                                                    <input name="madv" value="{{$inputs['madv']}}">
+                                                    <input type="hidden" name="madv" value="{{$inputs['madv']}}">
                                                     <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label>Mã dịch vụ</label>

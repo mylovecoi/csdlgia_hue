@@ -147,8 +147,8 @@ class GiaHhDvKCtController extends Controller
                 }
             }
 
-            return redirect('/giahhdvk/new?madv=' . $inputs['madv'].'&mattbc='.$inputs['matt'].'&thang='.$inputs['thang'].'&nam='.$inputs['nam'].'&madiaban='.$inputs['madiaban'].'&act=true');
-            // return redirect('/giahhdvk/new?madv=' . $inputs['madv'].'&mattbc='.$inputs['matt'].'&thang='.$inputs['thang'].'&nam='.$inputs['nam'].'&madiaban='.$inputs['madiaban'].'&act=true'.'&mahs='.$inputs['mahs']);
+            //return redirect('/giahhdvk/new?madv=' . $inputs['madv'].'&mattbc='.$inputs['matt'].'&thang='.$inputs['thang'].'&nam='.$inputs['nam'].'&madiaban='.$inputs['madiaban'].'&act=true');
+            return redirect('/giahhdvk/new?madv=' . $inputs['madv'].'&mattbc='.$inputs['matt'].'&thang='.$inputs['thang'].'&nam='.$inputs['nam'].'&madiaban='.$inputs['madiaban'].'&act=true'.'&mahs='.$inputs['mahs']);
         } else
             return view('errors.notlogin');
     }
