@@ -79,10 +79,14 @@ class DvKcbController extends Controller
             $inputs['url'] = '/giadvkcb';
             $m_dv = dsdonvi::where('madv', $inputs['madv'])->first();
             $modelnhom = NhomDvKcb::where('manhom', $inputs['manhom'])->first();
-            $inputs['mahs'] = getdate()[0];
+            // $inputs['mahs'] = getdate()[0];
             $modeldm = dvkcbdm::where('manhom', $inputs['manhom'])->where('hientrang', 'TD')->get();
             $model = new DvKcb();
-            $model->mahs = $inputs['mahs'];
+            if($inputs['mahs'] != null || $inputs['mahs'] != ""){
+                $model->mahs = $inputs['mahs'];
+            }else{
+                $model->mahs = getdate()[0];
+            }
             $model->madv = $inputs['madv'];
             $model->madiaban = $m_dv->madiaban;
             $model->manhom = $inputs['manhom'];
@@ -102,7 +106,7 @@ class DvKcbController extends Controller
             foreach ($modeldm as $dm) {
                 //$giadv = isset($a_ctlk[$dm->madichvu]) ? getDoubleToDb($a_ctlk[$dm->madichvu]) : 0;
                 $a_dm[] = [
-                    'mahs' => $inputs['mahs'],
+                    'mahs' => $model->mahs,
                     'phanloai' => $dm->phanloai,
                     'madichvu' => $dm->madichvu,
                     'tenspdv' => $dm->tenspdv,
@@ -116,7 +120,7 @@ class DvKcbController extends Controller
             foreach (array_chunk($a_dm , 100) as $dm){
                 DvKcbCt::insert($dm);
             }
-            $modelct = DvKcbCt::where('mahs', $inputs['mahs'])->get();
+            $modelct = DvKcbCt::where('mahs', $model->mahs)->get();
             $a_tt = array_column(NhomDvKcb::where('manhom', $inputs['manhom'])->get()->toarray(), 'tennhom', 'manhom');
             $a_diaban = array_column(dsdiaban::where('madiaban', $m_dv->madiaban)->get()->toarray(), 'tendiaban', 'madiaban');
             return view('manage.dinhgia.giadvkcb.kekhai.edit')
@@ -383,7 +387,6 @@ class DvKcbController extends Controller
             $a_dm = array();
 
             for ($i = $inputs['tudong'] - 1; $i <= ($inputs['dendong']); $i++) {
-
                 $a_dm[] = array(
                     'mahs' => $inputs['mahs'],
                     'madichvu' => trim($data[$i][$inputs['madichvu']] ?? ''),
@@ -395,9 +398,11 @@ class DvKcbController extends Controller
                     'ghichu' => trim($data[$i][$inputs['ghichu']] ?? ''),
                 );
             }
+
             foreach (array_chunk($a_dm, 100) as $dm){
                 DvKcbCt::insert($dm);
             }
+            
             $modelct = DvKcbCt::where('mahs', $inputs['mahs'])->get();
             return view('manage.dinhgia.giadvkcb.kekhai.edit')
                 ->with('modelct', $modelct)

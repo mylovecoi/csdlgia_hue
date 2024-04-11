@@ -296,7 +296,7 @@ Route::group(['prefix'=>'giadvkcb'], function (){
 
     Route::get('edit_ct','manage\giadvkcb\dvkcbctController@edit');
     Route::get('update_ct','manage\giadvkcb\dvkcbctController@update');
-
+    Route::post('importexcel_chitiet','manage\giadvkcb\dvkcbctController@importexcel_chitiet');
 
     Route::get('danhsach','manage\giadvkcb\DvKcbController@index');
     Route::get('new','manage\giadvkcb\DvKcbController@create');

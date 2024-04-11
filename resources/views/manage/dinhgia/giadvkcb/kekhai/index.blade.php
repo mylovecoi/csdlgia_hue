@@ -194,6 +194,7 @@
                         </div>
                     </div>
                     <input type="hidden" id="madv" name="madv" value="{{$inputs['madv']}}">
+                    <input type="hidden" id="mahs" name="mahs" value="">
                     <input type="hidden" id="act" name="act" value="true">
                 </div>
 

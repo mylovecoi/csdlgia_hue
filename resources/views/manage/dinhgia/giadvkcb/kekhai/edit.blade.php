@@ -204,7 +204,7 @@
                             </div>
                         </div>
 
-                        {{-- @if(in_array($model->trangthai, ['CHT', 'HHT']))
+                        @if(in_array($model->trangthai, ['CHT', 'HHT']))
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -213,7 +213,7 @@
                                     </div>
                                 </div>
                             </div>
-                        @endif --}}
+                        @endif
                         <input type="hidden" name="mahs" id="mahs" value="{{$model->mahs}}">
                         <input type="hidden" name="madv" id="madv" value="{{$model->madv}}">
 
@@ -377,5 +377,5 @@
     </div>
     @include('includes.script.inputmask-ajax-scripts')
     @include('includes.script.create-header-scripts')
-    {{-- @include('manage.dinhgia.giadvkcb.kekhai.modalct') --}}
+    @include('manage.dinhgia.giadvkcb.kekhai.modalct')
 @stop

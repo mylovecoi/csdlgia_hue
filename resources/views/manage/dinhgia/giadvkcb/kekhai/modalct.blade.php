@@ -10,13 +10,11 @@
             },
             dataType: 'JSON',
             success: function (data) {
-                $('#mahhdv').val(data.mahhdv).trigger('change');
-//                $('#gialk').val(Number.parseFloat(data.gialk).toFixed(3));
-                $('#gialk').val(dinhdangso(data.gialk,3));
-                $('#gia').val(dinhdangso(data.gia,3));
+                $('#madichvu').val(data.madichvu).trigger('change');
+                $('#giatoithieu').val(dinhdangso(data.giatoithieu,3));
+                $('#giatoida').val(dinhdangso(data.giatoida,3));
                 $('#ghichu').val(data.ghichu);
-                $('#nguontt').val(data.nguontt);
-                $('#loaigia').val(data.loaigia);
+                $('#phanloai').val(data.phanloai);
                 $('#id').val(data.id);
                 InputMask();
             },
@@ -35,12 +33,10 @@
             data: {
                 _token: CSRF_TOKEN,
                 id: $('#id').val(),
-                dacdiemkt: $('#dacdiemkt').val(),
                 dvt: $('#dvt').val(),
-                gialk: $('#gialk').val(),
-                gia: $('#gia').val(),
-                loaigia: $('#loaigia').val(),
-                nguontt: $('#nguontt').val(),
+                giatoithieu: $('#giatoithieu').val(),
+                giatoida: $('#giatoida').val(),
+                phanloai: $('#phanloai').val(),
                 ghichu: $('#ghichu').val(),
                 mahs: $('#mahs').val(),
             },
@@ -80,11 +76,8 @@
             {!! Form::open(['url'=>$inputs['url'].'/importexcel_chitiet', 'method'=>'post' , 'files'=>true, 'id' => 'frm_importexcel','enctype'=>'multipart/form-data','files'=>true]) !!}
             <!-- Gán các trường giá trị để cho các trường hợp chưa lưu hồ sơ -->
             <input type="hidden" name="mahs" value="{{$model->mahs}}">
-            <input type="hidden" name="matt" value="{{$model->matt}}">
+            <input type="hidden" name="manhom" value="{{$model->manhom}}">
             <input type="hidden" name="madv" value="{{$model->madv}}">
-            <input type="hidden" name="thang" value="{{$model->thang}}">
-            <input type="hidden" name="nam" value="{{$model->nam}}">
-            <input type="hidden" name="madiaban" value="{{$model->madiaban}}">
             <input type="hidden" name="soqd" />
             <input type="hidden" name="thoidiem" />
             <input type="hidden" name="soqdlk" />
@@ -93,22 +86,36 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="control-label">Mã hàng hóa<span class="require">*</span></label>
-                            {!!Form::text('mahhdv', 'C', array('id' => 'mahhdv','class' => 'form-control required'))!!}
+                            <label class="control-label">Mã dịch vụ<span class="require">*</span></label>
+                            {!!Form::text('madichvu', 'B', array('id' => 'madichvu','class' => 'form-control required'))!!}
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="control-label">Giá liền kề<span class="require">*</span></label>
-                            {!!Form::text('gialk', 'H', array('id' => 'gialk','class' => 'form-control required'))!!}
+                            <label class="control-label">Giá tối thiểu<span class="require">*</span></label>
+                            {!!Form::text('giatoithieu', 'C', array('id' => 'giatoithieu','class' => 'form-control required'))!!}
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="control-label">Giá kê khai<span class="require">*</span></label>
-                            {!!Form::text('gia', 'I', array('id' => 'gia','class' => 'form-control required'))!!}
+                            <label class="control-label">Giá tối đa<span class="require">*</span></label>
+                            {!!Form::text('giatoida', 'D', array('id' => 'giatoida','class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Phân loại<span class="require">*</span></label>
+                            {!!Form::text('phanloai', 'E', array('id' => 'phanloai','class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Ghi chú<span class="require">*</span></label>
+                            {!!Form::text('ghichu', 'F', array('id' => 'ghichu','class' => 'form-control required'))!!}
                         </div>
                     </div>
                 </div>

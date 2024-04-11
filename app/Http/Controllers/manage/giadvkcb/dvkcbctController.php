@@ -8,7 +8,10 @@ use App\Model\manage\dinhgia\giaspdvci\trogiatrocuocdm;
 use App\Model\manage\dinhgia\GiaTaiSanCongDm;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\manage\dinhgia\giadvkcb\dvkcbct as GiadvkcbDvkcbct;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ColectionImport;
 
 class dvkcbctController extends Controller
 {
@@ -192,5 +195,44 @@ class dvkcbctController extends Controller
 
         }
         return $result;
+    }
+
+    public function importexcel_chitiet(Request $request)
+    {
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            //Do mã char('A') = 65
+            //Chuyển mã A,B,C về 0,1,2,3,...
+            $inputs["madichvu"] = ord(strtoupper($inputs["madichvu"])) - 65;
+            $inputs["phanloai"] = ord(strtoupper($inputs["phanloai"])) - 65;
+            $inputs["giatoithieu"] = ord(strtoupper($inputs["giatoithieu"])) - 65;
+            $inputs["giatoida"] = ord(strtoupper($inputs["giatoida"])) - 65;
+            $inputs["ghichu"] = ord(strtoupper($inputs["ghichu"])) - 65;
+
+            $file = $request->file('fexcel');
+
+            $dataObj = new ColectionImport();
+            $theArray = Excel::toArray($dataObj, $file);
+            $data = $theArray[0];//Mặc định lấy Sheet 1
+            //Gán lại dòng
+            $inputs['dendong'] = $inputs['dendong'] < count($data) ? count($data) : $inputs['dendong'];
+
+            for ($i = $inputs['tudong']-1; $i <= ($inputs['dendong']); $i++) {
+                //dd($data[$i]);
+                if (!isset($data[$i][$inputs['madichvu']])) {
+                    continue; //Mã hàng hoá rỗng => thoát
+                }
+                $chitiet = GiadvkcbDvkcbct::where('mahs', $inputs['mahs'])->where('madichvu', $data[$i][$inputs['madichvu']])->first();
+                if ($chitiet != null) {
+                    $chitiet->phanloai = $data[$i][$inputs['phanloai']];
+                    $chitiet->giatoithieu = chkDbl($data[$i][$inputs['giatoithieu']]);
+                    $chitiet->giatoida = chkDbl($data[$i][$inputs['giatoida']]);
+                    $chitiet->ghichu = $data[$i][$inputs['ghichu']];
+                    $chitiet->save();
+                }
+            }
+            return redirect('/giadvkcb/new?manhom='.$inputs['manhom'].'&madv='.$inputs['madv'].'&act=true'.'&mahs='.$inputs['mahs']);
+        } else
+            return view('errors.notlogin');
     }
 }

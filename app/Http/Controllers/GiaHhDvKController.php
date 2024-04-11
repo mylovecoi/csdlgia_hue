@@ -229,7 +229,6 @@ class GiaHhDvKController extends Controller
                 }else{
                     $model->mahs = $inputs['madiaban'] . '_' . getdate()[0];
                 }
-                
                 $model->matt = $inputs['mattbc'];
                 $model->madiaban = $inputs['madiaban'];
                 $model->madv = $inputs['madv'];
