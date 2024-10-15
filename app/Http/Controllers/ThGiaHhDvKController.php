@@ -656,13 +656,12 @@ class ThGiaHhDvKController extends Controller
             $inputs["loaigia"] = ord(strtoupper($inputs["loaigia"])) - 65;
             $inputs["gialk"] = ord(strtoupper($inputs["gialk"])) - 65;
             $inputs["gia"] = ord(strtoupper($inputs["gia"])) - 65;
-            $inputs["nguontt"] = ord(strtoupper($inputs["nguontt"])) - 65;
-            
+            $inputs["nguontt"] = ord(strtoupper($inputs["nguontt"])) - 65;            
             $file = $request->file('fexcel');
-
             $dataObj = new ColectionImport();
             $theArray = Excel::toArray($dataObj, $file);
-            $data = $theArray[0];//Mặc định lấy Sheet 1            
+            $data = $theArray[0];//Mặc định lấy Sheet 1  
+            dd($theArray[0]);
             //Gán lại dòng
             $inputs['dendong'] = $inputs['dendong'] < count($data) ? count($data) : $inputs['dendong'];
             

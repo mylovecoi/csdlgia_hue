@@ -869,7 +869,7 @@ class KetNoiCSDLQuocGiaController extends Controller
                     $a_dvt = array_column(dmdvt::all()->toArray(),  'madvt', 'dvt');
                     foreach ($HoSo as $ct) {
                         $ct->dvt = $a_dvt[$ct->dvt] ?? $ct->dvt;
-                        $ct->manhom = (string)intval($ct->manhom);
+                        //$ct->manhom = (string)intval($ct->manhom);
                     }
                     $HoSoChiTiet = null;
                     break;
