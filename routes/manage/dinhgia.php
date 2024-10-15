@@ -118,9 +118,6 @@ Route::group(['prefix'=>'giadatphanloai'],function (){
     Route::get('print_hs','manage\giadatphanloai\GiaDatPhanLoaiController@print_hs');
     Route::get('dinhkem','manage\giadatphanloai\GiaDatPhanLoaiController@show');
 
-    Route::get('file/excel',function (){
-        return Illuminate\Support\Facades\Response::download('./data/download/filemau/GIADATPHANLOAI.xlsx');
-    });
 
     Route::get('nhanexcel','manage\giadatphanloai\GiaDatPhanLoaiController@nhanexcel');
     Route::post('create_excel','manage\giadatphanloai\GiaDatPhanLoaiController@create_excel');
