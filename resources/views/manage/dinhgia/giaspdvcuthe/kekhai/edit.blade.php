@@ -118,7 +118,7 @@
                                     <thead>
                                         <tr>
                                             <th style="text-align: center" width="5%">STT</th>
-                                            <th style="text-align: center">Phân loại sản phẩm, dịch vụ</th>
+                                            {{-- <th style="text-align: center">Phân loại sản phẩm, dịch vụ</th> --}}
                                             <th style="text-align: center">Tên sản phẩm, dịch vụ</th>
                                             <th style="text-align: center">Đơn vị<br>tính</th>
                                             <th style="text-align: center">Mức giá</th>
@@ -130,9 +130,9 @@
                                         @foreach($modelct as $tt)
                                             <tr>
                                                 <td style="text-align: center">{{$i++}}</td>
-                                                <td style="text-align: left">{{$tt->phanloaidv}}</td>
+                                                {{-- <td style="text-align: left">{{$tt->phanloaidv}}</td> --}}
                                                 <td style="text-align: left" class="active">{{$tt->mota}}</td>
-                                                <td style="text-align: left">{{$tt->dvt}}</td>
+                                                <td style="text-align: left">{{$a_dvt[$tt->dvt] ?? $tt->dvt}}</td>
                                                 <td style="text-align: right">{{dinhdangsothapphan($tt->mucgia,2)}}</td>
                                                 <td>
                                                     @if(in_array($model->trangthai, ['CHT', 'HHT']))

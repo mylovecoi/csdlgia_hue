@@ -2521,9 +2521,11 @@ function getGiaoDien()
 {
     $gui = array();
     $gui['csdlmucgiahhdv'] = array(
-        'index' => '0', 'congbo' => '0',
+        'index' => '0',
+        'congbo' => '0',
         'dinhgia' => array(
-            'index' => '0', 'congbo' => '0',
+            'index' => '0',
+            'congbo' => '0',
             'giacldat' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',), //giacacloaidat
             'giadatduan' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',), //giadatduan
             'khunggiadat' => array('index' => '0', 'congbo' => '0', 'table' => 'khunggiadat', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
@@ -2551,7 +2553,8 @@ function getGiaoDien()
             'giaspdvkhunggia' => array('index' => '0', 'congbo' => '0', 'table' => 'giaspdvkhunggia', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
         ),
         'bog' => array(
-            'index' => '0', 'congbo' => '0',
+            'index' => '0',
+            'congbo' => '0',
             'bog' => array('index' => '0', 'congbo' => '0', 'table' => 'kkmhbog', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
         ),
         /*'etanol' => array(
@@ -2559,20 +2562,23 @@ function getGiaoDien()
             'etanol' => array('index' => '0', 'congbo' => '0','table'=>'','url'=>''),
         ),*/
         'hhdv' => array(
-            'index' => '0', 'congbo' => '0',
+            'index' => '0',
+            'congbo' => '0',
             'giahhdvk' => array('index' => '0', 'congbo' => '0', 'table' => 'giahhdvk', 'url' => 'giahhdvk', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
             'giathitruong' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',), //giathitruong
             'giavangngoaite' => array('index' => '0', 'congbo' => '0', 'table' => 'giavangngoaite', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
         ),
         'philephi' => array(
-            'index' => '0', 'congbo' => '0',
+            'index' => '0',
+            'congbo' => '0',
             'gialephitruocba' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
             'gialephitruocbanha' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
             'giaphilephi' => array('index' => '0', 'congbo' => '0', 'table' => 'philephi', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
             'phichuyengia' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
         ),
         'taisan' => array(
-            'index' => '0', 'congbo' => '0',
+            'index' => '0',
+            'congbo' => '0',
             'thanhlytaisan' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',), //thanhlytaisan
             'giabatdongsan' => array('index' => '0', 'congbo' => '0', 'table' => 'giagdbatdongsan', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
             'muataisan' => array('index' => '0', 'congbo' => '0', 'table' => 'muataisan', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
@@ -2580,7 +2586,8 @@ function getGiaoDien()
             'taisancong' => array('index' => '0', 'congbo' => '0', 'table' => 'giataisancong', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
         ),
         'kknygia' => array(
-            'index' => '0', 'congbo' => '0',
+            'index' => '0',
+            'congbo' => '0',
             'thongtinkknygia' => array('index' => '0', 'congbo' => '0', 'table' => 'ttdntd', 'url' => '/doanhnghiep/xetduyet', 'thoidiem' => 'ngaychuyen', 'trangthai' => 'HT', 'API' => '0',), //xét duyệt thay đổi thông tin của đơn vị
             'vlxd' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiavlxd', 'url' => 'xetduyetkkgiavlxd', 'thoidiem' => 'ngaychuyen', 'trangthai' => 'HT', 'API' => '0',),
             'xmtxd' => array('index' => '0', 'congbo' => '0', 'table' => 'kkgiaxmtxd', 'url' => 'xetduyetgiaxmtxd', 'thoidiem' => 'ngaychuyen', 'trangthai' => 'HT', 'API' => '0',),
@@ -2610,9 +2617,11 @@ function getGiaoDien()
         ),
     );
     $gui['csdlthamdinhgia'] = array(
-        'index' => '0', 'congbo' => '0',
+        'index' => '0',
+        'congbo' => '0',
         'thamdinhgia' => array(
-            'index' => '0', 'congbo' => '0',
+            'index' => '0',
+            'congbo' => '0',
             'dmhhthamdinhgia' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
             'dmdonvi' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
             'thamdinh' => array('index' => '0', 'congbo' => '0', 'table' => 'thamdinhgia', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
@@ -2620,9 +2629,11 @@ function getGiaoDien()
         ),
     );
     $gui['csdlvbqlnn'] = array(
-        'index' => '0', 'congbo' => '0',
+        'index' => '0',
+        'congbo' => '0',
         'vbqlnn' => array(
-            'index' => '0', 'congbo' => '0',
+            'index' => '0',
+            'congbo' => '0',
             'vbgia' => array('index' => '0', 'congbo' => '0', 'table' => 'vanbanqlnn', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
             'chisogiatieudung' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
             'bcthvegia' => array('index' => '0', 'congbo' => '0', 'table' => 'bcthvegia', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
@@ -2630,25 +2641,81 @@ function getGiaoDien()
         ),
     );
     $gui['csdlttpvctqlnn'] = array(
-        'index' => '0', 'congbo' => '0',
+        'index' => '0',
+        'congbo' => '0',
         'ttpvctqlnn' => array(
-            'index' => '0', 'congbo' => '0',
+            'index' => '0',
+            'congbo' => '0',
             'ttqlnn' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
         ),
     );
     $gui['thongke'] = array(
-        'index' => '0', 'congbo' => '0',
+        'index' => '0',
+        'congbo' => '0',
         'thongkehethong' => array(
-            'index' => '0', 'congbo' => '0',
+            'index' => '0',
+            'congbo' => '0',
             'nnnhaplieu' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
             'nntonghop' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
             'dnnhaplieu' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
         ),
     );
+    $gui['csdlquocgia'] = array(
+        'index' => '0',
+        'congbo' => '0',
+        'qg_racthai' => array(
+            'index' => '0',
+            'congbo' => '0',
+            'danhmuc' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
+            'hoso' => array('index' => '0', 'congbo' => '0', 'table' => 'giagdbatdongsan', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
+        ),
+        'qg_thuetainguyen' => array(
+            'index' => '0',
+            'congbo' => '0',
+            'danhmuc' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
+            'hoso' => array('index' => '0', 'congbo' => '0', 'table' => 'giagdbatdongsan', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
+        ),
+        'qg_giathitruong' => array(
+            'index' => '0',
+            'congbo' => '0',
+            'danhmuc' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
+            'hoso' => array('index' => '0', 'congbo' => '0', 'table' => 'giagdbatdongsan', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
+        ),
+        'qg_philephi' => array(
+            'index' => '0',
+            'congbo' => '0',
+            'danhmuc' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
+            'hoso' => array('index' => '0', 'congbo' => '0', 'table' => 'giagdbatdongsan', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
+        ),
+        'qg_kekhaigia' => array(
+            'index' => '0',
+            'congbo' => '0',
+            'danhmuc' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
+            'doituong' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
+            'doanhnghiep' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
+            'hoso' => array('index' => '0', 'congbo' => '0', 'table' => 'giagdbatdongsan', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
+        ),
+        'qg_dangkygia' => array(
+            'index' => '0',
+            'congbo' => '0',
+            'danhmuc' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
+            'doituong' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
+            'doanhnghiep' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
+            'hoso' => array('index' => '0', 'congbo' => '0', 'table' => 'giagdbatdongsan', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
+        ),
+        'qg_thamdinhgia' => array(
+            'index' => '0',
+            'congbo' => '0',
+            'hoidong' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
+            'hoso' => array('index' => '0', 'congbo' => '0', 'table' => 'giagdbatdongsan', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
+        ),
+    );
     $gui['hethong'] = array(
-        'index' => '0', 'congbo' => '0',
+        'index' => '0',
+        'congbo' => '0',
         'hethong_pq' => array(
-            'index' => '0', 'congbo' => '0',
+            'index' => '0',
+            'congbo' => '0',
             'danhsachdiaban' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
             'danhsachxaphuong' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
             'danhsachdonvi' => array('index' => '0', 'congbo' => '0', 'table' => '', 'url' => '', 'thoidiem' => 'thoidiem', 'trangthai' => 'HT', 'API' => '0',),
@@ -2687,6 +2754,10 @@ function getPhanQuyen()
     $gui['hethong'] = array(
         'index' => '0',
     );
+    $gui['csdlquocgia'] = array(
+        'index' => '0',
+    );
+
 
     //nhóm chức năng
     $gui['dinhgia'] = array(
@@ -2720,6 +2791,24 @@ function getPhanQuyen()
         'index' => '0',
     );
     $gui['thongkehethong'] = array(
+        'index' => '0',
+    );
+    $gui['qg_racthai'] = array(
+        'index' => '0',
+    );
+    $gui['qg_thuetainguyen'] = array(
+        'index' => '0',
+    );
+    $gui['qg_giathitruong'] = array(
+        'index' => '0',
+    );
+    $gui['qg_kekhaigia'] = array(
+        'index' => '0',
+    );
+    $gui['qg_dangkygia'] = array(
+        'index' => '0',
+    );
+    $gui['qg_thamdinhgia'] = array(
         'index' => '0',
     );
 
@@ -3188,6 +3277,46 @@ function getPhanQuyen()
         'index' => '0',
         'danhmuc' => array('index' => '0', 'modify' => '0'),
     );
+
+    $gui['qg_racthai'] = array(
+            'index' => '0',
+            'danhmuc' => array('index' => '0', 'modify' => '0'),
+            'hoso' => array('index' => '0', 'modify' => '0'),
+    );
+        $gui['qg_thuetainguyen'] = array(
+            'index' => '0',
+            'danhmuc' => array('index' => '0', 'modify' => '0'),
+            'hoso' => array('index' => '0', 'modify' => '0'),
+        );
+        $gui['qg_giathitruong'] = array(
+            'index' => '0',
+            'danhmuc' => array('index' => '0', 'modify' => '0'),
+            'hoso' => array('index' => '0', 'modify' => '0'),
+        );
+        $gui['qg_philephi'] = array(
+            'index' => '0',
+            'danhmuc' => array('index' => '0', 'modify' => '0'),
+            'hoso' => array('index' => '0', 'modify' => '0'),
+        );
+        $gui['qg_kekhaigia'] = array(
+            'index' => '0',
+            'danhmuc' => array('index' => '0', 'modify' => '0'),
+            'doituong' => array('index' => '0', 'modify' => '0'),
+            'doanhnghiep' => array('index' => '0', 'modify' => '0'),
+            'hoso' => array('index' => '0', 'modify' => '0'),
+        );
+        $gui['qg_dangkygia'] = array(
+            'index' => '0',
+            'danhmuc' => array('index' => '0', 'modify' => '0'),
+            'doituong' => array('index' => '0', 'modify' => '0'),
+            'doanhnghiep' => array('index' => '0', 'modify' => '0'),
+            'hoso' => array('index' => '0', 'modify' => '0'),
+        );
+        $gui['qg_thamdinhgia'] = array(
+            'index' => '0',
+            'hoidong' => array('index' => '0', 'modify' => '0'),
+            'hoso' => array('index' => '0', 'modify' => '0'),
+        );
     return $gui;
 }
 

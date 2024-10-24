@@ -581,6 +581,9 @@
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvcuthe', 'hoso','index'))
                             @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
                                 <li>
+                                    <a href="{{url('/giaspdvcuthe/danhmuc')}}">Danh mục</a>
+                                </li>
+                                <li>
                                     <a href="{{url('/giaspdvcuthe/danhsach')}}">
                                         Thông tin hồ sơ
                                     </a>

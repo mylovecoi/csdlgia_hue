@@ -257,11 +257,11 @@
     <script>
         function add() {
             $('#madvt').val('');
-            $('#madvt').attr('readonly', true);
+            // $('#madvt').attr('readonly', true);
         }
 
         function edit(madvt, dvt) {
-            $('#madvt').attr('readonly', false);
+            // $('#madvt').attr('readonly', false);
             $('#madvt').val(madvt);
             $('#dvt').val(dvt);
         }

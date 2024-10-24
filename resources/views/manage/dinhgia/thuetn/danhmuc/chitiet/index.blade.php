@@ -74,7 +74,7 @@
                             <td>{{$tt->cap4}}</td>
                             <td>{{$tt->cap5}}</td>
                             <td class="active" >{{$tt->ten}}</td>
-                            <td style="text-align: center">{{$tt->dvt}}</td>
+                            <td style="text-align: center">{{$a_dvt[$tt->dvt] ?? $tt->dvt}}</td>
                             <td style="text-align: center">
                                 @if($tt->theodoi == 'KTD')
                                     <span class="badge badge-active">Không theo dõi</span>

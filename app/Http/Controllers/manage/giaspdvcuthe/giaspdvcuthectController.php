@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers\manage\giaspdvcuthe;
 
-use App\Model\manage\dinhgia\giacuocvanchuyen\giacuocvanchuyenct;
-use App\Model\manage\dinhgia\GiaDvGdDtCt;
-use App\Model\manage\dinhgia\giadvgddtdm;
+
 use App\Model\manage\dinhgia\giaspdvcuthe\giaspdvcuthe_ct;
 use App\Model\system\dmdvt;
 use Illuminate\Http\Request;
@@ -23,10 +21,10 @@ class giaspdvcuthectController extends Controller
         }
 
         $inputs = $request->all();
-        $chk_dvt = dmdvt::where('dvt', $inputs['dvt'])->get();
-        if (count($chk_dvt) == 0) {
-            dmdvt::insert(['dvt' => $inputs['dvt']]);
-        }
+        // $chk_dvt = dmdvt::where('dvt', $inputs['dvt'])->get();
+        // if (count($chk_dvt) == 0) {
+        //     dmdvt::insert(['dvt' => $inputs['dvt']]);
+        // }
 
         $inputs['mucgia'] = getDoubleToDb($inputs['mucgia']);
 
@@ -80,14 +78,14 @@ class giaspdvcuthectController extends Controller
             'message' => 'error',
         );
 
-
+        $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','madvt');
         $result['message'] = '<div class="row" id="dsts">';
         $result['message'] .= '<div class="col-md-12">';
         $result['message'] .= '<table class="table table-striped table-bordered table-hover" id="sample_3">';
         $result['message'] .= '<thead>';
         $result['message'] .= '<tr>';
         $result['message'] .= '<th style="text-align: center" width="5%">STT</th>';
-        $result['message'] .= '<th style="text-align: center">Phân loại sản phẩm, dịch vụ</th>';
+        // $result['message'] .= '<th style="text-align: center">Phân loại sản phẩm, dịch vụ</th>';
         $result['message'] .= '<th style="text-align: center">Tên sản phẩm, dịch vụ</th>';
         $result['message'] .= '<th style="text-align: center">Đơn vị<br>tính</th>';
         $result['message'] .= '<th style="text-align: center">Mức giá</th>';
@@ -100,9 +98,9 @@ class giaspdvcuthectController extends Controller
             foreach ($model as $key => $tents) {
                 $result['message'] .= '<tr>';
                 $result['message'] .= '<td style="text-align: center">' . ($i++) . '</td>';
-                $result['message'] .= '<td>' . $tents->phanloaidv. '</td>';
+                // $result['message'] .= '<td>' . $tents->phanloaidv. '</td>';
                 $result['message'] .= '<td class="active">' . $tents->mota. '</td>';
-                $result['message'] .= '<td>' . $tents->dvt. '</td>';
+                $result['message'] .= '<td>' . $a_dvt[$tents->dvt] ?? $tents->dvt. '</td>';
                 $result['message'] .= '<td style="text-align: right;">' . dinhdangso($tents->mucgia) . '</td>';
                 $result['message'] .= '<td>' .
                     '<button type="button" data-target="#modal-modify" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editItem(' . $tents->id . ');"><i class="fa fa-edit"></i>&nbsp;Sửa</button>' .

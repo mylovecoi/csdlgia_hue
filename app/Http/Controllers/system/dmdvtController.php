@@ -42,7 +42,7 @@ class dmdvtController extends Controller
             $model = dmdvt::where('madvt', $inputs['madvt'])->first();
 
             if ($model == null) {
-                $inputs['madvt'] = getdate()[0];
+                $inputs['madvt'] =  $inputs['madvt'] != '' ? $inputs['madvt'] : getdate()[0];
                 dmdvt::create($inputs);
             } else {
                 $model->dvt = $inputs['dvt'];

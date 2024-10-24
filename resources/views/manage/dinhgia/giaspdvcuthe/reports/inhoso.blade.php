@@ -53,7 +53,7 @@
                 <tr>
                     <td style="text-align: center">{{$k++}}</td>
                     <td>{{$tt->mota}}</td>
-                    <td style="text-align: center;">{{$tt->dvt}}</td>
+                    <td style="text-align: center;">{{$a_dvt[$tt->dvt] ?? $tt->dvt}}</td>
                     <td style="text-align: right;">{{dinhdangso($tt->mucgia)}}</td>
                 </tr>
             @endforeach

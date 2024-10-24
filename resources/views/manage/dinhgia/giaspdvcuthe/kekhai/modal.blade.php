@@ -7,13 +7,13 @@
                 <h4 id="modal-header-primary-label" class="modal-title">Thông tin chi tiết</h4>
             </div>
             <div class="modal-body" id="edit_node">
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             @include('manage.include.form.phanloaidv.input_phanloaidv')
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="row">
                     <div class="form-group">
@@ -25,11 +25,11 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6">
+                    {{-- <div class="col-md-6">
                         <div class="form-group">
                             @include('manage.include.form.input_dvt')
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Mức giá</label>
@@ -90,9 +90,9 @@
             dataType: 'JSON',
             success: function (data) {
                 var form = $('#frm_modify');
-                form.find("[name='phanloaidv']").val(data.phanloaidv).trigger('change');
+                // form.find("[name='phanloaidv']").val(data.phanloaidv).trigger('change');
                 form.find("[name='mota']").val(data.mota);
-                form.find("[name='dvt']").val(data.dvt);
+                // form.find("[name='dvt']").val(data.dvt);
                 form.find("[name='mucgia']").val(data.mucgia);
                 form.find("[name='id']").val(data.id);
                 InputMask();
@@ -114,9 +114,9 @@
             data: {
                 _token: CSRF_TOKEN,
                 mahs: $('#mahs').val(),
-                phanloaidv: form.find("[name='phanloaidv']").val(),
+                // phanloaidv: form.find("[name='phanloaidv']").val(),
                 mota: form.find("[name='mota']").val(),
-                dvt: form.find("[name='dvt']").val(),
+                // dvt: form.find("[name='dvt']").val(),
                 mucgia: form.find("[name='mucgia']").val(),
                 id: form.find("[name='id']").val(),
             },

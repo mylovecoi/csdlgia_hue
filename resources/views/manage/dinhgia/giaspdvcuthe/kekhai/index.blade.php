@@ -46,6 +46,8 @@
                 <div class="portlet-title">
                     <div class="actions">
                         @if(chkPer('csdlmucgiahhdv','dinhgia', 'giaspdvcuthe', 'hoso', 'modify'))
+                        <button type="button" class="btn btn-default btn-sm" data-target="#create-modal-confirm" data-toggle="modal">
+                            <i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
                             <a href="{{url($inputs['url'].'/new?madv='.$inputs['madv'])}}" class="btn btn-default btn-sm">
                                 <i class="fa fa-plus"></i> Thêm mới </a>
                             {{--                            <a href="{{url($inputs['url'].'/nhandulieutuexcel?madv='.$inputs['madv'])}}" class="btn btn-default btn-sm">--}}
@@ -97,7 +99,7 @@
                         @foreach($model as $key=>$tt)
                             <tr>
                                 <td style="text-align: center">{{$key + 1}}</td>
-                                <td style="text-align: center">{{$a_diaban[$tt->madiaban] ?? ''}}</td>
+                                <td style="text-align: center">{{$a_diabanapdung[$tt->madiaban] ?? ''}}</td>
                                 <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
                                 <td class="success">{{$tt->soqd}}</td>
                                 @include('manage.include.form.td_trangthai')
@@ -132,6 +134,46 @@
             <!-- END EXAMPLE TABLE PORTLET-->
         </div>
     </div>
+
+        <!--Modal Create-->
+        <div id="create-modal-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade bs-modal-lg">
+            {!! Form::open(['url'=>$inputs['url'].'/new','id' => 'frm_create','method'=>'get'])!!}
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                        <h4 id="modal-header-primary-label" class="modal-title">Thêm mới báo cáo giá hàng hóa dịch vụ</h4>
+                    </div>
+    
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Đơn vị báo cáo</label>
+                                    {!!Form::select('madv', $a_dv, $inputs['madv'], array('id' => 'madv','class' => 'form-control select2me'))!!}
+                                </div>
+                            </div>
+    
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Danh mục hàng hóa, dịch vụ</label>
+                                    {!!Form::select('manhom_bc', $a_nhom, null, array('class' => 'form-control select2me'))!!}
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="madiaban" name="madiaban" value="{{$inputs['madiaban']}}">
+                        <input type="hidden" id="mahs" name="mahs" value="">
+                        <input type="hidden" id="act" name="act" value="true">
+                    </div>
+    
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
+                        <button type="submit" class="btn btn-primary">Đồng ý</button>
+                    </div>
+                </div>
+            </div>
+            {!! Form::close() !!}
+        </div>
 
     @include('manage.include.form.modal_attackfile')
     @include('manage.include.form.modal_approve_hs')

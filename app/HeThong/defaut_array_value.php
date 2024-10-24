@@ -105,10 +105,18 @@ function getLoaiVbQlNn($all = true)
 function getThang($all = false)
 {
     $a_tl = array(
-        '01' => '01', '02' => '02', '03' => '03',
-        '04' => '04', '05' => '05', '06' => '06',
-        '07' => '07', '08' => '08', '09' => '09',
-        '10' => '10', '11' => '11', '12' => '12'
+        '01' => '01',
+        '02' => '02',
+        '03' => '03',
+        '04' => '04',
+        '05' => '05',
+        '06' => '06',
+        '07' => '07',
+        '08' => '08',
+        '09' => '09',
+        '10' => '10',
+        '11' => '11',
+        '12' => '12'
     );
     if ($all)
         return a_merge(array('all' => '--Tất cả--'), $a_tl);
@@ -449,11 +457,12 @@ function getDonViTongHop($linhvuc, $level, $madiaban = null)
             ->orwhere('madiaban', $madiaban)->get();
     }
 
+    //dd($m_donvi);  
     $ketqua = new Illuminate\Support\Collection();
     $m_user = App\Users::wherein('madv', array_column($m_donvi->toarray(), 'madv'))->get();
-    //dd($m_user);
-    foreach ($m_user as $user) {
-        $per = json_decode($user->permission, true);
+    // dd($m_user);
+    foreach ($m_user as $user) {       
+        $per = json_decode($user->permission, true);        
         if (
             isset($per[$linhvuc]['hoso']['approve']) && $per[$linhvuc]['hoso']['approve'] == '1'
             && in_array('TONGHOP', explode(';', $user->chucnang))
@@ -510,7 +519,7 @@ function getDonViTongHop_dn($linhvuc, $level, $madiaban = null)
     }
 
     $m_user = App\Users::wherein('madv', array_column($m_donvi->toarray(), 'madv'))->get();
-   
+
     $ketqua = new Illuminate\Support\Collection();
 
     foreach ($m_user as $user) {
@@ -656,4 +665,13 @@ function getDuongDanThuMuc($machucnang)
     $a_kq = [];
     $a_kq['giathuetn'] = "data/giathuetn/";
     return $a_kq[$machucnang] ?? '';
+}
+
+function setArrayAll($array, $noidung = 'Tất cả', $giatri = 'ALL')
+{
+    $a_kq = [$giatri => $noidung];
+    foreach ($array as $k => $v) {
+        $a_kq[(string)$k] = $v;
+    }
+    return $a_kq;
 }

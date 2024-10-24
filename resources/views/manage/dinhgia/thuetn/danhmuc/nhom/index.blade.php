@@ -85,8 +85,9 @@
                         <thead>
                             <tr>
                                 <th style="text-align: center" width="5%">STT</th>
-                                <th style="text-align: center">Nhóm tài nguyên</th>
-                                <th style="text-align: center" width="15%">Theo dõi</th>
+                                <th style="text-align: center">Mã số</th>
+                                <th style="text-align: center">Mô tả</th>
+                                <th style="text-align: center" width="10%">Theo dõi</th>
                                 <th style="text-align: center" width="15%">Thao tác</th>
                             </tr>
                         </thead>
@@ -94,6 +95,7 @@
                             @foreach ($model as $key => $tt)
                                 <tr class="odd gradeX">
                                     <td style="text-align: center">{{ $key + 1 }}</td>
+                                    <td class="active">{{ $tt->manhom }}</td>
                                     <td class="active">{{ $tt->tennhom }}</td>
                                     <td style="text-align: center">
                                         @if ($tt->theodoi == 'KTD')

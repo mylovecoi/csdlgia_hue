@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Support\Facades\Route;
+
 Route::resource('general','GeneralConfigsController');
 Route::get('setting','GeneralConfigsController@setting');
 Route::post('setting','GeneralConfigsController@updatesetting');
@@ -193,4 +195,15 @@ Route::group(['prefix'=>'KetNoiAPI'],function (){
     //Truyền hồ sơ
     Route::post('TruyenHoSo','_dungchung\KetNoiCSDLQuocGiaController@send_post');
     Route::get('XemHoSo','_dungchung\KetNoiCSDLQuocGiaController@XemHoSo');
+});
+
+Route::group(['prefix'=>'tinhuyenxa'], function(){
+    Route::get('danhsach', 'system\dmtinhhuyenxaController@index');
+    Route::get('create', 'system\dmtinhhuyenxaController@create');
+    Route::post('store', 'system\dmtinhhuyenxaController@store');
+    Route::get('modify', 'system\dmtinhhuyenxaController@modify');
+    Route::post('update', 'system\dmtinhhuyenxaController@update');
+    Route::post('delete','system\dmtinhhuyenxaController@delete');
+    Route::post('delete_all','system\dmtinhhuyenxaController@delete_all');
+    Route::post('nhanexcel','system\dmtinhhuyenxaController@create_excel');
 });

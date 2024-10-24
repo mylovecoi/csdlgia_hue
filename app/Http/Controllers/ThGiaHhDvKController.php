@@ -661,7 +661,7 @@ class ThGiaHhDvKController extends Controller
             $dataObj = new ColectionImport();
             $theArray = Excel::toArray($dataObj, $file);
             $data = $theArray[0];//Mặc định lấy Sheet 1  
-            dd($theArray[0]);
+            //dd($theArray[0]);
             //Gán lại dòng
             $inputs['dendong'] = $inputs['dendong'] < count($data) ? count($data) : $inputs['dendong'];
             

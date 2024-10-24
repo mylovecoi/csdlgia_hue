@@ -17,8 +17,13 @@ class DmThueTn extends Model
         'cap3',
         'cap4',
         'cap5',
+        'cap6',
         'dvt',
         'sapxep',
         'theodoi',
+        'maso',
+        'maso_goc',
+        'truyendulieu',
+        'thoigiantruyen',
     ];
 }

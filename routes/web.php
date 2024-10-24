@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Support\Facades\Route;
+
 Route::get('','HomeController@index');
 Route::get('thongtinhotro','system\dsvanphongController@hotro');
 //Route::get('/testword', 'HomeController@testword');
@@ -40,6 +42,7 @@ include('manage/giagocvlxd.php');
 include('manage/giadatduan.php');
 include('manage/ttpvctqlnn.php');
 include('manage/thongke.php');
+include('manage/csdlquocgia.php');
 
 //End Manage
 

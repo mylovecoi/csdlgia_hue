@@ -7,6 +7,11 @@ $(function () {
     }
     var chk = url.split('/');
 
+    var index = url.indexOf('chitiet_dm');
+    if (index > 0) {
+        url = url.substring(0, index - 1) + '/danhmuc';
+    }
+
     var index = url.indexOf('perm');
     if (index > 0) {
         url = url.substring(0, index - 1) + '/danhsach';

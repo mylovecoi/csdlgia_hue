@@ -1,6 +1,9 @@
 <?php
-//Giá các loại đất
 
+use App\Http\Controllers\manage\giaspdvcuthe\giaspdvcuthe_dmController;
+use Illuminate\Support\Facades\Route;
+
+//Giá các loại đất
 Route::resource('dmqdgiadat','DmQdGiaDatController');
 Route::post('dmqdgiadat/delete','DmQdGiaDatController@destroy');
 
@@ -932,6 +935,13 @@ Route::group(['prefix'=>'muataisan'],function (){
 
 //Giá sản phẩm dịch vụ cụ thế
 Route::group(['prefix'=>'giaspdvcuthe'],function (){
+    Route::get('danhmuc','manage\giaspdvcuthe\giaspdvcuthe_dmController@index');
+    Route::post('danhmuc','manage\giaspdvcuthe\giaspdvcuthe_dmController@store_nhomdm');
+    Route::post('delete_nhomdm','manage\giaspdvcuthe\giaspdvcuthe_dmController@destroy_nhomdm');
+    Route::post('delete_dm','manage\giaspdvcuthe\giaspdvcuthe_dmController@delete_dm');
+    Route::get('chitiet_dm', [giaspdvcuthe_dmController::class, 'chitiet']);
+    Route::post('chitiet_dm','manage\giaspdvcuthe\giaspdvcuthe_dmController@store_chitiet');
+
     Route::get('danhsach','manage\giaspdvcuthe\giaspdvcutheController@index');
     Route::get('new','manage\giaspdvcuthe\giaspdvcutheController@create');
     Route::get('modify','manage\giaspdvcuthe\giaspdvcutheController@edit');

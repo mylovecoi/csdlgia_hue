@@ -624,7 +624,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </li>
                                 @endif
 
-                                @if (canKkGiaCt('DVVTHK', 'VC'))
+                                {{-- @if (canKkGiaCt('DVVTHK', 'VC'))
                                     <li>
                                         <a href="javascript:;">
                                             <span class="title">Cước vận chuyển hành khách: xe buýt, xe điện, bè
@@ -645,9 +645,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                             @endif
                                         </ul>
                                     </li>
-                                @endif
+                                @endif --}}
 
-                                @if (canKkGiaGr('DLBB'))
+                                {{-- @if (canKkGiaGr('DLBB'))
                                     @if (canKkGiaCt('DLBB', 'DLBB'))
                                         <li>
                                             <a href="javascript:;">
@@ -669,11 +669,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 @endif
                                             </ul>
                                         </li>
-                                    @endif
-                                    {{-- OK --}}
-                                @endif
+                                    @endif                                   
+                                @endif --}}
 
-                                @if (canKkGiaGr('TQKDL'))
+                                {{-- @if (canKkGiaGr('TQKDL'))
                                     @if (canKkGiaCt('TQKDL', 'TQKDL'))
                                         <li>
                                             <a href="javascript:;">
@@ -696,10 +695,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             </ul>
                                         </li>
                                     @endif
-                                    {{-- OK --}}
-                                @endif
-
-
+                                @endif --}}
                             </ul>
                         </li>
                     @endif
@@ -731,6 +727,8 @@ License: You must have a valid license purchased only from themeforest(the above
                     @endif
 
                     @include('includes.main.include.thongkenhaplieu')
+
+                    @include('includes.main.include.ketnoiquocgia')
 
                     <!-- 03.04.22 sử dụng hệ thống API theo TT93
                 @include('includes.main.mainAPI')
@@ -859,8 +857,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <li><a href="{{ url('/dmnganhnghe/danhsach') }}">Danh mục ngành nghề kinh
                                                     doanh</a> </li>
                                         @endif
+                                        
                                         @if (chkPer('hethong', 'hethong_pq', 'danhmucdvt'))
                                             <li><a href="{{ url('/dmdvt/danhsach') }}">Danh mục đơn vị tính</a> </li>
+                                            <li><a href="{{ url('/tinhuyenxa/danhsach') }}">Danh mục Tỉnh - Huyện - Xã</a> </li>
                                         @endif
                                     </ul>
                                 </li>
