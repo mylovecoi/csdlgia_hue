@@ -222,7 +222,7 @@ class dvkcbctController extends Controller
                 if (!isset($data[$i][$inputs['madichvu']])) {
                     continue; //Mã hàng hoá rỗng => thoát
                 }
-                $chitiet = GiadvkcbDvkcbct::where('mahs', $inputs['mahs'])->where('madichvu', $data[$i][$inputs['madichvu']])->first();
+                $chitiet = DvKcbCt::where('mahs', $inputs['mahs'])->where('madichvu', $data[$i][$inputs['madichvu']])->first();
                 if ($chitiet != null) {
                     $chitiet->phanloai = $data[$i][$inputs['phanloai']];
                     $chitiet->giatoithieu = chkDbl($data[$i][$inputs['giatoithieu']]);
