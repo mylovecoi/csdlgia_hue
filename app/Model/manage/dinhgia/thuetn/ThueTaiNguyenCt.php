@@ -20,5 +20,8 @@ class ThueTaiNguyenCt extends Model
         'dvt',
         'gia',
         'trangthai',
+        'sapxep',
+        'maso',
+        'maso_goc',
     ];
 }

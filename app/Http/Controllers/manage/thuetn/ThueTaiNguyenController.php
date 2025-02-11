@@ -14,6 +14,8 @@ use App\Model\view\view_giathuetn;
 use App\Town;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Imports\ColectionImport;
+use App\Model\system\dmdvt;
 use App\Model\system\dsdonvi;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
@@ -103,7 +105,9 @@ class ThueTaiNguyenController extends Controller
                     'dvt' => $dm->dvt,
                     'level' => $dm->level,
                     'mahs' => $inputs['mahs'],
-                    //$modelctadd->trangthai = 'CXD';
+                    'sapxep' => $dm->sapxep,
+                    'maso' => $dm->maso,
+                    'maso_goc' => $dm->maso_goc,
                 ];
             }
             foreach (array_chunk($a_dm, 100) as $data) {
@@ -131,12 +135,12 @@ class ThueTaiNguyenController extends Controller
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            
-            if(isset($inputs['ipf1'])){
+
+            if (isset($inputs['ipf1'])) {
                 $ipf1 = $request->file('ipf1');
-                $name = $inputs['mahs'] .'&1.'.$ipf1->getClientOriginalName();
+                $name = $inputs['mahs'] . '&1.' . $ipf1->getClientOriginalName();
                 $ipf1->move(public_path() . '/data/giathuetn/', $name);
-                $inputs['ipf1']= $name;
+                $inputs['ipf1'] = $name;
             }
             //dd($inputs);
             $inputs['thoidiem'] = getDateToDb($inputs['thoidiem']);
@@ -216,10 +220,11 @@ class ThueTaiNguyenController extends Controller
             $modelct = ThueTaiNguyenCt::where('mahs', $model->mahs)->get();
             $modelnhom = NhomThueTn::where('manhom', $model->manhom)
                 ->first();
-
+            $a_dvt = array_column(dmdvt::all()->toArray(),'dvt','madvt');
             return view('manage.dinhgia.thuetn.reports.prints')
                 ->with('modelct', $modelct)
                 ->with('modelnhom', $modelnhom)
+                ->with('a_dvt', $a_dvt)
                 ->with('model', $model)
                 ->with('inputs', $inputs)
                 ->with('pageTitle', 'Bảng giá tính thuế tài nguyên ');
@@ -240,6 +245,38 @@ class ThueTaiNguyenController extends Controller
     }
 
     public function importexcel(Request $request)
+    {
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+
+            //Do mã char('A') = 65
+            //Chuyển mã A,B,C về 0,1,2,3,...
+            $inputs["maso"] = ord(strtoupper($inputs["maso"])) - 65;
+            $inputs["gia"] = ord(strtoupper($inputs["gia"])) - 65;
+            //dd($inputs);
+            $file = $request->file('fexcel');
+            $dataObj = new ColectionImport();
+            $theArray = Excel::toArray($dataObj, $file);
+            $data = $theArray[0]; //Mặc định lấy Sheet 1            
+            $a_dm = [];
+            $inputs['dendong'] = $inputs['dendong'] < count($data) ? count($data) - 1 : $inputs['dendong'];
+            $inputs['tudong'] = $inputs['tudong'] - 1; //Do mảng bắt đầu từ 0
+            // dd($data);
+            for ($i = $inputs['tudong']; $i <= $inputs['dendong']; $i++) {
+                if (isset($data[$i][$inputs['maso']]))
+                    $a_dm[$data[$i][$inputs['maso']]] = chkDbl($data[$i][$inputs['gia']]);
+            }
+            //dd($a_dm);
+            foreach (ThueTaiNguyenCt::where('mahs', $inputs['mahs'])->get() as $tainguyen) {
+                $tainguyen->gia = $a_dm[$tainguyen->maso] ?? 0;
+                $tainguyen->save();
+            }
+            return redirect('/giathuetn/modify?mahs=' . $inputs['mahs']);
+        } else
+            return view('errors.notlogin');
+    }
+
+    public function importexcel_26102024(Request $request)
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
@@ -604,7 +641,7 @@ class ThueTaiNguyenController extends Controller
                 ->with('pageTitle', 'Tìm kiếm thông tin hồ sơ');
         } else
             return view('errors.notlogin');
-    }    
+    }
 
     //Xây dựng các chức năng nhận hồ sơ từ pm csdl quốc gia
     public function nhanhoso(Request $request)
@@ -654,13 +691,14 @@ class ThueTaiNguyenController extends Controller
             return view('errors.notlogin');
     }
 
-    public function innhanhosocsdlqg(Request $request){
+    public function innhanhosocsdlqg(Request $request)
+    {
         $inputs = $request->all();
         $m_donvi = dsdonvi::where('madv', '1605321545')->first();;
         $model = ThueTaiNguyen::where('madv', '1605321545')->get();
         return view('manage.dinhgia.thuetn.nhanhoso.BC1')
-                ->with('model', $model)
-                ->with('m_donvi', $m_donvi)
-                ->with('pageTitle', 'Thông tin giá thuế tài nguyên');
+            ->with('model', $model)
+            ->with('m_donvi', $m_donvi)
+            ->with('pageTitle', 'Thông tin giá thuế tài nguyên');
     }
 }

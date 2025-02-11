@@ -56,7 +56,7 @@
         <td style="text-align: center">{{$tt->level == 4 ? $tt->cap4 : ''}}</td>
         <td style="text-align: center">{{$tt->level == 5 ? $tt->cap5 : ''}}</td>
         <td style="text-align: left">{{$tt->ten}}</td>
-        <td style="text-align: center">{{$tt->dvt}}</td>
+        <td style="text-align: center">{{$a_dvt[$tt->dvt] ?? $tt->dvt}}</td>
         <td style="text-align: right">{{dinhdangsothapphan($tt->gia,5)}}</td>
         </tr>
     @endforeach

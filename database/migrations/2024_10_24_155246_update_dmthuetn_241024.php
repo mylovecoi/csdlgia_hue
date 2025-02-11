@@ -24,6 +24,11 @@ class UpdateDmthuetn241024 extends Migration
             $table->string('truyendulieu')->nullable();
             $table->date('thoigiantruyen')->nullable();
         });
+        Schema::table('thuetainguyenct', function (Blueprint $table) {          
+            $table->string('maso')->nullable();
+            $table->string('maso_goc')->nullable();
+            $table->string('sapxep')->nullable();
+        });
         Schema::table('giaspdvcuthe', function (Blueprint $table) {          
             $table->string('truyendulieu')->nullable();
             $table->date('thoigiantruyen')->nullable();
@@ -47,6 +52,11 @@ class UpdateDmthuetn241024 extends Migration
         Schema::table('thuetainguyen', function (Blueprint $table) {
             $table->dropColumn('truyendulieu');
             $table->dropColumn('thoigiantruyen');
+        });
+        Schema::table('thuetainguyenct', function (Blueprint $table) {
+            $table->dropColumn('maso');
+            $table->dropColumn('maso_goc');
+            $table->dropColumn('sapxep');
         });
         Schema::table('giaspdvcuthe', function (Blueprint $table) {
             $table->dropColumn('truyendulieu');
