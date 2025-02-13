@@ -8,8 +8,8 @@
 @stop
 
 @section('content')
-    <p style="text-align: center; font-weight: bold">Phụ lục 4: MẪU VĂN BẢN KÊ KHAI GIÁ</p>
-    <p style="font-style: italic; text-align: center">(Ban hành kèm theo Thông tư số 233/2016/TT-BTC ngày 11/11/2016 của Bộ Tài chính)</p>
+    <p style="text-align: center; font-weight: bold">Phụ lục VI: MẪU VĂN BẢN KÊ KHAI GIÁ</p>
+    <p style="font-style: italic; text-align: center">(Kèm theo Nghị định số 85/2024/NĐ-CP ngày 10 tháng 7 năm 2024 của Chính phủ)</p>
     <table width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:0 auto 20px; text-align: center;">
         <tr>
             <td width="40%" style="vertical-align: top;">
@@ -31,9 +31,9 @@
     </table>
     <p style="text-align: center; font-weight: bold; font-size: 16px;"><i><u>Kính gửi</u></i>: {{$modelcqcq->tendvhienthi ?? ''}}</p>
     <br><br>
-    <p>Thực hiện Thông tư số 56/2014/TT-BTC ngày 28/4/2014 của Bộ Tài chính hướng dẫn thực hiện Nghị định 177/2013/NĐ-CP ngày 14 tháng 11 năm 2013 của Chính phủ quy định chi tiết và hướng dẫn thi hành một số điều của Luật Giá và Thông tư số 233/2016/TT-BTC ngày 11/11/2016 của Bộ Tài chính sửa đổi, bổ sung một số điều của Thông tư số 56/2014/TT-BTC </p>
+    <p>Thực hiện quy định tại Luật Giá, Nghị định số 85/2024/NĐ-CP ngày 10 tháng 7 năm 2024 của Chính phủ quy định chi tiết một số điều của Luật Giá.</p>
 
-    <p><b>{{$modeldn->tendn}}</b> gửi Bảng kê khai mức giá hàng hoá, dịch vụ (đính kèm).</p>
+    <p><b>{{$modeldn->tendn}}</b> gửi Bảng kê khai mức giá hàng hóa, dịch vụ bán trong nước hoặc xuất khẩu (đính kèm).</p>
 
     <p>Mức giá kê khai này thực hiện từ ngày {{getDayVn($modelkk->ngayhieuluc)}}</p>
 
@@ -101,12 +101,14 @@
         <tr>
             <th width="2%">STT</th>
             <th>Tên hàng hóa, dịch vụ</th>
-            <th>Quy cách, <br>chất lượng</th>
+            <th>Đặc điểm kinh tế - <br>kỹ thuật, quy cách</th>
+            <th>Thị trường xuất khẩu</th>
             <th>Đơn vị<br>tính</th>
-            <th width="10%">Mức giá <br>kê khai hiện<br>hành</th>
-            <th width="10%">Mức giá <br>kê khai mới</th>
-            <th>Mức tăng giảm</th>
-            <th>Tỷ lệ % tăng giảm</th>
+            <th width="10%">Giá kê khai kỳ liền kề trước<br> (kèm số văn bản kê khai)</th>
+            <th width="10%">Giá kê khai<br> kỳ này</th>
+            <th>Thời điểm định giá,<br> điều chỉnh giá</th>
+            <th>Mức tăng/ giảm so với<br> kỳ liền kề trước</th>
+            <th>Tỷ lệ tăng/ giảm so với<br> kỳ liền kề trước</th>
             <th>Ghi chú</th>
         </tr>
         </thead>
@@ -116,9 +118,11 @@
                 <td style="text-align: center">{{$key+1}}</td>
                 <td>{{$tt->tendvcu}}</td>
                 <td>{{$tt->qccl}}</td>
+                <td style="text-align: center"></td>
                 <td style="text-align: center">{{$tt->dvt}}</td>
                 <td style="text-align: right">{{number_format($tt->gialk)}}</td>
                 <td style="text-align: right">{{number_format($tt->giakk)}}</td>
+                <td style="text-align: center"></td>
                 <td style="text-align: right">{{number_format($tt->giakk - $tt->gialk)}}</td>
                 <td style="text-align: right">{{$tt->gialk == 0 ? '100' : number_format(($tt->giakk - $tt->gialk)/$tt->gialk*100)}}%</td>
                 <td>{{$tt->ghichu}}</td>
@@ -126,11 +130,9 @@
         @endforeach
         </tbody>
     </table>
-    <p>2. Các yếu tố chi phí cấu thành giá (đối với kê khai lần đầu); phân tích nguyên nhân, nêu rõ biến động của các yếu tố hình thành giá, tác động làm tăng
-        hoặc giảm giá(đối với kê khai lại)</p>
-    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$modelkk->ytcauthanhgia}}</p>
-    <p>3. Các trường hợp ưu đãi; giảm giá; điều kiện áp dụng giá (nếu có)</p>
-    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$modelkk->thydggadgia}}</p>
-    <p>Mức giá kê khai này thực hiện từ ngày {{getDayVn($modelkk->ngayhieuluc)}}</p>
+    <p>2. Phân tích nguyên nhân điều chỉnh giá bán giữa lần kê khai giá kỳ này so với kỳ liền kề trước:
+        nêu cụ thể nguyên nhân do biến động của các yếu tố hình thành giá và các nguyên nhân khác tác động làm
+        tăng hoặc giảm giá hàng hóa, dịch vụ.</p>
+    <p>3. Ghi rõ mức thuế giá trị gia tăng đã bao gồm trong giá.</p>
 
 @stop
