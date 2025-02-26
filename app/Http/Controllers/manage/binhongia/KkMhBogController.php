@@ -233,7 +233,7 @@ class KkMhBogController extends Controller
                 }
                 
             }
-            if (strtotime($modelkk->ngayhieuluc) < strtotime('2024-07-01')) {
+            if (strtotime($modelkk->ngayhieuluc) < strtotime('2024-01-01')) {
                 return view('manage.bog.baocao.print56')
                     ->with('modelkk', $modelkk)
                     ->with('modeldn', $modeldn)

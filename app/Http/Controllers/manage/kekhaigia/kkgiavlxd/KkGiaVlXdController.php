@@ -141,7 +141,7 @@ class KkGiaVlXdController extends Controller
             $modelkkct = KkGiaVlXdCt::where('mahs', $modelkk->mahs)->get();
             //            dd($modelkkct);
             $modelcqcq = view_dsdiaban_donvi::where('madv', $modelkk->macqcq)->first();
-            if (strtotime($modelkk->ngayhieuluc) < strtotime('2024-07-01')) {
+            if (strtotime($modelkk->ngayhieuluc) < strtotime('2024-01-01')) {
                 return view('manage.kkgia.vlxd.reports.print56')
                 ->with('modelkk', $modelkk)
                 ->with('modeldn', $modeldn)

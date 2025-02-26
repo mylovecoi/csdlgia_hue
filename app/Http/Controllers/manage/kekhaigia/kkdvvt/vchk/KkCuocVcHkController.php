@@ -194,7 +194,7 @@ class KkCuocVcHkController extends Controller
             $modelcqcq = Town::where('maxa',$modelkk->mahuyen)
                 ->first();
 
-            if (strtotime($modelkk->ngayhieuluc) < strtotime('2024-07-01')) {
+            if (strtotime($modelkk->ngayhieuluc) < strtotime('2024-01-01')) {
                 return view('manage.kkgia.cuocvchk.reports.print152')
                 ->with('modelkk', $modelkk)
                 ->with('modeldn', $modeldn)

@@ -138,7 +138,7 @@ class KkGiaDatSanLapController extends Controller
             $modelkkct = KkGiaDatSanLapCt::where('mahs',$modelkk->mahs)->get();
 //            dd($modelkkct);
             $modelcqcq = view_dsdiaban_donvi::where('madv', $modelkk->macqcq)->first();
-            if (strtotime($modelkk->ngayhieuluc) < strtotime('2024-07-01')) {
+            if (strtotime($modelkk->ngayhieuluc) < strtotime('2024-01-01')) {
                 return view('manage.kkgia.datsanlap.reports.print56')
                 ->with('modelkk', $modelkk)
                 ->with('modeldn', $modeldn)
