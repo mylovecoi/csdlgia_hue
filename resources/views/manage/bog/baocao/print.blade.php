@@ -8,6 +8,7 @@
 @stop
 
 @section('content')
+<p style="text-align: center; font-weight: bold;">BIỂU MẪU ĐĂNG KÝ GIÁ</p>
 <p style="font-style: italic; text-align: center">(Kèm theo Nghị định số 85/2024/NĐ-CP ngày 10 tháng 7 năm 2024 của Chính phủ)</p>
 <table width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:0 auto 20px; text-align: center;">
     <tr>
