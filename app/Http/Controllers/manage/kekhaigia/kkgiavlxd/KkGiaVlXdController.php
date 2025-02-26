@@ -141,6 +141,14 @@ class KkGiaVlXdController extends Controller
             $modelkkct = KkGiaVlXdCt::where('mahs', $modelkk->mahs)->get();
             //            dd($modelkkct);
             $modelcqcq = view_dsdiaban_donvi::where('madv', $modelkk->macqcq)->first();
+            if (strtotime($modelkk->ngayhieuluc) < strtotime('2024-07-01')) {
+                return view('manage.kkgia.vlxd.reports.print56')
+                ->with('modelkk', $modelkk)
+                ->with('modeldn', $modeldn)
+                ->with('modelkkct', $modelkkct)
+                ->with('modelcqcq', $modelcqcq)
+                ->with('pageTitle', 'Kê khai giá vật liệu xây dựng');
+            }
             return view('manage.kkgia.vlxd.reports.print')
                 ->with('modelkk', $modelkk)
                 ->with('modeldn', $modeldn)

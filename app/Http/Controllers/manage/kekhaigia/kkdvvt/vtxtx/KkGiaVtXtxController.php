@@ -204,6 +204,14 @@ class KkGiaVtXtxController extends Controller
                 $ct->giacl2 = $ct->giakk2 - $ct->gialk2;
                 $ct->giapt2 = $ct->gialk2 == 0 ? '100%' : round((($ct->giacl2 / $ct->gialk2) * 100), 2) . '%';
             }
+            if (strtotime($modelkk->ngayhieuluc) < strtotime('2024-07-01')) {
+                return view('manage.kkgia.vtxtx.reports.print152')
+                ->with('modelkk', $modelkk)
+                ->with('modeldn', $modeldn)
+                ->with('modelkkct', $modelkkct)
+                ->with('modelcqcq', $modelcqcq)
+                ->with('pageTitle', 'Kê khai giá vận tải xe taxi');
+            }
             return view('manage.kkgia.vtxtx.reports.print')
                 ->with('modelkk', $modelkk)
                 ->with('modeldn', $modeldn)

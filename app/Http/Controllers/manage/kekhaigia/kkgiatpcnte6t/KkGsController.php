@@ -141,6 +141,14 @@ class KkGsController extends Controller
             $modelkkct = KkGsCt::where('mahs', $modelkk->mahs)->get();
             //            dd($modelkkct);
             $modelcqcq = view_dsdiaban_donvi::where('madv', $modelkk->macqcq)->first();
+            if (strtotime($modelkk->ngayhieuluc) < strtotime('2024-07-01')) {
+                return view('manage.kkgia.dvgs.reports.print56')
+                ->with('modelkk', $modelkk)
+                ->with('modeldn', $modeldn)
+                ->with('modelkkct', $modelkkct)
+                ->with('modelcqcq', $modelcqcq)
+                ->with('pageTitle', 'Kê khai giá thực phẩm chức năng cho trẻ em dưới 6 tuổi');
+            }
             return view('manage.kkgia.dvgs.reports.print')
                 ->with('modelkk', $modelkk)
                 ->with('modeldn', $modeldn)

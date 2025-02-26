@@ -189,6 +189,14 @@ class KkGiaVtXbController extends Controller
             $modelkkct = KkGiaVtXbCt::where('mahs', $modelkk->mahs)->get();
             //            dd($modelkkct);
             $modelcqcq = view_dsdiaban_donvi::where('madv', $modelkk->macqcq)->first();
+            if (strtotime($modelkk->ngayhieuluc) < strtotime('2024-07-01')) {
+                return view('manage.kkgia.vtxb.reports.print152')
+                ->with('modelkk', $modelkk)
+                ->with('modeldn', $modeldn)
+                ->with('modelkkct', $modelkkct)
+                ->with('modelcqcq', $modelcqcq)
+                ->with('pageTitle', 'Kê khai giá vận tải xe buýt');
+            }
             return view('manage.kkgia.vtxb.reports.print')
                 ->with('modelkk', $modelkk)
                 ->with('modeldn', $modeldn)

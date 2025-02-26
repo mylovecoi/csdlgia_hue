@@ -233,16 +233,18 @@ class KkMhBogController extends Controller
                 }
                 
             }
-            //dd(count($a_plhh));
-            if ($modelkk->phanloai == 'DK') {
-                return view('manage.bog.baocao.print56')
-                    ->with('modelkk', $modelkk)
-                    ->with('modeldn', $modeldn)
-                    ->with('modelkkct', $modelkkct)
-                    ->with('modelcqcq', $modelcqcq)
-                    ->with('a_plhh', $a_plhh)
-                    ->with('pageTitle', 'Giá kê khai mặt hàng bình ổn giá');
+            if (strtotime($modelkk->ngayhieuluc) < strtotime('2024-07-01')) {
+                if ($modelkk->phanloai == 'DK') {
+                    return view('manage.bog.baocao.print56')
+                        ->with('modelkk', $modelkk)
+                        ->with('modeldn', $modeldn)
+                        ->with('modelkkct', $modelkkct)
+                        ->with('modelcqcq', $modelcqcq)
+                        ->with('a_plhh', $a_plhh)
+                        ->with('pageTitle', 'Giá kê khai mặt hàng bình ổn giá');
+                }
             }
+            //dd(count($a_plhh));
             return view('manage.bog.baocao.print')
                 ->with('modelkk', $modelkk)
                 ->with('modeldn', $modeldn)

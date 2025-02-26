@@ -139,6 +139,14 @@ class KkGiaCatSanController extends Controller
             $modelkkct = KkGiaCatSanCt::where('mahs', $modelkk->mahs)->get();
             //            dd($modelkkct);
             $modelcqcq = view_dsdiaban_donvi::where('madv', $modelkk->macqcq)->first();
+            if (strtotime($modelkk->ngayhieuluc) < strtotime('2024-07-01')) {
+                return view('manage.kkgia.catsan.reports.print56')
+                ->with('modelkk', $modelkk)
+                ->with('modeldn', $modeldn)
+                ->with('modelkkct', $modelkkct)
+                ->with('modelcqcq', $modelcqcq)
+                ->with('pageTitle', 'Kê khai giá cát sạn');
+            }
             return view('manage.kkgia.catsan.reports.print')
                 ->with('modelkk', $modelkk)
                 ->with('modeldn', $modeldn)

@@ -188,6 +188,14 @@ class KkGiaGiayController extends Controller
             $modelkkct = KkGiaGiayCt::where('mahs', $modelkk->mahs)->get();
             //            dd($modelkkct);
             $modelcqcq = view_dsdiaban_donvi::where('madv', $modelkk->macqcq)->first();
+            if (strtotime($modelkk->ngayhieuluc) < strtotime('2024-07-01')) {
+                return view('manage.kkgia.giay.reports.print56')
+                ->with('modelkk', $modelkk)
+                ->with('modeldn', $modeldn)
+                ->with('modelkkct', $modelkkct)
+                ->with('modelcqcq', $modelcqcq)
+                ->with('pageTitle', 'Kê khai giá giấy');
+            }
             return view('manage.kkgia.giay.reports.print')
                 ->with('modelkk', $modelkk)
                 ->with('modeldn', $modeldn)

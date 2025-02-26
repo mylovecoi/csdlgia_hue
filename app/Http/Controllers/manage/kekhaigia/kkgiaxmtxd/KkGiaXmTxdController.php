@@ -189,6 +189,14 @@ class KkGiaXmTxdController extends Controller
             $modelkkct = KkGiaXmTxdCt::where('mahs', $modelkk->mahs)->get();
             //            dd($modelkkct);
             $modelcqcq = view_dsdiaban_donvi::where('madv', $modelkk->macqcq)->first();
+            if (strtotime($modelkk->ngayhieuluc) < strtotime('2024-07-01')) {
+                return view('manage.kkgia.xmtxd.reports.print56')
+                ->with('modelkk', $modelkk)
+                ->with('modeldn', $modeldn)
+                ->with('modelkkct', $modelkkct)
+                ->with('modelcqcq', $modelcqcq)
+                ->with('pageTitle', 'Kê khai giá xi măng thép xây dựng');
+            }
             return view('manage.kkgia.xmtxd.reports.print')
                 ->with('modelkk', $modelkk)
                 ->with('modeldn', $modeldn)

@@ -190,6 +190,14 @@ class KkGiaVtXkController extends Controller
             $modeldn = Company::where('madv', $modelkk->madv)->first();
             $modelkkct = GiaVtXkCt::where('mahs', $modelkk->mahs)->get();
             $modelcqcq = view_dsdiaban_donvi::where('madv', $modelkk->macqcq)->first();
+            if (strtotime($modelkk->ngayhieuluc) < strtotime('2024-07-01')) {
+                return view('manage.kkgia.vtxk.reports.print152')
+                ->with('modelkk', $modelkk)
+                ->with('modeldn', $modeldn)
+                ->with('modelkkct', $modelkkct)
+                ->with('modelcqcq', $modelcqcq)
+                ->with('pageTitle', 'Kê khai giá vận tải xe khách');
+            }
             return view('manage.kkgia.vtxk.reports.print')
                 ->with('modelkk', $modelkk)
                 ->with('modeldn', $modeldn)

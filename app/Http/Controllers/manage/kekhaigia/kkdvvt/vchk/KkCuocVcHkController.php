@@ -193,6 +193,15 @@ class KkCuocVcHkController extends Controller
                 ->get();
             $modelcqcq = Town::where('maxa',$modelkk->mahuyen)
                 ->first();
+
+            if (strtotime($modelkk->ngayhieuluc) < strtotime('2024-07-01')) {
+                return view('manage.kkgia.cuocvchk.reports.print152')
+                ->with('modelkk', $modelkk)
+                ->with('modeldn', $modeldn)
+                ->with('modelkkct', $modelkkct)
+                ->with('modelcqcq', $modelcqcq)
+                ->with('pageTitle','Kê khai giá cước vận chuyển hành khách: xe buýt, xe điện, bè mảng');
+            }
             return view('manage.kkgia.cuocvchk.reports.print')
                 ->with('modelkk',$modelkk)
                 ->with('modeldn',$modeldn)

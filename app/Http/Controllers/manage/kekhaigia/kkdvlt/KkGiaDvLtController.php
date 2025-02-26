@@ -247,7 +247,14 @@ class KkGiaDvLtController extends Controller
             $modeldn = Company::where('madv', $modelcskd->madv)->first();
             $modelkkct = KkGiaDvLtCt::where('mahs', $modelkk->mahs)->get();
             $modelcqcq = view_dsdiaban_donvi::where('madv', $modelkk->macqcq)->first();
-
+            if (strtotime($modelkk->ngayhieuluc) < strtotime('2024-07-01')) {
+                return view('manage.kkgia.dvlt.reports.print56')
+                ->with('modelkk', $modelkk)
+                ->with('modeldn', $modeldn)
+                ->with('modelkkct', $modelkkct)
+                ->with('modelcqcq', $modelcqcq)
+                ->with('pageTitle', 'Kê khai giá dịch vụ lưu trú');
+            }
             return view('manage.kkgia.dvlt.reports.print')
                 ->with('modelkk', $modelkk)
                 ->with('modeldn', $modeldn)

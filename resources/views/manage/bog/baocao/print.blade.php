@@ -8,7 +8,7 @@
 @stop
 
 @section('content')
-
+<p style="font-style: italic; text-align: center">(Kèm theo Nghị định số 85/2024/NĐ-CP ngày 10 tháng 7 năm 2024 của Chính phủ)</p>
 <table width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:0 auto 20px; text-align: center;">
     <tr>
         <td width="50%">
@@ -26,7 +26,7 @@
 </table>
 <p style="text-align: center; font-weight: bold; font-size: 16px;"><i><u>Kính gửi</u></i>: {{$modelcqcq->tendvhienthi ?? ''}}</p>
 <br><br>
-<p>Thực hiện Thông tư số 56/2014/TT-BTC ngày 28/4/2014 của Bộ Tài chính hướng dẫn thực hiện Nghị định 177/2013/NĐ-CP ngày 14 tháng 11 năm 2013 của Chính phủ quy định chi tiết và hướng dẫn thi hành một số điều của Luật Giá và Thông tư số 233/2016/TT-BTC ngày 11/11/2016 của Bộ Tài chính sửa đổi, bổ sung một số điều của Thông tư số 56/2014/TT-BTC </p>
+<p>Thực hiện quy định tại Luật Giá, Nghị định số 85/2024/NĐ-CP ngày 10 tháng 7 năm 2024 của Chính phủ quy định chi tiết một số điều của Luật Giá.</p>
 
 <p><b>{{$modeldn->tendn}}</b> gửi Bảng kê khai mức giá hàng hoá, dịch vụ (đính kèm).</p>
 
