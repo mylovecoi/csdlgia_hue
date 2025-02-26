@@ -11,6 +11,8 @@ class NhomThueTn extends Model
         'id',
         'manhom',
         'tennhom',
-        'theodoi'
+        'theodoi',
+        'truyendulieu',
+        'thoigiantruyen',
     ];
 }

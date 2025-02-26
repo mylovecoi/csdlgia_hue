@@ -7,10 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
 use App\DmHhDvK;
-use App\DmHhDvK_DonVi;
 use App\DmPhiLePhi;
-use App\GiaHhDvK;
-use App\GiaHhDvKCt;
 use App\Model\Api\KetNoiAPI_DanhSach;
 use App\Model\Api\KetNoiAPI_HoSo;
 use App\Model\Api\KetNoiAPI_HoSo_ChiTiet;

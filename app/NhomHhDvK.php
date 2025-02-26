@@ -11,6 +11,8 @@ class NhomHhDvK extends Model
         'id',
         'matt',
         'tentt',
-        'theodoi'
+        'theodoi',
+        'truyendulieu',
+        'thoigiantruyen',
     ];
 }

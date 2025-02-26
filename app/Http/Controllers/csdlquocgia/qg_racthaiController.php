@@ -21,7 +21,7 @@ class qg_racthaiController extends Controller
                 ->with('nam', $inputs['nam'])
                 ->with('tenhh',$tenhh)
                 ->with('phanloai',$inputs['ma'])
-                ->with('pageTitle', 'Báo cáo mặt hàng đăng ký giá');
+                ->with('pageTitle', 'Danh mục dịch vụ thu gom rác thải');
         }else
             return view('errors.notlogin');
     }
@@ -37,7 +37,7 @@ class qg_racthaiController extends Controller
                 ->with('nam', $inputs['nam'])
                 ->with('tenhh',$tenhh)
                 ->with('phanloai',$inputs['ma'])
-                ->with('pageTitle', 'Báo cáo mặt hàng đăng ký giá');
+                ->with('pageTitle', 'Hồ sơ giá dịch vụ thu gom rác thải');
         }else
             return view('errors.notlogin');
     }
