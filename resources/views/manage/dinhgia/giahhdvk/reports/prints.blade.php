@@ -2,7 +2,7 @@
 
 @section('content')
     <p style="text-align: center;font-weight: bold">PHỤ LỤC SỐ 1</p>
-    <table width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:0 auto 20px; text-align: center;">
+    <table id ="data_header" width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:0 auto 20px; text-align: center;">
         <tr>
             <td width="40%">
                 <span style="text-transform: uppercase">{{ $m_dv->dvcaptren }}</span><br>
@@ -18,15 +18,23 @@
                     {{ date('m', strtotime($model->thoidiem)) }} năm {{ date('Y', strtotime($model->thoidiem)) }}</i>
             </td>
         </tr>
-    </table>
-
-    <p style="text-align: center; font-weight: bold; font-size: 16px;text-transform: uppercase;">BẢNG GIÁ THỊ TRƯỜNG HÀNG
-        HÓA, DỊCH VỤ THÁNG {{ $model->thang }} NĂM {{ $model->nam }}</p>
-    <p style="text-align: center; font-size: 16px;font-style: italic">(Ban hành kèm theo Thông tư số 116/2018/TT-BTC ngày
-        28/11/2018 của Bộ Tài chính quy định chế độ báo cáo giá thị trường)</p>
+            <tr>
+            <td colspan="2" style="text-align: center; font-weight: bold; font-size: 16px;text-transform: uppercase;">
+                BẢNG GIÁ THỊ TRƯỜNG HÀNG
+        HÓA, DỊCH VỤ THÁNG {{ $model->thang }} NĂM {{ $model->nam }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center; font-size: 16px;font-style: italic">
+                {{-- (Ban hành kèm theo Thông tư số 116/2018/TT-BTC ngày
+        28/11/2018 của Bộ Tài chính quy định chế độ báo cáo giá thị trường) --}}
+        (Kèm theo Thông tư số 29/2024/TT-BTC ngày 16 tháng 5 năm 2024 của Bộ trưởng Bộ Tài chính)
+            </td>
+        </tr>
+    </table>   
 
     <table cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;"
-        id="data">
+        id="data_body">
         <thead>
             <tr>
                 <th width="2%" style="text-align: center">STT</th>
@@ -57,8 +65,7 @@
                 <th>12</th>
             </tr>
         </thead>
-        <tbody id="ttts">
-
+        <tbody>
             <?php $i = 1; ?>
             @foreach ($a_nhomhhdv as $key => $tt)
                 <?php
@@ -92,12 +99,10 @@
                     @endforeach
                 @endif
             @endforeach
-
-
         </tbody>
-
     </table>
-    <table width="96%" border="0" cellspacing="0" height cellpadding="0"
+
+    <table id="data_footer" width="96%" border="0" cellspacing="0" height cellpadding="0"
         style="margin: 20px auto;text-align: center; height:200px">
         <tr>
             <td width="40%" style="text-align: left; vertical-align: top;">

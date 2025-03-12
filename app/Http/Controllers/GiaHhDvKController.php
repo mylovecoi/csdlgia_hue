@@ -366,7 +366,8 @@ class GiaHhDvKController extends Controller
             foreach ($modelct as $ct) {
                 $ct->manhom = $a_dmhhdv[$ct->mahhdv] ?? '';
             }
-            $a_dvt = array_column(dmdvt::all()->toArray(), 'dvt', 'madvt');
+            //dd($a_tt);
+           // $a_dvt = array_column(dmdvt::all()->toArray(), 'dvt', 'madvt');
             return view('manage.dinhgia.giahhdvk.reports.prints')
                 ->with('model', $model)
                 ->with('modelct', $modelct)
