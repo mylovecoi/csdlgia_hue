@@ -354,7 +354,9 @@ class GiaHhDvKController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $model = GiaHhDvK::where('mahs', $inputs['mahs'])->first();
-            $modelct = view_giahhdvk::where('mahs', $model->mahs)->orderby('mahhdv')->get();
+            $modelct = view_giahhdvk::where('mahs', $model->mahs) ->where(function ($qr){
+                $qr->where('gia','>','0')->orwhere('gialk','>','0');
+            })->orderby('mahhdv')->get();            
             $a_dmhhdv = array_column(DmHhDvK::where('matt', $model->matt)->get()->toarray(), 'manhom', 'mahhdv');
             $a_diaban = array_column(dsdiaban::where('madiaban', $model->madiaban)->get()->toarray(), 'tendiaban', 'madiaban');
             $a_tt = array_column(NhomHhDvK::where('matt', $model->matt)->get()->toarray(), 'tentt', 'matt');
