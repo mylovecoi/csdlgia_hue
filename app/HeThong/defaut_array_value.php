@@ -570,7 +570,7 @@ function getDiaBan_HoSo($m_diaban, $all = false)
 function getNam($all = false)
 {
     $a_tl = $all == true ? array('all' => '--Tất cả--') : array();
-    for ($i = date('Y') - 3; $i <= date('Y') + 1; $i++) {
+    for ($i = date('Y') - 10; $i <= date('Y') + 1; $i++) {
         $a_tl[$i] = $i;
     }
     return $a_tl;

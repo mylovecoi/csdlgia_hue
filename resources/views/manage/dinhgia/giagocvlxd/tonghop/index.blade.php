@@ -70,7 +70,7 @@
                             <div class="col-md-2">
                                 <label>Năm hồ sơ</label>
                                 <select name="nam" id="nam" class="form-control">
-                                    @if ($nam_start = intval(date('Y')) - 5 ) @endif
+                                    @if ($nam_start = intval(date('Y')) - 10 ) @endif
                                     @if ($nam_stop = intval(date('Y')) + 1) @endif
                                     @for($i = $nam_start; $i <= $nam_stop; $i++)
                                         <option value="{{$i}}" {{$i == $inputs['nam'] ? 'selected' : ''}}>Năm {{$i}}</option>

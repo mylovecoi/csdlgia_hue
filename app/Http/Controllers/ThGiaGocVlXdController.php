@@ -35,6 +35,7 @@ class ThGiaGocVlXdController extends Controller
             $model = ThGiaGocVlXd::all();
             $model = $model->where('nam', strval($inputs['nam']));
             $model = $model->where('thang', strval($inputs['thang']));
+            
             //dd($model);
             return view('manage.dinhgia.giagocvlxd.tonghop.index')
                 ->with('model', $model)
@@ -189,12 +190,12 @@ class ThGiaGocVlXdController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $model = ThGiaGocVlXd::where('mahs', $inputs['mahs'])->first();
-
+            //dd($model);
             //            $modelct = ThGiaGocVlXdCt::join('diabanhd','diabanhd.district','=','thgiagocvlxdct.district')
             //                ->where('thgiagocvlxdct.mahs',$model->mahs)
             //                ->select('thgiagocvlxdct.*','diabanhd.diaban')
             //                ->get();
-            $modelct = ThGiaGocVlXdCt::where('id', -1)->get();
+            $modelct = ThGiaGocVlXdCt::where('mahs', $model->mahs)->get();
             return view('manage.dinhgia.giagocvlxd.tonghop.edit')
                 ->with('model', $model)
                 ->with('modelct', $modelct)

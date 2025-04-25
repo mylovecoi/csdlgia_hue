@@ -231,7 +231,7 @@
                                     @foreach($modelct as $key=>$tt)
                                         <tr id={{$tt->id}}>
                                             <td style="text-align: center">{{($key +1)}}</td>
-                                            <td class="active" style="font-weight: bold">{{$a_spdv[$tt->maspdv] ?? ''}}</td>
+                                            <td class="active" style="font-weight: bold">{{$a_spdv[$tt->maspdv] ?? $tt->mota}}</td>
                                             <td style="text-align: right;font-weight: bold">{{number_format($tt->dongia)}}</td>
                                             <td>
                                                 @if(in_array($model->trangthai, ['CHT', 'HHT']))

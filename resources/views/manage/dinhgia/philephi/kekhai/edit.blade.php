@@ -233,7 +233,7 @@
                                                 <th rowspan="2">Tên phí, lệ phí</th>
                                                 <th rowspan="2">Phần<br>trăm</th>
                                                 <th colspan="2">Mức thu</th>
-                                                {{--<th rowspan="2">Ghi chú</th>--}}
+                                                <th rowspan="2">Ghi chú</th>
                                                 <th rowspan="2" width="15%">Thao tác</th>
                                             </tr>
 
@@ -251,7 +251,7 @@
                                             <td class="text-center">{{$ct->phantram}}</td>
                                             <td style="text-align: right;">{{dinhdangso($ct->mucthutu)}}</td>
                                             <td style="text-align: right;">{{dinhdangso($ct->mucthuden)}}</td>
-{{--                                            <td style="text-align: left">{{$ct->ghichu}}</td>--}}
+                                           <td style="text-align: left">{{$ct->ghichu}}</td>
                                             <td>
                                                 @if(in_array($model->trangthai, ['CHT', 'HHT']))
                                                     <button type="button" data-target="#modal-create" data-toggle="modal" class="btn btn-default btn-xs mbs" onclick="editmhbog({{$ct->id}})">

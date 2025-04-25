@@ -258,12 +258,12 @@
                         <div class="form-group">
                             <div class="col-md-4">
                                 <label>Tháng hồ sơ</label>
-                                {!! Form::select('thang', getThang(), null, array('id' => 'quy', 'class' => 'form-control'))!!}
+                                {!! Form::select('thang', getThang(), $model->thang, array('id' => 'quy', 'class' => 'form-control'))!!}
                             </div>
 
                             <div class="col-md-4">
                                 <label >Năm hồ sơ</label>
-                                {!! Form::select('nam', getNam(), null, array('id' => 'nam', 'class' => 'form-control'))!!}
+                                {!! Form::select('nam', getNam(), $model->nam, array('id' => 'nam', 'class' => 'form-control'))!!}
                             </div>
 
                             <div class="col-md-4">
@@ -295,40 +295,40 @@
                         </div>
                     </div>
 
-{{--                    <h4 class="form-section" style="color: #0000ff">Thông tin chi tiết hồ sơ</h4>--}}
+                   <h4 class="form-section" style="color: #0000ff">Thông tin chi tiết hồ sơ</h4>
 
-{{--                    <div class="row" id="dsts">--}}
-{{--                        <div class="col-md-12">--}}
-{{--                            <table class="table table-striped table-bordered table-hover" id="sample_3">--}}
-{{--                                <thead>--}}
-{{--                                <tr>--}}
-{{--                                    <th style="text-align: center" width="2%">STT</th>--}}
-{{--                                    <th style="text-align: center">Địa bàn</th>--}}
-{{--                                    <th style="text-align: center">Tên vật liệu</th>--}}
-{{--                                    <th style="text-align: center">Quy cách chất lượng</th>--}}
-{{--                                    <th style="text-align: center">ĐVT</th>--}}
-{{--                                    <th style="text-align: center">Giá vật liệu <br>gốc (đ)</th>--}}
-{{--                                    <th style="text-align: center">Tiêu chuẩn, Quy<br> chuẩn áp dụng</th>--}}
-{{--                                    <th style="text-align: center">Ghi chú</th>--}}
-{{--                                </tr>--}}
-{{--                                </thead>--}}
-{{--                                <tbody>--}}
-{{--                                @foreach($modelct as $key=>$tt)--}}
-{{--                                    <tr>--}}
-{{--                                        <td style="text-align: center">{{($key +1)}}</td>--}}
-{{--                                        <td>{{$tt->diaban}}</td>--}}
-{{--                                        <td class="active">{{$tt->tenhhdv}}</td>--}}
-{{--                                        <td style="text-align: left">{{$tt->qccl}}</td>--}}
-{{--                                        <td style="text-align: center">{{$tt->dvt}}</td>--}}
-{{--                                        <td style="text-align: right;font-weight: bold">{{number_format($tt->giagoc)}}</td>--}}
-{{--                                        <td style="text-align: left">{{$tt->qcad}}</td>--}}
-{{--                                        <td style="text-align: left">{{$tt->ghichu}}</td>--}}
-{{--                                    </tr>--}}
-{{--                                @endforeach--}}
-{{--                                </tbody>--}}
-{{--                            </table>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+                   <div class="row" id="dsts">
+                       <div class="col-md-12">
+                           <table class="table table-striped table-bordered table-hover" id="sample_3">
+                               <thead>
+                               <tr>
+                                   <th style="text-align: center" width="2%">STT</th>
+                                   <th style="text-align: center">Địa bàn</th>
+                                   <th style="text-align: center">Tên vật liệu</th>
+                                   <th style="text-align: center">Quy cách chất lượng</th>
+                                   <th style="text-align: center">ĐVT</th>
+                                   <th style="text-align: center">Giá vật liệu <br>gốc (đ)</th>
+                                   <th style="text-align: center">Tiêu chuẩn, Quy<br> chuẩn áp dụng</th>
+                                   <th style="text-align: center">Ghi chú</th>
+                               </tr>
+                               </thead>
+                               <tbody>
+                               @foreach($modelct as $key=>$tt)
+                                   <tr>
+                                       <td style="text-align: center">{{($key +1)}}</td>
+                                       <td>{{$tt->diaban}}</td>
+                                       <td class="active">{{$tt->tenhhdv}}</td>
+                                       <td style="text-align: left">{{$tt->qccl}}</td>
+                                       <td style="text-align: center">{{$tt->dvt}}</td>
+                                       <td style="text-align: right;font-weight: bold">{{number_format($tt->giagoc)}}</td>
+                                       <td style="text-align: left">{{$tt->qcad}}</td>
+                                       <td style="text-align: left">{{$tt->ghichu}}</td>
+                                   </tr>
+                               @endforeach
+                               </tbody>
+                           </table>
+                       </div>
+                  </div>
                 </div>
             </div>
             <!-- END EXAMPLE TABLE PORTLET-->

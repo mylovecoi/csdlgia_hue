@@ -6,6 +6,7 @@ use App\GiaGocVlXd;
 use App\Model\view\view_giagocvlxd;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\ThGiaGocVlXd;
 
 class CongboGiaGocVlXdController extends Controller
 {
@@ -16,11 +17,11 @@ class CongboGiaGocVlXdController extends Controller
         $a_diaban = getDiaBan_XaHuyen('ADMIN');
         $inputs['nam'] = $inputs['nam'] ?? 'all';
 
-        $model = view_giagocvlxd::where('congbo', 'DACONGBO');
-        $model_dk = GiaGocVlXd::where('congbo', 'DACONGBO');
+        $model = view_giagocvlxd::where('trangthai', 'CB');
+        $model_dk = ThGiaGocVlXd::where('trangthai', 'CB');
         if ($inputs['nam'] != 'all'){
-            $model = $model->whereYear('thoidiem', $inputs['nam']);
-            $model_dk = $model_dk->whereYear('thoidiem', $inputs['nam']);
+            $model = $model->where('nam', $inputs['nam']);
+            $model_dk = $model_dk->where('nam', $inputs['nam']);
         }
         $model = $model->get();
         // $model_dk = $model_dk->where('ipf1','<>', '')->get();

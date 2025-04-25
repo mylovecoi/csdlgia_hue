@@ -73,7 +73,7 @@
                         @foreach ($model_dk as $key => $tt)
                             <tr>
                                 <td style="text-align: center">{{ $i++ }}</td>
-                                <td><b>{{ getDayVn($tt->thoidiem) }}</b></td>
+                                <td><b>{{ $tt->thang .'/'.$tt->nam }}</b></td>
                                 <td></td>
                                 <td>
                                     <button type="button" onclick="get_attack('{{ $tt->mahs }}','giadvkcb')"
@@ -89,7 +89,7 @@
                         @foreach ($model as $key => $tt)
                             <tr>
                                 <td style="text-align: center">{{ $i++ }}</td>
-                                <td><b>{{ getDayVn($tt->thoidiem) }}</b></td>
+                                <td><b>{{ $tt->thang .'/'.$tt->nam }}</b></td>
                                 <td class="active" style="font-weight: bold">{{$tt->tenhhdv}}</td>
                                 <td style="text-align: left">{{$tt->qccl}}</td>
                                 <td style="text-align: center">{{ $tt->dvt }}</td>
