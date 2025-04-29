@@ -64,18 +64,19 @@
                         <div class="form-group">
                             <div class="col-md-2">
                                 <label>Tháng hồ sơ</label>
-                                {!! Form::select('thang', getThang(), $inputs['thang'], array('id' => 'thang', 'class' => 'form-control'))!!}
+                                {!! Form::select('thang', getThang(true), $inputs['thang'], array('id' => 'thang', 'class' => 'form-control'))!!}
                             </div>
 
                             <div class="col-md-2">
                                 <label>Năm hồ sơ</label>
-                                <select name="nam" id="nam" class="form-control">
+                                {!! Form::select('nam', getNam(true), $inputs['nam'], array('id' => 'nam', 'class' => 'form-control'))!!}
+                                {{-- <select name="nam" id="nam" class="form-control">
                                     @if ($nam_start = intval(date('Y')) - 10 ) @endif
                                     @if ($nam_stop = intval(date('Y')) + 1) @endif
                                     @for($i = $nam_start; $i <= $nam_stop; $i++)
                                         <option value="{{$i}}" {{$i == $inputs['nam'] ? 'selected' : ''}}>Năm {{$i}}</option>
                                     @endfor
-                                </select>
+                                </select> --}}
                             </div>
                         </div>
                     </div>
@@ -84,6 +85,7 @@
                         <thead>
                         <tr>
                             <th width="2%" style="text-align: center">STT</th>
+                            <th style="text-align: center">Tháng/Năm</th>
                             <th style="text-align: center">Số QĐ</th>
                             <th style="text-align: center">Nội dung</th>
                             <th style="text-align: center">Trạng thái</th>
@@ -96,6 +98,7 @@
                         @foreach($model as $key=>$tt)
                             <tr>
                                 <td style="text-align: center">{{$key + 1}}</td>
+                                <td style="text-align: left">{{$tt->thang.'/'.$tt->nam}}</td>
                                 <td style="text-align: left">{{$tt->sobc}}</td>
                                 <td style="text-align: left">{{$tt->noidung}}</td>
                                 @include('manage.include.form.td_trangthai')

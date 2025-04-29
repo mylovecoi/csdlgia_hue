@@ -26,16 +26,18 @@ class ThGiaGocVlXdController extends Controller
             $m_donvi_th = getDonViTongHop('giagocvlxd', \session('admin')->level, \session('admin')->madiaban);
             //$inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
-
-            $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
-            $inputs['thang'] = isset($inputs['thang']) ? $inputs['thang'] : date('m');
+            $inputs['nam'] = $inputs['nam'] ?? 'all';
+            $inputs['thang'] = $inputs['thang'] ?? 'all';
+            //$inputs['thang'] = isset($inputs['thang']) ? $inputs['thang'] : date('m');
             //dd($inputs);
             //lấy thông tin đơn vị
             //$model = ThGiaGocVlXd::where('madv', $inputs['madv']);
             $model = ThGiaGocVlXd::all();
-            $model = $model->where('nam', strval($inputs['nam']));
-            $model = $model->where('thang', strval($inputs['thang']));
-            
+            if ($inputs['nam'] != 'all')
+                $model = $model->where('nam', strval($inputs['nam']));
+            if ($inputs['thang'] != 'all')
+                $model = $model->where('thang', strval($inputs['thang']));
+
             //dd($model);
             return view('manage.dinhgia.giagocvlxd.tonghop.index')
                 ->with('model', $model)
