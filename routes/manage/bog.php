@@ -14,6 +14,9 @@ Route::group(['prefix'=>'binhongia'],function (){
     Route::get('xemhoso','manage\binhongia\KkMhBogController@show');
     Route::post('delete','manage\binhongia\KkMhBogController@destroy');
 
+    Route::get('nhanexcel','manage\binhongia\KkMhBogController@nhanexcel');
+    Route::post('create_excel','manage\binhongia\KkMhBogController@create_excel');
+
     Route::get('kiemtra','manage\binhongia\KkMhBogXdController@kiemtra');
     Route::post('chuyenhs','manage\binhongia\KkMhBogXdController@chuyenhs');
     Route::get('get_sohs','manage\binhongia\KkMhBogXdController@get_sohs');

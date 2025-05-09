@@ -19,6 +19,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\File;
 
 class KkMhBogController extends Controller
 {
@@ -176,7 +178,7 @@ class KkMhBogController extends Controller
                 ->with('m_dn', $m_dn)
                 ->with('a_pl', $a_pl)
                 ->with('a_dvt', $a_dvt)
-                ->with('pageTitle', 'Giá kê khai mặt hàng BOG');
+                ->with('pageTitle', 'Giá kê khai mặt hàng BOG thêm mới');
         }
     }
 
@@ -359,6 +361,107 @@ class KkMhBogController extends Controller
                 ->with('a_donvi', array_column($m_donvi->toarray(), 'tendv', 'madv'))
                 ->with('a_dm', $a_dm)
                 ->with('pageTitle', 'Tìm kiếm thông tin giá mặt hàng bình ổn giá');
+        } else
+            return view('errors.notlogin');
+    }
+
+    public function nhanexcel(Request $request)
+    {
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            //dd($inputs);
+            //$m_cskd = Company::where('madv', $inputs['macskd'])->first();
+            //$inputs['madv'] = $m_cskd->madv;
+            $inputs['url'] = '/binhongia';
+            return view('manage.kkgia._include.importexcelbog')
+                ->with('inputs', $inputs)
+                ->with('pageTitle', 'Nhận dữ liệu từ file Excel');
+        } else
+            return view('errors.notlogin');
+    }
+
+    public function create_excel(Request $request)
+    {
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            //dd($inputs);
+            $inputs['mahs'] = $inputs['madv'] . '_' . getdate()[0];
+            $m_nghe = DmNgheKd::where('manghe', $inputs['manghe'])->first();
+            $m_dn = Company::where('madv', $inputs['madv'])->first();
+
+            $model = new KkMhBog();
+            $model->mahs = $inputs['mahs'];
+            $model->trangthai = 'CC';
+            $model->ngaynhap = date('Y-m-d');
+            $model->madv = $m_dn->madv;
+
+            $modellk = KkMhBog::where('madv', $inputs['madv'])
+                ->wherein('trangthai', ['DD', 'CB', 'HCB'])
+                ->orderby('ngayhieuluc', 'desc')->first();
+            if ($modellk != null) {
+                $model->socvlk = $modellk->socv;
+                $model->ngaycvlk = $modellk->ngaynhap;
+            }
+
+            // $file = $request->file('fexcel'); // Get the file object
+            // $filename = $inputs['madv'] . '_' . time() . '.' . $file->getClientOriginalExtension(); // Construct filename
+            // $file->move(public_path() . '/data/uploads/excels/', $filename); // Move file to the target directory
+            // $path = public_path() . '/data/uploads/excels/' . $filename; // Get the full path as a string
+
+            // $filename = $inputs['madv'] . '_' . time() . '.' . $request->file('fexcel')->getClientOriginalExtension();
+            // $request->file('fexcel')->move(public_path() . '/data/uploads/excels/', $filename);
+            // $path = public_path() . '/data/uploads/excels/' . $filename;
+
+            $filename = $inputs['madv'] . '_' . getdate()[0];
+            $request->file('fexcel')->move(public_path() . '/data/uploads/excels/', $filename . '.xls');
+            $path = public_path() . '/data/uploads/excels/' . $filename . '.xls';
+            $data = [];
+            
+            Excel::load($path, function ($reader) use (&$data, $inputs) {
+                $obj = $reader->getExcel();
+                $sheet = $obj->getSheet(0);
+                $data = $sheet->toArray(null, true, true, true); // giữ lại tiêu đề A=>'val';
+            });
+            //dd($data);
+
+            $a_dm = array();
+
+            for ($i = $inputs['tudong']; $i <= $inputs['dendong']; $i++) {
+                if (
+                    !isset($data[$i][$inputs['tenhhdv']]) || !isset($data[$i][$inputs['qccl']]) ||
+                    !isset($data[$i][$inputs['dvt']]) || !isset($data[$i][$inputs['mucgialk']]) ||
+                    !isset($data[$i][$inputs['mucgiakk']])
+                ) {
+                    continue;
+                }
+                $a_dm[] = array(
+                    'mahs' => $inputs['mahs'],
+                    'tenhh' => $data[$i][$inputs['tenhhdv']] ?? '',
+                    'quycach' => $data[$i][$inputs['qccl']] ?? '',
+                    'dvt' => $data[$i][$inputs['dvt']] ?? '',
+                    'gialk' => $data[$i][$inputs['mucgialk']] ?? '',
+                    'giakk' => $data[$i][$inputs['mucgiakk']] ?? '',
+                    'ghichu' => $data[$i][$inputs['ghichu']] ?? '',
+                    'madv' => $inputs['madv'],
+                );
+            }
+
+            KkMhBogCt::insert($a_dm);
+            File::Delete($path);
+            $a_pl = array_column(KkMhBogCt::all('plhh')->toArray(), 'plhh', 'plhh');
+            $a_dvt = array_column(dmdvt::all()->toArray(), 'dvt', 'dvt');
+            $modelct = KkMhBogCt::where('mahs', $inputs['mahs'])->get();
+            $inputs['url'] = '/binhongia';
+
+            return view('manage.bog.kekhai.create')
+                ->with('model', $model)
+                ->with('m_dn', $m_dn)
+                ->with('model_ct', $modelct)
+                ->with('inputs', $inputs)
+                ->with('m_nghe', $m_nghe)
+                ->with('a_pl', $a_pl)
+                ->with('a_dvt', $a_dvt)
+                ->with('pageTitle', 'Giá kê khai mặt hàng BOG thêm mới');
         } else
             return view('errors.notlogin');
     }
