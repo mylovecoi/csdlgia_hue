@@ -82,17 +82,19 @@ class KkGiaSachController extends Controller
             $m_diaban = dsdiaban::wherein('madiaban', array_column($m_donvi->toarray(), 'madiaban'))->get();
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $modeldn = $m_donvi->where('madv', $inputs['madv'])->first();
+            $model = KkGiaSach::where('madv', $inputs['madv']);
 
             $inputs['nam'] = $inputs['nam'] ?? date('Y');
-            $model = KkGiaSach::where('madv', $inputs['madv'])
-                ->whereYear('ngaynhap', $inputs['nam'])
-                ->orderBy('id', 'desc')
-                ->get();
+            if ($inputs['nam'] != 'all') {
+                $model = $model->whereYear('ngaynhap', $inputs['nam']);
+            }
 
             $inputs['trangthai'] = $inputs['trangthai'] ?? 'ALL';
             if ($inputs['trangthai'] != 'ALL') {
                 $model = $model->where('trangthai', $inputs['trangthai']);
             }
+            //Lấy hồ sơ
+            $model = $model->orderby('ngaynhap')->get();
             $m_donvi_th = getDonViTongHop_dn('sach', session('admin')->level, session('admin')->madiaban);
 
             return view('manage.kkgia.sach.kkgia.kkgiadv.index')
@@ -191,11 +193,11 @@ class KkGiaSachController extends Controller
             $modelcqcq = view_dsdiaban_donvi::where('madv', $modelkk->macqcq)->first();
             if (strtotime($modelkk->ngayhieuluc) < strtotime('2024-01-01')) {
                 return view('manage.kkgia.sach.reports.print56')
-                ->with('modelkk', $modelkk)
-                ->with('modeldn', $modeldn)
-                ->with('modelkkct', $modelkkct)
-                ->with('modelcqcq', $modelcqcq)
-                ->with('pageTitle', 'Kê khai giá sách');
+                    ->with('modelkk', $modelkk)
+                    ->with('modeldn', $modeldn)
+                    ->with('modelkkct', $modelkkct)
+                    ->with('modelcqcq', $modelcqcq)
+                    ->with('pageTitle', 'Kê khai giá sách');
             }
             return view('manage.kkgia.sach.reports.print')
                 ->with('modelkk', $modelkk)

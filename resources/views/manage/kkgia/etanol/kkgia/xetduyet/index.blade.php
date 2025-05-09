@@ -193,16 +193,10 @@
         <div class="col-md-2">
             <div class="form-group">
                 <label>Năm hồ sơ</label>
-                <select name="nam" id="nam" class="form-control">
-                    @if ($nam_start = intval(date('Y')) - 5)
-                    @endif
-                    @if ($nam_stop = intval(date('Y')) + 1)
-                    @endif
-                    @for ($i = $nam_start; $i <= $nam_stop; $i++)
-                        <option value="{{ $i }}" {{ $i == $inputs['nam'] ? 'selected' : '' }}>Năm
-                            {{ $i }}</option>
-                    @endfor
-                </select>
+                {!! Form::select('nam', getNam(true), $inputs['nam'], [
+                    'id' => 'nam',
+                    'class' => 'form-control select2me',
+                ]) !!}
             </div>
         </div>
 
@@ -269,8 +263,9 @@
                                         </td>
                                         @include('manage.kkgia._include.td_trangthai')
                                         <td>
-                                            <a href="{{ url('kekhaigiaetanol/prints?&mahs=' . $tt->mahs) }}" target="_blank"
-                                                class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi
+                                            <a href="{{ url('kekhaigiaetanol/prints?&mahs=' . $tt->mahs) }}"
+                                                target="_blank" class="btn btn-default btn-xs mbs"><i
+                                                    class="fa fa-eye"></i>&nbsp;Xem chi
                                                 tiết</a>
                                             @if ($tt->level == 'ADMIN')
                                                 @if ($tt->trangthai == 'CB')

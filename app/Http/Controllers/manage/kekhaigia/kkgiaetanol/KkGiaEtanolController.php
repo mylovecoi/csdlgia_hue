@@ -81,17 +81,20 @@ class KkGiaEtanolController extends Controller
             $m_diaban = dsdiaban::wherein('madiaban', array_column($m_donvi->toarray(),'madiaban'))->get();
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $modeldn = $m_donvi->where('madv', $inputs['madv'])->first();
-
+                      
+            $model = KkGiaEtanol::where('madv', $inputs['madv']);
             $inputs['nam'] = $inputs['nam'] ?? date('Y');
-            $model = KkGiaEtanol::where('madv', $inputs['madv'])
-                ->whereYear('ngaynhap', $inputs['nam'])
-                ->orderBy('id', 'desc')
-                ->get();
+            if ($inputs['nam'] != 'all') {
+                $model = $model->whereYear('ngaynhap', $inputs['nam']);
+            }
 
-                $inputs['trangthai'] = $inputs['trangthai'] ?? 'ALL';
+            $inputs['trangthai'] = $inputs['trangthai'] ?? 'ALL';
             if ($inputs['trangthai'] != 'ALL') {
                 $model = $model->where('trangthai', $inputs['trangthai']);
             }
+            //Lấy hồ sơ
+            $model = $model->orderby('ngaynhap')->get();
+                
             $m_donvi_th = getDonViTongHop_dn('etanol',session('admin')->level, session('admin')->madiaban);
 
             return view('manage.kkgia.etanol.kkgia.kkgiadv.index')

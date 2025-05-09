@@ -84,16 +84,19 @@ class KkGiaTaCnController extends Controller
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $modeldn = $m_donvi->where('madv', $inputs['madv'])->first();
 
+            $model = KkGiaTaCn::where('madv', $inputs['madv']);
+
             $inputs['nam'] = $inputs['nam'] ?? date('Y');
-            $model = KkGiaTaCn::where('madv', $inputs['madv'])
-                ->whereYear('ngaynhap', $inputs['nam'])
-                ->orderBy('id', 'desc')
-                ->get();
+            if ($inputs['nam'] != 'all') {
+                $model = $model->whereYear('ngaynhap', $inputs['nam']);
+            }
 
             $inputs['trangthai'] = $inputs['trangthai'] ?? 'ALL';
             if ($inputs['trangthai'] != 'ALL') {
                 $model = $model->where('trangthai', $inputs['trangthai']);
             }
+            //Lấy hồ sơ
+            $model = $model->orderby('ngaynhap')->get();
             $m_donvi_th = getDonViTongHop_dn('tacn', session('admin')->level, session('admin')->madiaban);
 
             return view('manage.kkgia.tacn.kkgia.kkgiadv.index')

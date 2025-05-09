@@ -1856,6 +1856,41 @@
     </li>
 @endif
 
+@if(chkPer('csdlmucgiahhdv','philephi', 'gialephitruocbanha'))
+    <li class="javascript:;">
+        <a href="javascript:;">
+            <i class="icon-folder"></i>
+            <span class="title">{{session('admin')['a_chucnang']['gialephitruocbanha'] ?? 'Giá lệ phí trước bạ đối với nhà'}}</span>
+            <span class="arrow"></span>
+        </a>
+        <ul class="sub-menu">           
+            @if(chkPer('csdlmucgiahhdv','philephi', 'gialephitruocbanha', 'hoso','index'))
+                @if(in_array('NHAPLIEU', session('admin')->chucnang) || session('admin')->level == 'SSA')
+                    <li>
+                        <a href="{{url('/lephitruocbanha')}}">
+                            Thông tin hồ sơ
+                        </a>
+                    </li>
+                @endif
+
+                @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
+                    <li>
+                        <a href="{{url('/gialephitruocbanha/xetduyet')}}">
+                            Xét duyệt hồ sơ
+                        </a>
+                    </li>
+                @endif
+
+                <li>
+                    <a href="{{url('/gialephitruocbanha/timkiem')}}">
+                        Tìm kiếm hồ sơ
+                    </a>
+                </li>
+            @endif
+        </ul>
+    </li>
+@endif
+
 @if(chkPer('csdlmucgiahhdv','taisan', 'giagocvlxd'))
     <li>
         <a href="javascript:;">

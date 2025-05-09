@@ -43,7 +43,7 @@
 
         function ClickDelete() {
             $('#frm_delete').submit();
-        }        
+        }
     </script>
 @stop
 
@@ -75,29 +75,18 @@
                         <div class="form-group">
                             <div class="col-md-2">
                                 <label>Năm hồ sơ</label>
-                                <select name="namhs" id="namhs" class="form-control">
-                                    @if ($nam_start = intval(date('Y')) - 5)
-                                    @endif
-                                    @if ($nam_stop = intval(date('Y')) + 1)
-                                    @endif
-                                    @for ($i = $nam_start; $i <= $nam_stop; $i++)
-                                        <option value="{{ $i }}" {{ $i == $inputs['nam'] ? 'selected' : '' }}>
-                                            Năm {{ $i }}</option>
-                                    @endfor
-                                </select>
+                                {!! Form::select('namhs', getNam(true), $inputs['nam'], [
+                                    'id' => 'namhs',
+                                    'class' => 'form-control select2me',
+                                ]) !!}
                             </div>
 
                             <div class="col-md-4">
                                 <label style="font-weight: bold">Đơn vị</label>
                                 <select class="form-control select2me" id="madv">
-                                    @foreach ($a_diaban as $key => $val)
-                                        <optgroup label="{{ $val }}">
-                                            <?php $donvi = $m_donvi->where('madiaban', $key); ?>
-                                            @foreach ($donvi as $ct)
-                                                <option {{ $ct->madv == $inputs['madv'] ? 'selected' : '' }}
-                                                    value="{{ $ct->madv }}">{{ $ct->tendn }}</option>
-                                            @endforeach
-                                        </optgroup>
+                                    @foreach ($m_donvi as $ct)
+                                        <option {{ $ct->madv == $inputs['madv'] ? 'selected' : '' }}
+                                            value="{{ $ct->madv }}">{{ $ct->tendn }}</option>
                                     @endforeach
                                 </select>
                             </div>
