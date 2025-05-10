@@ -42,8 +42,8 @@
                 <div class="portlet-body form">
                     <!-- BEGIN FORM -->
                     {!! Form::open(['url'=>$inputs['url'].'/create_excel', 'method'=>'post' , 'files'=>true, 'id' => 'create_hscb','enctype'=>'multipart/form-data']) !!}
-                        <input type="" name="madv" value="{{$inputs['madv']}}">
-                        <input type="" name="manghe" value="{{$inputs['manghe']}}">
+                        <input type="hidden" name="madv" value="{{$inputs['madv']}}">
+                        <input type="hidden" name="manghe" value="{{$inputs['manghe']}}">
                         <div class="form-body">
                             <!-- Thông tin chung-->
                             <div class="row">
