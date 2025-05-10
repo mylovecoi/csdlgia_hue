@@ -112,7 +112,7 @@
                                 <table id="user" class="table table-bordered table-striped">
                                     <tbody>
                                     <tr>
-                                        <td colspan="2" style="text-align: center;color: #5b9bd1"><b>Thông tin hiện tại</b></td>
+                                        <td colspan="2" style="text-align: center;color: #5b9bd1"><b>Thông tin hiện tại1</b></td>
                                     </tr>
                                     <tr>
                                         <td style="width:15%"> <b>Tên doanh nghiệp</b></td>
