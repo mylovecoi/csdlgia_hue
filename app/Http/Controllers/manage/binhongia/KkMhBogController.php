@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\File;
+use App\Imports\ColectionImport;
 
 class KkMhBogController extends Controller
 {
@@ -369,9 +370,6 @@ class KkMhBogController extends Controller
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            //dd($inputs);
-            //$m_cskd = Company::where('madv', $inputs['macskd'])->first();
-            //$inputs['madv'] = $m_cskd->madv;
             $inputs['url'] = '/binhongia';
             return view('manage.kkgia._include.importexcelbog')
                 ->with('inputs', $inputs)
@@ -389,65 +387,62 @@ class KkMhBogController extends Controller
             $m_nghe = DmNgheKd::where('manghe', $inputs['manghe'])->first();
             $m_dn = Company::where('madv', $inputs['madv'])->first();
 
+            $inputs = $request->all();
+            $inputs["tenhhdv"] = ord(strtoupper($inputs["tenhhdv"])) - 65;
+            $inputs["qccl"] = ord(strtoupper($inputs["qccl"])) - 65;
+            $inputs["dvt"] = ord(strtoupper($inputs["dvt"])) - 65;
+            $inputs["mucgialk"] = ord(strtoupper($inputs["mucgialk"])) - 65;
+            $inputs["mucgiakk"] = ord(strtoupper($inputs["mucgiakk"])) - 65;
+            $inputs["ghichu"] = ord(strtoupper($inputs["ghichu"])) - 65;
+            $inputs['mahs'] = $inputs['madv'] . '_' . getdate()[0];
+
             $model = new KkMhBog();
             $model->mahs = $inputs['mahs'];
             $model->trangthai = 'CC';
             $model->ngaynhap = date('Y-m-d');
             $model->madv = $m_dn->madv;
+            $model->manghe = $inputs['manghe'];
 
             $modellk = KkMhBog::where('madv', $inputs['madv'])
                 ->wherein('trangthai', ['DD', 'CB', 'HCB'])
                 ->orderby('ngayhieuluc', 'desc')->first();
+
             if ($modellk != null) {
                 $model->socvlk = $modellk->socv;
                 $model->ngaycvlk = $modellk->ngaynhap;
             }
 
-            // $file = $request->file('fexcel'); // Get the file object
-            // $filename = $inputs['madv'] . '_' . time() . '.' . $file->getClientOriginalExtension(); // Construct filename
-            // $file->move(public_path() . '/data/uploads/excels/', $filename); // Move file to the target directory
-            // $path = public_path() . '/data/uploads/excels/' . $filename; // Get the full path as a string
+            $file = $request->file('fexcel');
 
-            // $filename = $inputs['madv'] . '_' . time() . '.' . $request->file('fexcel')->getClientOriginalExtension();
-            // $request->file('fexcel')->move(public_path() . '/data/uploads/excels/', $filename);
-            // $path = public_path() . '/data/uploads/excels/' . $filename;
+            $dataObj = new ColectionImport();
+            $theArray = Excel::toArray($dataObj, $file);
+            $data = $theArray[0]; 
 
-            $filename = $inputs['madv'] . '_' . getdate()[0];
-            $request->file('fexcel')->move(public_path() . '/data/uploads/excels/', $filename . '.xls');
-            $path = public_path() . '/data/uploads/excels/' . $filename . '.xls';
-            $data = [];
-            
-            Excel::load($path, function ($reader) use (&$data, $inputs) {
-                $obj = $reader->getExcel();
-                $sheet = $obj->getSheet(0);
-                $data = $sheet->toArray(null, true, true, true); // giữ lại tiêu đề A=>'val';
-            });
-            //dd($data);
-
+            $inputs['dendong'] = $inputs['dendong'] < count($data) ? count($data) : $inputs['dendong'];
             $a_dm = array();
 
-            for ($i = $inputs['tudong']; $i <= $inputs['dendong']; $i++) {
-                if (
-                    !isset($data[$i][$inputs['tenhhdv']]) || !isset($data[$i][$inputs['qccl']]) ||
-                    !isset($data[$i][$inputs['dvt']]) || !isset($data[$i][$inputs['mucgialk']]) ||
-                    !isset($data[$i][$inputs['mucgiakk']])
-                ) {
-                    continue;
-                }
+            for ($i = $inputs['tudong'] - 1; $i <= ($inputs['dendong']); $i++) {
+
                 $a_dm[] = array(
                     'mahs' => $inputs['mahs'],
-                    'tenhh' => $data[$i][$inputs['tenhhdv']] ?? '',
-                    'quycach' => $data[$i][$inputs['qccl']] ?? '',
-                    'dvt' => $data[$i][$inputs['dvt']] ?? '',
-                    'gialk' => $data[$i][$inputs['mucgialk']] ?? '',
-                    'giakk' => $data[$i][$inputs['mucgiakk']] ?? '',
-                    'ghichu' => $data[$i][$inputs['ghichu']] ?? '',
+                    'tenhh' => trim($data[$i][$inputs['tenhhdv']] ?? ''),
+                    'quycach' => trim($data[$i][$inputs['qccl']] ?? ''),
+                    'dvt' => trim($data[$i][$inputs['dvt']] ?? ''),
+                    'gialk' => trim($data[$i][$inputs['mucgialk']] ?? ''),
+                    'giakk' => trim($data[$i][$inputs['mucgiakk']] ?? ''),
+                    'ghichu' => trim($data[$i][$inputs['ghichu']] ?? ''),
                     'madv' => $inputs['madv'],
                 );
             }
+            //dd($a_dm);
+            foreach (array_chunk($a_dm, 100) as $dm){
+                KkMhBogCt::insert($dm);
+            }
 
-            KkMhBogCt::insert($a_dm);
-            File::Delete($path);
+            // KkGiaTaCnCt::insert($a_dm);
+            // File::Delete($path);
+
+
             $a_pl = array_column(KkMhBogCt::all('plhh')->toArray(), 'plhh', 'plhh');
             $a_dvt = array_column(dmdvt::all()->toArray(), 'dvt', 'dvt');
             $modelct = KkMhBogCt::where('mahs', $inputs['mahs'])->get();

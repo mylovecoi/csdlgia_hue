@@ -416,39 +416,6 @@ class KkGiaTaCnController extends Controller
                 $model->ngaycvlk = $modellk->ngaynhap;
             }
 
-            // $filename = $inputs['madv'] . '_' . getdate()[0];
-            // $request->file('fexcel')->move(public_path() . '/data/uploads/excels/', $filename . '.xls');
-            // $path = public_path() . '/data/uploads/excels/' . $filename . '.xls';
-            // $data = [];
-
-            // Excel::load($path, function ($reader) use (&$data, $inputs) {
-            //     $obj = $reader->getExcel();
-            //     $sheet = $obj->getSheet(0);
-            //     $data = $sheet->toArray(null, true, true, true); // giữ lại tiêu đề A=>'val';
-            // });
-
-            // $a_dm = array();
-
-            // for ($i = $inputs['tudong']; $i <= $inputs['dendong']; $i++) {
-            //     if (
-            //         !isset($data[$i][$inputs['tenhhdv']]) || !isset($data[$i][$inputs['qccl']]) ||
-            //         !isset($data[$i][$inputs['dvt']]) || !isset($data[$i][$inputs['mucgialk']]) ||
-            //         !isset($data[$i][$inputs['mucgiakk']]) || !isset($data[$i][$inputs['ghichu']])
-            //     ) {
-            //         continue;
-            //     }
-            //     $a_dm[] = array(
-            //         'mahs' => $inputs['mahs'],
-            //         'tendvcu' => $data[$i][$inputs['tenhhdv']] ?? '',
-            //         'qccl' => $data[$i][$inputs['qccl']] ?? '',
-            //         'dvt' => $data[$i][$inputs['dvt']] ?? '',
-            //         'gialk' => $data[$i][$inputs['mucgialk']] ?? '',
-            //         'giakk' => $data[$i][$inputs['mucgiakk']] ?? '',
-            //         'ghichu' => $data[$i][$inputs['ghichu']] ?? '',
-            //         'madv' => $inputs['madv'],
-            //     );
-            // }
-
             $file = $request->file('fexcel');
 
             $dataObj = new ColectionImport();
