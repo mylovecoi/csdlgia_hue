@@ -59,12 +59,9 @@
                         @if(chkPer('csdlmucgiahhdv','bog', 'bog', 'hoso', 'modify'))
                             <button data-target="#create-modal" data-toggle="modal" class="btn btn-default btn-sm">
                                 <i class="fa fa-plus"></i> Thêm mới </button>
-                            <button data-target="#excel-modal" data-toggle="modal" class="btn btn-default btn-sm">
-                                <i class="fa fa-plus"></i> Nhận dữ liệu </button>
-                            {{-- <a href="{{ url('binhongia/nhanexcel?madv=' . $inputs['madv']) }}"
-                                class="btn btn-default btn-sm">
-                                <i class="fa fa-file-excel-o"></i> Nhận dữ liệu</a> --}}
                         @endif
+                        <button data-target="#excel-modal" data-toggle="modal" class="btn btn-default btn-sm">
+                                <i class="fa fa-plus"></i> Nhận dữ liệu </button>
                     </div>
                 </div>
                 <div class="portlet-body form-horizontal">
