@@ -58,9 +58,17 @@
         @foreach($model as $key=>$tt)
             <tr>
                 <td style="text-align: center">{{$key+1}}</td>
-                <td class="active">{{$tt->tendn}}
+                <!-- <td class="active">{{$tt->tendn}}
                     <br><b>Mã số thuế:</b> {{$tt->madv}}
-                    <br><b>Mã hồ sơ:</b> {{$tt->mahs}}</td>
+                    <br><b>Mã hồ sơ:</b> {{$tt->mahs}}</td> -->
+                    <td class="active">
+                {{$tt->tendn}}
+                <br><b>Mã số thuế:</b> {{$tt->madv}}
+                <br><b>Mã hồ sơ:</b>
+                <a href="{{ url('kekhaigiaetanol/prints?mahs=' . $tt->mahs) }}">
+                    {{$tt->mahs}}
+                </a>
+            </td>
                 <td style="text-align: center" class="danger">{{$tt->socv}}</td>
                 <td style="text-align: center">{{getDayVn($tt->ngaynhap)}}</td>
                 <td style="text-align: center">{{getDayVn($tt->ngayhieuluc)}}</td>
