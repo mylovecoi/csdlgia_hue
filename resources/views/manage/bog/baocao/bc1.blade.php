@@ -59,7 +59,11 @@
                 <td style="text-align: center">{{$key+1}}</td>
                 <td class="active">{{$a_com[$tt->madv] ?? ''}}
                     <br><b>Mã số thuế:</b> {{$tt->madv}}
-                    <br><b>Mã hồ sơ:</b> {{$tt->mahs}}</td>
+                    <br><b>Mã hồ sơ:</b> 
+                    <a href="{{ url('binhongia/xemhoso?mahs=' . $tt->mahs) }}">
+                        {{$tt->mahs}}
+                    </a>
+                </td>
                 <td style="text-align: center" class="danger">{{$tt->socv}}</td>
                 <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
                 <td style="text-align: center">{{getDayVn($tt->ngayhieuluc)}}</td>
