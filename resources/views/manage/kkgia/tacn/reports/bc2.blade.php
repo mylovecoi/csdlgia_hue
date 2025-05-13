@@ -60,7 +60,9 @@
                 <td style="text-align: center">{{$key+1}}</td>
                 <td class="active" colspan="8">{{$tt->tendn}}
                     -<b>Mã số thuế:</b> {{$tt->madv}}
-                    -<b>Mã hồ sơ:</b> {{$tt->mahs}}
+                    -<b>Mã hồ sơ:</b> 	  <a href="{{ url('kekhaigiatacn/prints?mahs=' . $tt->mahs) }}">
+                    {{$tt->mahs}}
+                </a>
                     . Số công văn :{{$tt->socv}} -
                     Ngày hiệu lực: {{getDayVn($tt->ngayhieuluc)}}
                     - Ngày chuyển: {{getDateTime($tt->ngaychuyen)}}
