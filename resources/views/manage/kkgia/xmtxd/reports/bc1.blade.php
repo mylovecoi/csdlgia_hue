@@ -65,7 +65,7 @@
                 {{$tt->tendn}}
                 <br><b>Mã số thuế:</b> {{$tt->madv}}
                 <br><b>Mã hồ sơ:</b>
-                <a href="{{ url('kekhaigiagiay/prints?mahs=' . $tt->mahs) }}">
+                <a href="{{ url('kekhaigiaxmtxd/prints?mahs=' . $tt->mahs) }}">
                     {{$tt->mahs}}
                 </a>
             </td>
