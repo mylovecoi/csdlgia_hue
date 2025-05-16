@@ -51,7 +51,9 @@
     <h3 class="page-title">
         Thông tin kê khai giá<small>&nbsp;vật liệu xây dựng</small>
         <p>
-        <h5 style="color: blue">{{ $modeldn->tendn }}&nbsp;- Mã số thuế: {{ $modeldn->madv }}</h5>
+            @if (isset($modeldn) && $modeldn)
+                <h5 style="color: blue">{{ $modeldn->tendn }}&nbsp;- Mã số thuế: {{ $modeldn->madv }}</h5>
+            @endif
         </p>
     </h3>
     <!-- END PAGE HEADER-->
@@ -61,10 +63,16 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <div class="actions">
-                        <a href="{{ url('kekhaigiavlxd/create?&madv=' . $inputs['madv']) }}" class="btn btn-default btn-sm">
-                            <i class="fa fa-plus"></i> Kê khai mới </a>
-                        <a href="{{ url('kekhaigiavlxd/nhanexcel?madv=' . $inputs['madv']) }}" class="btn btn-default btn-sm">
-                            <i class="fa fa-file-excel-o"></i> Nhận dữ liệu</a>
+                        @if (!empty($inputs['madv']) && $inputs['madv'] != 'ALL')
+                            {
+                            <a href="{{ url('kekhaigiavlxd/create?&madv=' . $inputs['madv']) }}"
+                                class="btn btn-default btn-sm">
+                                <i class="fa fa-plus"></i> Kê khai mới </a>
+                            <a href="{{ url('kekhaigiavlxd/nhanexcel?madv=' . $inputs['madv']) }}"
+                                class="btn btn-default btn-sm">
+                                <i class="fa fa-file-excel-o"></i> Nhận dữ liệu</a>
+                            }
+                        @endif
                     </div>
 
                 </div>
@@ -89,6 +97,7 @@
                             <div class="col-md-4">
                                 <label style="font-weight: bold">Đơn vị</label>
                                 <select class="form-control select2me" id="madv">
+                                    <option value="ALL">--Tất cả--</option>
                                     @foreach ($a_diaban as $key => $val)
                                         <optgroup label="{{ $val }}">
                                             <?php $donvi = $m_donvi->where('madiaban', $key); ?>

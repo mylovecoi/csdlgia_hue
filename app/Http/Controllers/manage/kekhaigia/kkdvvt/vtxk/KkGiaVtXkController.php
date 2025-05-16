@@ -85,9 +85,16 @@ class KkGiaVtXkController extends Controller
 
             //dd($modelcskd);
 
+            //Lấy danh sách kkg theo madv hoặc lấy tất cả
+            $model = GiaVtXk::query();
+            
+            if(!empty($inputs['madv']) && $inputs['madv'] != 'ALL'){
+                $model = $model->where('madv', $inputs['madv']);
+            }
+            //kết thúc lấy danh sách kkg theo madv hoặc lấy tất cả
+            
             $inputs['nam'] = $inputs['nam'] ?? date('Y');
-            $model = GiaVtXk::where('madv', $inputs['madv'])
-                ->whereYear('ngaynhap', $inputs['nam'])
+            $model = $model->whereYear('ngaynhap', $inputs['nam'])
                 ->orderBy('id', 'desc')
                 ->get();
 

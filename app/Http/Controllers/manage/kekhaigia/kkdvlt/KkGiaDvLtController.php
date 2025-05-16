@@ -47,11 +47,16 @@ class KkGiaDvLtController extends Controller
             }
             $inputs['macskd'] = $inputs['macskd'] ?? array_key_first($a_cskd);
 
-            //dd($modelcskd);
-
+            //Lấy danh sách kkg theo madv hoặc lấy tất cả
+            $model = KkGiaDvLt::query();
+            
+            if(!empty($inputs['macskd']) && $inputs['macskd'] != 'ALL'){
+                $model = $model->where('macskd', $inputs['macskd']);
+            }
+            //kết thúc lấy danh sách kkg theo madv hoặc lấy tất cả
+            
             $inputs['nam'] = $inputs['nam'] ?? date('Y');
-            $model = KkGiaDvLt::where('macskd', $inputs['macskd'])
-                ->whereYear('ngaynhap', $inputs['nam'])
+            $model = $model->whereYear('ngaynhap', $inputs['nam'])
                 ->orderBy('id', 'desc')
                 ->get();
 

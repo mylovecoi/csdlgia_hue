@@ -82,7 +82,14 @@ class KkGiaSachController extends Controller
             $m_diaban = dsdiaban::wherein('madiaban', array_column($m_donvi->toarray(), 'madiaban'))->get();
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $modeldn = $m_donvi->where('madv', $inputs['madv'])->first();
-            $model = KkGiaSach::where('madv', $inputs['madv']);
+
+            //Lấy danh sách kkg theo madv hoặc lấy tất cả
+            $model = KkGiaSach::query();
+
+            if(!empty($inputs['madv']) && $inputs['madv'] != 'ALL'){
+                $model = $model->where('madv', $inputs['madv']);
+            }
+            //kết thúc lấy danh sách kkg theo madv hoặc lấy tất cả
 
             $inputs['nam'] = $inputs['nam'] ?? date('Y');
             if ($inputs['nam'] != 'all') {

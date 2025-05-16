@@ -38,7 +38,7 @@
         function changeUrl() {
             var nam = $('#namhs').val();
             var url = '/kekhaigiadatsanlap?&madv=' + $('#madv').val() + '&nam=' + nam + '&trangthai=' + $('#trangthai')
-            .val();
+                .val();
             window.location.href = url;
         }
 
@@ -48,7 +48,7 @@
 
         function ClickDelete() {
             $('#frm_delete').submit();
-        }      
+        }
     </script>
 @stop
 
@@ -56,7 +56,9 @@
     <h3 class="page-title">
         Thông tin kê khai giá<small>&nbsp;đất san lấp</small>
         <p>
-        <h5 style="color: blue">{{ $modeldn->tendn }}&nbsp;- Mã số thuế: {{ $modeldn->madv }}</h5>
+            @if (isset($modeldn) && $modeldn)
+                <h5 style="color: blue">{{ $modeldn->tendn }}&nbsp;- Mã số thuế: {{ $modeldn->madv }}</h5>
+            @endif
         </p>
     </h3>
     <!-- END PAGE HEADER-->
@@ -66,9 +68,14 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <div class="actions">
-                        <a href="{{ url('kekhaigiadatsanlap/create?&madv=' . $inputs['madv']) }}"
-                            class="btn btn-default btn-sm">
-                            <i class="fa fa-plus"></i> Kê khai mới </a>
+                        @if (!empty($inputs['madv']) && $inputs['madv'] != 'ALL')
+                            {
+                            <a href="{{ url('kekhaigiadatsanlap/create?&madv=' . $inputs['madv']) }}"
+                                class="btn btn-default btn-sm">
+                                <i class="fa fa-plus"></i> Kê khai mới
+                            </a>
+                            }
+                        @endif
                     </div>
 
                 </div>
@@ -93,6 +100,7 @@
                             <div class="col-md-4">
                                 <label style="font-weight: bold">Đơn vị</label>
                                 <select class="form-control select2me" id="madv">
+                                    <option value="ALL">--Tất cả--</option>
                                     @foreach ($a_diaban as $key => $val)
                                         <optgroup label="{{ $val }}">
                                             <?php $donvi = $m_donvi->where('madiaban', $key); ?>
@@ -112,122 +120,124 @@
                                     'class' => 'form-control select2me',
                                 ]) !!}
                                 </select>
+                            </div>
+                        </div>
+
+                        <table class="table table-striped table-bordered table-hover" id="sample_4">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center" width="2%">STT</th>
+                                    <th style="text-align: center">Ngày kê khai</th>
+                                    <th style="text-align: center">Ngày thực hiện<br>mức giá kê khai</th>
+                                    <th style="text-align: center">Số công văn</th>
+                                    <th style="text-align: center">Số công văn<br> liền kề</th>
+                                    <th style="text-align: center">Cơ quan tiếp nhận</th>
+                                    <th style="text-align: center">Trạng thái</th>
+                                    <th style="text-align: center" width="25%">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($model as $key => $tt)
+                                    <tr>
+                                        <td style="text-align: center">{{ $key + 1 }}</td>
+                                        <td style="text-align: center">{{ getDayVn($tt->ngaynhap) }}</td>
+                                        <td style="text-align: center">{{ getDayVn($tt->ngayhieuluc) }}</td>
+                                        <td style="text-align: center" class="active">{{ $tt->socv }}</td>
+                                        <td style="text-align: center">{{ $tt->socvlk }}</td>
+                                        <td style="text-align: left">{{ $a_donvi_th[$tt->macqcq] ?? '' }}</td>
+                                        @include('manage.kkgia._include.td_trangthai')
+                                        <td>
+                                            <a href="{{ url('kekhaigiadatsanlap/prints?&mahs=' . $tt->mahs) }}"
+                                                target="_blank" class="btn btn-default btn-xs mbs"><i
+                                                    class="fa fa-eye"></i>&nbsp;Xem chi
+                                                tiết</a>
+                                            @if (canEdit($tt->trangthai))
+                                                <a href="{{ url('kekhaigiadatsanlap/edit?mahs=' . $tt->mahs) }}"
+                                                    class="btn btn-default btn-xs mbs">
+                                                    <i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
+                                                @if (canChuyenXoa($tt->trangthai))
+                                                    @if ($tt->trangthai == 'CC')
+                                                        <button type="button" onclick="getId('{{ $tt->id }}')"
+                                                            class="btn btn-default btn-xs mbs" data-target="#delete-modal"
+                                                            data-toggle="modal">
+                                                            <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
+                                                    @endif
+                                                    @if ($tt->trangthai == 'CC' || $tt->trangthai == 'BTL')
+                                                        <button type="button"
+                                                            onclick="confirmChuyen('{{ $tt->mahs }}','{{ $inputs['url'] . '/chuyen' }}')"
+                                                            class="btn btn-default btn-xs mbs" data-target="#chuyen-modal"
+                                                            data-toggle="modal">
+                                                            <i class="fa fa-share-square-o"></i>&nbsp;Chuyển</button>
+                                                    @endif
+                                                @endif
+                                                @if (canShowLyDo($tt->trangthai))
+                                                    <button type="button" data-target="#tralai-modal-confirm"
+                                                        onclick="viewLyDo('{{ $tt->mahs }}','{{ $tt->madv }}')"
+                                                        data-toggle="modal" class="btn btn-default btn-xs mbs">
+                                                        <i class="fa fa-search"></i>&nbsp;Lý do trả lại</button>
+                                                @endif
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
+            </div>
+        </div>
+
+        <!-- BEGIN DASHBOARD STATS -->
+
+        <!-- END DASHBOARD STATS -->
+        <div class="clearfix"></div>
+
+        <!--Model lý do-->
+        <div class="modal fade" id="lydo-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title"><b>Lý do trả lại hồ sơ?</b></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group" id="showlydo">
                         </div>
                     </div>
-
-                    <table class="table table-striped table-bordered table-hover" id="sample_4">
-                        <thead>
-                            <tr>
-                                <th style="text-align: center" width="2%">STT</th>
-                                <th style="text-align: center">Ngày kê khai</th>
-                                <th style="text-align: center">Ngày thực hiện<br>mức giá kê khai</th>
-                                <th style="text-align: center">Số công văn</th>
-                                <th style="text-align: center">Số công văn<br> liền kề</th>
-                                <th style="text-align: center">Cơ quan tiếp nhận</th>
-                                <th style="text-align: center">Trạng thái</th>
-                                <th style="text-align: center" width="25%">Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($model as $key => $tt)
-                                <tr>
-                                    <td style="text-align: center">{{ $key + 1 }}</td>
-                                    <td style="text-align: center">{{ getDayVn($tt->ngaynhap) }}</td>
-                                    <td style="text-align: center">{{ getDayVn($tt->ngayhieuluc) }}</td>
-                                    <td style="text-align: center" class="active">{{ $tt->socv }}</td>
-                                    <td style="text-align: center">{{ $tt->socvlk }}</td>
-                                    <td style="text-align: left">{{ $a_donvi_th[$tt->macqcq] ?? '' }}</td>
-                                    @include('manage.kkgia._include.td_trangthai')
-                                    <td>
-                                        <a href="{{ url('kekhaigiadatsanlap/prints?&mahs=' . $tt->mahs) }}" target="_blank"
-                                            class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi
-                                            tiết</a>
-                                        @if (canEdit($tt->trangthai))
-                                            <a href="{{ url('kekhaigiadatsanlap/edit?mahs=' . $tt->mahs) }}"
-                                                class="btn btn-default btn-xs mbs">
-                                                <i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
-                                            @if (canChuyenXoa($tt->trangthai))
-                                                @if ($tt->trangthai == 'CC')
-                                                    <button type="button" onclick="getId('{{ $tt->id }}')"
-                                                        class="btn btn-default btn-xs mbs" data-target="#delete-modal"
-                                                        data-toggle="modal">
-                                                        <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
-                                                @endif
-                                                @if ($tt->trangthai == 'CC' || $tt->trangthai == 'BTL')
-                                                    <button type="button"
-                                                        onclick="confirmChuyen('{{ $tt->mahs }}','{{ $inputs['url'] . '/chuyen' }}')"
-                                                        class="btn btn-default btn-xs mbs" data-target="#chuyen-modal"
-                                                        data-toggle="modal">
-                                                        <i class="fa fa-share-square-o"></i>&nbsp;Chuyển</button>
-                                                @endif
-                                            @endif
-                                            @if (canShowLyDo($tt->trangthai))
-                                                <button type="button" data-target="#tralai-modal-confirm"
-                                                    onclick="viewLyDo('{{ $tt->mahs }}','{{ $tt->madv }}')"
-                                                    data-toggle="modal" class="btn btn-default btn-xs mbs">
-                                                    <i class="fa fa-search"></i>&nbsp;Lý do trả lại</button>
-                                            @endif
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <!-- END EXAMPLE TABLE PORTLET-->
-        </div>
-    </div>
-
-    <!-- BEGIN DASHBOARD STATS -->
-
-    <!-- END DASHBOARD STATS -->
-    <div class="clearfix"></div>
-
-    <!--Model lý do-->
-    <div class="modal fade" id="lydo-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title"><b>Lý do trả lại hồ sơ?</b></h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group" id="showlydo">
+                    <div class="modal-footer">
+                        <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
-                </div>
+                <!-- /.modal-content -->
             </div>
-            <!-- /.modal-content -->
+            <!-- /.modal-dialog -->
         </div>
-        <!-- /.modal-dialog -->
-    </div>
 
-    <!--Modal delete-->
-    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                {!! Form::open(['url' => 'kekhaigiadatsanlap/delete', 'id' => 'frm_delete']) !!}
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Đồng ý xóa?</h4>
-                </div>
-                <input type="hidden" name="iddelete" id="iddelete">
-                <div class="modal-footer">
-                    <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
-                    <button type="submit" class="btn blue" onclick="ClickDelete()">Đồng ý</button>
+        <!--Modal delete-->
+        <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    {!! Form::open(['url' => 'kekhaigiadatsanlap/delete', 'id' => 'frm_delete']) !!}
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title">Đồng ý xóa?</h4>
+                    </div>
+                    <input type="hidden" name="iddelete" id="iddelete">
+                    <div class="modal-footer">
+                        <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
+                        <button type="submit" class="btn blue" onclick="ClickDelete()">Đồng ý</button>
 
+                    </div>
+                    {!! Form::close() !!}
                 </div>
-                {!! Form::close() !!}
+                <!-- /.modal-content -->
             </div>
-            <!-- /.modal-content -->
+            <!-- /.modal-dialog -->
         </div>
-        <!-- /.modal-dialog -->
-    </div>
 
-    @include('manage.include.form.modal_approve_hsdn')
-    @include('manage.include.form.modal_unapprove_dn')
-@stop
+        @include('manage.include.form.modal_approve_hsdn')
+        @include('manage.include.form.modal_unapprove_dn')
+    @stop

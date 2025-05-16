@@ -34,15 +34,23 @@ class GiaDvCangController extends Controller
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $modeldn = $m_donvi->where('madv', $inputs['madv'])->first();
 
+            //Lấy danh sách kkg theo madv hoặc lấy tất cả
+            $model = GiaDvCang::query();
+            
+            if(!empty($inputs['madv']) && $inputs['madv'] != 'ALL'){
+                $model = $model->where('madv', $inputs['madv']);
+            }
+            //kết thúc lấy danh sách kkg theo madv hoặc lấy tất cả
+            
             $inputs['nam'] = $inputs['nam'] ?? date('Y');
-            $model = GiaDvCang::where('madv', $inputs['madv'])
-                ->whereYear('ngaynhap', $inputs['nam'])
+            $model = $model->whereYear('ngaynhap', $inputs['nam'])
                 ->orderBy('id', 'desc')
                 ->get();
-                $inputs['trangthai'] = $inputs['trangthai'] ?? 'ALL';
-                if ($inputs['trangthai'] != 'ALL') {
-                    $model = $model->where('trangthai', $inputs['trangthai']);
-                }
+
+            $inputs['trangthai'] = $inputs['trangthai'] ?? 'ALL';
+            if ($inputs['trangthai'] != 'ALL') {
+                $model = $model->where('trangthai', $inputs['trangthai']);
+            }
                 
             $m_donvi_th = getDonViTongHop_dn('dvcb',session('admin')->level, session('admin')->madiaban);
 

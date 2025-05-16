@@ -520,7 +520,7 @@ class GiaHhDvKController extends Controller
                             $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
                             $ct->madv = $ct->madv_h;
                             $ct->macqcq = $ct->macqcq_h;
-                            $ct->tencqcq = $a_ttdv[$ct->macqcq] ?? '';
+                            $ct->tencqcq = $a_ttdv[$ct->madv] ?? '';
                             $ct->thoidiem = $ct->thoidiem_h;
                             $ct->trangthai = $ct->trangthai_h;
                             $ct->level = $inputs['level'];
@@ -539,7 +539,7 @@ class GiaHhDvKController extends Controller
                             $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
                             $ct->madv = $ct->madv_t;
                             $ct->macqcq = $ct->macqcq_t;
-                            $ct->tencqcq = $a_ttdv[$ct->macqcq] ?? '';
+                            $ct->tencqcq = $a_ttdv[$ct->madv] ?? '';
                             $ct->thoidiem = $ct->thoidiem_t;
                             $ct->trangthai = $ct->trangthai_t;
                             $ct->level = $inputs['level'];
@@ -558,7 +558,7 @@ class GiaHhDvKController extends Controller
                             $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
                             $ct->madv = $ct->madv_ad;
                             $ct->macqcq = $ct->macqcq_ad;
-                            $ct->tencqcq = $a_ttdv[$ct->macqcq] ?? '';
+                            $ct->tencqcq = $a_ttdv[$ct->madv] ?? '';
                             $ct->thoidiem = $ct->thoidiem_ad;
                             $ct->trangthai = $ct->trangthai_ad;
                             $ct->level = $inputs['level'];

@@ -83,7 +83,14 @@ class KkGiaXmTxdController extends Controller
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $modeldn = $m_donvi->where('madv', $inputs['madv'])->first();
 
-            $model = KkGiaXmTxd::where('madv', $inputs['madv']);
+            //Lấy danh sách kkg theo madv hoặc lấy tất cả
+            $model = KkGiaXmTxd::query();
+
+            if(!empty($inputs['madv']) && $inputs['madv'] != 'ALL'){
+                $model = $model->where('madv', $inputs['madv']);
+            }
+            //kết thúc lấy danh sách kkg theo madv hoặc lấy tất cả
+
             $inputs['nam'] = $inputs['nam'] ?? date('Y');
             if ($inputs['nam'] != 'all') {
                 $model = $model->whereYear('ngaynhap', $inputs['nam']);
