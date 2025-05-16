@@ -141,47 +141,6 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
                     </div>
                 </div>
-                {{-- <div class="row"> --}}
-                {{-- <div class="col-md-6"> --}}
-                {{-- <div class="form-group"> --}}
-                {{-- <label class="control-label">Nơi đăng ký nộp thuế</label> --}}
-                {{-- {!!Form::text('noidknopthue', null, array('id' => 'noidknopthue','class' => 'form-control required'))!!} --}}
-                {{-- @if ($errors->any()) --}}
-                {{-- <em class="invalid">{{ $errors->first('noidknopthue') }}</em> --}}
-                {{-- @endif --}}
-                {{-- </div> --}}
-                {{-- </div> --}}
-                {{-- <div class="col-md-6"> --}}
-                {{-- <div class="form-group"> --}}
-                {{-- <label class="control-label">Giấy đăng ký kinh doanh</label> --}}
-                {{-- {!!Form::text('giayphepkd', null, array('id' => 'giayphepkd','class' => 'form-control required'))!!} --}}
-                {{-- @if ($errors->any()) --}}
-                {{-- <em class="invalid" >{{ $errors->first('giayphepkd') }}</em> --}}
-                {{-- @endif --}}
-                {{-- </div> --}}
-                {{-- </div> --}}
-
-                {{-- </div> --}}
-                {{-- <div class="row"> --}}
-                {{-- <div class="col-md-6"> --}}
-                {{-- <div class="form-group"> --}}
-                {{-- <label class="control-label">Chức danh</label> --}}
-                {{-- {!!Form::text('chucdanh', null, array('id' => 'chucdanh','class' => 'form-control required'))!!} --}}
-                {{-- @if ($errors->any()) --}}
-                {{-- <em class="invalid">{{ $errors->first('chucdanh') }}</em> --}}
-                {{-- @endif --}}
-                {{-- </div> --}}
-                {{-- </div> --}}
-                {{-- <div class="col-md-6"> --}}
-                {{-- <div class="form-group"> --}}
-                {{-- <label class="control-label">Họ tên người ký</label> --}}
-                {{-- {!!Form::text('nguoiky', null, array('id' => 'nguoiky','class' => 'form-control required'))!!} --}}
-                {{-- @if ($errors->any()) --}}
-                {{-- <em class="invalid">{{ $errors->first('nguoiky') }}</em> --}}
-                {{-- @endif --}}
-                {{-- </div> --}}
-                {{-- </div> --}}
-                {{-- </div> --}}
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -192,7 +151,6 @@ License: You must have a valid license purchased only from themeforest(the above
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            {{--                        <label class="control-label">Địa bàn đăng ký</label> --}}
                             <label class="control-label">Cơ quan quản lý xét duyệt đăng ký tài khoản</label>
                             {!! Form::select('madiaban', array_column($m_diaban->toarray(), 'tendiaban', 'madiaban'), null, [
                                 'id' => 'madiaban',
@@ -217,8 +175,6 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="form-group">
                             <button type="button" onclick="add_lvkd()" data-toggle="modal" class="btn btn-default">
                                 <i class="fa fa-plus"></i>&nbsp;Thêm lĩnh vực kinh doanh</button>
-                            {{-- <button type="button" onclick="add_lvkd()" data-toggle="modal" class="btn btn-default">
-                                    <i class="fa fa-plus"></i>&nbsp;Thêm lĩnh vực kinh doanh</button> --}}
                         </div>
                     </div>
                 </div>
@@ -268,7 +224,6 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Mật khẩu</label>
-                            {{--                        {!!Form::password('password', null, array('id' => 'password','class' => 'form-control required','password'))!!} --}}
                             {{ Form::password('password', ['id' => 'password', 'class' => 'form-control required']) }}
                         </div>
                     </div>
