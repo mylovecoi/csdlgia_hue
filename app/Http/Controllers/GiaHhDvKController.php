@@ -50,25 +50,28 @@ class GiaHhDvKController extends Controller
                 return  view('errors.403')
                     ->with('message', $message);
             }
-            
+
             //Kiểm tra và xoá các đơn vị không có trong địa bàn
-            foreach($m_donvi as $key=> $donvi){
-                $chkDiaBan = $m_diaban->where('madiaban',$donvi->madiaban);
-                if($chkDiaBan->count() == 0){
+            foreach ($m_donvi as $key => $donvi) {
+                $chkDiaBan = $m_diaban->where('madiaban', $donvi->madiaban);
+                if ($chkDiaBan->count() == 0) {
                     $m_donvi->forget($key);
                 }
             }
-           // dd($donvi);
+            // dd($donvi);
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $a_nhom = array_column(NhomHhDvK::where('theodoi', 'TD')->get()->toarray(), 'tentt', 'matt');
             //lấy thông tin đơn vị
             $inputs['thang'] = isset($inputs['thang']) ? $inputs['thang'] : date('m');
             $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
+            // dd($inputs['thang']);
             $model = GiaHhDvK::where('madv', $inputs['madv']);
             if ($inputs['thang'] != 'all')
-                $model = $model->whereMonth('thoidiem', $inputs['thang']);
+                // $model = $model->whereMonth('thoidiem', $inputs['thang']);
+                $model = $model->where('thang', $inputs['thang']);
             if ($inputs['nam'] != 'all')
-                $model = $model->whereYear('thoidiem', $inputs['nam']);
+                // $model = $model->whereYear('thoidiem', $inputs['nam']);
+                $model = $model->where('nam', $inputs['nam']);
             //dd($model->get());
             return view('manage.dinhgia.giahhdvk.kekhai.index')
                 ->with('model', $model->orderby('nam')->orderby('thang')->get())
@@ -279,6 +282,8 @@ class GiaHhDvKController extends Controller
                     ->with('a_diaban', $a_diaban)
                     ->with('a_tt', $a_tt)
                     ->with('a_dm', $a_dm)
+                    ->with('a_dm', $a_dm)
+                    ->with('a_dvt', $a_dvt)
                     ->with('inputs', $inputs)
                     ->with('pageTitle', 'Thông tin giá hàng hóa dịch vụ thêm mới');
             } else
@@ -354,9 +359,9 @@ class GiaHhDvKController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $model = GiaHhDvK::where('mahs', $inputs['mahs'])->first();
-            $modelct = view_giahhdvk::where('mahs', $model->mahs) ->where(function ($qr){
-                $qr->where('gia','>','0')->orwhere('gialk','>','0');
-            })->orderby('mahhdv')->get();            
+            $modelct = view_giahhdvk::where('mahs', $model->mahs)->where(function ($qr) {
+                $qr->where('gia', '>', '0')->orwhere('gialk', '>', '0');
+            })->orderby('mahhdv')->get();
             $a_dmhhdv = array_column(DmHhDvK::where('matt', $model->matt)->get()->toarray(), 'manhom', 'mahhdv');
             $a_diaban = array_column(dsdiaban::where('madiaban', $model->madiaban)->get()->toarray(), 'tendiaban', 'madiaban');
             $a_tt = array_column(NhomHhDvK::where('matt', $model->matt)->get()->toarray(), 'tentt', 'matt');
@@ -367,7 +372,7 @@ class GiaHhDvKController extends Controller
                 $ct->manhom = $a_dmhhdv[$ct->mahhdv] ?? '';
             }
             //dd($a_tt);
-           // $a_dvt = array_column(dmdvt::all()->toArray(), 'dvt', 'madvt');
+            // $a_dvt = array_column(dmdvt::all()->toArray(), 'dvt', 'madvt');
             return view('manage.dinhgia.giahhdvk.reports.prints')
                 ->with('model', $model)
                 ->with('modelct', $modelct)
@@ -511,9 +516,13 @@ class GiaHhDvKController extends Controller
                 case 'H': {
                         $model = GiaHhDvK::where('madv_h', $inputs['madv']);
                         if ($inputs['nam'] != 'all')
-                            $model = $model->whereYear('thoidiem_h', $inputs['nam']);
+                            // $model = $model->whereYear('thoidiem_h', $inputs['nam']);
+                            $model = $model->where('nam', $inputs['nam']);
+
                         if ($inputs['thang'] != 'all')
-                            $model = $model->whereMonth('thoidiem_h', $inputs['thang']);
+                            // $model = $model->whereMonth('thoidiem_h', $inputs['thang']);
+                            $model = $model->where('thang', $inputs['thang']);
+
                         $model = $model->orderby('nam')->orderby('thang')->get();
                         foreach ($model as $ct) {
                             $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct);
@@ -530,9 +539,13 @@ class GiaHhDvKController extends Controller
                 case 'T': {
                         $model = GiaHhDvK::where('madv_t', $inputs['madv']);
                         if ($inputs['nam'] != 'all')
-                            $model = $model->whereYear('thoidiem_t', $inputs['nam']);
+                            // $model = $model->whereYear('thoidiem_t', $inputs['nam']);
+                            $model = $model->where('nam', $inputs['nam']);
+
                         if ($inputs['thang'] != 'all')
-                            $model = $model->whereMonth('thoidiem_t', $inputs['thang']);
+                            // $model = $model->whereMonth('thoidiem_t', $inputs['thang']);
+                            $model = $model->where('thang', $inputs['thang']);
+
                         $model = $model->orderby('nam')->orderby('thang')->get();
                         foreach ($model as $ct) {
                             $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct);
@@ -549,9 +562,12 @@ class GiaHhDvKController extends Controller
                 case 'ADMIN': {
                         $model = GiaHhDvK::where('madv_ad', $inputs['madv']);
                         if ($inputs['nam'] != 'all')
-                            $model = $model->whereYear('thoidiem_ad', $inputs['nam']);
+                            //$model = $model->whereYear('thoidiem_ad', $inputs['nam']);
+                            $model = $model->where('nam', $inputs['nam']);
                         if ($inputs['thang'] != 'all')
-                            $model = $model->whereMonth('thoidiem_ad', $inputs['thang']);
+                            // $model = $model->whereMonth('thoidiem_ad', $inputs['thang']);
+                            $model = $model->where('thang', $inputs['thang']);
+
                         $model = $model->orderby('nam')->orderby('thang')->get();
                         foreach ($model as $ct) {
                             $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct);
@@ -964,7 +980,7 @@ class GiaHhDvKController extends Controller
                     $model->nam = $inputs['nam'];
                     $m_dm = DmHhDvK::where('matt', $inputs['matt'])->get();
                     $a_dm = array();
-                    
+
                     $aExcelKey = array_keys($aExcel);
                     foreach ($m_dm as $dm) {
                         if (in_array($dm->mahhdv, $aExcelKey)) {
@@ -981,7 +997,7 @@ class GiaHhDvKController extends Controller
                             'gialk' => $excel != null ? $excel['gialk'] : 0,
                         ];
                     }
-                   
+
                     GiaHhDvKCt::insert($a_dm);
                     $modelct = GiaHhDvKCt::where('mahs', $model->mahs)->get();
                     $a_diaban = array_column(dsdiaban::where('madiaban', $inputs['madiaban'])->get()->toarray(), 'tendiaban', 'madiaban');
@@ -990,7 +1006,7 @@ class GiaHhDvKController extends Controller
                     $inputs['url'] = '/giahhdvk';
                     $inputs['act'] = 'true';
                     //dd($inputs);
-                    
+
                     return view('manage.dinhgia.giahhdvk.kekhai.edit')
                         ->with('model', $model)
                         ->with('modelct', $modelct)
