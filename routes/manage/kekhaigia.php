@@ -44,6 +44,8 @@ Route::group(['prefix' => 'doanhnghiep'], function () {
 
     Route::get('dsdangky', 'system\company\CompanyController@dsdangky');
     Route::get('dstaikhoan', 'UsersCompanyController@index');
+    Route::get('dstaikhoan/create', 'UsersCompanyController@create');
+    Route::post('dstaikhoan/store', 'UsersCompanyController@store');
     Route::get('dstaikhoan/edit', 'UsersCompanyController@edit');
     Route::post('dstaikhoan/edit', 'UsersCompanyController@update');
     Route::post('dstaikhoan/delete', 'UsersCompanyController@destroy');
