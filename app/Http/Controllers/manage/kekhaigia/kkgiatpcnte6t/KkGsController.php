@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\File;
+use App\Imports\ColectionImport;
 
 class KkGsController extends Controller
 {
@@ -341,11 +342,17 @@ class KkGsController extends Controller
             return view('errors.notlogin');
     }
 
-    public function create_excel(Request $request)
+public function create_excel(Request $request)
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            //dd($inputs);
+            $inputs["tenhhdv"] = ord(strtoupper($inputs["tenhhdv"])) - 65;
+            $inputs["qccl"] = ord(strtoupper($inputs["qccl"])) - 65;
+            $inputs["dvt"] = ord(strtoupper($inputs["dvt"])) - 65;
+            $inputs["mucgialk"] = ord(strtoupper($inputs["mucgialk"])) - 65;
+            $inputs["mucgiakk"] = ord(strtoupper($inputs["mucgiakk"])) - 65;
+            $inputs["ghichu"] = ord(strtoupper($inputs["ghichu"])) - 65;
+
             $inputs['mahs'] = $inputs['madv'] . '_' . getdate()[0];
             $modeldn = Company::where('madv', $inputs['madv'])->first();
 
@@ -358,46 +365,41 @@ class KkGsController extends Controller
             $modellk = KkGs::where('madv', $inputs['madv'])
                 ->wherein('trangthai', ['DD', 'CB', 'HCB'])
                 ->orderby('ngayhieuluc', 'desc')->first();
-            //dd($inputs);
+
             if ($modellk != null) {
                 $model->socvlk = $modellk->socv;
                 $model->ngaycvlk = $modellk->ngaynhap;
             }
 
-            $filename = $inputs['madv'] . '_' . getdate()[0];
-            $request->file('fexcel')->move(public_path() . '/data/uploads/excels/', $filename . '.xls');
-            $path = public_path() . '/data/uploads/excels/' . $filename . '.xls';
-            $data = [];
+            $file = $request->file('fexcel');
 
-            Excel::load($path, function ($reader) use (&$data, $inputs) {
-                $obj = $reader->getExcel();
-                $sheet = $obj->getSheet(0);
-                $data = $sheet->toArray(null, true, true, true); // giữ lại tiêu đề A=>'val';
-            });
-            //dd($data);
+            $dataObj = new ColectionImport();
+            $theArray = Excel::toArray($dataObj, $file);
+            $data = $theArray[0]; 
 
+            $inputs['dendong'] = $inputs['dendong'] < count($data) ? count($data) : $inputs['dendong'];
             $a_dm = array();
 
-            for ($i = $inputs['tudong']; $i <= $inputs['dendong']; $i++) {
-                if (
-                    !isset($data[$i][$inputs['tenhhdv']]) || !isset($data[$i][$inputs['qccl']]) ||
-                    !isset($data[$i][$inputs['dvt']]) || !isset($data[$i][$inputs['mucgialk']]) ||
-                    !isset($data[$i][$inputs['mucgiakk']])
-                ) {
-                    continue;
-                }
+            for ($i = $inputs['tudong'] - 1; $i <= ($inputs['dendong']); $i++) {
+
                 $a_dm[] = array(
                     'mahs' => $inputs['mahs'],
-                    'tendvcu' => $data[$i][$inputs['tenhhdv']] ?? '',
-                    'qccl' => $data[$i][$inputs['qccl']] ?? '',
-                    'dvt' => $data[$i][$inputs['dvt']] ?? '',
-                    'gialk' => $data[$i][$inputs['mucgialk']] ?? '',
-                    'giakk' => $data[$i][$inputs['mucgiakk']] ?? '',
+                    'tendvcu' => trim($data[$i][$inputs['tenhhdv']] ?? ''),
+                    'qccl' => trim($data[$i][$inputs['qccl']] ?? ''),
+                    'dvt' => trim($data[$i][$inputs['dvt']] ?? ''),
+                    'gialk' => trim($data[$i][$inputs['mucgialk']] ?? ''),
+                    'giakk' => trim($data[$i][$inputs['mucgiakk']] ?? ''),
+                    'ghichu' => trim($data[$i][$inputs['ghichu']] ?? ''),
                     'madv' => $inputs['madv'],
                 );
             }
-            KkGsCt::insert($a_dm);
-            File::Delete($path);
+            //dd($a_dm);
+            foreach (array_chunk($a_dm, 100) as $dm){
+                KkGsCt::insert($dm);
+            }
+
+            // KkGsCt::insert($a_dm);
+            // File::Delete($path);
 
             $modelct = KkGsCt::where('mahs', $inputs['mahs'])->get();
 
