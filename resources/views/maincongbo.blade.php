@@ -291,29 +291,23 @@
                         </ul>
                     </li>
 
-                    @if (Illuminate\Support\Facades\Session::has('admin'))
-                        <li class="menu-dropdown classic-menu-dropdown ">
-                        <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">Kết nối CSDL Giá Quốc Gia<i class="fa fa-angle-down"></i></a>
-                            <ul class="dropdown-menu pull-left">
-                                <li class=" dropdown-submenu">
-                                    <a href="javascript:;">
-                                        <i class="icon-folder"></i>
-                                        &nbsp;Giá thuế tài nguyên</a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="{{ url('/cbketnoigiathuetn/nhanhoso') }}">Nhận dữ liệu</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/cbketnoigiathuetn/danhmuc') }}">Truyền danh mục</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/cbketnoigiathuetn/hoso') }}">Truyền hồ sơ kê khai</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    @endif
+                    
+                    <li class="menu-dropdown classic-menu-dropdown ">
+                    <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">Kết nối CSDL Giá Quốc Gia<i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu pull-left">
+                            <li class=" dropdown-submenu">
+                                <a href="javascript:;">
+                                    <i class="icon-folder"></i>&nbsp;Giá thuế tài nguyên
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ url('/cbketnoigiathuetn/danhmuc') }}">Truyền danh mục</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    
                 </ul>
             </div>
             <!-- END MEGA MENU -->

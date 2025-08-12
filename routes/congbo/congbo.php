@@ -64,19 +64,19 @@ Route::get('cbttqlnn','congbo\ttqlnn\ThongTuPVCTQLNNController@index');
 //Văn bản phục vụ công tác quản lý nhà nước
 Route::get('cbgiavangngoaite','congbo\CongBoController@cbgiavangngoaite');
 
-//Nhận hồ sơ
-Route::get('cbketnoigiathuetn/nhanhoso','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@nhanhoso');
-Route::get('cbketnoigiathuetn/innhanhosocsdlqg','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@innhanhosocsdlqg');
+// //Nhận hồ sơ
+// Route::get('cbketnoigiathuetn/nhanhoso','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@nhanhoso');
+// Route::get('cbketnoigiathuetn/innhanhosocsdlqg','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@innhanhosocsdlqg');
 
 //Truyền danh mục
 Route::get('cbketnoigiathuetn/danhmuc','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@truyendanhmuc');
-Route::get('cbketnoigiathuetn/show_nhomdm','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@show_nhomdm');
-Route::post('cbketnoigiathuetn/capnhatdanhmuc','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@capnhatdanhmuc');
+// Route::get('cbketnoigiathuetn/show_nhomdm','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@show_nhomdm');
+// Route::post('cbketnoigiathuetn/capnhatdanhmuc','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@capnhatdanhmuc');
 
-//Truyền hồ sơ kê khai
-Route::get('cbketnoigiathuetn/hoso','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@truyenhoso');
-Route::get('cbketnoigiathuetn/show_hoso','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@show_hoso');
-Route::post('cbketnoigiathuetn/capnhathoso','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@capnhathoso');
+// //Truyền hồ sơ kê khai
+// Route::get('cbketnoigiathuetn/hoso','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@truyenhoso');
+// Route::get('cbketnoigiathuetn/show_hoso','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@show_hoso');
+// Route::post('cbketnoigiathuetn/capnhathoso','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@capnhathoso');
 
 Route::group(['prefix'=>'CBKetNoiAPI'],function (){
     Route::get('ThietLapChung','congbo\ketnoi\CongBoAPIController@ThietLapChung');

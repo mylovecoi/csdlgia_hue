@@ -1,13 +1,13 @@
-@extends('maincongbo')
+@extends('main')
 
-@section('custom-style-cb')
+@section('custom-style')
     <link rel="stylesheet" type="text/css"
         href="{{ url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url('assets/global/plugins/select2/select2.css') }}" />
 @stop
 
 
-@section('custom-script-cb')
+@section('custom-script')
     <!-- BEGIN PAGE LEVEL PLUGINS -->
 
     <script type="text/javascript" src="{{ url('assets/global/plugins/select2/select2.min.js') }}"></script>
@@ -38,97 +38,101 @@
     </script>
 @stop
 
-@section('content-cb')
-    <div class="col-sm-12">
-        <h3 class="page-title">
-            Nhận hồ sơ giá thuế tài nguyên từ CSDL Quốc gia
-        </h3>
-        <!-- BEGIN EXAMPLE TABLE PORTLET-->
-        <div class="portlet box">
-            <div class="portlet-title">
-                <div class="caption">
-                </div>
-                <div class="actions">
-                    @if (count($a_dv) > 0)
-                        <!-- Địa bàn có đơn vị có chức năng nhập liệu -->
-                        <a href="{{ url($inputs['url'] . '/innhanhosocsdlqg') . '?nam=' . $inputs['nam'] . '&madv=' . $inputs['madv']}}" 
-                            class="btn btn-default btn-xs mbs" target="_blank"><i class="fa fa-print"></i>&nbsp;In dữ liệu
-                        </a>
+@section('content')
+    <h3 class="page-title">
+        Nhận hồ sơ giá thuế tài nguyên từ CSDL Quốc gia
+    </h3>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+            <div class="portlet box">
+                <div class="portlet-title">
+                    <div class="caption">
+                    </div>
+                    <div class="actions">
+                        @if (count($a_dv) > 0)
+                            <!-- Địa bàn có đơn vị có chức năng nhập liệu -->
+                            <a href="{{ url($inputs['url'] . '/innhanhosocsdlqg') . '?nam=' . $inputs['nam'] . '&madv=' . $inputs['madv']}}" 
+                                class="btn btn-default btn-xs mbs" target="_blank"><i class="fa fa-print"></i>&nbsp;In dữ liệu
+                            </a>
 
-                        <button type="button" class="btn btn-default btn-sm" data-target="#create-modal-confirm"
-                            data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;Nhận dữ liệu
-                        </button>
-                    @endif
-                </div>
-
-            </div>
-            <hr>
-            <div class="portlet-body form-horizontal">
-
-                <div class="row">
-                    <div class="col-md-2">
-                        <label style="font-weight: bold">Năm</label>
-                        {!! Form::select('nam', getNam(true), $inputs['nam'], ['id' => 'nam', 'class' => 'form-control']) !!}
+                            <button type="button" class="btn btn-default btn-sm" data-target="#create-modal-confirm"
+                                data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;Nhận dữ liệu
+                            </button>
+                        @endif
                     </div>
 
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            <div class="col-md-4">
-                                <label style="font-weight: bold">Địa bàn</label>
-                                <select class="form-control select2me" id="madv" name="madv">
-                                    @foreach ($m_diaban as $diaban)
-                                        <optgroup label="{{ $diaban->tendiaban }}">
-                                            <?php $donvi = $m_donvi->where('madiaban', $diaban->madiaban); ?>
-                                            @foreach ($donvi as $ct)
-                                                <option {{ $ct->madv == $inputs['madv'] ? 'selected' : '' }}
-                                                    value="{{ $ct->madv }}">{{ $ct->tendv }}</option>
-                                            @endforeach
-                                        </optgroup>
-                                    @endforeach
-                                </select>
+                </div>
+                <hr>
+                <div class="portlet-body form-horizontal">
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label style="font-weight: bold">Năm</label>
+                            {!! Form::select('nam', getNam(true), $inputs['nam'], ['id' => 'nam', 'class' => 'form-control']) !!}
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <label style="font-weight: bold">Địa bàn</label>
+                                    <select class="form-control select2me" id="madv" name="madv">
+                                        @foreach ($m_diaban as $diaban)
+                                            <optgroup label="{{ $diaban->tendiaban }}">
+                                                <?php $donvi = $m_donvi->where('madiaban', $diaban->madiaban); ?>
+                                                @foreach ($donvi as $ct)
+                                                    <option {{ $ct->madv == $inputs['madv'] ? 'selected' : '' }}
+                                                        value="{{ $ct->madv }}">{{ $ct->tendv }}</option>
+                                                @endforeach
+                                            </optgroup>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <table class="table table-striped table-bordered table-hover" id="sample_4">
-                    <thead>
-                        <tr class="text-center">
-                            <th width="5%">STT</th>
-                            <th>Ngày báo cáo</th>
-                            <th>Số quyết định</th>
-                            <th>Nội dung</th>
-                            <th>Trạng thái</th>
-                            <th>Cơ quan tiếp nhận</th>
-                            <th style="text-align: center" width="15%">Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($model as $key => $tt)
-                            <tr>
-                                <td style="text-align: center">{{ $key + 1 }}</td>
-                                <td class="text-center">{{ getDayVn($tt->thoidiem) }}</td>
-                                <td class="text-center">{{ $tt->soqd }}</td>
-                                <td>{{ $tt->cqbh }}</td>
-                                @include('manage.include.form.td_trangthai')
-                                <td style="text-align: left">{{ $a_donvi_th[$tt->macqcq] ?? '' }}</td>
-                                <td>
-                                    @if (in_array($tt->trangthai, ['CHT', 'HHT']))
-                                        <button type="button"
-                                            onclick="confirmChuyen('{{ $tt->mahs }}','{{ $inputs['url'] . '/chuyenhs' }}')"
-                                            class="btn btn-default btn-xs mbs" data-target="#chuyen-modal-confirm"
-                                            data-toggle="modal">
-                                            <i class="fa fa-check"></i> Nhận vào phần mềm</button>
-                                    @endif
-                                </td>
+                    <table class="table table-striped table-bordered table-hover" id="sample_4">
+                        <thead>
+                            <tr class="text-center">
+                                <th width="5%">STT</th>
+                                <th>Ngày báo cáo</th>
+                                <th>Số quyết định</th>
+                                <th>Nội dung</th>
+                                <th>Trạng thái</th>
+                                <th>Cơ quan tiếp nhận</th>
+                                <th style="text-align: center" width="15%">Thao tác</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($model as $key => $tt)
+                                <tr>
+                                    <td style="text-align: center">{{ $key + 1 }}</td>
+                                    <td class="text-center">{{ getDayVn($tt->thoidiem) }}</td>
+                                    <td class="text-center">{{ $tt->soqd }}</td>
+                                    <td>{{ $tt->cqbh }}</td>
+                                    @include('manage.include.form.td_trangthai')
+                                    <td style="text-align: left">{{ $a_donvi_th[$tt->macqcq] ?? '' }}</td>
+                                    <td>
+                                        @if (in_array($tt->trangthai, ['CHT', 'HHT']))
+                                            <button type="button"
+                                                onclick="confirmChuyen('{{ $tt->mahs }}','{{ $inputs['url'] . '/chuyenhs' }}')"
+                                                class="btn btn-default btn-xs mbs" data-target="#chuyen-modal-confirm"
+                                                data-toggle="modal">
+                                                <i class="fa fa-check"></i> Nhận vào phần mềm</button>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
         </div>
-        <!-- END EXAMPLE TABLE PORTLET-->
     </div>
+    
 
     <!-- BEGIN DASHBOARD STATS -->
 

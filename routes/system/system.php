@@ -207,3 +207,18 @@ Route::group(['prefix'=>'tinhuyenxa'], function(){
     Route::post('delete_all','system\dmtinhhuyenxaController@delete_all');
     Route::post('nhanexcel','system\dmtinhhuyenxaController@create_excel');
 });
+
+
+//Nhận hồ sơ
+Route::get('ketnoigiathuetn/nhanhoso','manage\thuetn\KetNoiCSDLGiaThueTn@nhanhoso');
+Route::get('ketnoigiathuetn/innhanhosocsdlqg','manage\thuetn\KetNoiCSDLGiaThueTn@innhanhosocsdlqg');
+
+//Truyền danh mục
+Route::get('ketnoigiathuetn/danhmuc','manage\thuetn\KetNoiCSDLGiaThueTn@truyendanhmuc');
+Route::get('ketnoigiathuetn/show_nhomdm','manage\thuetn\KetNoiCSDLGiaThueTn@show_nhomdm');
+Route::post('ketnoigiathuetn/capnhatdanhmuc','manage\thuetn\KetNoiCSDLGiaThueTn@capnhatdanhmuc');
+
+//Truyền hồ sơ kê khai
+Route::get('ketnoigiathuetn/hoso','manage\thuetn\KetNoiCSDLGiaThueTn@truyenhoso');
+Route::get('ketnoigiathuetn/show_hoso','manage\thuetn\KetNoiCSDLGiaThueTn@show_hoso');
+Route::post('ketnoigiathuetn/capnhathoso','manage\thuetn\KetNoiCSDLGiaThueTn@capnhathoso');
