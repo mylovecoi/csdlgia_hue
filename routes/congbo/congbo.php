@@ -63,4 +63,44 @@ Route::get('cbvbqlnn','congbo\vanbanqlnn\CongboVanBanQLNNController@index');
 Route::get('cbttqlnn','congbo\ttqlnn\ThongTuPVCTQLNNController@index');
 //Văn bản phục vụ công tác quản lý nhà nước
 Route::get('cbgiavangngoaite','congbo\CongBoController@cbgiavangngoaite');
+
+//Nhận hồ sơ
+Route::get('cbketnoigiathuetn/nhanhoso','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@nhanhoso');
+Route::get('cbketnoigiathuetn/innhanhosocsdlqg','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@innhanhosocsdlqg');
+
+//Truyền danh mục
+Route::get('cbketnoigiathuetn/danhmuc','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@truyendanhmuc');
+Route::get('cbketnoigiathuetn/show_nhomdm','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@show_nhomdm');
+Route::post('cbketnoigiathuetn/capnhatdanhmuc','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@capnhatdanhmuc');
+
+//Truyền hồ sơ kê khai
+Route::get('cbketnoigiathuetn/hoso','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@truyenhoso');
+Route::get('cbketnoigiathuetn/show_hoso','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@show_hoso');
+Route::post('cbketnoigiathuetn/capnhathoso','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@capnhathoso');
+
+Route::group(['prefix'=>'CBKetNoiAPI'],function (){
+    Route::get('ThietLapChung','congbo\ketnoi\CongBoAPIController@ThietLapChung');
+    Route::post('LuuChung','congbo\ketnoi\CongBoAPIController@LuuChung');
+    Route::get('LayTLChung','congbo\ketnoi\CongBoAPIController@LayTLChung');
+    Route::post('XoaTLChung','congbo\ketnoi\CongBoAPIController@XoaTLChung');
+    Route::post('LinkKetNoi','congbo\ketnoi\CongBoAPIController@LinkKetNoi');
+    Route::get('getLink','congbo\ketnoi\CongBoAPIController@getLink');
+    
+    //Chi tiết
+    Route::get('ThietLapChiTiet','congbo\ketnoi\CongBoAPIController@ThietLapChiTiet');
+    Route::get('HoSo','congbo\ketnoi\CongBoAPIController@ThietLapHoSo');
+    Route::post('LuuHoSo','congbo\ketnoi\CongBoAPIController@LuuHoSo');
+    Route::post('LuuHoSoChiTiet','congbo\ketnoi\CongBoAPIController@LuuHoSoChiTiet');
+    Route::get('LayHoSo','congbo\ketnoi\CongBoAPIController@LayHoSo');
+    Route::get('LayHoSoChiTiet','congbo\ketnoi\CongBoAPIController@LayHoSoChiTiet');
+    Route::post('XoaHoSo','congbo\ketnoi\CongBoAPIController@XoaHoSo');
+    Route::post('XoaHoSoChiTiet','congbo\ketnoi\CongBoAPIController@XoaHoSoChiTiet');
+
+    Route::post('MacDinh','congbo\ketnoi\CongBoAPIController@MacDinh');
+    Route::get('DanhSachKetNoi','congbo\ketnoi\CongBoAPIController@DanhSachKetNoi');
+    
+    //Truyền hồ sơ
+    Route::post('TruyenHoSo','_dungchung\KetNoiCSDLQuocGiaController@send_post');
+    Route::get('XemHoSo','_dungchung\KetNoiCSDLQuocGiaController@XemHoSo');
+});
 ?>

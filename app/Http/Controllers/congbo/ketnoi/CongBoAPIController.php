@@ -1,30 +1,28 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\congbo\ketnoi;
 
 
 use App\Model\Api\KetNoiAPI;
 use App\Model\Api\KetNoiAPI_HoSo;
 use App\Model\Api\KetNoiAPI_HoSo_ChiTiet;
-use App\Model\system\danhmucchucnang;
 use App\Users;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Api\KetNoiAPI_DanhSach;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Session;
 
-class APIController extends Controller
+class CongBoAPIController extends Controller
 {
     public function ThietLapChung(Request $request)
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $inputs['url'] = '/KetNoiAPI';
+            $inputs['url'] = '/CBKetNoiAPI';
             $inputs['phanloai'] = $inputs['phanloai'] ?? 'Header';
             $model = KetNoiAPI::where('phanloai', $inputs['phanloai'])->orderby('stt')->get();
             $inputs['stt'] = count($model) + 1;
-            return view('system.KetNoiAPI.ThietLapChung')
+            return view('manage.dinhgia.thuetn.api.ketnoi.ThietLapChung')
                 ->with('model', $model)
                 ->with('inputs', $inputs)
                 ->with('pageTitle', 'Thiết lập chung kết nối API');
@@ -43,7 +41,7 @@ class APIController extends Controller
             } else {
                 $model->update($inputs);
             }
-            return  redirect('/KetNoiAPI/ThietLapChung?phanloai=' . $inputs['phanloai']);
+            return  redirect('/CBKetNoiAPI/ThietLapChung?phanloai=' . $inputs['phanloai']);
         } else
             return view('errors.notlogin');
     }
@@ -61,14 +59,14 @@ class APIController extends Controller
         $inputs = $request->all();
         $model = KetNoiAPI::findorfail($inputs['id']);
         $model->delete();
-        return  redirect('/KetNoiAPI/ThietLapChung?phanloai=' . $model->phanloai);
+        return  redirect('/CBKetNoiAPI/ThietLapChung?phanloai=' . $model->phanloai);
     }
 
     public function ThietLapChiTiet(Request $request)
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $inputs['url'] = '/KetNoiAPI';
+            $inputs['url'] = '/CBKetNoiAPI';
             //dd(\session('admin'));
             $per = getPhanQuyen();
             $setting = \session('admin')['setting'];
@@ -102,7 +100,7 @@ class APIController extends Controller
             //lấy danh sách tài khoản
             $model_danhsach = KetNoiAPI_DanhSach::all();
             //dd( $model_danhsach);
-            return view('system.KetNoiAPI.ThietLapChucNang')
+            return view('manage.dinhgia.thuetn.api.ketnoi.ThietLapChucNang')
                 ->with('per', $per)
                 ->with('setting', $setting)
                 ->with('inputs', $inputs)
@@ -117,11 +115,11 @@ class APIController extends Controller
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $inputs['url'] = '/KetNoiAPI';
+            $inputs['url'] = '/CBKetNoiAPI';
             $model = KetNoiAPI_HoSo::where('maso', $inputs['maso'])->orderby('stt')->get();
             $model_ct = KetNoiAPI_HoSo_ChiTiet::where('maso', $inputs['maso'])->orderby('stt')->get();
             $inputs['stt'] = count($model) + 1;
-            return view('system.KetNoiAPI.ThietLapHoSo')
+            return view('manage.dinhgia.thuetn.api.ketnoi.ThietLapHoSo')
                 ->with('model', $model)
                 ->with('model_ct', $model_ct)
                 ->with('inputs', $inputs)
@@ -157,7 +155,7 @@ class APIController extends Controller
             } else {
                 $model->update($inputs);
             }
-            return  redirect('/KetNoiAPI/HoSo?maso=' . $inputs['maso']);
+            return  redirect('/CBKetNoiAPI/HoSo?maso=' . $inputs['maso']);
         } else
             return view('errors.notlogin');
     }
@@ -173,7 +171,7 @@ class APIController extends Controller
             } else {
                 $model->update($inputs);
             }
-            return  redirect('/KetNoiAPI/HoSo?maso=' . $inputs['maso']);
+            return  redirect('/CBKetNoiAPI/HoSo?maso=' . $inputs['maso']);
         } else
             return view('errors.notlogin');
     }
@@ -183,7 +181,7 @@ class APIController extends Controller
         $inputs = $request->all();
         $model = KetNoiAPI_HoSo::findorfail($inputs['id']);
         $model->delete();
-        return  redirect('/KetNoiAPI/HoSo?maso=' . $model->maso);
+        return  redirect('/CBKetNoiAPI/HoSo?maso=' . $model->maso);
     }
 
     public function XoaHoSoChiTiet(Request $request)
@@ -191,7 +189,7 @@ class APIController extends Controller
         $inputs = $request->all();
         $model = KetNoiAPI_HoSo_ChiTiet::findorfail($inputs['id']);
         $model->delete();
-        return  redirect('/KetNoiAPI/HoSo?maso=' . $model->maso);
+        return  redirect('/CBKetNoiAPI/HoSo?maso=' . $model->maso);
     }
 
     public function MacDinh(Request $request)
@@ -203,7 +201,7 @@ class APIController extends Controller
             foreach ($a_chucnang as $chucnang) {
                 KetNoiAPI::create($chucnang);
             }
-            return  redirect('/KetNoiAPI/ThietLapChung');
+            return  redirect('/CBKetNoiAPI/ThietLapChung');
         } else {
             KetNoiAPI_HoSo::where('maso', $inputs['maso'])->delete();
             KetNoiAPI_HoSo_ChiTiet::where('maso', $inputs['maso'])->delete();
@@ -216,7 +214,7 @@ class APIController extends Controller
                 foreach ($a_chucnang['CHITIET'] as $chucnang) {
                     KetNoiAPI_HoSo_ChiTiet::create(a_merge(['maso' => $inputs['maso']], $chucnang));
                 }
-            return  redirect('/KetNoiAPI/HoSo?maso=' . $inputs['maso']);
+            return  redirect('/CBKetNoiAPI/HoSo?maso=' . $inputs['maso']);
         }
     }
 
@@ -224,7 +222,7 @@ class APIController extends Controller
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $inputs['url'] = '/KetNoiAPI';
+            $inputs['url'] = '/CBKetNoiAPI';
             //$m_donvi_th = getDonViTongHop('giahhdvk', 'SSA');
             $m_donvi = getDonViNhapLieu('SSA', 'giahhdvk');
             $model = Users::wherein('madv', array_column($m_donvi->toarray(), 'madv'))->get();
@@ -233,7 +231,7 @@ class APIController extends Controller
                 $TK->linkAPI = $request->server()['SERVER_NAME'] . '/api/getAPI?name=' . $TK->username . '&token=' . md5($TK->username . $TK->madv) . '&maso=' . $inputs['maso'];
             }
             //dd($m_user);
-            return view('system.KetNoiAPI.DanhSachKetNoi')
+            return view('manage.dinhgia.thuetn.api.ketnoi.DanhSachKetNoi')
                 ->with('model', $model)
                 ->with('inputs', $inputs)
                 ->with('pageTitle', 'Danh sách kết nối API');
@@ -267,7 +265,7 @@ class APIController extends Controller
             $inputs = $request->all();
             $model = KetNoiAPI_DanhSach::where('maso', $inputs['maso'])->first();
             $model->update($inputs);
-            return  redirect('/KetNoiAPI/ThietLapChiTiet');
+            return  redirect('/CBKetNoiAPI/ThietLapChiTiet');
         } else
             return view('errors.notlogin');
     }

@@ -152,7 +152,7 @@
 
                 <ul class="nav navbar-nav">
                     @if (chkCongBo('csdlmucgiahhdv'))
-<li class="menu-dropdown classic-menu-dropdown ">
+                    <li class="menu-dropdown classic-menu-dropdown ">
                     <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">Hàng hóa, dịch vụ<i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu pull-left">
                             <li class=" dropdown-submenu">
@@ -194,14 +194,13 @@
                             </li>
                             <!-- Chon năm; chon phân loại mặt hàng -->
                             <li><a href="{{ url('cbbinhongia') }}"><i class="icon-folder"></i>&nbsp;{{ session('congbo')['chucnang']['bog'] ?? 'Bình ổn giá' }}</a></li>
-{{--                            <li><a href="{{url('coming')}}"><i class="icon-folder"></i>&nbsp;Giá HH-DV khác</a></li> --}}
-
+                            {{--<li><a href="{{url('coming')}}"><i class="icon-folder"></i>&nbsp;Giá HH-DV khác</a></li> --}}
                             <li><a href="{{ url('cbgialephitruocba') }}"><i class="icon-folder"></i>&nbsp;{{ session('congbo')['chucnang']['gialephitruocba'] ?? 'Giá lệ phí trước bạ' }}</a></li>
                             <li><a href="{{ url('cbphilephi') }}"><i class="icon-folder"></i>&nbsp;{{ session('congbo')['chucnang']['giaphilephi'] ?? 'Phí, lệ phí' }}</a></li>
                             <li><a href="{{ url('cbgiavangngoaite') }}"><i class="icon-folder"></i>&nbsp;{{ session('congbo')['chucnang']['giavangngoaite'] ?? 'Giá vàng, ngoại tệ' }}</a></li>
                         </ul>
                     </li>
-@endif
+                    @endif
 
                     <li class="menu-dropdown classic-menu-dropdown">
                         <a data-hover="megamenu-dropdown" data-close-others="true" href="javascript:;">Kê khai, niêm yết giá<i class="fa fa-angle-down"></i></a>
@@ -263,8 +262,8 @@
                                 <ul class="dropdown-menu">
                                     <?php $modelbcthvegia = \App\Model\manage\vanbanplvegia\baocaoth\BcThVeGiaDm::all(); ?>
                                     @foreach ($modelbcthvegia as $bcthvegia)
-<li><a href="{{ url('/cbvbqlnn') }}"><i class="icon-folder"></i> &nbsp;{{ $bcthvegia->mota }}</a></li>
-@endforeach
+                                        <li><a href="{{ url('/cbvbqlnn') }}"><i class="icon-folder"></i> &nbsp;{{ $bcthvegia->mota }}</a></li>
+                                    @endforeach
                                 </ul>
                             </li>
 
@@ -275,10 +274,10 @@
                                 <ul class="dropdown-menu">
                                     <?php $ttpvctqlnn = \App\Model\manage\ttpvctqlnn\TtPvCtQlNnDm::all(); ?>
                                     @foreach ($ttpvctqlnn as $ttpv)
-<li>
+                                        <li>
                                             <a href="{{ url('/cbttqlnn') }}"><i class="icon-folder"></i> {{ $ttpv->mota }}</span></a>
                                         </li>
-@endforeach
+                                    @endforeach
                                 </ul>
                             </li>
                         </ul>
@@ -291,6 +290,30 @@
                             <li><a href="{{ url('/thongtinhotro') }}" target="_blank"><i class="icon-folder"></i> &nbsp;Thông tin hỗ trợ</a></li>
                         </ul>
                     </li>
+
+                    @if (Illuminate\Support\Facades\Session::has('admin'))
+                        <li class="menu-dropdown classic-menu-dropdown ">
+                        <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">Kết nối CSDL Giá Quốc Gia<i class="fa fa-angle-down"></i></a>
+                            <ul class="dropdown-menu pull-left">
+                                <li class=" dropdown-submenu">
+                                    <a href="javascript:;">
+                                        <i class="icon-folder"></i>
+                                        &nbsp;Giá thuế tài nguyên</a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="{{ url('/cbketnoigiathuetn/nhanhoso') }}">Nhận dữ liệu</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('/cbketnoigiathuetn/danhmuc') }}">Truyền danh mục</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('/cbketnoigiathuetn/hoso') }}">Truyền hồ sơ kê khai</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
                 </ul>
             </div>
             <!-- END MEGA MENU -->
