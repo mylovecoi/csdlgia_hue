@@ -70,14 +70,9 @@
                     <div class="col-md-5">
                         <label style="font-weight: bold">Đơn vị</label>
                         <select class="form-control select2me" id="madv">
-                            @foreach ($m_diaban as $diaban)
-                                <optgroup label="{{ $diaban->tendiaban }}">
-                                    <?php $donvi = $m_donvi->where('madiaban', $diaban->madiaban); ?>
-                                    @foreach ($donvi as $ct)
-                                        <option {{ $ct->madv == $inputs['madv'] ? 'selected' : '' }}
-                                            value="{{ $ct->madv }}">{{ $ct->tendv }}</option>
-                                    @endforeach
-                                </optgroup>
+                            @foreach ($m_donvi as $ct)
+                                <option {{ $ct->madv == $inputs['madv'] ? 'selected' : '' }}
+                                    value="{{ $ct->madv }}">{{ $ct->tendv }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -115,12 +110,10 @@
                                     <td style="text-align: center">{{ getDayVn($tt->thoidiem) }}</td>
                                     <td style="text-align: left">{{ $tt->cqbh }}</td>
                                     <td>
-                                        @if ($tt->theodoi == 'TD')
-                                            <a href="{{ url('/KetNoiAPI/XemHoSo?maso=giathuetn&mahs=' . $tt->mahs) }}"
-                                                class="btn btn-default btn-xs mbs" target="_blank">
-                                                <i class="fa fa-eye"></i>&nbsp;Xem trước thông điệp
-                                            </a>
-                                        @endif
+                                        <a href="{{ url('/KetNoiAPI/XemHoSo?maso=giathuetn&mahs=' . $tt->mahs) }}"
+                                            class="btn btn-default btn-xs mbs" target="_blank">
+                                            <i class="fa fa-eye"></i>&nbsp;Xem trước thông điệp
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
