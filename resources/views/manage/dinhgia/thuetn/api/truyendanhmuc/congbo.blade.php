@@ -37,7 +37,7 @@
 @section('content-cb')
     <div class="col-sm-12">
         <h3 class="page-title">
-            Truyền danh mục giá thuế tài nguyên
+            Danh mục giá thuế tài nguyên
         </h3>
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet box">

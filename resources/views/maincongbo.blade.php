@@ -301,7 +301,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="{{ url('/cbketnoigiathuetn/danhmuc') }}">Truyền danh mục</a>
+                                        <a href="{{ url('/cbketnoigiathuetn/danhmuc') }}">Danh mục</a>
                                     </li>
                                 </ul>
                             </li>
