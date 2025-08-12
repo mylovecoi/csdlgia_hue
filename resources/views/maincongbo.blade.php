@@ -303,6 +303,9 @@
                                     <li>
                                         <a href="{{ url('/cbketnoigiathuetn/danhmuc') }}">Danh mục</a>
                                     </li>
+                                    <li>
+                                        <a href="{{ url('/cbketnoigiathuetn/hoso') }}">Hồ sơ</a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>

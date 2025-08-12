@@ -73,8 +73,8 @@ Route::get('cbketnoigiathuetn/danhmuc','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@
 // Route::get('cbketnoigiathuetn/show_nhomdm','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@show_nhomdm');
 // Route::post('cbketnoigiathuetn/capnhatdanhmuc','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@capnhatdanhmuc');
 
-// //Truyền hồ sơ kê khai
-// Route::get('cbketnoigiathuetn/hoso','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@truyenhoso');
+//Truyền hồ sơ kê khai
+Route::get('cbketnoigiathuetn/hoso','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@truyenhoso');
 // Route::get('cbketnoigiathuetn/show_hoso','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@show_hoso');
 // Route::post('cbketnoigiathuetn/capnhathoso','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTn@capnhathoso');
 

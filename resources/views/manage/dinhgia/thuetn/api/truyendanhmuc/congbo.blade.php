@@ -86,21 +86,10 @@
                                 <td class="active">{{ $tt->tennhom }}</td>
                                 <td>
                                     @if ($tt->theodoi == 'TD')
-                                        <div class="btn-group btn-group-solid">
-                                            <button type="button" class="btn btn-default dropdown-toggle btn-xs"
-                                                        data-toggle="dropdown" aria-expanded="false">
-                                                        <i class="fa fa-cog"></i> Truyền lên CSDLQG <i
-                                                            class="fa fa-angle-down"></i>
-                                            </button>
-                                            <ul class="dropdown-menu" style="position: static">
-                                                <li>
-                                                    <a href="{{ url('/CBKetNoiAPI/XemHoSo?maso=dmgiathuetn&mahs=' . $tt->manhom) }}"
-                                                        style="border: none;" target="_blank"
-                                                        class="btn btn-default">
-                                                        <i class="fa fa-caret-right"></i> Xem trước thông điệp</a>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        <a href="{{ url('/CBKetNoiAPI/XemHoSo?maso=dmgiathuetn&mahs=' . $tt->manhom) }}"
+                                            class="btn btn-default btn-xs mbs" target="_blank">
+                                            <i class="fa fa-eye"></i>&nbsp;Xem trước thông điệp
+                                        </a>
                                     @endif
                                 </td>
                             </tr>

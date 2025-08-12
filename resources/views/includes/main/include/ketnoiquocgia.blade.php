@@ -51,3 +51,36 @@
         </ul>
     </li>
 @endif
+<li class="heading">
+    <h3 class="uppercase">{{ session('admin')['a_chucnang']['csdlquocgia'] ?? 'Kết nối CSDL quốc gia' }}</h3>
+</li>
+<li class="tooltips" data-container="body" data-placement="right" data-html="true"
+    data-original-title="Thống kê hệ thống">
+    <a href="javascript:;">
+        <i class="icon-folder"></i>
+        <span class="title">{{ session('admin')['a_chucnang']['csdlquocgia'] ?? 'Kết nối CSDL quốc gia' }}</span>
+        <span class="arrow"></span>
+    </a>
+    <ul class="sub-menu">
+        <li class="tooltips" data-container="body" data-placement="right" data-html="true">
+            <a href="javascript:;">
+                <span class="title">Giá thuế tài nguyên</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="{{ url('/ketnoigiathuetn/nhandanhmuc') }}">Nhận danh mục</a>
+                </li>
+                <li>
+                    <a href="{{ url('/ketnoigiathuetn/nhanhoso') }}">Nhận hồ sơ</a>
+                </li>
+                <li>
+                    <a href="{{ url('/ketnoigiathuetn/danhmuc') }}">Truyền danh mục</a>
+                </li>
+                <li>
+                    <a href="{{ url('/ketnoigiathuetn/hoso') }}">Truyền hồ sơ kê khai</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</li>

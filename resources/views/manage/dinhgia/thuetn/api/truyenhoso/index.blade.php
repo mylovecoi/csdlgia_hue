@@ -43,7 +43,7 @@
         function ClickEdit(mahs) {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: '/cbketnoigiathuetn/show_hoso',
+                url: '/ketnoigiathuetn/show_hoso',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,

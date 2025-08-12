@@ -822,26 +822,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     <li>
                                                         <a href="{{ url('/KetNoiAPI/ThietLapChiTiet') }}">Thông điệp chi tiết</a>
                                                     </li>
-                                                    <li>
-                                                        <a href="javascript:;">
-                                                            <span class="title">Giá thuế tài nguyên</span>
-                                                            <span class="arrow"></span>
-                                                        </a>
-                                                        <ul class="sub-menu">
-                                                            <li>
-                                                                <a href="{{ url('/ketnoigiathuetn/nhandanhmuc') }}">&nbsp;&nbsp;Nhận danh mục</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="{{ url('/ketnoigiathuetn/nhanhoso') }}">&nbsp;&nbsp;Nhận hồ sơ</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="{{ url('/ketnoigiathuetn/danhmuc') }}">&nbsp;&nbsp;Truyền danh mục</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="{{ url('/ketnoigiathuetn/hoso') }}">&nbsp;&nbsp;Truyền hồ sơ kê khai</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
                                                 </ul>
                                             </li>
                                         @endif
