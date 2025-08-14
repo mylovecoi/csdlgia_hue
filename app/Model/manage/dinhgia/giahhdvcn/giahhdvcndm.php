@@ -15,5 +15,7 @@ class giahhdvcndm extends Model
         'mota',
         'phanloai',
         'hientrang',
+        'truyendulieu',
+        'thoigiantruyen',
     ];
 }

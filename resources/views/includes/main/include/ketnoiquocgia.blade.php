@@ -69,16 +69,36 @@
             </a>
             <ul class="sub-menu">
                 <li>
-                    <a href="{{ url('/ketnoigiathuetn/nhandanhmuc') }}">Nhận danh mục</a>
+                    <a href="{{ url('/qg_giathuetn/nhandanhmuc') }}">Nhận danh mục</a>
                 </li>
                 <li>
-                    <a href="{{ url('/ketnoigiathuetn/nhanhoso') }}">Nhận hồ sơ</a>
+                    <a href="{{ url('/qg_giathuetn/nhanhoso') }}">Nhận hồ sơ</a>
                 </li>
                 <li>
-                    <a href="{{ url('/ketnoigiathuetn/danhmuc') }}">Truyền danh mục</a>
+                    <a href="{{ url('/qg_giathuetn/danhmuc') }}">Truyền danh mục</a>
                 </li>
                 <li>
-                    <a href="{{ url('/ketnoigiathuetn/hoso') }}">Truyền hồ sơ kê khai</a>
+                    <a href="{{ url('/qg_giathuetn/hoso') }}">Truyền hồ sơ kê khai</a>
+                </li>
+            </ul>
+        </li>
+        <li class="tooltips" data-container="body" data-placement="right" data-html="true">
+            <a href="javascript:;">
+                <span class="title">Giá hàng hóa, dịch vụ khác theo quy định của pháp luật chuyên ngành</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="{{ url('/qg_giahhdvcn/nhandanhmuc') }}">Nhận danh mục</a>
+                </li>
+                <li>
+                    <a href="{{ url('/qg_giahhdvcn/nhanhoso') }}">Nhận hồ sơ</a>
+                </li>
+                <li>
+                    <a href="{{ url('/qg_giahhdvcn/danhmuc') }}">Truyền danh mục</a>
+                </li>
+                <li>
+                    <a href="{{ url('/qg_giahhdvcn/hoso') }}">Truyền hồ sơ kê khai</a>
                 </li>
             </ul>
         </li>

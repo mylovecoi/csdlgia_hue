@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\manage\thuetn;
+namespace App\Http\Controllers\csdlquocgia;
 
 use App\Model\manage\dinhgia\thuetn\NhomThueTn;
 use App\Model\manage\dinhgia\thuetn\ThueTaiNguyen;
@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
-class KetNoiCSDLGiaThueTn extends Controller
+class KetNoiCSDLGiaThueTnController extends Controller
 {
     //Xây dựng các chức năng nhận hồ sơ từ pm csdl quốc gia
     public function nhanhoso(Request $request)
@@ -45,7 +45,7 @@ class KetNoiCSDLGiaThueTn extends Controller
             ->with('m_donvi_th', $m_donvi_th)
             ->with('a_donvi_th', array_column($m_donvi_th->toarray(), 'tendv', 'madv'))
             ->with('a_diaban_th', array_column($m_donvi_th->toarray(), 'tendiaban', 'madiaban'))
-            ->with('pageTitle', 'Thông tin giá thuế tài nguyên');
+            ->with('pageTitle', 'Nhận hồ sơ giá thuế tài nguyên');
     }
 
     public function innhanhosocsdlqg(Request $request)
@@ -66,7 +66,7 @@ class KetNoiCSDLGiaThueTn extends Controller
         return view('manage.dinhgia.thuetn.nhanhoso.BC1')
             ->with('model', $model->get())
             ->with('m_donvi', $m_donvi)
-            ->with('pageTitle', 'Thông tin giá thuế tài nguyên');
+            ->with('pageTitle', 'Nhận hồ sơ giá thuế tài nguyên');
     }
 
     //Xây dựng các chức năng truyền danh mục

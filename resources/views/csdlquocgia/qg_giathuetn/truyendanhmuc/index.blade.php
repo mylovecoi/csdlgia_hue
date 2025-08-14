@@ -35,7 +35,7 @@
         function ClickEdit(manhom) {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: '/ketnoigiathuetn/show_nhomdm',
+                url: '/qg_giathuetn/show_nhomdm',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -182,7 +182,7 @@
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url' => '/ketnoigiathuetn/capnhatdanhmuc', 'method' => 'post', 'id' => 'frm_update']) !!}
+                {!! Form::open(['url' => '/qg_giathuetn/capnhatdanhmuc', 'method' => 'post', 'id' => 'frm_update']) !!}
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>

@@ -86,7 +86,7 @@
                                 <td class="active">{{ $tt->tennhom }}</td>
                                 <td>
                                     @if ($tt->theodoi == 'TD')
-                                        <a href="{{ url('/CBKetNoiAPI/XemHoSo?maso=dmgiathuetn&mahs=' . $tt->manhom) }}"
+                                        <a href="{{ url('/KetNoiAPI/XemHoSo?maso=dmgiathuetn&mahs=' . $tt->manhom) }}"
                                             class="btn btn-default btn-xs mbs" target="_blank">
                                             <i class="fa fa-eye"></i>&nbsp;Xem trước thông điệp
                                         </a>
