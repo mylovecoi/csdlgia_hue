@@ -48,6 +48,45 @@ class qg_giathuetnController extends Controller
             ->with('pageTitle', 'Nhận hồ sơ giá thuế tài nguyên');
     }
 
+    public function chuyenhs(Request $request)
+    {
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $model = ThueTaiNguyen::where('mahs', $inputs['mahs'])->first();
+            $a_lichsu = json_decode($model->lichsu, true);
+            $a_lichsu[getdate()[0]] = array(
+                'hanhdong' => 'HT',
+                'username' => session('admin')->username,
+                'mota' => 'Chuyển hồ sơ',
+                'thoigian' => date('Y-m-d H:i:s'),
+                'macqcq' => $inputs['macqcq'],
+                'madv' => $model->madv
+            );
+
+            $model->lichsu = json_encode($a_lichsu);
+            $model->macqcq = $inputs['macqcq'];
+            $model->trangthai = 'HT';
+            //kiểm tra đơn vị tiếp nhận
+            $chk_dvcq = view_dsdiaban_donvi::where('madv', $inputs['macqcq'])->first();
+            if ($chk_dvcq->count() && $chk_dvcq->level == 'T') {
+                $model->madv_t = $inputs['macqcq'];
+                $model->thoidiem_t = date('Y-m-d');
+                $model->trangthai_t = 'CHT';
+            } else if ($chk_dvcq->count() && $chk_dvcq->level == 'ADMIN') {
+                $model->madv_ad = $inputs['macqcq'];
+                $model->thoidiem_ad = date('Y-m-d');
+                $model->trangthai_ad = 'CHT';
+            } else {
+                $model->madv_h = $inputs['macqcq'];
+                $model->thoidiem_h = date('Y-m-d');
+                $model->trangthai_h = 'CHT';
+            }
+            $model->save();
+            return redirect('qg_giathuetn/nhanhoso?madv=' . $model->madv);
+        } else
+            return view('errors.notlogin');
+    }
+
     public function innhanhosocsdlqg(Request $request)
     {
         $inputs = $request->all();

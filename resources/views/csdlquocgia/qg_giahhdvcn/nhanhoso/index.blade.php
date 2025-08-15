@@ -40,7 +40,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Nhận hồ sơ giá thuế tài nguyên từ CSDL Quốc gia
+        Nhận hồ sơ giá hàng hoá, dịch vụ pháp luật chuyên ngành từ CSDL Quốc gia
     </h3>
     <hr>
     <div class="row">
@@ -52,11 +52,6 @@
                     </div>
                     <div class="actions">
                         @if (count($a_dv) > 0)
-                            <!-- Địa bàn có đơn vị có chức năng nhập liệu -->
-                            <a href="{{ url($inputs['url'] . '/innhanhosocsdlqg') . '?nam=' . $inputs['nam'] . '&madv=' . $inputs['madv']}}" 
-                                class="btn btn-default btn-xs mbs" target="_blank"><i class="fa fa-print"></i>&nbsp;In dữ liệu
-                            </a>
-
                             <button type="button" class="btn btn-default btn-sm" data-target="#create-modal-confirm"
                                 data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;Nhận dữ liệu
                             </button>
@@ -97,11 +92,11 @@
                         <thead>
                             <tr class="text-center">
                                 <th width="5%">STT</th>
-                                <th>Ngày báo cáo</th>
-                                <th>Số quyết định</th>
-                                <th>Nội dung</th>
-                                <th>Trạng thái</th>
-                                <th>Cơ quan tiếp nhận</th>
+                                <th style="text-align: center">Số QĐ</th>
+                                <th style="text-align: center">Thời điểm <br>xác định</th>
+                                <th style="text-align: center">Mô tả</th>
+                                <th style="text-align: center">Trạng thái</th>
+                                <th style="text-align: center">Cơ quan tiếp nhận</th>
                                 <th style="text-align: center" width="15%">Thao tác</th>
                             </tr>
                         </thead>
@@ -109,15 +104,15 @@
                             @foreach ($model as $key => $tt)
                                 <tr>
                                     <td style="text-align: center">{{ $key + 1 }}</td>
-                                    <td class="text-center">{{ getDayVn($tt->thoidiem) }}</td>
-                                    <td class="text-center">{{ $tt->soqd }}</td>
-                                    <td>{{ $tt->cqbh }}</td>
+                                    <td style="text-align: left">{{$tt->soqd}}</td>
+                                    <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
+                                    <td style="text-align: left">{{$tt->ttqd}}</td>
                                     @include('manage.include.form.td_trangthai')
-                                    <td style="text-align: left">{{ $a_donvi_th[$tt->macqcq] ?? '' }}</td>
+                                    <td style="text-align: left">{{$a_donvi_th[$tt->macqcq]?? ''}}</td>
                                     <td>
                                         @if (in_array($tt->trangthai, ['CHT', 'HHT']))
                                             <button type="button"
-                                                onclick="confirmChuyen('{{ $tt->mahs }}','{{ '/giathuetn/chuyenhs' }}')"
+                                                onclick="confirmChuyen('{{ $tt->mahs }}','{{ '/qg_giahhdvcn/chuyenhs' }}')"
                                                 class="btn btn-default btn-xs mbs" data-target="#chuyen-modal-confirm"
                                                 data-toggle="modal">
                                                 <i class="fa fa-check"></i> Nhận vào phần mềm</button>
@@ -142,7 +137,7 @@
 
     <!--Modal Create-->
     <div id="create-modal-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade bs-modal-lg">
-        {!! Form::open(['url' => '/giathuetn/new', 'id' => 'frm_create', 'method' => 'get']) !!}
+        {!! Form::open(['url' => '/giahhdvcn/new', 'id' => 'frm_create', 'method' => 'get']) !!}
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header modal-header-primary">
@@ -180,9 +175,8 @@
                                 {!! Form::text('linkTruyenPost', null, ['class' => 'form-control', 'required']) !!}
                             </div>
                         </div>
-
+                        <input type="hidden" name="madv" id="madv" value="{{ $inputs['madv'] }}">
                     </div>
-
                 </div>
 
                 <div class="modal-footer">

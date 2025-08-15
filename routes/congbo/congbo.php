@@ -64,32 +64,9 @@ Route::get('cbttqlnn','congbo\ttqlnn\ThongTuPVCTQLNNController@index');
 //Văn bản phục vụ công tác quản lý nhà nước
 Route::get('cbgiavangngoaite','congbo\CongBoController@cbgiavangngoaite');
 
-Route::get('cbketnoigiathuetn/danhmuc','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTnController@truyendanhmuc');
-Route::get('cbketnoigiathuetn/hoso','congbo\ketnoi\CongBoKetNoiCSDLGiaThueTnController@truyenhoso');
+Route::get('qg_giathuetn_cb/danhmuc','congbo\ketnoi\qg_giathuetn_cbController@truyendanhmuc');
+Route::get('qg_giathuetn_cb/hoso','congbo\ketnoi\qg_giathuetn_cbController@truyenhoso');
 
-// Route::group(['prefix'=>'CBKetNoiAPI'],function (){
-//     Route::get('ThietLapChung','congbo\ketnoi\CongBoAPIController@ThietLapChung');
-//     Route::post('LuuChung','congbo\ketnoi\CongBoAPIController@LuuChung');
-//     Route::get('LayTLChung','congbo\ketnoi\CongBoAPIController@LayTLChung');
-//     Route::post('XoaTLChung','congbo\ketnoi\CongBoAPIController@XoaTLChung');
-//     Route::post('LinkKetNoi','congbo\ketnoi\CongBoAPIController@LinkKetNoi');
-//     Route::get('getLink','congbo\ketnoi\CongBoAPIController@getLink');
-    
-//     //Chi tiết
-//     Route::get('ThietLapChiTiet','congbo\ketnoi\CongBoAPIController@ThietLapChiTiet');
-//     Route::get('HoSo','congbo\ketnoi\CongBoAPIController@ThietLapHoSo');
-//     Route::post('LuuHoSo','congbo\ketnoi\CongBoAPIController@LuuHoSo');
-//     Route::post('LuuHoSoChiTiet','congbo\ketnoi\CongBoAPIController@LuuHoSoChiTiet');
-//     Route::get('LayHoSo','congbo\ketnoi\CongBoAPIController@LayHoSo');
-//     Route::get('LayHoSoChiTiet','congbo\ketnoi\CongBoAPIController@LayHoSoChiTiet');
-//     Route::post('XoaHoSo','congbo\ketnoi\CongBoAPIController@XoaHoSo');
-//     Route::post('XoaHoSoChiTiet','congbo\ketnoi\CongBoAPIController@XoaHoSoChiTiet');
-
-//     Route::post('MacDinh','congbo\ketnoi\CongBoAPIController@MacDinh');
-//     Route::get('DanhSachKetNoi','congbo\ketnoi\CongBoAPIController@DanhSachKetNoi');
-    
-//     //Truyền hồ sơ
-//     Route::post('TruyenHoSo','_dungchung\KetNoiCSDLQuocGiaController@send_post');
-//     Route::get('XemHoSo','_dungchung\KetNoiCSDLQuocGiaController@XemHoSo');
-// });
+Route::get('qg_giahhdvcn_cb/danhmuc','congbo\ketnoi\qg_giahhdvcn_cbController@truyendanhmuc');
+Route::get('qg_giahhdvcn_cb/hoso','congbo\ketnoi\qg_giahhdvcn_cbController@truyenhoso');
 ?>

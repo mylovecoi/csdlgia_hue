@@ -23,10 +23,12 @@ Route::group(['prefix' => 'csdlquocgia'], function () {
 Route::group(['prefix'=>'qg_giathuetn'], function(){
     //Nhận danh mục
     Route::get('nhandanhmuc','csdlquocgia\qg_giathuetnController@nhandanhmuc');
+    Route::post('chuyendm','csdlquocgia\qg_giathuetnController@chuyendm');
     Route::get('innhandanhmuccsdlqg','csdlquocgia\qg_giathuetnController@innhandanhmuccsdlqg');
 
     //Nhận hồ sơ
     Route::get('nhanhoso','csdlquocgia\qg_giathuetnController@nhanhoso');
+    Route::post('chuyenhs','csdlquocgia\qg_giathuetnController@chuyenhs');
     Route::get('innhanhosocsdlqg','csdlquocgia\qg_giathuetnController@innhanhosocsdlqg');
 
     //Truyền danh mục
@@ -43,10 +45,11 @@ Route::group(['prefix'=>'qg_giathuetn'], function(){
 Route::group(['prefix'=>'qg_giahhdvcn'], function(){
     //Nhận danh mục
     Route::get('nhandanhmuc','csdlquocgia\qg_giahhdvcnController@nhandanhmuc');
-    Route::get('innhandanhmuccsdlqg','csdlquocgia\qg_giahhdvcnController@innhandanhmuccsdlqg');
+    Route::post('chuyendm','csdlquocgia\qg_giahhdvcnController@chuyendm');
 
     //Nhận hồ sơ
     Route::get('nhanhoso','csdlquocgia\qg_giahhdvcnController@nhanhoso');
+    Route::post('chuyenhs','csdlquocgia\qg_giahhdvcnController@chuyenhs');
     Route::get('innhanhosocsdlqg','csdlquocgia\qg_giahhdvcnController@innhanhosocsdlqg');
 
     //Truyền danh mục

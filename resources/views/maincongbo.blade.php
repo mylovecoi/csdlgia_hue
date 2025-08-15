@@ -301,10 +301,23 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="{{ url('/cbketnoigiathuetn/danhmuc') }}">Danh mục</a>
+                                        <a href="{{ url('/qg_giathuetn_cb/danhmuc') }}">Danh mục</a>
                                     </li>
                                     <li>
-                                        <a href="{{ url('/cbketnoigiathuetn/hoso') }}">Hồ sơ</a>
+                                        <a href="{{ url('/qg_giathuetn_cb/hoso') }}">Hồ sơ</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class=" dropdown-submenu">
+                                <a href="javascript:;">
+                                    <i class="icon-folder"></i>&nbsp;Giá hàng hóa dịch vụ chuyên ngành
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ url('/qg_giahhdvcn_cb/danhmuc') }}">Danh mục</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('/qg_giahhdvcn_cb/hoso') }}">Hồ sơ</a>
                                     </li>
                                 </ul>
                             </li>

@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
-class CongBoKetNoiCSDLGiaThueTnController extends Controller
+class qg_giathuetn_cbController extends Controller
 {
     // public function innhanhosocsdlqg(Request $request)
     // {
@@ -33,12 +33,11 @@ class CongBoKetNoiCSDLGiaThueTnController extends Controller
     //         ->with('pageTitle', 'Thông tin giá thuế tài nguyên');
     // }
 
-    //Xây dựng các chức năng truyền danh mục
     public function truyendanhmuc(Request $request)
     {
         $inputs = $request->all();
         $inputs['truyendulieu'] = $inputs['truyendulieu'] ?? 'all';
-        $inputs['url'] = '/cbketnoigiathuetn/danhmuc';
+        $inputs['url'] = '/qg_giathuetn_cb/danhmuc';
         $model = NhomThueTn::all();
         if ($inputs['truyendulieu'] != 'all')
             $model = $model->where('truyendulieu', $inputs['truyendulieu']);
@@ -48,11 +47,10 @@ class CongBoKetNoiCSDLGiaThueTnController extends Controller
             ->with('pageTitle', 'Truyền danh mục giá thuế tài nguyên');
     }
 
-    //Xây dựng các chức năng truyền hồ sơ kê khai
     public function truyenhoso(Request $request)
     {
         $inputs = $request->all();
-        $inputs['url'] = '/cbketnoigiathuetn/hoso';
+        $inputs['url'] = '/qg_giathuetn_cb/hoso';
         $m_donvi = getDonViNhapLieu('ADMIN', 'giathuetn');
         $inputs['nam'] = $inputs['nam'] ?? 'all';
         $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;

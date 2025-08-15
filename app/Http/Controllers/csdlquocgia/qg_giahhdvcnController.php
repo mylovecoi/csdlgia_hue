@@ -7,6 +7,7 @@ use App\Model\system\dmdvt;
 use App\Model\system\view_dsdiaban_donvi;
 use App\Model\manage\dinhgia\giahhdvcn\giahhdvcn;
 use App\Model\manage\dinhgia\giahhdvcn\giahhdvcndm;
+use App\Model\manage\dinhgia\giahhdvcn\giahhdvcnct;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -26,34 +27,76 @@ class qg_giahhdvcnController extends Controller
 
     public function nhanhoso(Request $request)
     {
-        $inputs = $request->all();
-        $inputs['url'] = '/qg_giahhdvcn/nhanhoso';
-        $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
-        $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-        $m_donvi = getDonViNhapLieu(session('admin')->level,'giahhdvcn');
-        if (count($m_donvi) == null) {
-            $message = 'Chưa có đơn vị nào được phân quyền nhập liệu cho chức năng: ' . session('admin')['a_chucnang']['giahhdvcn']
-                . '. Bạn cần liên hệ người quản trị để phần quyền nhập liệu cho đơn vị.';
-            return  view('errors.403')
-                ->with('message', $message);
-        }
-        $m_donvi_th = getDonViTongHop('giahhdvcn',\session('admin')->level, \session('admin')->madiaban);
-        $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
-        $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
-        $inputs['nam'] = $inputs['nam'] ?? 'all';
-        $model = giahhdvcn::where('madv', $inputs['madv']);
-        if ($inputs['nam'] != 'all')
-            $model = $model->whereYear('thoidiem', $inputs['nam']);
-        return view('csdlquocgia.qg_giahhdvcn.nhanhoso.index')
-            ->with('model', $model->get())
-            ->with('inputs', $inputs)
-            ->with('m_diaban', $m_diaban)
-            ->with('a_diaban', array_column($m_diaban->where('level', 'H')->toarray(), 'tendiaban', 'madiaban'))
-            ->with('m_donvi', $m_donvi)
-            ->with('m_donvi_th', $m_donvi_th)
-            ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
-            ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
-            ->with('pageTitle', 'Nhận hồ sơ giá hàng hóa, dịch vụ chuyên ngành');
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['url'] = '/qg_giahhdvcn/nhanhoso';
+            $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
+            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
+            $m_donvi = getDonViNhapLieu(session('admin')->level,'giahhdvcn');
+            if (count($m_donvi) == null) {
+                $message = 'Chưa có đơn vị nào được phân quyền nhập liệu cho chức năng: ' . session('admin')['a_chucnang']['giahhdvcn']
+                    . '. Bạn cần liên hệ người quản trị để phần quyền nhập liệu cho đơn vị.';
+                return  view('errors.403')
+                    ->with('message', $message);
+            }
+            $m_donvi_th = getDonViTongHop('giahhdvcn',\session('admin')->level, \session('admin')->madiaban);
+            $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
+            $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
+            $inputs['nam'] = $inputs['nam'] ?? 'all';
+            $model = giahhdvcn::where('madv', $inputs['madv']);
+            if ($inputs['nam'] != 'all')
+                $model = $model->whereYear('thoidiem', $inputs['nam']);
+            return view('csdlquocgia.qg_giahhdvcn.nhanhoso.index')
+                ->with('model', $model->get())
+                ->with('inputs', $inputs)
+                ->with('m_diaban', $m_diaban)
+                ->with('a_diaban', array_column($m_diaban->where('level', 'H')->toarray(), 'tendiaban', 'madiaban'))
+                ->with('a_dv', array_column($m_donvi->toarray(), 'tendv', 'madv'))
+                ->with('m_donvi', $m_donvi)
+                ->with('m_donvi_th', $m_donvi_th)
+                ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
+                ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
+                ->with('pageTitle', 'Nhận hồ sơ giá hàng hóa, dịch vụ chuyên ngành');
+        } else
+        return view('errors.notlogin');
+    }
+
+    public function chuyenhs(Request $request)
+    {
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $model = giahhdvcn::where('mahs', $inputs['mahs'])->first();
+            $a_lichsu = json_decode($model->lichsu, true);
+            $a_lichsu[getdate()[0]] = array(
+                'hanhdong' => 'HT',
+                'username' => session('admin')->username,
+                'mota' => 'Chuyển hồ sơ',
+                'thoigian' => date('Y-m-d H:i:s'),
+                'macqcq' => $inputs['macqcq'],
+                'madv' => $model->madv
+            );
+
+            $model->lichsu = json_encode($a_lichsu);
+            $model->macqcq = $inputs['macqcq'];
+            $model->trangthai = 'HT';
+            $chk_dvcq = view_dsdiaban_donvi::where('madv', $inputs['macqcq'])->first();
+            if ($chk_dvcq->count() && $chk_dvcq->level == 'T') {
+                $model->madv_t = $inputs['macqcq'];
+                $model->thoidiem_t = date('Y-m-d');
+                $model->trangthai_t = 'CHT';
+            } else if ($chk_dvcq->count() && $chk_dvcq->level == 'ADMIN') {
+                $model->madv_ad = $inputs['macqcq'];
+                $model->thoidiem_ad = date('Y-m-d');
+                $model->trangthai_ad = 'CHT';
+            } else {
+                $model->madv_h = $inputs['macqcq'];
+                $model->thoidiem_h = date('Y-m-d');
+                $model->trangthai_h = 'CHT';
+            }
+            $model->save();
+            return redirect('qg_giahhdvcn/nhanhoso?madv=' . $model->madv);
+        } else
+            return view('errors.notlogin');
     }
 
     public function truyendanhmuc(Request $request)
