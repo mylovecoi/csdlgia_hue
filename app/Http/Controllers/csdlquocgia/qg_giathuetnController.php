@@ -16,7 +16,7 @@ class qg_giathuetnController extends Controller
     public function nhanhoso(Request $request)
     {
         $inputs = $request->all();
-        $inputs['url'] = '/qg_giathuetn/nhanhoso';
+        $inputs['url'] = '/csdlquocgia/qg_giathuetn/nhanhoso';
         $inputs['nam'] = $inputs['nam'] ?? 'all';
         $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
         $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
@@ -82,7 +82,7 @@ class qg_giathuetnController extends Controller
                 $model->trangthai_h = 'CHT';
             }
             $model->save();
-            return redirect('qg_giathuetn/nhanhoso?madv=' . $model->madv);
+            return redirect('/csdlquocgia/qg_giathuetn/nhanhoso?madv=' . $model->madv);
         } else
             return view('errors.notlogin');
     }
@@ -113,7 +113,7 @@ class qg_giathuetnController extends Controller
     {
         $inputs = $request->all();
         $inputs['truyendulieu'] = $inputs['truyendulieu'] ?? 'all';
-        $inputs['url'] = '/qg_giathuetn/danhmuc';
+        $inputs['url'] = '/csdlquocgia/qg_giathuetn/danhmuc';
         $model = NhomThueTn::all();
         if ($inputs['truyendulieu'] != 'all')
             $model = $model->where('truyendulieu', $inputs['truyendulieu']);
@@ -128,7 +128,7 @@ class qg_giathuetnController extends Controller
         $inputs = $request->all();
         $model = NhomThueTn::where('manhom',$inputs['manhom'])->first();
         $model->update($inputs);
-        return redirect('/qg_giathuetn/danhmuc?truyendulieu=' . $inputs['truyendulieu']);
+        return redirect('/csdlquocgia/qg_giathuetn/danhmuc?truyendulieu=' . $inputs['truyendulieu']);
     }
 
     public function show_nhomdm(Request $request)
@@ -150,7 +150,7 @@ class qg_giathuetnController extends Controller
     public function truyenhoso(Request $request)
     {
         $inputs = $request->all();
-        $inputs['url'] = '/qg_giathuetn/hoso';
+        $inputs['url'] = '/csdlquocgia/qg_giathuetn/hoso';
         $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
         $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
         $m_donvi = getDonViXetDuyet(session('admin')->level);
@@ -244,7 +244,7 @@ class qg_giathuetnController extends Controller
         $inputs = $request->all();
         $model = ThueTaiNguyen::where('mahs',$inputs['mahs'])->first();
         $model->update($inputs);
-        return redirect('/qg_giathuetn/hoso?truyendulieu=' . $inputs['truyendulieu']);
+        return redirect('/csdlquocgia/qg_giathuetn/hoso?truyendulieu=' . $inputs['truyendulieu']);
     }
 
     public function show_hoso(Request $request)
@@ -260,5 +260,42 @@ class qg_giathuetnController extends Controller
         $inputs = $request->all();
         $model = ThueTaiNguyen::where('mahs',$inputs['mahs'])->first();
         die($model);
+    }
+
+    public function congbo_danhmuc(Request $request)
+    {
+        $inputs = $request->all();
+        $inputs['truyendulieu'] = $inputs['truyendulieu'] ?? 'all';
+        $inputs['url'] = '/csdlquocgia/qg_giathuetn/congbo_danhmuc';
+        $model = NhomThueTn::all();
+        if ($inputs['truyendulieu'] != 'all')
+            $model = $model->where('truyendulieu', $inputs['truyendulieu']);
+        return view('csdlquocgia.qg_giathuetn.truyendanhmuc.congbo')
+            ->with('model', $model)
+            ->with('inputs', $inputs)
+            ->with('pageTitle', 'Công bố danh mục giá thuế tài nguyên');
+    }
+
+    public function congbo_hoso(Request $request)
+    {
+        $inputs = $request->all();
+        $inputs['url'] = '/csdlquocgia/qg_giathuetn/congbo_hoso';
+        $m_donvi = getDonViNhapLieu('ADMIN', 'giathuetn');
+        $inputs['nam'] = $inputs['nam'] ?? 'all';
+        $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
+        $inputs['truyendulieu'] = $inputs['truyendulieu'] ?? 'all';
+        $a_nhom = array_column(NhomThueTn::where('theodoi', 'TD')->get()->toarray(), 'tennhom', 'manhom');
+        $model = ThueTaiNguyen::where('madv', $inputs['madv']);
+        if ($inputs['nam'] != 'all')
+            $model = $model->whereYear('thoidiem', $inputs['nam']);
+        if ($inputs['truyendulieu'] != 'all')
+            $model = $model->where('truyendulieu', $inputs['truyendulieu']);
+
+        return view('csdlquocgia.qg_giathuetn.truyenhoso.congbo')
+            ->with('model', $model->get())
+            ->with('inputs', $inputs)
+            ->with('a_nhom', $a_nhom)
+            ->with('m_donvi', $m_donvi)
+            ->with('pageTitle', 'Công bố hồ sơ kê khai giá thuế tài nguyên');
     }
 }

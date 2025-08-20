@@ -43,7 +43,7 @@
         function ClickEdit(mahs) {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: '/qg_giathuetn/show_hoso',
+                url: '/csdlquocgia/qg_giathuetn/show_hoso',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -127,7 +127,6 @@
                                 <th style="text-align: center">Số QĐ</th>
                                 <th style="text-align: center">Thời điểm <br>xác định</th>
                                 <th style="text-align: center">Nội dung</th>
-                                <th style="text-align: center" width="10%">Trạng thái hồ sơ</th>
                                 <th style="text-align: center" width="10%">Trạng thái kết nối</th>
                                 <th style="text-align: center" width="15%">Thao tác</th>
                             </tr>
@@ -139,7 +138,6 @@
                                     <td style="text-align: center">{{ $tt->soqd }}</td>
                                     <td style="text-align: center">{{ getDayVn($tt->thoidiem) }}</td>
                                     <td style="text-align: left">{{ $tt->cqbh }}</td>
-                                    @include('manage.include.form.td_trangthai')
                                     <td style="text-align: center">
                                         @if ($tt->truyendulieu == '0' || $tt->truyendulieu == null || $tt->truyendulieu == '')
                                             <span class="badge badge-active">Chưa truyền dữ liệu</span>
@@ -202,7 +200,7 @@
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url' => '/qg_giathuetn/capnhathoso', 'method' => 'post', 'id' => 'frm_update']) !!}
+                {!! Form::open(['url' => '/csdlquocgia/qg_giathuetn/capnhathoso', 'method' => 'post', 'id' => 'frm_update']) !!}
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>

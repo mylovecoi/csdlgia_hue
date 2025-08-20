@@ -490,6 +490,10 @@ class ComposerStaticInitd7de3fb6aaadd474bf447891cb3bef8d
     );
 
     public static $classMap = array (
+        'AddFieldToGiadvdtTable' => __DIR__ . '/../..' . '/database/migrations/2025_08_20_161832_add_field_to_giadvdt_table.php',
+        'AddThoigiantruyenToGiahhdvcndmTable' => __DIR__ . '/../..' . '/database/migrations/2025_08_14_170001_add_thoigiantruyen_to_giahhdvcndm_table.php',
+        'AddTruyendulieuAndThoigiantruyenToGiahhdvcnTable' => __DIR__ . '/../..' . '/database/migrations/2025_08_14_163619_add_truyendulieu_and_thoigiantruyen_to_giahhdvcn_table.php',
+        'AddTruyendulieuToGiahhdvcndmTable' => __DIR__ . '/../..' . '/database/migrations/2025_08_14_162952_add_truyendulieu_to_giahhdvcndm_table.php',
         'App\\BinhOnGia' => __DIR__ . '/../..' . '/app/BinhOnGia.php',
         'App\\BinhOnGiaCt' => __DIR__ . '/../..' . '/app/BinhOnGiaCt.php',
         'App\\BinhOnGiaCtDf' => __DIR__ . '/../..' . '/app/BinhOnGiaCtDf.php',
@@ -672,7 +676,12 @@ class ComposerStaticInitd7de3fb6aaadd474bf447891cb3bef8d
         'App\\Http\\Controllers\\congbo\\taphuan\\DanhSachUserTapHuanController' => __DIR__ . '/../..' . '/app/Http/Controllers/congbo/taphuan/DanhSachUserTapHuanController.php',
         'App\\Http\\Controllers\\congbo\\ttqlnn\\ThongTuPVCTQLNNController' => __DIR__ . '/../..' . '/app/Http/Controllers/congbo/ttqlnn/ThongTuPVCTQLNNController.php',
         'App\\Http\\Controllers\\congbo\\vanbanqlnn\\CongboVanBanQLNNController' => __DIR__ . '/../..' . '/app/Http/Controllers/congbo/vanbanqlnn/CongboVanBanQLNNController.php',
+        'App\\Http\\Controllers\\csdlquocgia\\qg_giadvgddtController' => __DIR__ . '/../..' . '/app/Http/Controllers/csdlquocgia/qg_giadvgddtController.php',
+        'App\\Http\\Controllers\\csdlquocgia\\qg_giahhdvcnController' => __DIR__ . '/../..' . '/app/Http/Controllers/csdlquocgia/qg_giahhdvcnController.php',
+        'App\\Http\\Controllers\\csdlquocgia\\qg_giathitruongController' => __DIR__ . '/../..' . '/app/Http/Controllers/csdlquocgia/qg_giathitruongController.php',
+        'App\\Http\\Controllers\\csdlquocgia\\qg_giathuetnController' => __DIR__ . '/../..' . '/app/Http/Controllers/csdlquocgia/qg_giathuetnController.php',
         'App\\Http\\Controllers\\csdlquocgia\\qg_racthaiController' => __DIR__ . '/../..' . '/app/Http/Controllers/csdlquocgia/qg_racthaiController.php',
+        'App\\Http\\Controllers\\csdlquocgia\\qg_thuetainguyenController' => __DIR__ . '/../..' . '/app/Http/Controllers/csdlquocgia/qg_thuetainguyenController.php',
         'App\\Http\\Controllers\\dmhanghoa_cpiController' => __DIR__ . '/../..' . '/app/Http/Controllers/dmhanghoa_cpiController.php',
         'App\\Http\\Controllers\\dsdonvitdgController' => __DIR__ . '/../..' . '/app/Http/Controllers/dsdonvitdgController.php',
         'App\\Http\\Controllers\\hsgia_cpiController' => __DIR__ . '/../..' . '/app/Http/Controllers/hsgia_cpiController.php',
@@ -1206,6 +1215,7 @@ class ComposerStaticInitd7de3fb6aaadd474bf447891cb3bef8d
         'Carbon\\Laravel\\ServiceProvider' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Laravel/ServiceProvider.php',
         'Carbon\\Translator' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Translator.php',
         'Carbon\\Upgrade' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Upgrade.php',
+        'ChangeThoigiantruyenTypeInGiahhdvcnTable' => __DIR__ . '/../..' . '/database/migrations/2025_08_14_165530_change_thoigiantruyen_type_in_giahhdvcn_table.php',
         'Collective\\Html\\Componentable' => __DIR__ . '/..' . '/laravelcollective/html/src/Componentable.php',
         'Collective\\Html\\Eloquent\\FormAccessible' => __DIR__ . '/..' . '/laravelcollective/html/src/Eloquent/FormAccessible.php',
         'Collective\\Html\\FormBuilder' => __DIR__ . '/..' . '/laravelcollective/html/src/FormBuilder.php',

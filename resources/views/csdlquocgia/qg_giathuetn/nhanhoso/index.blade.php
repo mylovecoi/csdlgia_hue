@@ -117,7 +117,7 @@
                                     <td>
                                         @if (in_array($tt->trangthai, ['CHT', 'HHT']))
                                             <button type="button"
-                                                onclick="confirmChuyen('{{ $tt->mahs }}','{{ '/giathuetn/chuyenhs' }}')"
+                                                onclick="confirmChuyen('{{ $tt->mahs }}','{{ '/csdlquocgia/giathuetn/chuyenhs' }}')"
                                                 class="btn btn-default btn-xs mbs" data-target="#chuyen-modal-confirm"
                                                 data-toggle="modal">
                                                 <i class="fa fa-check"></i> Nhận vào phần mềm</button>

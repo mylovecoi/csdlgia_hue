@@ -35,7 +35,7 @@
         function ClickEdit(manhom) {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: '/qg_giathuetn/show_nhomdm',
+                url: '/csdlquocgia/qg_giathuetn/show_nhomdm',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -99,7 +99,6 @@
                                 <th style="text-align: center" width="5%">STT</th>
                                 <th style="text-align: center">Mã số</th>
                                 <th style="text-align: center">Mô tả</th>
-                                <th style="text-align: center" width="10%">Theo dõi</th>
                                 <th style="text-align: center" width="10%">Trạng thái kết nối</th>
                                 <th style="text-align: center" width="15%">Thao tác</th>
                             </tr>
@@ -110,13 +109,6 @@
                                     <td style="text-align: center">{{ $key + 1 }}</td>
                                     <td class="active">{{ $tt->manhom }}</td>
                                     <td class="active">{{ $tt->tennhom }}</td>
-                                    <td style="text-align: center">
-                                        @if ($tt->theodoi == 'KTD')
-                                            <span class="badge badge-active">Không theo dõi</span>
-                                        @else
-                                            <span class="badge badge-success">Theo dõi</span>
-                                        @endif
-                                    </td>
                                     <td style="text-align: center">
                                         @if ($tt->truyendulieu == '0' || $tt->truyendulieu == null || $tt->truyendulieu == '')
                                             <span class="badge badge-active">Chưa truyền dữ liệu</span>
@@ -182,7 +174,7 @@
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url' => '/qg_giathuetn/capnhatdanhmuc', 'method' => 'post', 'id' => 'frm_update']) !!}
+                {!! Form::open(['url' => '/csdlquocgia/qg_giathuetn/capnhatdanhmuc', 'method' => 'post', 'id' => 'frm_update']) !!}
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>

@@ -6,6 +6,10 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddFieldToGiadvdtTable' => $baseDir . '/database/migrations/2025_08_20_161832_add_field_to_giadvdt_table.php',
+    'AddThoigiantruyenToGiahhdvcndmTable' => $baseDir . '/database/migrations/2025_08_14_170001_add_thoigiantruyen_to_giahhdvcndm_table.php',
+    'AddTruyendulieuAndThoigiantruyenToGiahhdvcnTable' => $baseDir . '/database/migrations/2025_08_14_163619_add_truyendulieu_and_thoigiantruyen_to_giahhdvcn_table.php',
+    'AddTruyendulieuToGiahhdvcndmTable' => $baseDir . '/database/migrations/2025_08_14_162952_add_truyendulieu_to_giahhdvcndm_table.php',
     'App\\BinhOnGia' => $baseDir . '/app/BinhOnGia.php',
     'App\\BinhOnGiaCt' => $baseDir . '/app/BinhOnGiaCt.php',
     'App\\BinhOnGiaCtDf' => $baseDir . '/app/BinhOnGiaCtDf.php',
@@ -188,7 +192,12 @@ return array(
     'App\\Http\\Controllers\\congbo\\taphuan\\DanhSachUserTapHuanController' => $baseDir . '/app/Http/Controllers/congbo/taphuan/DanhSachUserTapHuanController.php',
     'App\\Http\\Controllers\\congbo\\ttqlnn\\ThongTuPVCTQLNNController' => $baseDir . '/app/Http/Controllers/congbo/ttqlnn/ThongTuPVCTQLNNController.php',
     'App\\Http\\Controllers\\congbo\\vanbanqlnn\\CongboVanBanQLNNController' => $baseDir . '/app/Http/Controllers/congbo/vanbanqlnn/CongboVanBanQLNNController.php',
+    'App\\Http\\Controllers\\csdlquocgia\\qg_giadvgddtController' => $baseDir . '/app/Http/Controllers/csdlquocgia/qg_giadvgddtController.php',
+    'App\\Http\\Controllers\\csdlquocgia\\qg_giahhdvcnController' => $baseDir . '/app/Http/Controllers/csdlquocgia/qg_giahhdvcnController.php',
+    'App\\Http\\Controllers\\csdlquocgia\\qg_giathitruongController' => $baseDir . '/app/Http/Controllers/csdlquocgia/qg_giathitruongController.php',
+    'App\\Http\\Controllers\\csdlquocgia\\qg_giathuetnController' => $baseDir . '/app/Http/Controllers/csdlquocgia/qg_giathuetnController.php',
     'App\\Http\\Controllers\\csdlquocgia\\qg_racthaiController' => $baseDir . '/app/Http/Controllers/csdlquocgia/qg_racthaiController.php',
+    'App\\Http\\Controllers\\csdlquocgia\\qg_thuetainguyenController' => $baseDir . '/app/Http/Controllers/csdlquocgia/qg_thuetainguyenController.php',
     'App\\Http\\Controllers\\dmhanghoa_cpiController' => $baseDir . '/app/Http/Controllers/dmhanghoa_cpiController.php',
     'App\\Http\\Controllers\\dsdonvitdgController' => $baseDir . '/app/Http/Controllers/dsdonvitdgController.php',
     'App\\Http\\Controllers\\hsgia_cpiController' => $baseDir . '/app/Http/Controllers/hsgia_cpiController.php',
@@ -722,6 +731,7 @@ return array(
     'Carbon\\Laravel\\ServiceProvider' => $vendorDir . '/nesbot/carbon/src/Carbon/Laravel/ServiceProvider.php',
     'Carbon\\Translator' => $vendorDir . '/nesbot/carbon/src/Carbon/Translator.php',
     'Carbon\\Upgrade' => $vendorDir . '/nesbot/carbon/src/Carbon/Upgrade.php',
+    'ChangeThoigiantruyenTypeInGiahhdvcnTable' => $baseDir . '/database/migrations/2025_08_14_165530_change_thoigiantruyen_type_in_giahhdvcn_table.php',
     'Collective\\Html\\Componentable' => $vendorDir . '/laravelcollective/html/src/Componentable.php',
     'Collective\\Html\\Eloquent\\FormAccessible' => $vendorDir . '/laravelcollective/html/src/Eloquent/FormAccessible.php',
     'Collective\\Html\\FormBuilder' => $vendorDir . '/laravelcollective/html/src/FormBuilder.php',

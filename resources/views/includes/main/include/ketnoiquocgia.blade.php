@@ -69,16 +69,16 @@
             </a>
             <ul class="sub-menu">
                 <li>
-                    <a href="{{ url('/qg_giathuetn/nhandanhmuc') }}">Nhận danh mục</a>
+                    <a href="{{ url('/csdlquocgia/qg_giathuetn/nhandanhmuc') }}">Nhận danh mục</a>
                 </li>
                 <li>
-                    <a href="{{ url('/qg_giathuetn/nhanhoso') }}">Nhận hồ sơ</a>
+                    <a href="{{ url('/csdlquocgia/qg_giathuetn/nhanhoso') }}">Nhận hồ sơ</a>
                 </li>
                 <li>
-                    <a href="{{ url('/qg_giathuetn/danhmuc') }}">Truyền danh mục</a>
+                    <a href="{{ url('/csdlquocgia/qg_giathuetn/danhmuc') }}">Truyền danh mục</a>
                 </li>
                 <li>
-                    <a href="{{ url('/qg_giathuetn/hoso') }}">Truyền hồ sơ kê khai</a>
+                    <a href="{{ url('/csdlquocgia/qg_giathuetn/hoso') }}">Truyền hồ sơ kê khai</a>
                 </li>
             </ul>
         </li>
@@ -89,16 +89,36 @@
             </a>
             <ul class="sub-menu">
                 <li>
-                    <a href="{{ url('/qg_giahhdvcn/nhandanhmuc') }}">Nhận danh mục</a>
+                    <a href="{{ url('/csdlquocgia/qg_giahhdvcn/nhandanhmuc') }}">Nhận danh mục</a>
                 </li>
                 <li>
-                    <a href="{{ url('/qg_giahhdvcn/nhanhoso') }}">Nhận hồ sơ</a>
+                    <a href="{{ url('/csdlquocgia/qg_giahhdvcn/nhanhoso') }}">Nhận hồ sơ</a>
                 </li>
                 <li>
-                    <a href="{{ url('/qg_giahhdvcn/danhmuc') }}">Truyền danh mục</a>
+                    <a href="{{ url('/csdlquocgia/qg_giahhdvcn/danhmuc') }}">Truyền danh mục</a>
                 </li>
                 <li>
-                    <a href="{{ url('/qg_giahhdvcn/hoso') }}">Truyền hồ sơ kê khai</a>
+                    <a href="{{ url('/csdlquocgia/qg_giahhdvcn/hoso') }}">Truyền hồ sơ kê khai</a>
+                </li>
+            </ul>
+        </li>
+        <li class="tooltips" data-container="body" data-placement="right" data-html="true">
+            <a href="javascript:;">
+                <span class="title">Giá dịch vụ Giáo dục Mầm non và Giáo dục phổ thông công lập</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_giadvgddt/nhandanhmuc') }}">Nhận danh mục</a>
+                </li>
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_giadvgddt/nhanhoso') }}">Nhận hồ sơ</a>
+                </li>
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_giadvgddt/danhmuc') }}">Truyền danh mục</a>
+                </li>
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_giadvgddt/hoso') }}">Truyền hồ sơ kê khai</a>
                 </li>
             </ul>
         </li>

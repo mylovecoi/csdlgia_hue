@@ -35,7 +35,7 @@
         function ClickEdit(maspdv) {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: '/qg_giahhdvcn/show_nhomdm',
+                url: '/csdlquocgia/qg_giahhdvcn/show_nhomdm',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -57,7 +57,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Truyền danh mục giá thuế tài nguyên
+        Truyền danh mục giá hàng hóa, dịch vụ chuyên ngành
     </h3>
     <hr>
     <div class="row">
@@ -132,14 +132,14 @@
                                                         <i class="fa fa-caret-right"></i> Thiết lập thông điệp</a>
                                                 </li>
                                                 <li>
-                                                    <a href="{{ url('/KetNoiAPI/XemHoSo?maso=dmgiathuetn&mahs=' . $tt->maspdv) }}"
+                                                    <a href="{{ url('/KetNoiAPI/XemHoSo?maso=dmgiahhdvcn&mahs=' . $tt->maspdv) }}"
                                                         style="border: none;" target="_blank"
                                                         class="btn btn-default">
                                                         <i class="fa fa-caret-right"></i> Xem trước thông điệp</a>
                                                 </li>
                                                 <li>
                                                     <button type="button" style="border: none;"
-                                                        onclick="ketnoiapi('{{ $tt->maspdv }}','dmgiathuetn', '{{ $inputs['url'] . '/xetduyet/' }}')"
+                                                        onclick="ketnoiapi('{{ $tt->maspdv }}','dmgiahhdvcn', '{{ $inputs['url'] . '/xetduyet/' }}')"
                                                         class="btn btn-default" data-target="#ketnoiapi-modal"
                                                         data-toggle="modal">
                                                         <i class="fa fa-caret-right"></i>&nbsp;Truyền dữ liệu
@@ -168,7 +168,7 @@
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url' => '/qg_giahhdvcn/capnhatdanhmuc', 'method' => 'post', 'id' => 'frm_update']) !!}
+                {!! Form::open(['url' => '/csdlquocgia/qg_giahhdvcn/capnhatdanhmuc', 'method' => 'post', 'id' => 'frm_update']) !!}
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>

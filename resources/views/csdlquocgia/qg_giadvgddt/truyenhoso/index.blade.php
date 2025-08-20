@@ -43,7 +43,7 @@
         function ClickEdit(mahs) {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: '/csdlquocgia/qg_giahhdvcn/show_hoso',
+                url: '/csdlquocgia/qg_giadvgddt/show_hoso',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
@@ -153,19 +153,19 @@
                                             </button>
                                             <ul class="dropdown-menu" style="position: static">
                                                 <li>
-                                                    <a href="{{ url('/KetNoiAPI/HoSo?maso=giahhdvcn') }}"
+                                                    <a href="{{ url('/KetNoiAPI/HoSo?maso=giadvgddt') }}"
                                                         style="border: none;" target="_blank" class="btn btn-default">
                                                         <i class="fa fa-caret-right"></i> Thiết lập thông điệp</a>
                                                 </li>
                                                 <li>
-                                                    <a href="{{ url('/KetNoiAPI/XemHoSo?maso=giahhdvcn&mahs=' . $tt->mahs) }}"
+                                                    <a href="{{ url('/KetNoiAPI/XemHoSo?maso=giadvgddt&mahs=' . $tt->mahs) }}"
                                                         style="border: none;" target="_blank" class="btn btn-default">
                                                         <i class="fa fa-caret-right"></i> Xem trước thông điệp</a>
                                                 </li>
 
                                                 <li>
                                                     <button type="button" style="border: none;"
-                                                        onclick="ketnoiapi('{{ $tt->mahs }}','giahhdvcn', '{{ $inputs['url'] . '/xetduyet/' }}')"
+                                                        onclick="ketnoiapi('{{ $tt->mahs }}','giadvgddt', '{{ $inputs['url'] . '/xetduyet/' }}')"
                                                         class="btn btn-default" data-target="#ketnoiapi-modal"
                                                         data-toggle="modal">
                                                         <i class="fa fa-caret-right"></i>&nbsp;Truyền dữ liệu
@@ -194,7 +194,7 @@
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url' => '/csdlquocgia/qg_giahhdvcn/capnhathoso', 'method' => 'post', 'id' => 'frm_update']) !!}
+                {!! Form::open(['url' => '/csdlquocgia/qg_giadvgddt/capnhathoso', 'method' => 'post', 'id' => 'frm_update']) !!}
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>

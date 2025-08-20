@@ -64,9 +64,4 @@ Route::get('cbttqlnn','congbo\ttqlnn\ThongTuPVCTQLNNController@index');
 //Văn bản phục vụ công tác quản lý nhà nước
 Route::get('cbgiavangngoaite','congbo\CongBoController@cbgiavangngoaite');
 
-Route::get('qg_giathuetn_cb/danhmuc','congbo\ketnoi\qg_giathuetn_cbController@truyendanhmuc');
-Route::get('qg_giathuetn_cb/hoso','congbo\ketnoi\qg_giathuetn_cbController@truyenhoso');
-
-Route::get('qg_giahhdvcn_cb/danhmuc','congbo\ketnoi\qg_giahhdvcn_cbController@truyendanhmuc');
-Route::get('qg_giahhdvcn_cb/hoso','congbo\ketnoi\qg_giahhdvcn_cbController@truyenhoso');
 ?>

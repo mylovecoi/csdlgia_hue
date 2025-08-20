@@ -53,5 +53,7 @@ class GiaDvGdDt extends Model
         'lydo_ad',
         'thongtin_ad',
         'trangthai_ad',
+        'truyendulieu',
+        'thoigiantruyen',
     ];
 }

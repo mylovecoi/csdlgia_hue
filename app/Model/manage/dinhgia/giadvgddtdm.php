@@ -12,6 +12,8 @@ class giadvgddtdm extends Model
         'maspdv',
         'tenspdv',
         'phanloai',
-        'hientrang'
+        'hientrang',
+        'truyendulieu',
+        'thoigiantruyen',
     ];
 }

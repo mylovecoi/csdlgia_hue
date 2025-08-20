@@ -301,10 +301,10 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="{{ url('/qg_giathuetn_cb/danhmuc') }}">Danh mục</a>
+                                        <a href="{{ url('/csdlquocgia/qg_giathuetn/congbo_danhmuc') }}">Danh mục</a>
                                     </li>
                                     <li>
-                                        <a href="{{ url('/qg_giathuetn_cb/hoso') }}">Hồ sơ</a>
+                                        <a href="{{ url('/csdlquocgia/qg_giathuetn/congbo_hoso') }}">Hồ sơ</a>
                                     </li>
                                 </ul>
                             </li>
@@ -314,10 +314,23 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="{{ url('/qg_giahhdvcn_cb/danhmuc') }}">Danh mục</a>
+                                        <a href="{{ url('/csdlquocgia/qg_giahhdvcn/congbo_danhmuc') }}">Danh mục</a>
                                     </li>
                                     <li>
-                                        <a href="{{ url('/qg_giahhdvcn_cb/hoso') }}">Hồ sơ</a>
+                                        <a href="{{ url('/csdlquocgia/qg_giahhdvcn/congbo_hoso') }}">Hồ sơ</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class=" dropdown-submenu">
+                                <a href="javascript:;">
+                                    <i class="icon-folder"></i>&nbsp;Giá dịch vụ Giáo dục
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ url('/csdlquocgia/qg_giadvgddt/congbo_danhmuc') }}">Danh mục</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('/csdlquocgia/qg_giadvgddt/congbo_hoso') }}">Hồ sơ</a>
                                     </li>
                                 </ul>
                             </li>
