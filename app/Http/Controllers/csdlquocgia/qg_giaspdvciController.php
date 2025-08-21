@@ -4,46 +4,46 @@ namespace App\Http\Controllers\csdlquocgia;
 
 use App\Model\system\dsdiaban;
 use App\Model\system\view_dsdiaban_donvi;
-use App\Model\manage\dinhgia\giadvgddtdm;
-use App\Model\manage\dinhgia\GiaDvGdDt;
+use App\Model\manage\dinhgia\giaspdvci\GiaSpDvCi;
+use App\Model\manage\dinhgia\giaspdvci\giaspdvcidm;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
-class qg_giadvgddtController extends Controller
+class qg_giaspdvciController extends Controller
 {
     public function nhandanhmuc(Request $request){
-        $model = giadvgddtdm::all();
-        $inputs['url'] = '/csdlquocgia/qg_giadvgddt/nhandanhmuc';
-        return view('csdlquocgia.qg_giadvgddt.nhandanhmuc.index')
+        $model = giaspdvcidm::all();
+        $inputs['url'] = '/csdlquocgia/qg_giaspdvci/nhandanhmuc';
+        return view('csdlquocgia.qg_giaspdvci.nhandanhmuc.index')
             ->with('model',$model)
             ->with('inputs',$inputs)
-            ->with('pageTitle','Danh mục Giá dịch vụ Giáo dục Mầm non và Giáo dục phổ thông công lập');
+            ->with('pageTitle','Danh mục Giá dịch vụ thu gom, vận chuyển rác thải sinh hoạt');
     }
 
     public function nhanhoso(Request $request)
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $inputs['url'] = '/csdlquocgia/qg_giadvgddt/nhanhoso';
+            $inputs['url'] = '/csdlquocgia/qg_giaspdvci/nhanhoso';
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi = getDonViNhapLieu(session('admin')->level,'giadvgddt');
+            $m_donvi = getDonViNhapLieu(session('admin')->level,'giaspdvci');
             if (count($m_donvi) == null) {
-                $message = 'Chưa có đơn vị nào được phân quyền nhập liệu cho chức năng: ' . session('admin')['a_chucnang']['giadvgddt']
+                $message = 'Chưa có đơn vị nào được phân quyền nhập liệu cho chức năng: ' . session('admin')['a_chucnang']['giaspdvci']
                     . '. Bạn cần liên hệ người quản trị để phần quyền nhập liệu cho đơn vị.';
                 return  view('errors.403')
                     ->with('message', $message);
             }
-            $m_donvi_th = getDonViTongHop('giadvgddt',\session('admin')->level, \session('admin')->madiaban);
+            $m_donvi_th = getDonViTongHop('giaspdvci',\session('admin')->level, \session('admin')->madiaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $inputs['nam'] = $inputs['nam'] ?? 'all';
-            $model = GiaDvGdDt::where('madv', $inputs['madv']);
+            $model = giaspdvci::where('madv', $inputs['madv']);
             if($inputs['nam'] != 'all')
                 $model = $model->whereYear('thoidiem', $inputs['nam']);
-            $a_dm = array_column(giadvgddtdm::all()->toArray(), 'maspdv', 'tenspdv');
-            return view('csdlquocgia.qg_giadvgddt.nhanhoso.index')
+            $a_dm = array_column(giaspdvcidm::all()->toArray(), 'maspdv', 'tenspdv');
+            return view('csdlquocgia.qg_giaspdvci.nhanhoso.index')
                 ->with('model', $model->get())
                 ->with('inputs', $inputs)
                 ->with('m_diaban', $m_diaban)
@@ -54,7 +54,7 @@ class qg_giadvgddtController extends Controller
                 ->with('m_donvi_th', $m_donvi_th)
                 ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
                 ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
-                ->with('pageTitle', 'Nhận hồ sơ Giá dịch vụ Giáo dục Mầm non và Giáo dục phổ thông công lập');    
+                ->with('pageTitle', 'Nhận hồ sơ Giá dịch vụ thu gom, vận chuyển rác thải sinh hoạt');    
         } else
             return view('errors.notlogin');
     }
@@ -63,7 +63,7 @@ class qg_giadvgddtController extends Controller
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $model = GiaDvGdDt::where('mahs', $inputs['mahs'])->first();
+            $model = giaspdvci::where('mahs', $inputs['mahs'])->first();
             $a_lichsu = json_decode($model->lichsu, true);
             $a_lichsu[getdate()[0]] = array(
                 'hanhdong' => 'HT',
@@ -92,30 +92,30 @@ class qg_giadvgddtController extends Controller
                 $model->trangthai_h = 'CHT';
             }
             $model->save();
-            return redirect('/csdlquocgia/qg_giadvgddt/nhanhoso?madv=' . $model->madv);
+            return redirect('/csdlquocgia/qg_giaspdvci/nhanhoso?madv=' . $model->madv);
         } else
             return view('errors.notlogin');
     }
 
     public function truyendanhmuc(Request $request)
     {
-        $model = giadvgddtdm::all();
-        $inputs['url'] = '/csdlquocgia/qg_giadvgddt/danhmuc';
+        $model = giaspdvcidm::all();
+        $inputs['url'] = '/csdlquocgia/qg_giaspdvci/danhmuc';
         $inputs['truyendulieu'] = $inputs['truyendulieu'] ?? 'all';
         if ($inputs['truyendulieu'] != 'all')
             $model = $model->where('truyendulieu', $inputs['truyendulieu']);
-        return view('csdlquocgia.qg_giadvgddt.truyendanhmuc.index')
+        return view('csdlquocgia.qg_giaspdvci.truyendanhmuc.index')
             ->with('model',$model)
             ->with('inputs',$inputs)
-            ->with('pageTitle','Truyền danh mục Giá dịch vụ Giáo dục Mầm non và Giáo dục phổ thông công lập');
+            ->with('pageTitle','Truyền danh mục Giá dịch vụ thu gom, vận chuyển rác thải sinh hoạt');
     }
 
     public function capnhatdanhmuc(Request $request)
     {
         $inputs = $request->all();
-        $model = giadvgddtdm::where('maspdv',$inputs['maspdv'])->first();
+        $model = giaspdvcidm::where('maspdv',$inputs['maspdv'])->first();
         $model->update($inputs);
-        return redirect('/csdlquocgia/qg_giadvgddt/danhmuc?truyendulieu=' . $inputs['truyendulieu']);
+        return redirect('/csdlquocgia/qg_giaspdvci/danhmuc?truyendulieu=' . $inputs['truyendulieu']);
     }
 
     public function show_nhomdm(Request $request)
@@ -129,19 +129,19 @@ class qg_giadvgddtController extends Controller
         }
 
         $inputs = $request->all();
-        $model = giadvgddtdm::where('maspdv',$inputs['maspdv'])->first();
+        $model = giaspdvcidm::where('maspdv',$inputs['maspdv'])->first();
         die($model);
     }
 
     public function truyenhoso(Request $request)
     {
         $inputs = $request->all();
-        $inputs['url'] = '/csdlquocgia/qg_giadvgddt/hoso';
+        $inputs['url'] = '/csdlquocgia/qg_giaspdvci/hoso';
         $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
         $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
 
         $m_donvi = getDonViXetDuyet(session('admin')->level);
-        $m_donvi_th = getDonViTongHop('giadvgddt',\session('admin')->level, \session('admin')->madiaban);
+        $m_donvi_th = getDonViTongHop('giaspdvci',\session('admin')->level, \session('admin')->madiaban);
         $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
         $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
         $inputs['nam'] = $inputs['nam'] ?? 'all';
@@ -152,7 +152,7 @@ class qg_giadvgddtController extends Controller
 
         switch ($inputs['level']){
             case 'H':{
-                $model = GiaDvGdDt::where('madv_h', $inputs['madv']);
+                $model = giaspdvci::where('madv_h', $inputs['madv']);
                 if ($inputs['nam'] != 'all')
                     $model = $model->whereYear('thoidiem_h', $inputs['nam']);
                 if ($inputs['truyendulieu'] != 'all')
@@ -171,7 +171,7 @@ class qg_giadvgddtController extends Controller
                 break;
             }
             case 'T':{
-                $model = GiaDvGdDt::where('madv_t', $inputs['madv']);
+                $model = giaspdvci::where('madv_t', $inputs['madv']);
                 if ($inputs['nam'] != 'all')
                     $model = $model->whereYear('thoidiem_t', $inputs['nam']);
                 if ($inputs['truyendulieu'] != 'all')
@@ -190,7 +190,7 @@ class qg_giadvgddtController extends Controller
                 break;
             }
             case 'ADMIN':{
-                $model = GiaDvGdDt::where('madv_ad', $inputs['madv']);
+                $model = giaspdvci::where('madv_ad', $inputs['madv']);
                 if ($inputs['nam'] != 'all')
                     $model = $model->whereYear('thoidiem_ad', $inputs['nam']);
                 if ($inputs['truyendulieu'] != 'all')
@@ -210,7 +210,7 @@ class qg_giadvgddtController extends Controller
             }
         }
 
-        return view('csdlquocgia.qg_giadvgddt.truyenhoso.index')
+        return view('csdlquocgia.qg_giaspdvci.truyenhoso.index')
             ->with('model', $model)
             ->with('inputs', $inputs)
             ->with('m_diaban', $m_diaban)
@@ -219,15 +219,15 @@ class qg_giadvgddtController extends Controller
             ->with('m_donvi_th', $m_donvi_th->where('madv','<>',$inputs['madv']))
             ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
             ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
-            ->with('pageTitle', 'Truyền hồ sơ Giá dịch vụ Giáo dục Mầm non và Giáo dục phổ thông công lập');
+            ->with('pageTitle', 'Truyền hồ sơ Giá dịch vụ thu gom, vận chuyển rác thải sinh hoạt');
     }
 
     public function capnhathoso(Request $request)
     {
         $inputs = $request->all();
-        $model = GiaDvGdDt::where('mahs',$inputs['mahs'])->first();
+        $model = giaspdvci::where('mahs',$inputs['mahs'])->first();
         $model->update($inputs);
-        return redirect('/csdlquocgia/qg_giadvgddt/hoso?truyendulieu=' . $inputs['truyendulieu']);
+        return redirect('/csdlquocgia/qg_giaspdvci/hoso?truyendulieu=' . $inputs['truyendulieu']);
     }
 
     public function show_hoso(Request $request)
@@ -241,7 +241,7 @@ class qg_giadvgddtController extends Controller
         }
 
         $inputs = $request->all();
-        $model = GiaDvGdDt::where('mahs',$inputs['mahs'])->first();
+        $model = giaspdvci::where('mahs',$inputs['mahs'])->first();
         die($model);
     }
 
@@ -249,34 +249,34 @@ class qg_giadvgddtController extends Controller
     {
         $inputs = $request->all();
         $inputs['truyendulieu'] = $inputs['truyendulieu'] ?? 'all';
-        $inputs['url'] = '/csdlquocgia/qg_giadvgddt/congbo_danhmuc';
-        $model = giadvgddtdm::all();
+        $inputs['url'] = '/csdlquocgia/qg_giaspdvci/congbo_danhmuc';
+        $model = giaspdvcidm::all();
         if ($inputs['truyendulieu'] != 'all')
             $model = $model->where('truyendulieu', $inputs['truyendulieu']);
-        return view('csdlquocgia.qg_giadvgddt.truyendanhmuc.congbo')
+        return view('csdlquocgia.qg_giaspdvci.truyendanhmuc.congbo')
             ->with('model', $model)
             ->with('inputs', $inputs)
-            ->with('pageTitle', 'Công bố danh mục Giá dịch vụ Giáo dục Mầm non và Giáo dục phổ thông công lập');
+            ->with('pageTitle', 'Công bố danh mục Giá dịch vụ thu gom, vận chuyển rác thải sinh hoạt');
     }
 
     public function congbo_hoso(Request $request)
     {
         $inputs = $request->all();
-        $inputs['url'] = '/csdlquocgia/qg_giadvgddt/congbo_hoso';
-        $m_donvi = getDonViNhapLieu('ADMIN', 'giadvgddt');
+        $inputs['url'] = '/csdlquocgia/qg_giaspdvci/congbo_hoso';
+        $m_donvi = getDonViNhapLieu('ADMIN', 'giaspdvci');
         $inputs['nam'] = $inputs['nam'] ?? 'all';
         $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
         $inputs['truyendulieu'] = $inputs['truyendulieu'] ?? 'all';
-        $model = GiaDvGdDt::where('madv', $inputs['madv']);
+        $model = giaspdvci::where('madv', $inputs['madv']);
         if ($inputs['nam'] != 'all')
             $model = $model->whereYear('thoidiem', $inputs['nam']);
         if ($inputs['truyendulieu'] != 'all')
             $model = $model->where('truyendulieu', $inputs['truyendulieu']);
 
-        return view('csdlquocgia.qg_giadvgddt.truyenhoso.congbo')
+        return view('csdlquocgia.qg_giaspdvci.truyenhoso.congbo')
             ->with('model', $model->get())
             ->with('inputs', $inputs)
             ->with('m_donvi', $m_donvi)
-            ->with('pageTitle', 'Công bố hồ sơ kê khai Giá dịch vụ Giáo dục Mầm non và Giáo dục phổ thông công lập');
+            ->with('pageTitle', 'Công bố hồ sơ kê khai Giá dịch vụ thu gom, vận chuyển rác thải sinh hoạt');
     }
 }

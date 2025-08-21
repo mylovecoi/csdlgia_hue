@@ -310,7 +310,7 @@
                             </li>
                             <li class=" dropdown-submenu">
                                 <a href="javascript:;">
-                                    <i class="icon-folder"></i>&nbsp;Giá hàng hóa dịch vụ chuyên ngành
+                                    <i class="icon-folder"></i>&nbsp;Giá hàng hóa, dịch vụ khác theo Quy định của pháp luật chuyên ngành
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
@@ -323,7 +323,7 @@
                             </li>
                             <li class=" dropdown-submenu">
                                 <a href="javascript:;">
-                                    <i class="icon-folder"></i>&nbsp;Giá dịch vụ Giáo dục
+                                    <i class="icon-folder"></i>&nbsp;Giá dịch vụ Giáo dục Mầm non và Giáo dục phổ thông công lập
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
@@ -331,6 +331,19 @@
                                     </li>
                                     <li>
                                         <a href="{{ url('/csdlquocgia/qg_giadvgddt/congbo_hoso') }}">Hồ sơ</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class=" dropdown-submenu">
+                                <a href="javascript:;">
+                                    <i class="icon-folder"></i>&nbsp;Giá dịch vụ thu gom, vận chuyển rác thải sinh hoạt
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ url('/csdlquocgia/qg_giaspdvci/congbo_danhmuc') }}">Danh mục</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('/csdlquocgia/qg_giaspdvci/congbo_hoso') }}">Hồ sơ</a>
                                     </li>
                                 </ul>
                             </li>

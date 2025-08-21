@@ -16,5 +16,7 @@ class giaspdvcidm extends Model
         'phanloai',
         'hientrang',
         'madiaban',
+        'truyendulieu',
+        'thoigiantruyen',
     ];
 }

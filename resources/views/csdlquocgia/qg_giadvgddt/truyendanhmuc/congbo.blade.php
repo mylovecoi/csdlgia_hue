@@ -37,7 +37,7 @@
 @section('content-cb')
     <div class="col-sm-12">
         <h3 class="page-title">
-            Danh mục giá hàng hóa dịch vụ chuyên ngành
+            Danh mục Giá dịch vụ Giáo dục Mầm non và Giáo dục phổ thông công lập
         </h3>
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet box">
@@ -81,7 +81,7 @@
                                 <td>{{$tt->dvt}}</td>
                                 <td>{{$tt->mota}}</td>
                                 <td>
-                                    <a href="{{ url('/KetNoiAPI/XemHoSo?maso=dmgiathuetn&mahs=' . $tt->manhom) }}"
+                                    <a href="{{ url('/KetNoiAPI/XemHoSo?maso=dmgiadvgddt&mahs=' . $tt->manhom) }}"
                                         class="btn btn-default btn-xs mbs" target="_blank">
                                         <i class="fa fa-eye"></i>&nbsp;Xem trước thông điệp
                                     </a>

@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AddFieldToGiadvdtTable' => $baseDir . '/database/migrations/2025_08_20_161832_add_field_to_giadvdt_table.php',
+    'AddFieldToGiaspdvciTable' => $baseDir . '/database/migrations/2025_08_21_160331_add_field_to_giaspdvci_table.php',
     'AddThoigiantruyenToGiahhdvcndmTable' => $baseDir . '/database/migrations/2025_08_14_170001_add_thoigiantruyen_to_giahhdvcndm_table.php',
     'AddTruyendulieuAndThoigiantruyenToGiahhdvcnTable' => $baseDir . '/database/migrations/2025_08_14_163619_add_truyendulieu_and_thoigiantruyen_to_giahhdvcn_table.php',
     'AddTruyendulieuToGiahhdvcndmTable' => $baseDir . '/database/migrations/2025_08_14_162952_add_truyendulieu_to_giahhdvcndm_table.php',

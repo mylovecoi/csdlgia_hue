@@ -37,7 +37,7 @@
 @section('content-cb')
     <div class="col-sm-12">
         <h3 class="page-title">
-            Danh mục giá hàng hóa dịch vụ chuyên ngành
+            Danh mục Giá dịch vụ thu gom, vận chuyển rác thải sinh hoạt 
         </h3>
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet box">
@@ -81,7 +81,7 @@
                                 <td>{{$tt->dvt}}</td>
                                 <td>{{$tt->mota}}</td>
                                 <td>
-                                    <a href="{{ url('/KetNoiAPI/XemHoSo?maso=dmgiahhdvcn&mahs=' . $tt->manhom) }}"
+                                    <a href="{{ url('/KetNoiAPI/XemHoSo?maso=giaspdvcidm&mahs=' . $tt->manhom) }}"
                                         class="btn btn-default btn-xs mbs" target="_blank">
                                         <i class="fa fa-eye"></i>&nbsp;Xem trước thông điệp
                                     </a>

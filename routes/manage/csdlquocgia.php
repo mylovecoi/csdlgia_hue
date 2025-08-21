@@ -93,4 +93,29 @@ Route::group(['prefix' => 'csdlquocgia'], function () {
         Route::get('congbo_danhmuc','csdlquocgia\qg_giadvgddtController@congbo_danhmuc');
         Route::get('congbo_hoso','csdlquocgia\qg_giadvgddtController@congbo_hoso');
     });
+
+    Route::group(['prefix'=>'qg_giaspdvci'], function(){
+        //Nhận danh mục
+        Route::get('nhandanhmuc','csdlquocgia\qg_giaspdvciController@nhandanhmuc');
+        Route::post('chuyendm','csdlquocgia\qg_giaspdvciController@chuyendm');
+
+        //Nhận hồ sơ
+        Route::get('nhanhoso','csdlquocgia\qg_giaspdvciController@nhanhoso');
+        Route::post('chuyenhs','csdlquocgia\qg_giaspdvciController@chuyenhs');
+        Route::get('innhanhosocsdlqg','csdlquocgia\qg_giaspdvciController@innhanhosocsdlqg');
+
+        //Truyền danh mục
+        Route::get('danhmuc','csdlquocgia\qg_giaspdvciController@truyendanhmuc');
+        Route::get('show_nhomdm','csdlquocgia\qg_giaspdvciController@show_nhomdm');
+        Route::post('capnhatdanhmuc','csdlquocgia\qg_giaspdvciController@capnhatdanhmuc');
+
+        //Truyền hồ sơ
+        Route::get('hoso','csdlquocgia\qg_giaspdvciController@truyenhoso');
+        Route::get('show_hoso','csdlquocgia\qg_giaspdvciController@show_hoso');
+        Route::post('capnhathoso','csdlquocgia\qg_giaspdvciController@capnhathoso');
+
+        //Công bố dữ liệu
+        Route::get('congbo_danhmuc','csdlquocgia\qg_giaspdvciController@congbo_danhmuc');
+        Route::get('congbo_hoso','csdlquocgia\qg_giaspdvciController@congbo_hoso');
+    });
 });

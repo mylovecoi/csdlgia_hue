@@ -491,6 +491,7 @@ class ComposerStaticInitd7de3fb6aaadd474bf447891cb3bef8d
 
     public static $classMap = array (
         'AddFieldToGiadvdtTable' => __DIR__ . '/../..' . '/database/migrations/2025_08_20_161832_add_field_to_giadvdt_table.php',
+        'AddFieldToGiaspdvciTable' => __DIR__ . '/../..' . '/database/migrations/2025_08_21_160331_add_field_to_giaspdvci_table.php',
         'AddThoigiantruyenToGiahhdvcndmTable' => __DIR__ . '/../..' . '/database/migrations/2025_08_14_170001_add_thoigiantruyen_to_giahhdvcndm_table.php',
         'AddTruyendulieuAndThoigiantruyenToGiahhdvcnTable' => __DIR__ . '/../..' . '/database/migrations/2025_08_14_163619_add_truyendulieu_and_thoigiantruyen_to_giahhdvcn_table.php',
         'AddTruyendulieuToGiahhdvcndmTable' => __DIR__ . '/../..' . '/database/migrations/2025_08_14_162952_add_truyendulieu_to_giahhdvcndm_table.php',

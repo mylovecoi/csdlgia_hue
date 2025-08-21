@@ -12,7 +12,15 @@ use Illuminate\Support\Facades\Session;
 
 class qg_giathuetnController extends Controller
 {
-    //Xây dựng các chức năng nhận hồ sơ từ pm csdl quốc gia
+    public function nhandanhmuc(Request $request){
+        $model = NhomThueTn::all();
+        $inputs['url'] = '/csdlquocgia/qg_giathuetn/nhandanhmuc';
+        return view('csdlquocgia.qg_giathuetn.nhandanhmuc.index')
+            ->with('model',$model)
+            ->with('inputs',$inputs)
+            ->with('pageTitle','Danh mục Giá thuế tài nguyên');
+    }
+
     public function nhanhoso(Request $request)
     {
         $inputs = $request->all();
@@ -108,7 +116,6 @@ class qg_giathuetnController extends Controller
             ->with('pageTitle', 'Nhận hồ sơ giá thuế tài nguyên');
     }
 
-    //Xây dựng các chức năng truyền danh mục
     public function truyendanhmuc(Request $request)
     {
         $inputs = $request->all();
@@ -146,7 +153,6 @@ class qg_giathuetnController extends Controller
         die($model);
     }
 
-    //Xây dựng các chức năng truyền hồ sơ kê khai
     public function truyenhoso(Request $request)
     {
         $inputs = $request->all();

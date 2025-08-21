@@ -23,36 +23,28 @@
 
             function changeUrl() {
                 var current_path_url = '{{$inputs['url']}}';
-                var url = current_path_url + '?nam=' + $('#nam').val() + '&madv=' + $('#madv').val() + '&truyendulieu=' + $('#truyendulieu').val();
+                var url = current_path_url + '?truyendulieu=' + $('#truyendulieu').val();
                 window.location.href = url;
             }
-
-            $('#nam').change(function() {
-                changeUrl();
-            });
-
-            $('#madv').change(function() {
-                changeUrl();
-            });
 
             $('#truyendulieu').change(function() {
                 changeUrl();
             });
         });
 
-        function ClickEdit(mahs) {
+        function ClickEdit(maspdv) {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: '/csdlquocgia/qg_giadvgddt/show_hoso',
+                url: '/csdlquocgia/qg_giaspdvci/show_nhomdm',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    mahs: mahs
+                    maspdv: maspdv
                 },
                 dataType: 'JSON',
                 success: function(data) {
                     var form = $('#frm_update');
-                    form.find("[name='mahs']").val(data.mahs);
+                    form.find("[name='maspdv']").val(data.maspdv);
                     form.find("[name='truyendulieu']").val(data.truyendulieu).trigger('change');
                 },
                 error: function(message) {
@@ -65,7 +57,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Truyền hồ sơ kê khai Giá dịch vụ Giáo dục Mầm non và Giáo dục phổ thông công lập
+        Truyền danh mục Giá dịch vụ thu gom, vận chuyển rác thải sinh hoạt 
     </h3>
     <hr>
     <div class="row">
@@ -79,28 +71,9 @@
                 </div>
                 <hr>
                 <div class="portlet-body form-horizontal">
-                    <div class="col-md-2">
-                        <label style="font-weight: bold">Năm</label>
-                        {!! Form::select('nam', getNam(true), $inputs['nam'], ['id' => 'nam', 'class' => 'form-control']) !!}
-                    </div>
-                    
-                    <div class="col-md-5">
-                        <label style="font-weight: bold">Đơn vị</label>
-                        <select class="form-control select2me" id="madv">
-                            @foreach ($m_diaban as $diaban)
-                                <optgroup label="{{ $diaban->tendiaban }}">
-                                    <?php $donvi = $m_donvi->where('madiaban', $diaban->madiaban); ?>
-                                    @foreach ($donvi as $ct)
-                                        <option {{ $ct->madv == $inputs['madv'] ? 'selected' : '' }}
-                                            value="{{ $ct->madv }}">{{ $ct->tendv }}</option>
-                                    @endforeach
-                                </optgroup>
-                            @endforeach
-                        </select>
-                    </div>
 
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <div class="col-md-4">
                                     <label style="font-weight: bold">Trạng thái kết nối</label>
@@ -118,9 +91,7 @@
                         <thead>
                             <tr>
                                 <th style="text-align: center" width="5%">STT</th>
-                                <th style="text-align: center">Số QĐ</th>
-                                <th style="text-align: center">Thời điểm <br>xác định</th>
-                                <th style="text-align: center">Mô tả</th>
+                                <th style="text-align: center">Tên dịch vụ</th>
                                 <th style="text-align: center" width="10%">Trạng thái kết nối</th>
                                 <th style="text-align: center" width="15%">Thao tác</th>
                             </tr>
@@ -129,9 +100,7 @@
                             @foreach ($model as $key => $tt)
                                 <tr class="odd gradeX">
                                     <td style="text-align: center">{{ $key + 1 }}</td>
-                                    <td style="text-align: left">{{$tt->soqd}}</td>
-                                    <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
-                                    <td style="text-align: left">{{$tt->ttqd}}</td>
+                                    <td class="success">{{$tt->tenspdv}}</td>
                                     <td style="text-align: center">
                                         @if ($tt->truyendulieu == '0' || $tt->truyendulieu == null || $tt->truyendulieu == '')
                                             <span class="badge badge-active">Chưa truyền dữ liệu</span>
@@ -140,7 +109,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <button type="button" onclick="ClickEdit('{{ $tt->mahs }}')"
+                                        <button type="button" onclick="ClickEdit('{{ $tt->maspdv }}')"
                                             class="btn btn-default btn-xs mbs" data-target="#modal-create"
                                             data-toggle="modal">
                                             <i class="fa fa-edit"></i>&nbsp;Cập nhật trạng thái
@@ -153,19 +122,20 @@
                                             </button>
                                             <ul class="dropdown-menu" style="position: static">
                                                 <li>
-                                                    <a href="{{ url('/KetNoiAPI/HoSo?maso=giadvgddt') }}"
-                                                        style="border: none;" target="_blank" class="btn btn-default">
+                                                    <a href="{{ url('/KetNoiAPI/HoSo?maso=giaspdvcidm') }}"
+                                                        style="border: none;" target="_blank"
+                                                        class="btn btn-default">
                                                         <i class="fa fa-caret-right"></i> Thiết lập thông điệp</a>
                                                 </li>
                                                 <li>
-                                                    <a href="{{ url('/KetNoiAPI/XemHoSo?maso=giadvgddt&mahs=' . $tt->mahs) }}"
-                                                        style="border: none;" target="_blank" class="btn btn-default">
+                                                    <a href="{{ url('/KetNoiAPI/XemHoSo?maso=giaspdvcidm&mahs=' . $tt->maspdv) }}"
+                                                        style="border: none;" target="_blank"
+                                                        class="btn btn-default">
                                                         <i class="fa fa-caret-right"></i> Xem trước thông điệp</a>
                                                 </li>
-
                                                 <li>
                                                     <button type="button" style="border: none;"
-                                                        onclick="ketnoiapi('{{ $tt->mahs }}','giadvgddt', '{{ $inputs['url'] . '/xetduyet/' }}')"
+                                                        onclick="ketnoiapi('{{ $tt->maspdv }}','giaspdvcidm', '{{ $inputs['url'] . '/xetduyet/' }}')"
                                                         class="btn btn-default" data-target="#ketnoiapi-modal"
                                                         data-toggle="modal">
                                                         <i class="fa fa-caret-right"></i>&nbsp;Truyền dữ liệu
@@ -194,11 +164,11 @@
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url' => '/csdlquocgia/qg_giadvgddt/capnhathoso', 'method' => 'post', 'id' => 'frm_update']) !!}
+                {!! Form::open(['url' => '/csdlquocgia/qg_giaspdvci/capnhatdanhmuc', 'method' => 'post', 'id' => 'frm_update']) !!}
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Thông tin hồ sơ</h4>
+                    <h4 class="modal-title">Nhóm dịch vụ giáo dục</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -211,7 +181,7 @@
                                 </select>
                             </div>
                         </div>
-                        <input name="mahs" type="hidden" class="form-control">
+                        <input name="maspdv" type="hidden" class="form-control">
                     </div>
                 </div>
                 <div class="modal-footer">

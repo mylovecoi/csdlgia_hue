@@ -45,7 +45,7 @@
 @section('content-cb')
     <div class="col-sm-12">
             <h3 class="page-title">
-                Hồ sơ kê khai Giá dịch vụ Giáo dục Mầm non và Giáo dục phổ thông công lập
+                Hồ sơ kê khai Giá dịch vụ thu gom, vận chuyển rác thải sinh hoạt
             </h3>
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box">
@@ -104,7 +104,7 @@
                                     <td style="text-align: center">{{getDayVn($tt->thoidiem)}}</td>
                                     <td style="text-align: left">{{$tt->ttqd}}</td>
                                     <td>
-                                        <a href="{{ url('/KetNoiAPI/XemHoSo?maso=giadvgddt&mahs=' . $tt->mahs) }}"
+                                        <a href="{{ url('/KetNoiAPI/XemHoSo?maso=giaspdvci&mahs=' . $tt->mahs) }}"
                                             class="btn btn-default btn-xs mbs" target="_blank">
                                             <i class="fa fa-eye"></i>&nbsp;Xem trước thông điệp
                                         </a>

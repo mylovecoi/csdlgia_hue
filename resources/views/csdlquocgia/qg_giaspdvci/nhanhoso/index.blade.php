@@ -40,7 +40,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Nhận hồ sơ Giá dịch vụ Giáo dục Mầm non và Giáo dục phổ thông công lập
+        Nhận hồ sơ Giá dịch vụ thu gom, vận chuyển rác thải sinh hoạt
     </h3>
     <hr>
     <div class="row">
@@ -110,7 +110,7 @@
                                     <td>
                                         @if (in_array($tt->trangthai, ['CHT', 'HHT']))
                                             <button type="button"
-                                                onclick="confirmChuyen('{{ $tt->mahs }}','{{ '/csdlquocgia/qg_giadvgddt/chuyenhs' }}')"
+                                                onclick="confirmChuyen('{{ $tt->mahs }}','{{ '/csdlquocgia/qg_giaspdvci/chuyenhs' }}')"
                                                 class="btn btn-default btn-xs mbs" data-target="#chuyen-modal-confirm"
                                                 data-toggle="modal">
                                                 <i class="fa fa-check"></i> Nhận vào phần mềm</button>
@@ -135,7 +135,7 @@
 
     <!--Modal Create-->
     <div id="create-modal-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade bs-modal-lg">
-        {!! Form::open(['url' => '/giadvgddt/new', 'id' => 'frm_create', 'method' => 'get']) !!}
+        {!! Form::open(['url' => '/giaspdvci/new', 'id' => 'frm_create', 'method' => 'get']) !!}
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header modal-header-primary">

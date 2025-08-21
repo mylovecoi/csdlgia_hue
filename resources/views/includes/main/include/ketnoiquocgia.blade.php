@@ -122,5 +122,25 @@
                 </li>
             </ul>
         </li>
+        <li class="tooltips" data-container="body" data-placement="right" data-html="true">
+            <a href="javascript:;">
+                <span class="title">Giá dịch vụ thu gom, vận chuyển rác thải sinh hoạt </span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_giaspdvci/nhandanhmuc') }}">Nhận danh mục</a>
+                </li>
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_giaspdvci/nhanhoso') }}">Nhận hồ sơ</a>
+                </li>
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_giaspdvci/danhmuc') }}">Truyền danh mục</a>
+                </li>
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_giaspdvci/hoso') }}">Truyền hồ sơ kê khai</a>
+                </li>
+            </ul>
+        </li>
     </ul>
 </li>
