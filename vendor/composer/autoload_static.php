@@ -491,7 +491,9 @@ class ComposerStaticInitd7de3fb6aaadd474bf447891cb3bef8d
 
     public static $classMap = array (
         'AddFieldToGiadvdtTable' => __DIR__ . '/../..' . '/database/migrations/2025_08_20_161832_add_field_to_giadvdt_table.php',
+        'AddFieldToGiahhdvkTable' => __DIR__ . '/../..' . '/database/migrations/2025_08_22_095548_add_field_to_giahhdvk_table.php',
         'AddFieldToGiaspdvciTable' => __DIR__ . '/../..' . '/database/migrations/2025_08_21_160331_add_field_to_giaspdvci_table.php',
+        'AddFieldToPhilephiTable' => __DIR__ . '/../..' . '/database/migrations/2025_08_22_092742_add_field_to_philephi_table.php',
         'AddThoigiantruyenToGiahhdvcndmTable' => __DIR__ . '/../..' . '/database/migrations/2025_08_14_170001_add_thoigiantruyen_to_giahhdvcndm_table.php',
         'AddTruyendulieuAndThoigiantruyenToGiahhdvcnTable' => __DIR__ . '/../..' . '/database/migrations/2025_08_14_163619_add_truyendulieu_and_thoigiantruyen_to_giahhdvcn_table.php',
         'AddTruyendulieuToGiahhdvcndmTable' => __DIR__ . '/../..' . '/database/migrations/2025_08_14_162952_add_truyendulieu_to_giahhdvcndm_table.php',
@@ -679,6 +681,8 @@ class ComposerStaticInitd7de3fb6aaadd474bf447891cb3bef8d
         'App\\Http\\Controllers\\congbo\\vanbanqlnn\\CongboVanBanQLNNController' => __DIR__ . '/../..' . '/app/Http/Controllers/congbo/vanbanqlnn/CongboVanBanQLNNController.php',
         'App\\Http\\Controllers\\csdlquocgia\\qg_giadvgddtController' => __DIR__ . '/../..' . '/app/Http/Controllers/csdlquocgia/qg_giadvgddtController.php',
         'App\\Http\\Controllers\\csdlquocgia\\qg_giahhdvcnController' => __DIR__ . '/../..' . '/app/Http/Controllers/csdlquocgia/qg_giahhdvcnController.php',
+        'App\\Http\\Controllers\\csdlquocgia\\qg_giaphilephiController' => __DIR__ . '/../..' . '/app/Http/Controllers/csdlquocgia/qg_giaphilephiController.php',
+        'App\\Http\\Controllers\\csdlquocgia\\qg_giaspdvciController' => __DIR__ . '/../..' . '/app/Http/Controllers/csdlquocgia/qg_giaspdvciController.php',
         'App\\Http\\Controllers\\csdlquocgia\\qg_giathitruongController' => __DIR__ . '/../..' . '/app/Http/Controllers/csdlquocgia/qg_giathitruongController.php',
         'App\\Http\\Controllers\\csdlquocgia\\qg_giathuetnController' => __DIR__ . '/../..' . '/app/Http/Controllers/csdlquocgia/qg_giathuetnController.php',
         'App\\Http\\Controllers\\csdlquocgia\\qg_racthaiController' => __DIR__ . '/../..' . '/app/Http/Controllers/csdlquocgia/qg_racthaiController.php',

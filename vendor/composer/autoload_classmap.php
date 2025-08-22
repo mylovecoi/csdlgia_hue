@@ -7,7 +7,9 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AddFieldToGiadvdtTable' => $baseDir . '/database/migrations/2025_08_20_161832_add_field_to_giadvdt_table.php',
+    'AddFieldToGiahhdvkTable' => $baseDir . '/database/migrations/2025_08_22_095548_add_field_to_giahhdvk_table.php',
     'AddFieldToGiaspdvciTable' => $baseDir . '/database/migrations/2025_08_21_160331_add_field_to_giaspdvci_table.php',
+    'AddFieldToPhilephiTable' => $baseDir . '/database/migrations/2025_08_22_092742_add_field_to_philephi_table.php',
     'AddThoigiantruyenToGiahhdvcndmTable' => $baseDir . '/database/migrations/2025_08_14_170001_add_thoigiantruyen_to_giahhdvcndm_table.php',
     'AddTruyendulieuAndThoigiantruyenToGiahhdvcnTable' => $baseDir . '/database/migrations/2025_08_14_163619_add_truyendulieu_and_thoigiantruyen_to_giahhdvcn_table.php',
     'AddTruyendulieuToGiahhdvcndmTable' => $baseDir . '/database/migrations/2025_08_14_162952_add_truyendulieu_to_giahhdvcndm_table.php',
@@ -195,6 +197,8 @@ return array(
     'App\\Http\\Controllers\\congbo\\vanbanqlnn\\CongboVanBanQLNNController' => $baseDir . '/app/Http/Controllers/congbo/vanbanqlnn/CongboVanBanQLNNController.php',
     'App\\Http\\Controllers\\csdlquocgia\\qg_giadvgddtController' => $baseDir . '/app/Http/Controllers/csdlquocgia/qg_giadvgddtController.php',
     'App\\Http\\Controllers\\csdlquocgia\\qg_giahhdvcnController' => $baseDir . '/app/Http/Controllers/csdlquocgia/qg_giahhdvcnController.php',
+    'App\\Http\\Controllers\\csdlquocgia\\qg_giaphilephiController' => $baseDir . '/app/Http/Controllers/csdlquocgia/qg_giaphilephiController.php',
+    'App\\Http\\Controllers\\csdlquocgia\\qg_giaspdvciController' => $baseDir . '/app/Http/Controllers/csdlquocgia/qg_giaspdvciController.php',
     'App\\Http\\Controllers\\csdlquocgia\\qg_giathitruongController' => $baseDir . '/app/Http/Controllers/csdlquocgia/qg_giathitruongController.php',
     'App\\Http\\Controllers\\csdlquocgia\\qg_giathuetnController' => $baseDir . '/app/Http/Controllers/csdlquocgia/qg_giathuetnController.php',
     'App\\Http\\Controllers\\csdlquocgia\\qg_racthaiController' => $baseDir . '/app/Http/Controllers/csdlquocgia/qg_racthaiController.php',

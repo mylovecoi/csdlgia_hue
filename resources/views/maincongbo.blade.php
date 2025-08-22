@@ -347,6 +347,32 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li class=" dropdown-submenu">
+                                <a href="javascript:;">
+                                    <i class="icon-folder"></i>&nbsp;Giá lệ phí trước bạ 
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ url('/csdlquocgia/qg_giaphilephi/congbo_danhmuc') }}">Danh mục</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('/csdlquocgia/qg_giaphilephi/congbo_hoso') }}">Hồ sơ</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class=" dropdown-submenu">
+                                <a href="javascript:;">
+                                    <i class="icon-folder"></i>&nbsp;Giá hàng hóa, dịch vụ thị trường 
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ url('/csdlquocgia/qg_giahhdvk/congbo_danhmuc') }}">Danh mục</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('/csdlquocgia/qg_giahhdvk/congbo_hoso') }}">Hồ sơ</a>
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                     

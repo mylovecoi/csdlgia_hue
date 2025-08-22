@@ -29,10 +29,10 @@ class PhiLePhi extends Model
         'thongtin',
         'trangthai',
         'ipf1',
-'ipf2',
-'ipf3',
-'ipf4',
-'ipf5',
+        'ipf2',
+        'ipf3',
+        'ipf4',
+        'ipf5',
 //Thông tin Hô sơ khi gửi đơn vị cấp trên (Cấp H, T tùy theo level đơn vị khởi tạo)
         'thoidiem_h',
         'macqcq_h',
@@ -54,5 +54,7 @@ class PhiLePhi extends Model
         'lydo_ad',
         'thongtin_ad',
         'trangthai_ad',
+        'truyendulieu',
+        'thoigiantruyen',
     ];
 }

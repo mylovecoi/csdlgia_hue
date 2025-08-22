@@ -37,7 +37,7 @@
 @section('content-cb')
     <div class="col-sm-12">
         <h3 class="page-title">
-            Danh mục Giá dịch vụ Giáo dục Mầm non và Giáo dục phổ thông công lập
+            Danh mục Giá lệ phí trước bạ
         </h3>
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet box">
@@ -67,7 +67,8 @@
                     <thead>
                         <tr>
                             <th style="text-align: center" width="5%">STT</th>
-                            <th style="text-align: center">Tên dịch vụ</th>
+                            <th>Nhóm phí, lệ phí</th>
+                            <th>Tên phí, lệ phí</th>
                             <th style="text-align: center" width="15%">Thao tác</th>
                         </tr>
                     </thead>
@@ -75,9 +76,10 @@
                         @foreach ($model as $key => $tt)
                             <tr class="odd gradeX">
                                 <td style="text-align: center">{{ $key + 1 }}</td>
-                                <td class="success">{{$tt->tenspdv}}</td>
+                                <td>{{$tt->phanloai}}</td>
+                                <td class="success">{{$tt->tennhom}}</td>
                                 <td>
-                                    <a href="{{ url('/KetNoiAPI/XemHoSo?maso=dmgiadvgddt&mahs=' . $tt->manhom) }}"
+                                    <a href="{{ url('/KetNoiAPI/XemHoSo?maso=dmgiaphilephi&mahs=' . $tt->manhom) }}"
                                         class="btn btn-default btn-xs mbs" target="_blank">
                                         <i class="fa fa-eye"></i>&nbsp;Xem trước thông điệp
                                     </a>

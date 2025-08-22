@@ -2,21 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\District;
 use App\DmPhiLePhi;
-use App\Model\manage\dinhgia\giaspdvci\GiaSpDvCi;
-use App\Model\manage\dinhgia\giaspdvci\giaspdvcidm;
 use App\Model\system\dsdiaban;
 use App\Model\system\dsdonvi;
 use App\Model\system\view_dsdiaban_donvi;
 use App\Model\view\view_giaphilephi;
 use App\PhiLePhi;
 use App\PhiLePhiCt;
-use App\PhiLePhiCtDf;
-use App\Town;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class PhiLePhiController extends Controller

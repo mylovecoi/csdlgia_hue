@@ -67,9 +67,7 @@
                     <thead>
                         <tr>
                             <th style="text-align: center" width="5%">STT</th>
-                            <th style="text-align: center">Tên hàng hóa</th>
-                            <th style="text-align: center">ĐVT</th>
-                            <th style="text-align: center">Mô tả</th>
+                            <th style="text-align: center">Tên dịch vụ</th>
                             <th style="text-align: center" width="15%">Thao tác</th>
                         </tr>
                     </thead>
@@ -78,8 +76,6 @@
                             <tr class="odd gradeX">
                                 <td style="text-align: center">{{ $key + 1 }}</td>
                                 <td class="success">{{$tt->tenspdv}}</td>
-                                <td>{{$tt->dvt}}</td>
-                                <td>{{$tt->mota}}</td>
                                 <td>
                                     <a href="{{ url('/KetNoiAPI/XemHoSo?maso=giaspdvcidm&mahs=' . $tt->manhom) }}"
                                         class="btn btn-default btn-xs mbs" target="_blank">

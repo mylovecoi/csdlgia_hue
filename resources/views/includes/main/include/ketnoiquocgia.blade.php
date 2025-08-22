@@ -124,7 +124,7 @@
         </li>
         <li class="tooltips" data-container="body" data-placement="right" data-html="true">
             <a href="javascript:;">
-                <span class="title">Giá dịch vụ thu gom, vận chuyển rác thải sinh hoạt </span>
+                <span class="title">Giá dịch vụ thu gom, vận chuyển rác thải sinh hoạt</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
@@ -139,6 +139,46 @@
                 </li>
                 <li>
                     <a href="{{ url('/csdlquocgia/qg_giaspdvci/hoso') }}">Truyền hồ sơ kê khai</a>
+                </li>
+            </ul>
+        </li>
+        <li class="tooltips" data-container="body" data-placement="right" data-html="true">
+            <a href="javascript:;">
+                <span class="title">Giá lệ phí trước bạ</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_giaphilephi/nhandanhmuc') }}">Nhận danh mục</a>
+                </li>
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_giaphilephi/nhanhoso') }}">Nhận hồ sơ</a>
+                </li>
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_giaphilephi/danhmuc') }}">Truyền danh mục</a>
+                </li>
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_giaphilephi/hoso') }}">Truyền hồ sơ kê khai</a>
+                </li>
+            </ul>
+        </li>
+        <li class="tooltips" data-container="body" data-placement="right" data-html="true">
+            <a href="javascript:;">
+                <span class="title">Giá hàng hóa, dịch vụ thị trường</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_giahhdvk/nhandanhmuc') }}">Nhận danh mục</a>
+                </li>
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_giahhdvk/nhanhoso') }}">Nhận hồ sơ</a>
+                </li>
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_giahhdvk/danhmuc') }}">Truyền danh mục</a>
+                </li>
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_giahhdvk/hoso') }}">Truyền hồ sơ kê khai</a>
                 </li>
             </ul>
         </li>

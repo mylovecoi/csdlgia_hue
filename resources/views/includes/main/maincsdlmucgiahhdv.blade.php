@@ -1498,11 +1498,6 @@
                         <a href="{{url('lephitruocbanha')}}">Thông tin hồ sơ</a>
                     </li>
                 @endif
-                {{--@if(can('thgialephitruocbanha','timkiem'))--}}
-                {{--<li>--}}
-                {{--<a href="{{url('tklephitruocbanha')}}">Tìm kiếm thông tin</a>--}}
-                {{--</li>--}}
-                {{--@endif--}}
             </ul>
         </li>
     @endif
@@ -1512,8 +1507,7 @@
     <li class="javascript:;">
         <a href="javascript:;">
             <i class="icon-folder"></i>
-            {{-- <span class="title">{{session('admin')['a_chucnang']['taisancong'] ?? 'Giá tài sản công'}}</span> --}}
-            <span class="title">{{'Giá bán thanh lý tài sản công'}}</span>
+            <span class="title">{{session('admin')['a_chucnang']['taisancong'] ?? 'Giá tài sản công'}}</span>
             <span class="arrow"></span>
         </a>
         <ul class="sub-menu">
@@ -1630,8 +1624,7 @@
     <li>
         <a href="javascript:;">
             <i class="icon-folder"></i>
-            {{-- <span class="title">{{session('admin')['a_chucnang']['giacldat'] ?? 'Giá đất theo địa bàn'}}</span> --}}
-            <span class="title">{{'Giá đất theo công bố'}}</span>
+            <span class="title">{{session('admin')['a_chucnang']['giacldat'] ?? 'Giá đất theo địa bàn'}}</span>
             <span class="arrow"></span>
         </a>
         <ul class="sub-menu">

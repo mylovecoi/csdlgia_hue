@@ -23,11 +23,15 @@
 
             function changeUrl() {
                 var current_path_url = '{{$inputs['url']}}';
-                var url = current_path_url + '?nam=' + $('#nam').val() + '&madv=' + $('#madv').val();
+                var url = current_path_url + '?nam=' + $('#nam').val() + '&thang=' + $('#thang').val() + '&madv=' + $('#madv').val();
                 window.location.href = url;
             }
 
             $('#nam').change(function() {
+                changeUrl();
+            });
+
+            $('#thang').change(function() {
                 changeUrl();
             });
 
@@ -40,7 +44,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Nhận hồ sơ giá thuế tài nguyên từ CSDL Quốc gia
+        Nhận hồ sơ Giá hàng hoá, dịch vụ từ CSDL Quốc gia
     </h3>
     <hr>
     <div class="row">
@@ -69,8 +73,17 @@
 
                     <div class="row">
                         <div class="col-md-2">
-                            <label style="font-weight: bold">Năm</label>
-                            {!! Form::select('nam', getNam(true), $inputs['nam'], ['id' => 'nam', 'class' => 'form-control']) !!}
+                            <div class="form-group">
+                                <label>Tháng hồ sơ</label>
+                                {!! Form::select('thang', getThang(true), $inputs['thang'], array('id' => 'thang', 'class' => 'form-control'))!!}
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Năm hồ sơ</label>
+                                {!! Form::select('nam', getNam(true), $inputs['nam'], array('id' => 'nam', 'class' => 'form-control'))!!}
+                            </div>
                         </div>
 
                         <div class="col-md-6">
@@ -97,10 +110,11 @@
                         <thead>
                             <tr class="text-center">
                                 <th width="5%">STT</th>
-                                <th>Ngày báo cáo</th>
-                                <th>Số quyết định</th>
-                                <th>Nội dung</th>
-                                <th>Cơ quan tiếp nhận</th>
+                                <th style="text-align: center">Thời điểm báo cáo</th>
+                                <th style="text-align: center">Nhóm hàng hóa dịch vụ</th>
+                                <th style="text-align: center" width="15%">Số quyết định <br>Ngày báo cáo</th>
+                                <th style="text-align: center" width="15%">Số QĐ liền kề<br>Ngày báo cáo liền kề</th>
+                                <th style="text-align: center">Cơ quan tiếp nhận</th>
                                 <th style="text-align: center" width="15%">Thao tác</th>
                             </tr>
                         </thead>
@@ -108,14 +122,18 @@
                             @foreach ($model as $key => $tt)
                                 <tr>
                                     <td style="text-align: center">{{ $key + 1 }}</td>
-                                    <td class="text-center">{{ getDayVn($tt->thoidiem) }}</td>
-                                    <td class="text-center">{{ $tt->soqd }}</td>
-                                    <td>{{ $tt->cqbh }}</td>
-                                    <td style="text-align: left">{{ $a_donvi_th[$tt->macqcq] ?? '' }}</td>
+                                    <td>
+                                        Tháng {{$tt->thang}}/{{$tt->nam}}
+                                        <br>{{$a_dv[$tt->madv] ?? ''}}
+                                    </td>
+                                    <td class="active" style="font-weight: bold">{{$a_nhom[$tt->matt] ?? ''}}</td>
+                                    <td>Số: {{$tt->soqd}}<br>Ngày: {{getDayVn($tt->thoidiem)}}</td>
+                                    <td>Số: {{$tt->soqdlk}}<br>Ngày: {{getDayVn($tt->thoidiemlk)}}</td>
+                                    <td style="text-align: left">{{$a_donvi_th[$tt->macqcq]?? ''}}</td>
                                     <td>
                                         @if (in_array($tt->trangthai, ['CHT', 'HHT']))
                                             <button type="button"
-                                                onclick="confirmChuyen('{{ $tt->mahs }}','{{ '/csdlquocgia/giathuetn/chuyenhs' }}')"
+                                                onclick="confirmChuyen('{{ $tt->mahs }}','{{ '/csdlquocgia/giahhdvk/chuyenhs' }}')"
                                                 class="btn btn-default btn-xs mbs" data-target="#chuyen-modal-confirm"
                                                 data-toggle="modal">
                                                 <i class="fa fa-check"></i> Nhận vào phần mềm</button>
@@ -140,7 +158,7 @@
 
     <!--Modal Create-->
     <div id="create-modal-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade bs-modal-lg">
-        {!! Form::open(['url' => '/giathuetn/new', 'id' => 'frm_create', 'method' => 'get']) !!}
+        {!! Form::open(['url' => '/giahhdvk/new', 'id' => 'frm_create', 'method' => 'get']) !!}
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header modal-header-primary">

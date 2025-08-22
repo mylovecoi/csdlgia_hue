@@ -13,6 +13,8 @@ class DmPhiLePhi extends Model
         'manhom',
         'tennhom',
         'dvt',
-        'stt'
+        'stt',
+        'truyendulieu',
+        'thoigiantruyen',
     ];
 }
