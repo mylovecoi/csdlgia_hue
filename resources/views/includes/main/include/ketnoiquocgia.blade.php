@@ -182,5 +182,39 @@
                 </li>
             </ul>
         </li>
+        <li class="tooltips" data-container="body" data-placement="right" data-html="true">
+            <a href="javascript:;">
+                <span class="title">Thẩm định giá</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_thamdinhgia/nhandanhmuc') }}">Nhận danh mục</a>
+                </li>
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_thamdinhgia/nhanhoso') }}">Nhận hồ sơ</a>
+                </li>
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_thamdinhgia/danhmuc') }}">Truyền danh mục</a>
+                </li>
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_thamdinhgia/hoso') }}">Truyền hồ sơ kê khai</a>
+                </li>
+            </ul>
+        </li>
+        <li class="tooltips" data-container="body" data-placement="right" data-html="true">
+            <a href="javascript:;">
+                <span class="title">Kê khai giá xăng dầu</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_kkgiaetanol/nhanhoso') }}">Nhận hồ sơ</a>
+                </li>
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_kkgiaetanol/hoso') }}">Truyền hồ sơ kê khai</a>
+                </li>
+            </ul>
+        </li>
     </ul>
 </li>

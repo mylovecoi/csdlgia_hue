@@ -1,0 +1,28 @@
+        Route::post('capnhatdanhmuc','csdlquocgia\qg_giahhdvkController@capnhatdanhmuc');
+
+        //Truyền hồ sơ
+        Route::get('hoso','csdlquocgia\qg_giahhdvkController@truyenhoso');
+        Route::get('show_hoso','csdlquocgia\qg_giahhdvkController@show_hoso');
+        Route::post('capnhathoso','csdlquocgia\qg_giahhdvkController@capnhathoso');
+
+        //Công bố dữ liệu
+        Route::get('congbo_danhmuc','csdlquocgia\qg_giahhdvkController@congbo_danhmuc');
+        Route::get('congbo_hoso','csdlquocgia\qg_giahhdvkController@congbo_hoso');
+    });
+
+    Route::group(['prefix'=>'qg_kkgiaetanol'], function(){
+        //Nhận hồ sơ
+        Route::get('nhanhoso','csdlquocgia\qg_kkgiaetanol@nhanhoso');
+        Route::post('chuyenhs','csdlquocgia\qg_kkgiaetanol@chuyenhs');
+        Route::get('innhanhosocsdlqg','csdlquocgia\qg_kkgiaetanol@innhanhosocsdlqg');
+
+        //Truyền hồ sơ
+        Route::get('hoso','csdlquocgia\qg_kkgiaetanol@truyenhoso');
+        Route::get('show_hoso','csdlquocgia\qg_kkgiaetanol@show_hoso');
+        Route::post('capnhathoso','csdlquocgia\qg_kkgiaetanol@capnhathoso');
+
+        //Công bố dữ liệu
+        Route::get('congbo_danhmuc','csdlquocgia\qg_kkgiaetanol@congbo_danhmuc');
+        Route::get('congbo_hoso','csdlquocgia\qg_kkgiaetanol@congbo_hoso');
+    });
+});

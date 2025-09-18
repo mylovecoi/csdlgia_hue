@@ -373,6 +373,29 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li class=" dropdown-submenu">
+                                <a href="javascript:;">
+                                    <i class="icon-folder"></i>&nbsp;Thẩm định giá
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ url('/csdlquocgia/qg_thamdinhgia/congbo_danhmuc') }}">Danh mục</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('/csdlquocgia/qg_thamdinhgia/congbo_hoso') }}">Hồ sơ</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class=" dropdown-submenu">
+                                <a href="javascript:;">
+                                    <i class="icon-folder"></i>&nbsp;Kê khai giá xăng dầu
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ url('/csdlquocgia/qg_kkgiaetanol/congbo_hoso') }}">Hồ sơ</a>
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                     

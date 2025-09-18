@@ -62,5 +62,7 @@ class KkGiaEtanol extends Model
         'manghe',
         'theoqd',
         'phanloai',
+        'truyendulieu',
+        'thoigiantruyen',
     ];
 }

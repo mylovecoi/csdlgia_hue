@@ -156,7 +156,6 @@ class KkGiaEtanolController extends Controller
             }
 
             $modelct = KkGiaEtanolCt::where('mahs', $inputs['mahs'])->get();
-//            dd($modelct);
 
             return view('manage.kkgia.etanol.kkgia.kkgiadv.edit')
                 ->with('model', $model)
@@ -196,7 +195,6 @@ class KkGiaEtanolController extends Controller
             $modelkk = KkGiaEtanol::where('mahs',$mahs)->first();
             $modeldn = Company::where('madv',$modelkk->madv)->first();
             $modelkkct = KkGiaEtanolCt::where('mahs',$modelkk->mahs)->get();
-//            dd($modelkkct);
             $modelcqcq = view_dsdiaban_donvi::where('madv', $modelkk->macqcq)->first();
             if (strtotime($modelkk->ngayhieuluc) < strtotime('2024-01-01')) {
                 return view('manage.kkgia.etanol.reports.print56')
