@@ -396,6 +396,36 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li class=" dropdown-submenu">
+                                <a href="javascript:;">
+                                    <i class="icon-folder"></i>&nbsp;Kê khai giá dịch vụ lưu trú
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ url('/csdlquocgia/qg_kkgiadvlt/congbo_hoso') }}">Hồ sơ</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class=" dropdown-submenu">
+                                <a href="javascript:;">
+                                    <i class="icon-folder"></i>&nbsp;Kê khai giá dịch vụ ca huế
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ url('/csdlquocgia/qg_kkgiadvch/congbo_hoso') }}">Hồ sơ</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class=" dropdown-submenu">
+                                <a href="javascript:;">
+                                    <i class="icon-folder"></i>&nbsp;Kê khai giá học phí lái xe
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ url('/csdlquocgia/qg_kkgiahplx/congbo_hoso') }}">Hồ sơ</a>
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                     

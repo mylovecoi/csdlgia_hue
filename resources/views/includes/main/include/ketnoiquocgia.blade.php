@@ -216,5 +216,47 @@
                 </li>
             </ul>
         </li>
+        <li class="tooltips" data-container="body" data-placement="right" data-html="true">
+            <a href="javascript:;">
+                <span class="title">Dịch vụ lưu trú</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_kkgiadvlt/nhanhoso') }}">Nhận hồ sơ</a>
+                </li>
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_kkgiadvlt/hoso') }}">Truyền hồ sơ kê khai</a>
+                </li>
+            </ul>
+        </li>
+        <li class="tooltips" data-container="body" data-placement="right" data-html="true">
+            <a href="javascript:;">
+                <span class="title">Dịch vụ ca Huế trên sông Hương</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_kkgiadvch/nhanhoso') }}">Nhận hồ sơ</a>
+                </li>
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_kkgiadvch/hoso') }}">Truyền hồ sơ kê khai</a>
+                </li>
+            </ul>
+        </li>
+        <li class="tooltips" data-container="body" data-placement="right" data-html="true">
+            <a href="javascript:;">
+                <span class="title">Mức thu học phí đào tạo lái xe cơ giới đưng bộ</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_kkgiahplx/nhanhoso') }}">Nhận hồ sơ</a>
+                </li>
+                <li>
+                    <a href="{{ url('/csdlquocgia/qg_kkgiahplx/hoso') }}">Truyền hồ sơ kê khai</a>
+                </li>
+            </ul>
+        </li>
     </ul>
 </li>

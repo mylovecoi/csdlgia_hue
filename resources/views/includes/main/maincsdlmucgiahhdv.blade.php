@@ -1277,6 +1277,34 @@
                             </ul>
                         </li>
                     @endif
+                    @if(chkPer('csdlmucgiahhdv','kknygia', 'cahue', 'hoso', 'index'))
+                        <li>
+                            <a href="javascript:;">
+                                <span class="title">Giá dịch vụ xem ca Huế trên sông Hương</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li><a href="{{url('kekhaigiadvcahue')}}">Giá kê khai</a> </li>
+                                <li><a href="{{url('xetduyetkkgiadvcahue')}}">Thông tin hồ sơ xét duyệt</a></li>
+                                <li><a href="{{url('timkiemkkgiadvcahue')}}">Tìm kiếm thông tin</a> </li>
+                                <li><a href="{{url('baocaokekhaidvcahue')}}">Báo cáo thống kê</a></li>
+                            </ul>
+                        </li>
+                    @endif
+                    @if(chkPer('csdlmucgiahhdv','kknygia', 'hocphilx', 'hoso', 'index'))
+                        <li>
+                            <a href="javascript:;">
+                                <span class="title">Mức thu học phí đào tạo lái xe cơ giới đường bộ</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li><a href="{{url('kekhaigiahplx')}}">Giá kê khai</a> </li>
+                                <li><a href="{{url('xetduyetkkgiahplx')}}">Thông tin hồ sơ xét duyệt</a></li>
+                                <li><a href="{{url('timkiemkkgiahplx')}}">Tìm kiếm thông tin</a> </li>
+                                <li><a href="{{url('baocaokekhaihplx')}}">Báo cáo thống kê</a></li>
+                            </ul>
+                        </li>
+                    @endif
                 </ul>
             </li>
             
@@ -1362,34 +1390,6 @@
                         <li><a href="{{url('xetduyetkekhaigiavtxb')}}">Xét duyệt hồ sơ kê khai</a></li>
                         <li><a href="{{url('timkiemgiavantaixebuyt')}}">Tìm kiếm hồ sơ kê khai</a></li>
                         <li><a href="{{url('baocaogiavantaixebuyt')}}">Báo cáo thống kê</a></li>
-                    </ul>
-                </li>
-            @endif     
-            @if(chkPer('csdlmucgiahhdv','kknygia', 'cahue', 'hoso', 'index'))
-                <li>
-                    <a href="javascript:;">
-                        <span class="title">Giá dịch vụ xem ca Huế trên sông Hương</span>
-                        <span class="arrow"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li><a href="{{url('kekhaigiadvcahue')}}">Giá kê khai</a> </li>
-                        <li><a href="{{url('xetduyetkkgiadvcahue')}}">Thông tin hồ sơ xét duyệt</a></li>
-                        <li><a href="{{url('timkiemkkgiadvcahue')}}">Tìm kiếm thông tin</a> </li>
-                        <li><a href="{{url('baocaokekhaidvcahue')}}">Báo cáo thống kê</a></li>
-                    </ul>
-                </li>
-            @endif
-            @if(chkPer('csdlmucgiahhdv','kknygia', 'hocphilx', 'hoso', 'index'))
-                <li>
-                    <a href="javascript:;">
-                        <span class="title">Mức thu học phí đào tạo lái xe cơ giới đường bộ</span>
-                        <span class="arrow"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li><a href="{{url('kekhaigiahplx')}}">Giá kê khai</a> </li>
-                        <li><a href="{{url('xetduyetkkgiahplx')}}">Thông tin hồ sơ xét duyệt</a></li>
-                        <li><a href="{{url('timkiemkkgiahplx')}}">Tìm kiếm thông tin</a> </li>
-                        <li><a href="{{url('baocaokekhaihplx')}}">Báo cáo thống kê</a></li>
                     </ul>
                 </li>
             @endif

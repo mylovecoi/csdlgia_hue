@@ -339,9 +339,7 @@ class KkGiaDvLtController extends Controller
                 'macqcq' => $inputs['macqcq'],
                 'madv' => $model->madv
             );
-            //dd($inputs);
-            //$inputs['trangthai'] = 'CD';
-            //$inputs['ngaychuyen'] = Carbon::now()->toDateTimeString();
+            
             $model->lichsu = json_encode($a_lichsu);
             $model->nguoichuyen = $inputs['ttnguoinop'];
             $model->dtll = $inputs['dtll'];

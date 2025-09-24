@@ -62,5 +62,7 @@ class KkGiaDvCh extends Model
         'ngaychuyen_ad',
         'lydo_ad',
         'trangthai_ad',
+        'truyendulieu',
+        'thoigiantruyen',
     ];
 }
