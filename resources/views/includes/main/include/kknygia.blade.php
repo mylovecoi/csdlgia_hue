@@ -32,28 +32,6 @@
                             @endif
                         </ul>
                     </li>
-                    {{--OK--}}
-
-            <!--li>
-                    <a href="javascript:;">
-                        <span class="title">Vận tải đường sắt</span>
-                        <span class="arrow"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li><a href="javascript:;">---</a> </li>
-                        <li><a href="javascript:;">Giá kê khai</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:;">
-                        <span class="title">Giá vé máy bay</span>
-                        <span class="arrow"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li><a href="javascript:;">---</a> </li>
-                        <li><a href="javascript:;">Giá kê khai</a></li>
-                    </ul>
-                </li-->
                 @include('includes.main.include.kkdkg')
             </ul>
         </li>

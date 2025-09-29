@@ -859,10 +859,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     doanh</a> </li>
                                         @endif
                                         
-                                        @if (chkPer('hethong', 'hethong_pq', 'danhmucdvt'))
+                                        {{-- @if (chkPer('hethong', 'hethong_pq', 'danhmucdvt'))
                                             <li><a href="{{ url('/dmdvt/danhsach') }}">Danh mục đơn vị tính</a> </li>
                                             <li><a href="{{ url('/tinhuyenxa/danhsach') }}">Danh mục Tỉnh - Huyện - Xã</a> </li>
-                                        @endif
+                                        @endif --}}
                                     </ul>
                                 </li>
                             </ul>
