@@ -224,6 +224,7 @@ class GiaHhDvKController extends Controller
                 //$tennhom = NhomHhDvK::where('matt', $inputs['mattbc'])->first()->tentt;
                 //$diaban = DiaBanHd::where('district', $inputs['districtbc'])->where('level', 'H')->first()->diaban;
                 //dd($inputs);
+                
                 $m_lk = GiaHhDvK::where('trangthai', 'HT')
                     ->where('matt', $inputs['mattbc'])
                     ->where('madv', $inputs['madv'])
@@ -272,6 +273,10 @@ class GiaHhDvKController extends Controller
                 }
                 // GiaHhDvKCt::insert($a_dm);
                 $modelct = GiaHhDvKCt::where('mahs', $model->mahs)->get();
+                if ($m_lk != null) {
+                    $modelct = GiaHhDvKCt::where('mahs', $m_lk->mahs)->where('gia', '>', 0)->get();
+                }
+                //dd($modelct);
                 $a_diaban = array_column(dsdiaban::where('madiaban', $inputs['madiaban'])->get()->toarray(), 'tendiaban', 'madiaban');
                 $a_tt = array_column(NhomHhDvK::where('matt', $inputs['mattbc'])->get()->toarray(), 'tentt', 'matt');
                 $a_dm = array_column(DmHhDvK::where('matt', $inputs['mattbc'])->get()->toarray(), 'tenhhdv', 'mahhdv');
