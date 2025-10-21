@@ -412,6 +412,7 @@ Route::group(['prefix'=>'giahhdvk'], function (){
     //xét duyệt
     Route::get('xetduyet','GiaHhDvKController@xetduyet');
     Route::post('chuyenxd','GiaHhDvKController@chuyenxd');
+    Route::post('nhanhs','GiaHhDvKController@nhanhs');
     Route::post('tralai','GiaHhDvKController@tralai');
     Route::post('congbo','GiaHhDvKController@congbo');
     //Tìm kiếm

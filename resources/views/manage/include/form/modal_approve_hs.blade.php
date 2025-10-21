@@ -19,7 +19,7 @@
                             <select class="form-control select2me" name="macqcq" id="macqcq">
                                 @foreach($a_diaban_th as $key=>$val)
                                     <optgroup label="{{$val}}">
-                                        <?php $donvi = $m_donvi_th->where('madiaban',$key); ?>
+                                        <?php $donvi = $m_donvi_th->where('madiaban',$key)?>
                                         @foreach($donvi as $ct)
                                             <option value="{{$ct->madv}}">{{$ct->tendv}}</option>
                                         @endforeach

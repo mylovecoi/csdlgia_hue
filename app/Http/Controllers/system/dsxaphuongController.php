@@ -19,7 +19,8 @@ class dsxaphuongController extends Controller
             }
             $inputs = $request->all();
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
-            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->where('level','H')->get();
+            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->where('level', 'ADMIN')->get();
+            // dd($m_diaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             //dd($inputs);
             $model = dsxaphuong::where('madiaban',$inputs['madiaban'])->get();

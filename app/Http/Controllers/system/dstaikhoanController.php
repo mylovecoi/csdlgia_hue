@@ -222,7 +222,7 @@ class dstaikhoanController extends Controller
             $model = Users::where('username',$inputs['username'])->first();
             $per_user = json_decode($model->permission,true);
             $m_donvi = dsdonvi::where('madv',$model->madv)->first();
-
+            //dd($model);
             $m_gui = GeneralConfigs::first();
             //$gui = getGiaoDien();
 
@@ -286,7 +286,8 @@ class dstaikhoanController extends Controller
             }
 
             $a_chucnang = array_column(danhmucchucnang::all()->toArray(),'menu','maso');
-            //dd($per);
+            //dd($a_chucnang);
+
             return view('system.taikhoan.perms')
                 ->with('per', $per)
                 ->with('setting', $setting)

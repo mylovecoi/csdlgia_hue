@@ -457,12 +457,13 @@ function getDonViTongHop($linhvuc, $level, $madiaban = null)
             ->orwhere('madiaban', $madiaban)->get();
     }
 
-    //dd($m_donvi);  
+    //dd($m_donvi);
     $ketqua = new Illuminate\Support\Collection();
     $m_user = App\Users::wherein('madv', array_column($m_donvi->toarray(), 'madv'))->get();
-    // dd($m_user);
+    //dd($m_user);
     foreach ($m_user as $user) {       
-        $per = json_decode($user->permission, true);        
+        $per = json_decode($user->permission, true);
+        //dd($per);        
         if (
             isset($per[$linhvuc]['hoso']['approve']) && $per[$linhvuc]['hoso']['approve'] == '1'
             && in_array('TONGHOP', explode(';', $user->chucnang))

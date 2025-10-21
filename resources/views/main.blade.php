@@ -731,12 +731,12 @@ License: You must have a valid license purchased only from themeforest(the above
                     @include('includes.main.include.ketnoiquocgia')
 
                     <!-- 03.04.22 sử dụng hệ thống API theo TT93
-                @include('includes.main.mainAPI')
-                -->
+                    @include('includes.main.mainAPI')
+                    -->
                     <!--
                     1. Tài khoản SSA
                     2. Tài khoản quản trị hệ thống chucnang=QUANTRI
-                -->
+                    -->
                     @if ((chkPer('hethong') && in_array('QUANTRI', session('admin')->chucnang)) || session('admin')->level == 'SSA')
                         <li class="heading">
                             <h3 class="uppercase">{{ session('admin')['a_chucnang']['hethong'] ?? 'Hệ thống' }}</h3>

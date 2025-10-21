@@ -131,11 +131,14 @@
                                                 @endif
                                             @else
                                                 @if(in_array($tt->trangthai, ['HHT', 'CHT']))
-                                                    <button type="button" onclick="confirmChuyenXD('{{$tt->mahs}}','{{$inputs['url'].'/chuyenxd'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#chuyenxd-modal-confirm" data-toggle="modal">
-                                                        <i class="fa fa-check"></i> Hoàn thành</button>
+                                                    <button type="button" onclick="confirmNhanHs('{{$tt->mahs}}','{{$inputs['url'].'/nhanhs'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#nhanhs-modal-confirm" data-toggle="modal">
+                                                        <i class="fa fa-check"></i> Tiếp nhận</button>
 
                                                     <button type="button" onclick="confirmTraLai('{{$tt->mahs}}','{{$inputs['url'].'/tralai'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#tralai-modal-confirm" data-toggle="modal">
                                                         <i class="fa fa-times"></i> Trả lại</button>
+                                                @elseif($tt->trangthai == 'TN')
+                                                    <button type="button" onclick="confirmChuyenXD('{{$tt->mahs}}','{{$inputs['url'].'/chuyenxd'}}', '{{$tt->madv}}')" class="btn btn-default btn-xs mbs" data-target="#chuyenxd-modal-confirm" data-toggle="modal">
+                                                        <i class="fa fa-check"></i> Hoàn thành</button>
                                                 @endif
                                             @endif
                                         @endif

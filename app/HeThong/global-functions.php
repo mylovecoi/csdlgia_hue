@@ -3283,40 +3283,40 @@ function getPhanQuyen()
             'danhmuc' => array('index' => '0', 'modify' => '0'),
             'hoso' => array('index' => '0', 'modify' => '0'),
     );
-        $gui['qg_thuetainguyen'] = array(
-            'index' => '0',
-            'danhmuc' => array('index' => '0', 'modify' => '0'),
-            'hoso' => array('index' => '0', 'modify' => '0'),
-        );
-        $gui['qg_giathitruong'] = array(
-            'index' => '0',
-            'danhmuc' => array('index' => '0', 'modify' => '0'),
-            'hoso' => array('index' => '0', 'modify' => '0'),
-        );
-        $gui['qg_philephi'] = array(
-            'index' => '0',
-            'danhmuc' => array('index' => '0', 'modify' => '0'),
-            'hoso' => array('index' => '0', 'modify' => '0'),
-        );
-        $gui['qg_kekhaigia'] = array(
-            'index' => '0',
-            'danhmuc' => array('index' => '0', 'modify' => '0'),
-            'doituong' => array('index' => '0', 'modify' => '0'),
-            'doanhnghiep' => array('index' => '0', 'modify' => '0'),
-            'hoso' => array('index' => '0', 'modify' => '0'),
-        );
-        $gui['qg_dangkygia'] = array(
-            'index' => '0',
-            'danhmuc' => array('index' => '0', 'modify' => '0'),
-            'doituong' => array('index' => '0', 'modify' => '0'),
-            'doanhnghiep' => array('index' => '0', 'modify' => '0'),
-            'hoso' => array('index' => '0', 'modify' => '0'),
-        );
-        $gui['qg_thamdinhgia'] = array(
-            'index' => '0',
-            'hoidong' => array('index' => '0', 'modify' => '0'),
-            'hoso' => array('index' => '0', 'modify' => '0'),
-        );
+    $gui['qg_thuetainguyen'] = array(
+        'index' => '0',
+        'danhmuc' => array('index' => '0', 'modify' => '0'),
+        'hoso' => array('index' => '0', 'modify' => '0'),
+    );
+    $gui['qg_giathitruong'] = array(
+        'index' => '0',
+        'danhmuc' => array('index' => '0', 'modify' => '0'),
+        'hoso' => array('index' => '0', 'modify' => '0'),
+    );
+    $gui['qg_philephi'] = array(
+        'index' => '0',
+        'danhmuc' => array('index' => '0', 'modify' => '0'),
+        'hoso' => array('index' => '0', 'modify' => '0'),
+    );
+    $gui['qg_kekhaigia'] = array(
+        'index' => '0',
+        'danhmuc' => array('index' => '0', 'modify' => '0'),
+        'doituong' => array('index' => '0', 'modify' => '0'),
+        'doanhnghiep' => array('index' => '0', 'modify' => '0'),
+        'hoso' => array('index' => '0', 'modify' => '0'),
+    );
+    $gui['qg_dangkygia'] = array(
+        'index' => '0',
+        'danhmuc' => array('index' => '0', 'modify' => '0'),
+        'doituong' => array('index' => '0', 'modify' => '0'),
+        'doanhnghiep' => array('index' => '0', 'modify' => '0'),
+        'hoso' => array('index' => '0', 'modify' => '0'),
+    );
+    $gui['qg_thamdinhgia'] = array(
+        'index' => '0',
+        'hoidong' => array('index' => '0', 'modify' => '0'),
+        'hoso' => array('index' => '0', 'modify' => '0'),
+    );
     return $gui;
 }
 

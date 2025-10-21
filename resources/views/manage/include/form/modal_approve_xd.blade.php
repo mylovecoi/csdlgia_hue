@@ -1,3 +1,24 @@
+<!--Modal Nhận hồ sơ-->
+<div id="nhanhs-modal-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+    {!! Form::open(['url'=>'','id' => 'frm_nhanhs'])!!}
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-primary">
+                <button type="button" data-dismiss="modal" aria-hidden="true"
+                    class="close">&times;</button>
+                <h4 id="modal-header-primary-label" class="modal-title">Đồng ý tiếp nhận hồ sơ?</h4>
+                <input type="hidden" name="mahs" id="mahs">
+                <input type="hidden" name="madv" id="madv">
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
+                <button type="submit" data-dismiss="modal" class="btn btn-primary" onclick="clickNhanHs()">Đồng ý</button>
+            </div>
+        </div>
+    </div>
+    {!! Form::close() !!}
+</div>
+
 <!--Modal Chuyển hồ sơ-->
 <div id="chuyenxd-modal-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
     {!! Form::open(['url'=>'','id' => 'frm_chuyenxd'])!!}
@@ -45,9 +66,19 @@
         $('#frm_chuyenxd').submit();
     }
 
+    function clickNhanHs(){
+        $('#frm_nhanhs').submit();
+    }
+
     function confirmChuyenXD(mahs,url,madv) {
         $('#frm_chuyenxd').attr('action', url);
         $('#frm_chuyenxd').find("[id='mahs']").val(mahs);
         $('#frm_chuyenxd').find("[id='madv']").val(madv);
+    }
+
+    function confirmNhanHs(mahs,url,madv) {
+        $('#frm_nhanhs').attr('action', url);
+        $('#frm_nhanhs').find("[id='mahs']").val(mahs);
+        $('#frm_nhanhs').find("[id='madv']").val(madv);
     }
 </script>

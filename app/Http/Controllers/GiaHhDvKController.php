@@ -37,12 +37,20 @@ class GiaHhDvKController extends Controller
             //lấy địa bàn
             //$a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $a_diaban = getDiaBan_NhapLieu(session('admin')->level, session('admin')->madiaban);
-            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
-            $m_donvi_th = getDonViTongHop('giahhdvk', \session('admin')->level, \session('admin')->madiaban);
+            // $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
+            // Đảm bảo array_keys($a_diaban) là mảng chuỗi
+            $m_diaban = dsdiaban::whereIn('madiaban', array_map('strval', array_keys($a_diaban)))->get();
+            $m_donvi_th = getDonViTongHop('giahhdvk', \session('admin')->level, \session('admin')->madiaban)
+                ->sortBy(function($item) {
+                if ($item->level == 'ADMIN') return 1;
+                if ($item->level == 'T') return 2;
+                return 3;
+            });
+            //dd($m_donvi_th);
             $inputs['madiaban'] = $inputs['madiaban'] ?? array_key_first($a_diaban);
             //$inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
 
-            //            $m_donvi = view_dsdiaban_donvi::where('madiaban', $inputs['madiaban'])->where('chucnang', 'NHAPLIEU')->get();
+            //$m_donvi = view_dsdiaban_donvi::where('madiaban', $inputs['madiaban'])->where('chucnang', 'NHAPLIEU')->get();
             $m_donvi = getDonViNhapLieu(session('admin')->level, 'giahhdvk');
             if (count($m_donvi) == null) {
                 $message = 'Chưa có đơn vị nào được phân quyền nhập liệu cho chức năng: ' . session('admin')['a_chucnang']['giahhdvk']
@@ -496,10 +504,27 @@ class GiaHhDvKController extends Controller
             $inputs['url'] = '/giahhdvk';
             //lấy địa bàn
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
-            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
+            $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->orderByRaw("
+                CASE 
+                    WHEN level = 'ADMIN' THEN 1
+                    WHEN level = 'T' THEN 2
+                    ELSE 3
+                END
+            ")->get();
 
-            $m_donvi = getDonViXetDuyet(session('admin')->level);
-            $m_donvi_th = getDonViTongHop('giahhdvk', \session('admin')->level, \session('admin')->madiaban);
+            $m_donvi = getDonViXetDuyet(session('admin')->level)
+                ->sortBy(function($item) {
+                if ($item->level == 'ADMIN') return 1;
+                if ($item->level == 'T') return 2;
+                return 3;
+            });
+            //dd($m_donvi);
+            $m_donvi_th = getDonViTongHop('giahhdvk', \session('admin')->level, \session('admin')->madiaban)
+                ->sortBy(function($item) {
+                if ($item->level == 'ADMIN') return 1;
+                if ($item->level == 'T') return 2;
+                return 3;
+            });
 
             //dd(session('admin'));
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
@@ -600,6 +625,33 @@ class GiaHhDvKController extends Controller
                 ->with('a_donvi_th', array_column($m_donvi_th->toarray(), 'tendv', 'madv'))
                 ->with('a_diaban_th', array_column($m_donvi_th->toarray(), 'tendiaban', 'madiaban'))
                 ->with('pageTitle', 'Thông tin hồ sơ');
+        } else
+            return view('errors.notlogin');
+    }
+
+    public function nhanhs(Request $request)
+    {
+        //Lấy thông tin đơn vị tiếp nhận để kiểm tra level
+        // level == 'H' => set madv_h = $inputs['macqcq']; trangthai_h = 'CHT' (tương đương tạo mới hoso)
+        // level == 'T' => set madv_t = $inputs['macqcq']; trangthai_t = 'CHT' (tương đương tạo mới hoso)
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            //dd($inputs);
+            $model = GiaHhDvK::where('mahs', $inputs['mahs'])->first();
+            $a_lichsu = json_decode($model->lichsu, true);
+            $a_lichsu[getdate()[0]] = array(
+                'hanhdong' => 'TN',
+                'username' => session('admin')->username,
+                'mota' => 'Tiếp nhận hồ sơ',
+                'thoigian' => date('Y-m-d H:i:s'),
+                'macqcq' => $inputs['madv'],
+                'madv' => $inputs['madv'],
+            );
+            $model->lichsu = json_encode($a_lichsu);
+            //kiểm tra thông tin đơn vị
+            setHoanThanhDV($inputs['madv'], $model, ['macqcq' => $inputs['madv'], 'trangthai' => 'TN']);
+            $model->save();
+            return redirect('giahhdvk/xetduyet?madv=' . $inputs['madv']);
         } else
             return view('errors.notlogin');
     }
