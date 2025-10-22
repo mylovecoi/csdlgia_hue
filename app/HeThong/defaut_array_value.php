@@ -129,7 +129,7 @@ function getPhanLoaiDonVi_DiaBan()
     return array(
         'ADMIN' => 'Đơn vị tổng hợp toàn Tỉnh',
         'T' => 'Đơn vị hành chính cấp Tỉnh',
-        'H' => 'Đơn vị hành chính cấp Huyện',
+        'H' => 'Đơn vị hành chính cấp Phường/Xã',
     );
 }
 
