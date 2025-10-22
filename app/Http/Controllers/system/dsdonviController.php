@@ -66,6 +66,7 @@ class dsdonviController extends Controller
                 return view('errors.noperm');
             }
             $inputs = $request->all();
+            //dd($inputs['chucnang']);
             $inputs['madv'] = getdate()[0];
 
             if (dsdonvi::create($inputs)) {
@@ -75,6 +76,7 @@ class dsdonviController extends Controller
                 $user->username = chuanhoachuoi($inputs['username']);
                 $user->password = md5($inputs['password']);
                 $user->status = 'Kích hoạt';
+                $user->chucnang = $inputs['chucnang'];
                 $user->save();
             }
 

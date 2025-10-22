@@ -11,7 +11,6 @@ use App\Http\Controllers\Controller;
 use App\Imports\ColectionImport;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\File;
 
 class DmHhDvKController extends Controller
 {
@@ -132,24 +131,20 @@ class DmHhDvKController extends Controller
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
-
             $inputs["mahhdv"] = ord(strtoupper($inputs["mahhdv"])) - 65;
             $inputs["tenhhdv"] = ord(strtoupper($inputs["tenhhdv"])) - 65;
             $inputs["dacdiemkt"] = ord(strtoupper($inputs["dacdiemkt"])) - 65;
             $inputs["dvt"] = ord(strtoupper($inputs["dvt"])) - 65;
-
             $file = $request->file('fexcel');
 
             $dataObj = new ColectionImport();
             $theArray = Excel::toArray($dataObj, $file);
             $data = $theArray[0]; //Mặc định lấy Sheet 1            
-            //Gán lại dòng
-            $inputs['dendong'] = $inputs['dendong'] < count($data) ? count($data) : $inputs['dendong'];
+            $inputs['dendong'] = $inputs['dendong'] < count($data) ? count($data) : $inputs['dendong'];//Gán lại dòng
             $a_dm = array();
             //$dmdvt = array_column(dmdvt::all()->toArray(), 'madvt', 'dvt');
 
             for ($i = $inputs['tudong'] - 1; $i <= ($inputs['dendong']); $i++) {
-                //dd($data[$i]);
                 if (!isset($data[$i][$inputs['mahhdv']])) {
                     continue; //Mã hàng hoá rỗng => thoát
                 }
@@ -164,7 +159,6 @@ class DmHhDvKController extends Controller
                     'manhom' => $manhom[0],
                 );
             }
-            ///dd($a_dm);
             DmHhDvK::insert($a_dm);
             return redirect('/giahhdvk/danhmuc/detail?matt=' . $inputs['matt']);
         } else

@@ -49,8 +49,14 @@
                     <div class="actions">
                         @if(chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan','danhmuc', 'modify'))
                             <a href="{{url('/taikhoan/create?&madv='.$inputs['madv'])}}" class="btn btn-default btn-xs">
-                                <i class="fa fa-plus"></i> Thêm mới</a>
+                                <i class="fa fa-plus"></i>Thêm mới
+                            </a>
                         @endif
+                        <a href="{{ url('/data/download/filemau/FileExcelDsTaiKhoan.xlsx') }}" target="_blank"
+                            class="btn btn-success btn-xs mbs"><i class="fa fa-file-excel-o"></i>&nbsp;Tải file mẫu</a>
+                        <a href="{{ url('taikhoan/danhsach/nhanexcel?madv=' . $inputs['madv']) }}" class="btn btn-default btn-sm">
+                            <i class="fa fa-file-excel-o"></i>Nhận dữ liệu
+                        </a>
                     </div>
                 </div>
                 <div class="portlet-body">

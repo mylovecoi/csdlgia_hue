@@ -11,6 +11,8 @@ use App\Users;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
+use App\Imports\ColectionImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class dstaikhoanController extends Controller
 {
@@ -32,8 +34,8 @@ class dstaikhoanController extends Controller
             $model = Users::where('madv', $inputs['madv'])->get();
             //lấy phân loại tài khoản từ bảng dsdonvi để hiển thị
             foreach($model as $ct){
-//                $dv = $m_donvi->where('madv',$ct->madv)->first();
-//                $ct->chucnang = $dv->chucnang;
+                //$dv = $m_donvi->where('madv',$ct->madv)->first();
+                //$ct->chucnang = $dv->chucnang;
                 $a_chucnang = explode(';',$ct->chucnang);
                 $ct->nhaplieu = in_array('NHAPLIEU',$a_chucnang)? 1 : 0;
                 $ct->tonghop = in_array('TONGHOP',$a_chucnang)? 1 : 0;
@@ -180,7 +182,7 @@ class dstaikhoanController extends Controller
             $inputs['chucnang'] .= isset($inputs['nhaplieu']) ? 'NHAPLIEU;' : '';
             $inputs['chucnang'] .= isset($inputs['tonghop']) ? 'TONGHOP;' : '';
             $inputs['chucnang'] .= isset($inputs['quantri']) ? 'QUANTRI;' : '';
-//            dd($inputs);
+            //dd($inputs);
             $model->update($inputs);
 
             return redirect('/taikhoan/danhsach?madv=' . $inputs['madv']);
@@ -233,7 +235,7 @@ class dstaikhoanController extends Controller
                 $setting = json_decode($m_gui->setting, true);
                 if(isset($setting['hethong'])){unset($setting['hethong']);}
             }
-//            dd($setting);
+            //dd($setting);
             foreach($per as $key => $val){
                 if(isset($per_user[$key])){
                     $p_u = $per_user[$key];
@@ -269,7 +271,7 @@ class dstaikhoanController extends Controller
                     }
                 }
             }
-//            dd($setting);
+            //dd($setting);
             //chạy thêm lần nữa để xóa các phân hệ ko phân quyền trong hệ thống
             // chỉ có ssa, admin mới hiện lên để phân quyền
             if( $m_donvi->chucnang == 'QUANTRI' && !in_array(session('admin')->level, ['SSA', 'ADMIN'])){
@@ -474,6 +476,63 @@ class dstaikhoanController extends Controller
             $model->permission = $m_nhomtk->permission;
             $model->save();
             return redirect('/taikhoan/danhsach?madv='.$model->madv);
+        } else
+            return view('errors.notlogin');
+    }
+
+    public function nhanexcel(Request $request)
+    {
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['url'] = '/taikhoan/danhsach';
+            return view('system.taikhoan.importexcel')
+                ->with('inputs', $inputs)
+                ->with('pageTitle', 'Nhận dữ liệu từ file Excel');
+        } else
+            return view('errors.notlogin');
+    }
+
+    public function create_excel(Request $request)
+    {
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs["name"] = ord($inputs["name"]) - 65;
+            $inputs["username"] = ord($inputs['username']) - 65;
+            $inputs["password"] = ord($inputs['password']) - 65;
+            $inputs["chucnang"] = ord($inputs["chucnang"]) - 65;
+            $file = $request->file('fexcel');
+
+            $dataObj = new ColectionImport();
+            $theArray = Excel::toArray($dataObj, $file);
+            $data = $theArray[0]; //Mặc định lấy Sheet 1            
+            $inputs['dendong'] = $inputs['dendong'] < count($data) ? count($data) : $inputs['dendong'];//Gán lại dòng
+            $a_dm = array();
+
+            for ($i = $inputs['tudong'] - 1; $i <= ($inputs['dendong']); $i++) {
+                if (!isset($data[$i][$inputs['name']])) {
+                    continue; 
+                }
+                if (!isset($data[$i][$inputs['username']])) {
+                    continue; 
+                }
+                if (!isset($data[$i][$inputs['password']])) {
+                    continue; 
+                }
+                if (!isset($data[$i][$inputs['chucnang']])) {
+                    continue; 
+                }
+
+                $a_dm[] = array(
+                    'madv' => $inputs['madv'],
+                    'name' => $data[$i][$inputs['name']] ?? '',
+                    'username' => chuanhoachuoi($data[$i][$inputs['username']]) ?? '',
+                    'password' => md5($data[$i][$inputs['password']] ?? ''),
+                    'chucnang' => $data[$i][$inputs['chucnang']] ?? '',
+                    'status' => 'Kích hoạt',
+                );
+            }
+            Users::insert($a_dm);
+            return redirect('/taikhoan/danhsach?madv=' . $inputs['madv']);
         } else
             return view('errors.notlogin');
     }

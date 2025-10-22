@@ -65,6 +65,9 @@ Route::group(['prefix'=>'taikhoan'],function(){
     Route::get('get_perm', 'system\dstaikhoanController@get_perm');
 
     Route::post('perm_group', 'system\dstaikhoanController@store_perm_group');
+
+    Route::get('danhsach/nhanexcel','system\dstaikhoanController@nhanexcel');
+    Route::post('danhsach/create_excel','system\dstaikhoanController@create_excel');
 });
 
 Route::group(['prefix'=>'dmloaidat'], function(){

@@ -42,8 +42,7 @@
                 <div class="portlet-body form">
                     <!-- BEGIN FORM -->
                     {!! Form::open(['url'=>$inputs['url'].'/create_excel', 'method'=>'post' , 'files'=>true, 'id' => 'create_hscb','enctype'=>'multipart/form-data']) !!}
-                        <input type="hidden" name="matt" value="{{$inputs['matt']}}">
-                        {{--<input type="hidden" name="macskd" value="{{$inputs['macskd']}}">--}}
+                        <input type="hidden" name="madv" value="{{$inputs['madv']}}">
                         <div class="form-body">
                             <!-- Thông tin chung-->
                             <div class="row">
@@ -55,29 +54,29 @@
 
                                                 <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label class="control-label">Mã hàng hóa<span class="require">*</span></label>
-                                                        {!!Form::text('mahhdv', 'B', array('id' => 'mahhdv','class' => 'form-control','required'))!!}
+                                                        <label class="control-label">Tên tài khoản<span class="require">*</span></label>
+                                                        {!!Form::text('name', 'B', array('id' => 'name','class' => 'form-control','required'))!!}
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label class="control-label">Tên hàng hóa dịch vụ<span class="require">*</span></label>
-                                                        {!!Form::text('tenhhdv', 'C', array('id' => 'tenhhdv','class' => 'form-control','required'))!!}
+                                                        <label class="control-label">Tên tài khoản truy cập<span class="require">*</span></label>
+                                                        {!!Form::text('username', 'C', array('id' => 'username','class' => 'form-control','required'))!!}
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label class="control-label">Đặc điểm kinh tế, kĩ thuật<span class="require">*</span></label>
-                                                        {!!Form::text('dacdiemkt', 'D', array('id' => 'dacdiemkt','class' => 'form-control','required'))!!}
+                                                        <label class="control-label">Mật khẩu truy cập<span class="require">*</span></label>
+                                                        {!!Form::text('password', 'D', array('id' => 'password','class' => 'form-control','required'))!!}
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label class="control-label">Đơn vị tính<span class="require">*</span></label>
-                                                        {!!Form::text('dvt', 'E', array('id' => 'dvt','class' => 'form-control','required'))!!}
+                                                        <label class="control-label">Chức năng<span class="require">*</span></label>
+                                                        {!!Form::text('chucnang', 'E', array('id' => 'chucnang','class' => 'form-control','required'))!!}
                                                     </div>
                                                 </div>
                                             </div>
@@ -111,7 +110,7 @@
                 </div>
             </div>
             <div class="col-md-12" style="text-align: center">
-                <a href="{{url($inputs['url'].'?matt='.$inputs['matt'])}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                <a href="{{url($inputs['url'].'?madv='.$inputs['madv'])}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                 <button type="reset" class="btn default"><i class="fa fa-refresh"></i> Tải lại</button>
                 <button type="submit" class="btn green" onclick="ClickCreate()" id="submitform" name="submitform"><i class="fa fa-plus"></i> Nhận dữ liệu</button>
             </div>
@@ -122,10 +121,6 @@
 
     <script>
         function ClickCreate(){
-            // var str = '';
-            // var ok = true;
-            // $("form").unbind('submit').submit();
-            // var btn = document.getElementById('submitform');
             btn.disabled = true;
             btn.innerText = 'Loading...'
 
