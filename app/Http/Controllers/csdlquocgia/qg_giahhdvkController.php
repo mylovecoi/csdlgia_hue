@@ -12,17 +12,24 @@ use Illuminate\Support\Facades\Session;
 
 class qg_giahhdvkController extends Controller
 {
-    public function nhandanhmuc(Request $request){
+    public function nhandanhmuc(Request $request)
+    {
+        if (!Session::has('admin')) {
+            return view('errors.notlogin');
+        }
         $model = NhomHhDvK::all();
         $inputs['url'] = '/csdlquocgia/qg_giahhdvk/nhandanhmuc';
         return view('csdlquocgia.qg_giahhdvk.nhandanhmuc.index')
-            ->with('model',$model)
-            ->with('inputs',$inputs)
-            ->with('pageTitle','Danh mục Giá hàng hóa, dịch vụ thị trường');
+            ->with('model', $model)
+            ->with('inputs', $inputs)
+            ->with('pageTitle', 'Danh mục Giá hàng hóa, dịch vụ thị trường');
     }
 
     public function nhanhoso(Request $request)
     {
+        if (!Session::has('admin')) {
+            return view('errors.notlogin');
+        }
         $inputs = $request->all();
         $inputs['url'] = '/csdlquocgia/qg_giahhdvk/nhanhoso';
         $a_diaban = getDiaBan_NhapLieu(session('admin')->level, session('admin')->madiaban);
@@ -46,10 +53,10 @@ class qg_giahhdvkController extends Controller
 
         $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
         $a_nhom = array_column(NhomHhDvK::where('theodoi', 'TD')->get()->toarray(), 'tentt', 'matt');
-        
+
         $inputs['thang'] = isset($inputs['thang']) ? $inputs['thang'] : date('m');
         $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
-        
+
         $model = GiaHhDvK::where('madv', $inputs['madv']);
         if ($inputs['thang'] != 'all')
             $model = $model->where('thang', $inputs['thang']);
@@ -110,6 +117,9 @@ class qg_giahhdvkController extends Controller
 
     public function innhanhosocsdlqg(Request $request)
     {
+        if (!Session::has('admin')) {
+            return view('errors.notlogin');
+        }
         $inputs = $request->all();
         $inputs['nam'] = $inputs['nam'] ?? 'all';
         $m_donvi = getDonViNhapLieu(session('admin')->level, 'giahhdvk');
@@ -131,6 +141,9 @@ class qg_giahhdvkController extends Controller
 
     public function truyendanhmuc(Request $request)
     {
+        if (!Session::has('admin')) {
+            return view('errors.notlogin');
+        }
         $inputs = $request->all();
         $inputs['truyendulieu'] = $inputs['truyendulieu'] ?? 'all';
         $inputs['url'] = '/csdlquocgia/qg_giahhdvk/danhmuc';
@@ -145,8 +158,11 @@ class qg_giahhdvkController extends Controller
 
     public function capnhatdanhmuc(Request $request)
     {
+        if (!Session::has('admin')) {
+            return view('errors.notlogin');
+        }
         $inputs = $request->all();
-        $model = NhomHhDvK::where('matt',$inputs['matt'])->first();
+        $model = NhomHhDvK::where('matt', $inputs['matt'])->first();
         $model->update($inputs);
         return redirect('/csdlquocgia/qg_giahhdvk/danhmuc?truyendulieu=' . $inputs['truyendulieu']);
     }
@@ -162,12 +178,15 @@ class qg_giahhdvkController extends Controller
         }
 
         $inputs = $request->all();
-        $model = NhomHhDvK::where('matt',$inputs['matt'])->first();
+        $model = NhomHhDvK::where('matt', $inputs['matt'])->first();
         die($model);
     }
 
     public function truyenhoso(Request $request)
     {
+        if (!Session::has('admin')) {
+            return view('errors.notlogin');
+        }
         $inputs = $request->all();
         $inputs['url'] = '/csdlquocgia/qg_giahhdvk/hoso';
         $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
@@ -189,70 +208,70 @@ class qg_giahhdvkController extends Controller
         );
         switch ($inputs['level']) {
             case 'H': {
-                $model = GiaHhDvK::where('madv_h', $inputs['madv']);
-                if ($inputs['nam'] != 'all')
-                    $model = $model->where('nam', $inputs['nam']);
-                if ($inputs['thang'] != 'all')
-                    $model = $model->where('thang', $inputs['thang']);
-                if ($inputs['truyendulieu'] != 'all')
+                    $model = GiaHhDvK::where('madv_h', $inputs['madv']);
+                    if ($inputs['nam'] != 'all')
+                        $model = $model->where('nam', $inputs['nam']);
+                    if ($inputs['thang'] != 'all')
+                        $model = $model->where('thang', $inputs['thang']);
+                    if ($inputs['truyendulieu'] != 'all')
                         $model = $model->where('truyendulieu', $inputs['truyendulieu']);
 
-                $model = $model->orderby('nam')->orderby('thang')->get();
-                foreach ($model as $ct) {
-                    $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct);
-                    $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
-                    $ct->madv = $ct->madv_h;
-                    $ct->macqcq = $ct->macqcq_h;
-                    $ct->tencqcq = $a_ttdv[$ct->madv] ?? '';
-                    $ct->thoidiem = $ct->thoidiem_h;
-                    $ct->trangthai = $ct->trangthai_h;
-                    $ct->level = $inputs['level'];
+                    $model = $model->orderby('nam')->orderby('thang')->get();
+                    foreach ($model as $ct) {
+                        $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct);
+                        $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
+                        $ct->madv = $ct->madv_h;
+                        $ct->macqcq = $ct->macqcq_h;
+                        $ct->tencqcq = $a_ttdv[$ct->madv] ?? '';
+                        $ct->thoidiem = $ct->thoidiem_h;
+                        $ct->trangthai = $ct->trangthai_h;
+                        $ct->level = $inputs['level'];
+                    }
+                    break;
                 }
-                break;
-            }
             case 'T': {
-                $model = GiaHhDvK::where('madv_t', $inputs['madv']);
-                if ($inputs['nam'] != 'all')
-                    $model = $model->where('nam', $inputs['nam']);
-                if ($inputs['thang'] != 'all')
-                    $model = $model->where('thang', $inputs['thang']);
-                if ($inputs['truyendulieu'] != 'all')
+                    $model = GiaHhDvK::where('madv_t', $inputs['madv']);
+                    if ($inputs['nam'] != 'all')
+                        $model = $model->where('nam', $inputs['nam']);
+                    if ($inputs['thang'] != 'all')
+                        $model = $model->where('thang', $inputs['thang']);
+                    if ($inputs['truyendulieu'] != 'all')
                         $model = $model->where('truyendulieu', $inputs['truyendulieu']);
 
-                $model = $model->orderby('nam')->orderby('thang')->get();
-                foreach ($model as $ct) {
-                    $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct);
-                    $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
-                    $ct->madv = $ct->madv_t;
-                    $ct->macqcq = $ct->macqcq_t;
-                    $ct->tencqcq = $a_ttdv[$ct->madv] ?? '';
-                    $ct->thoidiem = $ct->thoidiem_t;
-                    $ct->trangthai = $ct->trangthai_t;
-                    $ct->level = $inputs['level'];
+                    $model = $model->orderby('nam')->orderby('thang')->get();
+                    foreach ($model as $ct) {
+                        $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct);
+                        $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
+                        $ct->madv = $ct->madv_t;
+                        $ct->macqcq = $ct->macqcq_t;
+                        $ct->tencqcq = $a_ttdv[$ct->madv] ?? '';
+                        $ct->thoidiem = $ct->thoidiem_t;
+                        $ct->trangthai = $ct->trangthai_t;
+                        $ct->level = $inputs['level'];
+                    }
+                    break;
                 }
-                break;
-            }
             case 'ADMIN': {
-                $model = GiaHhDvK::where('madv_ad', $inputs['madv']);
-                if ($inputs['nam'] != 'all')
-                    $model = $model->where('nam', $inputs['nam']);
-                if ($inputs['thang'] != 'all')
-                    $model = $model->where('thang', $inputs['thang']);
-                if ($inputs['truyendulieu'] != 'all')
+                    $model = GiaHhDvK::where('madv_ad', $inputs['madv']);
+                    if ($inputs['nam'] != 'all')
+                        $model = $model->where('nam', $inputs['nam']);
+                    if ($inputs['thang'] != 'all')
+                        $model = $model->where('thang', $inputs['thang']);
+                    if ($inputs['truyendulieu'] != 'all')
                         $model = $model->where('truyendulieu', $inputs['truyendulieu']);
-                $model = $model->orderby('nam')->orderby('thang')->get();
-                foreach ($model as $ct) {
-                    $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct);
-                    $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
-                    $ct->madv = $ct->madv_ad;
-                    $ct->macqcq = $ct->macqcq_ad;
-                    $ct->tencqcq = $a_ttdv[$ct->madv] ?? '';
-                    $ct->thoidiem = $ct->thoidiem_ad;
-                    $ct->trangthai = $ct->trangthai_ad;
-                    $ct->level = $inputs['level'];
+                    $model = $model->orderby('nam')->orderby('thang')->get();
+                    foreach ($model as $ct) {
+                        $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct);
+                        $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
+                        $ct->madv = $ct->madv_ad;
+                        $ct->macqcq = $ct->macqcq_ad;
+                        $ct->tencqcq = $a_ttdv[$ct->madv] ?? '';
+                        $ct->thoidiem = $ct->thoidiem_ad;
+                        $ct->trangthai = $ct->trangthai_ad;
+                        $ct->level = $inputs['level'];
+                    }
+                    break;
                 }
-                break;
-            }
         }
         $a_tt = array_column(NhomHhDvK::all()->toArray(), 'tentt', 'matt');
         return view('csdlquocgia.qg_giahhdvk.truyenhoso.index')
@@ -270,8 +289,11 @@ class qg_giahhdvkController extends Controller
 
     public function capnhathoso(Request $request)
     {
+        if (!Session::has('admin')) {
+            return view('errors.notlogin');
+        }
         $inputs = $request->all();
-        $model = GiaHhDvK::where('mahs',$inputs['mahs'])->first();
+        $model = GiaHhDvK::where('mahs', $inputs['mahs'])->first();
         $model->update($inputs);
         return redirect('/csdlquocgia/qg_giahhdvk/hoso?truyendulieu=' . $inputs['truyendulieu']);
     }
@@ -287,7 +309,7 @@ class qg_giahhdvkController extends Controller
         }
 
         $inputs = $request->all();
-        $model = GiaHhDvK::where('mahs',$inputs['mahs'])->first();
+        $model = GiaHhDvK::where('mahs', $inputs['mahs'])->first();
         die($model);
     }
 

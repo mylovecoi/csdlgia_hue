@@ -127,9 +127,9 @@ function getThang($all = false)
 function getPhanLoaiDonVi_DiaBan()
 {
     return array(
-        'ADMIN' => 'Đơn vị tổng hợp toàn Tỉnh',
-        'T' => 'Đơn vị hành chính cấp Tỉnh',
-        'H' => 'Đơn vị hành chính cấp Phường/Xã',
+        'ADMIN' => 'Đơn vị tổng hợp toàn Tỉnh/Thành phố',
+        'T' => 'Đơn vị hành chính cấp Tỉnh/Thành Phố',
+        'H' => 'Đơn vị hành chính cấp Xã/Phường',
     );
 }
 

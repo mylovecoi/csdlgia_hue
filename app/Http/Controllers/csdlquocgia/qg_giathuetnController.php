@@ -12,17 +12,24 @@ use Illuminate\Support\Facades\Session;
 
 class qg_giathuetnController extends Controller
 {
-    public function nhandanhmuc(Request $request){
+    public function nhandanhmuc(Request $request)
+    {
+        if (!Session::has('admin')) {
+            return view('errors.notlogin');
+        }
         $model = NhomThueTn::all();
         $inputs['url'] = '/csdlquocgia/qg_giathuetn/nhandanhmuc';
         return view('csdlquocgia.qg_giathuetn.nhandanhmuc.index')
-            ->with('model',$model)
-            ->with('inputs',$inputs)
-            ->with('pageTitle','Danh mục Giá thuế tài nguyên');
+            ->with('model', $model)
+            ->with('inputs', $inputs)
+            ->with('pageTitle', 'Danh mục Giá thuế tài nguyên');
     }
 
     public function nhanhoso(Request $request)
     {
+        if (!Session::has('admin')) {
+            return view('errors.notlogin');
+        }
         $inputs = $request->all();
         $inputs['url'] = '/csdlquocgia/qg_giathuetn/nhanhoso';
         $inputs['nam'] = $inputs['nam'] ?? 'all';
@@ -97,6 +104,9 @@ class qg_giathuetnController extends Controller
 
     public function innhanhosocsdlqg(Request $request)
     {
+        if (!Session::has('admin')) {
+            return view('errors.notlogin');
+        }
         $inputs = $request->all();
         $inputs['nam'] = $inputs['nam'] ?? 'all';
         $m_donvi = getDonViNhapLieu(session('admin')->level, 'giathuetn');
@@ -118,6 +128,9 @@ class qg_giathuetnController extends Controller
 
     public function truyendanhmuc(Request $request)
     {
+        if (!Session::has('admin')) {
+            return view('errors.notlogin');
+        }
         $inputs = $request->all();
         $inputs['truyendulieu'] = $inputs['truyendulieu'] ?? 'all';
         $inputs['url'] = '/csdlquocgia/qg_giathuetn/danhmuc';
@@ -132,8 +145,11 @@ class qg_giathuetnController extends Controller
 
     public function capnhatdanhmuc(Request $request)
     {
+        if (!Session::has('admin')) {
+            return view('errors.notlogin');
+        }
         $inputs = $request->all();
-        $model = NhomThueTn::where('manhom',$inputs['manhom'])->first();
+        $model = NhomThueTn::where('manhom', $inputs['manhom'])->first();
         $model->update($inputs);
         return redirect('/csdlquocgia/qg_giathuetn/danhmuc?truyendulieu=' . $inputs['truyendulieu']);
     }
@@ -149,12 +165,15 @@ class qg_giathuetnController extends Controller
         }
 
         $inputs = $request->all();
-        $model = NhomThueTn::where('manhom',$inputs['manhom'])->first();
+        $model = NhomThueTn::where('manhom', $inputs['manhom'])->first();
         die($model);
     }
 
     public function truyenhoso(Request $request)
     {
+        if (!Session::has('admin')) {
+            return view('errors.notlogin');
+        }
         $inputs = $request->all();
         $inputs['url'] = '/csdlquocgia/qg_giathuetn/hoso';
         $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
@@ -247,8 +266,11 @@ class qg_giathuetnController extends Controller
 
     public function capnhathoso(Request $request)
     {
+        if (!Session::has('admin')) {
+            return view('errors.notlogin');
+        }
         $inputs = $request->all();
-        $model = ThueTaiNguyen::where('mahs',$inputs['mahs'])->first();
+        $model = ThueTaiNguyen::where('mahs', $inputs['mahs'])->first();
         $model->update($inputs);
         return redirect('/csdlquocgia/qg_giathuetn/hoso?truyendulieu=' . $inputs['truyendulieu']);
     }
@@ -264,7 +286,7 @@ class qg_giathuetnController extends Controller
         }
 
         $inputs = $request->all();
-        $model = ThueTaiNguyen::where('mahs',$inputs['mahs'])->first();
+        $model = ThueTaiNguyen::where('mahs', $inputs['mahs'])->first();
         die($model);
     }
 

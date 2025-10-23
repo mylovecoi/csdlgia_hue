@@ -30,11 +30,11 @@ class qg_kkgiadvchController extends Controller
             $modeldn = $m_donvi->where('madv', $inputs['madv'])->first();
 
             $model = KkGiaDvCh::query();
-            
-            if(!empty($inputs['madv']) && $inputs['madv'] != 'ALL'){
+
+            if (!empty($inputs['madv']) && $inputs['madv'] != 'ALL') {
                 $model = $model->where('madv', $inputs['madv']);
             }
-            
+
             $inputs['nam'] = $inputs['nam'] ?? date('Y');
             $model = $model->whereYear('ngaynhap', $inputs['nam'])
                 ->orderBy('id', 'desc')
@@ -55,7 +55,7 @@ class qg_kkgiadvchController extends Controller
                 ->with('a_diaban', array_column($m_diaban->toarray(), 'tendiaban', 'madiaban'))
                 ->with('a_donvi_th', array_column($m_donvi_th->toarray(), 'tendv', 'madv'))
                 ->with('a_diaban_th', array_column($m_donvi_th->toarray(), 'tendiaban', 'madiaban'))
-                ->with('pageTitle', 'Danh sách hồ sơ kê khai giá dịch vụ ca huế');    
+                ->with('pageTitle', 'Danh sách hồ sơ kê khai giá dịch vụ ca huế');
         } else
             return view('errors.notlogin');
     }
@@ -120,6 +120,9 @@ class qg_kkgiadvchController extends Controller
 
     public function truyenhoso(Request $request)
     {
+        if (!Session::has('admin')) {
+            return view('errors.notlogin');
+        }
         $inputs = $request->all();
         $inputs['url'] = '/csdlquocgia/qg_kkgiadvch/hoso';
         $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
@@ -216,8 +219,11 @@ class qg_kkgiadvchController extends Controller
 
     public function capnhathoso(Request $request)
     {
+        if (!Session::has('admin')) {
+            return view('errors.notlogin');
+        }
         $inputs = $request->all();
-        $model = KkGiaDvCh::where('mahs',$inputs['mahs'])->first();
+        $model = KkGiaDvCh::where('mahs', $inputs['mahs'])->first();
         $model->update($inputs);
         return redirect('/csdlquocgia/qg_kkgiadvch/hoso?truyendulieu=' . $inputs['truyendulieu']);
     }
@@ -233,7 +239,7 @@ class qg_kkgiadvchController extends Controller
         }
 
         $inputs = $request->all();
-        $model = KkGiaDvCh::where('mahs',$inputs['mahs'])->first();
+        $model = KkGiaDvCh::where('mahs', $inputs['mahs'])->first();
         die($model);
     }
 

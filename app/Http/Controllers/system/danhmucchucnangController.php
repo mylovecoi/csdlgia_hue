@@ -17,7 +17,7 @@ class danhmucchucnangController extends Controller
             }
             $gui = getGiaoDien();
             $a_chucnang = array_column(danhmucchucnang::all()->toArray(),'menu','maso');
-            //dd($model);
+            //dd($gui);
             return view('system.chucnang.index')
                 ->with('setting', $gui)
                 ->with('a_chucnang', $a_chucnang)

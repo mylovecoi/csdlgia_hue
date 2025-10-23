@@ -29,7 +29,7 @@ class qg_thamdinhgiaController extends Controller
             $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
             $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             $m_donvi = getDonViNhapLieu(session('admin')->level);
-            $m_donvi_th = getDonViTongHop('thamdinhgia',\session('admin')->level, \session('admin')->madiaban);
+            $m_donvi_th = getDonViTongHop('thamdinhgia', \session('admin')->level, \session('admin')->madiaban);
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $inputs['nam'] = $inputs['nam'] ?? 'all';
@@ -46,9 +46,9 @@ class qg_thamdinhgiaController extends Controller
                 ->with('a_diaban', array_column($m_diaban->where('level', 'H')->toarray(), 'tendiaban', 'madiaban'))
                 ->with('m_donvi', $m_donvi)
                 ->with('m_donvi_th', $m_donvi_th)
-                ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
-                ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
-                ->with('pageTitle','Nhận hồ sơ thẩm định giá');   
+                ->with('a_donvi_th', array_column($m_donvi_th->toarray(), 'tendv', 'madv'))
+                ->with('a_diaban_th', array_column($m_donvi_th->toarray(), 'tendiaban', 'madiaban'))
+                ->with('pageTitle', 'Nhận hồ sơ thẩm định giá');
         } else
             return view('errors.notlogin');
     }
@@ -130,72 +130,78 @@ class qg_thamdinhgiaController extends Controller
 
     public function truyenhoso(Request $request)
     {
+        if (!Session::has('admin')) {
+            return view('errors.notlogin');
+        }
         $inputs = $request->all();
         $inputs['url'] = '/csdlquocgia/qg_thamdinhgia/hoso';
         $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
         $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
         $m_donvi = getDonViXetDuyet(session('admin')->level);
-        $m_donvi_th = getDonViTongHop('thamdinhgia',\session('admin')->level, \session('admin')->madiaban);
+        $m_donvi_th = getDonViTongHop('thamdinhgia', \session('admin')->level, \session('admin')->madiaban);
         $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;
         $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
         $inputs['nam'] = $inputs['nam'] ?? 'all';
         $inputs['truyendulieu'] = $inputs['truyendulieu'] ?? 'all';
         $inputs['level'] = $m_donvi_th->where('madv', $inputs['madv'])->first()->level ?? 'H';
-        $a_ttdv = array_column(view_dsdiaban_donvi::wherein('madiaban', array_keys($a_diaban))->get()->toarray(),
-            'tendv', 'madv');
+        $a_ttdv = array_column(
+            view_dsdiaban_donvi::wherein('madiaban', array_keys($a_diaban))->get()->toarray(),
+            'tendv',
+            'madv'
+        );
 
-        switch ($inputs['level']){
-            case 'H':{
-                $model = ThamDinhGia::where('madv_h', $inputs['madv']);
-                if ($inputs['nam'] != 'all')
-                    $model = $model->whereYear('thoidiem_h', $inputs['nam']);
-                $model = $model->get();
-                foreach ($model as $ct){
-                    $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
-                    $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
-                    $ct->madv = $ct->madv_h;
-                    $ct->macqcq = $ct->macqcq_h;
-                    $ct->tencqcq = $a_ttdv[$ct->macqcq] ?? '';
-                    $ct->thoidiem = $ct->thoidiem_h;
-                    $ct->trangthai = $ct->trangthai_h;
-                    $ct->level = $inputs['level'];
+        switch ($inputs['level']) {
+            case 'H': {
+                    $model = ThamDinhGia::where('madv_h', $inputs['madv']);
+                    if ($inputs['nam'] != 'all')
+                        $model = $model->whereYear('thoidiem_h', $inputs['nam']);
+                    $model = $model->get();
+                    foreach ($model as $ct) {
+                        $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct);
+                        $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
+                        $ct->madv = $ct->madv_h;
+                        $ct->macqcq = $ct->macqcq_h;
+                        $ct->tencqcq = $a_ttdv[$ct->macqcq] ?? '';
+                        $ct->thoidiem = $ct->thoidiem_h;
+                        $ct->trangthai = $ct->trangthai_h;
+                        $ct->level = $inputs['level'];
+                    }
+                    break;
                 }
-                break;
-            }
-            case 'T':{
-                $model = ThamDinhGia::where('madv_t', $inputs['madv']);
-                if ($inputs['nam'] != 'all')
-                    $model = $model->whereYear('thoidiem_t', $inputs['nam']);
-                $model = $model->get();
-                foreach ($model as $ct){
-                    $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
-                    $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
-                    $ct->madv = $ct->madv_t;
-                    $ct->macqcq = $ct->macqcq_t;
-                    $ct->tencqcq = $a_ttdv[$ct->macqcq] ?? '';
-                    $ct->thoidiem = $ct->thoidiem_t;
-                    $ct->trangthai = $ct->trangthai_t;
-                    $ct->level = $inputs['level'];
+            case 'T': {
+                    $model = ThamDinhGia::where('madv_t', $inputs['madv']);
+                    if ($inputs['nam'] != 'all')
+                        $model = $model->whereYear('thoidiem_t', $inputs['nam']);
+                    $model = $model->get();
+                    foreach ($model as $ct) {
+                        $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct);
+                        $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
+                        $ct->madv = $ct->madv_t;
+                        $ct->macqcq = $ct->macqcq_t;
+                        $ct->tencqcq = $a_ttdv[$ct->macqcq] ?? '';
+                        $ct->thoidiem = $ct->thoidiem_t;
+                        $ct->trangthai = $ct->trangthai_t;
+                        $ct->level = $inputs['level'];
+                    }
+                    break;
                 }
-                break;
-            }
-            case 'ADMIN':{
-                $model = ThamDinhGia::where('madv_ad', $inputs['madv']);
-                if ($inputs['nam'] != 'all')
-                    $model = $model->whereYear('thoidiem_ad', $inputs['nam']);
-                $model = $model->get();
-                foreach ($model as $ct){
-                    $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct );
-                    $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
-                    $ct->madv = $ct->madv_ad;
-                    $ct->macqcq = $ct->macqcq_ad;
-                    $ct->tencqcq = $a_ttdv[$ct->macqcq] ?? '';
-                    $ct->thoidiem = $ct->thoidiem_ad;
-                    $ct->trangthai = $ct->trangthai_ad;
-                    $ct->level = $inputs['level'];
+            case 'ADMIN': {
+                    $model = ThamDinhGia::where('madv_ad', $inputs['madv']);
+                    if ($inputs['nam'] != 'all')
+                        $model = $model->whereYear('thoidiem_ad', $inputs['nam']);
+                    $model = $model->get();
+                    foreach ($model as $ct) {
+                        $ct->madv_ch = getDonViChuyen($inputs['madv'], $ct);
+                        $ct->tendv_ch = $a_ttdv[$ct->madv_ch] ?? '';
+                        $ct->madv = $ct->madv_ad;
+                        $ct->macqcq = $ct->macqcq_ad;
+                        $ct->tencqcq = $a_ttdv[$ct->macqcq] ?? '';
+                        $ct->thoidiem = $ct->thoidiem_ad;
+                        $ct->trangthai = $ct->trangthai_ad;
+                        $ct->level = $inputs['level'];
+                    }
+                    break;
                 }
-                break;
-            }
         }
 
         return view('csdlquocgia.qg_thamdinhgia.truyenhoso.index')
@@ -204,16 +210,19 @@ class qg_thamdinhgiaController extends Controller
             ->with('m_diaban', $m_diaban)
             ->with('a_diaban', array_column($m_diaban->wherein('level', ['H', 'T'])->toarray(), 'tendiaban', 'madiaban'))
             ->with('m_donvi', $m_donvi)
-            ->with('m_donvi_th', $m_donvi_th->where('madv','<>',$inputs['madv']))
-            ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
-            ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
+            ->with('m_donvi_th', $m_donvi_th->where('madv', '<>', $inputs['madv']))
+            ->with('a_donvi_th', array_column($m_donvi_th->toarray(), 'tendv', 'madv'))
+            ->with('a_diaban_th', array_column($m_donvi_th->toarray(), 'tendiaban', 'madiaban'))
             ->with('pageTitle', 'Truyền hồ sơ Thẩm định giá');
     }
 
     public function capnhathoso(Request $request)
     {
+        if (!Session::has('admin')) {
+            return view('errors.notlogin');
+        }
         $inputs = $request->all();
-        $model = ThamDinhGia::where('mahs',$inputs['mahs'])->first();
+        $model = ThamDinhGia::where('mahs', $inputs['mahs'])->first();
         $model->update($inputs);
         return redirect('/csdlquocgia/qg_thamdinhgia/hoso?truyendulieu=' . $inputs['truyendulieu']);
     }
@@ -229,7 +238,7 @@ class qg_thamdinhgiaController extends Controller
         }
 
         $inputs = $request->all();
-        $model = ThamDinhGia::where('mahs',$inputs['mahs'])->first();
+        $model = ThamDinhGia::where('mahs', $inputs['mahs'])->first();
         die($model);
     }
 

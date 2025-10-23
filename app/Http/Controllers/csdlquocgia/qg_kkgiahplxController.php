@@ -49,7 +49,7 @@ class qg_kkgiahplxController extends Controller
                 ->with('a_diaban', array_column($m_diaban->toarray(), 'tendiaban', 'madiaban'))
                 ->with('a_donvi_th', array_column($m_donvi_th->toarray(), 'tendv', 'madv'))
                 ->with('a_diaban_th', array_column($m_donvi_th->toarray(), 'tendiaban', 'madiaban'))
-                ->with('pageTitle', 'Danh sách hồ sơ kê khai giá học phí lái xe');    
+                ->with('pageTitle', 'Danh sách hồ sơ kê khai giá học phí lái xe');
         } else
             return view('errors.notlogin');
     }
@@ -114,6 +114,9 @@ class qg_kkgiahplxController extends Controller
 
     public function truyenhoso(Request $request)
     {
+        if (!Session::has('admin')) {
+            return view('errors.notlogin');
+        }
         $inputs = $request->all();
         $inputs['url'] = '/csdlquocgia/qg_kkgiahplx/hoso';
         $a_diaban = getDiaBan_Level(\session('admin')->level, \session('admin')->madiaban);
@@ -126,87 +129,90 @@ class qg_kkgiahplxController extends Controller
         $inputs['trangthai'] = $inputs['trangthai'] ?? 'CD';
         $inputs['truyendulieu'] = $inputs['truyendulieu'] ?? 'all';
         $inputs['level'] = $m_donvi->where('madv', $inputs['madv'])->first()->level ?? 'H';
-        $a_ttdv = array_column(Company::all()->toArray(),'tendn', 'madv');
-        $a_donvi_th = array_column($m_donvi->toarray(),'tendv','madv');
-        switch ($inputs['level']){
-            case 'H':{
-                $model = KkGiaHpLx::where('madv_h', $inputs['madv']);
-                if ($inputs['nam'] != 'all')
-                    $model = $model->whereYear('ngaychuyen_h', $inputs['nam']);
-                if ($inputs['truyendulieu'] != 'all')
-                    $model = $model->where('truyendulieu', $inputs['truyendulieu']);
-                $model = $model->get();
-                $m_com = Company::wherein('madv', array_column($model->toarray(),'madv'))->get();
-                $a_com = array_column($m_com->toarray(),'madiaban','madv');
-                foreach ($model as $ct){
-                    $ct->madiaban = $a_com[$ct->madv] ?? null;
-                    $ct->tendv_ch = $a_ttdv[$ct->madv] ?? '';
-                    $ct->madv = $ct->madv_h;
-                    $ct->ngaychuyen = $ct->ngaychuyen_h;
-                    $ct->trangthai = $ct->trangthai_h;
-                    $ct->level = $inputs['level'];
+        $a_ttdv = array_column(Company::all()->toArray(), 'tendn', 'madv');
+        $a_donvi_th = array_column($m_donvi->toarray(), 'tendv', 'madv');
+        switch ($inputs['level']) {
+            case 'H': {
+                    $model = KkGiaHpLx::where('madv_h', $inputs['madv']);
+                    if ($inputs['nam'] != 'all')
+                        $model = $model->whereYear('ngaychuyen_h', $inputs['nam']);
+                    if ($inputs['truyendulieu'] != 'all')
+                        $model = $model->where('truyendulieu', $inputs['truyendulieu']);
+                    $model = $model->get();
+                    $m_com = Company::wherein('madv', array_column($model->toarray(), 'madv'))->get();
+                    $a_com = array_column($m_com->toarray(), 'madiaban', 'madv');
+                    foreach ($model as $ct) {
+                        $ct->madiaban = $a_com[$ct->madv] ?? null;
+                        $ct->tendv_ch = $a_ttdv[$ct->madv] ?? '';
+                        $ct->madv = $ct->madv_h;
+                        $ct->ngaychuyen = $ct->ngaychuyen_h;
+                        $ct->trangthai = $ct->trangthai_h;
+                        $ct->level = $inputs['level'];
+                    }
+                    break;
                 }
-                break;
-            }
-            case 'T':{
-                $model = KkGiaHpLx::where('madv_t', $inputs['madv']);
-                if ($inputs['nam'] != 'all')
-                    $model = $model->whereYear('ngaychuyen_t', $inputs['nam']);
-                if ($inputs['truyendulieu'] != 'all')
-                    $model = $model->where('truyendulieu', $inputs['truyendulieu']);
-                $model = $model->get();
-                $m_com = Company::wherein('madv', array_column($model->toarray(),'madv'))->get();
-                $a_com = array_column($m_com->toarray(),'madiaban','madv');
-                foreach ($model as $ct){
-                    $ct->madiaban = $a_com[$ct->madv] ?? null;
-                    $ct->tendv_ch = $a_ttdv[$ct->madv] ?? '';
-                    $ct->madv = $ct->madv_t;
-                    $ct->macqcq = $ct->macqcq_t;
-                    $ct->tencqcq = $a_donvi_th[$ct->macqcq] ?? '';
-                    $ct->ngaychuyen = $ct->ngaychuyen_t;
-                    $ct->trangthai = $ct->trangthai_t;
-                    $ct->level = $inputs['level'];
+            case 'T': {
+                    $model = KkGiaHpLx::where('madv_t', $inputs['madv']);
+                    if ($inputs['nam'] != 'all')
+                        $model = $model->whereYear('ngaychuyen_t', $inputs['nam']);
+                    if ($inputs['truyendulieu'] != 'all')
+                        $model = $model->where('truyendulieu', $inputs['truyendulieu']);
+                    $model = $model->get();
+                    $m_com = Company::wherein('madv', array_column($model->toarray(), 'madv'))->get();
+                    $a_com = array_column($m_com->toarray(), 'madiaban', 'madv');
+                    foreach ($model as $ct) {
+                        $ct->madiaban = $a_com[$ct->madv] ?? null;
+                        $ct->tendv_ch = $a_ttdv[$ct->madv] ?? '';
+                        $ct->madv = $ct->madv_t;
+                        $ct->macqcq = $ct->macqcq_t;
+                        $ct->tencqcq = $a_donvi_th[$ct->macqcq] ?? '';
+                        $ct->ngaychuyen = $ct->ngaychuyen_t;
+                        $ct->trangthai = $ct->trangthai_t;
+                        $ct->level = $inputs['level'];
+                    }
+                    break;
                 }
-                break;
-            }
-            case 'ADMIN':{
-                $model = KkGiaHpLx::where('madv_ad', $inputs['madv']);
-                if ($inputs['nam'] != 'all')
-                    $model = $model->whereYear('ngaychuyen_ad', $inputs['nam']);
-                if ($inputs['truyendulieu'] != 'all')
-                    $model = $model->where('truyendulieu', $inputs['truyendulieu']);
-                $model = $model->get();
-                $m_com = Company::wherein('madv', array_column($model->toarray(),'madv'))->get();
-                $a_com = array_column($m_com->toarray(),'madiaban','madv');
-                foreach ($model as $ct){
-                    $ct->madiaban = $a_com[$ct->madv] ?? null;
-                    $ct->tendv_ch = $a_ttdv[$ct->madv] ?? '';
-                    $ct->madv = $ct->madv_ad;
-                    $ct->tencqcq = $a_donvi_th[$ct->macqcq] ?? '';
-                    $ct->ngaychuyen = $ct->ngaychuyen_ad;
-                    $ct->trangthai = $ct->trangthai_ad;
-                    $ct->level = $inputs['level'];
+            case 'ADMIN': {
+                    $model = KkGiaHpLx::where('madv_ad', $inputs['madv']);
+                    if ($inputs['nam'] != 'all')
+                        $model = $model->whereYear('ngaychuyen_ad', $inputs['nam']);
+                    if ($inputs['truyendulieu'] != 'all')
+                        $model = $model->where('truyendulieu', $inputs['truyendulieu']);
+                    $model = $model->get();
+                    $m_com = Company::wherein('madv', array_column($model->toarray(), 'madv'))->get();
+                    $a_com = array_column($m_com->toarray(), 'madiaban', 'madv');
+                    foreach ($model as $ct) {
+                        $ct->madiaban = $a_com[$ct->madv] ?? null;
+                        $ct->tendv_ch = $a_ttdv[$ct->madv] ?? '';
+                        $ct->madv = $ct->madv_ad;
+                        $ct->tencqcq = $a_donvi_th[$ct->macqcq] ?? '';
+                        $ct->ngaychuyen = $ct->ngaychuyen_ad;
+                        $ct->trangthai = $ct->trangthai_ad;
+                        $ct->level = $inputs['level'];
+                    }
+                    break;
                 }
-                break;
-            }
         }
 
         return view('csdlquocgia.qg_kkgiahplx.truyenhoso.index')
             ->with('model', $model)
             ->with('inputs', $inputs)
             ->with('m_diaban', $m_diaban)
-            ->with('a_diaban', array_column($m_diaban->wherein('level', ['H','T','X'])->toarray(), 'tendiaban', 'madiaban'))
+            ->with('a_diaban', array_column($m_diaban->wherein('level', ['H', 'T', 'X'])->toarray(), 'tendiaban', 'madiaban'))
             ->with('m_donvi', $m_donvi)
-            ->with('m_donvi_th', $m_donvi_th->where('madv','<>',$inputs['madv']))
-            ->with('a_donvi_th',array_column($m_donvi_th->toarray(),'tendv','madv'))
-            ->with('a_diaban_th',array_column($m_donvi_th->toarray(),'tendiaban','madiaban'))
-            ->with('pageTitle', 'Truyền hồ sơ kê khai giá học phí lái xe');    
+            ->with('m_donvi_th', $m_donvi_th->where('madv', '<>', $inputs['madv']))
+            ->with('a_donvi_th', array_column($m_donvi_th->toarray(), 'tendv', 'madv'))
+            ->with('a_diaban_th', array_column($m_donvi_th->toarray(), 'tendiaban', 'madiaban'))
+            ->with('pageTitle', 'Truyền hồ sơ kê khai giá học phí lái xe');
     }
 
     public function capnhathoso(Request $request)
     {
+        if (!Session::has('admin')) {
+            return view('errors.notlogin');
+        }
         $inputs = $request->all();
-        $model = KkGiaHpLx::where('mahs',$inputs['mahs'])->first();
+        $model = KkGiaHpLx::where('mahs', $inputs['mahs'])->first();
         $model->update($inputs);
         return redirect('/csdlquocgia/qg_kkgiahplx/hoso?truyendulieu=' . $inputs['truyendulieu']);
     }
@@ -222,7 +228,7 @@ class qg_kkgiahplxController extends Controller
         }
 
         $inputs = $request->all();
-        $model = KkGiaHpLx::where('mahs',$inputs['mahs'])->first();
+        $model = KkGiaHpLx::where('mahs', $inputs['mahs'])->first();
         die($model);
     }
 
