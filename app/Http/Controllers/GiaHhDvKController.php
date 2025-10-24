@@ -32,6 +32,7 @@ class GiaHhDvKController extends Controller
         // - level == 'T' => lấy các đơn vị tổng hơp level == 'T' (các sở ban ngành)
         // - SSA => lấy tất cả
         if (Session::has('admin')) {
+            //dd(session('admin')->level);
             $inputs = $request->all();
             $inputs['url'] = '/giahhdvk';
             //lấy địa bàn

@@ -451,15 +451,19 @@ function getDonViTongHop($linhvuc, $level, $madiaban = null)
         $m_donvi = App\Model\system\view_dsdiaban_donvi::all();
     } elseif ($level == 'T') {
         //return App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')->wherein('level', ['T'])->get();
-        $m_donvi = App\Model\system\view_dsdiaban_donvi::wherein('level', ['T', 'ADMIN'])->get();
+        
+        // $m_donvi = App\Model\system\view_dsdiaban_donvi::wherein('level', ['T', 'ADMIN'])->get();
+        $m_donvi = App\Model\system\view_dsdiaban_donvi::wherein('level', ['ADMIN'])->get();
     } else {
         //        $m_donvi = App\Model\system\view_dsdiaban_donvi::where('chucnang', 'TONGHOP')
         //            ->where(function ($qr) use ($madiaban) {
         //                $qr->where('level', 'T')
         //                    ->orwhere('madiaban', $madiaban);
         //            })->get();
-        $m_donvi = App\Model\system\view_dsdiaban_donvi::wherein('level', ['T', 'ADMIN'])
-            ->orwhere('madiaban', $madiaban)->get();
+
+        // $m_donvi = App\Model\system\view_dsdiaban_donvi::wherein('level', ['T', 'ADMIN'])
+        //     ->orwhere('madiaban', $madiaban)->get();
+        $m_donvi = App\Model\system\view_dsdiaban_donvi::wherein('level', ['T'])->get();
     }
 
     //dd($m_donvi);
