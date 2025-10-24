@@ -768,77 +768,7 @@
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    @if(chkPer('csdlmucgiahhdv','kknygia', 'xmtxd', 'hoso', 'index'))
-                        <li>
-                            <a href="javascript:;">
-                                <span class="title">Xăng, dầu thành phẩm</span>
-                                <span class="arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li><a href="{{url('')}}">Giá kê khai</a> </li>
-                                <li><a href="{{url('')}}">Thông tin hồ sơ xét duyệt</a></li>
-                                <li><a href="{{url('')}}">Tìm kiếm thông tin</a> </li>
-                                <li><a href="{{url('')}}">Báo cáo thống kê</a></li>
-                            </ul>
-                        </li>
-                    @endif
-                    @if(chkPer('csdlmucgiahhdv','kknygia', 'xmtxd', 'hoso', 'index'))
-                        <li>
-                            <a href="javascript:;">
-                                <span class="title">Khí dầu mỏ hóa lỏng (LPG)</span>
-                                <span class="arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li><a href="{{url('')}}">Giá kê khai</a> </li>
-                                <li><a href="{{url('')}}">Thông tin hồ sơ xét duyệt</a></li>
-                                <li><a href="{{url('')}}">Tìm kiếm thông tin</a> </li>
-                                <li><a href="{{url('')}}">Báo cáo thống kê</a></li>
-                            </ul>
-                        </li>
-                    @endif
-                    @if(chkPer('csdlmucgiahhdv','kknygia', 'xmtxd', 'hoso', 'index'))
-                        <li>
-                            <a href="javascript:;">
-                                <span class="title">Sữa dành cho trẻ em dưới 06 tuổi</span>
-                                <span class="arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li><a href="{{url('')}}">Giá kê khai</a> </li>
-                                <li><a href="{{url('')}}">Thông tin hồ sơ xét duyệt</a></li>
-                                <li><a href="{{url('')}}">Tìm kiếm thông tin</a> </li>
-                                <li><a href="{{url('')}}">Báo cáo thống kê</a></li>
-                            </ul>
-                        </li>
-                    @endif
-                    @if(chkPer('csdlmucgiahhdv','kknygia', 'xmtxd', 'hoso', 'index'))
-                        <li>
-                            <a href="javascript:;">
-                                <span class="title">Thóc tẻ, gạo tẻ</span>
-                                <span class="arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li><a href="{{url('')}}">Giá kê khai</a> </li>
-                                <li><a href="{{url('')}}">Thông tin hồ sơ xét duyệt</a></li>
-                                <li><a href="{{url('')}}">Tìm kiếm thông tin</a> </li>
-                                <li><a href="{{url('')}}">Báo cáo thống kê</a></li>
-                            </ul>
-                        </li>
-                    @endif
-                    @if(chkPer('csdlmucgiahhdv','kknygia', 'xmtxd', 'hoso', 'index'))
-                        <li>
-                            <a href="javascript:;">
-                                <span class="title">Phân đạm; phân DAP; phân NPK</span>
-                                <span class="arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li><a href="{{url('')}}">Giá kê khai</a> </li>
-                                <li><a href="{{url('')}}">Thông tin hồ sơ xét duyệt</a></li>
-                                <li><a href="{{url('')}}">Tìm kiếm thông tin</a> </li>
-                                <li><a href="{{url('')}}">Báo cáo thống kê</a></li>
-                            </ul>
-                        </li>
-                    @endif
-                    @if(chkPer('csdlmucgiahhdv','kknygia', 'tacn', 'hoso', 'index'))
+                    @if(chkPer('csdlmucgiahhdv','bog', 'bog', 'hoso', 'index'))
                         <li>
                             <a href="javascript:;">
                                 <span class="title">Thức ăn chăn nuôi</span>
@@ -851,46 +781,132 @@
                                 <li><a href="{{url('baocaokkgiatacn')}}">Báo cáo thống kê</a></li>
                             </ul>
                         </li>
-                    @endif
-                    @if(chkPer('csdlmucgiahhdv','kknygia', 'xmtxd', 'hoso', 'index'))
+                        <li>
+                            <a href="javascript:;">
+                                <span class="title">Xăng, dầu thành phẩm</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
+                                    @if(session('admin')->level == 'SSA')
+                                        <li><a href="{{url('/binhongia/danhsach')}}">Thông tin hồ sơ</a></li>
+                                    @endif
+                                        <li><a href="{{url('/binhongia/xetduyet')}}">Xét duyệt hồ sơ</a></li>
+                                        <li><a href="{{url('/binhongia/timkiem')}}">Tìm kiếm hồ sơ</a></li>
+                                        <li><a href="{{url('/binhongia/baocao')}}">Báo cáo tổng hợp</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <span class="title">Khí dầu mỏ hóa lỏng (LPG)</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
+                                    @if(session('admin')->level == 'SSA')
+                                        <li><a href="{{url('/binhongia/danhsach')}}">Thông tin hồ sơ</a></li>
+                                    @endif
+                                        <li><a href="{{url('/binhongia/xetduyet')}}">Xét duyệt hồ sơ</a></li>
+                                        <li><a href="{{url('/binhongia/timkiem')}}">Tìm kiếm hồ sơ</a></li>
+                                        <li><a href="{{url('/binhongia/baocao')}}">Báo cáo tổng hợp</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <span class="title">Sữa dành cho trẻ em dưới 06 tuổi</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
+                                    @if(session('admin')->level == 'SSA')
+                                        <li><a href="{{url('/binhongia/danhsach')}}">Thông tin hồ sơ</a></li>
+                                    @endif
+                                        <li><a href="{{url('/binhongia/xetduyet')}}">Xét duyệt hồ sơ</a></li>
+                                        <li><a href="{{url('/binhongia/timkiem')}}">Tìm kiếm hồ sơ</a></li>
+                                        <li><a href="{{url('/binhongia/baocao')}}">Báo cáo tổng hợp</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <span class="title">Thóc tẻ, gạo tẻ</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
+                                    @if(session('admin')->level == 'SSA')
+                                        <li><a href="{{url('/binhongia/danhsach')}}">Thông tin hồ sơ</a></li>
+                                    @endif
+                                        <li><a href="{{url('/binhongia/xetduyet')}}">Xét duyệt hồ sơ</a></li>
+                                        <li><a href="{{url('/binhongia/timkiem')}}">Tìm kiếm hồ sơ</a></li>
+                                        <li><a href="{{url('/binhongia/baocao')}}">Báo cáo tổng hợp</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <span class="title">Phân đạm; phân DAP; phân NPK</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
+                                    @if(session('admin')->level == 'SSA')
+                                        <li><a href="{{url('/binhongia/danhsach')}}">Thông tin hồ sơ</a></li>
+                                    @endif
+                                        <li><a href="{{url('/binhongia/xetduyet')}}">Xét duyệt hồ sơ</a></li>
+                                        <li><a href="{{url('/binhongia/timkiem')}}">Tìm kiếm hồ sơ</a></li>
+                                        <li><a href="{{url('/binhongia/baocao')}}">Báo cáo tổng hợp</a></li>
+                                @endif
+                            </ul>
+                        </li>
                         <li>
                             <a href="javascript:;">
                                 <span class="title">Vắc-xin phòng bệnh cho gia súc, gia cầm</span>
                                 <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu">
-                                <li><a href="{{url('')}}">Giá kê khai</a> </li>
-                                <li><a href="{{url('')}}">Thông tin hồ sơ xét duyệt</a></li>
-                                <li><a href="{{url('')}}">Tìm kiếm thông tin</a> </li>
-                                <li><a href="{{url('')}}">Báo cáo thống kê</a></li>
+                                @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
+                                    @if(session('admin')->level == 'SSA')
+                                        <li><a href="{{url('/binhongia/danhsach')}}">Thông tin hồ sơ</a></li>
+                                    @endif
+                                        <li><a href="{{url('/binhongia/xetduyet')}}">Xét duyệt hồ sơ</a></li>
+                                        <li><a href="{{url('/binhongia/timkiem')}}">Tìm kiếm hồ sơ</a></li>
+                                        <li><a href="{{url('/binhongia/baocao')}}">Báo cáo tổng hợp</a></li>
+                                @endif
                             </ul>
                         </li>
-                    @endif
-                    @if(chkPer('csdlmucgiahhdv','kknygia', 'xmtxd', 'hoso', 'index'))
                         <li>
                             <a href="javascript:;">
                                 <span class="title">Thuốc bảo vệ thực vật</span>
                                 <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu">
-                                <li><a href="{{url('')}}">Giá kê khai</a> </li>
-                                <li><a href="{{url('')}}">Thông tin hồ sơ xét duyệt</a></li>
-                                <li><a href="{{url('')}}">Tìm kiếm thông tin</a> </li>
-                                <li><a href="{{url('')}}">Báo cáo thống kê</a></li>
+                                @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
+                                    @if(session('admin')->level == 'SSA')
+                                        <li><a href="{{url('/binhongia/danhsach')}}">Thông tin hồ sơ</a></li>
+                                    @endif
+                                        <li><a href="{{url('/binhongia/xetduyet')}}">Xét duyệt hồ sơ</a></li>
+                                        <li><a href="{{url('/binhongia/timkiem')}}">Tìm kiếm hồ sơ</a></li>
+                                        <li><a href="{{url('/binhongia/baocao')}}">Báo cáo tổng hợp</a></li>
+                                @endif
                             </ul>
                         </li>
-                    @endif
-                    @if(chkPer('csdlmucgiahhdv','kknygia', 'xmtxd', 'hoso', 'index'))
                         <li>
                             <a href="javascript:;">
                                 <span class="title">Thuốc thuộc danh mục thuốc thiết yếu được sử dụng tại cơ sở khám bệnh, chữa bệnh</span>
                                 <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu">
-                                <li><a href="{{url('')}}">Giá kê khai</a> </li>
-                                <li><a href="{{url('')}}">Thông tin hồ sơ xét duyệt</a></li>
-                                <li><a href="{{url('')}}">Tìm kiếm thông tin</a> </li>
-                                <li><a href="{{url('')}}">Báo cáo thống kê</a></li>
+                                @if(in_array('TONGHOP', session('admin')->chucnang) || session('admin')->level == 'SSA')
+                                    @if(session('admin')->level == 'SSA')
+                                        <li><a href="{{url('/binhongia/danhsach')}}">Thông tin hồ sơ</a></li>
+                                    @endif
+                                        <li><a href="{{url('/binhongia/xetduyet')}}">Xét duyệt hồ sơ</a></li>
+                                        <li><a href="{{url('/binhongia/timkiem')}}">Tìm kiếm hồ sơ</a></li>
+                                        <li><a href="{{url('/binhongia/baocao')}}">Báo cáo tổng hợp</a></li>
+                                @endif
                             </ul>
                         </li>
                     @endif

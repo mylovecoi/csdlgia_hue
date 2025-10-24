@@ -35,10 +35,12 @@ class NhomHhDvKController extends Controller
             $a_thongtu = array_column(NhomHhDvK::all()->toArray(), 'tentt', 'matt');
             $inputs['matt'] = $inputs['matt'] ?? array_key_first($a_thongtu);
             $a_diaban = getDiaBan_NhapLieu(session('admin')->level, session('admin')->madiaban);
+            //dd($a_diaban);
             // $m_diaban = dsdiaban::wherein('madiaban', array_keys($a_diaban))->get();
             // Đảm bảo array_keys($a_diaban) là mảng chuỗi
             $m_diaban = dsdiaban::whereIn('madiaban', array_map('strval', array_keys($a_diaban)))->get();
             $m_donvi = getDonViNhapLieu(session('admin')->level, 'giahhdvk');
+            //dd($m_donvi);
             if (count($m_donvi) == null) {
                 $message = 'Chưa có đơn vị nào được phân quyền nhập liệu cho chức năng: ' . session('admin')['a_chucnang']['giahhdvk']
                     . '. Bạn cần liên hệ người quản trị để phần quyền nhập liệu cho đơn vị.';
@@ -48,7 +50,9 @@ class NhomHhDvKController extends Controller
             //$m_donvi = view_dsdiaban_donvi::wherein('madiaban', array_keys($a_diaban))->where('chucnang', 'NHAPLIEU')->get();
 
             $inputs['madiaban'] = $inputs['madiaban'] ?? array_key_first($a_diaban);
-            $m_donvi = $m_donvi->wherein('madiaban', array_column($m_diaban->toarray(), 'madiaban'));           
+            //dd(array_key_first($a_diaban));
+            $m_donvi = $m_donvi->wherein('madiaban', array_column($m_diaban->toarray(), 'madiaban'));
+            //dd($m_donvi);          
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;            
             $model = DmHhDvK_DonVi::where('madv', $inputs['madv'])
                 ->where('matt', $inputs['matt'])->orderby('mahhdv')->get();

@@ -42,6 +42,7 @@ class dstaikhoanController extends Controller
                 ")->get();
             }
             $m_donvi = dsdonvi::wherein('madiaban',array_column($m_diaban->toarray(),'madiaban'))->get();
+            //dd($m_donvi);
             $inputs['madv'] = $inputs['madv'] ??  $m_donvi->first()->madv;
             $model = Users::where('madv', $inputs['madv'])->get();
             //lấy phân loại tài khoản từ bảng dsdonvi để hiển thị

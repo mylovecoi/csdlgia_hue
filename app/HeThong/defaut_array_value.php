@@ -296,12 +296,16 @@ function getDonViNhapLieu($level, $linhvuc = null)
         //return App\Model\system\dsdonvi::where('madv', session('admin')->madv)->get();
         $m_donvi = App\Model\system\view_dsdiaban_donvi::where('madv', session('admin')->madv)->get();
     }
+    //dd($m_donvi);
     $ketqua = new Illuminate\Support\Collection();
+    //dd($ketqua);
     $m_user = App\Users::wherein('madv', array_column($m_donvi->toarray(), 'madv'))->get();
     //dd($m_user);
+    //dd($linhvuc);
     if ($linhvuc != null) {
         foreach ($m_user as $user) {
             $per = json_decode($user->permission, true);
+            //dd($per);
             if (
                 isset($per[$linhvuc]['hoso']['approve']) && $per[$linhvuc]['hoso']['approve'] == '1'
                 && in_array('NHAPLIEU', explode(';', $user->chucnang))
@@ -320,6 +324,7 @@ function getDonViNhapLieu($level, $linhvuc = null)
             }
         }
     }
+
     //dd($ketqua);
     // if ($linhvuc != null && count($ketqua) == 0) {
     //     $message = 'Chưa có đơn vị nào được phân quyền nhập liệu cho chức năng: ' . session('admin')['a_chucnang'][$linhvuc]
