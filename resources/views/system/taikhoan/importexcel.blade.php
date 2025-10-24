@@ -42,7 +42,7 @@
                 <div class="portlet-body form">
                     <!-- BEGIN FORM -->
                     {!! Form::open(['url'=>$inputs['url'].'/create_excel', 'method'=>'post' , 'files'=>true, 'id' => 'create_hscb','enctype'=>'multipart/form-data']) !!}
-                        <input type="hidden" name="madv" value="{{$inputs['madv']}}">
+                        {{-- <input type="hidden" name="madv" value="{{$inputs['madv']}}"> --}}
                         <div class="form-body">
                             <!-- Thông tin chung-->
                             <div class="row">
@@ -75,8 +75,8 @@
 
                                                 <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label class="control-label">Chức năng<span class="require">*</span></label>
-                                                        {!!Form::text('chucnang', 'E', array('id' => 'chucnang','class' => 'form-control','required'))!!}
+                                                        <label class="control-label">Mã đơn vị<span class="require">*</span></label>
+                                                        {!!Form::text('madv', 'E', array('id' => 'madv','class' => 'form-control','required'))!!}
                                                     </div>
                                                 </div>
                                             </div>
@@ -110,7 +110,7 @@
                 </div>
             </div>
             <div class="col-md-12" style="text-align: center">
-                <a href="{{url($inputs['url'].'?madv='.$inputs['madv'])}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                <a href="{{url($inputs['url'])}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                 <button type="reset" class="btn default"><i class="fa fa-refresh"></i> Tải lại</button>
                 <button type="submit" class="btn green" onclick="ClickCreate()" id="submitform" name="submitform"><i class="fa fa-plus"></i> Nhận dữ liệu</button>
             </div>

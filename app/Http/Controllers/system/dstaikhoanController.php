@@ -25,9 +25,21 @@ class dstaikhoanController extends Controller
             }
             $inputs = $request->all();
             if(session('admin')->level == 'SSA' || session('admin')->level == 'ADMIN'){
-                $m_diaban = dsdiaban::all();
+                $m_diaban = dsdiaban::orderByRaw("
+                    CASE 
+                        WHEN level = 'ADMIN' THEN 1
+                        WHEN level = 'T' THEN 2
+                        ELSE 3
+                    END
+                ")->get();
             }else{
-                $m_diaban = dsdiaban::where('madiaban',session('admin')->madiaban)->get();
+                $m_diaban = dsdiaban::where('madiaban',session('admin')->madiaban)->orderByRaw("
+                    CASE 
+                        WHEN level = 'ADMIN' THEN 1
+                        WHEN level = 'T' THEN 2
+                        ELSE 3
+                    END
+                ")->get();
             }
             $m_donvi = dsdonvi::wherein('madiaban',array_column($m_diaban->toarray(),'madiaban'))->get();
             $inputs['madv'] = $inputs['madv'] ??  $m_donvi->first()->madv;
@@ -499,7 +511,8 @@ class dstaikhoanController extends Controller
             $inputs["name"] = ord($inputs["name"]) - 65;
             $inputs["username"] = ord($inputs['username']) - 65;
             $inputs["password"] = ord($inputs['password']) - 65;
-            $inputs["chucnang"] = ord($inputs["chucnang"]) - 65;
+            $inputs["madv"] = ord($inputs["madv"]) - 65;
+
             $file = $request->file('fexcel');
 
             $dataObj = new ColectionImport();
@@ -518,16 +531,14 @@ class dstaikhoanController extends Controller
                 if (!isset($data[$i][$inputs['password']])) {
                     continue; 
                 }
-                if (!isset($data[$i][$inputs['chucnang']])) {
+                if (!isset($data[$i][$inputs['madv']])) {
                     continue; 
                 }
-
                 $a_dm[] = array(
-                    'madv' => $inputs['madv'],
+                    'madv' => $data[$i][$inputs['madv']] ?? '',
                     'name' => $data[$i][$inputs['name']] ?? '',
                     'username' => chuanhoachuoi($data[$i][$inputs['username']]) ?? '',
                     'password' => md5($data[$i][$inputs['password']] ?? ''),
-                    'chucnang' => $data[$i][$inputs['chucnang']] ?? '',
                     'status' => 'Kích hoạt',
                 );
             }

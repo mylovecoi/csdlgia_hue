@@ -23,9 +23,21 @@ class dsdonviController extends Controller
             //Tài khoản SSA; ADMIN => load toàn bộ địa bàn
             //Tài khoản # chỉ load các đơn vị trong địa bàn của mình
             if(session('admin')->level == 'SSA' || session('admin')->level == 'ADMIN'){
-                $m_diaban = dsdiaban::all();
+                $m_diaban = dsdiaban::orderByRaw("
+                    CASE 
+                        WHEN level = 'ADMIN' THEN 1
+                        WHEN level = 'T' THEN 2
+                        ELSE 3
+                    END
+                ")->get();
             }else{
-                $m_diaban = dsdiaban::where('madiaban',session('admin')->madiaban)->get();
+                $m_diaban = dsdiaban::where('madiaban',session('admin')->madiaban)->orderByRaw("
+                    CASE 
+                        WHEN level = 'ADMIN' THEN 1
+                        WHEN level = 'T' THEN 2
+                        ELSE 3
+                    END
+                ")->get();
             }
             $inputs = $request->all();
             $inputs['madiaban'] = $inputs['madiaban'] ??  $m_diaban->first()->madiaban;
