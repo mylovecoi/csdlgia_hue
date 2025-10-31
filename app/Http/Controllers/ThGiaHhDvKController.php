@@ -425,7 +425,7 @@ class ThGiaHhDvKController extends Controller
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            //            dd($inputs);
+            //dd($inputs['madv']);
             $m_dv = dsdonvi::where('madv', $inputs['madv'])->first();
             $m_hs = ThGiaHhDvK::where('mahs', $inputs['mahs'])->first();
 

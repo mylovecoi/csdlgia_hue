@@ -94,8 +94,43 @@
         </tr>
     </table>
     <p style="text-align: center; font-weight: bold; font-size: 16px;">BẢNG KÊ KHAI MỨC GIÁ</p>
-    <p style="text-align: center;;font-style: italic">(Kèm theo công văn số {{$modelkk->socv}}  ngày {{ date("d",strtotime($modelkk->ngaynhap))}} tháng {{ date("m",strtotime($modelkk->ngaynhap))}} năm {{ date("Y",strtotime($modelkk->ngaynhap))}} của {{$modeldn->tendn}})</p>
-    <p>1. Mức giá kê khai bán trong nước hoặc xuất khẩu (bán buôn, bán lẻ):  Các mức giá tại cửa kho/ nhà máy, tại các địa bàn, khu vực khác (nếu có)</p>
+    <p style="text-align: center;;font-style: italic">(Kèm theo công văn số {{$modelkk->socv}}  ngày {{ date("d",strtotime($modelkk->ngaynhap))}} tháng {{ date("m",strtotime($modelkk->ngaynhap))}} năm {{ date("Y",strtotime($modelkk->ngaynhap))}} của {{$modeldn->tendn}} về việc kê khai giá hàng hóa, dịch vụ bán trong nước hoặc xuất khẩu)</p>
+    <p>1. Mức giá kê khai bán trong nước</p>
+    <table cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;" id="data" style="font:normal 14px Times, serif;">
+        <thead>
+        <tr>
+            <th width="2%">STT</th>
+            <th>Tên hàng hóa, dịch vụ</th>
+            <th>Đặc điểm kinh tế - <br>kỹ thuật, quy cách</th>
+            <th>Đơn vị<br>tính</th>
+            <th>Loại giá<br>(bán buôn, bán lẻ)</th>
+            <th width="10%">Giá kê khai kỳ liền kề trước<br> (kèm số văn bản kê khai)</th>
+            <th width="10%">Giá kê khai<br> kỳ này</th>
+            <th>Thời điểm định giá,<br> điều chỉnh giá</th>
+            <th>Mức tăng/ giảm so với<br> kỳ liền kề trước</th>
+            <th>Tỷ lệ tăng/ giảm so với<br> kỳ liền kề trước</th>
+            <th>Ghi chú</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($modelkkct as $key=>$tt)
+            <tr>
+                <td style="text-align: center">{{$key+1}}</td>
+                <td>{{$tt->tendvcu}}</td>
+                <td>{{$tt->qccl}}</td>
+                <td style="text-align: center">{{$tt->dvt}}</td>
+                <td style="text-align: center"></td>
+                <td style="text-align: right">{{number_format($tt->gialk)}}</td>
+                <td style="text-align: right">{{number_format($tt->giakk)}}</td>
+                <td style="text-align: center"></td>
+                <td style="text-align: right">{{number_format($tt->giakk - $tt->gialk)}}</td>
+                <td style="text-align: right">{{$tt->gialk == 0 ? '100' : number_format(($tt->giakk - $tt->gialk)/$tt->gialk*100)}}%</td>
+                <td>{{$tt->ghichu}}</td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
+    <p>2. Mức giá kê khai bán xuất khẩu</p>
     <table cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;" id="data" style="font:normal 14px Times, serif;">
         <thead>
         <tr>
@@ -113,7 +148,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($modelkkct as $key=>$tt)
+        {{-- @foreach($modelkkct as $key=>$tt)
             <tr>
                 <td style="text-align: center">{{$key+1}}</td>
                 <td>{{$tt->tendvcu}}</td>
@@ -127,12 +162,12 @@
                 <td style="text-align: right">{{$tt->gialk == 0 ? '100' : number_format(($tt->giakk - $tt->gialk)/$tt->gialk*100)}}%</td>
                 <td>{{$tt->ghichu}}</td>
             </tr>
-        @endforeach
+        @endforeach --}}
         </tbody>
     </table>
-    <p>2. Phân tích nguyên nhân điều chỉnh giá bán giữa lần kê khai giá kỳ này so với kỳ liền kề trước:
+    <p>3. Phân tích nguyên nhân điều chỉnh giá bán giữa lần kê khai giá kỳ này so với kỳ liền kề trước:
         nêu cụ thể nguyên nhân do biến động của các yếu tố hình thành giá và các nguyên nhân khác tác động làm
         tăng hoặc giảm giá hàng hóa, dịch vụ.</p>
-    <p>3. Ghi rõ mức thuế giá trị gia tăng đã bao gồm trong giá.</p>
+    <p>4. Ghi rõ mức thuế giá trị gia tăng đã bao gồm trong giá.</p>
 
 @stop

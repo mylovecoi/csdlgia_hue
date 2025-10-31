@@ -104,6 +104,9 @@ class KkGiaThanController extends Controller
             $model = $model->orderby('ngaynhap')->get();
 
             $m_donvi_th = getDonViTongHop_dn('than', session('admin')->level, session('admin')->madiaban);
+            //dd($m_donvi_th);
+            //dd(session('admin')->level);
+            //dd(session('admin')->madiaban);
 
             return view('manage.kkgia.than.kkgia.kkgiadv.index')
                 ->with('model', $model)

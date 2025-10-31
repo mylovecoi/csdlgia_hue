@@ -1,8 +1,7 @@
 @extends('main')
 
 @section('custom-style')
-    <link rel="stylesheet" type="text/css"
-        href="{{ url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url('assets/global/plugins/select2/select2.css') }}" />
     <!-- END THEME STYLES -->
 @stop
@@ -47,15 +46,15 @@
 
         });  
         
-        function confirmNhanHs(mahs) {
+        function NhanHs(mahs) {
+            //alert(mahs);
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            //alert(id);
             $.ajax({
                 url: '/xetduyetgiaxmtxd/ttnhanhs',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,
-                    mahs: mahs
+                    mahs: mahs,
                 },
                 dataType: 'JSON',
                 success: function(data) {
@@ -206,19 +205,13 @@
                                                 @endif
                                             @else
                                                 @if ($tt->trangthai == 'CD')
-                                                    <button type="button" onclick="confirmNhanHs('{{ $tt->mahs }}')"
+                                                    <button type="button" onclick="NhanHs('{{ $tt->mahs }}')"
                                                         class="btn btn-default btn-xs mbs" data-target="#nhanhs-modal"
                                                         data-toggle="modal"><i class="fa fa-share"></i>&nbsp;
-                                                        Nhận hồ sơ</button>
+                                                        Nhận hồ sơ
+                                                    </button>
                                                 @endif
 
-                                                {{-- @if (in_array($tt->trangthai, ['CD', 'DD', 'BTL']))
-                                                    <button type="button"
-                                                        onclick="ClickTraLai('{{ $tt->id }}','{{ $tt->madv }}')"
-                                                        class="btn btn-default btn-xs mbs" data-target="#tralai-modal"
-                                                        data-toggle="modal"><i class="fa fa-reply"></i>&nbsp;
-                                                        Trả lại</button>
-                                                @endif --}}
                                                 @if (in_array($tt->trangthai, ['CD', 'DD', 'BTL']))
                                                     <button type="button"
                                                         onclick="ClickTraLai('{{ $tt->id }}','{{$inputs['url'].'/tralai'}}','{{ $tt->madv }}')"
@@ -284,8 +277,7 @@
         </div>
 
         <!--Model nhận hs-->
-        <div class="modal fade" id="nhanhs-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="nhanhs-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     {!! Form::open(['url' => 'xetduyetgiaxmtxd/nhanhs', 'id' => 'frm_nhanhs']) !!}

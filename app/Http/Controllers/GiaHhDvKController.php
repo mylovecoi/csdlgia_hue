@@ -283,7 +283,8 @@ class GiaHhDvKController extends Controller
                 // GiaHhDvKCt::insert($a_dm);
                 $modelct = GiaHhDvKCt::where('mahs', $model->mahs)->get();
                 if ($m_lk != null) {
-                    $modelct = GiaHhDvKCt::where('mahs', $m_lk->mahs)->where('gia', '>', 0)->get();
+                    // $modelct = GiaHhDvKCt::where('mahs', $m_lk->mahs)->where('gia', '>', 0)->get();
+                    $modelct = GiaHhDvKCt::where('mahs', $m_lk->mahs)->get();
                 }
                 //dd($modelct);
                 $a_diaban = array_column(dsdiaban::where('madiaban', $inputs['madiaban'])->get()->toarray(), 'tendiaban', 'madiaban');
@@ -381,13 +382,14 @@ class GiaHhDvKController extends Controller
             $a_tt = array_column(NhomHhDvK::where('matt', $model->matt)->get()->toarray(), 'tentt', 'matt');
             $a_dm = array_column(DmHhDvK::where('matt', $model->matt)->get()->toarray(), 'tenhhdv', 'mahhdv');
             $m_dv = dsdonvi::where('madv', $model->madv)->first();
+            //dd($m_dv);
             $a_nhomhhdv = array_column(DmNhomHangHoa::where('phanloai', 'GIAHHDVK')->get()->toarray(), 'tennhom', 'manhom');
             foreach ($modelct as $ct) {
                 $ct->manhom = $a_dmhhdv[$ct->mahhdv] ?? '';
             }
             //dd($a_tt);
-            // $a_dvt = array_column(dmdvt::all()->toArray(), 'dvt', 'madvt');
-            return view('manage.dinhgia.giahhdvk.reports.prints')
+            //$a_dvt = array_column(dmdvt::all()->toArray(), 'dvt', 'madvt');
+            return view('manage.dinhgia.giahhdvk.reports.tt29')
                 ->with('model', $model)
                 ->with('modelct', $modelct)
                 ->with('m_dv', $m_dv)
