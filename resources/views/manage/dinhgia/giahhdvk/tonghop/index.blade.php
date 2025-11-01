@@ -138,6 +138,8 @@
                                         @endif
                                     </td>
                                     <td>
+                                        <a href="{{url($inputs['url'].'/tonghop/chitiet?mahs='.$ct->mahs)}}" class="btn btn-default btn-xs mbs" target="_blank">
+                                            <i class="fa fa-eye"></i>&nbsp;Chi tiết</a>
                                         <a href="{{ url($inputs['url'] . '/tonghop/edit?mahs=' . $ct->mahs) }}"
                                             class="btn btn-default btn-xs mbs">
                                             <i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>

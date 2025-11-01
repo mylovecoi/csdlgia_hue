@@ -13,6 +13,7 @@ use App\Model\system\dsdonvi;
 use App\Model\system\view_dsdiaban_donvi;
 use App\Model\view\view_thgiahhdvk;
 use App\NhomHhDvK;
+use App\DmNhomHangHoa;
 use App\ThGiaHhDvK;
 use App\ThGiaHhDvKCt;
 use App\ThGiaHhDvKCtDf;
@@ -202,43 +203,78 @@ class ThGiaHhDvKController extends Controller
             return view('errors.notlogin');
     }
 
-    public function show($id)
+    // public function show($id)
+    // {
+    //     if (Session::has('admin')) {
+    //         if (session('admin')->level == 'T' || session('admin')->level == 'H') {
+    //             $model = ThGiaHhDvK::findOrFail($id);
+    //             $modelct = ThGiaHhDvKCt::where('mahs', $model->mahs)
+    //                 ->get();
+    //             $modelnhom = NhomHhDvK::where('matt', $model->matt)->first();
+    //             $modelgr = ThGiaHhDvKCt::where('mahs', $model->mahs)
+    //                 ->select('manhom', 'nhom')
+    //                 ->groupBy('manhom', 'nhom')
+    //                 ->get();
+    //             if (session('admin')->level == 'T') {
+    //                 $inputs['dvcaptren'] = getGeneralConfigs()['tendvcqhienthi'];
+    //                 $inputs['dv'] = getGeneralConfigs()['tendvhienthi'];
+    //                 $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
+    //             } elseif (session('admin')->level == 'H') {
+    //                 $modeldv = District::where('mahuyen', session('admin')->mahuyen)->first();
+    //                 $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
+    //                 $inputs['dv'] = $modeldv->tendvhienthi;
+    //                 $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
+    //             } else {
+    //                 $modeldv = Town::where('maxa', session('admin')->maxa)
+    //                     ->where('mahuyen', session('admin')->mahuyen)->first();
+    //                 $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
+    //                 $inputs['dv'] = $modeldv->tendvhienthi;
+    //                 $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
+    //             }
+    //             return view('manage.dinhgia.giahhdvk.tonghop.show')
+    //                 ->with('modelct', $modelct)
+    //                 ->with('modelnhom', $modelnhom)
+    //                 ->with('model', $model)
+    //                 ->with('inputs', $inputs)
+    //                 ->with('modelgr', $modelgr)
+    //                 ->with('pageTitle', 'Tổng hợp giá hàng hóa dịch vụ khác');
+    //         } else
+    //             return view('errors.perm');
+    //     } else
+    //         return view('errors.notlogin');
+    // }
+
+    public function show(Request $request)
     {
         if (Session::has('admin')) {
-            if (session('admin')->level == 'T' || session('admin')->level == 'H') {
-                $model = ThGiaHhDvK::findOrFail($id);
-                $modelct = ThGiaHhDvKCt::where('mahs', $model->mahs)
-                    ->get();
-                $modelnhom = NhomHhDvK::where('matt', $model->matt)->first();
-                $modelgr = ThGiaHhDvKCt::where('mahs', $model->mahs)
-                    ->select('manhom', 'nhom')
-                    ->groupBy('manhom', 'nhom')
-                    ->get();
-                if (session('admin')->level == 'T') {
-                    $inputs['dvcaptren'] = getGeneralConfigs()['tendvcqhienthi'];
-                    $inputs['dv'] = getGeneralConfigs()['tendvhienthi'];
-                    $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-                } elseif (session('admin')->level == 'H') {
-                    $modeldv = District::where('mahuyen', session('admin')->mahuyen)->first();
-                    $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                    $inputs['dv'] = $modeldv->tendvhienthi;
-                    $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-                } else {
-                    $modeldv = Town::where('maxa', session('admin')->maxa)
-                        ->where('mahuyen', session('admin')->mahuyen)->first();
-                    $inputs['dvcaptren'] = $modeldv->tendvcqhienthi;
-                    $inputs['dv'] = $modeldv->tendvhienthi;
-                    $inputs['diadanh'] = getGeneralConfigs()['diadanh'];
-                }
-                return view('manage.dinhgia.giahhdvk.tonghop.show')
-                    ->with('modelct', $modelct)
-                    ->with('modelnhom', $modelnhom)
-                    ->with('model', $model)
-                    ->with('inputs', $inputs)
-                    ->with('modelgr', $modelgr)
-                    ->with('pageTitle', 'Tổng hợp giá hàng hóa dịch vụ khác');
-            } else
-                return view('errors.perm');
+            $inputs = $request->all();
+            //dd($inputs);
+            $model = ThGiaHhDvK::where('mahs', $inputs['mahs'])->first();
+            $modelct = view_thgiahhdvk::where('mahs', $model->mahs)->where(function ($qr) {
+                $qr->where('gia', '>', '0')->orwhere('gialk', '>', '0');
+            })->orderby('mahhdv')->get();
+            $a_dmhhdv = array_column(DmHhDvK::where('matt', $model->matt)->get()->toarray(), 'manhom', 'mahhdv');
+            $a_diaban = array_column(dsdiaban::where('madiaban', $model->madiaban)->get()->toarray(), 'tendiaban', 'madiaban');
+            $a_tt = array_column(NhomHhDvK::where('matt', $model->matt)->get()->toarray(), 'tentt', 'matt');
+            $a_dm = array_column(DmHhDvK::where('matt', $model->matt)->get()->toarray(), 'tenhhdv', 'mahhdv');
+            $m_dv = dsdonvi::where('madv', $model->madv)->first();
+            //dd($m_dv);
+            $a_nhomhhdv = array_column(DmNhomHangHoa::where('phanloai', 'GIAHHDVK')->get()->toarray(), 'tennhom', 'manhom');
+            foreach ($modelct as $ct) {
+                $ct->manhom = $a_dmhhdv[$ct->mahhdv] ?? '';
+            }
+            //dd($a_tt);
+            //$a_dvt = array_column(dmdvt::all()->toArray(), 'dvt', 'madvt');
+            return view('manage.dinhgia.giahhdvk.tonghop.tt29')
+                ->with('model', $model)
+                ->with('modelct', $modelct)
+                ->with('m_dv', $m_dv)
+                ->with('a_diaban', $a_diaban)
+                ->with('a_nhomhhdv', $a_nhomhhdv)
+                ->with('a_tt', $a_tt)
+                ->with('a_dm', $a_dm)
+                ->with('inputs', $inputs)
+                ->with('pageTitle', 'Tổng hợp giá hàng hóa dịch vụ khác chi tiết');
         } else
             return view('errors.notlogin');
     }
