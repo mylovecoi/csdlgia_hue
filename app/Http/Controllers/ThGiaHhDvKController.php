@@ -39,6 +39,7 @@ class ThGiaHhDvKController extends Controller
                 $inputs['phanloai'] = 'thang';
                 $m_nhom = NhomHhDvK::where('theodoi', 'TD')->get();
                 $inputs['matt'] = isset($inputs['matt']) ? $inputs['matt'] : $m_nhom->first()->matt;
+                //dd(session('admin')->madiaban);
                 $m_hoso = GiaHhDvK::where('matt', $inputs['matt'])
                     ->where('trangthai', 'HT');
                 $model = ThGiaHhDvK::where('nam', $inputs['nam'])
@@ -400,8 +401,10 @@ class ThGiaHhDvKController extends Controller
                     $a_dm[] = [
                         'mahs' => $model->mahs,
                         'mahhdv' => $dm->mahhdv,
-                        'gia' => getDbl($modelcthskk->where('mahhdv', $dm->mahhdv)->avg('gia')),
-                        'gialk' => getDbl($modelcthskk->where('mahhdv', $dm->mahhdv)->avg('gialk')),
+                        // 'gia' => getDbl($modelcthskk->where('mahhdv', $dm->mahhdv)->avg('gia')),
+                        // 'gialk' => getDbl($modelcthskk->where('mahhdv', $dm->mahhdv)->avg('gialk')),
+                        'gia' => preg_replace('/[^\d\.-]/', '', getDbl($modelcthskk->where('mahhdv', $dm->mahhdv)->avg('gia'))),
+                        'gialk' => preg_replace('/[^\d\.-]/', '', getDbl($modelcthskk->where('mahhdv', $dm->mahhdv)->avg('gialk'))),
                         //'gialk' => $a_ctlk[$dm->mahhdv] ?? 0,
                     ];
                 }
@@ -456,13 +459,16 @@ class ThGiaHhDvKController extends Controller
             }
             // GiaHhDvKCt::insert($a_dm);
             $model->save();
+
+            $m_hs->trangthai = 'HT';
+            $m_hs->save();
+
             return view('errors.success')
                 ->with('message', 'Tạo mới hồ sơ kê khai từ số liệu tổng hợp thành công.')
                 ->with('url', '/giahhdvk/tonghop?thang=' . $model->thang . '&nam=' . $model->nam);
         } else
             return view('errors.notlogin');
     }
-
 
     public function tonghopthang(Request $request)
     {
@@ -628,7 +634,7 @@ class ThGiaHhDvKController extends Controller
             $model = ThGiaHhDvK::findOrFail($id);
             $model->trangthai = 'CHT';
             $model->save();
-            return redirect('tonghopgiahhdvk?&matt=' . $model->matt . '&nam=' . $model->nam . '&phanloai=' . $model->phanloai);
+            return redirect('giahhdvk/tonghop?&matt=' . $model->matt);
         } else
             return view('errors.notlogin');
     }

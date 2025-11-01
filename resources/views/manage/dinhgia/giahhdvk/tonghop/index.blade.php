@@ -178,10 +178,19 @@
                                                 </ul>
                                             </div>
                                         @endif
-                                        <button type="button" onclick="setHoSo('{{ $ct->mahs }}')"
-                                            class="btn btn-default btn-xs mbs" data-target="#taohoso-modal-confirm"
-                                            data-toggle="modal">
-                                            <i class="fa glyphicon glyphicon-floppy-open"></i>&nbsp;Tạo hồ sơ</button>
+                                        @if ($ct->trangthai == 'HT')
+                                            <button type="button"
+                                                onclick="confirmHuyHoanThanh('{{ $ct->id }}','{{ $inputs['url'] . '/tonghop/huyhoanthanh' }}')"
+                                                class="btn btn-default btn-xs mbs" data-target="#huyhoanthanh-modal-confirm"
+                                                data-toggle="modal">
+                                                <i class="fa fa-refresh"></i>&nbsp;Hủy hoàn thành</button>
+                                        @endif
+                                        @if ($ct->trangthai != 'HT')
+                                            <button type="button" onclick="setHoSo('{{ $ct->mahs }}')"
+                                                class="btn btn-default btn-xs mbs" data-target="#taohoso-modal-confirm"
+                                                data-toggle="modal">
+                                                <i class="fa glyphicon glyphicon-floppy-open"></i>&nbsp;Tạo hồ sơ</button>
+                                        @endif
                                         <button type="button"
                                             onclick="confirmDelete('{{ $ct->mahs }}','{{ $inputs['url'] . '/tonghop/delete' }}')"
                                             class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm"
@@ -233,18 +242,34 @@
                         <div class="form-group">
                             <div class="col-md-12">
                                 <label>Theo thông tư quyết định</label>
-                                {!! Form::select('matt', $a_tt, $inputs['matt'], ['class' => 'form-control']) !!}
+                                {{-- {!! Form::select('matt', $a_tt, $inputs['matt'], ['class' => 'form-control']) !!} --}}
+                                {!! Form::select('matt', $a_tt, $inputs['matt'], [
+                                    'id' => 'matt',
+                                    'class' => 'form-control',
+                                    'disabled' => 'disabled',
+                                ]) !!}
+                                {!! Form::hidden('matt', $inputs['matt']) !!}
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-6">
                                 <label>Tháng</label>
-                                {!! Form::select('thang', getThang(true), $inputs['thang'], ['id' => 'thang', 'class' => 'form-control']) !!}
+                                {!! Form::select('thang', getThang(true), $inputs['thang'], [
+                                    'id' => 'thang',
+                                    'class' => 'form-control',
+                                    'disabled' => 'disabled',
+                                ]) !!}
+                                {!! Form::hidden('thang', $inputs['thang']) !!}
                             </div>
 
                             <div class="col-md-6">
                                 <label>Năm</label>
-                                {!! Form::select('nam', getNam(true), $inputs['nam'], ['id' => 'nam', 'class' => 'form-control']) !!}
+                                {!! Form::select('nam', getNam(true), $inputs['nam'], [
+                                    'id' => 'nam',
+                                    'class' => 'form-control',
+                                    'disabled' => 'disabled',
+                                ]) !!}
+                                {!! Form::hidden('nam', $inputs['nam']) !!}
                             </div>
                         </div>
 
@@ -317,6 +342,26 @@
         {!! Form::close() !!}
     </div>
 
+    <div id="huyhoanthanh-modal-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+        {!! Form::open(['url' => $inputs['url'] . '/tonghop/huyhoanthanh', 'id' => 'frm_huyhoanthanh']) !!}
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                    <h4 id="modal-header-primary-label" class="modal-title">Hủy hoàn thành hồ sơ</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="" name="idhuyhoanthanh" id="idhuyhoanthanh">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
+                    <button type="submit" class="btn btn-primary" onclick="clickHuyHoanThanh()">Đồng ý</button>
+                </div>
+            </div>
+        </div>
+        {!! Form::close() !!}
+    </div>
+
     <script>
         function setHoSo(mahs, url) {
             $('#frm_taohoso').find("[id='mahs']").val(mahs);
@@ -325,9 +370,18 @@
         // function clickdelete(){
         //     $('#frm_delete').submit();
         // }
+
+        function confirmHuyHoanThanh(id,url) {
+            $('#frm_huyhoanthanh').attr('action', url);
+            $('#frm_huyhoanthanh').find("[id='idhuyhoanthanh']").val(id);
+        }
+
+        function clickHuyHoanThanh(){
+            $('#frm_huyhoanthanh').submit();
+        }
     </script>
 
     @include('manage.include.form.modal_del_hs')
     @include('manage.include.form.modal_ketnoi_api')
-    
+
 @stop

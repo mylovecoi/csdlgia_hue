@@ -144,7 +144,7 @@
                         <input type="hidden" name="madv" id="madv" value="{{$model->madv}}">
                         <input type="hidden" name="thang" id="thang" value="{{$model->thang}}">
                         <input type="hidden" name="nam" id="nam" value="{{$model->nam}}">
-                        <input type="hidden" name="madiaban" id="madiaban" value="{{$model->madiaban}}">
+                        <input type="" name="madiaban" id="madiaban" value="{{$model->madiaban}}">
 
                         @if(in_array($model->trangthai, ['CHT', 'HHT']))
                             <div class="row">
