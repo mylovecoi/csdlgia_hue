@@ -12,13 +12,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Thông tin lĩnh vực kinh doanh</h4>
+                <h4 class="modal-title">Thông tin hàng hóa dịch vụ</h4>
             </div>
             <div class="modal-body" id="ttmhbog">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label class="control-label">Ngành - Nghề</label>
+                            <label class="control-label">Hàng hóa dịch vụ</label>
                             <select class="form-control select2me" name="manghe" id="manghe">
                                 @foreach ($m_nganh as $nganh)
                                     <optgroup label="{{ $nganh->tennganh }}">

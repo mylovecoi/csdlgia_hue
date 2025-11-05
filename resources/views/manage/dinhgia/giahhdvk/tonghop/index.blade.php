@@ -76,9 +76,11 @@
                     <div class="caption">
                     </div>
                     <div class="actions">
-                        <button type="button" class="btn btn-default btn-sm" data-target="#createthang-modal-confirm"
+                        @if(($inputs['thang'] != 'all' && $inputs['nam'] != 'all'))
+                            <button type="button" class="btn btn-default btn-sm" data-target="#createthang-modal-confirm"
                             data-toggle="modal">
                             <i class="fa fa-plus"></i>&nbsp;Tổng hợp tháng</button>
+                        @endif
                     </div>
                 </div>
                 <hr>
@@ -128,7 +130,7 @@
                                     <td style="text-align: center">{{ $ct->sobc }}</td>
                                     <td style="text-align: center">
                                         @if ($ct->trangthai == 'HT')
-                                            <span class="badge badge-warning">Hoàn thành</span>
+                                            <span class="badge badge-primary">Hoàn thành</span>
                                         @elseif($ct->trangthai == 'CHT')
                                             <span class="badge badge-danger">Chưa hoàn thành</span>
                                         @elseif($ct->trangthai == 'HHT')
@@ -138,18 +140,30 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{url($inputs['url'].'/tonghop/chitiet?mahs='.$ct->mahs)}}" class="btn btn-default btn-xs mbs" target="_blank">
+                                        <a href="{{ url($inputs['url'] . '/tonghop/chitiet?mahs=' . $ct->mahs) }}"
+                                            class="btn btn-default btn-xs mbs" target="_blank">
                                             <i class="fa fa-eye"></i>&nbsp;Chi tiết</a>
-                                        <a href="{{ url($inputs['url'] . '/tonghop/edit?mahs=' . $ct->mahs) }}"
-                                            class="btn btn-default btn-xs mbs">
-                                            <i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
-                                        <a href="{{ url($inputs['url'] . '/tonghop/exportXML?mahs=' . $ct->mahs) }}"
-                                            class="btn btn-default btn-xs mbs">
-                                            <i class="fa fa-file-code-o"></i>&nbsp;Xuất file XML</a>
-                                        <a href="{{ url($inputs['url'] . '/tonghop/exportEx?mahs=' . $ct->mahs) }}"
-                                            class="btn btn-default btn-xs mbs">
-                                            <i class="fa fa-file-code-o"></i>&nbsp;Xuất file Excel</a>
-                                        @if (chkPer('csdlmucgiahhdv', 'hhdv', 'giahhdvk', 'khac', 'api') && session('admin')->phanloaiketnoi != 'KHONGKETNOI')
+                                        @if ($ct->trangthai != 'HT')
+                                            <a href="{{ url($inputs['url'] . '/tonghop/edit?mahs=' . $ct->mahs) }}"
+                                                class="btn btn-default btn-xs mbs">
+                                                <i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
+                                            <a href="{{ url($inputs['url'] . '/tonghop/exportXML?mahs=' . $ct->mahs) }}"
+                                                class="btn btn-default btn-xs mbs">
+                                                <i class="fa fa-file-code-o"></i>&nbsp;Xuất file XML</a>
+                                            <a href="{{ url($inputs['url'] . '/tonghop/exportEx?mahs=' . $ct->mahs) }}"
+                                                class="btn btn-default btn-xs mbs">
+                                                <i class="fa fa-file-code-o"></i>&nbsp;Xuất file Excel</a>
+                                            <button type="button" onclick="setHoSo('{{ $ct->mahs }}')"
+                                                class="btn btn-default btn-xs mbs" data-target="#taohoso-modal-confirm"
+                                                data-toggle="modal">
+                                                <i class="fa glyphicon glyphicon-floppy-open"></i>&nbsp;Tạo hồ sơ</button>
+                                            <button type="button"
+                                                onclick="confirmDelete('{{ $ct->mahs }}','{{ $inputs['url'] . '/tonghop/delete' }}')"
+                                                class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm"
+                                                data-toggle="modal">
+                                                <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
+                                        @endif
+                                        {{-- @if (chkPer('csdlmucgiahhdv', 'hhdv', 'giahhdvk', 'khac', 'api') && session('admin')->phanloaiketnoi != 'KHONGKETNOI')
                                             <div class="btn-group btn-group-solid">
                                                 <button type="button" class="btn btn-default dropdown-toggle btn-xs"
                                                     data-toggle="dropdown" aria-expanded="false">
@@ -186,19 +200,7 @@
                                                 class="btn btn-default btn-xs mbs" data-target="#huyhoanthanh-modal-confirm"
                                                 data-toggle="modal">
                                                 <i class="fa fa-refresh"></i>&nbsp;Hủy hoàn thành</button>
-                                        @endif
-                                        @if ($ct->trangthai != 'HT')
-                                            <button type="button" onclick="setHoSo('{{ $ct->mahs }}')"
-                                                class="btn btn-default btn-xs mbs" data-target="#taohoso-modal-confirm"
-                                                data-toggle="modal">
-                                                <i class="fa glyphicon glyphicon-floppy-open"></i>&nbsp;Tạo hồ sơ</button>
-                                        @endif
-                                        <button type="button"
-                                            onclick="confirmDelete('{{ $ct->mahs }}','{{ $inputs['url'] . '/tonghop/delete' }}')"
-                                            class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm"
-                                            data-toggle="modal">
-                                            <i class="fa fa-trash-o"></i>&nbsp;Xóa</button>
-
+                                        @endif --}}
                                     </td>
                             @endforeach
                         </tbody>
@@ -217,8 +219,7 @@
     @include('includes.e.modal-attackfile')
     <!--Modal Create-->
 
-    <div id="createthang-modal-confirm" tabindex="-1" role="dialog" aria-hidden="true"
-        class="modal fade bs-modal-lg">
+    <div id="createthang-modal-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade bs-modal-lg">
         {!! Form::open([
             'url' => $inputs['url'] . '/tonghop/createthang',
             'id' => 'frm_createthang',
@@ -373,12 +374,12 @@
         //     $('#frm_delete').submit();
         // }
 
-        function confirmHuyHoanThanh(id,url) {
+        function confirmHuyHoanThanh(id, url) {
             $('#frm_huyhoanthanh').attr('action', url);
             $('#frm_huyhoanthanh').find("[id='idhuyhoanthanh']").val(id);
         }
 
-        function clickHuyHoanThanh(){
+        function clickHuyHoanThanh() {
             $('#frm_huyhoanthanh').submit();
         }
     </script>

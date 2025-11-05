@@ -70,7 +70,7 @@ License: You must have a valid license purchased only from themeforest(the above
     </a-->
         <h2 style="text-transform: uppercase;"><b style="color: white">ĐĂNG KÝ TÀI KHOẢN ĐĂNG NHẬP <br><br>PHẦN MỀM CƠ
                 SỞ DỮ LIỆU VỀ GIÁ
-                {{ isset(getGeneralConfigs()['diadanh']) ?? '' }}</b></h2>
+                {{ getGeneralConfigs()['diadanh'] ?? '' }}</b></h2>
     </div>
     <!-- END LOGO -->
     <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
@@ -174,7 +174,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="col-md-12">
                         <div class="form-group">
                             <button type="button" onclick="add_lvkd()" data-toggle="modal" class="btn btn-default">
-                                <i class="fa fa-plus"></i>&nbsp;Thêm lĩnh vực kinh doanh</button>
+                                <i class="fa fa-plus"></i>&nbsp;Thêm hàng hóa dịch vụ</button>
                         </div>
                     </div>
                 </div>
@@ -184,7 +184,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <thead>
                                 <tr>
                                     <th width="5%" style="text-align: center">STT</th>
-                                    <th style="text-align: center">Tên ngành nghề kinh doanh</th>
+                                    <th style="text-align: center">Tên hàng hóa dịch vụ</th>
                                     <th style="text-align: center">Đơn vị quản lý</th>
                                     <th style="text-align: center">Thao tác</th>
                                 </tr>

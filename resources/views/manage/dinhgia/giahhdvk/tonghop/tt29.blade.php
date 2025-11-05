@@ -5,7 +5,7 @@
     <table id ="data_header" width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:0 auto 20px; text-align: center;">
         <tr>
             <td width="40%">
-                <span style="font-weight: bold">ỦY BAN NHÂN DÂN<br>thành phố Huế</span><br>
+                <span style="font-weight: bold">{{ optional($m_dv)->diadanh ?: '' }}</span><br>
                 <hr style="width: 10%"> <br>
                 Số: {{ $model->soqd }}
             </td>
@@ -13,7 +13,7 @@
                 <b>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM<br>
                     Độc lập - Tự do - Hạnh phúc</b><br>
                 <hr style="width: 15%"><br>
-                <i>{{ optional($m_dv)->diadanh ?: 'Huế' }}, ngày {{ date('d', strtotime($model->thoidiem)) }} tháng
+                <i>{{ optional($m_dv)->diadanh ?: '' }}, ngày {{ date('d', strtotime($model->thoidiem)) }} tháng
                     {{ date('m', strtotime($model->thoidiem)) }} năm {{ date('Y', strtotime($model->thoidiem)) }}</i>
             </td>
         </tr>
