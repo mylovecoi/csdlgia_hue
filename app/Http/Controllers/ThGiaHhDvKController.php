@@ -38,6 +38,7 @@ class ThGiaHhDvKController extends Controller
                 $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
                 //$inputs['phanloai'] = isset($inputs['phanloai']) ? $inputs['phanloai'] : 'thang';
                 $inputs['phanloai'] = 'thang';
+                $inputs['madv'] = session('admin')->madv ?? dsdonvi::first()->madv;
                 $m_nhom = NhomHhDvK::where('theodoi', 'TD')->get();
                 $inputs['matt'] = isset($inputs['matt']) ? $inputs['matt'] : $m_nhom->first()->matt;
                 //dd(session('admin')->madiaban);
@@ -257,7 +258,7 @@ class ThGiaHhDvKController extends Controller
             $a_diaban = array_column(dsdiaban::where('madiaban', $model->madiaban)->get()->toarray(), 'tendiaban', 'madiaban');
             $a_tt = array_column(NhomHhDvK::where('matt', $model->matt)->get()->toarray(), 'tentt', 'matt');
             $a_dm = array_column(DmHhDvK::where('matt', $model->matt)->get()->toarray(), 'tenhhdv', 'mahhdv');
-            $m_dv = dsdonvi::where('madv', $model->madv)->first();
+            $m_dv = dsdonvi::where('madv', $model->madv ?? session('admin')->madv)->first();
             //dd($m_dv);
             $a_nhomhhdv = array_column(DmNhomHangHoa::where('phanloai', 'GIAHHDVK')->get()->toarray(), 'tennhom', 'manhom');
             foreach ($modelct as $ct) {
