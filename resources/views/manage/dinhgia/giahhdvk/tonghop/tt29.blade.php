@@ -5,7 +5,7 @@
     <table id ="data_header" width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:0 auto 20px; text-align: center;">
         <tr>
             <td width="40%">
-                <span style="font-weight: bold">{{ optional($m_dv)->diadanh ?: '' }}</span><br>
+                <span style="font-weight: bold">{{ optional($m_dv)->tendvhienthi ?: '' }}</span><br>
                 <hr style="width: 10%"> <br>
                 Số: {{ $model->soqd }}
             </td>
