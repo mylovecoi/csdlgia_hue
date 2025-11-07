@@ -1,6 +1,5 @@
 <div class="row">
-    @if (chkPer('csdlmucgiahhdv', 'bog', 'bog', 'hoso', 'index') &&
-        (session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA'))
+    {{-- @if (chkPer('csdlmucgiahhdv', 'bog', 'bog', 'hoso', 'index') && (session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA'))
 
         <div class="col-md-6 col-sm-12">
             <div class="portlet light ">
@@ -10,7 +9,7 @@
                             class="caption-subject theme-font-color uppercase">{{ session('admin')['a_chucnang']['bog'] ?? 'Mặt hàng bình ổn giá' }}</span>
                     </div>
                 </div>
-                <?php $i = 1; ?>
+                <php $i = 1; ?>
                 <div class="portlet-body">
                     <table class="dulieubang table table-striped table-bordered">
                         <thead>
@@ -39,17 +38,16 @@
                 </div>
             </div>
         </div>
-    @endif
+    @endif --}}
 
-    @if (chkPer('csdlmucgiahhdv', 'kknygia') &&
-        (session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA'))
+    @if (chkPer('csdlmucgiahhdv', 'kknygia') && (session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA'))
 
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-12 col-sm-12">
             <div class="portlet light ">
                 <div class="portlet-title">
                     <div class="caption caption-md">
                         <span
-                            class="caption-subject theme-font-color uppercase">{{ session('admin')['a_chucnang']['kknygia'] ?? 'Mặt hàng kê khai, đăng ký giá' }}</span>
+                            class="caption-subject theme-font-color uppercase">{{ session('admin')['a_chucnang']['kkdk'] ?? 'Mặt hàng kê khai, đăng ký giá' }}</span>
                     </div>
                 </div>
                 <?php $i = 1; ?>
@@ -63,18 +61,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($a_kekhai as $key => $value)
+                            @if (isset($a_kekhai) && count($a_kekhai) > 0)
+                                @foreach ($a_kekhai as $key => $value)
+                                    <tr>
+                                        <td class="text-center">-</td>
+                                        <td>
+                                            {{-- Kiểm tra url tồn tại --}}
+                                            @if (isset($value['url']))
+                                                <a href="{{ url($value['url'] . '?trangthai=CD') }}">
+                                                    {{ session('admin')['a_chucnang'][$key] ?? $key }}
+                                                </a>
+                                            @else
+                                                {{ session('admin')['a_chucnang'][$key] ?? $key }}
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="badge badge-info">{{ dinhdangso($value['hoso'] ?? 0) }}</span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
                                 <tr>
-                                    <td class="text-center">-</td>
-                                    <td>
-                                        <a
-                                            href="{{ url($value['url'] . '?trangthai=CD') }}">{{ session('admin')['a_chucnang'][$key] ?? $key }}</a>
-                                    </td>
-                                    <td class="text-center">
-                                        <span class="badge badge-info">{{ dinhdangso($value['hoso']) }}</span>
-                                    </td>
+                                    <td colspan="3" class="text-center">Không có dữ liệu</td>
                                 </tr>
-                            @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>

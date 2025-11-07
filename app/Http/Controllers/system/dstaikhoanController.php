@@ -240,7 +240,7 @@ class dstaikhoanController extends Controller
             //dd($model);
             $m_gui = GeneralConfigs::first();
             //$gui = getGiaoDien();
-
+            //dd($m_gui);
             if($m_donvi->chucnang == 'QUANTRI'){
                 $setting['hethong'] = json_decode($m_gui->setting, true)['hethong']?? array();
             }else{
@@ -249,6 +249,7 @@ class dstaikhoanController extends Controller
                 if(isset($setting['hethong'])){unset($setting['hethong']);}
             }
             //dd($setting);
+            
             foreach($per as $key => $val){
                 if(isset($per_user[$key])){
                     $p_u = $per_user[$key];
@@ -265,6 +266,7 @@ class dstaikhoanController extends Controller
             }
 
             //chạy $setting nếu cái nào index = 0 => unset()
+            //dd($setting);
             foreach($setting as $k1 => $v1){
                 if(!isset($v1['index']) || $v1['index'] == '0'){
                     unset($setting[$k1]);

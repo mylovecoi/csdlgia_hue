@@ -48,7 +48,8 @@ License code: PRO4-69G6Q4M-8YGNXX-M2N8-KCHVWYK
     {
         if (Session::has('admin')) {
             $a_giaodien = getGiaoDien();
-            $m_bog = DmNgheKd::where('manganh', 'BOG')->where('theodoi', 'TD')->get();
+            // $m_bog = DmNgheKd::where('manganh', 'BOG')->where('theodoi', 'TD')->get();
+            //dd($a_giaodien);
             $a_kekhai = $a_giaodien['csdlmucgiahhdv']['kknygia'];
             $model = GeneralConfigs::first();
             unset($a_kekhai['index']);
@@ -70,7 +71,7 @@ License code: PRO4-69G6Q4M-8YGNXX-M2N8-KCHVWYK
                             continue;
                         }
                     }
-
+                    //dd($a_kekhai);
                     $a_kekhai[$key]['hoso'] = 0;
                     if ($val['table'] != '') {
                         if($val['table'] == 'ttdntd'){
@@ -87,21 +88,21 @@ License code: PRO4-69G6Q4M-8YGNXX-M2N8-KCHVWYK
                         $a_kekhai[$key]['hoso'] = count($hoso);
                     }
                 }
-                foreach ($m_bog as $bog) {
-                    $bog->hoso = 0;
-                    $sql = session('admin')->level == 'SSA' ? "select macqcq from kkmhbog where trangthai in ('CD') and manghe = '" . $bog->manghe . "'"
-                        : "select macqcq from kkmhbog where trangthai in ('CD') and macqcq='" . session('admin')->madv . "' and manghe = '" . $bog->manghe . "'";
+                // foreach ($m_bog as $bog) {
+                //     $bog->hoso = 0;
+                //     $sql = session('admin')->level == 'SSA' ? "select macqcq from kkmhbog where trangthai in ('CD') and manghe = '" . $bog->manghe . "'"
+                //         : "select macqcq from kkmhbog where trangthai in ('CD') and macqcq='" . session('admin')->madv . "' and manghe = '" . $bog->manghe . "'";
 
-                    $hoso = DB::select($sql);
-                    $bog->hoso = count($hoso);
-                }
+                //     $hoso = DB::select($sql);
+                //     $bog->hoso = count($hoso);
+                // }
             }
 
             //dd(session('admin'));
             return view('dashboard')
                 ->with('model', $model)
                 ->with('a_kekhai', $a_kekhai)
-                ->with('a_bog', $m_bog->keyby('manghe')->toarray())
+                // ->with('a_bog', $m_bog->keyby('manghe')->toarray())
                 ->with('pageTitle', 'Thông tin hỗ trợ');
         } else {
             $ip = $_SERVER['REMOTE_ADDR'];
