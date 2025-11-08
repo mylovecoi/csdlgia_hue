@@ -777,7 +777,9 @@
                     session('admin')->level == 'SSA')
                 <li><a href="{{ url('doanhnghiep/xetduyet') }}"> Xét duyệt thay đổi thông tin doanh nghiệp</a></li>
             @endif
-
+            @if (session('admin')->level != 'DN')
+                <li><a href="{{ url('kkgiand85/danhsach') }}"> Xét duyệt hồ sơ theo NĐ-85</a></li>
+            @endif
             @if (chkPer('csdlmucgiahhdv', 'kknygia'))
                 <li>
                     <a href="javascript:;">

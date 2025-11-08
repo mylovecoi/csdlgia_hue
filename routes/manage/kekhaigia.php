@@ -58,6 +58,11 @@ Route::group(['prefix' => 'dangky'], function () {
     Route::post('tralai', 'Auth\RegisterController@tralai');
     Route::post('kichhoat', 'Auth\RegisterController@kichhoat');
 });
+
+Route::group(['prefix' => 'kkgiand85'], function () {
+    Route::get('danhsach', 'manage\kekhaigia\KkGiaNd85Controller@index');
+});
+
 //DVLT
 include('kkgia/dvlt.php');
 
