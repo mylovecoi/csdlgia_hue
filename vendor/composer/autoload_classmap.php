@@ -6,6 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddFieldToDsdonviTable' => $baseDir . '/database/migrations/2025_11_19_165705_add_field_to_dsdonvi_table.php',
+    'AddFieldToDsdonvidsdiabanTable' => $baseDir . '/database/migrations/2025_11_19_165056_add_field_to_dsdonvidsdiaban_table.php',
     'AddFieldToGiadvdtTable' => $baseDir . '/database/migrations/2025_08_20_161832_add_field_to_giadvdt_table.php',
     'AddFieldToGiahhdvkTable' => $baseDir . '/database/migrations/2025_08_22_095548_add_field_to_giahhdvk_table.php',
     'AddFieldToGiaspdvciTable' => $baseDir . '/database/migrations/2025_08_21_160331_add_field_to_giaspdvci_table.php',
@@ -289,6 +291,7 @@ return array(
     'App\\Http\\Controllers\\manage\\kekhaidkg\\KkDkgCtController' => $baseDir . '/app/Http/Controllers/manage/kekhaidkg/KkDkgCtController.php',
     'App\\Http\\Controllers\\manage\\kekhaidkg\\KkDkgCtDfController' => $baseDir . '/app/Http/Controllers/manage/kekhaidkg/KkDkgCtDfController.php',
     'App\\Http\\Controllers\\manage\\kekhaidkg\\KkDkgXdController' => $baseDir . '/app/Http/Controllers/manage/kekhaidkg/KkDkgXdController.php',
+    'App\\Http\\Controllers\\manage\\kekhaigia\\KkGiaNd85Controller' => $baseDir . '/app/Http/Controllers/manage/kekhaigia/KkGiaNd85Controller.php',
     'App\\Http\\Controllers\\manage\\kekhaigia\\TtDnTdCtController' => $baseDir . '/app/Http/Controllers/manage/kekhaigia/TtDnTdCtController.php',
     'App\\Http\\Controllers\\manage\\kekhaigia\\kkcatsan\\KkGiaCatSanBcController' => $baseDir . '/app/Http/Controllers/manage/kekhaigia/kkcatsan/KkGiaCatSanBcController.php',
     'App\\Http\\Controllers\\manage\\kekhaigia\\kkcatsan\\KkGiaCatSanController' => $baseDir . '/app/Http/Controllers/manage/kekhaigia/kkcatsan/KkGiaCatSanController.php',

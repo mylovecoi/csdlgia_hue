@@ -41,10 +41,8 @@ class dsdonviController extends Controller
             }
             $inputs = $request->all();
             $inputs['madiaban'] = $inputs['madiaban'] ??  $m_diaban->first()->madiaban;
-            //dd($inputs);
             $model = dsdonvi::where('madiaban', $inputs['madiaban'])->get();
-            //dd($model);
-            //dd(getPhanLoaiDonVi());
+
             return view('system.donvi.index')
                 ->with('model', $model)
                 ->with('inputs', $inputs)

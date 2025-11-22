@@ -328,6 +328,15 @@ License: You must have a valid license purchased only from themeforest(the above
                         </li>
                         @include('includes.main.maincsdlmucgiahhdv')
                     @endif
+
+                    @if (chkPer('csdlkkgia'))
+                        <li class="heading">
+                            <h3 class="uppercase">
+                                {{ session('admin')['a_chucnang']['csdlkkgia'] ?? 'CSDL về kê khai giá HH-DV' }}</h3>
+                        </li>
+                        @include('includes.main.maincsdlkkgia')
+                    @endif
+
                     <!-- Tách riêng các phân hệ doanh nghiệp do ko có phân quyền ==>chkPer('csdlmucgiahhdv') ko kiểm tra dc DN  -->
                     @if (chkPer('csdlmucgiahhdv', 'bog') && session('admin')->level == 'DN')
                         <li class="heading">
@@ -368,7 +377,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <!-- chức năng thông tin doanh nghiệp: xây dựng tương tụ như hồ sơ: load thông tin nhưng đơn vị cấp dươi
                                     session('admin')->chucnang = NHAPLIEU && session('admin')->level == 'DN'
                                     session('admin')->level != 'DN' && session('admin')->chucnang = TONGHOP
-                            -->
+                                -->
                                 <li><a href="{{ url('doanhnghiep/danhsach') }}">Thông tin doanh nghiệp</a></li>
 
                                 @if (chkPer('csdlmucgiahhdv', 'kknygia', 'xmtxd'))
@@ -817,10 +826,12 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 </a>
                                                 <ul class="sub-menu">
                                                     <li>
-                                                        <a href="{{ url('/KetNoiAPI/ThietLapChung') }}">{{ session('admin')['a_chucnang']['api'] ?? 'Thông điệp chung' }}</a>
+                                                        <a
+                                                            href="{{ url('/KetNoiAPI/ThietLapChung') }}">{{ session('admin')['a_chucnang']['api'] ?? 'Thông điệp chung' }}</a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{ url('/KetNoiAPI/ThietLapChiTiet') }}">Thông điệp chi tiết</a>
+                                                        <a href="{{ url('/KetNoiAPI/ThietLapChiTiet') }}">Thông điệp
+                                                            chi tiết</a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -850,7 +861,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </a>
                                     <ul class="sub-menu">
                                         @if (chkPer('hethong', 'hethong_pq', 'ngaynghile'))
-                                            <li><a href="{{ url('thongtinngaynghile') }}">Thông tin ngày nghỉ lễ</a></li>
+                                            <li><a href="{{ url('thongtinngaynghile') }}">Thông tin ngày nghỉ lễ</a>
+                                            </li>
                                             <li><a href="{{ url('dmloaidat') }}">Danh mục loại đất</a></li>
                                         @endif
 
@@ -858,7 +870,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <li><a href="{{ url('/dmnganhnghe/danhsach') }}">Danh mục ngành nghề kinh
                                                     doanh</a> </li>
                                         @endif
-                                        
+
                                         {{-- @if (chkPer('hethong', 'hethong_pq', 'danhmucdvt'))
                                             <li><a href="{{ url('/dmdvt/danhsach') }}">Danh mục đơn vị tính</a> </li>
                                             <li><a href="{{ url('/tinhuyenxa/danhsach') }}">Danh mục Tỉnh - Huyện - Xã</a> </li>

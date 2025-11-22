@@ -10,6 +10,7 @@ class dsdiaban extends Model
     protected $fillable = [
         'id',
         'madiaban',
+        'madiaban_cu',
         'tendiaban',
         'level',
         'ghichu',

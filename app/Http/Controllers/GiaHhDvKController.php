@@ -68,13 +68,13 @@ class GiaHhDvKController extends Controller
                 }
             }
             // dd($donvi);
-            $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $a_nhom = array_column(NhomHhDvK::where('theodoi', 'TD')->get()->toarray(), 'tentt', 'matt');
             //lấy thông tin đơn vị
             $inputs['thang'] = isset($inputs['thang']) ? $inputs['thang'] : date('m');
             $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
-            // dd($inputs['thang']);
+            $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
             $model = GiaHhDvK::where('madv', $inputs['madv']);
+
             if ($inputs['thang'] != 'all')
                 // $model = $model->whereMonth('thoidiem', $inputs['thang']);
                 $model = $model->where('thang', $inputs['thang']);

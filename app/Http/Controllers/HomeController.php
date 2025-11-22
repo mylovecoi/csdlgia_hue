@@ -50,7 +50,8 @@ License code: PRO4-69G6Q4M-8YGNXX-M2N8-KCHVWYK
             $a_giaodien = getGiaoDien();
             // $m_bog = DmNgheKd::where('manganh', 'BOG')->where('theodoi', 'TD')->get();
             //dd($a_giaodien);
-            $a_kekhai = $a_giaodien['csdlmucgiahhdv']['kknygia'];
+            $a_kekhai = $a_giaodien['csdlkkgia'];
+            //dd($a_kekhai);
             $model = GeneralConfigs::first();
             unset($a_kekhai['index']);
             unset($a_kekhai['congbo']);
@@ -58,12 +59,12 @@ License code: PRO4-69G6Q4M-8YGNXX-M2N8-KCHVWYK
             if (session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA') {
                 foreach ($a_kekhai as $key => $val) {
                     if(session('admin')->level == 'SSA' ){
-                        if (!chkPer('csdlmucgiahhdv', 'kknygia', $key)) {
+                        if (!chkPer('csdlkkgia', 'csdlkkgia', $key)) {
                             unset($a_kekhai[$key]);
                             continue;
                         }
                     }else{
-                        if ((!chkPer('csdlmucgiahhdv', 'kknygia', $key) ||
+                        if ((!chkPer('csdlkkgia', 'csdlkkgia', $key) ||
                             !isset(session('admin')->permission[$key]['hoso']['approve'])
                             || session('admin')->permission[$key]['hoso']['approve'] == '0')
                         ) {
@@ -99,6 +100,7 @@ License code: PRO4-69G6Q4M-8YGNXX-M2N8-KCHVWYK
             }
 
             //dd(session('admin'));
+            //dd($a_kekhai);
             return view('dashboard')
                 ->with('model', $model)
                 ->with('a_kekhai', $a_kekhai)

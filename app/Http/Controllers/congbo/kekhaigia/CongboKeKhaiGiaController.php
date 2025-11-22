@@ -46,11 +46,11 @@ class CongboKeKhaiGiaController extends Controller
         $a_lvcc = array_column($m_doanhnghiep_lvcc->where('madv', (string)$inputs['madv'])->toarray(), 'manghe');
         //dd(in_array(strtoupper('tacn'), $a_lvcc));
         
-        foreach (getGiaoDien()['csdlmucgiahhdv']['kknygia'] as $key => $val) {
+        foreach (getGiaoDien()['csdlkkgia']['kknygia'] as $key => $val) {
             if (
                 in_array($key, $a_loai)
-                || !isset(session('congbo')['setting']['csdlmucgiahhdv']['kknygia'][$key])
-                || session('congbo')['setting']['csdlmucgiahhdv']['kknygia'][$key]['index'] == 0
+                || !isset(session('congbo')['setting']['csdlkkgia']['kknygia'][$key])
+                || session('congbo')['setting']['csdlkkgia']['kknygia'][$key]['index'] == 0
                 || !in_array(strtoupper($key), $a_lvcc)
             ) {
                 continue;
@@ -97,11 +97,11 @@ class CongboKeKhaiGiaController extends Controller
         $a_bang = [];
         $a_loai = ['index', 'congbo', 'thongtinkknygia'];
 
-        foreach (getGiaoDien()['csdlmucgiahhdv']['kknygia'] as $key => $val) {
+        foreach (getGiaoDien()['csdlkkgia']['kknygia'] as $key => $val) {
             if (
                 in_array($key, $a_loai)
-                || !isset(session('congbo')['setting']['csdlmucgiahhdv']['kknygia'][$key])
-                || session('congbo')['setting']['csdlmucgiahhdv']['kknygia'][$key]['index'] == 0
+                || !isset(session('congbo')['setting']['csdlkkgia']['kknygia'][$key])
+                || session('congbo')['setting']['csdlkkgia']['kknygia'][$key]['index'] == 0
             ) {
                 continue;
             }

@@ -490,6 +490,8 @@ class ComposerStaticInitd7de3fb6aaadd474bf447891cb3bef8d
     );
 
     public static $classMap = array (
+        'AddFieldToDsdonviTable' => __DIR__ . '/../..' . '/database/migrations/2025_11_19_165705_add_field_to_dsdonvi_table.php',
+        'AddFieldToDsdonvidsdiabanTable' => __DIR__ . '/../..' . '/database/migrations/2025_11_19_165056_add_field_to_dsdonvidsdiaban_table.php',
         'AddFieldToGiadvdtTable' => __DIR__ . '/../..' . '/database/migrations/2025_08_20_161832_add_field_to_giadvdt_table.php',
         'AddFieldToGiahhdvkTable' => __DIR__ . '/../..' . '/database/migrations/2025_08_22_095548_add_field_to_giahhdvk_table.php',
         'AddFieldToGiaspdvciTable' => __DIR__ . '/../..' . '/database/migrations/2025_08_21_160331_add_field_to_giaspdvci_table.php',
@@ -773,6 +775,7 @@ class ComposerStaticInitd7de3fb6aaadd474bf447891cb3bef8d
         'App\\Http\\Controllers\\manage\\kekhaidkg\\KkDkgCtController' => __DIR__ . '/../..' . '/app/Http/Controllers/manage/kekhaidkg/KkDkgCtController.php',
         'App\\Http\\Controllers\\manage\\kekhaidkg\\KkDkgCtDfController' => __DIR__ . '/../..' . '/app/Http/Controllers/manage/kekhaidkg/KkDkgCtDfController.php',
         'App\\Http\\Controllers\\manage\\kekhaidkg\\KkDkgXdController' => __DIR__ . '/../..' . '/app/Http/Controllers/manage/kekhaidkg/KkDkgXdController.php',
+        'App\\Http\\Controllers\\manage\\kekhaigia\\KkGiaNd85Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/manage/kekhaigia/KkGiaNd85Controller.php',
         'App\\Http\\Controllers\\manage\\kekhaigia\\TtDnTdCtController' => __DIR__ . '/../..' . '/app/Http/Controllers/manage/kekhaigia/TtDnTdCtController.php',
         'App\\Http\\Controllers\\manage\\kekhaigia\\kkcatsan\\KkGiaCatSanBcController' => __DIR__ . '/../..' . '/app/Http/Controllers/manage/kekhaigia/kkcatsan/KkGiaCatSanBcController.php',
         'App\\Http\\Controllers\\manage\\kekhaigia\\kkcatsan\\KkGiaCatSanController' => __DIR__ . '/../..' . '/app/Http/Controllers/manage/kekhaigia/kkcatsan/KkGiaCatSanController.php',
