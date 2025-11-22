@@ -140,6 +140,7 @@ class UsersController extends Controller
         $ttuser->a_chucnang = array_column(danhmucchucnang::all()->toArray(), 'menu', 'maso');
         //Lấy setting gán luôn vào phiên đăng nhập
         $m_gen = GeneralConfigs::first();
+        //dd($m_gen);
         $ttuser->setting = json_decode($m_gen->setting, true);
         $ttuser->permission = json_decode($ttuser->permission, true);
         $ttuser->ipf1 = $m_gen->ipf1;

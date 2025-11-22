@@ -59,12 +59,12 @@ License code: PRO4-69G6Q4M-8YGNXX-M2N8-KCHVWYK
             if (session('admin')->chucnang == 'TONGHOP' || session('admin')->level == 'SSA') {
                 foreach ($a_kekhai as $key => $val) {
                     if(session('admin')->level == 'SSA' ){
-                        if (!chkPer('csdlkkgia', 'csdlkkgia', $key)) {
+                        if (!chkPer('csdlmucgiahhdv', 'kknygia', $key)) {
                             unset($a_kekhai[$key]);
                             continue;
                         }
                     }else{
-                        if ((!chkPer('csdlkkgia', 'csdlkkgia', $key) ||
+                        if ((!chkPer('csdlmucgiahhdv', 'kknygia', $key) ||
                             !isset(session('admin')->permission[$key]['hoso']['approve'])
                             || session('admin')->permission[$key]['hoso']['approve'] == '0')
                         ) {

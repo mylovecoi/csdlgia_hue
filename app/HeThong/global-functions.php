@@ -3801,6 +3801,7 @@ function chkPer($csdl = null, $group = null, $feature = null, $action = null, $p
     //@if(chkPer('csdlmucgiahhdv','bog', 'bog', 'danhmuc','index')
     if (session('admin')->level == 'SSA') {
         $gui = session('admin')->setting;
+        //dd($gui);
         if ($per != null) {
             if (isset($gui[$csdl][$group][$feature]['index']) && $gui[$csdl][$group][$feature]['index'] == '1')
                 return true;
