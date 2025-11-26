@@ -338,7 +338,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     @endif
 
                     <!-- Tách riêng các phân hệ doanh nghiệp do ko có phân quyền ==>chkPer('csdlmucgiahhdv') ko kiểm tra dc DN  -->
-                    @if (chkPer('csdlmucgiahhdv', 'bog') && session('admin')->level == 'DN')
+                    {{-- @if (chkPer('csdlmucgiahhdv', 'bog') && session('admin')->level == 'DN')
                         <li class="heading">
                             <h3 class="uppercase">
                                 {{ session('admin')['a_chucnang']['csdlmucgiahhdv'] ?? 'CSDL về mức giá HH-DV' }}</h3>
@@ -363,350 +363,509 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </li>
                             </ul>
                         </li>
-                    @endif
+                    @endif --}}
 
-                    @if (chkPer('csdlmucgiahhdv', 'kknygia') && session('admin')->level == 'DN')
-                        <li class="tooltips" data-container="body" data-placement="right" data-html="true">
+                    @if (session('admin')->level == 'DN')
+                        <li class="heading">
+                            <h3 class="uppercase">CSDL về kê khai giá HH-DV</h3>
+                        </li>
+                        <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+                            data-original-title="Giá kê khai của hàng hóa, dịch vụ thuộc danh mục Giá kê khai">
                             <a href="javascript:;">
                                 <i class="icon-folder"></i>
-                                <span
-                                    class="title">{{ session('admin')['a_chucnang']['kknygia'] ?? 'Mức giá kê khai, đăng ký' }}</span>
+                                <span class="title">Thông tin chung</span>
                                 <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu">
-                                <!-- chức năng thông tin doanh nghiệp: xây dựng tương tụ như hồ sơ: load thông tin nhưng đơn vị cấp dươi
-                                    session('admin')->chucnang = NHAPLIEU && session('admin')->level == 'DN'
-                                    session('admin')->level != 'DN' && session('admin')->chucnang = TONGHOP
-                                -->
                                 <li><a href="{{ url('doanhnghiep/danhsach') }}">Thông tin doanh nghiệp</a></li>
+                            </ul>
+                        </li>
 
-                                @if (chkPer('csdlmucgiahhdv', 'kknygia', 'xmtxd'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Xi măng, thép xây dựng</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{ url('kekhaigiaxmtxd') }}">Giá kê khai</a> </li>
-                                        </ul>
-                                    </li>
-                                @endif
-                                @if (chkPer('csdlmucgiahhdv', 'kknygia', 'than'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Than</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{ url('kekhaigiathan') }}">Giá kê khai</a> </li>
-                                        </ul>
-                                    </li>
-                                @endif
-                                @if (chkPer('csdlmucgiahhdv', 'kknygia', 'tacn'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Thức ăn chăn nuôi</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{ url('kekhaigiatacn') }}">Giá kê khai</a> </li>
-                                        </ul>
-                                    </li>
-                                @endif
-                                @if (chkPer('csdlmucgiahhdv', 'kknygia', 'giay'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Giấy in, viết (dạng cuộn), giấy in báo sản xuất trong
-                                                nước</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{ url('kekhaigiagiay') }}">Giá kê khai</a> </li>
-                                        </ul>
-                                    </li>
-                                @endif
-                                @if (chkPer('csdlmucgiahhdv', 'kknygia', 'sach'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Sách giáo khoa</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{ url('kekhaigiasach') }}">Giá kê khai</a> </li>
-                                        </ul>
-                                    </li>
-                                @endif
-                                @if (chkPer('csdlmucgiahhdv', 'kknygia', 'etanol'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Etanol nhiên liệu không biến tính, khí tự nhiên hóa
-                                                lỏng(LNG); khí thiên nhiên nén (CNG)</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{ url('kekhaigiaetanol') }}">Giá kê khai</a> </li>
-                                        </ul>
-                                    </li>
-                                @endif
-                                @if (chkPer('csdlmucgiahhdv', 'kknygia', 'tpcnte6t'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Thực phẩm chức năng cho trẻ em dưới 6 tuổi</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{ url('kekhaigiatpcnte6t') }}">Giá kê khai</a> </li>
-                                        </ul>
-                                    </li>
-                                @endif
-                                @if (chkPer('csdlmucgiahhdv', 'kknygia', 'xemay'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Giá xe máy nhập khẩu, sản xuất trong nước</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{ url('kekhaigiaxemaynksx') }}">Giá kê khai</a> </li>
-                                        </ul>
-                                    </li>
-                                @endif
-                                @if (chkPer('csdlmucgiahhdv', 'kknygia', 'oto'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Giá ôtô nhập khẩu, sản xuất trong nước</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{ url('kekhaigiaotonksx') }}">Giá kê khai</a> </li>
-                                        </ul>
-                                    </li>
-                                @endif
-                                @if (chkPer('csdlmucgiahhdv', 'kknygia', 'vtxk'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Cước vận tải hành khách bằng ôtô tuyến cố định</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{ url('kekhaigiavantaixekhach') }}">Giá kê khai</a></li>
-                                        </ul>
-                                    </li>
-                                @endif
-                                @if (chkPer('csdlmucgiahhdv', 'kknygia', 'vtxb'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Cước vận tải hành khách bằng xe bus tuyến cố
-                                                định</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{ url('kekhaivantaixebuyt') }}">Giá kê khai</a></li>
-                                        </ul>
-                                    </li>
-                                @endif
-                                @if (chkPer('csdlmucgiahhdv', 'kknygia', 'vtxtx'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Cước vận tải hành khách bằng xe taxi tuyến cố
-                                                định</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{ url('kekhaigiavantaixetaxi') }}">Giá kê khai</a></li>
-                                        </ul>
-                                    </li>
-                                @endif
-                                @if (chkPer('csdlmucgiahhdv', 'kknygia', 'dvlt'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Dịch vụ lưu trú</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{ url('/thongtincskd') }}">Danh sách CSKD</a> </li>
-                                            <li><a href="{{ url('/kekhaigiadvlt') }}">Giá kê khai</a> </li>
-                                        </ul>
-                                    </li>
-                                @endif
-                                @if (chkPer('csdlmucgiahhdv', 'kknygia', 'cahue'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Giá dịch vụ xem ca Huế trên sông Hương</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{ url('kekhaigiadvcahue') }}">Giá kê khai</a> </li>
-                                        </ul>
-                                    </li>
-                                @endif
-                                @if (chkPer('csdlmucgiahhdv', 'kknygia', 'hocphilx'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Mức thu học phí đào tạo lái xe cơ giới đường bộ</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{ url('kekhaigiahplx') }}">Giá kê khai</a> </li>
-                                        </ul>
-                                    </li>
-                                @endif
-                                @if (chkPer('csdlmucgiahhdv', 'kknygia', 'catsan'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Vật liệu xây dựng: cát, sạn</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{ url('kekhaigiacatsan') }}">Giá kê khai</a> </li>
-                                        </ul>
-                                    </li>
-                                @endif
-                                @if (chkPer('csdlmucgiahhdv', 'kknygia', 'datsanlap'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Vật liệu xây dựng: đất san lấp</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{ url('kekhaigiadatsanlap') }}">Giá kê khai</a> </li>
-                                        </ul>
-                                    </li>
-                                @endif
-                                @if (chkPer('csdlmucgiahhdv', 'kknygia', 'daxaydung'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Vật liệu xây dựng: đá xây dựng</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{ url('kekhaigiadaxaydung') }}">Giá kê khai</a> </li>
-                                        </ul>
-                                    </li>
-                                @endif
-                                @if (chkPer('csdlmucgiahhdv', 'kknygia', 'kcbtn'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Dịch vụ khám chữa bệnh cho người tại cơ sở khám chữa
-                                                bệnh tư nhân; khám chữa bệnh theo yêu cầu tại cơ sở khám chữa bệnh của
-                                                nhà nước</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{ url('kekhaigiakcbtn') }}">Giá kê khai</a> </li>
-                                        </ul>
-                                    </li>
-                                @endif
-                                @if (chkPer('csdlmucgiahhdv', 'kknygia', 'dvhdtmck'))
-                                    <li class="tooltips" data-container="body" data-placement="right"
-                                        data-html="true"
-                                        data-original-title="Giá dịch vụ hỗ trợ hoạt động thương mại tại cửa khẩu (kho,bến, bãi, bốc xếp hàng hóa tại cửa khẩu, dịch vụ khác">
-                                        <a href="javascript:;">
-                                            <span class="title">Giá dịch vụ hỗ trợ hoạt động thương mại tại cửa
-                                                khẩu</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{ url('kekhaigiadvhdtm') }}">Giá kê khai</a> </li>
-                                        </ul>
-                                    </li>
-                                @endif
-                                @if (chkPer('csdlmucgiahhdv', 'kknygia', 'dvcb'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Giá dịch vụ tại cảng biển, cảng hàng không</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{ url('kekhaigiadvcang') }}">Giá kê khai</a> </li>
-                                        </ul>
-                                    </li>
-                                @endif
-                                @if (chkPer('csdlmucgiahhdv', 'kknygia', 'vlxd'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Vật liệu xây dựng</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{{ url('kekhaigiavlxd') }}">Giá kê khai</a> </li>
-                                        </ul>
-                                    </li>
-                                @endif
-
-                                {{-- @if (canKkGiaCt('DVVTHK', 'VC'))
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="title">Cước vận chuyển hành khách: xe buýt, xe điện, bè
-                                                mảng</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            @if (session('admin')->level == 'DN')
-                                                <li><a href="{{ url('kekhaicuocvchk') }}">Giá kê khai</a></li>
-                                            @endif
-                                            @if (session('admin')->level == 'X' || session('admin')->level == 'H' || session('admin')->level == 'T')
-                                                <li><a href="{{ url('thongtindnvchk') }}">Giá kê khai</a></li>
-                                                <li><a href="{{ url('xetduyetkekhaicuocvchk') }}">Xét duyệt hồ sơ kê
-                                                        khai</a></li>
-                                                <li><a href="{{ url('timkiemcuocvchk') }}">Tìm kiếm hồ sơ kê khai</a>
-                                                </li>
-                                                <li><a href="{{ url('baocaogiacuocvchk') }}">Báo cáo thống kê</a></li>
-                                            @endif
-                                        </ul>
-                                    </li>
-                                @endif --}}
-
-                                {{-- @if (canKkGiaGr('DLBB'))
-                                    @if (canKkGiaCt('DLBB', 'DLBB'))
+                        @if (chkPer('csdlkkgia', 'bog'))
+                            <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+                                data-original-title="Giá kê khai của hàng hóa, dịch vụ thuộc danh mục Giá kê khai">
+                                <a href="javascript:;">
+                                    <i class="icon-folder"></i>
+                                    <span
+                                        class="title">{{ session('admin')['a_chucnang']['bog'] ?? 'HH-DV thuộc danh mục bình ổn giá' }}</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    @if (chkPer('csdlkkgia', 'bog', 'tacn'))
                                         <li>
                                             <a href="javascript:;">
-                                                <span class="title">Giá dịch vụ du lịch tại bãi biển</span>
+                                                <span class="title">Thức ăn chăn nuôi</span>
                                                 <span class="arrow"></span>
                                             </a>
                                             <ul class="sub-menu">
-                                                @if (session('admin')->level == 'DN')
-                                                    <li><a href="{{ url('kekhaigiadvdlbb') }}">Giá kê khai</a> </li>
-                                                @endif
-                                                @if (session('admin')->level == 'X' || session('admin')->level == 'T' || session('admin')->level == 'H')
-                                                    <li><a href="{{ url('thongtindndlbb') }}">Giá kê khai </a> </li>
-                                                    <li><a href="{{ url('xetduyetgiadvdlbb') }}">Thông tin hồ sơ xét
-                                                            duyệt</a></li>
-                                                    <li><a href="{{ url('timkiemgiadvdlbb') }}">Tìm kiếm thông tin</a>
-                                                    </li>
-                                                    <li><a href="{{ url('baocaokekhaidvdlbb') }}">Báo cáo thống kê</a>
-                                                    </li>
-                                                @endif
-                                            </ul>
-                                        </li>
-                                    @endif                                   
-                                @endif --}}
-
-                                {{-- @if (canKkGiaGr('TQKDL'))
-                                    @if (canKkGiaCt('TQKDL', 'TQKDL'))
-                                        <li>
-                                            <a href="javascript:;">
-                                                <span class="title">Giá vé tham quan tại các khu du lịch</span>
-                                                <span class="arrow"></span>
-                                            </a>
-                                            <ul class="sub-menu">
-                                                @if (session('admin')->level == 'DN')
-                                                    <li><a href="{{ url('kekhaigiavetqkdl') }}">Giá kê khai</a> </li>
-                                                @endif
-                                                @if (session('admin')->level == 'X' || session('admin')->level == 'T' || session('admin')->level == 'H')
-                                                    <li><a href="{{ url('thongtindntqkdl') }}">Giá kê khai </a> </li>
-                                                    <li><a href="{{ url('xetduyetgiavetqkdl') }}">Thông tin hồ sơ xét
-                                                            duyệt</a></li>
-                                                    <li><a href="{{ url('timkiemgiavetqkdl') }}">Tìm kiếm thông
-                                                            tin</a> </li>
-                                                    <li><a href="{{ url('baocaokekhaigiavetqkdl') }}">Báo cáo thống
-                                                            kê</a></li>
-                                                @endif
+                                                <li><a href="{{ url('kekhaigiatacn') }}">Giá kê khai</a> </li>
                                             </ul>
                                         </li>
                                     @endif
-                                @endif --}}
-                            </ul>
-                        </li>
+                                    @if (chkPer('csdlkkgia', 'bog', 'xangdau'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Xăng, dầu thành phẩm</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('/binhongia/danhsach') }}">Thông tin hồ sơ</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'bog', 'kdm'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Khí dầu mỏ hóa lỏng (LPG)</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('/binhongia/danhsach') }}">Thông tin hồ sơ</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'bog', 'sted6t'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Sữa dành cho trẻ em dưới 06 tuổi</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('/binhongia/danhsach') }}">Thông tin hồ sơ</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'bog', 'tgtt'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Thóc tẻ, gạo tẻ</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('/binhongia/danhsach') }}">Thông tin hồ sơ</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'bog', 'pdurenpk'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Phân đạm; phân DAP; phân NPK</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('/binhongia/danhsach') }}">Thông tin hồ sơ</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'bog', 'vxgxgc'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Vắc-xin phòng bệnh cho gia súc, gia
+                                                    cầm</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('/binhongia/danhsach') }}">Thông tin hồ sơ</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'bog', 'tbvtv'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Thuốc bảo vệ thực vật</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('/binhongia/danhsach') }}">Thông tin hồ sơ</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'bog', 'tpcb'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Thuốc thuộc danh mục thuốc thiết yếu được
+                                                    sử dụng tại cơ sở
+                                                    khám bệnh, chữa bệnh</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('/binhongia/danhsach') }}">Thông tin hồ sơ</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </li>
+                        @endif
+
+                        @if (chkPer('csdlkkgia', 'cp'))
+                            <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+                                data-original-title="Giá kê khai của hàng hóa, dịch vụ thuộc danh mục Giá kê khai">
+                                <a href="javascript:;">
+                                    <i class="icon-folder"></i>
+                                    <span
+                                        class="title">{{ session('admin')['a_chucnang']['cp'] ?? 'HH-DV do Chính phủ ban hành' }}</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    @if (chkPer('csdlkkgia', 'cp', 'xmtxd'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Xi măng, thép xây dựng</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('kekhaigiaxmtxd') }}">Giá kê khai</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'cp', 'nhao'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Nhà ở, nhà chung cư</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('') }}">Giá kê khai</a> </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'cp', 'congtrinh'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Công trình hạ tầng kỹ thuật</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('') }}">Giá kê khai</a> </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'cp', 'than'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Than</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('kekhaigiathan') }}">Giá kê khai</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'cp', 'etanol'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Etanol nhiên liệu không biến tính, khí tự
+                                                    nhiên hóa lỏng(LNG);
+                                                    khí thiên nhiên nén (CNG)</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('kekhaigiaetanol') }}">Giá kê khai</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'cp', 'khi'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Khí tự nhiên hóa lỏng</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('') }}">Giá kê khai</a> </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'cp', 'thuy'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Thuốc thú y</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('') }}">Giá kê khai</a> </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'cp', 'duong'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Đường ăn</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('') }}">Giá kê khai</a> </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'cp', 'muoi'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Muối ăn</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('') }}">Giá kê khai</a> </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'cp', 'dvcangbien'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Giá dịch vụ tại cảng biển</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('kekhaigiadvcang') }}">Giá kê khai</a>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'cp', 'duongsat'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Dịch vụ vận chuyển hành khách bằng đường
+                                                    sắt</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('') }}">Giá kê khai</a> </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'cp', 'duongbo'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Dịch vụ vận chuyển hành khách bằng đường
+                                                    bộ</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('') }}">Giá kê khai</a> </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'cp', 'tpcn'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Thực phẩm chức năng cho trẻ em dưới 6
+                                                    tuổi</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('kekhaigiatpcnte6t') }}">Giá kê khai</a>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'cp', 'tbyt'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Thiết bị y tế</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('') }}">Giá kê khai</a> </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'cp', 'kcbtn'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Dịch vụ khám chữa bệnh cho người tại cơ sở
+                                                    khám chữa bệnh tư
+                                                    nhân; khám chữa bệnh theo yêu cầu tại cơ sở khám chữa bệnh
+                                                    của nhà nước</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('kekhaigiakcbtn') }}">Giá kê khai</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'cp', 'vienthong'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Dịch vụ viễn thông</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('') }}">Giá kê khai</a> </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </li>
+                        @endif
+
+                        @if (chkPer('csdlkkgia', 'kknygia'))
+                            <li class="tooltips" data-container="body" data-placement="right" data-html="true"
+                                data-original-title="Giá kê khai của hàng hóa, dịch vụ thuộc danh mục Giá kê khai">
+                                <a href="javascript:;">
+                                    <i class="icon-folder"></i>
+                                    <span class="title">HH-DV thuộc danh mục kê khai giá</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    @if (chkPer('csdlkkgia', 'kknygia', 'dvlt'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Dịch vụ lưu trú</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                {{-- <li><a href="{{ url('thongtincskd') }}">Danh sách CSKD</a>
+                                                        </li> --}}
+                                                <li><a href="{{ url('kekhaigiadvlt') }}">Giá kê khai</a>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'kknygia', 'trongxe'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Dịch vụ trông giữ xe</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('') }}">Giá kê khai</a> </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'kknygia', 'tqbien'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Dịch vụ tham quan tại khu du lịch trên địa
+                                                    bàn</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('') }}">Giá kê khai</a> </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'kknygia', 'vtxtx'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Cước vận tải hành khách bằng xe
+                                                    taxi</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('kekhaigiavantaixetaxi') }}">Giá kê
+                                                        khai</a></li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'kknygia', 'vttqdl'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Dịch vụ vận tải hành khách tham quan du
+                                                    lịch</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('') }}">Giá kê khai</a> </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'kknygia', 'vthh'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Dịch vụ vận tải hàng hóa và hành khách
+                                                    tuyến cố định bằng
+                                                    đường thủy nội địa - đường biển</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('') }}">Giá kê khai</a> </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'kknygia', 'vlxd'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Vật liệu xây dựng</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('kekhaigiavlxd') }}">Giá kê khai</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'kknygia', 'giongnn'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Giống phục vụ sản xuất nông nghiệp</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('') }}">Giá kê khai</a> </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'kknygia', 'chonndg'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Dịch vụ chủ yếu tại chợ ngoài dịch vụ do
+                                                    Nhà nước định
+                                                    giá</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('') }}">Giá kê khai</a> </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'kknygia', 'nuockhoang'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Dịch vụ kinh doanh nước khoáng nóng</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('') }}">Giá kê khai</a> </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'kknygia', 'cahue'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Giá dịch vụ xem ca Huế trên sông
+                                                    Hương</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('kekhaigiadvcahue') }}">Giá kê khai</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                    @if (chkPer('csdlkkgia', 'kknygia', 'hocphilx'))
+                                        <li>
+                                            <a href="javascript:;">
+                                                <span class="title">Mức thu học phí đào tạo lái xe cơ giới
+                                                    đường bộ</span>
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ url('kekhaigiahplx') }}">Giá kê khai</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </li>
+                        @endif
                     @endif
 
                     @if (chkPer('csdlthamdinhgia'))
