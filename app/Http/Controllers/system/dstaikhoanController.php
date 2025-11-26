@@ -287,6 +287,9 @@ class dstaikhoanController extends Controller
                 $values = array_unique($values);
             }
             $m_donvi = dsdonvi::whereIn('madv',$values)->first();
+            if(count($m_donvi) == 0){
+                $m_donvi = dsdonvi::where('madv_cu',$model->madv)->get();
+            }
             //dd($model);
             $m_gui = GeneralConfigs::first();
             //$gui = getGiaoDien();
