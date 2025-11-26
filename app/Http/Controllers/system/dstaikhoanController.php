@@ -179,7 +179,20 @@ class dstaikhoanController extends Controller
             }
             $inputs = $request->all();
             $model = Users::where('username', $inputs['username'])->first();
-            $m_donvi = dsdonvi::where('madv',$model->madv)->get();
+            $madv = $model->madv;
+            $madv_cu = dsdonvi::where('madv', $madv)->value('madv_cu');
+            $values = [$madv];
+            if ($madv_cu) {
+                // tách theo dấu ; hoặc , hoặc khoảng trắng, loại bỏ rỗng và trùng lặp
+                $parts = preg_split('/[;,\s]+/', $madv_cu);
+                foreach ($parts as $p) {
+                    $p = trim($p);
+                    if ($p !== '') $values[] = (string)$p;
+                }
+                $values = array_unique($values);
+            }
+            // Sử dụng whereIn để tìm cả giá trị hiện tại và legacy (madv_cu)
+            $m_donvi = dsdonvi::whereIn('madv',$values)->get();
             $a_chucnang = explode(';',$model->chucnang);
             $model->nhaplieu = in_array('NHAPLIEU',$a_chucnang)? 1 : 0;
             $model->tonghop = in_array('TONGHOP',$a_chucnang)? 1 : 0;
