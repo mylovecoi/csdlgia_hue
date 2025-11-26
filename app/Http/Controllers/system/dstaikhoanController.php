@@ -20,11 +20,11 @@ class dstaikhoanController extends Controller
     {
         if (Session::has('admin')) {
             //tài khoản SSA; tài khoản quản trị + có phân quyền
-            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan','danhmuc', 'index')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan', 'danhmuc', 'index')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();
-            if(session('admin')->level == 'SSA' || session('admin')->level == 'ADMIN'){
+            if (session('admin')->level == 'SSA' || session('admin')->level == 'ADMIN') {
                 $m_diaban = dsdiaban::orderByRaw("
                     CASE 
                         WHEN level = 'ADMIN' THEN 1
@@ -32,8 +32,8 @@ class dstaikhoanController extends Controller
                         ELSE 3
                     END
                 ")->get();
-            }else{
-                $m_diaban = dsdiaban::where('madiaban',session('admin')->madiaban)->orderByRaw("
+            } else {
+                $m_diaban = dsdiaban::where('madiaban', session('admin')->madiaban)->orderByRaw("
                     CASE 
                         WHEN level = 'ADMIN' THEN 1
                         WHEN level = 'T' THEN 2
@@ -41,7 +41,7 @@ class dstaikhoanController extends Controller
                     END
                 ")->get();
             }
-            $m_donvi = dsdonvi::wherein('madiaban',array_column($m_diaban->toarray(),'madiaban'))->get();
+            $m_donvi = dsdonvi::wherein('madiaban', array_column($m_diaban->toarray(), 'madiaban'))->get();
             //dd($m_donvi);
             $inputs['madv'] = $inputs['madv'] ??  $m_donvi->first()->madv;
             // $model = Users::where('madv', $inputs['madv'])->get();
@@ -62,16 +62,16 @@ class dstaikhoanController extends Controller
 
 
             //lấy phân loại tài khoản từ bảng dsdonvi để hiển thị
-            foreach($model as $ct){
+            foreach ($model as $ct) {
                 //$dv = $m_donvi->where('madv',$ct->madv)->first();
                 //$ct->chucnang = $dv->chucnang;
-                $a_chucnang = explode(';',$ct->chucnang);
-                $ct->nhaplieu = in_array('NHAPLIEU',$a_chucnang)? 1 : 0;
-                $ct->tonghop = in_array('TONGHOP',$a_chucnang)? 1 : 0;
-                $ct->quantri = in_array('QUANTRI',$a_chucnang)? 1 : 0;
+                $a_chucnang = explode(';', $ct->chucnang);
+                $ct->nhaplieu = in_array('NHAPLIEU', $a_chucnang) ? 1 : 0;
+                $ct->tonghop = in_array('TONGHOP', $a_chucnang) ? 1 : 0;
+                $ct->quantri = in_array('QUANTRI', $a_chucnang) ? 1 : 0;
             }
             //dd($model);
-            $a_nhomtk = array_column(dsnhomtaikhoan::all()->toArray(),'mota','maso');
+            $a_nhomtk = array_column(dsnhomtaikhoan::all()->toArray(), 'mota', 'maso');
             return view('system.taikhoan.index')
                 ->with('model', $model)
                 ->with('inputs', $inputs)
@@ -80,43 +80,43 @@ class dstaikhoanController extends Controller
                 ->with('m_diaban', $m_diaban)
                 ->with('m_donvi', $m_donvi)
                 ->with('pageTitle', 'Danh sách tài khoản đơn vị');
-
         } else
             return view('errors.notlogin');
     }
 
-    public function create(Request $request){
+    public function create(Request $request)
+    {
         if (Session::has('admin')) {
-            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan','danhmuc', 'modify')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan', 'danhmuc', 'modify')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();
-            $m_donvi = dsdonvi::where('madv',$inputs['madv'])->get();
+            $m_donvi = dsdonvi::where('madv', $inputs['madv'])->get();
             //dd(array_column($m_donvi->toArray(),'tendv','madv'));
             return view('system.taikhoan.create')
                 ->with('inputs', $inputs)
                 ->with('a_phanloai', getPhanLoaiDonVi())
-                ->with('a_donvi',array_column($m_donvi->toArray(),'tendv','madv'))
-                ->with('pageTitle','Thêm mới thông tin tài khoản');
-
-        }else
+                ->with('a_donvi', array_column($m_donvi->toArray(), 'tendv', 'madv'))
+                ->with('pageTitle', 'Thêm mới thông tin tài khoản');
+        } else
             return view('errors.notlogin');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         if (Session::has('admin')) {
-            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan','danhmuc', 'modify')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan', 'danhmuc', 'modify')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();
             //dd($inputs);
             //$user->username = chuanhoachuoi($inputs['username']);
             //$user->password = md5($inputs['password']);
-            $chkUser = Users::where('username',chuanhoachuoi($inputs['username']))->first();
-            if($chkUser != null){
+            $chkUser = Users::where('username', chuanhoachuoi($inputs['username']))->first();
+            if ($chkUser != null) {
                 return view('errors.duplicate')
-                    ->with('message','Tài khoản này đã được sử dụng.')
-                    ->with('url','/taikhoan/danhsach?madv=' . $inputs['madv']);
+                    ->with('message', 'Tài khoản này đã được sử dụng.')
+                    ->with('url', '/taikhoan/danhsach?madv=' . $inputs['madv']);
             }
             $inputs['chucnang'] = '';
             $inputs['chucnang'] .= isset($inputs['nhaplieu']) ? 'NHAPLIEU;' : '';
@@ -136,27 +136,29 @@ class dstaikhoanController extends Controller
             return view('errors.notlogin');
     }
 
-    public function copy(Request $request){
+    public function copy(Request $request)
+    {
         if (Session::has('admin')) {
-            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan','danhmuc', 'modify')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan', 'danhmuc', 'modify')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();
-            $model = Users::where('username',$inputs['username'])->first();
+            $model = Users::where('username', $inputs['username'])->first();
             return view('system.taikhoan.copy')
-                ->with('model',$model)
-                ->with('pageTitle','Sao chép thông tin tài khoản');
+                ->with('model', $model)
+                ->with('pageTitle', 'Sao chép thông tin tài khoản');
         } else
             return view('errors.notlogin');
     }
 
-    public function store_copy(Request $request){
+    public function store_copy(Request $request)
+    {
         if (Session::has('admin')) {
-            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan','danhmuc', 'modify')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan', 'danhmuc', 'modify')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();
-            $model = Users::where('username',$inputs['username_goc'])->first();
+            $model = Users::where('username', $inputs['username_goc'])->first();
             $user = new Users();
             $user->madv = $model->madv;
             $user->name = $inputs['name'];
@@ -172,9 +174,10 @@ class dstaikhoanController extends Controller
             return view('errors.notlogin');
     }
 
-    public function modify(Request $request){
+    public function modify(Request $request)
+    {
         if (Session::has('admin')) {
-            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan','danhmuc', 'modify')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan', 'danhmuc', 'modify')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();
@@ -195,26 +198,26 @@ class dstaikhoanController extends Controller
             }
             //dd($values);
             // Sử dụng whereIn để tìm cả giá trị hiện tại và legacy (madv_cu)
-            $m_donvi = dsdonvi::whereIn('madv',$values)->get();
-            if(count($m_donvi) == 0){
-                $m_donvi = dsdonvi::where('madv_cu',$model->madv)->get();
+            $m_donvi = dsdonvi::whereIn('madv', $values)->get();
+            if (count($m_donvi) == 0) {
+                $m_donvi = dsdonvi::where('madv_cu', $model->madv)->get();
             }
             //dd($m_donvi);
 
-            $a_chucnang = explode(';',$model->chucnang);
-            $model->nhaplieu = in_array('NHAPLIEU',$a_chucnang)? 1 : 0;
-            $model->tonghop = in_array('TONGHOP',$a_chucnang)? 1 : 0;
-            $model->quantri = in_array('QUANTRI',$a_chucnang)? 1 : 0;
+            $a_chucnang = explode(';', $model->chucnang);
+            $model->nhaplieu = in_array('NHAPLIEU', $a_chucnang) ? 1 : 0;
+            $model->tonghop = in_array('TONGHOP', $a_chucnang) ? 1 : 0;
+            $model->quantri = in_array('QUANTRI', $a_chucnang) ? 1 : 0;
             return view('system.taikhoan.edit')
                 ->with('model', $model)
-                ->with('a_donvi',array_column($m_donvi->toArray(),'tendv','madv'))
-                ->with('pageTitle','Thông tin tài khoản');
-
-        }else
+                ->with('a_donvi', array_column($m_donvi->toArray(), 'tendv', 'madv'))
+                ->with('pageTitle', 'Thông tin tài khoản');
+        } else
             return view('errors.notlogin');
     }
 
-    public function update(Request $request){
+    public function update(Request $request)
+    {
         if (Session::has('admin')) {
             if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan', 'danhmuc', 'modify')) {
                 return view('errors.noperm');
@@ -240,16 +243,17 @@ class dstaikhoanController extends Controller
             return view('errors.notlogin');
     }
 
-    public function delete(Request $request){
+    public function delete(Request $request)
+    {
         if (Session::has('admin')) {
             //tài khoản SSA; tài khoản quản trị + có phân quyền
-            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan','danhmuc', 'modify')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan', 'danhmuc', 'modify')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();
             $model = Users::findorfail($inputs['iddelete']);
             $model->delete();
-            return redirect('/taikhoan/danhsach?madv='. $model->madv);
+            return redirect('/taikhoan/danhsach?madv=' . $model->madv);
         } else
             return view('errors.notlogin');
     }
@@ -264,15 +268,15 @@ class dstaikhoanController extends Controller
     {
         if (Session::has('admin')) {
             //tài khoản SSA; tài khoản quản trị + có phân quyền
-            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan','danhmuc', 'modify')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan', 'danhmuc', 'modify')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();
             //dd($inputs);
 
             $per = getPhanQuyen();
-            $model = Users::where('username',$inputs['username'])->first();
-            $per_user = json_decode($model->permission,true);
+            $model = Users::where('username', $inputs['username'])->first();
+            $per_user = json_decode($model->permission, true);
 
             $madv_moi = $model->madv;
             $madv_cu = dsdonvi::where('madv', $madv_moi)->value('madv_cu');
@@ -286,31 +290,36 @@ class dstaikhoanController extends Controller
                 }
                 $values = array_unique($values);
             }
-            $m_donvi = dsdonvi::whereIn('madv',$values)->first();
-            if(count($m_donvi) == 0){
-                $m_donvi = dsdonvi::where('madv_cu',$model->madv)->get();
+            $m_donvi = dsdonvi::whereIn('madv', $values)->first();
+            if ($m_donvi === null) {
+                $m_donvi = dsdonvi::where('madv_cu', $model->madv)->first();
             }
-            //dd($model);
+            // if (!dsdonvi::whereIn('madv', $values)->exists()) {
+            //     $m_donvi = dsdonvi::where('madv_cu', $model->madv)->get();
+            // } else {
+            //     $m_donvi = dsdonvi::whereIn('madv', $values)->get();
+            // }
+
             $m_gui = GeneralConfigs::first();
             //$gui = getGiaoDien();
-            //dd($m_gui);
-            if($m_donvi->chucnang == 'QUANTRI'){
-                $setting['hethong'] = json_decode($m_gui->setting, true)['hethong']?? array();
-            }else{
+            if ($m_donvi->chucnang == 'QUANTRI') {
+                $setting['hethong'] = json_decode($m_gui->setting, true)['hethong'] ?? array();
+            } else {
                 //loại phân quyền hệ thống nếu có
                 $setting = json_decode($m_gui->setting, true);
-                if(isset($setting['hethong'])){unset($setting['hethong']);}
+                if (isset($setting['hethong'])) {
+                    unset($setting['hethong']);
+                }
             }
-            //dd($setting);
-            
-            foreach($per as $key => $val){
-                if(isset($per_user[$key])){
+
+            foreach ($per as $key => $val) {
+                if (isset($per_user[$key])) {
                     $p_u = $per_user[$key];
-                    foreach ($val as $k1=>$v1){
-                        if(!is_array($v1)){
+                    foreach ($val as $k1 => $v1) {
+                        if (!is_array($v1)) {
                             $per[$key][$k1] = $p_u[$k1] ?? $per[$key][$k1];
-                        }else{
-                            foreach ($v1 as $k2=>$v2){
+                        } else {
+                            foreach ($v1 as $k2 => $v2) {
                                 $per[$key][$k1][$k2] = $p_u[$k1][$k2] ?? $per[$key][$k1][$k2];
                             }
                         }
@@ -320,19 +329,19 @@ class dstaikhoanController extends Controller
 
             //chạy $setting nếu cái nào index = 0 => unset()
             //dd($setting);
-            foreach($setting as $k1 => $v1){
-                if(!isset($v1['index']) || $v1['index'] == '0'){
+            foreach ($setting as $k1 => $v1) {
+                if (!isset($v1['index']) || $v1['index'] == '0') {
                     unset($setting[$k1]);
                     continue;
                 }
                 //xóa các giá trị đơn: index, congbo,... chỉ để mảng để duyệt
-                foreach ($v1 as $k2 => $v2){
-                    if(!is_array($v2) || !isset($v2['index']) || $v2['index'] == '0'){
+                foreach ($v1 as $k2 => $v2) {
+                    if (!is_array($v2) || !isset($v2['index']) || $v2['index'] == '0') {
                         unset($setting[$k1][$k2]);
                         continue;
                     }
-                    foreach ($v2 as $k3 => $v3){
-                        if(!is_array($v3) || !isset($v3['index']) || $v3['index'] == '0'){
+                    foreach ($v2 as $k3 => $v3) {
+                        if (!is_array($v3) || !isset($v3['index']) || $v3['index'] == '0') {
                             unset($setting[$k1][$k2][$k3]);
                             continue;
                         }
@@ -342,11 +351,11 @@ class dstaikhoanController extends Controller
             //dd($setting);
             //chạy thêm lần nữa để xóa các phân hệ ko phân quyền trong hệ thống
             // chỉ có ssa, admin mới hiện lên để phân quyền
-            if( $m_donvi->chucnang == 'QUANTRI' && !in_array(session('admin')->level, ['SSA', 'ADMIN'])){
-                foreach($setting as $k1 => $v1){
-                    foreach ($v1 as $k2 => $v2){
-                        foreach ($v2 as $k3 => $v3){
-                            if(!isset($per[$k3]['index']) || $per[$k3]['index'] == '0'){
+            if ($m_donvi->chucnang == 'QUANTRI' && !in_array(session('admin')->level, ['SSA', 'ADMIN'])) {
+                foreach ($setting as $k1 => $v1) {
+                    foreach ($v1 as $k2 => $v2) {
+                        foreach ($v2 as $k3 => $v3) {
+                            if (!isset($per[$k3]['index']) || $per[$k3]['index'] == '0') {
                                 unset($setting[$k1][$k2][$k3]);
                             }
                         }
@@ -355,7 +364,7 @@ class dstaikhoanController extends Controller
                 //dd($setting);
             }
 
-            $a_chucnang = array_column(danhmucchucnang::all()->toArray(),'menu','maso');
+            $a_chucnang = array_column(danhmucchucnang::all()->toArray(), 'menu', 'maso');
             //dd($a_chucnang);
 
             return view('system.taikhoan.perms')
@@ -364,28 +373,28 @@ class dstaikhoanController extends Controller
                 ->with('model', $model)
                 ->with('a_chucnang', $a_chucnang)
                 ->with('pageTitle', 'Phân quyền cho tài khoản');
-
         } else
             return view('errors.notlogin');
     }
 
-    function store_perm(Request $request){
+    function store_perm(Request $request)
+    {
         if (Session::has('admin')) {
             //tài khoản SSA; tài khoản quản trị + có phân quyền
-            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan','danhmuc', 'modify')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan', 'danhmuc', 'modify')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();
-            $model = Users::where('username',$inputs['username'])->first();
-            $per_user = json_decode($model->permission,true);
+            $model = Users::where('username', $inputs['username'])->first();
+            $per_user = json_decode($model->permission, true);
             $per = getPhanQuyen()[$inputs['maso']];
             $a_per = $inputs[$inputs['maso']] ?? array();
 
-            foreach ($per as $k1=>$v1){
-                if(!is_array($v1)){
+            foreach ($per as $k1 => $v1) {
+                if (!is_array($v1)) {
                     $per[$k1] = isset($a_per[$k1]) ? '1' : '0';
-                }else{                    
-                    foreach ($v1 as $k2=>$v2){
+                } else {
+                    foreach ($v1 as $k2 => $v2) {
                         $per[$k1][$k2] = isset($a_per[$k1][$k2]) ? '1' : '0';
                     }
                 }
@@ -395,7 +404,7 @@ class dstaikhoanController extends Controller
             //dd($per);
             $model->permission = json_encode($per_user);
             $model->save();
-            return redirect('/taikhoan/perm?username='.$inputs['username']);
+            return redirect('/taikhoan/perm?username=' . $inputs['username']);
         } else
             return view('errors.notlogin');
     }
@@ -411,7 +420,7 @@ class dstaikhoanController extends Controller
         }
         $inputs = $request->all();
         $model = Users::where('username', $inputs['username'])->first();
-        $per_user = json_decode($model->permission, true)[$inputs['maso']]?? array();
+        $per_user = json_decode($model->permission, true)[$inputs['maso']] ?? array();
         $per = getPhanQuyen()[$inputs['maso']];
 
         foreach ($per as $k1 => $v1) {
@@ -432,7 +441,7 @@ class dstaikhoanController extends Controller
         $result['message'] .= '<div class="row" >';
         $result['message'] .= '<div class="col-md-offset-4 col-md-8">';
         $result['message'] .= '<div class="md-checkbox">';
-        $result['message'] .= '<input type="checkbox" id="index" name="'.$inputs['maso'].'[index]" class="md-check" '.(isset($per['index']) && $per['index'] == 1 ? 'checked':'').' >';
+        $result['message'] .= '<input type="checkbox" id="index" name="' . $inputs['maso'] . '[index]" class="md-check" ' . (isset($per['index']) && $per['index'] == 1 ? 'checked' : '') . ' >';
         $result['message'] .= '<label for="index">';
         $result['message'] .= '<span></span><span class="check"></span><span class="box"></span>Phân quyền chức năng</label>';
         $result['message'] .= '</div>';
@@ -445,14 +454,14 @@ class dstaikhoanController extends Controller
             $result['message'] .= '<div class="row">';
             $result['message'] .= '<div class="col-md-offset-1 col-md-3">';
             $result['message'] .= '<div class="md-checkbox">';
-            $result['message'] .= '<input type="checkbox" id="dm_index" name="'.$inputs['maso'].'[danhmuc][index]" class="md-check" '.(isset($per['danhmuc']['index']) && $per['danhmuc']['index'] == 1 ? 'checked':'').' >';
+            $result['message'] .= '<input type="checkbox" id="dm_index" name="' . $inputs['maso'] . '[danhmuc][index]" class="md-check" ' . (isset($per['danhmuc']['index']) && $per['danhmuc']['index'] == 1 ? 'checked' : '') . ' >';
             $result['message'] .= '<label for="dm_index">';
             $result['message'] .= '<span></span><span class="check"></span><span class="box"></span>Danh sách</label>';
             $result['message'] .= '</div>';
             $result['message'] .= '</div>';
             $result['message'] .= '<div class="col-md-3">';
             $result['message'] .= '<div class="md-checkbox">';
-            $result['message'] .= '<input type="checkbox" id="dm_modify" name="'.$inputs['maso'].'[danhmuc][modify]" class="md-check" '.(isset($per['danhmuc']['modify']) && $per['danhmuc']['modify'] == 1 ? 'checked':'').' >';
+            $result['message'] .= '<input type="checkbox" id="dm_modify" name="' . $inputs['maso'] . '[danhmuc][modify]" class="md-check" ' . (isset($per['danhmuc']['modify']) && $per['danhmuc']['modify'] == 1 ? 'checked' : '') . ' >';
             $result['message'] .= '<label for="dm_modify">';
             $result['message'] .= '<span></span><span class="check"></span><span class="box"></span>Thay đổi</label>';
             $result['message'] .= '</div>';
@@ -467,7 +476,7 @@ class dstaikhoanController extends Controller
             $result['message'] .= '<div class="row">';
             $result['message'] .= '<div class="col-md-offset-1 col-md-3">';
             $result['message'] .= '<div class="md-checkbox">';
-            $result['message'] .= '<input type="checkbox" id="hs_index" name="'.$inputs['maso'].'[hoso][index]" class="md-check" '.(isset($per['hoso']['index']) && $per['hoso']['index'] == 1 ? 'checked':'').' >';
+            $result['message'] .= '<input type="checkbox" id="hs_index" name="' . $inputs['maso'] . '[hoso][index]" class="md-check" ' . (isset($per['hoso']['index']) && $per['hoso']['index'] == 1 ? 'checked' : '') . ' >';
             $result['message'] .= '<label for="hs_index">';
             $result['message'] .= '<span></span><span class="check"></span><span class="box"></span>Danh sách</label>';
             $result['message'] .= '</div>';
@@ -475,7 +484,7 @@ class dstaikhoanController extends Controller
 
             $result['message'] .= '<div class="col-md-3">';
             $result['message'] .= '<div class="md-checkbox">';
-            $result['message'] .= '<input type="checkbox" id="hs_modify" name="'.$inputs['maso'].'[hoso][modify]" class="md-check" '.(isset($per['hoso']['modify']) && $per['hoso']['modify'] == 1 ? 'checked':'').' >';
+            $result['message'] .= '<input type="checkbox" id="hs_modify" name="' . $inputs['maso'] . '[hoso][modify]" class="md-check" ' . (isset($per['hoso']['modify']) && $per['hoso']['modify'] == 1 ? 'checked' : '') . ' >';
             $result['message'] .= '<label for="hs_modify">';
             $result['message'] .= '<span></span><span class="check"></span><span class="box"></span>Thay đổi</label>';
             $result['message'] .= '</div>';
@@ -483,7 +492,7 @@ class dstaikhoanController extends Controller
 
             $result['message'] .= '<div class="col-md-3">';
             $result['message'] .= '<div class="md-checkbox">';
-            $result['message'] .= '<input type="checkbox" id="hs_approve" name="'.$inputs['maso'].'[hoso][approve]" class="md-check" '.(isset($per['hoso']['approve']) && $per['hoso']['approve'] == 1 ? 'checked':'').' >';
+            $result['message'] .= '<input type="checkbox" id="hs_approve" name="' . $inputs['maso'] . '[hoso][approve]" class="md-check" ' . (isset($per['hoso']['approve']) && $per['hoso']['approve'] == 1 ? 'checked' : '') . ' >';
             $result['message'] .= '<label for="hs_approve">';
             $result['message'] .= '<span></span><span class="check"></span><span class="box"></span>Hoàn thành</label>';
             $result['message'] .= '</div>';
@@ -496,29 +505,29 @@ class dstaikhoanController extends Controller
             $result['message'] .= '<div id="khac">';
             $result['message'] .= '<h4>Chức năng khác</h4>';
             $result['message'] .= '<div class="row" >';
-            if(isset($per['khac']['baocao'])){
+            if (isset($per['khac']['baocao'])) {
                 $result['message'] .= '<div class="col-md-offset-1 col-md-3">';
                 $result['message'] .= '<div class="md-checkbox">';
-                $result['message'] .= '<input type="checkbox" id="khac_baocao" name="'.$inputs['maso'].'[khac][baocao]" class="md-check" '.(isset($per['khac']['baocao']) && $per['khac']['baocao'] == 1 ? 'checked':'').' >';
+                $result['message'] .= '<input type="checkbox" id="khac_baocao" name="' . $inputs['maso'] . '[khac][baocao]" class="md-check" ' . (isset($per['khac']['baocao']) && $per['khac']['baocao'] == 1 ? 'checked' : '') . ' >';
                 $result['message'] .= '<label for="khac_baocao">';
                 $result['message'] .= '<span></span><span class="check"></span><span class="box"></span>Tổng hợp</label>';
                 $result['message'] .= '</div>';
                 $result['message'] .= '</div>';
             }
 
-            if(isset($per['khac']['company'])){
+            if (isset($per['khac']['company'])) {
                 $result['message'] .= '<div class="col-md-3">';
                 $result['message'] .= '<div class="md-checkbox">';
-                $result['message'] .= '<input type="checkbox" id="khac_company" name="'.$inputs['maso'].'[khac][company]" class="md-check" '.(isset($per['khac']['company']) && $per['khac']['company'] == 1 ? 'checked':'').' >';
+                $result['message'] .= '<input type="checkbox" id="khac_company" name="' . $inputs['maso'] . '[khac][company]" class="md-check" ' . (isset($per['khac']['company']) && $per['khac']['company'] == 1 ? 'checked' : '') . ' >';
                 $result['message'] .= '<label for="khac_company">';
                 $result['message'] .= '<span></span><span class="check"></span><span class="box"></span>Thông tin doanh nghiệp</label>';
                 $result['message'] .= '</div>';
                 $result['message'] .= '</div>';
             }
-            if(isset($per['khac']['api'])){
+            if (isset($per['khac']['api'])) {
                 $result['message'] .= '<div class="col-md-3">';
                 $result['message'] .= '<div class="md-checkbox">';
-                $result['message'] .= '<input type="checkbox" id="khac_api" name="'.$inputs['maso'].'[khac][api]" class="md-check" '.(isset($per['khac']['api']) && $per['khac']['api'] == 1 ? 'checked':'').' >';
+                $result['message'] .= '<input type="checkbox" id="khac_api" name="' . $inputs['maso'] . '[khac][api]" class="md-check" ' . (isset($per['khac']['api']) && $per['khac']['api'] == 1 ? 'checked' : '') . ' >';
                 $result['message'] .= '<label for="khac_api">';
                 $result['message'] .= '<span></span><span class="check"></span><span class="box"></span>API kết nối CSDL quốc gia</label>';
                 $result['message'] .= '</div>';
@@ -532,18 +541,19 @@ class dstaikhoanController extends Controller
         die(json_encode($result));
     }
 
-    function store_perm_group(Request $request){
+    function store_perm_group(Request $request)
+    {
         if (Session::has('admin')) {
             //tài khoản SSA; tài khoản quản trị + có phân quyền
-            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan','danhmuc', 'modify')) {
+            if (!chkPer('hethong', 'hethong_pq', 'danhsachtaikhoan', 'danhmuc', 'modify')) {
                 return view('errors.noperm');
             }
             $inputs = $request->all();
-            $model = Users::where('username',$inputs['username'])->first();
-            $m_nhomtk = dsnhomtaikhoan::where('maso',$inputs['maso'])->first();
+            $model = Users::where('username', $inputs['username'])->first();
+            $m_nhomtk = dsnhomtaikhoan::where('maso', $inputs['maso'])->first();
             $model->permission = $m_nhomtk->permission;
             $model->save();
-            return redirect('/taikhoan/danhsach?madv='.$model->madv);
+            return redirect('/taikhoan/danhsach?madv=' . $model->madv);
         } else
             return view('errors.notlogin');
     }
@@ -574,21 +584,21 @@ class dstaikhoanController extends Controller
             $dataObj = new ColectionImport();
             $theArray = Excel::toArray($dataObj, $file);
             $data = $theArray[0]; //Mặc định lấy Sheet 1            
-            $inputs['dendong'] = $inputs['dendong'] < count($data) ? count($data) : $inputs['dendong'];//Gán lại dòng
+            $inputs['dendong'] = $inputs['dendong'] < count($data) ? count($data) : $inputs['dendong']; //Gán lại dòng
             $a_dm = array();
 
             for ($i = $inputs['tudong'] - 1; $i <= ($inputs['dendong']); $i++) {
                 if (!isset($data[$i][$inputs['name']])) {
-                    continue; 
+                    continue;
                 }
                 if (!isset($data[$i][$inputs['username']])) {
-                    continue; 
+                    continue;
                 }
                 if (!isset($data[$i][$inputs['password']])) {
-                    continue; 
+                    continue;
                 }
                 if (!isset($data[$i][$inputs['madv']])) {
-                    continue; 
+                    continue;
                 }
                 $a_dm[] = array(
                     'madv' => $data[$i][$inputs['madv']] ?? '',
