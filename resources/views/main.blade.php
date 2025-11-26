@@ -337,34 +337,6 @@ License: You must have a valid license purchased only from themeforest(the above
                         @include('includes.main.maincsdlkkgia')
                     @endif
 
-                    <!-- Tách riêng các phân hệ doanh nghiệp do ko có phân quyền ==>chkPer('csdlmucgiahhdv') ko kiểm tra dc DN  -->
-                    {{-- @if (chkPer('csdlmucgiahhdv', 'bog') && session('admin')->level == 'DN')
-                        <li class="heading">
-                            <h3 class="uppercase">
-                                {{ session('admin')['a_chucnang']['csdlmucgiahhdv'] ?? 'CSDL về mức giá HH-DV' }}</h3>
-                        </li>
-                        <li class="tooltips" data-container="body" data-placement="right" data-html="true"
-                            data-original-title="Tổ chức, cá nhân đăng ký theo yêu cầu của Sở Tài chính, Sở quản lý ngành">
-                            <a href="javascript:;">
-                                <i class="icon-folder"></i>
-                                <span
-                                    class="title">{{ session('admin')['a_chucnang']['bog'] ?? 'Bình ổn giá' }}</span>
-                                <span class="arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li>
-                                    <a href="{{ url('doanhnghiep/danhsach') }}">Thông tin doanh nghiệp</a>
-                                </li>
-
-                                <li>
-                                    <a href="{{ url('/binhongia/danhsach?madv=' . session('admin')->madv) }}">Thông
-                                        tin
-                                        hồ sơ</a>
-                                </li>
-                            </ul>
-                        </li>
-                    @endif --}}
-
                     @if (session('admin')->level == 'DN')
                         <li class="heading">
                             <h3 class="uppercase">CSDL về kê khai giá HH-DV</h3>
@@ -387,7 +359,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <a href="javascript:;">
                                     <i class="icon-folder"></i>
                                     <span
-                                        class="title">{{ session('admin')['a_chucnang']['bog'] ?? 'HH-DV thuộc danh mục bình ổn giá' }}</span>
+                                        class="title">HH-DV thuộc danh mục bình ổn giá</span>
                                     <span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
@@ -409,7 +381,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <span class="arrow"></span>
                                             </a>
                                             <ul class="sub-menu">
-                                                <li><a href="{{ url('/binhongia/danhsach') }}">Thông tin hồ sơ</a>
+                                                <li>
+                                                    <a href="{{ url('/binhongia/danhsach') }}">Thông tin hồ sơ</a>
+                                                    {{-- <a href="{{ url('/binhongia/danhsach?madv=' . session('admin')->madv) }}">Thông tinhồ sơ</a> --}}
                                                 </li>
                                             </ul>
                                         </li>
@@ -511,7 +485,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <a href="javascript:;">
                                     <i class="icon-folder"></i>
                                     <span
-                                        class="title">{{ session('admin')['a_chucnang']['cp'] ?? 'HH-DV do Chính phủ ban hành' }}</span>
+                                        class="title">HH-DV do Chính phủ ban hành</span>
                                     <span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
