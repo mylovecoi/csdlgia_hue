@@ -179,7 +179,7 @@ class dstaikhoanController extends Controller
             }
             $inputs = $request->all();
             $model = Users::where('username', $inputs['username'])->first();
-            
+
             $madv_moi = $model->madv;
             //dd($madv_moi);
             $madv_cu = dsdonvi::where('madv', $madv_moi)->value('madv_cu');
@@ -273,7 +273,20 @@ class dstaikhoanController extends Controller
             $per = getPhanQuyen();
             $model = Users::where('username',$inputs['username'])->first();
             $per_user = json_decode($model->permission,true);
-            $m_donvi = dsdonvi::where('madv',$model->madv)->first();
+
+            $madv_moi = $model->madv;
+            $madv_cu = dsdonvi::where('madv', $madv_moi)->value('madv_cu');
+            $values = [$madv_moi];
+            if ($madv_cu) {
+                // tách theo dấu ; hoặc , hoặc khoảng trắng, loại bỏ rỗng và trùng lặp
+                $parts = preg_split('/[;,\s]+/', $madv_cu);
+                foreach ($parts as $p) {
+                    $p = trim($p);
+                    if ($p !== '') $values[] = (string)$p;
+                }
+                $values = array_unique($values);
+            }
+            $m_donvi = dsdonvi::whereIn('madv',$values)->first();
             //dd($model);
             $m_gui = GeneralConfigs::first();
             //$gui = getGiaoDien();
