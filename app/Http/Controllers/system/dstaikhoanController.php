@@ -179,9 +179,11 @@ class dstaikhoanController extends Controller
             }
             $inputs = $request->all();
             $model = Users::where('username', $inputs['username'])->first();
-            $madv = $model->madv;
-            $madv_cu = dsdonvi::where('madv', $madv)->value('madv_cu');
-            $values = [$madv];
+            
+            $madv_moi = $model->madv;
+            //dd($madv_moi);
+            $madv_cu = dsdonvi::where('madv', $madv_moi)->value('madv_cu');
+            $values = [$madv_moi];
             if ($madv_cu) {
                 // tách theo dấu ; hoặc , hoặc khoảng trắng, loại bỏ rỗng và trùng lặp
                 $parts = preg_split('/[;,\s]+/', $madv_cu);
@@ -191,8 +193,14 @@ class dstaikhoanController extends Controller
                 }
                 $values = array_unique($values);
             }
+            //dd($values);
             // Sử dụng whereIn để tìm cả giá trị hiện tại và legacy (madv_cu)
             $m_donvi = dsdonvi::whereIn('madv',$values)->get();
+            if(count($m_donvi) == 0){
+                $m_donvi = dsdonvi::where('madv_cu',$model->madv)->get();
+            }
+            //dd($m_donvi);
+
             $a_chucnang = explode(';',$model->chucnang);
             $model->nhaplieu = in_array('NHAPLIEU',$a_chucnang)? 1 : 0;
             $model->tonghop = in_array('TONGHOP',$a_chucnang)? 1 : 0;
