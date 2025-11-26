@@ -42,11 +42,11 @@ class GiaHhDvKController extends Controller
             // Đảm bảo array_keys($a_diaban) là mảng chuỗi
             $m_diaban = dsdiaban::whereIn('madiaban', array_map('strval', array_keys($a_diaban)))->get();
             $m_donvi_th = getDonViTongHop('giahhdvk', \session('admin')->level, \session('admin')->madiaban)
-                ->sortBy(function($item) {
-                if ($item->level == 'ADMIN') return 1;
-                if ($item->level == 'T') return 2;
-                return 3;
-            });
+                ->sortBy(function ($item) {
+                    if ($item->level == 'ADMIN') return 1;
+                    if ($item->level == 'T') return 2;
+                    return 3;
+                });
             //dd($m_donvi_th);
             $inputs['madiaban'] = $inputs['madiaban'] ?? array_key_first($a_diaban);
             //$inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
@@ -73,7 +73,20 @@ class GiaHhDvKController extends Controller
             $inputs['thang'] = isset($inputs['thang']) ? $inputs['thang'] : date('m');
             $inputs['nam'] = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
             $inputs['madv'] = $inputs['madv'] ?? $m_donvi->first()->madv;
-            $model = GiaHhDvK::where('madv', $inputs['madv']);
+            // ========== START: normalize madv / madv_cu to values array ==========
+            $madv_cu = dsdonvi::where('madv', $inputs['madv'])->value('madv_cu');
+            $values = [$inputs['madv']];
+            if ($madv_cu) {
+                // tách theo dấu ; hoặc , hoặc khoảng trắng, loại bỏ rỗng và trùng lặp
+                $parts = preg_split('/[;,\s]+/', $madv_cu);
+                foreach ($parts as $p) {
+                    $p = trim($p);
+                    if ($p !== '') $values[] = (string)$p;
+                }
+                $values = array_unique($values);
+            }
+            // Sử dụng whereIn để tìm cả giá trị hiện tại và legacy (madv_cu)
+            $model = GiaHhDvK::whereIn('madv', $values);
 
             if ($inputs['thang'] != 'all')
                 // $model = $model->whereMonth('thoidiem', $inputs['thang']);
@@ -224,6 +237,16 @@ class GiaHhDvKController extends Controller
             $inputs = $request->all();
             // dd($inputs);
             $inputs['url'] = '/giahhdvk';
+            $madv_cu = dsdonvi::where('madv', $inputs['madv'])->value('madv_cu');
+            $values = [$inputs['madv']];
+            if ($madv_cu) {
+                $parts = preg_split('/[;,\s]+/', $madv_cu);
+                foreach ($parts as $p) {
+                    $p = trim($p);
+                    if ($p !== '') $values[] = (string)$p;
+                }
+                $values = array_unique($values);
+            }
             //dd($inputs);
             if (isset($inputs['mattbc']) && isset($inputs['madiaban'])) {
                 //xóa các chi tiết ko có hồ sơ (dữ liệu thừa do khi tạo mới thì tự thêm vào trong chi tiết mà ko cần lưu hồ sơ)
@@ -233,10 +256,10 @@ class GiaHhDvKController extends Controller
                 //$tennhom = NhomHhDvK::where('matt', $inputs['mattbc'])->first()->tentt;
                 //$diaban = DiaBanHd::where('district', $inputs['districtbc'])->where('level', 'H')->first()->diaban;
                 //dd($inputs);
-                
+
                 $m_lk = GiaHhDvK::where('trangthai', 'HT')
                     ->where('matt', $inputs['mattbc'])
-                    ->where('madv', $inputs['madv'])
+                    ->whereIn('madv', $values)
                     ->orderby('thoidiem', 'desc')->first();
                 if ($m_lk != null) {
                     $model->soqdlk = $m_lk->soqd;
@@ -516,18 +539,18 @@ class GiaHhDvKController extends Controller
             ")->get();
 
             $m_donvi = getDonViXetDuyet(session('admin')->level)
-                ->sortBy(function($item) {
-                if ($item->level == 'ADMIN') return 1;
-                if ($item->level == 'T') return 2;
-                return 3;
-            });
+                ->sortBy(function ($item) {
+                    if ($item->level == 'ADMIN') return 1;
+                    if ($item->level == 'T') return 2;
+                    return 3;
+                });
             //dd($m_donvi);
             $m_donvi_th = getDonViTongHop('giahhdvk', \session('admin')->level, \session('admin')->madiaban)
-                ->sortBy(function($item) {
-                if ($item->level == 'ADMIN') return 1;
-                if ($item->level == 'T') return 2;
-                return 3;
-            });
+                ->sortBy(function ($item) {
+                    if ($item->level == 'ADMIN') return 1;
+                    if ($item->level == 'T') return 2;
+                    return 3;
+                });
 
             //dd(session('admin'));
             $inputs['madiaban'] = $inputs['madiaban'] ?? $m_diaban->first()->madiaban;

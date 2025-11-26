@@ -67,7 +67,7 @@
                                     <option value="">--Chọn danh mục--</option>
                                     <optgroup label="HH-DV thuộc danh mục bình ổn giá">
                                         <option value="/xetduyetgiatacn">Thức ăn chăn nuôi</option>
-                                        {{-- <option value="">Xăng, dầu thành phẩm</option>
+                                        <option value="">Xăng, dầu thành phẩm</option>
                                         <option value="">Khí dầu mỏ hóa lỏng (LPG)</option>
                                         <option value="">Sữa dành cho trẻ em dưới 06 tuổi</option>
                                         <option value="">Thóc tẻ, gạo tẻ</option>
@@ -75,41 +75,39 @@
                                         <option value="">Vắc-xin phòng bệnh cho gia súc, gia cầm</option>
                                         <option value="">Thuốc bảo vệ thực vật</option>
                                         <option value="">Thuốc thuộc danh mục thuốc thiết yếu được sử dụng tại cơ sở
-                                        khám bệnh, chữa bệnh</option> --}}
+                                        khám bệnh, chữa bệnh</option>
                                     </optgroup>
                                     <optgroup label="HH-DV do Chính phủ ban hành">
                                         <option value="/xetduyetgiaxmtxd">Xi măng, thép xây dựng</option>
-                                        {{-- <option value="">Nhà ở, nhà chung cư</option>
-                                        <option value="">Công trình hạ tầng kỹ thuật</option> --}}
+                                        <option value="">Nhà ở, nhà chung cư</option>
+                                        <option value="">Công trình hạ tầng kỹ thuật</option>
                                         <option value="/xetduyetgiathan">Than</option>
                                         <option value="/xetduyetgiaetanol">Etanol nhiên liệu không biến tính, khí tự nhiên hóa lỏng(LNG);
                                         khí thiên nhiên nén (CNG)</option>
-                                        {{-- <option value="">Khí tự nhiên hóa lỏng</option>
+                                        <option value="">Khí tự nhiên hóa lỏng</option>
                                         <option value="">Thuốc thú y</option>
                                         <option value="">Đường ăn</option>
-                                        <option value="">Muối ăn</option> --}}
+                                        <option value="">Muối ăn</option>
                                         <option value="/xetduyetgiadvcang">Giá dịch vụ tại cảng biển</option>
-                                        {{-- <option value="/">Dịch vụ vận chuyển hành khách bằng đường sắt</option>
-                                        <option value="/">Dịch vụ vận chuyển hành khách bằng đường bộ</option> --}}
+                                        <option value="/">Dịch vụ vận chuyển hành khách bằng đường sắt</option>
+                                        <option value="/">Dịch vụ vận chuyển hành khách bằng đường bộ</option>
                                         <option value="/xetduyetkkgiatpcnte6t">Thực phẩm chức năng cho trẻ em dưới 6 tuổi</option>
-                                        {{-- <option value="">Thiết bị y tế</option> --}}
+                                        <option value="">Thiết bị y tế</option>
                                         <option value="/xetduyetgiakcbtn">Dịch vụ khám chữa bệnh cho người tại cơ sở khám chữa bệnh tư
                                         nhân; khám chữa bệnh theo yêu cầu tại cơ sở khám chữa bệnh của nhà nước</option>
-                                        {{-- <option value="">Dịch vụ viễn thông</option> --}}
+                                        <option value="">Dịch vụ viễn thông</option>
                                     </optgroup>
                                     <optgroup label="HH-DV thuộc danh mục kê khai giá">
                                         <option value="/xetduyetkkgiadvlt">Dịch vụ lưu trú</option>
-                                        {{-- <option value="/">Dịch vụ trông giữ xe</option>
-                                        <option value="/">Dịch vụ tham quan tại khu du lịch trên địa bàn</option> --}}
+                                        <option value="/">Dịch vụ trông giữ xe</option>
+                                        <option value="/">Dịch vụ tham quan tại khu du lịch trên địa bàn</option>
                                         <option value="/xetduyetkekhaigiavtxtx">Cước vận tải hành khách bằng xe taxi</option>
-                                        {{-- <option value="/">Dịch vụ vận tải hành khách tham quan du lịch</option>
-                                        <option value="/">Dịch vụ vận tải hàng hóa và hành khách tuyến cố định bằng
-                                        đường thủy nội địa - đường biển</option> --}}
+                                        <option value="/">Dịch vụ vận tải hành khách tham quan du lịch</option>
+                                        <option value="/">Dịch vụ vận tải hàng hóa và hành khách tuyến cố định bằngđường thủy nội địa - đường biển</option>
                                         <option value="/xetduyetkkgiavlxd">Vật liệu xây dựng</option>
-                                        {{-- <option value="">Giống phục vụ sản xuất nông nghiệp</option>
-                                        <option value="">Dịch vụ chủ yếu tại chợ ngoài dịch vụ do Nhà nước định
-                                        giá</option>
-                                        <option value="">Dịch vụ kinh doanh nước khoáng nóng</option> --}}
+                                        <option value="">Giống phục vụ sản xuất nông nghiệp</option>
+                                        <option value="">Dịch vụ chủ yếu tại chợ ngoài dịch vụ do Nhà nước địnhgiá</option>
+                                        <option value="">Dịch vụ kinh doanh nước khoáng nóng</option>
                                         <option value="/xetduyetkkgiadvcahue">Giá dịch vụ xem ca Huế trên sông Hương</option>
                                         <option value="/xetduyetkkgiahplx">Mức thu học phí đào tạo lái xe cơ giới đường bộ</option>
                                     </optgroup>

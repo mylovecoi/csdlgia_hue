@@ -44,7 +44,23 @@ class dstaikhoanController extends Controller
             $m_donvi = dsdonvi::wherein('madiaban',array_column($m_diaban->toarray(),'madiaban'))->get();
             //dd($m_donvi);
             $inputs['madv'] = $inputs['madv'] ??  $m_donvi->first()->madv;
-            $model = Users::where('madv', $inputs['madv'])->get();
+            // $model = Users::where('madv', $inputs['madv'])->get();
+
+            $madv_cu = dsdonvi::where('madv', $inputs['madv'])->value('madv_cu');
+            $values = [$inputs['madv']];
+            if ($madv_cu) {
+                // tách theo dấu ; hoặc , hoặc khoảng trắng, loại bỏ rỗng và trùng lặp
+                $parts = preg_split('/[;,\s]+/', $madv_cu);
+                foreach ($parts as $p) {
+                    $p = trim($p);
+                    if ($p !== '') $values[] = (string)$p;
+                }
+                $values = array_unique($values);
+            }
+            // Sử dụng whereIn để tìm cả giá trị hiện tại và legacy (madv_cu)
+            $model = Users::whereIn('madv', $values)->get();
+
+
             //lấy phân loại tài khoản từ bảng dsdonvi để hiển thị
             foreach($model as $ct){
                 //$dv = $m_donvi->where('madv',$ct->madv)->first();
