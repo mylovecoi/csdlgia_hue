@@ -397,7 +397,7 @@ class GiaHhDvKController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $model = GiaHhDvK::where('mahs', $inputs['mahs'])->first();
-            dd($model);
+            //dd($model);
             $modelct = view_giahhdvk::where('mahs', $model->mahs)->where(function ($qr) {
                 $qr->where('gia', '>', '0')->orwhere('gialk', '>', '0');
             })->orderby('mahhdv')->get();
