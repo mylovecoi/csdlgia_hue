@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use PhpOffice\PhpWord\PhpWord;
+use App\Model\system\dsdonvi;
 
 class ReportsHhDvKController extends Controller
 {
@@ -53,17 +54,30 @@ class ReportsHhDvKController extends Controller
                 return view('errors.nodata');
             }
             //            $a_diaban = getDiaBan_NhapLieu(\session('admin')->level, session('admin')->madiaban);
-            //            dd($inputs);
+            $madv_cu = dsdonvi::where('madv', $inputs['madv'])->value('madv_cu');
+            $values = [$inputs['madv']];
+            if ($madv_cu) {
+                // tách theo dấu ; hoặc , hoặc khoảng trắng, loại bỏ rỗng và trùng lặp
+                $parts = preg_split('/[;,\s]+/', $madv_cu);
+                foreach ($parts as $p) {
+                    $p = trim($p);
+                    if ($p !== '') $values[] = (string)$p;
+                }
+                $values = array_unique($values);
+            }
+            //dd($values);
+            //dd($inputs['tungay']);
             $a_hs = GiaHhDvK::where('matt', $inputs['matt'])
                 //->wherein('madiabaniaban', array_keys($a_diaban))
-                ->where('madv', $inputs['madv'])
-                ->where('thoidiem', '<', $inputs['tungay'])
+                ->wherein('madv', $values)
+                ->where('thoidiem', '<', $inputs['denngay'])
                 ->where('trangthai', 'HT')
                 ->select('mahs')
                 ->get()->toarray();
+            //dd($a_hs);
             $a_hs_lk = GiaHhDvK::where('matt', $inputs['matt'])
                 //->wherein('madiaban', array_keys($a_diaban))
-                ->where('madv', $inputs['madv'])
+                ->wherein('madv', $values)
                 ->wherebetween('thoidiem', [$inputs['tungay'], $inputs['denngay']])
                 ->where('trangthai', 'HT')
                 ->select('mahs')
