@@ -405,6 +405,9 @@ class GiaHhDvKController extends Controller
             $a_tt = array_column(NhomHhDvK::where('matt', $model->matt)->get()->toarray(), 'tentt', 'matt');
             $a_dm = array_column(DmHhDvK::where('matt', $model->matt)->get()->toarray(), 'tenhhdv', 'mahhdv');
             $m_dv = dsdonvi::where('madv', $model->madv)->first();
+            if($m_dv == null){
+                $m_dv = dsdonvi::where('madv_cu', $model->madv)->first();
+            }
             //dd($m_dv);
             $a_nhomhhdv = array_column(DmNhomHangHoa::where('phanloai', 'GIAHHDVK')->get()->toarray(), 'tennhom', 'manhom');
             foreach ($modelct as $ct) {
@@ -412,6 +415,7 @@ class GiaHhDvKController extends Controller
             }
             //dd($a_tt);
             //$a_dvt = array_column(dmdvt::all()->toArray(), 'dvt', 'madvt');
+            //dd($model->madv);
             return view('manage.dinhgia.giahhdvk.reports.tt29')
                 ->with('model', $model)
                 ->with('modelct', $modelct)
