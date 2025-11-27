@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use App\Imports\ColectionImport;
+use Illuminate\Database\Eloquent\Model;
 use Maatwebsite\Excel\Facades\Excel;
 
 class dstaikhoanController extends Controller
@@ -363,7 +364,7 @@ class dstaikhoanController extends Controller
 
             $a_chucnang = array_column(danhmucchucnang::all()->toArray(), 'menu', 'maso');
             //dd($a_chucnang);
-
+            //dd($model);
             return view('system.taikhoan.perms')
                 ->with('per', $per)
                 ->with('setting', $setting)
@@ -383,7 +384,10 @@ class dstaikhoanController extends Controller
             }
             $inputs = $request->all();
             $model = Users::where('username', $inputs['username'])->first();
+            //dd($model);
             $per_user = json_decode($model->permission, true);
+            //dd($per_user);
+            //dd($inputs['maso']);
             $per = getPhanQuyen()[$inputs['maso']];
             $a_per = $inputs[$inputs['maso']] ?? array();
 
