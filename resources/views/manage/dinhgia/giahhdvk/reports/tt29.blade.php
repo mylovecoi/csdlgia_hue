@@ -73,7 +73,7 @@
                         <td>{{ IntToRoman($i++) }}</td>
                         <td colspan="11">{{ $tt }}</td>
                     </tr>
-                    @foreach ($chitiet as $ct)
+                    {{-- @foreach ($chitiet as $ct)
                         <tr>
                             <td style="text-align: center">{{ $k++ }}</td>
                             <td style="text-align: center">{{ $ct->mahhdv }}</td>
@@ -92,7 +92,7 @@
                             <td>{{ $ct->nguontt }}</td>
                             <td>{{ $ct->ghichu }}</td>
                         </tr>
-                    @endforeach
+                    @endforeach --}}
                 @endif
             @endforeach
         </tbody>

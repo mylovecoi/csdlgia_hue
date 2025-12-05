@@ -14,9 +14,9 @@
             @if(chkPer('thongke', 'thongkehethong'))
                 <li><a href="{{url('/thongke/hanhchinh')}}">{{session('admin')['a_chucnang']['nnnhaplieu'] ?? 'Nhập liệu đơn vị hành chính'}}</a></li>
             @endif
-            @if(chkPer('thongke', 'thongkehethong'))
+            {{-- @if(chkPer('thongke', 'thongkehethong'))
                 <li><a href="{{url('/thongke/doanhnghiep')}}">{{session('admin')['a_chucnang']['dnnhaplieu'] ?? 'Nhập liệu các doanh nghiệp'}}</a></li>
-            @endif
+            @endif --}}
         </ul>
     </li>
 @endif
